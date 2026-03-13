@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2022 Calculus Paper — Question 1(a)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 3 Calculus Walkthrough</p>
+        <h1>Question 1(a)</h1>
+        <p class="subtitle">2022 Paper — Differentiation</p>
+      </div>
+      <a class="ghost-link" href="index.html">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <div class="question-math">
+        \[
+        \text{Differentiate } y=(\ln x)^2
+        \]
+      </div>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+    <section id="step-1" class="step-card active">
+      <p class="step-number">Step 1</p>
+      <h2>What rule do we use here?</h2>
+      <p class="step-text">Choose the best differentiation rule.</p>
+
+      <div class="button-grid">
+        <button class="option-btn" onclick="checkRule('chain')">Chain rule</button>
+        <button class="option-btn" onclick="checkRule('power')">Power rule</button>
+        <button class="option-btn" onclick="checkRule('quotient')">Quotient rule</button>
+        <button class="option-btn" onclick="checkRule('product')">Product rule</button>
+      </div>
+
+      <div id="feedback-1" class="feedback"></div>
+      <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-2" class="step-card hidden">
+      <p class="step-number">Step 2</p>
+      <h2>Identify the inner and outer functions</h2>
+      <p class="step-text">For \( y=(\ln x)^2 \), what are the two functions?</p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkFunctions('correct')">
+          Outer: square, Inner: \( \ln x \)
+        </button>
+        <button class="option-btn" onclick="checkFunctions('wrong1')">
+          Outer: \( \ln x \), Inner: square
+        </button>
+      </div>
+
+      <div id="feedback-2" class="feedback"></div>
+      <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-3" class="step-card hidden">
+      <p class="step-number">Step 3</p>
+      <h2>Use a substitution</h2>
+      <p class="step-text">To make the chain rule easier, let</p>
+
+      <div class="math-block">
+        \[
+        u=\ln x \qquad \text{so} \qquad y=u^2
+        \]
+      </div>
+
+      <p class="step-text">What is \( \frac{dy}{du} \)?</p>
+
+      <div class="button-grid">
+        <button class="option-btn" onclick="checkOuterDerivative('correct')">\(2u\)</button>
+        <button class="option-btn" onclick="checkOuterDerivative('wrong1')">\(u^2\)</button>
+        <button class="option-btn" onclick="checkOuterDerivative('wrong2')">\(u\)</button>
+        <button class="option-btn" onclick="checkOuterDerivative('wrong3')">\(\frac{u^3}{3}\)</button>
+      </div>
+
+      <div id="feedback-3" class="feedback"></div>
+      <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-4" class="step-card hidden">
+      <p class="step-number">Step 4</p>
+      <h2>Differentiate the inside function</h2>
+      <p class="step-text">Now find the derivative of \( \ln x \).</p>
+
+      <div class="button-grid">
+        <button class="option-btn" onclick="checkInsideDerivative('correct')">\( \frac{1}{x} \)</button>
+        <button class="option-btn" onclick="checkInsideDerivative('wrong1')">\( \ln x \)</button>
+        <button class="option-btn" onclick="checkInsideDerivative('wrong2')">\( x \)</button>
+        <button class="option-btn" onclick="checkInsideDerivative('wrong3')">\( 2x \)</button>
+      </div>
+
+      <div id="feedback-4" class="feedback"></div>
+      <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-5" class="step-card hidden">
+      <p class="step-number">Step 5</p>
+      <h2>How do we combine them?</h2>
+      <p class="step-text">
+        In the chain rule, we take the derivative of the outside, then ______ by the derivative of the inside.
+      </p>
+
+      <div class="button-grid">
+        <button class="option-btn" onclick="checkCombine('correct')">Multiply</button>
+        <button class="option-btn" onclick="checkCombine('wrong1')">Add</button>
+        <button class="option-btn" onclick="checkCombine('wrong2')">Subtract</button>
+        <button class="option-btn" onclick="checkCombine('wrong3')">Square</button>
+      </div>
+
+      <div id="feedback-5" class="feedback"></div>
+      <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-6" class="step-card hidden">
+      <p class="step-number">Step 6</p>
+      <h2>Final answer</h2>
+      <p class="step-text">Now substitute back and simplify.</p>
+
+      <div class="math-block">
+        \[
+        \frac{dy}{dx}=\frac{dy}{du}\cdot\frac{du}{dx}
+        \]
+        \[
+        \frac{dy}{dx}=2u\cdot\frac{1}{x}
+        \]
+        \[
+        \frac{dy}{dx}=2\ln x \cdot \frac{1}{x}
+        \]
+        \[
+        \frac{dy}{dx}=\frac{2\ln x}{x}
+        \]
+      </div>
+
+      <div id="feedback-6" class="feedback success">
+        Great work.
+      </div>
+
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="index.html">← Back to paper</a>
+        <a class="nav-btn" href="1b2022.html">Next question →</a>
+      </div>
+    </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Think about the outside function and the inside function in \\(y=(\\ln x)^2\\).",
+      "You can treat this as \\(y=u^2\\) where \\(u=\\ln x\\), then use the chain rule.",
+      "Differentiate the outside first to get \\(2(\\ln x)\\), then multiply by the derivative of \\(\\ln x\\)."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The derivative is:</p>
+          <div class="math-block">
+            \\[
+            \\frac{dy}{dx}=\\frac{2\\ln x}{x}
+            \\]
+          </div>
+        `,
+        nextHref: "1b2022.html",
+        nextLabel: "Next question →"
+      });
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(step => step.classList.add("hidden"));
+      document.getElementById(stepId).classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) return;
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkRule(answer) {
+      if (answer === "chain") {
+        setFeedback("feedback-1", "Correct. This is a function inside a function, so we use the chain rule.", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. Think about what is <em>inside</em> the square. That inner function is \\(\\ln x\\).");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkFunctions(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Correct. The outside function is squaring, and the inside function is \\(\\ln x\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Try again. Ask: what happens last? The squaring happens to the result of \\(\\ln x\\).");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkOuterDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. Since \\(y=u^2\\), we get \\(\\frac{dy}{du}=2u\\).", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. Differentiate \\(u^2\\) with the power rule.");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkInsideDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Correct. The derivative of \\(\\ln x\\) is \\(\\frac{1}{x}\\).", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Try again. Recall the standard derivative rule for \\(\\ln x\\).");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+
+    function checkCombine(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-5", "Yes. In the chain rule, we multiply the two derivatives.", true);
+        toggleNextStepButton("next-step-5", true);
+      } else {
+        setFeedback("feedback-5", "Not quite. The chain rule says we multiply the derivative of the outside by the derivative of the inside.");
+        toggleNextStepButton("next-step-5", false);
+      }
+    }
+  </script>
+</body>
+</html>

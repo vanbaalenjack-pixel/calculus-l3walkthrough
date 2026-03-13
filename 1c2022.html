@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2022 Calculus Paper - Question 1(c)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 3 Calculus Walkthrough</p>
+        <h1>Question 1(c)</h1>
+        <p class="subtitle">2022 Paper - Normal line and x-intercept</p>
+      </div>
+      <a class="ghost-link" href="index.html">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <p class="step-text">
+        The graph below shows the function \(y=\sqrt{x+2}\), and the normal to the function at the point where the function intersects the \(y\)-axis.
+      </p>
+      <div class="graph-frame question-graph-frame">
+        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Question graph of square root of x plus 2 and its normal line"></svg>
+      </div>
+      <div class="question-math">
+        \[
+        \text{Find the coordinates of point } P,\text{ the } x\text{-intercept of the normal.}
+        \]
+      </div>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+    <section id="step-1" class="step-card">
+      <p class="step-number">Step 1</p>
+      <h2>Find the point on the curve when \(x=0\)</h2>
+      <p class="step-text">The function meets the \(y\)-axis where \(x=0\).</p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkYAxisPoint('correct')">
+          \((0,\sqrt{2})\)
+        </button>
+        <button class="option-btn" onclick="checkYAxisPoint('wrong1')">
+          \((0,2)\)
+        </button>
+      </div>
+
+      <div id="feedback-1" class="feedback"></div>
+      <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-2" class="step-card hidden">
+      <p class="step-number">Step 2</p>
+      <h2>Rewrite the square root as a power</h2>
+      <p class="step-text">This makes differentiation easier.</p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkRewrite('correct')">
+          \(y=(x+2)^{1/2}\)
+        </button>
+        <button class="option-btn" onclick="checkRewrite('wrong1')">
+          \(y=x+\frac{2}{1/2}\)
+        </button>
+      </div>
+
+      <div id="feedback-2" class="feedback"></div>
+      <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-3" class="step-card hidden">
+      <p class="step-number">Step 3</p>
+      <h2>Differentiate using the chain rule</h2>
+      <p class="step-text">What is the derivative of \(y=\sqrt{x+2}\)?</p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkDerivative('correct')">
+          \[
+          \frac{dy}{dx}=\frac{1}{2\sqrt{x+2}}
+          \]
+        </button>
+        <button class="option-btn" onclick="checkDerivative('wrong1')">
+          \[
+          \frac{dy}{dx}=\sqrt{x+2}
+          \]
+        </button>
+      </div>
+
+      <div id="feedback-3" class="feedback"></div>
+      <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-4" class="step-card hidden">
+      <p class="step-number">Step 4</p>
+      <h2>Find the tangent gradient at \(x=0\)</h2>
+      <p class="step-text">Substitute \(x=0\) into the derivative.</p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkTangentGradient('correct')">
+          \[
+          \frac{1}{2\sqrt{2}}
+          \]
+        </button>
+        <button class="option-btn" onclick="checkTangentGradient('wrong1')">
+          \[
+          2\sqrt{2}
+          \]
+        </button>
+      </div>
+
+      <div id="feedback-4" class="feedback"></div>
+      <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-5" class="step-card hidden">
+      <p class="step-number">Step 5</p>
+      <h2>Find the normal gradient</h2>
+      <p class="step-text">
+        The gradient of the normal is the negative reciprocal of the tangent gradient.
+      </p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkNormalGradient('correct')">
+          \[
+          -2\sqrt{2}
+          \]
+        </button>
+        <button class="option-btn" onclick="checkNormalGradient('wrong1')">
+          \[
+          -\frac{1}{2\sqrt{2}}
+          \]
+        </button>
+      </div>
+
+      <div id="feedback-5" class="feedback"></div>
+      <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-6" class="step-card hidden">
+      <p class="step-number">Step 6</p>
+      <h2>Find the x-intercept of the normal</h2>
+      <p class="step-text">
+        Use the point \((0,\sqrt{2})\) and gradient \(-2\sqrt{2}\) in the line equation.
+      </p>
+
+      <div class="math-block">
+        \[
+        y-\sqrt{2}=-2\sqrt{2}(x-0)
+        \]
+        \[
+        y=-2\sqrt{2}x+\sqrt{2}
+        \]
+      </div>
+
+      <p class="step-text">When the line crosses the \(x\)-axis, \(y=0\). What is \(x\)?</p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkIntercept('correct')">
+          \[
+          x=\frac{1}{2}
+          \]
+        </button>
+        <button class="option-btn" onclick="checkIntercept('wrong1')">
+          \[
+          x=2
+          \]
+        </button>
+      </div>
+
+      <div id="feedback-6" class="feedback"></div>
+      <button id="next-step-6" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-7')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-7" class="step-card hidden">
+      <p class="step-number">Step 7</p>
+      <h2>Final answer and graph</h2>
+      <p class="step-text">
+        Point \(P\), the \(x\)-intercept of the normal, is
+      </p>
+
+      <div class="math-block">
+        \[
+        P=\left(\frac{1}{2},0\right)
+        \]
+      </div>
+
+      <div class="graph-card">
+        <div class="graph-copy">
+          <h3>Interactive sketch</h3>
+          <p class="step-text">
+            This graph shows the curve \(y=\sqrt{x+2}\), the normal line, and the intercept point \(P\). Use the zoom slider and toggles to inspect the geometry.
+          </p>
+          <label class="graph-control">
+            <span>Zoom</span>
+            <input id="zoom-slider" type="range" min="4" max="10" value="6" />
+          </label>
+          <label class="graph-toggle">
+            <input id="normal-toggle" type="checkbox" checked />
+            <span>Show normal line</span>
+          </label>
+          <label class="graph-toggle">
+            <input id="point-toggle" type="checkbox" checked />
+            <span>Show point \(P\)</span>
+          </label>
+        </div>
+
+        <div class="graph-frame">
+          <svg id="normal-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of square root of x plus 2 and its normal line"></svg>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="1b2022.html">← Back to Question 1(b)</a>
+        <a class="nav-btn" href="1d2022.html">Next question →</a>
+      </div>
+    </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Start at the point where the curve meets the \\(y\\)-axis, since the normal is taken there.",
+      "Find the derivative of \\(y=\\sqrt{x+2}\\), work out the tangent gradient at \\(x=0\\), then use the negative reciprocal for the normal.",
+      "Use the point \\((0,\\sqrt{2})\\) and the normal gradient to form the line equation, then set \\(y=0\\) to find the \\(x\\)-intercept."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The intercept point is:</p>
+          <div class="math-block">
+            \\[
+            P=\\left(\\frac{1}{2},0\\right)
+            \\]
+          </div>
+        `,
+        nextHref: "1d2022.html",
+        nextLabel: "Next question →"
+      });
+      setupGraphControls();
+      drawQuestionGraph();
+      drawGraph();
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(step => step.classList.add("hidden"));
+      document.getElementById(stepId).classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (stepId === "step-7") {
+        drawGraph();
+      }
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) return;
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkYAxisPoint(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. When \\(x=0\\), \\(y=\\sqrt{0+2}=\\sqrt{2}\\), so the point is \\((0,\\sqrt{2})\\).", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. Substitute \\(x=0\\) into \\(y=\\sqrt{x+2}\\).");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkRewrite(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Yes. \\(\\sqrt{x+2}\\) can be written as \\((x+2)^{1/2}\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Try again. A square root is the same as a power of \\(\\frac{1}{2}\\).");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. Differentiate \\((x+2)^{1/2}\\) using the power rule and chain rule to get \\(\\frac{1}{2\\sqrt{x+2}}\\).", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. Bring down the power \\(\\frac{1}{2}\\), reduce the power by 1, then multiply by the derivative of \\(x+2\\).");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkTangentGradient(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Exactly. Substituting \\(x=0\\) gives \\(\\frac{1}{2\\sqrt{2}}\\).", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Try again. Substitute into the derivative carefully: \\(\\frac{1}{2\\sqrt{0+2}}\\).");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+
+    function checkNormalGradient(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-5", "Correct. The normal gradient is the negative reciprocal of \\(\\frac{1}{2\\sqrt{2}}\\), which is \\(-2\\sqrt{2}\\).", true);
+        toggleNextStepButton("next-step-5", true);
+      } else {
+        setFeedback("feedback-5", "Not quite. For a normal line, multiply the tangent and normal gradients to get \\(-1\\).");
+        toggleNextStepButton("next-step-5", false);
+      }
+    }
+
+    function checkIntercept(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-6", "Great work. Setting \\(y=0\\) in \\(y=-2\\sqrt{2}x+\\sqrt{2}\\) gives \\(x=\\frac{1}{2}\\).", true);
+        toggleNextStepButton("next-step-6", true);
+      } else {
+        setFeedback("feedback-6", "Not quite. Replace \\(y\\) with 0, then solve \\(0=-2\\sqrt{2}x+\\sqrt{2}\\).");
+        toggleNextStepButton("next-step-6", false);
+      }
+    }
+
+    function setupGraphControls() {
+      const zoomSlider = document.getElementById("zoom-slider");
+      const normalToggle = document.getElementById("normal-toggle");
+      const pointToggle = document.getElementById("point-toggle");
+
+      zoomSlider.addEventListener("input", drawGraph);
+      normalToggle.addEventListener("change", drawGraph);
+      pointToggle.addEventListener("change", drawGraph);
+    }
+
+    function drawQuestionGraph() {
+      const svg = document.getElementById("question-graph");
+      if (!svg) return;
+
+      const width = 420;
+      const height = 320;
+      const padding = 24;
+      const xMin = -4;
+      const xMax = 3;
+      const yMin = -2;
+      const yMax = 5;
+
+      const xToSvg = x => padding + ((x - xMin) / (xMax - xMin)) * (width - padding * 2);
+      const yToSvg = y => height - padding - ((y - yMin) / (yMax - yMin)) * (height - padding * 2);
+
+      const curvePoints = [];
+      for (let x = -2; x <= xMax; x += 0.03) {
+        const y = Math.sqrt(x + 2);
+        curvePoints.push(`${xToSvg(x).toFixed(2)},${yToSvg(y).toFixed(2)}`);
+      }
+
+      const tangentPoint = { x: 0, y: Math.sqrt(2) };
+      const interceptPoint = { x: 0.5, y: 0 };
+      const normalY = x => (-2 * Math.sqrt(2) * x) + Math.sqrt(2);
+      const normalStart = { x: -0.3, y: normalY(-0.3) };
+      const normalEnd = { x: 0.8, y: normalY(0.8) };
+
+      svg.innerHTML = `
+        <rect x="0" y="0" width="${width}" height="${height}" rx="18" class="graph-bg"></rect>
+        <line x1="${padding}" y1="${yToSvg(0)}" x2="${width - padding}" y2="${yToSvg(0)}" class="graph-axis" />
+        <line x1="${xToSvg(0)}" y1="${padding}" x2="${xToSvg(0)}" y2="${height - padding}" class="graph-axis" />
+        <polyline points="${curvePoints.join(" ")}" class="graph-curve question-curve" />
+        <line x1="${xToSvg(normalStart.x)}" y1="${yToSvg(normalStart.y)}" x2="${xToSvg(normalEnd.x)}" y2="${yToSvg(normalEnd.y)}" class="graph-normal question-normal" />
+        <circle cx="${xToSvg(tangentPoint.x)}" cy="${yToSvg(tangentPoint.y)}" r="2.5" class="question-dot" />
+        <circle cx="${xToSvg(0)}" cy="${yToSvg(0)}" r="4.8" class="question-origin" />
+        <text x="${xToSvg(interceptPoint.x) + 4}" y="${yToSvg(interceptPoint.y) - 4}" class="graph-label question-label-mark">P</text>
+        <text x="${width - padding - 6}" y="${yToSvg(0) + 16}" class="graph-label question-axis-label">x</text>
+        <text x="${xToSvg(0) - 4}" y="${padding - 8}" class="graph-label question-axis-label">y</text>
+      `;
+    }
+
+    function drawGraph() {
+      const svg = document.getElementById("normal-graph");
+      if (!svg) return;
+
+      const width = 420;
+      const height = 320;
+      const padding = 28;
+      const zoom = Number(document.getElementById("zoom-slider")?.value || 6);
+      const showNormal = Boolean(document.getElementById("normal-toggle")?.checked);
+      const showPoint = Boolean(document.getElementById("point-toggle")?.checked);
+      const xMin = -zoom;
+      const xMax = zoom;
+      const yMin = -zoom;
+      const yMax = zoom;
+
+      const xToSvg = x => padding + ((x - xMin) / (xMax - xMin)) * (width - padding * 2);
+      const yToSvg = y => height - padding - ((y - yMin) / (yMax - yMin)) * (height - padding * 2);
+
+      const curvePoints = [];
+      for (let x = -2; x <= xMax; x += 0.04) {
+        const y = Math.sqrt(x + 2);
+        if (y >= yMin - 1 && y <= yMax + 1) {
+          curvePoints.push(`${xToSvg(x).toFixed(2)},${yToSvg(y).toFixed(2)}`);
+        }
+      }
+
+      const gridLines = [];
+      for (let value = Math.ceil(xMin); value <= Math.floor(xMax); value += 1) {
+        const x = xToSvg(value);
+        gridLines.push(`<line x1="${x}" y1="${padding}" x2="${x}" y2="${height - padding}" class="graph-grid-line" />`);
+      }
+      for (let value = Math.ceil(yMin); value <= Math.floor(yMax); value += 1) {
+        const y = yToSvg(value);
+        gridLines.push(`<line x1="${padding}" y1="${y}" x2="${width - padding}" y2="${y}" class="graph-grid-line" />`);
+      }
+
+      const xAxisY = yToSvg(0);
+      const yAxisX = xToSvg(0);
+
+      const normalY = x => (-2 * Math.sqrt(2) * x) + Math.sqrt(2);
+      const normalStart = { x: xMin, y: normalY(xMin) };
+      const normalEnd = { x: xMax, y: normalY(xMax) };
+      const tangentPoint = { x: 0, y: Math.sqrt(2) };
+      const interceptPoint = { x: 0.5, y: 0 };
+
+      const normalMarkup = showNormal
+        ? `<line x1="${xToSvg(normalStart.x)}" y1="${yToSvg(normalStart.y)}" x2="${xToSvg(normalEnd.x)}" y2="${yToSvg(normalEnd.y)}" class="graph-normal" />`
+        : "";
+
+      const pointMarkup = showPoint
+        ? `
+          <circle cx="${xToSvg(interceptPoint.x)}" cy="${yToSvg(interceptPoint.y)}" r="5" class="graph-point" />
+          <text x="${xToSvg(interceptPoint.x) + 8}" y="${yToSvg(interceptPoint.y) - 8}" class="graph-label">P (1/2, 0)</text>
+          <circle cx="${xToSvg(tangentPoint.x)}" cy="${yToSvg(tangentPoint.y)}" r="5" class="graph-point-secondary" />
+          <text x="${xToSvg(tangentPoint.x) + 8}" y="${yToSvg(tangentPoint.y) - 8}" class="graph-label">(0, sqrt(2))</text>
+        `
+        : "";
+
+      svg.innerHTML = `
+        <rect x="0" y="0" width="${width}" height="${height}" rx="18" class="graph-bg"></rect>
+        ${gridLines.join("")}
+        <line x1="${padding}" y1="${xAxisY}" x2="${width - padding}" y2="${xAxisY}" class="graph-axis" />
+        <line x1="${yAxisX}" y1="${padding}" x2="${yAxisX}" y2="${height - padding}" class="graph-axis" />
+        <polyline points="${curvePoints.join(" ")}" class="graph-curve" />
+        ${normalMarkup}
+        ${pointMarkup}
+      `;
+    }
+  </script>
+</body>
+</html>

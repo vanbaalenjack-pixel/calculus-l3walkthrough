@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2022 Calculus Paper - Question 1(d)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 3 Calculus Walkthrough</p>
+        <h1>Question 1(d)</h1>
+        <p class="subtitle">2022 Paper - Parametric differentiation</p>
+      </div>
+      <a class="ghost-link" href="index.html">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <p class="step-text">
+        A curve is defined parametrically by the equations:
+      </p>
+      <div class="question-math">
+        \[
+        x=2+3t \qquad \text{and} \qquad y=3t-\ln(3t-1), \qquad t>\frac{1}{3}
+        \]
+      </div>
+      <p class="step-text">
+        Find the coordinates, \((x,y)\), of any point(s) on the curve where the tangent to the curve has a gradient of \(\frac{1}{2}\).
+      </p>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+    <section id="step-1" class="step-card">
+      <p class="step-number">Step 1</p>
+      <h2>Find \(\frac{dx}{dt}\)</h2>
+      <p class="step-text">Differentiate \(x=2+3t\) with respect to \(t\).</p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkDxdt('correct')">
+          \[
+          \frac{dx}{dt}=3
+          \]
+        </button>
+        <button class="option-btn" onclick="checkDxdt('wrong1')">
+          \[
+          \frac{dx}{dt}=2+3t
+          \]
+        </button>
+      </div>
+
+      <div id="feedback-1" class="feedback"></div>
+      <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-2" class="step-card hidden">
+      <p class="step-number">Step 2</p>
+      <h2>Find \(\frac{dy}{dt}\)</h2>
+      <p class="step-text">Differentiate \(y=3t-\ln(3t-1)\) with respect to \(t\).</p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkDydt('correct')">
+          \[
+          \frac{dy}{dt}=3-\frac{3}{3t-1}
+          \]
+        </button>
+        <button class="option-btn" onclick="checkDydt('wrong1')">
+          \[
+          \frac{dy}{dt}=3-\ln(3t-1)
+          \]
+        </button>
+      </div>
+
+      <div id="feedback-2" class="feedback"></div>
+      <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-3" class="step-card hidden">
+      <p class="step-number">Step 3</p>
+      <h2>Find \(\frac{dy}{dx}\)</h2>
+      <p class="step-text">For parametric equations, multiply \(\frac{dy}{dt}\) by \(\frac{dt}{dx}\) so you can see the \(dt\) cancelling.</p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkDydx('correct')">
+          \[
+          \frac{dy}{dx}=\left(3-\frac{3}{3t-1}\right)\left(\frac{1}{3}\right)=1-\frac{1}{3t-1}
+          \]
+        </button>
+        <button class="option-btn" onclick="checkDydx('wrong1')">
+          \[
+          \frac{dy}{dx}=\left(3-\frac{3}{3t-1}\right)(3)
+          \]
+        </button>
+      </div>
+
+      <div id="feedback-3" class="feedback"></div>
+      <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-4" class="step-card hidden">
+      <p class="step-number">Step 4</p>
+      <h2>Set the gradient equal to \(\frac{1}{2}\)</h2>
+      <p class="step-text">Solve for \(t\) when the tangent gradient is \(\frac{1}{2}\).</p>
+
+      <div class="math-block">
+        \[
+        1-\frac{1}{3t-1}=\frac{1}{2}
+        \]
+      </div>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkTValue('correct')">
+          \[
+          t=1
+          \]
+        </button>
+        <button class="option-btn" onclick="checkTValue('wrong1')">
+          \[
+          t=\frac{1}{2}
+          \]
+        </button>
+      </div>
+
+      <div id="feedback-4" class="feedback"></div>
+      <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-5" class="step-card hidden">
+      <p class="step-number">Step 5</p>
+      <h2>Find the coordinates</h2>
+      <p class="step-text">Substitute \(t=1\) into both parametric equations.</p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkCoordinates('correct')">
+          \[
+          x=5,\qquad y=3-\ln(2)
+          \]
+        </button>
+        <button class="option-btn" onclick="checkCoordinates('wrong1')">
+          \[
+          x=3,\qquad y=\ln(2)
+          \]
+        </button>
+      </div>
+
+      <div id="feedback-5" class="feedback"></div>
+      <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-6" class="step-card hidden">
+      <p class="step-number">Step 6</p>
+      <h2>Final answer and graph</h2>
+      <p class="step-text">There is one point on the curve where the tangent gradient is \(\frac{1}{2}\).</p>
+
+      <div class="math-block">
+        \[
+        (x,y)=\left(5,\ 3-\ln 2\right)
+        \]
+      </div>
+
+      <div class="graph-card">
+        <div class="graph-copy">
+          <h3>Interactive sketch</h3>
+          <p class="step-text">
+            This graph shows the parametric curve together with the point where the tangent gradient is \(\frac{1}{2}\). Use the zoom slider to inspect the shape.
+          </p>
+          <label class="graph-control">
+            <span>Zoom</span>
+            <input id="zoom-slider" type="range" min="4" max="12" value="8" />
+          </label>
+          <label class="graph-toggle">
+            <input id="point-toggle" type="checkbox" checked />
+            <span>Show solution point</span>
+          </label>
+        </div>
+
+        <div class="graph-frame">
+          <svg id="parametric-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Parametric graph for question 1(d)"></svg>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="1c2022.html">← Back to Question 1(c)</a>
+        <a class="nav-btn" href="1e2022.html">Next question →</a>
+      </div>
+    </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "For parametric curves, the gradient is found from \\(\\frac{dy}{dx}=\\frac{dy/dt}{dx/dt}\\).",
+      "Differentiate both equations with respect to \\(t\\), then set the resulting \\(\\frac{dy}{dx}\\) equal to \\(\\frac{1}{2}\\).",
+      "Once you find the correct value of \\(t\\), substitute it back into both parametric equations to get the point coordinates."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The point where the tangent gradient is \\(\\frac{1}{2}\\) is:</p>
+          <div class="math-block">
+            \\[
+            (x,y)=\\left(5,\\ 3-\\ln 2\\right)
+            \\]
+          </div>
+        `,
+        nextHref: "1e2022.html",
+        nextLabel: "Next question →"
+      });
+      setupGraphControls();
+      drawGraph();
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(step => step.classList.add("hidden"));
+      document.getElementById(stepId).classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (stepId === "step-6") {
+        drawGraph();
+      }
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) return;
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkDxdt(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. The derivative of \\(2+3t\\) with respect to \\(t\\) is just \\(3\\).", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. Differentiate term by term with respect to \\(t\\).");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkDydt(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Yes. Differentiate \\(3t\\) to get \\(3\\), then use the chain rule on \\(\\ln(3t-1)\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Try again. The derivative of \\(\\ln(3t-1)\\) is \\(\\frac{3}{3t-1}\\).");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkDydx(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. Since \\(\\frac{dx}{dt}=3\\), we have \\(\\frac{dt}{dx}=\\frac{1}{3}\\), so multiplying by \\(\\frac{dt}{dx}\\) gives the same result and makes the cancellation easier to see.", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. Multiply by \\(\\frac{dt}{dx}\\), not by \\(\\frac{dx}{dt}\\). Here, \\(\\frac{dx}{dt}=3\\), so \\(\\frac{dt}{dx}=\\frac{1}{3}\\).");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkTValue(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Great. Solving \\(1-\\frac{1}{3t-1}=\\frac{1}{2}\\) gives \\(t=1\\).", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Not quite. Rearranging gives \\(\\frac{1}{3t-1}=\\frac{1}{2}\\), so \\(3t-1=2\\).");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+
+    function checkCoordinates(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-5", "Correct. With \\(t=1\\), \\(x=2+3(1)=5\\) and \\(y=3(1)-\\ln(3(1)-1)=3-\\ln 2\\).", true);
+        toggleNextStepButton("next-step-5", true);
+      } else {
+        setFeedback("feedback-5", "Try again. Substitute \\(t=1\\) into both equations carefully.");
+        toggleNextStepButton("next-step-5", false);
+      }
+    }
+
+    function setupGraphControls() {
+      const zoomSlider = document.getElementById("zoom-slider");
+      const pointToggle = document.getElementById("point-toggle");
+
+      zoomSlider.addEventListener("input", drawGraph);
+      pointToggle.addEventListener("change", drawGraph);
+    }
+
+    function drawGraph() {
+      const svg = document.getElementById("parametric-graph");
+      if (!svg) return;
+
+      const width = 420;
+      const height = 320;
+      const padding = 28;
+      const zoom = Number(document.getElementById("zoom-slider")?.value || 8);
+      const showPoint = Boolean(document.getElementById("point-toggle")?.checked);
+      const xMin = 0;
+      const xMax = zoom;
+      const yMin = 0;
+      const yMax = zoom;
+
+      const xToSvg = x => padding + ((x - xMin) / (xMax - xMin)) * (width - padding * 2);
+      const yToSvg = y => height - padding - ((y - yMin) / (yMax - yMin)) * (height - padding * 2);
+
+      const points = [];
+      for (let t = 0.34; t <= 3.2; t += 0.02) {
+        const x = 2 + 3 * t;
+        const y = 3 * t - Math.log(3 * t - 1);
+        if (x <= xMax + 0.5 && y <= yMax + 0.5) {
+          points.push(`${xToSvg(x).toFixed(2)},${yToSvg(y).toFixed(2)}`);
+        }
+      }
+
+      const gridLines = [];
+      for (let value = Math.ceil(xMin); value <= Math.floor(xMax); value += 1) {
+        const x = xToSvg(value);
+        gridLines.push(`<line x1="${x}" y1="${padding}" x2="${x}" y2="${height - padding}" class="graph-grid-line" />`);
+      }
+      for (let value = Math.ceil(yMin); value <= Math.floor(yMax); value += 1) {
+        const y = yToSvg(value);
+        gridLines.push(`<line x1="${padding}" y1="${y}" x2="${width - padding}" y2="${y}" class="graph-grid-line" />`);
+      }
+
+      const solutionPoint = { x: 5, y: 3 - Math.log(2) };
+      const pointMarkup = showPoint
+        ? `
+          <circle cx="${xToSvg(solutionPoint.x)}" cy="${yToSvg(solutionPoint.y)}" r="5" class="graph-point" />
+          <text x="${xToSvg(solutionPoint.x) + 8}" y="${yToSvg(solutionPoint.y) - 8}" class="graph-label">(5, 3 - ln 2)</text>
+        `
+        : "";
+
+      svg.innerHTML = `
+        <rect x="0" y="0" width="${width}" height="${height}" rx="18" class="graph-bg"></rect>
+        ${gridLines.join("")}
+        <line x1="${padding}" y1="${yToSvg(0)}" x2="${width - padding}" y2="${yToSvg(0)}" class="graph-axis" />
+        <line x1="${xToSvg(0)}" y1="${padding}" x2="${xToSvg(0)}" y2="${height - padding}" class="graph-axis" />
+        <polyline points="${points.join(" ")}" class="graph-curve" />
+        ${pointMarkup}
+      `;
+    }
+  </script>
+</body>
+</html>

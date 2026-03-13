@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2022 Calculus Paper - Question 1(b)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 3 Calculus Walkthrough</p>
+        <h1>Question 1(b)</h1>
+        <p class="subtitle">2022 Paper - Stationary points</p>
+      </div>
+      <a class="ghost-link" href="index.html">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <div class="question-math">
+        \[
+        \text{Find the } x\text{-value(s) of any stationary points on the graph of } f(x)=\frac{x^2+1}{x}.
+        \]
+      </div>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+    <section id="step-1" class="step-card">
+      <p class="step-number">Step 1</p>
+      <h2>What rule should we use?</h2>
+      <p class="step-text">This function is written as one expression divided by another.</p>
+
+      <div class="button-grid">
+        <button class="option-btn" onclick="checkRule('quotient')">Quotient rule</button>
+        <button class="option-btn" onclick="checkRule('product')">Product rule</button>
+        <button class="option-btn" onclick="checkRule('chain')">Chain rule</button>
+        <button class="option-btn" onclick="checkRule('implicit')">Implicit differentiation</button>
+      </div>
+
+      <div id="feedback-1" class="feedback"></div>
+      <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-2" class="step-card hidden">
+      <p class="step-number">Step 2</p>
+      <h2>Identify \(u\) and \(v\)</h2>
+      <p class="step-text">For the quotient rule, write the function as \(\frac{u}{v}\).</p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkParts('correct')">
+          \(u=x^2+1\), \(v=x\)
+        </button>
+        <button class="option-btn" onclick="checkParts('wrong1')">
+          \(u=x\), \(v=x^2+1\)
+        </button>
+      </div>
+
+      <div id="feedback-2" class="feedback"></div>
+      <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-3" class="step-card hidden">
+      <p class="step-number">Step 3</p>
+      <h2>Differentiate \(u\) and \(v\)</h2>
+      <p class="step-text">If \(u=x^2+1\) and \(v=x\), what are \(u'\) and \(v'\)?</p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkDerivatives('correct')">
+          \(u'=2x\), \(v'=1\)
+        </button>
+        <button class="option-btn" onclick="checkDerivatives('wrong1')">
+          \(u'=x^2\), \(v'=x\)
+        </button>
+        <button class="option-btn" onclick="checkDerivatives('wrong2')">
+          \(u'=2\), \(v'=0\)
+        </button>
+      </div>
+
+      <div id="feedback-3" class="feedback"></div>
+      <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-4" class="step-card hidden">
+      <p class="step-number">Step 4</p>
+      <h2>Apply the quotient rule</h2>
+      <p class="step-text">
+        Use \(\frac{d}{dx}\left(\frac{u}{v}\right)=\frac{vu'-uv'}{v^2}\).
+      </p>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkQuotient('correct')">
+          \[
+          f'(x)=\frac{x(2x)-(x^2+1)(1)}{x^2}
+          \]
+        </button>
+        <button class="option-btn" onclick="checkQuotient('wrong1')">
+          \[
+          f'(x)=\frac{2x}{x}
+          \]
+        </button>
+      </div>
+
+      <div id="feedback-4" class="feedback"></div>
+      <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-5" class="step-card hidden">
+      <p class="step-number">Step 5</p>
+      <h2>Find where the derivative is zero</h2>
+      <p class="step-text">
+        After simplifying, we get
+      </p>
+
+      <div class="math-block">
+        \[
+        f'(x)=\frac{x^2-1}{x^2}
+        \]
+      </div>
+
+      <p class="step-text">For a stationary point, which part must equal zero?</p>
+
+      <div class="button-grid">
+        <button class="option-btn" onclick="checkStationary('correct')">The numerator</button>
+        <button class="option-btn" onclick="checkStationary('wrong1')">The denominator</button>
+        <button class="option-btn" onclick="checkStationary('wrong2')">Both parts</button>
+        <button class="option-btn" onclick="checkStationary('wrong3')">Neither part</button>
+      </div>
+
+      <div id="feedback-5" class="feedback"></div>
+      <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-6" class="step-card hidden">
+      <p class="step-number">Step 6</p>
+      <h2>Solve for the stationary points</h2>
+      <p class="step-text">Set the numerator equal to zero and solve.</p>
+
+      <div class="math-block">
+        \[
+        x^2-1=0
+        \]
+        \[
+        (x-1)(x+1)=0
+        \]
+      </div>
+
+      <div class="button-grid two-col">
+        <button class="option-btn" onclick="checkSolutions('correct')">
+          \(x=1\) and \(x=-1\)
+        </button>
+        <button class="option-btn" onclick="checkSolutions('wrong1')">
+          \(x=0\)
+        </button>
+      </div>
+
+      <div id="feedback-6" class="feedback"></div>
+      <button id="next-step-6" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-7')">
+        Next step →
+      </button>
+    </section>
+
+    <section id="step-7" class="step-card hidden">
+      <p class="step-number">Step 7</p>
+      <h2>Final answer and graph</h2>
+      <p class="step-text">
+        So, the stationary points happen at the <strong>x-values</strong> \(\,x=-1\,\) and \(\,x=1\).
+      </p>
+
+      <div class="math-block">
+        \[
+        \text{Stationary points occur when } x=-1 \text{ and } x=1.
+        \]
+      </div>
+
+      <div class="graph-card">
+        <div class="graph-copy">
+          <h3>Interactive sketch</h3>
+          <p class="step-text">
+            This graph shows \(f(x)=\frac{x^2+1}{x}\). Use the zoom slider to inspect the turning points, and toggle the markers if you want to highlight them.
+          </p>
+          <label class="graph-control">
+            <span>Zoom</span>
+            <input id="zoom-slider" type="range" min="6" max="16" value="10" />
+          </label>
+          <label class="graph-toggle">
+            <input id="point-toggle" type="checkbox" checked />
+            <span>Show stationary points</span>
+          </label>
+        </div>
+
+        <div class="graph-frame">
+          <svg id="stationary-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of (x squared plus 1) over x"></svg>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="1a2022.html">← Back to Question 1(a)</a>
+        <a class="nav-btn" href="1c2022.html">Next question →</a>
+      </div>
+    </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Stationary points happen where the gradient is zero, so you will need \\(f'(x)\\).",
+      "Because the function is a fraction, start by differentiating \\(\\frac{x^2+1}{x}\\) with the quotient rule.",
+      "After simplifying the derivative, set the numerator equal to zero and solve, while remembering \\(x\\neq 0\\)."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The stationary points occur at these \\(x\\)-values:</p>
+          <div class="math-block">
+            \\[
+            x=-1 \\quad \\text{and} \\quad x=1
+            \\]
+          </div>
+        `,
+        nextHref: "1c2022.html",
+        nextLabel: "Next question →"
+      });
+      setupGraphControls();
+      drawGraph();
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(step => step.classList.add("hidden"));
+      document.getElementById(stepId).classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (stepId === "step-7") {
+        drawGraph();
+      }
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) return;
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkRule(answer) {
+      if (answer === "quotient") {
+        setFeedback("feedback-1", "Correct. This is a quotient, so the quotient rule is the best method here.", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. The function is one expression divided by another, so think about the quotient rule.");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkParts(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Yes. Here, \\(u=x^2+1\\) and \\(v=x\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Try again. The numerator is the top expression, and the denominator is the bottom expression.");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkDerivatives(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. \\(u'=2x\\) and \\(v'=1\\).", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. Differentiate \\(x^2+1\\) and \\(x\\) separately using the power rule.");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkQuotient(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Correct. Substitute \\(u\\), \\(v\\), \\(u'\\), and \\(v'\\) carefully into the quotient rule.", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Not quite. The quotient rule needs the full numerator \\(vu'-uv'\\), all over \\(v^2\\).");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+
+    function checkStationary(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-5", "Exactly. A fraction is zero when its numerator is zero, as long as the denominator is not zero.", true);
+        toggleNextStepButton("next-step-5", true);
+      } else {
+        setFeedback("feedback-5", "Try again. For \\(\\frac{x^2-1}{x^2}=0\\), the top line must equal zero.");
+        toggleNextStepButton("next-step-5", false);
+      }
+    }
+
+    function checkSolutions(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-6", "Great work. Solving \\(x^2-1=0\\) gives \\(x=1\\) and \\(x=-1\\).", true);
+        toggleNextStepButton("next-step-6", true);
+      } else {
+        setFeedback("feedback-6", "Not quite. Factor \\(x^2-1\\) as \\((x-1)(x+1)\\) and solve each factor.");
+        toggleNextStepButton("next-step-6", false);
+      }
+    }
+
+    function setupGraphControls() {
+      const zoomSlider = document.getElementById("zoom-slider");
+      const pointToggle = document.getElementById("point-toggle");
+
+      zoomSlider.addEventListener("input", drawGraph);
+      pointToggle.addEventListener("change", drawGraph);
+    }
+
+    function drawGraph() {
+      const svg = document.getElementById("stationary-graph");
+      if (!svg) return;
+
+      const width = 420;
+      const height = 320;
+      const padding = 28;
+      const zoom = Number(document.getElementById("zoom-slider")?.value || 10);
+      const showPoints = Boolean(document.getElementById("point-toggle")?.checked);
+      const xMin = -zoom;
+      const xMax = zoom;
+      const yMin = -zoom;
+      const yMax = zoom;
+
+      const xToSvg = x => padding + ((x - xMin) / (xMax - xMin)) * (width - padding * 2);
+      const yToSvg = y => height - padding - ((y - yMin) / (yMax - yMin)) * (height - padding * 2);
+
+      function buildBranch(start, end, step) {
+        const points = [];
+        for (let x = start; x <= end; x += step) {
+          if (Math.abs(x) < 0.08) continue;
+          const y = x + 1 / x;
+          if (y < yMin - 2 || y > yMax + 2) continue;
+          points.push(`${xToSvg(x).toFixed(2)},${yToSvg(y).toFixed(2)}`);
+        }
+        return points.join(" ");
+      }
+
+      const gridLines = [];
+      for (let value = Math.ceil(xMin); value <= Math.floor(xMax); value += 1) {
+        const x = xToSvg(value);
+        gridLines.push(`<line x1="${x}" y1="${padding}" x2="${x}" y2="${height - padding}" class="graph-grid-line" />`);
+      }
+      for (let value = Math.ceil(yMin); value <= Math.floor(yMax); value += 1) {
+        const y = yToSvg(value);
+        gridLines.push(`<line x1="${padding}" y1="${y}" x2="${width - padding}" y2="${y}" class="graph-grid-line" />`);
+      }
+
+      const xAxisY = yToSvg(0);
+      const yAxisX = xToSvg(0);
+      const leftBranch = buildBranch(xMin, -0.1, 0.04);
+      const rightBranch = buildBranch(0.1, xMax, 0.04);
+
+      const stationaryPoints = [
+        { x: -1, y: -2, label: "(-1, -2)" },
+        { x: 1, y: 2, label: "(1, 2)" }
+      ];
+
+      const pointMarkup = showPoints
+        ? stationaryPoints.map(point => `
+            <circle cx="${xToSvg(point.x)}" cy="${yToSvg(point.y)}" r="5" class="graph-point" />
+            <text x="${xToSvg(point.x) + 8}" y="${yToSvg(point.y) - 8}" class="graph-label">${point.label}</text>
+          `).join("")
+        : "";
+
+      svg.innerHTML = `
+        <rect x="0" y="0" width="${width}" height="${height}" rx="18" class="graph-bg"></rect>
+        ${gridLines.join("")}
+        <line x1="${padding}" y1="${xAxisY}" x2="${width - padding}" y2="${xAxisY}" class="graph-axis" />
+        <line x1="${yAxisX}" y1="${padding}" x2="${yAxisX}" y2="${height - padding}" class="graph-axis" />
+        <polyline points="${leftBranch}" class="graph-curve" />
+        <polyline points="${rightBranch}" class="graph-curve" />
+        ${pointMarkup}
+      `;
+    }
+  </script>
+</body>
+</html>
