@@ -107,8 +107,8 @@
 
       <section id="step-3" class="step-card hidden">
         <p class="step-number">Step 3</p>
-        <h2>Write the time function</h2>
-        <p class="step-text">Time is distance divided by speed.</p>
+        <h2>Write the total time function</h2>
+        <p class="step-text">Add the time on the road and the time across the park. Time is distance divided by speed.</p>
 
         <div class="math-input-group">
           <input
@@ -118,7 +118,7 @@
             inputmode="text"
             autocomplete="off"
             spellcheck="false"
-            aria-label="Type the time function"
+            aria-label="Type the total time function"
             placeholder="Type your answer here"
           />
           <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
@@ -366,11 +366,19 @@
         acceptedAnswers: ["x/10+sqrt((4-x)^2+4)/6"],
         samples: [{ x: 1 }, { x: 2.5 }],
         successMessage: "Correct. Time along the road is \\(\\frac{x}{10}\\), and time across the park is \\(\\frac{PS}{6}\\).",
-        genericMessage: "Not quite. Time is distance divided by speed, not multiplied by speed.",
+        genericMessage: "Not quite. The total time needs both parts of the trip: \\(\\frac{x}{10}\\) on the road and \\(\\frac{\\sqrt{(4-x)^2+4}}{6}\\) across the park.",
         targetedFeedback: [
           {
+            answers: ["sqrt((4-x)^2+4)/6"],
+            message: "That is only the time across the park. Include the road time \\(\\frac{x}{10}\\) as well."
+          },
+          {
+            answers: ["x/10"],
+            message: "That is only the time on the road. Include the park time \\(\\frac{PS}{6}\\) as well."
+          },
+          {
             answers: ["10x+6sqrt((4-x)^2+4)"],
-            message: "Not quite. Time is distance divided by speed, not multiplied by speed."
+            message: "Not quite. You have used the speeds as multipliers. Time is distance divided by speed, so use \\(\\frac{x}{10}+\\frac{PS}{6}\\)."
           }
         ]
       });
