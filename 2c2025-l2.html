@@ -25,11 +25,20 @@
 
     <section class="question-card">
       <p class="question-label">Question</p>
+      <p class="step-text">
+        Hemi is part of a student research project on how caffeine enters the bloodstream. A new device measures caffeine levels in his blood.
+      </p>
+      <p class="step-text">
+        He is monitored for 180 minutes (3 hours) and, at some point, he is given a cup of coffee to drink.
+      </p>
       <div class="question-math">
         \[
         C(t)=\frac{t^3}{150}-1.4t^2+80t+240
         \qquad
         \{0 \le t \le 180\}
+        \]
+        \[
+        \text{where }C\text{ is the concentration }(\mu\text{g/L}),\text{ and }t\text{ is time in minutes.}
         \]
         \[
         \text{(i) Show that the rate of change of concentration is }-16\text{ after }60\text{ minutes.}
@@ -229,8 +238,8 @@
     }
 
     const hintContent = [
-      "Differentiate \(C(t)\) first, then substitute \(t=60\) for part (i).",
-      "For part (ii), find where \(C'(t)=0\) to locate the turning points.",
+      "Differentiate \\(C(t)\\) first, then substitute \\(t=60\\) for part (i).",
+      "For part (ii), find where \\(C'(t)=0\\) to locate the turning points.",
       "Use the second derivative test to decide which turning point is the minimum, because the coffee time should match when the concentration starts increasing."
     ];
 
