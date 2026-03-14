@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2022 Calculus Paper - Question 2(a)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 3 Calculus Walkthrough</p>
+        <h1>Question 2(a)</h1>
+        <p class="subtitle">2022 Paper - Product rule with trig chain rule</p>
+      </div>
+      <a class="ghost-link" href="index.html">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <div class="question-math">
+        \[
+        \text{Differentiate } f(x)=(5x-3)\sin(4x).
+        \]
+      </div>
+      <p class="step-text question-note">
+        You do not need to simplify your answer.
+      </p>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+      <section id="step-1" class="step-card">
+        <p class="step-number">Step 1</p>
+        <h2>Choose the differentiation technique</h2>
+        <p class="step-text">This function is one factor multiplied by another, so which rule should we start with?</p>
+
+        <div class="button-grid">
+          <button class="option-btn" onclick="checkRule('product')">Product rule</button>
+          <button class="option-btn" onclick="checkRule('chain')">Chain rule only</button>
+          <button class="option-btn" onclick="checkRule('quotient')">Quotient rule</button>
+          <button class="option-btn" onclick="checkRule('implicit')">Implicit differentiation</button>
+        </div>
+
+        <div id="feedback-1" class="feedback"></div>
+        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-2" class="step-card hidden">
+        <p class="step-number">Step 2</p>
+        <h2>Differentiate the first factor</h2>
+        <p class="step-text">If \(u=5x-3\), what is \(u'\)?</p>
+
+        <div class="button-grid">
+          <button class="option-btn" onclick="checkFirstFactor('correct')">\(5\)</button>
+          <button class="option-btn" onclick="checkFirstFactor('wrong1')">\(5x\)</button>
+          <button class="option-btn" onclick="checkFirstFactor('wrong2')">\(-3\)</button>
+          <button class="option-btn" onclick="checkFirstFactor('wrong3')">\(5x-3\)</button>
+        </div>
+
+        <div id="feedback-2" class="feedback"></div>
+        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-3" class="step-card hidden">
+        <p class="step-number">Step 3</p>
+        <h2>Differentiate the sine factor carefully</h2>
+        <p class="step-text">If \(v=\sin(4x)\), what is \(v'\)? Remember the chain rule inside the sine function.</p>
+
+        <div class="button-grid">
+          <button class="option-btn" onclick="checkSecondFactor('correct')">\(4\cos(4x)\)</button>
+          <button class="option-btn" onclick="checkSecondFactor('wrong1')">\(\cos(4x)\)</button>
+          <button class="option-btn" onclick="checkSecondFactor('wrong2')">\(4\sin(4x)\)</button>
+          <button class="option-btn" onclick="checkSecondFactor('wrong3')">\(\sin(4x)\)</button>
+        </div>
+
+        <div id="feedback-3" class="feedback"></div>
+        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-4" class="step-card hidden">
+        <p class="step-number">Step 4</p>
+        <h2>Assemble the product rule</h2>
+        <p class="step-text">Use \(\frac{d}{dx}(uv)=u'v+uv'\).</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkAssembly('correct')">
+            \[
+            f'(x)=5\sin(4x)+(5x-3)\cdot4\cos(4x)
+            \]
+          </button>
+          <button class="option-btn" onclick="checkAssembly('wrong1')">
+            \[
+            f'(x)=5\sin(4x)+(5x-3)\cos(4x)
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-4" class="feedback"></div>
+        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-5" class="step-card hidden">
+        <p class="step-number">Step 5</p>
+        <h2>Final derivative and graph</h2>
+        <p class="step-text">A complete derivative is:</p>
+
+        <div class="math-block">
+          \[
+          f'(x)=5\sin(4x)+4(5x-3)\cos(4x)
+          \]
+        </div>
+
+        <div class="graph-card">
+          <div class="graph-copy">
+            <h3>Interactive sketch</h3>
+            <p class="step-text">
+              This graph shows the original function and its derivative together so you can compare how the slope behaves across the interval.
+            </p>
+            <label class="graph-toggle">
+              <input id="derivative-toggle" type="checkbox" checked />
+              <span>Show derivative</span>
+            </label>
+          </div>
+
+          <div class="graph-frame">
+            <svg id="product-rule-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of the function and its derivative"></svg>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <a class="nav-btn secondary" href="index.html">← Back to paper</a>
+          <a class="nav-btn" href="2b2022.html">Next question →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Because the function is a product of two factors, start with the product rule.",
+      "Differentiate \\(5x-3\\) to get \\(5\\).",
+      "Differentiate \\(\\sin(4x)\\) with the chain rule to get \\(4\\cos(4x)\\)."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The derivative is:</p>
+          <div class="math-block">
+            \\[
+            f'(x)=5\\sin(4x)+4(5x-3)\\cos(4x)
+            \\]
+          </div>
+        `,
+        nextHref: "2b2022.html",
+        nextLabel: "Next question →"
+      });
+      setupGraphControls();
+      drawGraph();
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(step => step.classList.add("hidden"));
+      document.getElementById(stepId).classList.remove("hidden");
+      if (stepId === "step-5") {
+        drawGraph();
+      }
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) return;
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkRule(answer) {
+      if (answer === "product") {
+        setFeedback("feedback-1", "Correct. This is a product of two functions, so the product rule is the main technique.", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. The whole expression is one factor multiplied by another, so we need the product rule.");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkFirstFactor(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Correct. The derivative of \\(5x-3\\) is \\(5\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Try again. Differentiate term by term: \\(\\frac{d}{dx}(5x)=5\\) and \\(\\frac{d}{dx}(-3)=0\\).");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkSecondFactor(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Yes. The derivative of \\(\\sin(4x)\\) is \\(\\cos(4x)\\) multiplied by the derivative of \\(4x\\), which gives \\(4\\cos(4x)\\).", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. You need the chain rule as well, so include the derivative of the inside \\(4x\\).");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkAssembly(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Great work. Product rule gives \\(u'v+uv'\\), and the second term needs the extra factor of 4.", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Close, but the second term is missing the chain rule factor. The derivative of \\(\\sin(4x)\\) is \\(4\\cos(4x)\\), not just \\(\\cos(4x)\\).");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+
+    function setupGraphControls() {
+      const derivativeToggle = document.getElementById("derivative-toggle");
+      if (derivativeToggle) {
+        derivativeToggle.addEventListener("change", drawGraph);
+      }
+    }
+
+    function drawGraph() {
+      const svg = document.getElementById("product-rule-graph");
+      if (!svg) return;
+
+      const showDerivative = document.getElementById("derivative-toggle")?.checked ?? true;
+      const width = 420;
+      const height = 320;
+      const padding = 36;
+      const xMin = -1.5;
+      const xMax = 2.5;
+      const yMin = -15;
+      const yMax = 15;
+
+      function scaleX(x) {
+        return padding + ((x - xMin) / (xMax - xMin)) * (width - padding * 2);
+      }
+
+      function scaleY(y) {
+        return height - padding - ((y - yMin) / (yMax - yMin)) * (height - padding * 2);
+      }
+
+      function buildPath(fn, step) {
+        let path = "";
+        for (let x = xMin; x <= xMax; x += step) {
+          const y = fn(x);
+          const command = path ? "L" : "M";
+          path += `${command}${scaleX(x).toFixed(2)} ${scaleY(y).toFixed(2)} `;
+        }
+        return path.trim();
+      }
+
+      function functionValue(x) {
+        return (5 * x - 3) * Math.sin(4 * x);
+      }
+
+      function derivativeValue(x) {
+        return 5 * Math.sin(4 * x) + 4 * (5 * x - 3) * Math.cos(4 * x);
+      }
+
+      const verticalGridValues = [-1, 0, 1, 2];
+      const horizontalGridValues = [-10, -5, 0, 5, 10];
+      const xAxisY = scaleY(0);
+      const yAxisX = scaleX(0);
+      const fnPath = buildPath(functionValue, 0.02);
+      const derivativePath = buildPath(derivativeValue, 0.02);
+      const verticalGrid = verticalGridValues.map((value) => `
+        <line class="graph-grid-line" x1="${scaleX(value)}" y1="${padding}" x2="${scaleX(value)}" y2="${height - padding}"></line>
+        <text class="graph-label" x="${scaleX(value) - 8}" y="${height - 14}">${value}</text>
+      `).join("");
+      const horizontalGrid = horizontalGridValues.map((value) => `
+        <line class="graph-grid-line" x1="${padding}" y1="${scaleY(value)}" x2="${width - padding}" y2="${scaleY(value)}"></line>
+        <text class="graph-label" x="8" y="${scaleY(value) - 6}">${value}</text>
+      `).join("");
+
+      svg.innerHTML = `
+        <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
+        ${verticalGrid}
+        ${horizontalGrid}
+        <line class="graph-axis" x1="${padding}" y1="${xAxisY}" x2="${width - padding}" y2="${xAxisY}"></line>
+        <line class="graph-axis" x1="${yAxisX}" y1="${padding}" x2="${yAxisX}" y2="${height - padding}"></line>
+        <path class="graph-curve" d="${fnPath}"></path>
+        ${showDerivative ? `<path class="graph-curve-secondary" d="${derivativePath}"></path>` : ""}
+        <rect class="graph-legend-chip" x="${width - 140}" y="${padding - 4}" width="120" height="${showDerivative ? 48 : 28}" rx="12"></rect>
+        <line class="graph-legend-line-primary" x1="${width - 128}" y1="${padding + 10}" x2="${width - 106}" y2="${padding + 10}"></line>
+        <text class="graph-label" x="${width - 98}" y="${padding + 14}">Function</text>
+        ${showDerivative ? `
+          <line class="graph-legend-line-secondary" x1="${width - 128}" y1="${padding + 30}" x2="${width - 106}" y2="${padding + 30}"></line>
+          <text class="graph-label" x="${width - 98}" y="${padding + 34}">Derivative</text>
+        ` : ""}
+      `;
+    }
+  </script>
+</body>
+</html>

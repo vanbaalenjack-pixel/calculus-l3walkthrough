@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2022 Calculus Paper - Question 2(e)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 3 Calculus Walkthrough</p>
+        <h1>Question 2(e)</h1>
+        <p class="subtitle">2022 Paper - Tangent line and distance between intercepts</p>
+      </div>
+      <a class="ghost-link" href="index.html">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <p class="step-text">
+        The curve with equation \((y-5)^2=16(x-2)\) has a tangent of gradient \(1\) at point \(P\).
+      </p>
+      <div class="graph-frame question-graph-frame">
+        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Question graph of the curve y minus 5 all squared equals 16 times x minus 2 with tangent at point P"></svg>
+      </div>
+      <p class="step-text">
+        This tangent intersects the \(x\)- and \(y\)-axes at points \(R\) and \(S\) respectively.
+      </p>
+      <div class="question-math">
+        \[
+        \text{Prove that the length } RS \text{ is } 7\sqrt{2}.
+        \]
+      </div>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need when solving this problem.
+      </p>
+      <p class="step-text question-note">
+        Both implicit differentiation and rearranging to the upper branch \(y=5+4\sqrt{x-2}\) are valid methods here.
+      </p>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+      <section id="step-1" class="step-card">
+        <p class="step-number">Step 1</p>
+        <h2>Differentiate implicitly</h2>
+        <p class="step-text">Differentiate both sides of \((y-5)^2=16(x-2)\) with respect to \(x\).</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkDerivative('correct')">
+            \[
+            2(y-5)\frac{dy}{dx}=16
+            \]
+          </button>
+          <button class="option-btn" onclick="checkDerivative('wrong1')">
+            \[
+            2(y-5)=16
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-1" class="feedback"></div>
+        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-2" class="step-card hidden">
+        <p class="step-number">Step 2</p>
+        <h2>Use the gradient information</h2>
+        <p class="step-text">Rearrange for \(\frac{dy}{dx}\), then use the fact that the tangent gradient at \(P\) is \(1\).</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkGradient('correct')">
+            \[
+            \frac{dy}{dx}=\frac{8}{y-5}, \qquad 1=\frac{8}{y-5}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkGradient('wrong1')">
+            \[
+            \frac{dy}{dx}=8(y-5), \qquad 1=8(y-5)
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-2" class="feedback"></div>
+        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-3" class="step-card hidden">
+        <p class="step-number">Step 3</p>
+        <h2>Find point \(P\)</h2>
+        <p class="step-text">Solve for \(y\), then substitute back into the curve equation to find \(x\).</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkPoint('correct')">
+            \[
+            P=(6,13)
+            \]
+          </button>
+          <button class="option-btn" onclick="checkPoint('wrong1')">
+            \[
+            P=(13,6)
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-3" class="feedback"></div>
+        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-4" class="step-card hidden">
+        <p class="step-number">Step 4</p>
+        <h2>Find the tangent equation</h2>
+        <p class="step-text">Use gradient \(1\) and point \(P=(6,13)\).</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkTangent('correct')">
+            \[
+            y-13=x-6
+            \]
+          </button>
+          <button class="option-btn" onclick="checkTangent('wrong1')">
+            \[
+            y-6=x-13
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-4" class="feedback"></div>
+        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-5" class="step-card hidden">
+        <p class="step-number">Step 5</p>
+        <h2>Find the intercepts</h2>
+        <p class="step-text">Rewrite the tangent line and find where it meets each axis.</p>
+
+        <div class="math-block">
+          \[
+          y=x+7
+          \]
+          \[
+          S=(0,7)
+          \]
+          \[
+          R=(-7,0)
+          \]
+        </div>
+
+        <div id="feedback-5" class="feedback success">
+          Great. Now we can find the distance between \(R\) and \(S\).
+        </div>
+
+        <button id="next-step-5" class="nav-btn next-step-btn" type="button" onclick="showOnlyStep('step-6')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-6" class="step-card hidden">
+        <p class="step-number">Step 6</p>
+        <h2>Prove the distance</h2>
+        <p class="step-text">Use the distance formula or Pythagoras on the intercept triangle.</p>
+
+        <div class="math-block">
+          \[
+          RS=\sqrt{(0-(-7))^2+(7-0)^2}
+          \]
+          \[
+          RS=\sqrt{7^2+7^2}
+          \]
+          \[
+          RS=\sqrt{98}
+          \]
+          \[
+          RS=7\sqrt{2}
+          \]
+        </div>
+
+        <div class="graph-card">
+          <div class="graph-copy">
+            <h3>Interactive sketch</h3>
+            <p class="step-text">
+              This graph shows the curve, tangent, and intercepts so you can see the right triangle whose hypotenuse is \(RS\).
+            </p>
+            <label class="graph-toggle">
+              <input id="intercepts-toggle" type="checkbox" checked />
+              <span>Show intercept labels</span>
+            </label>
+          </div>
+
+          <div class="graph-frame">
+            <svg id="distance-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph showing the tangent line and intercepts R and S"></svg>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <a class="nav-btn secondary" href="2d2022.html">← Back to Question 2(d)</a>
+          <a class="nav-btn" href="index.html">Back to paper</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Differentiate the curve equation implicitly to get an expression for \\(\\frac{dy}{dx}\\).",
+      "Use the fact that the tangent gradient at \\(P\\) is \\(1\\) to find the coordinates of \\(P\\).",
+      "Once you have the tangent line, find its intercepts with the axes and use Pythagoras or the distance formula."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">A clean proof is:</p>
+          <div class="math-block">
+            \\[
+            2(y-5)\\frac{dy}{dx}=16 \\Rightarrow \\frac{dy}{dx}=\\frac{8}{y-5}
+            \\]
+            \\[
+            1=\\frac{8}{y-5} \\Rightarrow y=13
+            \\]
+            \\[
+            (13-5)^2=16(x-2) \\Rightarrow 64=16(x-2) \\Rightarrow x=6
+            \\]
+            \\[
+            \\text{Tangent: } y-13=x-6 \\Rightarrow y=x+7
+            \\]
+            \\[
+            R=(-7,0),\\; S=(0,7)
+            \\]
+            \\[
+            RS=\\sqrt{7^2+7^2}=7\\sqrt{2}
+            \\]
+          </div>
+          <p class="step-text">Another valid method is:</p>
+          <div class="math-block">
+            \\[
+            (y-5)^2=16(x-2)
+            \\]
+            \\[
+            y-5=4\\sqrt{x-2}
+            \\]
+            \\[
+            y=5+4\\sqrt{x-2}
+            \\]
+            \\[
+            \\frac{dy}{dx}=\\frac{2}{\\sqrt{x-2}}
+            \\]
+            \\[
+            1=\\frac{2}{\\sqrt{x-2}} \\Rightarrow \\sqrt{x-2}=2 \\Rightarrow x=6
+            \\]
+            \\[
+            y=5+4\\sqrt{4}=13
+            \\]
+          </div>
+          <p class="step-text">Both methods are valid. Implicit differentiation works directly from the original curve, while rearranging to the upper branch is also correct here because point \\(P\\) lies on the upper branch shown in the diagram.</p>
+        `,
+        nextHref: "index.html",
+        nextLabel: "Back to paper"
+      });
+      setupGraphControls();
+      drawQuestionGraph();
+      drawDistanceGraph();
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(step => step.classList.add("hidden"));
+      document.getElementById(stepId).classList.remove("hidden");
+      if (stepId === "step-6") {
+        drawDistanceGraph();
+      }
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) return;
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. Implicit differentiation gives \\(2(y-5)\\frac{dy}{dx}=16\\).", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. Because \\(y\\) depends on \\(x\\), you need to multiply by \\(\\frac{dy}{dx}\\) when differentiating \\((y-5)^2\\).");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkGradient(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Yes. Rearranging gives \\(\\frac{dy}{dx}=\\frac{8}{y-5}\\), and setting the gradient to 1 leads to \\(y-5=8\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Try again. Divide by \\(2(y-5)\\) rather than multiplying by it.");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkPoint(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. From \\(y=13\\), substitute back into the curve to get \\(x=6\\), so \\(P=(6,13)\\).", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. Once you know \\(y=13\\), use the original equation to solve for \\(x\\).");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkTangent(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Great. Point-gradient form with point \\((6,13)\\) and slope 1 gives \\(y-13=x-6\\).", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Try again. Keep the coordinates in the same order: \\((x_1,y_1)=(6,13)\\).");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+
+    function setupGraphControls() {
+      const toggle = document.getElementById("intercepts-toggle");
+      if (toggle) {
+        toggle.addEventListener("change", drawDistanceGraph);
+      }
+    }
+
+    function curveUpper(x) {
+      return 5 + 4 * Math.sqrt(x - 2);
+    }
+
+    function curveLower(x) {
+      return 5 - 4 * Math.sqrt(x - 2);
+    }
+
+    function tangentY(x) {
+      return x + 7;
+    }
+
+    function drawQuestionGraph() {
+      drawGraph("question-graph", false);
+    }
+
+    function drawDistanceGraph() {
+      drawGraph("distance-graph", true);
+    }
+
+    function drawGraph(svgId, showIntercepts) {
+      const svg = document.getElementById(svgId);
+      if (!svg) return;
+
+      const width = 420;
+      const height = 320;
+      const padding = 32;
+      const xMin = -9;
+      const xMax = 15;
+      const yMin = -6;
+      const yMax = 18;
+      const showLabels = showIntercepts ? (document.getElementById("intercepts-toggle")?.checked ?? true) : false;
+
+      function scaleX(x) {
+        return padding + ((x - xMin) / (xMax - xMin)) * (width - padding * 2);
+      }
+
+      function scaleY(y) {
+        return height - padding - ((y - yMin) / (yMax - yMin)) * (height - padding * 2);
+      }
+
+      function buildPath(fn, start, end, step) {
+        let path = "";
+        for (let x = start; x <= end; x += step) {
+          const y = fn(x);
+          const command = path ? "L" : "M";
+          path += `${command}${scaleX(x).toFixed(2)} ${scaleY(y).toFixed(2)} `;
+        }
+        return path.trim();
+      }
+
+      const upperPath = buildPath(curveUpper, 2, 14, 0.05);
+      const lowerPath = buildPath(curveLower, 2, 14, 0.05);
+      const tangentPath = buildPath(tangentY, -8, 11, 0.05);
+
+      svg.innerHTML = `
+        <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
+        <line class="graph-axis" x1="${padding}" y1="${scaleY(0)}" x2="${width - padding}" y2="${scaleY(0)}"></line>
+        <line class="graph-axis" x1="${scaleX(0)}" y1="${padding}" x2="${scaleX(0)}" y2="${height - padding}"></line>
+        <path class="question-curve" d="${upperPath}"></path>
+        <path class="question-curve" d="${lowerPath}"></path>
+        <path class="graph-normal" d="${tangentPath}"></path>
+        <circle class="graph-point" cx="${scaleX(6)}" cy="${scaleY(13)}" r="4.5"></circle>
+        <text class="graph-label" x="${scaleX(6) - 10}" y="${scaleY(13) - 10}">P</text>
+        ${showIntercepts ? `<circle class="graph-point-secondary" cx="${scaleX(-7)}" cy="${scaleY(0)}" r="4.5"></circle>` : ""}
+        ${showIntercepts ? `<circle class="graph-point-secondary" cx="${scaleX(0)}" cy="${scaleY(7)}" r="4.5"></circle>` : ""}
+        ${showLabels ? `<text class="graph-label" x="${scaleX(-7) - 18}" y="${scaleY(0) - 10}">R</text>` : ""}
+        ${showLabels ? `<text class="graph-label" x="${scaleX(0) + 8}" y="${scaleY(7) - 10}">S</text>` : ""}
+        <text class="graph-label" x="${width - 16}" y="${scaleY(0) - 8}">x</text>
+        <text class="graph-label" x="${scaleX(0) + 8}" y="${padding + 14}">y</text>
+      `;
+    }
+  </script>
+</body>
+</html>

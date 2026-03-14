@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2022 Calculus Paper - Question 2(d)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 3 Calculus Walkthrough</p>
+        <h1>Question 2(d)</h1>
+        <p class="subtitle">2022 Paper - Maximising area with product rule</p>
+      </div>
+      <a class="ghost-link" href="index.html">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <p class="step-text">
+        A rectangle has one vertex at \((0,0)\) and the opposite vertex on the curve \(y=6e^{1-0.5x}\), where \(x&gt;0\), as shown below.
+      </p>
+      <div class="graph-frame question-graph-frame">
+        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Question graph of y equals 6 e to the power of 1 minus 0.5 x with a rectangle under the curve"></svg>
+      </div>
+      <div class="question-math">
+        \[
+        \text{Find the maximum possible area of the rectangle.}
+        \]
+      </div>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need when solving this problem.
+      </p>
+      <p class="step-text question-note">
+        You do not have to prove that the area you have found is a maximum.
+      </p>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+      <section id="step-1" class="step-card">
+        <p class="step-number">Step 1</p>
+        <h2>Write an area expression</h2>
+        <p class="step-text">The rectangle has width \(x\) and height \(y\). Which expression gives its area?</p>
+
+        <div class="button-grid">
+          <button class="option-btn" onclick="checkArea('correct')">\(A=xy\)</button>
+          <button class="option-btn" onclick="checkArea('wrong1')">\(A=x+y\)</button>
+          <button class="option-btn" onclick="checkArea('wrong2')">\(A=2x+2y\)</button>
+          <button class="option-btn" onclick="checkArea('wrong3')">\(A=\frac{x}{y}\)</button>
+        </div>
+
+        <div id="feedback-1" class="feedback"></div>
+        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-2" class="step-card hidden">
+        <p class="step-number">Step 2</p>
+        <h2>Substitute the curve equation</h2>
+        <p class="step-text">Because the top-right vertex lies on the curve, we can replace \(y\) with \(6e^{1-0.5x}\).</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkSubstitution('correct')">
+            \[
+            A(x)=6xe^{1-0.5x}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkSubstitution('wrong1')">
+            \[
+            A(x)=x+6e^{1-0.5x}
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-2" class="feedback"></div>
+        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-3" class="step-card hidden">
+        <p class="step-number">Step 3</p>
+        <h2>Differentiate the area function</h2>
+        <p class="step-text">This is a product of \(6x\) and \(e^{1-0.5x}\), so use the product rule.</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkDerivative('correct')">
+            \[
+            A'(x)=6e^{1-0.5x}-3xe^{1-0.5x}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkDerivative('wrong1')">
+            \[
+            A'(x)=6e^{1-0.5x}
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-3" class="feedback"></div>
+        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-4" class="step-card hidden">
+        <p class="step-number">Step 4</p>
+        <h2>Find the critical value</h2>
+        <p class="step-text">Set the derivative equal to zero and solve for \(x\).</p>
+
+        <div class="math-block">
+          \[
+          A'(x)=e^{1-0.5x}(6-3x)
+          \]
+          \[
+          0=e^{1-0.5x}(6-3x)
+          \]
+        </div>
+
+        <div class="button-grid">
+          <button class="option-btn" onclick="checkXValue('correct')">\(x=2\)</button>
+          <button class="option-btn" onclick="checkXValue('wrong1')">\(x=6\)</button>
+          <button class="option-btn" onclick="checkXValue('wrong2')">\(x=3\)</button>
+          <button class="option-btn" onclick="checkXValue('wrong3')">\(x=1\)</button>
+        </div>
+
+        <div id="feedback-4" class="feedback"></div>
+        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-5" class="step-card hidden">
+        <p class="step-number">Step 5</p>
+        <h2>Calculate the maximum area</h2>
+        <p class="step-text">Substitute \(x=2\) into the area function.</p>
+
+        <div class="math-block">
+          \[
+          A(x)=6xe^{1-0.5x}
+          \]
+          \[
+          A(2)=6(2)e^{1-0.5(2)}
+          \]
+          \[
+          A(2)=12e^0
+          \]
+          \[
+          A(2)=12
+          \]
+        </div>
+
+        <div id="feedback-5" class="feedback success">
+          Great work. The maximum possible area is \(12\) square units.
+        </div>
+
+        <div class="graph-card">
+          <div class="graph-copy">
+            <h3>Interactive sketch</h3>
+            <p class="step-text">
+              This graph shows the curve and a rectangle whose top-right corner lies on it. The highlighted rectangle is the maximum-area case at \(x=2\).
+            </p>
+            <label class="graph-control">
+              <span>\(x\)</span>
+              <input id="rectangle-slider" type="range" min="10" max="60" value="20" />
+            </label>
+            <p id="area-readout" class="step-text graph-readout">\(A=12\)</p>
+          </div>
+
+          <div class="graph-frame">
+            <svg id="area-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of y equals 6 e to the power of 1 minus 0.5 x with a rectangle under the curve"></svg>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <a class="nav-btn secondary" href="2c2022.html">← Back to Question 2(c)</a>
+          <a class="nav-btn" href="2e2022.html">Next question →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Start with the rectangle area formula \\(A=xy\\).",
+      "Because the top-right corner lies on the curve, replace \\(y\\) using \\(y=6e^{1-0.5x}\\).",
+      "Differentiate the area function with the product rule, set the derivative equal to zero, and solve for \\(x\\)."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The maximum area occurs when \\(x=2\\):</p>
+          <div class="math-block">
+            \\[
+            A(2)=6(2)e^{1-1}=12
+            \\]
+            \\[
+            \\text{Maximum area }=12\\text{ square units}
+            \\]
+          </div>
+        `,
+        nextHref: "2e2022.html",
+        nextLabel: "Next question →"
+      });
+      setupGraphControls();
+      drawQuestionGraph();
+      drawAreaGraph();
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(step => step.classList.add("hidden"));
+      document.getElementById(stepId).classList.remove("hidden");
+      if (stepId === "step-5") {
+        drawAreaGraph();
+      }
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) return;
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkArea(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. The area of a rectangle is width times height, so \\(A=xy\\).", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Try again. For a rectangle, area is found by multiplying the side lengths.");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkSubstitution(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Yes. Substitute \\(y=6e^{1-0.5x}\\) into \\(A=xy\\) to get \\(A(x)=6xe^{1-0.5x}\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Not quite. Since the formula is for area, you still need to multiply width by height.");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Great. Product rule gives \\(6e^{1-0.5x}+6x\\cdot(-0.5)e^{1-0.5x}\\), which simplifies to \\(6e^{1-0.5x}-3xe^{1-0.5x}\\).", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Close, but you need both terms from the product rule and the chain rule factor from the exponential.");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkXValue(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Correct. The exponential factor is never zero, so solve \\(6-3x=0\\), which gives \\(x=2\\).", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Try again. Since \\(e^{1-0.5x}\\neq 0\\), the bracket \\(6-3x\\) must equal zero.");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+
+    function setupGraphControls() {
+      const slider = document.getElementById("rectangle-slider");
+      if (slider) {
+        slider.addEventListener("input", drawAreaGraph);
+      }
+    }
+
+    function curveValue(x) {
+      return 6 * Math.exp(1 - 0.5 * x);
+    }
+
+    function drawQuestionGraph() {
+      drawRectangleGraph("question-graph", 0.8, false);
+    }
+
+    function drawAreaGraph() {
+      const slider = document.getElementById("rectangle-slider");
+      const xValue = slider ? Number(slider.value) / 10 : 2;
+      drawRectangleGraph("area-graph", xValue, true);
+
+      const readout = document.getElementById("area-readout");
+      if (readout) {
+        const area = 6 * xValue * Math.exp(1 - 0.5 * xValue);
+        readout.innerHTML = `\\(A=${area.toFixed(2)}\\)`;
+        renderMath(readout);
+      }
+    }
+
+    function drawRectangleGraph(svgId, rectangleX, showReadout) {
+      const svg = document.getElementById(svgId);
+      if (!svg) return;
+
+      const width = 420;
+      const height = 320;
+      const padding = 36;
+      const xMin = -1;
+      const xMax = 10;
+      const yMin = -2;
+      const yMax = 18;
+      const rectangleY = curveValue(rectangleX);
+      const bestX = 2;
+      const bestY = curveValue(bestX);
+
+      function scaleX(x) {
+        return padding + ((x - xMin) / (xMax - xMin)) * (width - padding * 2);
+      }
+
+      function scaleY(y) {
+        return height - padding - ((y - yMin) / (yMax - yMin)) * (height - padding * 2);
+      }
+
+      let path = "";
+      for (let x = 0; x <= xMax; x += 0.05) {
+        const command = path ? "L" : "M";
+        path += `${command}${scaleX(x).toFixed(2)} ${scaleY(curveValue(x)).toFixed(2)} `;
+      }
+
+      const rectX = scaleX(0);
+      const rectY = scaleY(rectangleY);
+      const rectWidth = scaleX(rectangleX) - scaleX(0);
+      const rectHeight = scaleY(0) - scaleY(rectangleY);
+      const bestRectY = scaleY(bestY);
+      const bestRectWidth = scaleX(bestX) - scaleX(0);
+      const bestRectHeight = scaleY(0) - scaleY(bestY);
+
+      svg.innerHTML = `
+        <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
+        <line class="graph-axis" x1="${padding}" y1="${scaleY(0)}" x2="${width - padding}" y2="${scaleY(0)}"></line>
+        <line class="graph-axis" x1="${scaleX(0)}" y1="${padding}" x2="${scaleX(0)}" y2="${height - padding}"></line>
+        <path class="question-curve" d="${path.trim()}"></path>
+        <rect x="${rectX}" y="${rectY}" width="${rectWidth}" height="${rectHeight}" fill="rgba(37, 99, 235, 0.18)" stroke="rgba(37, 99, 235, 0.7)" stroke-width="1.5"></rect>
+        ${showReadout ? `<rect x="${scaleX(0)}" y="${bestRectY}" width="${bestRectWidth}" height="${bestRectHeight}" fill="rgba(15, 118, 110, 0.12)" stroke="rgba(15, 118, 110, 0.55)" stroke-width="1.5" stroke-dasharray="6 4"></rect>` : ""}
+        <circle class="graph-point" cx="${scaleX(rectangleX)}" cy="${scaleY(rectangleY)}" r="4.5"></circle>
+        ${showReadout ? `<text class="graph-label" x="${scaleX(rectangleX) + 8}" y="${scaleY(rectangleY) - 10}">(${rectangleX.toFixed(1)}, ${rectangleY.toFixed(1)})</text>` : ""}
+        <text class="graph-label" x="${width - 18}" y="${scaleY(0) - 8}">x</text>
+        <text class="graph-label" x="${scaleX(0) + 8}" y="${padding + 14}">y</text>
+      `;
+    }
+  </script>
+</body>
+</html>

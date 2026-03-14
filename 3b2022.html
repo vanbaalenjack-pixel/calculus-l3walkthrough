@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2022 Calculus Paper - Question 3(b)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 3 Calculus Walkthrough</p>
+        <h1>Question 3(b)</h1>
+        <p class="subtitle">2022 Paper - Reading differentiability and limits from a graph</p>
+      </div>
+      <a class="ghost-link" href="index.html">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <p class="step-text">
+        The graph below shows the function \(y=f(x)\).
+      </p>
+      <div class="graph-frame question-graph-frame">
+        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 340" aria-label="Graph of a piecewise function with a hole at negative four, a corner at negative one, and a horizontal section for x greater than one"></svg>
+      </div>
+      <div class="question-math">
+        \[
+        \text{(i) Find the value(s) of } x \text{ where } f(x) \text{ is not differentiable.}
+        \]
+        \[
+        \text{(ii) Find the value(s) of } x \text{ for which } f'(x)=0.
+        \]
+        \[
+        \text{(iii) What is the value of } \lim_{x\to -4} f(x)\text{?}
+        \]
+      </div>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+      <section id="step-1" class="step-card">
+        <p class="step-number">Step 1</p>
+        <h2>Where is the graph not differentiable?</h2>
+        <p class="step-text">Look for holes, sharp corners, or jumps.</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkNondiff('correct')">
+            \[
+            x=-4,\,-1,\text{ and }1
+            \]
+          </button>
+          <button class="option-btn" onclick="checkNondiff('wrong1')">
+            \[
+            x=-3,\,-1,\text{ and }1
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-1" class="feedback"></div>
+        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-2" class="step-card hidden">
+        <p class="step-number">Step 2</p>
+        <h2>Where is the derivative zero?</h2>
+        <p class="step-text">The derivative is zero where the graph has a horizontal tangent or is flat.</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkDerivativeZero('correct')">
+            \[
+            x=-3 \text{ and all } x&gt;1
+            \]
+          </button>
+          <button class="option-btn" onclick="checkDerivativeZero('wrong1')">
+            \[
+            x=-3 \text{ and } x=1
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-2" class="feedback"></div>
+        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-3" class="step-card hidden">
+        <p class="step-number">Step 3</p>
+        <h2>Find the limit at \(x=-4\)</h2>
+        <p class="step-text">Even though the point is missing, follow the graph from both sides.</p>
+
+        <div class="button-grid">
+          <button class="option-btn" onclick="checkLimit('correct')">\(3\)</button>
+          <button class="option-btn" onclick="checkLimit('wrong1')">\(4\)</button>
+          <button class="option-btn" onclick="checkLimit('wrong2')">\(0\)</button>
+          <button class="option-btn" onclick="checkLimit('wrong3')">Does not exist</button>
+        </div>
+
+        <div id="feedback-3" class="feedback"></div>
+        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-4" class="step-card hidden">
+        <p class="step-number">Step 4</p>
+        <h2>Final answers</h2>
+        <div class="math-block">
+          \[
+          \text{(i) } f(x)\text{ is not differentiable at } x=-4,\,-1,\text{ and }1
+          \]
+          \[
+          \text{(ii) } f'(x)=0 \text{ when } x=-3 \text{ and for all } x&gt;1
+          \]
+          \[
+          \text{(iii) } \lim_{x\to -4} f(x)=3
+          \]
+        </div>
+
+        <p class="step-text">
+          At \(x=-4\) there is a hole, so the function is not defined there. At \(x=-1\) and \(x=1\) there are sharp corners, so the derivative does not exist. The graph is flat at the turning point \(x=-3\) and on the horizontal ray for \(x&gt;1\).
+        </p>
+
+        <div class="nav-row">
+          <a class="nav-btn secondary" href="3a2022.html">← Back to Question 3(a)</a>
+          <a class="nav-btn" href="3c2022.html">Next question →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Non-differentiable points often appear where the graph has a hole or a sharp corner.",
+      "A derivative of zero means the graph is horizontal, either at a turning point or along a flat section.",
+      "For the limit at \\(x=-4\\), look at the \\(y\\)-value the graph approaches from both sides, not whether the point is filled in."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The answers are:</p>
+          <div class="math-block">
+            \\[
+            \\text{(i) } x=-4,\\,-1,\\,1
+            \\]
+            \\[
+            \\text{(ii) } x=-3 \\text{ and all } x>1
+            \\]
+            \\[
+            \\text{(iii) } \\lim_{x\\to -4}f(x)=3
+            \\]
+          </div>
+        `,
+        nextHref: "3c2022.html",
+        nextLabel: "Next question →"
+      });
+      drawQuestionGraph();
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(step => step.classList.add("hidden"));
+      document.getElementById(stepId).classList.remove("hidden");
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) return;
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkNondiff(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. There is a hole at \\(x=-4\\), a corner at \\(x=-1\\), and another corner where the sloping segment meets the horizontal ray at \\(x=1\\).", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. The point \\(x=-3\\) is a smooth turning point, so it is differentiable there.");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkDerivativeZero(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Yes. The parabola has a horizontal tangent at \\(x=-3\\), and the function is flat for every \\(x>1\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Close, but \\(x=1\\) is a corner, so the derivative does not exist there even though the graph becomes horizontal afterwards.");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkLimit(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. The graph approaches \\(y=3\\) from both sides of \\(x=-4\\), so the limit exists and equals 3.", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. A missing point does not stop the limit from existing if both sides approach the same \\(y\\)-value.");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function drawQuestionGraph() {
+      const svg = document.getElementById("question-graph");
+      if (!svg) return;
+
+      const width = 420;
+      const height = 340;
+      const padding = 28;
+      const xMin = -6.5;
+      const xMax = 4.5;
+      const yMin = -5.8;
+      const yMax = 5.6;
+
+      function scaleX(x) {
+        return padding + ((x - xMin) / (xMax - xMin)) * (width - padding * 2);
+      }
+
+      function scaleY(y) {
+        return height - padding - ((y - yMin) / (yMax - yMin)) * (height - padding * 2);
+      }
+
+      function parabola(x) {
+        return -(x + 3) * (x + 3) + 4;
+      }
+
+      let parabolaPath = "";
+      for (let x = -6.2; x <= -1; x += 0.05) {
+        const command = parabolaPath ? "L" : "M";
+        parabolaPath += `${command}${scaleX(x).toFixed(2)} ${scaleY(parabola(x)).toFixed(2)} `;
+      }
+
+      const lineSegment = `M${scaleX(-1)} ${scaleY(0)} L${scaleX(1)} ${scaleY(3)}`;
+      const horizontalRay = `M${scaleX(1)} ${scaleY(3)} L${scaleX(4)} ${scaleY(3)}`;
+
+      const xTicks = [-6, -5, -4, -3, -2, -1, 1, 2, 3, 4].map((value) => `
+        <line class="graph-axis" x1="${scaleX(value)}" y1="${scaleY(0) - 5}" x2="${scaleX(value)}" y2="${scaleY(0) + 5}"></line>
+        <text class="graph-label" x="${scaleX(value) - 6}" y="${scaleY(0) + 18}">${value}</text>
+      `).join("");
+
+      const yTicks = [-5, -4, -3, -2, -1, 1, 2, 3, 4, 5].map((value) => `
+        <line class="graph-axis" x1="${scaleX(0) - 5}" y1="${scaleY(value)}" x2="${scaleX(0) + 5}" y2="${scaleY(value)}"></line>
+        <text class="graph-label" x="${scaleX(0) - 18}" y="${scaleY(value) + 4}">${value}</text>
+      `).join("");
+
+      svg.innerHTML = `
+        <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
+        <line class="graph-axis" x1="${padding}" y1="${scaleY(0)}" x2="${width - padding}" y2="${scaleY(0)}"></line>
+        <line class="graph-axis" x1="${scaleX(0)}" y1="${padding}" x2="${scaleX(0)}" y2="${height - padding}"></line>
+        <path class="question-curve" d="${parabolaPath.trim()}"></path>
+        <path class="question-curve" d="${lineSegment}"></path>
+        <path class="question-curve" d="${horizontalRay}"></path>
+        <polygon class="question-dot" points="${width - padding},${scaleY(3)} ${width - padding - 8},${scaleY(3) - 5} ${width - padding - 8},${scaleY(3) + 5}"></polygon>
+        <polygon class="question-dot" points="${padding},${scaleY(parabola(-6.2))} ${padding + 6},${scaleY(parabola(-6.2)) - 10} ${padding + 10},${scaleY(parabola(-6.2)) - 1}"></polygon>
+        <circle cx="${scaleX(-4)}" cy="${scaleY(3)}" r="4.5" fill="#ffffff" stroke="#111827" stroke-width="2"></circle>
+        ${xTicks}
+        ${yTicks}
+        <text class="graph-label" x="${width - padding + 4}" y="${scaleY(0) + 18}">x</text>
+        <text class="graph-label" x="${scaleX(0) - 4}" y="${padding - 6}">y</text>
+      `;
+    }
+  </script>
+</body>
+</html>

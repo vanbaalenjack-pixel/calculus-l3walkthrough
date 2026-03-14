@@ -254,7 +254,6 @@
       const steps = document.querySelectorAll(".step-card");
       steps.forEach(step => step.classList.add("hidden"));
       document.getElementById(stepId).classList.remove("hidden");
-      window.scrollTo({ top: 0, behavior: "smooth" });
       if (stepId === "step-6") {
         drawGraph();
       }

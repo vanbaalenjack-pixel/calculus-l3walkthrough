@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2022 Calculus Paper - Question 3(c)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 3 Calculus Walkthrough</p>
+        <h1>Question 3(c)</h1>
+        <p class="subtitle">2022 Paper - Related rates for a bowl of water</p>
+      </div>
+      <a class="ghost-link" href="index.html">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <div class="graph-frame question-graph-frame">
+        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 300" aria-label="Cross-section of a bowl containing water"></svg>
+      </div>
+      <p class="step-text">
+        When the height of the water level in the bowl is \(h\) cm, the volume, \(V\) cm\(^3\), of water in the bowl is given by
+      </p>
+      <div class="question-math">
+        \[
+        V=\pi\left(\frac{3}{2}h^2+3h\right).
+        \]
+      </div>
+      <p class="step-text">
+        Water is poured into the bowl at a constant rate of \(20\text{ cm}^3\text{ s}^{-1}\).
+      </p>
+      <div class="question-math">
+        \[
+        \text{Find the rate, in cm s}^{-1}\text{, at which the height of the water level is increasing when } h=3\text{ cm.}
+        \]
+      </div>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need when solving this problem.
+      </p>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+      <section id="step-1" class="step-card">
+        <p class="step-number">Step 1</p>
+        <h2>Identify the given rate</h2>
+        <p class="step-text">Which derivative is given directly in the question?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkGivenRate('correct')">
+            \[
+            \frac{dV}{dt}=20
+            \]
+          </button>
+          <button class="option-btn" onclick="checkGivenRate('wrong1')">
+            \[
+            \frac{dh}{dt}=20
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-1" class="feedback"></div>
+        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-2" class="step-card hidden">
+        <p class="step-number">Step 2</p>
+        <h2>Differentiate the volume formula</h2>
+        <p class="step-text">Find \(\frac{dV}{dh}\) from the given expression for \(V\).</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkVolumeDerivative('correct')">
+            \[
+            \frac{dV}{dh}=3\pi h+3\pi
+            \]
+          </button>
+          <button class="option-btn" onclick="checkVolumeDerivative('wrong1')">
+            \[
+            \frac{dV}{dh}=\pi(3h+1)
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-2" class="feedback"></div>
+        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-3" class="step-card hidden">
+        <p class="step-number">Step 3</p>
+        <h2>Link the rates</h2>
+        <p class="step-text">Use the chain rule for related rates.</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkRateLink('correct')">
+            \[
+            \frac{dV}{dt}=\frac{dV}{dh}\cdot\frac{dh}{dt}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkRateLink('wrong1')">
+            \[
+            \frac{dh}{dt}=\frac{dV}{dt}\cdot\frac{dV}{dh}
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-3" class="feedback"></div>
+        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-4" class="step-card hidden">
+        <p class="step-number">Step 4</p>
+        <h2>Solve for \(\frac{dh}{dt}\)</h2>
+        <p class="step-text">Rearrange and then substitute \(h=3\).</p>
+
+        <div class="math-block">
+          \[
+          20=(3\pi h+3\pi)\frac{dh}{dt}
+          \]
+          \[
+          \frac{dh}{dt}=\frac{20}{3\pi h+3\pi}
+          \]
+          \[
+          \frac{dh}{dt}=\frac{20}{3\pi(3)+3\pi}
+          \]
+          \[
+          \frac{dh}{dt}=\frac{20}{12\pi}
+          \]
+          \[
+          \frac{dh}{dt}=\frac{5}{3\pi}
+          \]
+        </div>
+
+        <div id="feedback-4" class="feedback success">
+          Great work. The height of the water is increasing at \(\frac{5}{3\pi}\text{ cm s}^{-1}\).
+        </div>
+
+        <div class="nav-row">
+          <a class="nav-btn secondary" href="3b2022.html">← Back to Question 3(b)</a>
+          <a class="nav-btn" href="3d2022.html">Next question →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "The pouring rate gives you \\(\\frac{dV}{dt}\\), not \\(\\frac{dh}{dt}\\).",
+      "Differentiate the volume formula with respect to \\(h\\) first to get \\(\\frac{dV}{dh}\\).",
+      "Use \\(\\frac{dV}{dt}=\\frac{dV}{dh}\\cdot\\frac{dh}{dt}\\), then substitute \\(h=3\\)."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The required rate is:</p>
+          <div class="math-block">
+            \\[
+            V=\\pi\\left(\\frac{3}{2}h^2+3h\\right)
+            \\]
+            \\[
+            \\frac{dV}{dh}=3\\pi h+3\\pi
+            \\]
+            \\[
+            20=(3\\pi h+3\\pi)\\frac{dh}{dt}
+            \\]
+            \\[
+            \\frac{dh}{dt}=\\frac{20}{12\\pi}=\\frac{5}{3\\pi}\\text{ cm s}^{-1}
+            \\]
+          </div>
+        `,
+        nextHref: "3d2022.html",
+        nextLabel: "Next question →"
+      });
+      drawQuestionGraph();
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(step => step.classList.add("hidden"));
+      document.getElementById(stepId).classList.remove("hidden");
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) return;
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkGivenRate(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. The question gives the rate at which volume changes: \\(\\frac{dV}{dt}=20\\).", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. We are trying to find \\(\\frac{dh}{dt}\\), so that cannot be the given rate.");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkVolumeDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Yes. Differentiate term by term: \\(\\pi\\cdot \\frac{d}{dh}(\\frac{3}{2}h^2+3h)=3\\pi h+3\\pi\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Close, but the derivative of \\(3h\\) is 3, not 1.");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkRateLink(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. This is the chain rule relationship that links the changing volume to the changing height.", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. Start from \\(V\\) depending on \\(h\\), and \\(h\\) depending on \\(t\\).");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function drawQuestionGraph() {
+      const svg = document.getElementById("question-graph");
+      if (!svg) return;
+
+      svg.innerHTML = `
+        <rect class="graph-bg" x="0" y="0" width="420" height="300"></rect>
+        <path class="question-curve" d="M120 40 L155 220 L265 220 L300 40"></path>
+        <path d="M140 150 L280 150 L265 220 L155 220 Z" fill="rgba(107, 114, 128, 0.16)"></path>
+      `;
+    }
+  </script>
+</body>
+</html>

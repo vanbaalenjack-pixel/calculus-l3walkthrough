@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2022 Calculus Paper - Question 3(a)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 3 Calculus Walkthrough</p>
+        <h1>Question 3(a)</h1>
+        <p class="subtitle">2022 Paper - Exponential chain rule</p>
+      </div>
+      <a class="ghost-link" href="index.html">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <div class="question-math">
+        \[
+        \text{Differentiate } y=e^{4\sqrt{x}}.
+        \]
+      </div>
+      <p class="step-text question-note">
+        You do not need to simplify your answer.
+      </p>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+      <section id="step-1" class="step-card">
+        <p class="step-number">Step 1</p>
+        <h2>Rewrite the radical as a power</h2>
+        <p class="step-text">This makes the inside function easier to differentiate.</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkRewrite('correct')">
+            \[
+            y=e^{4x^{1/2}}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkRewrite('wrong1')">
+            \[
+            y=e^{4x^2}
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-1" class="feedback"></div>
+        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-2" class="step-card hidden">
+        <p class="step-number">Step 2</p>
+        <h2>Use the chain rule</h2>
+        <p class="step-text">Differentiate the exponential, then multiply by the derivative of the exponent.</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkDerivative('correct')">
+            \[
+            \frac{dy}{dx}=e^{4\sqrt{x}}\cdot \frac{2}{\sqrt{x}}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkDerivative('wrong1')">
+            \[
+            \frac{dy}{dx}=4e^{4\sqrt{x}}
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-2" class="feedback"></div>
+        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-3" class="step-card hidden">
+        <p class="step-number">Step 3</p>
+        <h2>Final answer</h2>
+        <p class="step-text">A correct derivative is:</p>
+
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}=e^{4\sqrt{x}}\cdot \frac{2}{\sqrt{x}}
+          \]
+        </div>
+
+        <p class="step-text question-note">
+          This could also be written as \(\frac{2e^{4\sqrt{x}}}{\sqrt{x}}\), but simplification is optional here.
+        </p>
+
+        <div class="nav-row">
+          <a class="nav-btn secondary" href="index.html">← Back to paper</a>
+          <a class="nav-btn" href="3b2022.html">Next question →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Rewrite \\(\\sqrt{x}\\) as \\(x^{1/2}\\) before differentiating.",
+      "Treat the exponent \\(4\\sqrt{x}\\) as the inside function in the chain rule.",
+      "Differentiate \\(e^u\\) as \\(e^u\\), then multiply by the derivative of \\(u\\)."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The derivative is:</p>
+          <div class="math-block">
+            \\[
+            \\frac{dy}{dx}=e^{4\\sqrt{x}}\\cdot \\frac{2}{\\sqrt{x}}
+            \\]
+          </div>
+        `,
+        nextHref: "3b2022.html",
+        nextLabel: "Next question →"
+      });
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(step => step.classList.add("hidden"));
+      document.getElementById(stepId).classList.remove("hidden");
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) return;
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkRewrite(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. Rewriting the square root as \\(x^{1/2}\\) makes the exponent easier to differentiate.", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. Remember that \\(\\sqrt{x}=x^{1/2}\\), not \\(x^2\\).");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Great. The derivative of the exponent \\(4x^{1/2}\\) is \\(2x^{-1/2}=\\frac{2}{\\sqrt{x}}\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Close, but the chain rule means you also need the derivative of the exponent.");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+  </script>
+</body>
+</html>
