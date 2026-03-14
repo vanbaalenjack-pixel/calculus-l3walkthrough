@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025 Level 2 Calculus Paper — Question 1(a)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1>Question 1(a)</h1>
+        <p class="subtitle">2025 Paper — Differentiate and evaluate the gradient</p>
+      </div>
+      <a class="ghost-link" href="index.html#level-2-2025">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <div class="question-math">
+        \[
+        f(x)=2x^3-3x^2+\frac{x}{2}+7
+        \]
+        \[
+        \text{Use calculus to find the gradient of the function at } x=-\frac{1}{2}.
+        \]
+      </div>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+      <section id="step-1" class="step-card active">
+        <p class="step-number">Step 1</p>
+        <h2>Choose the right method</h2>
+        <p class="step-text">What is the best way to start differentiating this function?</p>
+
+        <div class="button-grid">
+          <button class="option-btn" onclick="checkMethod('correct')">Use the power rule term by term</button>
+          <button class="option-btn" onclick="checkMethod('wrong1')">Use the product rule</button>
+          <button class="option-btn" onclick="checkMethod('wrong2')">Use the quotient rule</button>
+          <button class="option-btn" onclick="checkMethod('wrong3')">Integrate first</button>
+        </div>
+
+        <div id="feedback-1" class="feedback"></div>
+        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-2" class="step-card hidden">
+        <p class="step-number">Step 2</p>
+        <h2>Differentiate the cubic term</h2>
+        <p class="step-text">What is the derivative of \(2x^3\)?</p>
+
+        <div class="button-grid">
+          <button class="option-btn" onclick="checkCubic('correct')">\(6x^2\)</button>
+          <button class="option-btn" onclick="checkCubic('wrong1')">\(2x^2\)</button>
+          <button class="option-btn" onclick="checkCubic('wrong2')">\(6x\)</button>
+          <button class="option-btn" onclick="checkCubic('wrong3')">\(3x^2\)</button>
+        </div>
+
+        <div id="feedback-2" class="feedback"></div>
+        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-3" class="step-card hidden">
+        <p class="step-number">Step 3</p>
+        <h2>Differentiate the rest of the function</h2>
+        <p class="step-text">What is the derivative of \(-3x^2+\frac{x}{2}+7\)?</p>
+
+        <div class="button-grid">
+          <button class="option-btn" onclick="checkRemaining('correct')">\(-6x+\frac{1}{2}\)</button>
+          <button class="option-btn" onclick="checkRemaining('wrong1')">\(-6x+\frac{x}{2}\)</button>
+          <button class="option-btn" onclick="checkRemaining('wrong2')">\(-3x+1\)</button>
+          <button class="option-btn" onclick="checkRemaining('wrong3')">\(-6x+\frac{1}{2}+7\)</button>
+        </div>
+
+        <div id="feedback-3" class="feedback"></div>
+        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-4" class="step-card hidden">
+        <p class="step-number">Step 4</p>
+        <h2>Write the full derivative</h2>
+        <p class="step-text">Putting the terms together, which expression is \(f'(x)\)?</p>
+
+        <div class="button-grid">
+          <button class="option-btn" onclick="checkDerivative('correct')">\(f'(x)=6x^2-6x+\frac{1}{2}\)</button>
+          <button class="option-btn" onclick="checkDerivative('wrong1')">\(f'(x)=6x^2-3x+\frac{1}{2}\)</button>
+          <button class="option-btn" onclick="checkDerivative('wrong2')">\(f'(x)=6x^2-6x+\frac{x}{2}\)</button>
+          <button class="option-btn" onclick="checkDerivative('wrong3')">\(f'(x)=2x^3-6x+\frac{1}{2}\)</button>
+        </div>
+
+        <div id="feedback-4" class="feedback"></div>
+        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-5" class="step-card hidden">
+        <p class="step-number">Step 5</p>
+        <h2>Substitute the given x-value</h2>
+        <p class="step-text">Which substitution correctly finds the gradient at \(x=-\frac{1}{2}\)?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkSubstitution('correct')">
+            \[
+            f'\left(-\frac{1}{2}\right)=6\left(-\frac{1}{2}\right)^2-6\left(-\frac{1}{2}\right)+\frac{1}{2}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkSubstitution('wrong1')">
+            \[
+            f\left(-\frac{1}{2}\right)=2\left(-\frac{1}{2}\right)^3-3\left(-\frac{1}{2}\right)^2+\frac{-1/2}{2}+7
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-5" class="feedback"></div>
+        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-6" class="step-card hidden">
+        <p class="step-number">Step 6</p>
+        <h2>Final answer</h2>
+        <p class="step-text">Now simplify the substitution carefully.</p>
+
+        <div class="math-block">
+          \[
+          f'(x)=6x^2-6x+\frac{1}{2}
+          \]
+          \[
+          f'\left(-\frac{1}{2}\right)=6\left(\frac{1}{4}\right)-6\left(-\frac{1}{2}\right)+\frac{1}{2}
+          \]
+          \[
+          =\frac{6}{4}+3+\frac{1}{2}
+          \]
+          \[
+          =\frac{3}{2}+3+\frac{1}{2}=5
+          \]
+        </div>
+
+        <div id="feedback-6" class="feedback success">
+          Great work. The gradient at \(x=-\frac{1}{2}\) is \(5\).
+        </div>
+
+        <div class="nav-row">
+          <a class="nav-btn secondary" href="index.html#level-2-2025">← Back to paper</a>
+          <a class="nav-btn" href="1b2025-l2.html">Next question →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Differentiate each term separately using the power rule, and remember the derivative of a constant is 0.",
+      "The derivative of \\(2x^3\\) is \\(6x^2\\), the derivative of \\(-3x^2\\) is \\(-6x\\), and the derivative of \\(\\frac{x}{2}\\) is \\(\\frac{1}{2}\\).",
+      "Once you have \\(f'(x)\\), substitute \\(x=-\\frac{1}{2}\\) into the derivative, not into the original function."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The derivative is:</p>
+          <div class="math-block">
+            \\[
+            f'(x)=6x^2-6x+\\frac{1}{2}
+            \\]
+          </div>
+          <p class="step-text">Now evaluate it at \\(x=-\\frac{1}{2}\\):</p>
+          <div class="math-block">
+            \\[
+            f'\\left(-\\frac{1}{2}\\right)=5
+            \\]
+          </div>
+        `,
+        nextHref: "1b2025-l2.html",
+        nextLabel: "Next question →"
+      });
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(function (step) {
+        step.classList.add("hidden");
+      });
+      document.getElementById(stepId).classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) {
+        return;
+      }
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkMethod(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. This is a polynomial, so differentiating term by term with the power rule is the cleanest start.", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. There is no product or quotient of functions here, just separate polynomial terms.");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkCubic(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Correct. Multiply the power by the coefficient: \\(3 \\times 2=6\\), then reduce the power by 1.", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Try again. For \\(2x^3\\), bring the 3 down and reduce the power to 2.");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkRemaining(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. \\(-3x^2\\) becomes \\(-6x\\), \\(\\frac{x}{2}\\) becomes \\(\\frac{1}{2}\\), and the constant \\(7\\) disappears.", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. Remember \\(\\frac{x}{2}=\\frac{1}{2}x\\), so its derivative is \\(\\frac{1}{2}\\), and the derivative of 7 is 0.");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Correct. Combining the differentiated terms gives \\(f'(x)=6x^2-6x+\\frac{1}{2}\\).", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Check each term one more time and then combine them carefully.");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+
+    function checkSubstitution(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-5", "Correct. To find the gradient, substitute into the derivative \\(f'(x)\\), not the original function \\(f(x)\\).", true);
+        toggleNextStepButton("next-step-5", true);
+      } else {
+        setFeedback("feedback-5", "Close, but that substitutes into the original function. The question asks for the gradient, so we need \\(f'\\left(-\\frac{1}{2}\\right)\\).");
+        toggleNextStepButton("next-step-5", false);
+      }
+    }
+  </script>
+</body>
+</html>

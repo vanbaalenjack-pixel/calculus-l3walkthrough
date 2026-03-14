@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025 Level 2 Calculus Paper — Question 2(b)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1>Question 2(b)</h1>
+        <p class="subtitle">2025 Paper — Find the original function from \(f'(x)\)</p>
+      </div>
+      <a class="ghost-link" href="index.html#level-2-2025">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <div class="question-math">
+        \[
+        f'(x)=2x^3-6x^2+2x+4
+        \]
+        \[
+        \text{The graph of }f(x)\text{ passes through }(2,5).
+        \]
+        \[
+        \text{Find the equation of }f.
+        \]
+      </div>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <p class="step-text question-note">
+        Antidifferentiate first, then use the point \((2,5)\) to work out the constant.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+      <section id="step-1" class="step-card active">
+        <p class="step-number">Step 1</p>
+        <h2>Antidifferentiate term by term</h2>
+        <p class="step-text">Which antiderivative matches \(f'(x)=2x^3-6x^2+2x+4\)?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkAntiderivative('correct')">
+            \[
+            f(x)=\frac{1}{2}x^4-2x^3+x^2+4x+c
+            \]
+          </button>
+          <button class="option-btn" onclick="checkAntiderivative('wrong1')">
+            \[
+            f(x)=2x^4-6x^3+2x^2+4x+c
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-1" class="feedback"></div>
+        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-2" class="step-card hidden">
+        <p class="step-number">Step 2</p>
+        <h2>Use the point \((2,5)\)</h2>
+        <p class="step-text">Since the graph passes through \((2,5)\), what equation should we set up?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkSubstitution('correct')">
+            \[
+            \frac{1}{2}(2)^4-2(2)^3+(2)^2+4(2)+c=5
+            \]
+          </button>
+          <button class="option-btn" onclick="checkSubstitution('wrong1')">
+            \[
+            \frac{1}{2}(5)^4-2(5)^3+(5)^2+4(5)+c=2
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-2" class="feedback"></div>
+        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-3" class="step-card hidden">
+        <p class="step-number">Step 3</p>
+        <h2>Simplify the numbers</h2>
+        <p class="step-text">What does the substitution simplify to?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkSimplification('correct')">
+            \[
+            4+c=5
+            \]
+          </button>
+          <button class="option-btn" onclick="checkSimplification('wrong1')">
+            \[
+            -4+c=5
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-3" class="feedback"></div>
+        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-4" class="step-card hidden">
+        <p class="step-number">Step 4</p>
+        <h2>Find the constant</h2>
+        <p class="step-text">Solve the equation for \(c\).</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkConstant('correct')">
+            \[
+            c=1
+            \]
+          </button>
+          <button class="option-btn" onclick="checkConstant('wrong1')">
+            \[
+            c=-1
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-4" class="feedback"></div>
+        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-5" class="step-card hidden">
+        <p class="step-number">Step 5</p>
+        <h2>Final answer</h2>
+        <p class="step-text">Now write the full equation of \(f\).</p>
+
+        <div class="math-block">
+          \[
+          f(x)=\frac{1}{2}x^4-2x^3+x^2+4x+c
+          \]
+          \[
+          f(2)=\frac{1}{2}(16)-2(8)+4+8+c=5
+          \]
+          \[
+          8-16+4+8+c=5
+          \]
+          \[
+          4+c=5
+          \]
+          \[
+          c=1
+          \]
+          \[
+          f(x)=\frac{1}{2}x^4-2x^3+x^2+4x+1
+          \]
+        </div>
+
+        <div id="feedback-5" class="feedback success">
+          Great work. The function is \(f(x)=\frac{1}{2}x^4-2x^3+x^2+4x+1\).
+        </div>
+
+        <div class="nav-row">
+          <a class="nav-btn secondary" href="2a2025-l2.html">← Back to Question 2(a)</a>
+          <a class="nav-btn" href="2c2025-l2.html">Next question →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Antidifferentiate each term in \\(f'(x)\\) separately and remember to add \\(+c\\).",
+      "The point \\((2,5)\\) means that when \\(x=2\\), the function value \\(f(2)\\) must be 5.",
+      "After substituting \\(x=2\\), simplify the numbers first, then solve for \\(c\\)."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The function is:</p>
+          <div class="math-block">
+            \\[
+            f(x)=\\frac{1}{2}x^4-2x^3+x^2+4x+1
+            \\]
+          </div>
+        `,
+        nextHref: "2c2025-l2.html",
+        nextLabel: "Next question →"
+      });
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(function (step) {
+        step.classList.add("hidden");
+      });
+      document.getElementById(stepId).classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) {
+        return;
+      }
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkAntiderivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. Integrating term by term gives \\(\\frac{1}{2}x^4-2x^3+x^2+4x+c\\).", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. When antidifferentiating, increase each power by 1 and divide by the new power.");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkSubstitution(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Correct. The point \\((2,5)\\) means substitute \\(x=2\\) and set the result equal to 5.", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Try again. The x-value is 2 and the y-value is 5, so we need \\(f(2)=5\\).");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkSimplification(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. \\(\\frac{1}{2}(16)-2(8)+4+8=8-16+4+8=4\\), so the equation is \\(4+c=5\\).", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. Work through the numbers carefully: \\(8-16+4+8\\) simplifies to 4.");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkConstant(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Correct. From \\(4+c=5\\), subtract 4 to get \\(c=1\\).", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Close, but \\(4+c=5\\) gives \\(c=1\\), not \\(-1\\).");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+  </script>
+</body>
+</html>

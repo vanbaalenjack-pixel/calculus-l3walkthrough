@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025 Level 2 Calculus Paper — Question 2(c)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1>Question 2(c)</h1>
+        <p class="subtitle">2025 Paper — Rates of change and justifying when coffee was given</p>
+      </div>
+      <a class="ghost-link" href="index.html#level-2-2025">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <div class="question-math">
+        \[
+        C(t)=\frac{t^3}{150}-1.4t^2+80t+240
+        \qquad
+        \{0 \le t \le 180\}
+        \]
+        \[
+        \text{(i) Show that the rate of change of concentration is }-16\text{ after }60\text{ minutes.}
+        \]
+        \[
+        \text{(ii) Use calculus to justify when Hemi was given the coffee.}
+        \]
+      </div>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <p class="step-text question-note">
+        Differentiate first, evaluate the derivative at 60 for part (i), then use first and second derivatives together to identify the minimum turning point for part (ii).
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+      <section id="step-1" class="step-card active">
+        <p class="step-number">Step 1</p>
+        <h2>Differentiate \(C(t)\)</h2>
+        <p class="step-text">What is the rate-of-change function \(C'(t)\)?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkDerivative('correct')">
+            \[
+            C'(t)=\frac{t^2}{50}-2.8t+80
+            \]
+          </button>
+          <button class="option-btn" onclick="checkDerivative('wrong1')">
+            \[
+            C'(t)=\frac{t^2}{150}-1.4t+80
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-1" class="feedback"></div>
+        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-2" class="step-card hidden">
+        <p class="step-number">Step 2</p>
+        <h2>Evaluate the rate at 60 minutes</h2>
+        <p class="step-text">Substitute \(t=60\) into the derivative.</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkRateAt60('correct')">
+            \[
+            C'(60)=-16
+            \]
+          </button>
+          <button class="option-btn" onclick="checkRateAt60('wrong1')">
+            \[
+            C'(60)=16
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-2" class="feedback"></div>
+        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-3" class="step-card hidden">
+        <p class="step-number">Step 3</p>
+        <h2>Find the stationary times</h2>
+        <p class="step-text">For part (ii), set \(C'(t)=0\). Which times do you get?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkStationaryTimes('correct')">
+            \[
+            t=40 \text{ and } t=100
+            \]
+          </button>
+          <button class="option-btn" onclick="checkStationaryTimes('wrong1')">
+            \[
+            t=60 \text{ and } t=120
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-3" class="feedback"></div>
+        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-4" class="step-card hidden">
+        <p class="step-number">Step 4</p>
+        <h2>Use the second derivative test</h2>
+        <p class="step-text">What is the second derivative, and which stationary time is the minimum turning point?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkSecondDerivative('correct')">
+            \[
+            C''(t)=\frac{t}{25}-2.8,\quad t=100 \text{ is the minimum}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkSecondDerivative('wrong1')">
+            \[
+            C''(t)=\frac{t}{25}-2.8,\quad t=40 \text{ is the minimum}
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-4" class="feedback"></div>
+        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-5" class="step-card hidden">
+        <p class="step-number">Step 5</p>
+        <h2>Answer in context</h2>
+        <p class="step-text">If caffeine starts increasing immediately after Hemi drinks the coffee, when must he have been given it?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkCoffeeTime('correct')">
+            \[
+            100 \text{ minutes}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkCoffeeTime('wrong1')">
+            \[
+            40 \text{ minutes}
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-5" class="feedback"></div>
+        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-6" class="step-card hidden">
+        <p class="step-number">Step 6</p>
+        <h2>Final answers</h2>
+        <p class="step-text">Now write both parts clearly.</p>
+
+        <div class="math-block">
+          \[
+          C'(t)=\frac{t^2}{50}-2.8t+80
+          \]
+          \[
+          C'(60)=\frac{60^2}{50}-2.8(60)+80=72-168+80=-16
+          \]
+          \[
+          C'(t)=0 \Rightarrow \frac{t^2}{50}-2.8t+80=0
+          \]
+          \[
+          t^2-140t+4000=0
+          \]
+          \[
+          (t-40)(t-100)=0
+          \]
+          \[
+          C''(t)=\frac{t}{25}-2.8
+          \]
+          \[
+          C''(40)=-1.2 \text{ and } C''(100)=1.2
+          \]
+          \[
+          \text{So the minimum turning point is at } t=100
+          \]
+          \[
+          \text{Hemi was given the coffee at }100\text{ minutes.}
+          \]
+        </div>
+
+        <div id="feedback-6" class="feedback success">
+          Great work. The rate at 60 minutes is \(-16\), and the calculus model shows the coffee was given at 100 minutes.
+        </div>
+
+        <div class="nav-row">
+          <a class="nav-btn secondary" href="2b2025-l2.html">← Back to Question 2(b)</a>
+          <a class="nav-btn" href="2d2025-l2.html">Next question →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Differentiate \(C(t)\) first, then substitute \(t=60\) for part (i).",
+      "For part (ii), find where \(C'(t)=0\) to locate the turning points.",
+      "Use the second derivative test to decide which turning point is the minimum, because the coffee time should match when the concentration starts increasing."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The two main results are:</p>
+          <div class="math-block">
+            \\[
+            C'(60)=-16
+            \\]
+            \\[
+            \\text{Coffee was given at }t=100\\text{ minutes}
+            \\]
+          </div>
+        `,
+        nextHref: "2d2025-l2.html",
+        nextLabel: "Next question →"
+      });
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(function (step) {
+        step.classList.add("hidden");
+      });
+      document.getElementById(stepId).classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) {
+        return;
+      }
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. Differentiate term by term to get \\(C'(t)=\\frac{t^2}{50}-2.8t+80\\).", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. The derivative of \\(\\frac{t^3}{150}\\) is \\(\\frac{3t^2}{150}=\\frac{t^2}{50}\\), and the derivative of \\(-1.4t^2\\) is \\(-2.8t\\).");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkRateAt60(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Correct. \\(C'(60)=72-168+80=-16\\), so the rate of change is \\(-16\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Close, but the negative sign matters here. The concentration is decreasing at 60 minutes.");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkStationaryTimes(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. Solving \\(C'(t)=0\\) gives \\(t=40\\) and \\(t=100\\).", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. Solve the quadratic \\(t^2-140t+4000=0\\) after multiplying the derivative equation by 50.");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkSecondDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Correct. Since \\(C''(100)=1.2>0\\), the turning point at 100 minutes is a local minimum. At 40 minutes, \\(C''(40)=-1.2\\), so that turning point is a local maximum.", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Try again. A positive second derivative means a local minimum, so compare \\(C''(40)\\) and \\(C''(100)\\).");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+
+    function checkCoffeeTime(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-5", "Correct. The coffee must have been given at the minimum turning point, where the concentration stops decreasing and starts increasing.", true);
+        toggleNextStepButton("next-step-5", true);
+      } else {
+        setFeedback("feedback-5", "Not quite. After the coffee is consumed, the concentration should begin increasing, so we need the minimum turning point, not the maximum one.");
+        toggleNextStepButton("next-step-5", false);
+      }
+    }
+  </script>
+</body>
+</html>

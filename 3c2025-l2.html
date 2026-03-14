@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025 Level 2 Calculus Paper — Question 3(c)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1>Question 3(c)</h1>
+        <p class="subtitle">2025 Paper — Maximise the volume of a lidless cuboid</p>
+      </div>
+      <a class="ghost-link" href="index.html#level-2-2025">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <div class="question-math">
+        \[
+        \text{A lidless rectangular cuboid has surface area }4.32\text{ m}^2.
+        \]
+        \[
+        \text{Its width is twice its height, and the volume is to be maximised.}
+        \]
+        \[
+        \text{Use calculus to find the maximum volume and prove that it is a maximum.}
+        \]
+      </div>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <p class="step-text question-note">
+        Start from the lidless surface-area formula, use \(w=2h\) to write \(l\) in terms of \(h\), then form a volume function, maximise it, and use the second derivative to prove it is a maximum.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+      <section id="step-1" class="step-card active">
+        <p class="step-number">Step 1</p>
+        <h2>Write the surface-area constraint</h2>
+        <p class="step-text">Because the box has no lid, which surface-area equation is correct?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkSurfaceArea('correct')">
+            \[
+            lw+2lh+2wh=4.32
+            \]
+          </button>
+          <button class="option-btn" onclick="checkSurfaceArea('wrong1')">
+            \[
+            2lw+2lh+2wh=4.32
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-1" class="feedback"></div>
+        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-2" class="step-card hidden">
+        <p class="step-number">Step 2</p>
+        <h2>Write \(l\) in terms of \(h\)</h2>
+        <p class="step-text">Using \(w=2h\), which expression for the length is correct?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkLengthExpression('correct')">
+            \[
+            l=\frac{1.08}{h}-h
+            \]
+          </button>
+          <button class="option-btn" onclick="checkLengthExpression('wrong1')">
+            \[
+            l=\frac{1.08}{h}+h
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-2" class="feedback"></div>
+        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-3" class="step-card hidden">
+        <p class="step-number">Step 3</p>
+        <h2>Form the volume function</h2>
+        <p class="step-text">Substitute \(w=2h\) and your expression for \(l\) into \(V=lwh\). Which simplified volume function is correct?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkVolumeFunction('correct')">
+            \[
+            V(h)=2.16h-2h^3
+            \]
+          </button>
+          <button class="option-btn" onclick="checkVolumeFunction('wrong1')">
+            \[
+            V(h)=4.32h-2h^2
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-3" class="feedback"></div>
+        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-4" class="step-card hidden">
+        <p class="step-number">Step 4</p>
+        <h2>Differentiate and find the stationary point</h2>
+        <p class="step-text">Differentiate \(V(h)\) and solve \(V'(h)=0\). Which height do you get?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkHeightValue('correct')">
+            \[
+            h=0.6
+            \]
+          </button>
+          <button class="option-btn" onclick="checkHeightValue('wrong1')">
+            \[
+            h=0.36
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-4" class="feedback"></div>
+        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-5" class="step-card hidden">
+        <p class="step-number">Step 5</p>
+        <h2>Find the maximum volume</h2>
+        <p class="step-text">Using \(h=0.6\), what is the maximum volume?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkMaximumVolume('correct')">
+            \[
+            0.864\text{ m}^3
+            \]
+          </button>
+          <button class="option-btn" onclick="checkMaximumVolume('wrong1')">
+            \[
+            0.648\text{ m}^3
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-5" class="feedback"></div>
+        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-6" class="step-card hidden">
+        <p class="step-number">Step 6</p>
+        <h2>Prove it is a maximum</h2>
+        <p class="step-text">Use the second derivative test. What does it show at \(h=0.6\)?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkSecondDerivative('correct')">
+            \[
+            V''(0.6)=-7.2&lt;0,\text{ so the volume is a maximum}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkSecondDerivative('wrong1')">
+            \[
+            V''(0.6)=7.2&gt;0,\text{ so the volume is a maximum}
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-6" class="feedback"></div>
+        <button id="next-step-6" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-7')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-7" class="step-card hidden">
+        <p class="step-number">Step 7</p>
+        <h2>Final answer</h2>
+        <p class="step-text">Now write the full working clearly.</p>
+
+        <div class="math-block">
+          \[
+          \text{Surface area}=lw+2lh+2wh=4.32
+          \]
+          \[
+          w=2h
+          \]
+          \[
+          l(2h)+2lh+2(2h)(h)=4.32
+          \]
+          \[
+          4lh+4h^2=4.32
+          \]
+          \[
+          lh+h^2=1.08
+          \]
+          \[
+          l=\frac{1.08}{h}-h
+          \]
+          \[
+          V=lwh
+          \]
+          \[
+          V=\left(\frac{1.08}{h}-h\right)(2h)(h)
+          \]
+          \[
+          V(h)=2.16h-2h^3
+          \]
+          \[
+          V'(h)=2.16-6h^2
+          \]
+          \[
+          2.16-6h^2=0
+          \]
+          \[
+          h^2=0.36
+          \]
+          \[
+          h=0.6
+          \]
+          \[
+          l=\frac{1.08}{0.6}-0.6=1.2,\qquad w=2(0.6)=1.2
+          \]
+          \[
+          V_{\max}=1.2\times1.2\times0.6=0.864\text{ m}^3
+          \]
+          \[
+          V''(h)=-12h
+          \]
+          \[
+          V''(0.6)=-7.2&lt;0
+          \]
+          \[
+          \text{Therefore the volume is a maximum.}
+          \]
+        </div>
+
+        <div id="feedback-7" class="feedback success">
+          Great work. The maximum volume is \(0.864\text{ m}^3\), and the negative second derivative proves it is a maximum.
+        </div>
+
+        <div class="nav-row">
+          <a class="nav-btn secondary" href="3b2025-l2.html">← Back to Question 3(b)</a>
+          <a class="nav-btn" href="3d2025-l2.html">Next question →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Because the container is lidless, the material covers the base and four side faces only.",
+      "Use \(w=2h\) in the surface-area constraint first, then rearrange to make \(l\) the subject.",
+      "Substitute into \(V=lwh\) so the volume is written in terms of one variable.",
+      "Find the stationary point from \(V'(h)=0\), then use \(V''(h)\) to prove the stationary point is a maximum."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">Using the surface-area constraint gives:</p>
+          <div class="math-block">
+            \\[
+            l=\\frac{1.08}{h}-h
+            \\]
+            \\[
+            V(h)=2.16h-2h^3
+            \\]
+          </div>
+          <p class="step-text">Then maximise and prove:</p>
+          <div class="math-block">
+            \\[
+            V'(h)=2.16-6h^2=0 \\Rightarrow h=0.6
+            \\]
+            \\[
+            V_{\\max}=0.864\\text{ m}^3
+            \\]
+            \\[
+            V''(0.6)=-7.2&lt;0
+            \\]
+          </div>
+        `,
+        nextHref: "3d2025-l2.html",
+        nextLabel: "Next question →"
+      });
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(function (step) {
+        step.classList.add("hidden");
+      });
+      document.getElementById(stepId).classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) {
+        return;
+      }
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkSurfaceArea(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. A lidless box has one base and four side faces, so the top is not included.", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. \\(2lw\\) would include a lid, but the container has no lid.");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkLengthExpression(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Correct. Substituting \\(w=2h\\) gives \\(4lh+4h^2=4.32\\), so \\(lh+h^2=1.08\\) and therefore \\(l=\\frac{1.08}{h}-h\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Try again. After rearranging, the \\(h^2\\) term moves to the other side, so it becomes subtraction.");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkVolumeFunction(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. Since \\(V=lwh=l(2h)(h)=2lh^2\\), substituting \\(l=\\frac{1.08}{h}-h\\) gives \\(V(h)=2.16h-2h^3\\).", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. Make sure the volume still has cubic behaviour after substitution.");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkHeightValue(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Correct. \\(V'(h)=2.16-6h^2\\), so setting it equal to zero gives \\(6h^2=2.16\\), then \\(h^2=0.36\\), so \\(h=0.6\\).", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Not quite. \\(0.36\\) is \\(h^2\\), not the height itself.");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+
+    function checkMaximumVolume(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-5", "Correct. At \\(h=0.6\\), we get \\(l=1.2\\) and \\(w=1.2\\), so the volume is \\(1.2\\times1.2\\times0.6=0.864\\text{ m}^3\\).", true);
+        toggleNextStepButton("next-step-5", true);
+      } else {
+        setFeedback("feedback-5", "Try again. Substitute the optimal dimensions carefully, or evaluate \\(V(0.6)\\) directly.");
+        toggleNextStepButton("next-step-5", false);
+      }
+    }
+
+    function checkSecondDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-6", "Correct. Since \\(V''(h)=-12h\\), we get \\(V''(0.6)=-7.2\\), which is negative, so the stationary point is a maximum.", true);
+        toggleNextStepButton("next-step-6", true);
+      } else {
+        setFeedback("feedback-6", "Not quite. A maximum needs a negative second derivative, not a positive one.");
+        toggleNextStepButton("next-step-6", false);
+      }
+    }
+  </script>
+</body>
+</html>

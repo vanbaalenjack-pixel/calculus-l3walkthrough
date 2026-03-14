@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025 Level 2 Calculus Paper — Question 2(a)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1>Question 2(a)</h1>
+        <p class="subtitle">2025 Paper — Sketching \(f'(x)\) from the graph of \(f(x)\)</p>
+      </div>
+      <a class="ghost-link" href="index.html#level-2-2025">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <p class="step-text">
+        The graph below shows \(y=f(x)\). Use it to sketch a possible graph of \(y=f'(x)\).
+      </p>
+      <div class="graph-frame question-graph-frame">
+        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of f of x with two local minima and one local maximum"></svg>
+      </div>
+      <p class="step-text">
+        Sketch \(f'(x)\) here:
+      </p>
+      <div class="graph-frame question-graph-frame">
+        <svg id="blank-derivative-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Blank axes for sketching the derivative of f of x"></svg>
+      </div>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <p class="step-text question-note">
+        The key idea is that stationary points of \(f\) become x-intercepts of \(f'\). Then use where \(f\) is increasing, decreasing, and changing concavity to shape the derivative.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+      <section id="step-1" class="step-card active">
+        <p class="step-number">Step 1</p>
+        <h2>Find the stationary points of \(f\)</h2>
+        <p class="step-text">Look for the places where the tangent to \(f\) is horizontal.</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkStationaryPoints('correct')">
+            \[
+            x\approx -3,\ 0,\ 4
+            \]
+          </button>
+          <button class="option-btn" onclick="checkStationaryPoints('wrong1')">
+            \[
+            x\approx -4,\ 1,\ 5
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-1" class="feedback"></div>
+        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-2" class="step-card hidden">
+        <p class="step-number">Step 2</p>
+        <h2>Turn those into x-intercepts of \(f'(x)\)</h2>
+        <p class="step-text">If \(f\) has a horizontal tangent, then \(f'(x)=0\) there. Where should the derivative cross the x-axis?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkDerivativeRoots('correct')">
+            \[
+            x\approx -3,\ 0,\ 4
+            \]
+          </button>
+          <button class="option-btn" onclick="checkDerivativeRoots('wrong1')">
+            \[
+            x\approx -1.5,\ 2
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-2" class="feedback"></div>
+        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-3" class="step-card hidden">
+        <p class="step-number">Step 3</p>
+        <h2>Work out the sign of \(f'(x)\)</h2>
+        <p class="step-text">Use whether \(f\) is increasing or decreasing on each interval.</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkDerivativeSigns('correct')">
+            Negative, positive, negative, positive
+          </button>
+          <button class="option-btn" onclick="checkDerivativeSigns('wrong1')">
+            Positive, negative, positive, negative
+          </button>
+        </div>
+
+        <div id="feedback-3" class="feedback"></div>
+        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-4" class="step-card hidden">
+        <p class="step-number">Step 4</p>
+        <h2>Place the turning points of \(f'(x)\)</h2>
+        <p class="step-text">The turning points of the derivative happen where \(f\) changes concavity.</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkDerivativeTurningPoints('correct')">
+            One turning point between the first minimum and the maximum of \(f\), and one between the maximum and the second minimum
+          </button>
+          <button class="option-btn" onclick="checkDerivativeTurningPoints('wrong1')">
+            Turning points of \(f'(x)\) happen at the same x-values as the stationary points of \(f\)
+          </button>
+        </div>
+
+        <div id="feedback-4" class="feedback"></div>
+        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-5" class="step-card hidden">
+        <p class="step-number">Step 5</p>
+        <h2>Decide the end behaviour</h2>
+        <p class="step-text">How should the ends of the derivative graph look?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkEndBehaviour('correct')">
+            Below the axis on the far left, above the axis on the far right
+          </button>
+          <button class="option-btn" onclick="checkEndBehaviour('wrong1')">
+            Above the axis on the far left, below the axis on the far right
+          </button>
+        </div>
+
+        <div id="feedback-5" class="feedback"></div>
+        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-6" class="step-card hidden">
+        <p class="step-number">Step 6</p>
+        <h2>Final sketch</h2>
+        <p class="step-text">
+          A good sketch of \(f'(x)\) is a cubic-like curve crossing the x-axis at the stationary points of \(f\), with signs matching the increasing/decreasing intervals.
+        </p>
+
+        <div class="math-block">
+          \[
+          f'(x)=0 \text{ at about } x=-3,\ 0,\text{ and }4
+          \]
+          \[
+          f'(x)&lt;0 \text{ before the first turning point of }f
+          \]
+          \[
+          f'(x)&gt;0 \text{ between the first minimum and the maximum of }f
+          \]
+          \[
+          f'(x)&lt;0 \text{ between the maximum and the second minimum of }f
+          \]
+          \[
+          f'(x)&gt;0 \text{ after the second minimum of }f
+          \]
+        </div>
+
+        <p class="step-text question-note">
+          The exact heights of the derivative graph are not fixed by the original sketch. What matters most is the correct x-intercepts, sign changes, and overall cubic shape.
+        </p>
+
+        <div class="graph-card">
+          <div class="graph-copy">
+            <h3>One possible sketch of \(f'(x)\)</h3>
+            <p class="step-text">
+              Turn the markers on and off to see how the stationary points of \(f\) determine the x-intercepts of \(f'\), and how changes in concavity place the turning points of the derivative.
+            </p>
+            <label class="graph-toggle">
+              <input id="roots-toggle" type="checkbox" checked />
+              <span>Show x-intercepts from stationary points</span>
+            </label>
+            <label class="graph-toggle">
+              <input id="turning-toggle" type="checkbox" checked />
+              <span>Show turning points of \(f'(x)\)</span>
+            </label>
+          </div>
+
+          <div class="graph-frame">
+            <svg id="derivative-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Sketch of the derivative of f of x"></svg>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <a class="nav-btn secondary" href="1d2025-l2.html">← Back to Question 1(d)</a>
+          <a class="nav-btn" href="2b2025-l2.html">Next question →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    const stationaryXs = [-3, 0, 4];
+    const turnXs = [
+      (1 - Math.sqrt(37)) / 3,
+      (1 + Math.sqrt(37)) / 3
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    function originalFunction(x) {
+      return 0.15 * ((x * x * x * x) / 4 - (x * x * x) / 3 - 6 * x * x) - 6;
+    }
+
+    function derivativeFunction(x) {
+      return 0.15 * (x + 3) * x * (x - 4);
+    }
+
+    const hintContent = [
+      "Start with the stationary points of \(f\). Those are the places where the tangent is horizontal, so they become the zeros of \(f'(x)\).",
+      "Then decide where \(f'(x)\) should be positive or negative by checking whether \(f\) is increasing or decreasing in each interval.",
+      "Finally, use the changes in concavity of \(f\) to place the turning points of the derivative between the stationary points."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">A strong sketch of the derivative should:</p>
+          <div class="math-block">
+            \\[
+            \\text{cross the x-axis at about }x=-3,\\ 0,\\ \\text{and }4
+            \\]
+            \\[
+            \\text{be negative, then positive, then negative, then positive}
+            \\]
+          </div>
+        `,
+        nextHref: "2b2025-l2.html",
+        nextLabel: "Next question →"
+      });
+      drawQuestionGraph();
+      drawBlankDerivativeGraph();
+      setupGraphControls();
+      drawDerivativeGraph();
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(function (step) {
+        step.classList.add("hidden");
+      });
+      document.getElementById(stepId).classList.remove("hidden");
+      if (stepId === "step-6") {
+        drawDerivativeGraph();
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) {
+        return;
+      }
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkStationaryPoints(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. The graph of \\(f\\) has two local minima and one local maximum, at about \\(x=-3\\), \\(x=0\\), and \\(x=4\\).", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. Look for the places where the curve flattens out before changing direction.");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkDerivativeRoots(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Correct. Stationary points of \\(f\\) are exactly where \\(f'(x)=0\\), so they become x-intercepts of the derivative.", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Try again. The zeros of \\(f'\\) go at the x-values of the stationary points of \\(f\\), not at the inflection points.");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkDerivativeSigns(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. \\(f\\) is decreasing, then increasing, then decreasing, then increasing again, so \\(f'\\) is negative, positive, negative, positive.", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. Read the original graph from left to right and decide where it is moving down or up.");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkDerivativeTurningPoints(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Correct. The derivative turns where the original graph changes concavity, so those turning points sit between the stationary points of \\(f\\).", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Not quite. The stationary points of \\(f\\) give zeros of \\(f'\\), but the turning points of \\(f'\\) come from inflection points of \\(f\\).");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+
+    function checkEndBehaviour(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-5", "Correct. On the far left the original graph is falling steeply, so \\(f'\\) is negative there. On the far right the original graph rises steeply, so \\(f'\\) is positive there.", true);
+        toggleNextStepButton("next-step-5", true);
+      } else {
+        setFeedback("feedback-5", "Try again. Think about the sign of the slope of \\(f\\) at the far left and far right of the graph.");
+        toggleNextStepButton("next-step-5", false);
+      }
+    }
+
+    function setupGraphControls() {
+      const rootsToggle = document.getElementById("roots-toggle");
+      const turningToggle = document.getElementById("turning-toggle");
+
+      if (rootsToggle) {
+        rootsToggle.addEventListener("change", drawDerivativeGraph);
+      }
+      if (turningToggle) {
+        turningToggle.addEventListener("change", drawDerivativeGraph);
+      }
+    }
+
+    function drawGrid(svg, width, height, padding, xMin, xMax, yMin, yMax, xStep, yStep, xLabelText, yLabelText) {
+      function scaleX(x) {
+        return padding + ((x - xMin) / (xMax - xMin)) * (width - padding * 2);
+      }
+
+      function scaleY(y) {
+        return height - padding - ((y - yMin) / (yMax - yMin)) * (height - padding * 2);
+      }
+
+      const gridLines = [];
+      for (let value = Math.ceil(xMin); value <= Math.floor(xMax); value += xStep) {
+        const x = scaleX(value);
+        gridLines.push(`<line x1="${x}" y1="${padding}" x2="${x}" y2="${height - padding}" class="graph-grid-line" />`);
+      }
+      for (let value = Math.ceil(yMin / yStep) * yStep; value <= yMax; value += yStep) {
+        const y = scaleY(value);
+        gridLines.push(`<line x1="${padding}" y1="${y}" x2="${width - padding}" y2="${y}" class="graph-grid-line" />`);
+      }
+
+      const xAxisMarkup = yMin <= 0 && yMax >= 0
+        ? `<line x1="${padding}" y1="${scaleY(0)}" x2="${width - padding}" y2="${scaleY(0)}" class="graph-axis" />`
+        : "";
+      const yAxisMarkup = xMin <= 0 && xMax >= 0
+        ? `<line x1="${scaleX(0)}" y1="${padding}" x2="${scaleX(0)}" y2="${height - padding}" class="graph-axis" />`
+        : "";
+
+      svg.innerHTML = `
+        <rect x="0" y="0" width="${width}" height="${height}" rx="18" class="graph-bg"></rect>
+        ${gridLines.join("")}
+        ${xAxisMarkup}
+        ${yAxisMarkup}
+        <text class="graph-label" x="${width - padding + 4}" y="${scaleY(0) + 18}">${xLabelText}</text>
+        <text class="graph-label" x="${scaleX(0) - 6}" y="${padding - 8}">${yLabelText}</text>
+      `;
+
+      return { scaleX, scaleY };
+    }
+
+    function buildPath(fn, start, end, step, scaleX, scaleY) {
+      let path = "";
+      for (let x = start; x <= end; x += step) {
+        const y = fn(x);
+        const command = path ? "L" : "M";
+        path += `${command}${scaleX(x).toFixed(2)} ${scaleY(y).toFixed(2)} `;
+      }
+      return path.trim();
+    }
+
+    function drawQuestionGraph() {
+      const svg = document.getElementById("question-graph");
+      if (!svg) {
+        return;
+      }
+
+      const width = 420;
+      const height = 320;
+      const padding = 28;
+      const xMin = -5.5;
+      const xMax = 6.8;
+      const yMin = -18;
+      const yMax = 20;
+      const helpers = drawGrid(svg, width, height, padding, xMin, xMax, yMin, yMax, 1, 2, "x", "f(x)");
+      const curvePath = buildPath(originalFunction, xMin, xMax, 0.04, helpers.scaleX, helpers.scaleY);
+      const pointMarkup = stationaryXs.map(function (xValue) {
+        const yValue = originalFunction(xValue);
+        return `<circle cx="${helpers.scaleX(xValue)}" cy="${helpers.scaleY(yValue)}" r="4.5" class="graph-point-secondary" />`;
+      }).join("");
+
+      svg.innerHTML += `
+        <path class="question-curve" d="${curvePath}"></path>
+        ${pointMarkup}
+      `;
+    }
+
+    function drawBlankDerivativeGraph() {
+      const svg = document.getElementById("blank-derivative-graph");
+      if (!svg) {
+        return;
+      }
+
+      drawGrid(svg, 420, 320, 28, -5.5, 6.8, -12, 12, 1, 2, "x", "f'(x)");
+    }
+
+    function drawDerivativeGraph() {
+      const svg = document.getElementById("derivative-graph");
+      if (!svg) {
+        return;
+      }
+
+      const width = 420;
+      const height = 320;
+      const padding = 28;
+      const xMin = -5.5;
+      const xMax = 6.8;
+      const yMin = -12;
+      const yMax = 12;
+      const showRoots = document.getElementById("roots-toggle")?.checked ?? true;
+      const showTurning = document.getElementById("turning-toggle")?.checked ?? true;
+      const helpers = drawGrid(svg, width, height, padding, xMin, xMax, yMin, yMax, 1, 2, "x", "f'(x)");
+      const curvePath = buildPath(derivativeFunction, xMin, xMax, 0.04, helpers.scaleX, helpers.scaleY);
+
+      const rootsMarkup = showRoots ? stationaryXs.map(function (xValue) {
+        return `
+          <circle cx="${helpers.scaleX(xValue)}" cy="${helpers.scaleY(0)}" r="5" class="graph-point" />
+          <text x="${helpers.scaleX(xValue) + 6}" y="${helpers.scaleY(0) - 8}" class="graph-label">${xValue}</text>
+        `;
+      }).join("") : "";
+
+      const turningMarkup = showTurning ? turnXs.map(function (xValue, index) {
+        const yValue = derivativeFunction(xValue);
+        return `
+          <circle cx="${helpers.scaleX(xValue)}" cy="${helpers.scaleY(yValue)}" r="5" class="graph-point-secondary" />
+          <text x="${helpers.scaleX(xValue) + 6}" y="${helpers.scaleY(yValue) - 8}" class="graph-label">${index === 0 ? "turn" : "turn"}</text>
+        `;
+      }).join("") : "";
+
+      svg.innerHTML += `
+        <path class="graph-curve" d="${curvePath}"></path>
+        ${rootsMarkup}
+        ${turningMarkup}
+      `;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025 Level 2 Calculus Paper — Question 1(c)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1>Question 1(c)</h1>
+        <p class="subtitle">2025 Paper — Rebuild the original function from its gradient</p>
+      </div>
+      <a class="ghost-link" href="index.html#level-2-2025">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <div class="question-math">
+        \[
+        f'(x)=2x^2+2x-24
+        \]
+        \[
+        \text{Find the equation of the original function } f(x), \text{ if the } y\text{-value of the local minimum is } -46.
+        \]
+      </div>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <p class="step-text question-note">
+        Use the derivative to find the critical points, use the second derivative to identify the minimum, then integrate and solve for the constant.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+      <section id="step-1" class="step-card active">
+        <p class="step-number">Step 1</p>
+        <h2>Find the critical points</h2>
+        <p class="step-text">Set the derivative equal to zero and solve.</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkCriticalPoints('correct')">
+            \[
+            x=-4 \text{ and } x=3
+            \]
+          </button>
+          <button class="option-btn" onclick="checkCriticalPoints('wrong1')">
+            \[
+            x=4 \text{ and } x=-3
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-1" class="feedback"></div>
+        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-2" class="step-card hidden">
+        <p class="step-number">Step 2</p>
+        <h2>Find the second derivative</h2>
+        <p class="step-text">Differentiate \(f'(x)=2x^2+2x-24\) one more time.</p>
+
+        <div class="button-grid">
+          <button class="option-btn" onclick="checkSecondDerivative('correct')">\(f''(x)=4x+2\)</button>
+          <button class="option-btn" onclick="checkSecondDerivative('wrong1')">\(f''(x)=4x\)</button>
+          <button class="option-btn" onclick="checkSecondDerivative('wrong2')">\(f''(x)=2x+2\)</button>
+          <button class="option-btn" onclick="checkSecondDerivative('wrong3')">\(f''(x)=4x+2-24\)</button>
+        </div>
+
+        <div id="feedback-2" class="feedback"></div>
+        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-3" class="step-card hidden">
+        <p class="step-number">Step 3</p>
+        <h2>Identify the local minimum</h2>
+        <p class="step-text">Which critical point gives a local minimum?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkMinimumPoint('correct')">
+            \[
+            x=3
+            \]
+          </button>
+          <button class="option-btn" onclick="checkMinimumPoint('wrong1')">
+            \[
+            x=-4
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-3" class="feedback"></div>
+        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-4" class="step-card hidden">
+        <p class="step-number">Step 4</p>
+        <h2>Find the original function</h2>
+        <p class="step-text">Integrate the gradient function to get \(f(x)\).</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkOriginalFunction('correct')">
+            \[
+            f(x)=\frac{2}{3}x^3+x^2-24x+c
+            \]
+          </button>
+          <button class="option-btn" onclick="checkOriginalFunction('wrong1')">
+            \[
+            f(x)=x^3+x^2-24x+c
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-4" class="feedback"></div>
+        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-5" class="step-card hidden">
+        <p class="step-number">Step 5</p>
+        <h2>Use the minimum value to find \(c\)</h2>
+        <p class="step-text">The local minimum happens at \(x=3\), and its \(y\)-value is \(-46\). Which equation should we use?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkCEquation('correct')">
+            \[
+            \frac{2}{3}(3)^3+(3)^2-24(3)+c=-46
+            \]
+          </button>
+          <button class="option-btn" onclick="checkCEquation('wrong1')">
+            \[
+            \frac{2}{3}(-4)^3+(-4)^2-24(-4)+c=-46
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-5" class="feedback"></div>
+        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-6" class="step-card hidden">
+        <p class="step-number">Step 6</p>
+        <h2>Final answer</h2>
+        <p class="step-text">Now solve for \(c\) and write the full function.</p>
+
+        <div class="math-block">
+          \[
+          f(x)=\frac{2}{3}x^3+x^2-24x+c
+          \]
+          \[
+          f(3)=\frac{2}{3}(27)+9-72+c=-46
+          \]
+          \[
+          18+9-72+c=-46
+          \]
+          \[
+          -45+c=-46
+          \]
+          \[
+          c=-1
+          \]
+          \[
+          f(x)=\frac{2}{3}x^3+x^2-24x-1
+          \]
+        </div>
+
+        <div id="feedback-6" class="feedback success">
+          Great work. The original function is \(f(x)=\frac{2}{3}x^3+x^2-24x-1\).
+        </div>
+
+        <div class="nav-row">
+          <a class="nav-btn secondary" href="1b2025-l2.html">← Back to Question 1(b)</a>
+          <a class="nav-btn" href="1d2025-l2.html">Next question →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Solve \\(f'(x)=0\\) first to find the critical points.",
+      "Use the second derivative \\(f''(x)\\) to decide which critical point is the local minimum.",
+      "After integrating to get \\(f(x)\\), substitute the minimum point into the original function and use the fact that the minimum \\(y\\)-value is \\(-46\\) to solve for \\(c\\)."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The original function is:</p>
+          <div class="math-block">
+            \\[
+            f(x)=\\frac{2}{3}x^3+x^2-24x-1
+            \\]
+          </div>
+        `,
+        nextHref: "1d2025-l2.html",
+        nextLabel: "Next question →"
+      });
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(function (step) {
+        step.classList.add("hidden");
+      });
+      document.getElementById(stepId).classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) {
+        return;
+      }
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkCriticalPoints(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. \\(2x^2+2x-24=0\\) simplifies to \\(x^2+x-12=0\\), which factors to \\((x+4)(x-3)=0\\).", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. Divide by 2 first, then factor \\(x^2+x-12\\).");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkSecondDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Correct. Differentiate each term in \\(2x^2+2x-24\\) to get \\(4x+2\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Try again. The derivative of \\(2x^2\\) is \\(4x\\), the derivative of \\(2x\\) is 2, and the constant disappears.");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkMinimumPoint(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. \\(f''(3)=14\\), which is positive, so \\(x=3\\) is a local minimum. At \\(x=-4\\), \\(f''(-4)=-14\\), so that point is a local maximum.", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. A positive second derivative means a local minimum, so test both critical points in \\(f''(x)=4x+2\\).");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkOriginalFunction(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Correct. Integrating term by term gives \\(\\frac{2}{3}x^3+x^2-24x+c\\).", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Close, but the integral of \\(2x^2\\) is \\(\\frac{2}{3}x^3\\), not \\(x^3\\).");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+
+    function checkCEquation(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-5", "Correct. The minimum happens at \\(x=3\\), so that is the value we substitute into the original function and set equal to \\(-46\\).", true);
+        toggleNextStepButton("next-step-5", true);
+      } else {
+        setFeedback("feedback-5", "Not quite. \\(-46\\) is the local minimum value, so we need the critical point that gave the minimum, which was \\(x=3\\).");
+        toggleNextStepButton("next-step-5", false);
+      }
+    }
+  </script>
+</body>
+</html>

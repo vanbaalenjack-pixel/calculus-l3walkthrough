@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025 Level 2 Calculus Paper — Question 1(b)</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1>Question 1(b)</h1>
+        <p class="subtitle">2025 Paper — Tangent equation for a cubic</p>
+      </div>
+      <a class="ghost-link" href="index.html#level-2-2025">← Back to paper</a>
+    </header>
+
+    <section class="question-card">
+      <p class="question-label">Question</p>
+      <div class="question-math">
+        \[
+        f(x)=-\frac{x^3}{3}+2x^2-3x+6
+        \]
+        \[
+        \text{Find the equation of the tangent to the curve at } x=2.
+        \]
+      </div>
+      <p class="step-text attempt-note">
+        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
+      </p>
+      <p class="step-text question-note">
+        Start by finding the point of tangency, then differentiate to get the gradient, and finally use point-slope form.
+      </p>
+      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
+    </section>
+
+    <section id="hints-card" class="question-card hidden"></section>
+
+    <div id="walkthrough-content" class="hidden">
+      <section id="step-1" class="step-card active">
+        <p class="step-number">Step 1</p>
+        <h2>Find the point of tangency</h2>
+        <p class="step-text">At \(x=2\), what point on the curve does the tangent touch?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkPoint('correct')">
+            \[
+            \left(2,\frac{16}{3}\right)
+            \]
+          </button>
+          <button class="option-btn" onclick="checkPoint('wrong1')">
+            \[
+            \left(2,\frac{10}{3}\right)
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-1" class="feedback"></div>
+        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-2" class="step-card hidden">
+        <p class="step-number">Step 2</p>
+        <h2>Differentiate the function</h2>
+        <p class="step-text">Which derivative is correct?</p>
+
+        <div class="button-grid">
+          <button class="option-btn" onclick="checkDerivative('correct')">\(f'(x)=-x^2+4x-3\)</button>
+          <button class="option-btn" onclick="checkDerivative('wrong1')">\(f'(x)=-x^2+2x-3\)</button>
+          <button class="option-btn" onclick="checkDerivative('wrong2')">\(f'(x)=-x^3+4x-3\)</button>
+          <button class="option-btn" onclick="checkDerivative('wrong3')">\(f'(x)=-\frac{x^2}{3}+4x-3\)</button>
+        </div>
+
+        <div id="feedback-2" class="feedback"></div>
+        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-3" class="step-card hidden">
+        <p class="step-number">Step 3</p>
+        <h2>Find the gradient at \(x=2\)</h2>
+        <p class="step-text">Substitute \(x=2\) into the derivative.</p>
+
+        <div class="button-grid">
+          <button class="option-btn" onclick="checkGradient('correct')">\(1\)</button>
+          <button class="option-btn" onclick="checkGradient('wrong1')">\(3\)</button>
+          <button class="option-btn" onclick="checkGradient('wrong2')">\(-1\)</button>
+          <button class="option-btn" onclick="checkGradient('wrong3')">\(\frac{16}{3}\)</button>
+        </div>
+
+        <div id="feedback-3" class="feedback"></div>
+        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-4" class="step-card hidden">
+        <p class="step-number">Step 4</p>
+        <h2>Use point-slope form</h2>
+        <p class="step-text">Which point-slope equation uses the correct point and gradient?</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkPointSlope('correct')">
+            \[
+            y-\frac{16}{3}=1(x-2)
+            \]
+          </button>
+          <button class="option-btn" onclick="checkPointSlope('wrong1')">
+            \[
+            y-2=\frac{16}{3}(x-1)
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-4" class="feedback"></div>
+        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-5" class="step-card hidden">
+        <p class="step-number">Step 5</p>
+        <h2>Simplify the line equation</h2>
+        <p class="step-text">Rearrange the point-slope form into \(y=mx+c\).</p>
+
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkFinalEquation('correct')">
+            \[
+            y=x+\frac{10}{3}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkFinalEquation('wrong1')">
+            \[
+            y=x+\frac{16}{3}
+            \]
+          </button>
+        </div>
+
+        <div id="feedback-5" class="feedback"></div>
+        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
+          Next step →
+        </button>
+      </section>
+
+      <section id="step-6" class="step-card hidden">
+        <p class="step-number">Step 6</p>
+        <h2>Final answer and graph</h2>
+        <p class="step-text">The tangent has gradient \(1\) and passes through \(\left(2,\frac{16}{3}\right)\).</p>
+
+        <div class="math-block">
+          \[
+          y-\frac{16}{3}=x-2
+          \]
+          \[
+          y=x+\frac{10}{3}
+          \]
+        </div>
+
+        <div id="feedback-6" class="feedback success">
+          Great work. The tangent equation is \(y=x+\frac{10}{3}\).
+        </div>
+
+        <div class="graph-card">
+          <div class="graph-copy">
+            <h3>Interactive tangent graph</h3>
+            <p class="step-text">
+              This graph shows the cubic together with its tangent at \(x=2\). Use the controls to inspect the point of tangency and how the tangent sits against the curve.
+            </p>
+            <label class="graph-control">
+              <span>Zoom</span>
+              <input id="zoom-slider" type="range" min="3" max="7" value="4" />
+            </label>
+            <label class="graph-toggle">
+              <input id="tangent-toggle" type="checkbox" checked />
+              <span>Show tangent line</span>
+            </label>
+            <label class="graph-toggle">
+              <input id="point-toggle" type="checkbox" checked />
+              <span>Show tangent point</span>
+            </label>
+          </div>
+
+          <div class="graph-frame">
+            <svg id="tangent-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of the cubic function and its tangent at x equals 2"></svg>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <a class="nav-btn secondary" href="1a2025-l2.html">← Back to Question 1(a)</a>
+          <a class="nav-btn" href="1c2025-l2.html">Next question →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const katexDelimiters = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function renderMath(element) {
+      renderMathInElement(element, { delimiters: katexDelimiters });
+    }
+
+    const hintContent = [
+      "Substitute \\(x=2\\) into the original function first so you know the point where the tangent touches the curve.",
+      "Differentiate term by term to get \\(f'(x)\\), then use \\(x=2\\) to find the tangent gradient.",
+      "Use point-slope form \\(y-y_1=m(x-x_1)\\) with the point \\(\\left(2,\\frac{16}{3}\\right)\\) and gradient \\(1\\)."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMath(document.body);
+      initializeWalkthroughGate({
+        hints: hintContent,
+        answerHtml: `
+          <p class="step-text">The point of tangency is:</p>
+          <div class="math-block">
+            \\[
+            \\left(2,\\frac{16}{3}\\right)
+            \\]
+          </div>
+          <p class="step-text">The tangent equation is:</p>
+          <div class="math-block">
+            \\[
+            y=x+\\frac{10}{3}
+            \\]
+          </div>
+        `,
+        nextHref: "1c2025-l2.html",
+        nextLabel: "Next question →"
+      });
+      setupGraphControls();
+      drawGraph();
+    });
+
+    function showOnlyStep(stepId) {
+      const steps = document.querySelectorAll(".step-card");
+      steps.forEach(function (step) {
+        step.classList.add("hidden");
+      });
+      document.getElementById(stepId).classList.remove("hidden");
+      if (stepId === "step-6") {
+        drawGraph();
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function setFeedback(id, message, isSuccess = false) {
+      const box = document.getElementById(id);
+      box.innerHTML = message;
+      box.classList.remove("success", "error");
+      box.classList.add(isSuccess ? "success" : "error");
+      renderMath(box);
+    }
+
+    function toggleNextStepButton(buttonId, shouldShow) {
+      const button = document.getElementById(buttonId);
+      if (!button) {
+        return;
+      }
+      button.classList.toggle("hidden", !shouldShow);
+    }
+
+    function checkPoint(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-1", "Correct. \\(f(2)=-\\frac{8}{3}+8-6+6=\\frac{16}{3}\\), so the point of tangency is \\(\\left(2,\\frac{16}{3}\\right)\\).", true);
+        toggleNextStepButton("next-step-1", true);
+      } else {
+        setFeedback("feedback-1", "Not quite. Substitute \\(x=2\\) into the original function to get the \\(y\\)-value on the curve.");
+        toggleNextStepButton("next-step-1", false);
+      }
+    }
+
+    function checkDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-2", "Correct. Differentiate term by term: \\(-\\frac{x^3}{3}\\) becomes \\(-x^2\\), \\(2x^2\\) becomes \\(4x\\), and \\(-3x\\) becomes \\(-3\\).", true);
+        toggleNextStepButton("next-step-2", true);
+      } else {
+        setFeedback("feedback-2", "Try again. Be careful with \\(-\\frac{x^3}{3}\\): its derivative is \\(-x^2\\), not \\(-\\frac{x^2}{3}\\).");
+        toggleNextStepButton("next-step-2", false);
+      }
+    }
+
+    function checkGradient(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-3", "Correct. \\(f'(2)=-(2)^2+4(2)-3=-4+8-3=1\\).", true);
+        toggleNextStepButton("next-step-3", true);
+      } else {
+        setFeedback("feedback-3", "Not quite. Substitute \\(x=2\\) into \\(f'(x)=-x^2+4x-3\\) and simplify carefully.");
+        toggleNextStepButton("next-step-3", false);
+      }
+    }
+
+    function checkPointSlope(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Correct. Point-slope form uses \\(y-y_1=m(x-x_1)\\) with \\(m=1\\) and \\(\\left(x_1,y_1\\right)=\\left(2,\\frac{16}{3}\\right)\\).", true);
+        toggleNextStepButton("next-step-4", true);
+      } else {
+        setFeedback("feedback-4", "Close, but the gradient should be 1 and the point should be \\(\\left(2,\\frac{16}{3}\\right)\\).");
+        toggleNextStepButton("next-step-4", false);
+      }
+    }
+
+    function checkFinalEquation(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-5", "Correct. From \\(y-\\frac{16}{3}=x-2\\), add \\(\\frac{16}{3}\\) and simplify to get \\(y=x+\\frac{10}{3}\\).", true);
+        toggleNextStepButton("next-step-5", true);
+      } else {
+        setFeedback("feedback-5", "Not quite. When you move \\(-2\\) to the other side, you add 2, so the constant becomes \\(-2+\\frac{16}{3}=\\frac{10}{3}\\).");
+        toggleNextStepButton("next-step-5", false);
+      }
+    }
+
+    function setupGraphControls() {
+      const zoomSlider = document.getElementById("zoom-slider");
+      const tangentToggle = document.getElementById("tangent-toggle");
+      const pointToggle = document.getElementById("point-toggle");
+
+      if (zoomSlider) {
+        zoomSlider.addEventListener("input", drawGraph);
+      }
+      if (tangentToggle) {
+        tangentToggle.addEventListener("change", drawGraph);
+      }
+      if (pointToggle) {
+        pointToggle.addEventListener("change", drawGraph);
+      }
+    }
+
+    function curveY(x) {
+      return -(x * x * x) / 3 + 2 * x * x - 3 * x + 6;
+    }
+
+    function tangentY(x) {
+      return x + (10 / 3);
+    }
+
+    function buildPath(fn, start, end, step, scaleX, scaleY) {
+      let path = "";
+      for (let x = start; x <= end; x += step) {
+        const y = fn(x);
+        const command = path ? "L" : "M";
+        path += `${command}${scaleX(x).toFixed(2)} ${scaleY(y).toFixed(2)} `;
+      }
+      return path.trim();
+    }
+
+    function drawGraph() {
+      const svg = document.getElementById("tangent-graph");
+      if (!svg) {
+        return;
+      }
+
+      const width = 420;
+      const height = 320;
+      const padding = 30;
+      const tangentPoint = { x: 2, y: 16 / 3 };
+      const zoom = Number(document.getElementById("zoom-slider")?.value || 4);
+      const showTangent = document.getElementById("tangent-toggle")?.checked ?? true;
+      const showPoint = document.getElementById("point-toggle")?.checked ?? true;
+      const xMin = tangentPoint.x - zoom;
+      const xMax = tangentPoint.x + zoom;
+      const sampledY = [0, tangentPoint.y];
+
+      for (let x = xMin; x <= xMax; x += 0.05) {
+        sampledY.push(curveY(x));
+        sampledY.push(tangentY(x));
+      }
+
+      let yMin = Math.min(...sampledY);
+      let yMax = Math.max(...sampledY);
+      const span = Math.max(yMax - yMin, 6);
+      const margin = Math.max(1.5, span * 0.12);
+      yMin -= margin;
+      yMax += margin;
+
+      function scaleX(x) {
+        return padding + ((x - xMin) / (xMax - xMin)) * (width - padding * 2);
+      }
+
+      function scaleY(y) {
+        return height - padding - ((y - yMin) / (yMax - yMin)) * (height - padding * 2);
+      }
+
+      const gridLines = [];
+      for (let value = Math.ceil(xMin); value <= Math.floor(xMax); value += 1) {
+        const x = scaleX(value);
+        gridLines.push(`<line x1="${x}" y1="${padding}" x2="${x}" y2="${height - padding}" class="graph-grid-line" />`);
+      }
+
+      const yStep = span > 28 ? 10 : span > 14 ? 5 : 2;
+      const firstYGrid = Math.ceil(yMin / yStep) * yStep;
+      for (let value = firstYGrid; value <= yMax; value += yStep) {
+        const y = scaleY(value);
+        gridLines.push(`<line x1="${padding}" y1="${y}" x2="${width - padding}" y2="${y}" class="graph-grid-line" />`);
+      }
+
+      const xAxisMarkup = yMin <= 0 && yMax >= 0
+        ? `<line x1="${padding}" y1="${scaleY(0)}" x2="${width - padding}" y2="${scaleY(0)}" class="graph-axis" />`
+        : "";
+      const yAxisMarkup = xMin <= 0 && xMax >= 0
+        ? `<line x1="${scaleX(0)}" y1="${padding}" x2="${scaleX(0)}" y2="${height - padding}" class="graph-axis" />`
+        : "";
+
+      const curvePath = buildPath(curveY, xMin, xMax, 0.04, scaleX, scaleY);
+      const tangentPath = buildPath(tangentY, xMin, xMax, 0.04, scaleX, scaleY);
+      const tangentMarkup = showTangent ? `<path class="graph-normal" d="${tangentPath}"></path>` : "";
+      const pointMarkup = showPoint ? `
+        <circle cx="${scaleX(tangentPoint.x)}" cy="${scaleY(tangentPoint.y)}" r="5" class="graph-point-secondary" />
+        <text x="${scaleX(tangentPoint.x) + 8}" y="${scaleY(tangentPoint.y) - 10}" class="graph-label">T (2, 16/3)</text>
+      ` : "";
+      const legendHeight = showTangent ? 48 : 28;
+
+      svg.innerHTML = `
+        <rect x="0" y="0" width="${width}" height="${height}" rx="18" class="graph-bg"></rect>
+        ${gridLines.join("")}
+        ${xAxisMarkup}
+        ${yAxisMarkup}
+        <path class="graph-curve" d="${curvePath}"></path>
+        ${tangentMarkup}
+        ${pointMarkup}
+        <rect class="graph-legend-chip" x="${width - 150}" y="${padding - 6}" width="130" height="${legendHeight}" rx="12"></rect>
+        <line class="graph-legend-line-primary" x1="${width - 138}" y1="${padding + 8}" x2="${width - 116}" y2="${padding + 8}"></line>
+        <text class="graph-label" x="${width - 108}" y="${padding + 12}">Function</text>
+        ${showTangent ? `
+          <line class="graph-legend-line-secondary" x1="${width - 138}" y1="${padding + 28}" x2="${width - 116}" y2="${padding + 28}"></line>
+          <text class="graph-label" x="${width - 108}" y="${padding + 32}">Tangent</text>
+        ` : ""}
+      `;
+    }
+  </script>
+</body>
+</html>
