@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -29,10 +30,10 @@
         \[
         y=9x-2+\frac{3}{3x-1}
         \]
-        \[
-        \text{Find the } x\text{-value(s) of any stationary point(s) on the graph and determine their nature.}
-        \]
       </div>
+      <p class="step-text">
+        Find the \(x\)-value(s) of any stationary point(s) on the graph and determine their nature.
+      </p>
       <p class="step-text question-note">
         You must use calculus and show any derivatives that you need when solving this problem.
       </p>
@@ -50,16 +51,20 @@
         <h2>Differentiate the function</h2>
         <p class="step-text">Differentiate each term, using the chain rule on the fraction term.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivative('correct')">
-            \[
-            y'=9-\frac{9}{(3x-1)^2}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivative('wrong1')">
-            \[
-            y'=9+\frac{3}{(3x-1)^2}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-1-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the first derivative"
+            placeholder="Type your answer here"
+          />
+          <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
+            Check
           </button>
         </div>
 
@@ -86,16 +91,20 @@
           \]
         </div>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkStationaryX('correct')">
-            \[
-            x=0 \text{ and } x=\frac{2}{3}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkStationaryX('wrong1')">
-            \[
-            x=\pm 1
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the x values of the stationary points"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkStationaryX()">
+            Check
           </button>
         </div>
 
@@ -110,16 +119,20 @@
         <h2>Use the second derivative</h2>
         <p class="step-text">Differentiate again so we can classify each stationary point.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkSecondDerivative('correct')">
-            \[
-            y''=\frac{54}{(3x-1)^3}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkSecondDerivative('wrong1')">
-            \[
-            y''=\frac{18}{(3x-1)^2}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-3-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the second derivative"
+            placeholder="Type your answer here"
+          />
+          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkSecondDerivative()">
+            Check
           </button>
         </div>
 
@@ -227,6 +240,12 @@
         nextHref: "3e2022.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview", { mode: "list" });
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
+      TypedMath.bindMathInputCheck("step-1-answer", checkDerivative);
+      TypedMath.bindMathInputCheck("step-2-answer", checkStationaryX);
+      TypedMath.bindMathInputCheck("step-3-answer", checkSecondDerivative);
     });
 
     function showOnlyStep(stepId) {
@@ -249,34 +268,65 @@
       button.classList.toggle("hidden", !shouldShow);
     }
 
-    function checkDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. The derivative of \\(\\frac{3}{3x-1}\\) is \\(-\\frac{9}{(3x-1)^2}\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. The fraction term needs the chain rule, and its derivative is negative.");
-        toggleNextStepButton("next-step-1", false);
-      }
+    function checkDerivative() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-1-answer",
+        feedbackId: "feedback-1",
+        nextButtonId: "next-step-1",
+        acceptedAnswers: ["9-9/(3x-1)^2"],
+        samples: [{ x: 0 }, { x: 2 }],
+        successMessage: "Correct. The derivative of \\(\\frac{3}{3x-1}\\) is \\(-\\frac{9}{(3x-1)^2}\\).",
+        genericMessage: "Not quite. The fraction term needs the chain rule, and its derivative is negative.",
+        targetedFeedback: [
+          {
+            answers: ["9+3/(3x-1)^2"],
+            message: "Not quite. The fraction term needs the chain rule, and its derivative is negative."
+          }
+        ]
+      });
     }
 
-    function checkStationaryX(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Yes. Solving \\((3x-1)^2=1\\) gives \\(3x-1=\\pm 1\\), so \\(x=0\\) and \\(x=\\frac{2}{3}\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. Solve for \\(3x-1\\) first, then turn those into \\(x\\)-values.");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkStationaryX() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        mode: "list",
+        options: {
+          ordered: false
+        },
+        acceptedAnswers: ["0,2/3"],
+        successMessage: "Yes. Solving \\((3x-1)^2=1\\) gives \\(3x-1=\\pm 1\\), so \\(x=0\\) and \\(x=\\frac{2}{3}\\).",
+        genericMessage: "Try again. Solve for \\(3x-1\\) first, then turn those into \\(x\\)-values.",
+        targetedFeedback: [
+          {
+            mode: "list",
+            options: {
+              ordered: false
+            },
+            answers: ["1,-1"],
+            message: "Those are the values of \\(3x-1\\), not the values of \\(x\\). Solve each one for \\(x\\)."
+          }
+        ]
+      });
     }
 
-    function checkSecondDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. Differentiating \\(-9(3x-1)^{-2}\\) gives \\(54(3x-1)^{-3}\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Differentiate carefully using the chain rule one more time.");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkSecondDerivative() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        acceptedAnswers: ["54/(3x-1)^3"],
+        samples: [{ x: 0 }, { x: 2 }],
+        successMessage: "Correct. Differentiating \\(-9(3x-1)^{-2}\\) gives \\(54(3x-1)^{-3}\\).",
+        genericMessage: "Not quite. Differentiate carefully using the chain rule one more time.",
+        targetedFeedback: [
+          {
+            answers: ["18/(3x-1)^2"],
+            message: "Not quite. The power should decrease to \\(-3\\), and the chain rule contributes another factor of 3."
+          }
+        ]
+      });
     }
 
     function checkNature(answer) {

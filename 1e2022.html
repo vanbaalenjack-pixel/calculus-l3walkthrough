@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -45,16 +46,20 @@
       <h2>Find the first derivative</h2>
       <p class="step-text">Use the chain rule on \(y=e^{px^2}\).</p>
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkFirstDerivative('correct')">
-          \[
-          \frac{dy}{dx}=2pxe^{px^2}
-          \]
-        </button>
-        <button class="option-btn" onclick="checkFirstDerivative('wrong1')">
-          \[
-          \frac{dy}{dx}=e^{px^2}
-          \]
+      <div class="math-input-group">
+        <input
+          id="step-1-answer"
+          class="math-answer-input"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type the first derivative"
+          placeholder="Type your answer here"
+        />
+        <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+        <button class="nav-btn check-btn" type="button" onclick="checkFirstDerivative()">
+          Check
         </button>
       </div>
 
@@ -69,16 +74,20 @@
       <h2>Find the second derivative</h2>
       <p class="step-text">Differentiate \(2pxe^{px^2}\) using the product rule.</p>
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkSecondDerivative('correct')">
-          \[
-          \frac{d^2y}{dx^2}=2pe^{px^2}+4p^2x^2e^{px^2}
-          \]
-        </button>
-        <button class="option-btn" onclick="checkSecondDerivative('wrong1')">
-          \[
-          \frac{d^2y}{dx^2}=4pxe^{px^2}
-          \]
+      <div class="math-input-group">
+        <input
+          id="step-2-answer"
+          class="math-answer-input"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type the second derivative"
+          placeholder="Type your answer here"
+        />
+        <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+        <button class="nav-btn check-btn" type="button" onclick="checkSecondDerivative()">
+          Check
         </button>
       </div>
 
@@ -93,16 +102,20 @@
       <h2>Factorise the second derivative</h2>
       <p class="step-text">Take out the common factors.</p>
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkFactorised('correct')">
-          \[
-          \frac{d^2y}{dx^2}=2pe^{px^2}(1+2px^2)
-          \]
-        </button>
-        <button class="option-btn" onclick="checkFactorised('wrong1')">
-          \[
-          \frac{d^2y}{dx^2}=2pe^{px^2}(1+2x)
-          \]
+      <div class="math-input-group">
+        <input
+          id="step-3-answer"
+          class="math-answer-input"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type the factorised second derivative"
+          placeholder="Type your answer here"
+        />
+        <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+        <button class="nav-btn check-btn" type="button" onclick="checkFactorised()">
+          Check
         </button>
       </div>
 
@@ -239,6 +252,12 @@
         nextHref: "index.html",
         nextLabel: "Back to paper"
       });
+      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
+      TypedMath.bindMathInputCheck("step-1-answer", checkFirstDerivative);
+      TypedMath.bindMathInputCheck("step-2-answer", checkSecondDerivative);
+      TypedMath.bindMathInputCheck("step-3-answer", checkFactorised);
       setupGraphControls();
       drawGraph();
     });
@@ -266,34 +285,58 @@
       button.classList.toggle("hidden", !shouldShow);
     }
 
-    function checkFirstDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. Differentiate \\(e^{px^2}\\) using the chain rule, multiplying by the derivative of \\(px^2\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. The chain rule means you also need the derivative of \\(px^2\\), which is \\(2px\\).");
-        toggleNextStepButton("next-step-1", false);
-      }
+    function checkFirstDerivative() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-1-answer",
+        feedbackId: "feedback-1",
+        nextButtonId: "next-step-1",
+        acceptedAnswers: ["2pxe^(px^2)"],
+        samples: [{ p: 1, x: 2 }, { p: 0.5, x: -1 }],
+        successMessage: "Correct. Differentiate \\(e^{px^2}\\) using the chain rule, multiplying by the derivative of \\(px^2\\).",
+        genericMessage: "Not quite. The chain rule means you also need the derivative of \\(px^2\\), which is \\(2px\\).",
+        targetedFeedback: [
+          {
+            answers: ["e^(px^2)"],
+            message: "That keeps the exponential but misses the derivative of \\(px^2\\). Apply the chain rule fully."
+          }
+        ]
+      });
     }
 
-    function checkSecondDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Yes. Use the product rule on \\(2pxe^{px^2}\\): differentiate \\(2px\\), then differentiate \\(e^{px^2}\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. The second derivative comes from the product rule, not just differentiating one factor.");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkSecondDerivative() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        acceptedAnswers: ["2pe^(px^2)+4p^2x^2e^(px^2)"],
+        samples: [{ p: 1, x: 2 }, { p: 0.5, x: -1 }],
+        successMessage: "Yes. Use the product rule on \\(2pxe^{px^2}\\): differentiate \\(2px\\), then differentiate \\(e^{px^2}\\).",
+        genericMessage: "Try again. The second derivative comes from the product rule, not just differentiating one factor.",
+        targetedFeedback: [
+          {
+            answers: ["4pxe^(px^2)"],
+            message: "That only captures part of the product rule. You need one term from differentiating \\(2px\\) and another from differentiating the exponential."
+          }
+        ]
+      });
     }
 
-    function checkFactorised(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. Both terms contain \\(2pe^{px^2}\\), leaving \\((1+2px^2)\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Factor out the common pieces carefully from both terms.");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkFactorised() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        acceptedAnswers: ["2pe^(px^2)(1+2px^2)"],
+        samples: [{ p: 1, x: 2 }, { p: 0.5, x: -1 }],
+        successMessage: "Correct. Both terms contain \\(2pe^{px^2}\\), leaving \\((1+2px^2)\\).",
+        genericMessage: "Not quite. Factor out the common pieces carefully from both terms.",
+        targetedFeedback: [
+          {
+            answers: ["2pe^(px^2)(1+2x)"],
+            message: "Not quite. After factoring out \\(2pe^{px^2}\\), the remaining term is \\(1+2px^2\\), not \\(1+2x\\)."
+          }
+        ]
+      });
     }
 
     function checkZeroReason(answer) {

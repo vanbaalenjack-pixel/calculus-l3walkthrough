@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -29,10 +30,10 @@
         \[
         f'(x)=2x^2+2x-24
         \]
-        \[
-        \text{Find the equation of the original function } f(x), \text{ if the } y\text{-value of the local minimum is } -46.
-        \]
       </div>
+      <p class="step-text">
+        Find the equation of the original function \(f(x)\) if the \(y\)-value of the local minimum is \(-46\).
+      </p>
       <p class="step-text attempt-note">
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
       </p>
@@ -48,18 +49,22 @@
       <section id="step-1" class="step-card active">
         <p class="step-number">Step 1</p>
         <h2>Find the critical points</h2>
-        <p class="step-text">Set the derivative equal to zero and solve.</p>
+        <p class="step-text">Set the derivative equal to zero and solve. Type the two x-values separated by a comma.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkCriticalPoints('correct')">
-            \[
-            x=-4 \text{ and } x=3
-            \]
-          </button>
-          <button class="option-btn" onclick="checkCriticalPoints('wrong1')">
-            \[
-            x=4 \text{ and } x=-3
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-1-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the critical points"
+            placeholder="Type your answers here"
+          />
+          <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkCriticalPoints()">
+            Check
           </button>
         </div>
 
@@ -74,11 +79,21 @@
         <h2>Find the second derivative</h2>
         <p class="step-text">Differentiate \(f'(x)=2x^2+2x-24\) one more time.</p>
 
-        <div class="button-grid">
-          <button class="option-btn" onclick="checkSecondDerivative('correct')">\(f''(x)=4x+2\)</button>
-          <button class="option-btn" onclick="checkSecondDerivative('wrong1')">\(f''(x)=4x\)</button>
-          <button class="option-btn" onclick="checkSecondDerivative('wrong2')">\(f''(x)=2x+2\)</button>
-          <button class="option-btn" onclick="checkSecondDerivative('wrong3')">\(f''(x)=4x+2-24\)</button>
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the second derivative"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkSecondDerivative()">
+            Check
+          </button>
         </div>
 
         <div id="feedback-2" class="feedback"></div>
@@ -116,16 +131,20 @@
         <h2>Find the original function</h2>
         <p class="step-text">Integrate the gradient function to get \(f(x)\).</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkOriginalFunction('correct')">
-            \[
-            f(x)=\frac{2}{3}x^3+x^2-24x+c
-            \]
-          </button>
-          <button class="option-btn" onclick="checkOriginalFunction('wrong1')">
-            \[
-            f(x)=x^3+x^2-24x+c
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-4-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the original function"
+            placeholder="Type your answer here"
+          />
+          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkOriginalFunction()">
+            Check
           </button>
         </div>
 
@@ -161,8 +180,8 @@
 
       <section id="step-6" class="step-card hidden">
         <p class="step-number">Step 6</p>
-        <h2>Final answer</h2>
-        <p class="step-text">Now solve for \(c\) and write the full function.</p>
+        <h2>Final function</h2>
+        <p class="step-text">Now solve for \(c\) and type the full function.</p>
 
         <div class="math-block">
           \[
@@ -180,16 +199,28 @@
           \[
           c=-1
           \]
-          \[
-          f(x)=\frac{2}{3}x^3+x^2-24x-1
-          \]
         </div>
 
-        <div id="feedback-6" class="feedback success">
-          Great work. The original function is \(f(x)=\frac{2}{3}x^3+x^2-24x-1\).
+        <div class="math-input-group">
+          <input
+            id="step-6-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the final function"
+            placeholder="Type your answer here"
+          />
+          <div id="step-6-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkFinalFunction()">
+            Check
+          </button>
         </div>
 
-        <div class="nav-row">
+        <div id="feedback-6" class="feedback"></div>
+
+        <div id="step-6-nav" class="nav-row hidden">
           <a class="nav-btn secondary" href="1b2025-l2.html">← Back to Question 1(b)</a>
           <a class="nav-btn" href="1d2025-l2.html">Next question →</a>
         </div>
@@ -229,6 +260,17 @@
         nextHref: "1d2025-l2.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview", {
+        mode: "list",
+        stripOuterParens: true
+      });
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
+      TypedMath.setupMathInputPreview("step-6-answer", "step-6-preview");
+      TypedMath.bindMathInputCheck("step-1-answer", checkCriticalPoints);
+      TypedMath.bindMathInputCheck("step-2-answer", checkSecondDerivative);
+      TypedMath.bindMathInputCheck("step-4-answer", checkOriginalFunction);
+      TypedMath.bindMathInputCheck("step-6-answer", checkFinalFunction);
     });
 
     function showOnlyStep(stepId) {
@@ -256,24 +298,62 @@
       button.classList.toggle("hidden", !shouldShow);
     }
 
-    function checkCriticalPoints(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. \\(2x^2+2x-24=0\\) simplifies to \\(x^2+x-12=0\\), which factors to \\((x+4)(x-3)=0\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. Divide by 2 first, then factor \\(x^2+x-12\\).");
-        toggleNextStepButton("next-step-1", false);
-      }
+    function checkCriticalPoints() {
+      TypedMath.checkTypedStep({
+        inputId: "step-1-answer",
+        feedbackId: "feedback-1",
+        nextButtonId: "next-step-1",
+        mode: "list",
+        options: {
+          ordered: false,
+          stripOuterParens: true
+        },
+        acceptedAnswers: ["-4,3"],
+        successMessage: "Correct. \\(2x^2+2x-24=0\\) simplifies to \\(x^2+x-12=0\\), which factors to \\((x+4)(x-3)=0\\).",
+        targetedFeedback: [
+          {
+            mode: "list",
+            options: {
+              ordered: false,
+              stripOuterParens: true
+            },
+            answers: ["4,-3"],
+            message: "Not quite. From \\((x+4)(x-3)=0\\), the solutions are \\(x=-4\\) and \\(x=3\\)."
+          }
+        ],
+        genericMessage: "Not quite. Divide by 2 first, then factor \\(x^2+x-12\\)."
+      });
     }
 
-    function checkSecondDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Correct. Differentiate each term in \\(2x^2+2x-24\\) to get \\(4x+2\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. The derivative of \\(2x^2\\) is \\(4x\\), the derivative of \\(2x\\) is 2, and the constant disappears.");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkSecondDerivative() {
+      TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        acceptedAnswers: ["4x+2"],
+        samples: [
+          { x: -2 },
+          { x: -1 },
+          { x: 1 },
+          { x: 3 }
+        ],
+        successMessage: "Correct. Differentiate each term in \\(2x^2+2x-24\\) to get \\(4x+2\\).",
+        targetedFeedback: [
+          {
+            answers: ["4x"],
+            message: "Close, but the derivative of \\(2x\\) is 2, so the +2 is missing."
+          },
+          {
+            answers: ["2x+2"],
+            message: "Not quite. The derivative of \\(2x^2\\) is \\(4x\\), not \\(2x\\)."
+          },
+          {
+            answers: ["4x+2-24"],
+            message: "Almost there. The constant \\(-24\\) disappears when you differentiate."
+          }
+        ],
+        genericMessage: "Try again. The derivative of \\(2x^2\\) is \\(4x\\), the derivative of \\(2x\\) is 2, and the constant disappears."
+      });
     }
 
     function checkMinimumPoint(answer) {
@@ -286,14 +366,44 @@
       }
     }
 
-    function checkOriginalFunction(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. Integrating term by term gives \\(\\frac{2}{3}x^3+x^2-24x+c\\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Close, but the integral of \\(2x^2\\) is \\(\\frac{2}{3}x^3\\), not \\(x^3\\).");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkOriginalFunction() {
+      TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        acceptedAnswers: ["2/3x^3+x^2-24x+c"],
+        samples: [
+          { x: -2, c: 3 },
+          { x: -1, c: -1 },
+          { x: 1, c: 5 },
+          { x: 3, c: 0 }
+        ],
+        successMessage: "Correct. Integrating term by term gives \\(\\frac{2}{3}x^3+x^2-24x+c\\).",
+        targetedFeedback: [
+          {
+            answers: ["x^3+x^2-24x+c"],
+            message: "Close, but the integral of \\(2x^2\\) is \\(\\frac{2}{3}x^3\\), not \\(x^3\\)."
+          }
+        ],
+        genericMessage: "Integrate each term carefully and remember the constant of integration."
+      });
+    }
+
+    function checkFinalFunction() {
+      TypedMath.checkTypedStep({
+        inputId: "step-6-answer",
+        feedbackId: "feedback-6",
+        successRevealId: "step-6-nav",
+        acceptedAnswers: ["2/3x^3+x^2-24x-1"],
+        samples: [
+          { x: -2 },
+          { x: -1 },
+          { x: 1 },
+          { x: 3 }
+        ],
+        successMessage: "Correct. The original function is \\(f(x)=\\frac{2}{3}x^3+x^2-24x-1\\).",
+        genericMessage: "Not quite. Use \\(c=-1\\) in \\(f(x)=\\frac{2}{3}x^3+x^2-24x+c\\)."
+      });
     }
 
     function checkCEquation(answer) {

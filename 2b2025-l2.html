@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -29,13 +30,13 @@
         \[
         f'(x)=2x^3-6x^2+2x+4
         \]
-        \[
-        \text{The graph of }f(x)\text{ passes through }(2,5).
-        \]
-        \[
-        \text{Find the equation of }f.
-        \]
       </div>
+      <p class="step-text">
+        The graph of \(f(x)\) passes through \((2,5)\).
+      </p>
+      <p class="step-text">
+        Find the equation of \(f\).
+      </p>
       <p class="step-text attempt-note">
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
       </p>
@@ -51,18 +52,22 @@
       <section id="step-1" class="step-card active">
         <p class="step-number">Step 1</p>
         <h2>Antidifferentiate term by term</h2>
-        <p class="step-text">Which antiderivative matches \(f'(x)=2x^3-6x^2+2x+4\)?</p>
+        <p class="step-text">Type the antiderivative that matches \(f'(x)=2x^3-6x^2+2x+4\).</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkAntiderivative('correct')">
-            \[
-            f(x)=\frac{1}{2}x^4-2x^3+x^2+4x+c
-            \]
-          </button>
-          <button class="option-btn" onclick="checkAntiderivative('wrong1')">
-            \[
-            f(x)=2x^4-6x^3+2x^2+4x+c
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-1-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the antiderivative"
+            placeholder="Type your answer here"
+          />
+          <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkAntiderivative()">
+            Check
           </button>
         </div>
 
@@ -125,16 +130,20 @@
         <h2>Find the constant</h2>
         <p class="step-text">Solve the equation for \(c\).</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkConstant('correct')">
-            \[
-            c=1
-            \]
-          </button>
-          <button class="option-btn" onclick="checkConstant('wrong1')">
-            \[
-            c=-1
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-4-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the constant c"
+            placeholder="Type your answer here"
+          />
+          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkConstant()">
+            Check
           </button>
         </div>
 
@@ -146,8 +155,8 @@
 
       <section id="step-5" class="step-card hidden">
         <p class="step-number">Step 5</p>
-        <h2>Final answer</h2>
-        <p class="step-text">Now write the full equation of \(f\).</p>
+        <h2>Final function</h2>
+        <p class="step-text">Now type the full equation of \(f\).</p>
 
         <div class="math-block">
           \[
@@ -165,16 +174,28 @@
           \[
           c=1
           \]
-          \[
-          f(x)=\frac{1}{2}x^4-2x^3+x^2+4x+1
-          \]
         </div>
 
-        <div id="feedback-5" class="feedback success">
-          Great work. The function is \(f(x)=\frac{1}{2}x^4-2x^3+x^2+4x+1\).
+        <div class="math-input-group">
+          <input
+            id="step-5-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the full function"
+            placeholder="Type your answer here"
+          />
+          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkFinalFunction()">
+            Check
+          </button>
         </div>
 
-        <div class="nav-row">
+        <div id="feedback-5" class="feedback"></div>
+
+        <div id="step-5-nav" class="nav-row hidden">
           <a class="nav-btn secondary" href="2a2025-l2.html">← Back to Question 2(a)</a>
           <a class="nav-btn" href="2c2025-l2.html">Next question →</a>
         </div>
@@ -214,6 +235,12 @@
         nextHref: "2c2025-l2.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
+      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
+      TypedMath.bindMathInputCheck("step-1-answer", checkAntiderivative);
+      TypedMath.bindMathInputCheck("step-4-answer", checkConstant);
+      TypedMath.bindMathInputCheck("step-5-answer", checkFinalFunction);
     });
 
     function showOnlyStep(stepId) {
@@ -241,14 +268,27 @@
       button.classList.toggle("hidden", !shouldShow);
     }
 
-    function checkAntiderivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. Integrating term by term gives \\(\\frac{1}{2}x^4-2x^3+x^2+4x+c\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. When antidifferentiating, increase each power by 1 and divide by the new power.");
-        toggleNextStepButton("next-step-1", false);
-      }
+    function checkAntiderivative() {
+      TypedMath.checkTypedStep({
+        inputId: "step-1-answer",
+        feedbackId: "feedback-1",
+        nextButtonId: "next-step-1",
+        acceptedAnswers: ["1/2x^4-2x^3+x^2+4x+c"],
+        samples: [
+          { x: -2, c: 3 },
+          { x: -1, c: -1 },
+          { x: 1, c: 5 },
+          { x: 3, c: 0 }
+        ],
+        successMessage: "Correct. Integrating term by term gives \\(\\frac{1}{2}x^4-2x^3+x^2+4x+c\\).",
+        targetedFeedback: [
+          {
+            answers: ["2x^4-6x^3+2x^2+4x+c"],
+            message: "Not quite. When antidifferentiating, increase each power by 1 and divide by the new power."
+          }
+        ],
+        genericMessage: "Antidifferentiate each term carefully and remember to add \\(+c\\)."
+      });
     }
 
     function checkSubstitution(answer) {
@@ -271,14 +311,38 @@
       }
     }
 
-    function checkConstant(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. From \\(4+c=5\\), subtract 4 to get \\(c=1\\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Close, but \\(4+c=5\\) gives \\(c=1\\), not \\(-1\\).");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkConstant() {
+      TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        acceptedAnswers: ["1"],
+        successMessage: "Correct. From \\(4+c=5\\), subtract 4 to get \\(c=1\\).",
+        targetedFeedback: [
+          {
+            answers: ["-1"],
+            message: "Close, but \\(4+c=5\\) gives \\(c=1\\), not \\(-1\\)."
+          }
+        ],
+        genericMessage: "Solve \\(4+c=5\\) carefully for \\(c\\)."
+      });
+    }
+
+    function checkFinalFunction() {
+      TypedMath.checkTypedStep({
+        inputId: "step-5-answer",
+        feedbackId: "feedback-5",
+        successRevealId: "step-5-nav",
+        acceptedAnswers: ["1/2x^4-2x^3+x^2+4x+1"],
+        samples: [
+          { x: -2 },
+          { x: -1 },
+          { x: 1 },
+          { x: 3 }
+        ],
+        successMessage: "Correct. The function is \\(f(x)=\\frac{1}{2}x^4-2x^3+x^2+4x+1\\).",
+        genericMessage: "Not quite. Use \\(c=1\\) in \\(f(x)=\\frac{1}{2}x^4-2x^3+x^2+4x+c\\)."
+      });
     }
   </script>
 </body>

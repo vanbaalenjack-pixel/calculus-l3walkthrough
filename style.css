@@ -47,6 +47,20 @@ body {
   line-height: 1.5;
 }
 
+.site-footer-text + .site-footer-text {
+  margin-top: 8px;
+}
+
+.site-footer-link {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-footer-link:hover {
+  text-decoration: underline;
+}
+
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -175,6 +189,11 @@ h1 {
   margin-bottom: 20px;
 }
 
+.question-entry-actions {
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
 .answer-card .hint-body {
   margin-top: 8px;
 }
@@ -265,6 +284,13 @@ input[type="range"] {
 
 .next-step-btn {
   margin-top: 12px;
+}
+
+.walkthrough-step-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
 }
 
 .graph-card {
@@ -419,6 +445,55 @@ input[type="range"] {
   overflow-x: auto;
 }
 
+.math-input-group {
+  margin: 18px 0 16px;
+}
+
+.math-answer-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  line-height: 1.35;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.math-answer-input:focus {
+  outline: none;
+  border-color: #b8c7dc;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.math-preview {
+  min-height: 74px;
+  margin-top: 12px;
+  padding: 16px 18px;
+  background: #f8fbff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow-x: auto;
+  color: var(--text);
+}
+
+.math-preview.is-placeholder,
+.math-preview.is-error {
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+}
+
+.math-preview .katex-display {
+  margin: 0;
+}
+
+.check-btn {
+  margin-top: 12px;
+}
+
 .nav-row {
   display: flex;
   justify-content: space-between;
@@ -489,6 +564,24 @@ input[type="range"] {
 
 .paper-panel {
   scroll-margin-top: 24px;
+}
+
+.standard-section {
+  padding: 20px 22px 22px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: #f8fbff;
+  scroll-margin-top: 24px;
+}
+
+.standard-section + .standard-section {
+  margin-top: 20px;
+}
+
+.standard-title {
+  margin: 0 0 10px;
+  font-size: 1.45rem;
+  line-height: 1.2;
 }
 
 .index-group + .index-group {

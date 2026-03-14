@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -65,11 +66,21 @@
         <h2>Differentiate the first factor</h2>
         <p class="step-text">If \(u=5x-3\), what is \(u'\)?</p>
 
-        <div class="button-grid">
-          <button class="option-btn" onclick="checkFirstFactor('correct')">\(5\)</button>
-          <button class="option-btn" onclick="checkFirstFactor('wrong1')">\(5x\)</button>
-          <button class="option-btn" onclick="checkFirstFactor('wrong2')">\(-3\)</button>
-          <button class="option-btn" onclick="checkFirstFactor('wrong3')">\(5x-3\)</button>
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type u prime"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkFirstFactor()">
+            Check
+          </button>
         </div>
 
         <div id="feedback-2" class="feedback"></div>
@@ -83,11 +94,21 @@
         <h2>Differentiate the sine factor carefully</h2>
         <p class="step-text">If \(v=\sin(4x)\), what is \(v'\)? Remember the chain rule inside the sine function.</p>
 
-        <div class="button-grid">
-          <button class="option-btn" onclick="checkSecondFactor('correct')">\(4\cos(4x)\)</button>
-          <button class="option-btn" onclick="checkSecondFactor('wrong1')">\(\cos(4x)\)</button>
-          <button class="option-btn" onclick="checkSecondFactor('wrong2')">\(4\sin(4x)\)</button>
-          <button class="option-btn" onclick="checkSecondFactor('wrong3')">\(\sin(4x)\)</button>
+        <div class="math-input-group">
+          <input
+            id="step-3-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type v prime"
+            placeholder="Type your answer here"
+          />
+          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkSecondFactor()">
+            Check
+          </button>
         </div>
 
         <div id="feedback-3" class="feedback"></div>
@@ -101,16 +122,20 @@
         <h2>Assemble the product rule</h2>
         <p class="step-text">Use \(\frac{d}{dx}(uv)=u'v+uv'\).</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkAssembly('correct')">
-            \[
-            f'(x)=5\sin(4x)+(5x-3)\cdot4\cos(4x)
-            \]
-          </button>
-          <button class="option-btn" onclick="checkAssembly('wrong1')">
-            \[
-            f'(x)=5\sin(4x)+(5x-3)\cos(4x)
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-4-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the derivative"
+            placeholder="Type your answer here"
+          />
+          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkAssembly()">
+            Check
           </button>
         </div>
 
@@ -188,6 +213,12 @@
         nextHref: "2b2022.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
+      TypedMath.bindMathInputCheck("step-2-answer", checkFirstFactor);
+      TypedMath.bindMathInputCheck("step-3-answer", checkSecondFactor);
+      TypedMath.bindMathInputCheck("step-4-answer", checkAssembly);
       setupGraphControls();
       drawGraph();
     });
@@ -225,34 +256,57 @@
       }
     }
 
-    function checkFirstFactor(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Correct. The derivative of \\(5x-3\\) is \\(5\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. Differentiate term by term: \\(\\frac{d}{dx}(5x)=5\\) and \\(\\frac{d}{dx}(-3)=0\\).");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkFirstFactor() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        acceptedAnswers: ["5"],
+        successMessage: "Correct. The derivative of \\(5x-3\\) is \\(5\\).",
+        genericMessage: "Try again. Differentiate term by term: \\(\\frac{d}{dx}(5x)=5\\) and \\(\\frac{d}{dx}(-3)=0\\).",
+        targetedFeedback: [
+          {
+            answers: ["5x", "-3", "5x-3"],
+            message: "Not quite. Differentiate term by term: \\(\\frac{d}{dx}(5x)=5\\) and \\(\\frac{d}{dx}(-3)=0\\)."
+          }
+        ]
+      });
     }
 
-    function checkSecondFactor(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Yes. The derivative of \\(\\sin(4x)\\) is \\(\\cos(4x)\\) multiplied by the derivative of \\(4x\\), which gives \\(4\\cos(4x)\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. You need the chain rule as well, so include the derivative of the inside \\(4x\\).");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkSecondFactor() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        acceptedAnswers: ["4cos(4x)"],
+        samples: [{ x: 1 }, { x: -0.5 }],
+        successMessage: "Yes. The derivative of \\(\\sin(4x)\\) is \\(\\cos(4x)\\) multiplied by the derivative of \\(4x\\), which gives \\(4\\cos(4x)\\).",
+        genericMessage: "Not quite. You need the chain rule as well, so include the derivative of the inside \\(4x\\).",
+        targetedFeedback: [
+          {
+            answers: ["cos(4x)", "4sin(4x)", "sin(4x)"],
+            message: "Not quite. You need the chain rule as well, so include the derivative of the inside \\(4x\\)."
+          }
+        ]
+      });
     }
 
-    function checkAssembly(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Great work. Product rule gives \\(u'v+uv'\\), and the second term needs the extra factor of 4.", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Close, but the second term is missing the chain rule factor. The derivative of \\(\\sin(4x)\\) is \\(4\\cos(4x)\\), not just \\(\\cos(4x)\\).");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkAssembly() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        acceptedAnswers: ["5sin(4x)+4(5x-3)cos(4x)"],
+        samples: [{ x: 0.5 }, { x: 1.2 }],
+        successMessage: "Great work. Product rule gives \\(u'v+uv'\\), and the second term needs the extra factor of 4.",
+        genericMessage: "Close, but the second term is missing the chain rule factor. The derivative of \\(\\sin(4x)\\) is \\(4\\cos(4x)\\), not just \\(\\cos(4x)\\).",
+        targetedFeedback: [
+          {
+            answers: ["5sin(4x)+(5x-3)cos(4x)"],
+            message: "Close, but the second term is missing the chain rule factor. The derivative of \\(\\sin(4x)\\) is \\(4\\cos(4x)\\), not just \\(\\cos(4x)\\)."
+          }
+        ]
+      });
     }
 
     function setupGraphControls() {

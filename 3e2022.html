@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -81,16 +82,20 @@
         <h2>Find the shortcut distance</h2>
         <p class="step-text">Use Pythagoras on the triangle \(PQS\).</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkShortcut('correct')">
-            \[
-            PS=\sqrt{(4-x)^2+2^2}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkShortcut('wrong1')">
-            \[
-            PS=(4-x)+2
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the shortcut distance"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkShortcut()">
+            Check
           </button>
         </div>
 
@@ -105,16 +110,20 @@
         <h2>Write the time function</h2>
         <p class="step-text">Time is distance divided by speed.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkTimeFunction('correct')">
-            \[
-            T(x)=\frac{x}{10}+\frac{\sqrt{(4-x)^2+4}}{6}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkTimeFunction('wrong1')">
-            \[
-            T(x)=10x+6\sqrt{(4-x)^2+4}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-3-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the time function"
+            placeholder="Type your answer here"
+          />
+          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkTimeFunction()">
+            Check
           </button>
         </div>
 
@@ -143,16 +152,20 @@
           \]
         </div>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivative('correct')">
-            \[
-            T'(x)=\frac{1}{10}-\frac{4-x}{6\sqrt{(4-x)^2+4}}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivative('wrong1')">
-            \[
-            T'(x)=\frac{1}{10}+\frac{4-x}{6\sqrt{(4-x)^2+4}}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-4-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the derivative of T"
+            placeholder="Type your answer here"
+          />
+          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
+            Check
           </button>
         </div>
 
@@ -185,16 +198,20 @@
           \]
         </div>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkMinimum('correct')">
-            \[
-            x=\frac{5}{2}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkMinimum('wrong1')">
-            \[
-            x=\frac{11}{2}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-5-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the distance x"
+            placeholder="Type your answer here"
+          />
+          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkMinimum()">
+            Check
           </button>
         </div>
 
@@ -282,6 +299,14 @@
         nextHref: "index.html",
         nextLabel: "Back to paper"
       });
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
+      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
+      TypedMath.bindMathInputCheck("step-2-answer", checkShortcut);
+      TypedMath.bindMathInputCheck("step-3-answer", checkTimeFunction);
+      TypedMath.bindMathInputCheck("step-4-answer", checkDerivative);
+      TypedMath.bindMathInputCheck("step-5-answer", checkMinimum);
       drawQuestionGraph();
     });
 
@@ -315,44 +340,75 @@
       }
     }
 
-    function checkShortcut(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Yes. The direct path across the park is the hypotenuse of a right triangle.", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. The diagonal distance needs Pythagoras, not simple addition.");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkShortcut() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        acceptedAnswers: ["sqrt((4-x)^2+4)"],
+        samples: [{ x: 1 }, { x: 2.5 }],
+        successMessage: "Yes. The direct path across the park is the hypotenuse of a right triangle.",
+        genericMessage: "Try again. The diagonal distance needs Pythagoras, not simple addition.",
+        targetedFeedback: [
+          {
+            answers: ["(4-x)+2"],
+            message: "Try again. The diagonal distance needs Pythagoras, not simple addition."
+          }
+        ]
+      });
     }
 
-    function checkTimeFunction(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. Time along the road is \\(\\frac{x}{10}\\), and time across the park is \\(\\frac{PS}{6}\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Time is distance divided by speed, not multiplied by speed.");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkTimeFunction() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        acceptedAnswers: ["x/10+sqrt((4-x)^2+4)/6"],
+        samples: [{ x: 1 }, { x: 2.5 }],
+        successMessage: "Correct. Time along the road is \\(\\frac{x}{10}\\), and time across the park is \\(\\frac{PS}{6}\\).",
+        genericMessage: "Not quite. Time is distance divided by speed, not multiplied by speed.",
+        targetedFeedback: [
+          {
+            answers: ["10x+6sqrt((4-x)^2+4)"],
+            message: "Not quite. Time is distance divided by speed, not multiplied by speed."
+          }
+        ]
+      });
     }
 
-    function checkDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. The minus sign comes from differentiating \\(4-x\\), so the chain rule gives a negative second term.", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Not quite. Differentiate the square-root term carefully: the inside derivative is \\(-2(4-x)\\), so the final term is negative.");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkDerivative() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        acceptedAnswers: ["1/10-(4-x)/(6sqrt((4-x)^2+4))"],
+        samples: [{ x: 1 }, { x: 2.5 }],
+        successMessage: "Correct. The minus sign comes from differentiating \\(4-x\\), so the chain rule gives a negative second term.",
+        genericMessage: "Not quite. Differentiate the square-root term carefully: the inside derivative is \\(-2(4-x)\\), so the final term is negative.",
+        targetedFeedback: [
+          {
+            answers: ["1/10+(4-x)/(6sqrt((4-x)^2+4))"],
+            message: "Not quite. Differentiate the square-root term carefully: the inside derivative is \\(-2(4-x)\\), so the final term is negative."
+          }
+        ]
+      });
     }
 
-    function checkMinimum(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Yes. Since \\(0\\le x\\le 4\\), we need \\(4-x\\ge 0\\), so the valid solution is \\(x=\\frac{5}{2}\\).", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Close, but \\(x=\\frac{11}{2}\\) would make \\(4-x\\) negative and it also lies outside the road segment.");
-        toggleNextStepButton("next-step-5", false);
-      }
+    function checkMinimum() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-5-answer",
+        feedbackId: "feedback-5",
+        nextButtonId: "next-step-5",
+        acceptedAnswers: ["5/2"],
+        successMessage: "Yes. Since \\(0\\le x\\le 4\\), we need \\(4-x\\ge 0\\), so the valid solution is \\(x=\\frac{5}{2}\\).",
+        genericMessage: "Close, but keep the solution that lies on the road segment and makes \\(4-x\\) non-negative.",
+        targetedFeedback: [
+          {
+            answers: ["11/2"],
+            message: "Close, but \\(x=\\frac{11}{2}\\) would make \\(4-x\\) negative and it also lies outside the road segment."
+          }
+        ]
+      });
     }
 
     function drawQuestionGraph() {

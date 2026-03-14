@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -29,10 +30,10 @@
         \[
         f(x)=2x^2-7x-20
         \]
-        \[
-        \text{Find the coordinate of the point on the curve where the gradient of }f(x)\text{ is equal to }3.
-        \]
       </div>
+      <p class="step-text">
+        Find the coordinate of the point on the curve where the gradient of \(f(x)\) is equal to \(3\).
+      </p>
       <p class="step-text attempt-note">
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
       </p>
@@ -50,16 +51,20 @@
         <h2>Differentiate the function</h2>
         <p class="step-text">What is \(f'(x)\) for \(f(x)=2x^2-7x-20\)?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivative('correct')">
-            \[
-            f'(x)=4x-7
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivative('wrong1')">
-            \[
-            f'(x)=2x-7
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-1-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the derivative of f of x"
+            placeholder="Type your answer here"
+          />
+          <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
+            Check
           </button>
         </div>
 
@@ -74,16 +79,20 @@
         <h2>Use the given gradient</h2>
         <p class="step-text">The gradient is 3, so solve \(4x-7=3\). What is \(x\)?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkXValue('correct')">
-            \[
-            x=\frac{5}{2}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkXValue('wrong1')">
-            \[
-            x=\frac{3}{4}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the x value"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkXValue()">
+            Check
           </button>
         </div>
 
@@ -98,16 +107,20 @@
         <h2>Find the y-coordinate</h2>
         <p class="step-text">Substitute \(x=\frac{5}{2}\) into the original function. What is the y-value?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkYValue('correct')">
-            \[
-            f\left(\frac{5}{2}\right)=-25
-            \]
-          </button>
-          <button class="option-btn" onclick="checkYValue('wrong1')">
-            \[
-            f\left(\frac{5}{2}\right)=25
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-3-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the y value"
+            placeholder="Type your answer here"
+          />
+          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkYValue()">
+            Check
           </button>
         </div>
 
@@ -205,6 +218,12 @@
         nextHref: "3b2025-l2.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
+      TypedMath.bindMathInputCheck("step-1-answer", checkDerivative);
+      TypedMath.bindMathInputCheck("step-2-answer", checkXValue);
+      TypedMath.bindMathInputCheck("step-3-answer", checkYValue);
     });
 
     function showOnlyStep(stepId) {
@@ -232,34 +251,61 @@
       button.classList.toggle("hidden", !shouldShow);
     }
 
-    function checkDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. The derivative of \\(2x^2\\) is \\(4x\\), the derivative of \\(-7x\\) is \\(-7\\), and the constant disappears.", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. For \\(2x^2\\), bring the 2 down and reduce the power by 1 to get \\(4x\\).");
-        toggleNextStepButton("next-step-1", false);
-      }
+    function checkDerivative() {
+      TypedMath.checkTypedStep({
+        inputId: "step-1-answer",
+        feedbackId: "feedback-1",
+        nextButtonId: "next-step-1",
+        acceptedAnswers: ["4x-7"],
+        samples: [
+          { x: -2 },
+          { x: -1 },
+          { x: 1 },
+          { x: 3 }
+        ],
+        successMessage: "Correct. The derivative of \\(2x^2\\) is \\(4x\\), the derivative of \\(-7x\\) is \\(-7\\), and the constant disappears.",
+        targetedFeedback: [
+          {
+            answers: ["2x-7"],
+            message: "Not quite. For \\(2x^2\\), bring the 2 down and reduce the power by 1 to get \\(4x\\)."
+          }
+        ],
+        genericMessage: "Differentiate each term carefully and simplify."
+      });
     }
 
-    function checkXValue(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Correct. From \\(4x-7=3\\), add 7 to get \\(4x=10\\), then divide by 4.", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. Solve \\(4x-7=3\\) carefully by isolating \\(x\\).");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkXValue() {
+      TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        acceptedAnswers: ["5/2"],
+        successMessage: "Correct. From \\(4x-7=3\\), add 7 to get \\(4x=10\\), then divide by 4.",
+        targetedFeedback: [
+          {
+            answers: ["3/4"],
+            message: "Try again. Solve \\(4x-7=3\\) carefully by isolating \\(x\\)."
+          }
+        ],
+        genericMessage: "Try again. Solve \\(4x-7=3\\) carefully by isolating \\(x\\)."
+      });
     }
 
-    function checkYValue(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. Substituting \\(x=\\frac{5}{2}\\) into \\(f(x)=2x^2-7x-20\\) gives \\(-25\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. The y-value is negative here, so make sure you include the \\(-7x\\) and \\(-20\\) terms correctly.");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkYValue() {
+      TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        acceptedAnswers: ["-25"],
+        successMessage: "Correct. Substituting \\(x=\\frac{5}{2}\\) into \\(f(x)=2x^2-7x-20\\) gives \\(-25\\).",
+        targetedFeedback: [
+          {
+            answers: ["25"],
+            message: "Not quite. The y-value is negative here, so make sure you include the \\(-7x\\) and \\(-20\\) terms correctly."
+          }
+        ],
+        genericMessage: "Substitute \\(x=\\frac{5}{2}\\) carefully into the original function."
+      });
     }
   </script>
 </body>

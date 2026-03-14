@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -39,11 +40,9 @@
       <p class="step-text">
         Water is poured into the bowl at a constant rate of \(20\text{ cm}^3\text{ s}^{-1}\).
       </p>
-      <div class="question-math">
-        \[
-        \text{Find the rate, in cm s}^{-1}\text{, at which the height of the water level is increasing when } h=3\text{ cm.}
-        \]
-      </div>
+      <p class="step-text">
+        Find the rate, in \(\text{cm s}^{-1}\), at which the height of the water level is increasing when \(h=3\text{ cm}\).
+      </p>
       <p class="step-text question-note">
         You must use calculus and show any derivatives that you need when solving this problem.
       </p>
@@ -85,16 +84,20 @@
         <h2>Differentiate the volume formula</h2>
         <p class="step-text">Find \(\frac{dV}{dh}\) from the given expression for \(V\).</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkVolumeDerivative('correct')">
-            \[
-            \frac{dV}{dh}=3\pi h+3\pi
-            \]
-          </button>
-          <button class="option-btn" onclick="checkVolumeDerivative('wrong1')">
-            \[
-            \frac{dV}{dh}=\pi(3h+1)
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type dV by dh"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkVolumeDerivative()">
+            Check
           </button>
         </div>
 
@@ -143,19 +146,28 @@
           \[
           \frac{dh}{dt}=\frac{20}{3\pi(3)+3\pi}
           \]
-          \[
-          \frac{dh}{dt}=\frac{20}{12\pi}
-          \]
-          \[
-          \frac{dh}{dt}=\frac{5}{3\pi}
-          \]
         </div>
 
-        <div id="feedback-4" class="feedback success">
-          Great work. The height of the water is increasing at \(\frac{5}{3\pi}\text{ cm s}^{-1}\).
+        <div class="math-input-group">
+          <input
+            id="step-4-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type dh by dt"
+            placeholder="Type your answer here"
+          />
+          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkHeightRate()">
+            Check
+          </button>
         </div>
 
-        <div class="nav-row">
+        <div id="feedback-4" class="feedback"></div>
+
+        <div id="step-4-nav" class="nav-row hidden">
           <a class="nav-btn secondary" href="3b2022.html">← Back to Question 3(b)</a>
           <a class="nav-btn" href="3d2022.html">Next question →</a>
         </div>
@@ -204,6 +216,10 @@
         nextHref: "3d2022.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
+      TypedMath.bindMathInputCheck("step-2-answer", checkVolumeDerivative);
+      TypedMath.bindMathInputCheck("step-4-answer", checkHeightRate);
       drawQuestionGraph();
     });
 
@@ -237,14 +253,22 @@
       }
     }
 
-    function checkVolumeDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Yes. Differentiate term by term: \\(\\pi\\cdot \\frac{d}{dh}(\\frac{3}{2}h^2+3h)=3\\pi h+3\\pi\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Close, but the derivative of \\(3h\\) is 3, not 1.");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkVolumeDerivative() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        acceptedAnswers: ["3pi h+3pi"],
+        samples: [{ h: 1 }, { h: 4 }],
+        successMessage: "Yes. Differentiate term by term: \\(\\pi\\cdot \\frac{d}{dh}(\\frac{3}{2}h^2+3h)=3\\pi h+3\\pi\\).",
+        genericMessage: "Close, but differentiate each term in the bracket carefully before multiplying by \\(\\pi\\).",
+        targetedFeedback: [
+          {
+            answers: ["pi(3h+1)"],
+            message: "Close, but the derivative of \\(3h\\) is 3, not 1."
+          }
+        ]
+      });
     }
 
     function checkRateLink(answer) {
@@ -255,6 +279,23 @@
         setFeedback("feedback-3", "Not quite. Start from \\(V\\) depending on \\(h\\), and \\(h\\) depending on \\(t\\).");
         toggleNextStepButton("next-step-3", false);
       }
+    }
+
+    function checkHeightRate() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        acceptedAnswers: ["5/(3pi)"],
+        successMessage: "Great work. The height of the water is increasing at \\(\\frac{5}{3\\pi}\\text{ cm s}^{-1}\\).",
+        genericMessage: "Try again. Substitute \\(h=3\\) carefully into \\(\\frac{20}{3\\pi h+3\\pi}\\), then simplify.",
+        targetedFeedback: [
+          {
+            answers: ["5/3"],
+            message: "Close, but the denominator still includes \\(\\pi\\)."
+          }
+        ],
+        successRevealId: "step-4-nav"
+      });
     }
 
     function drawQuestionGraph() {

@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -107,16 +108,20 @@
         <h2>Find point \(P\)</h2>
         <p class="step-text">Solve for \(y\), then substitute back into the curve equation to find \(x\).</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkPoint('correct')">
-            \[
-            P=(6,13)
-            \]
-          </button>
-          <button class="option-btn" onclick="checkPoint('wrong1')">
-            \[
-            P=(13,6)
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-3-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the coordinates of P"
+            placeholder="Type your answer here"
+          />
+          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkPoint()">
+            Check
           </button>
         </div>
 
@@ -131,16 +136,20 @@
         <h2>Find the tangent equation</h2>
         <p class="step-text">Use gradient \(1\) and point \(P=(6,13)\).</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkTangent('correct')">
-            \[
-            y-13=x-6
-            \]
-          </button>
-          <button class="option-btn" onclick="checkTangent('wrong1')">
-            \[
-            y-6=x-13
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-4-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the tangent equation"
+            placeholder="Type your answer here"
+          />
+          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkTangent()">
+            Check
           </button>
         </div>
 
@@ -188,13 +197,26 @@
           \[
           RS=\sqrt{7^2+7^2}
           \]
-          \[
-          RS=\sqrt{98}
-          \]
-          \[
-          RS=7\sqrt{2}
-          \]
         </div>
+
+        <div class="math-input-group">
+          <input
+            id="step-6-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the length RS"
+            placeholder="Type your answer here"
+          />
+          <div id="step-6-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkDistance()">
+            Check
+          </button>
+        </div>
+
+        <div id="feedback-6" class="feedback"></div>
 
         <div class="graph-card">
           <div class="graph-copy">
@@ -213,7 +235,7 @@
           </div>
         </div>
 
-        <div class="nav-row">
+        <div id="step-6-nav" class="nav-row hidden">
           <a class="nav-btn secondary" href="2d2022.html">← Back to Question 2(d)</a>
           <a class="nav-btn" href="index.html">Back to paper</a>
         </div>
@@ -290,6 +312,20 @@
         nextHref: "index.html",
         nextLabel: "Back to paper"
       });
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview", {
+        mode: "list",
+        stripOuterParens: true,
+        wrapWithParens: true
+      });
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview", {
+        mode: "equation",
+        equationLhs: "y",
+        allowBareExpression: true
+      });
+      TypedMath.setupMathInputPreview("step-6-answer", "step-6-preview");
+      TypedMath.bindMathInputCheck("step-3-answer", checkPoint);
+      TypedMath.bindMathInputCheck("step-4-answer", checkTangent);
+      TypedMath.bindMathInputCheck("step-6-answer", checkDistance);
       setupGraphControls();
       drawQuestionGraph();
       drawDistanceGraph();
@@ -338,24 +374,72 @@
       }
     }
 
-    function checkPoint(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. From \\(y=13\\), substitute back into the curve to get \\(x=6\\), so \\(P=(6,13)\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Once you know \\(y=13\\), use the original equation to solve for \\(x\\).");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkPoint() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        mode: "list",
+        options: {
+          ordered: true,
+          stripOuterParens: true
+        },
+        acceptedAnswers: ["6,13"],
+        successMessage: "Correct. From \\(y=13\\), substitute back into the curve to get \\(x=6\\), so \\(P=(6,13)\\).",
+        genericMessage: "Not quite. Once you know \\(y=13\\), use the original equation to solve for \\(x\\).",
+        targetedFeedback: [
+          {
+            mode: "list",
+            options: {
+              ordered: true,
+              stripOuterParens: true
+            },
+            answers: ["13,6"],
+            message: "Not quite. Keep the coordinates in \\((x,y)\\) order."
+          }
+        ]
+      });
     }
 
-    function checkTangent(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Great. Point-gradient form with point \\((6,13)\\) and slope 1 gives \\(y-13=x-6\\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Try again. Keep the coordinates in the same order: \\((x_1,y_1)=(6,13)\\).");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkTangent() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        mode: "equation",
+        options: {
+          equationLhs: "y",
+          allowBareExpression: true
+        },
+        acceptedAnswers: ["y-13=x-6", "y=x+7"],
+        samples: [{ x: 0, y: 7 }, { x: 6, y: 13 }, { x: -7, y: 0 }],
+        successMessage: "Great. Point-gradient form with point \\((6,13)\\) and slope 1 gives \\(y-13=x-6\\).",
+        genericMessage: "Try again. Keep the coordinates in the same order: \\((x_1,y_1)=(6,13)\\).",
+        targetedFeedback: [
+          {
+            mode: "equation",
+            answers: ["y-6=x-13"],
+            message: "Not quite. Keep the coordinates in the same order: \\((x_1,y_1)=(6,13)\\)."
+          }
+        ]
+      });
+    }
+
+    function checkDistance() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-6-answer",
+        feedbackId: "feedback-6",
+        acceptedAnswers: ["7sqrt(2)"],
+        successMessage: "Great. The distance simplifies to \\(7\\sqrt{2}\\).",
+        genericMessage: "Try again. Simplify \\(\\sqrt{7^2+7^2}=\\sqrt{98}\\) fully.",
+        targetedFeedback: [
+          {
+            answers: ["sqrt(98)"],
+            message: "Close, but \\(\\sqrt{98}\\) simplifies to \\(7\\sqrt{2}\\)."
+          }
+        ],
+        successRevealId: "step-6-nav"
+      });
     }
 
     function setupGraphControls() {

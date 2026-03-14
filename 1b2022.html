@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -25,11 +26,9 @@
 
     <section class="question-card">
       <p class="question-label">Question</p>
-      <div class="question-math">
-        \[
-        \text{Find the } x\text{-value(s) of any stationary points on the graph of } f(x)=\frac{x^2+1}{x}.
-        \]
-      </div>
+      <p class="step-text">
+        Find the \(x\)-value(s) of any stationary points on the graph of \(f(x)=\frac{x^2+1}{x}\).
+      </p>
       <p class="step-text attempt-note">
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
       </p>
@@ -85,15 +84,20 @@
       <h2>Differentiate \(u\) and \(v\)</h2>
       <p class="step-text">If \(u=x^2+1\) and \(v=x\), what are \(u'\) and \(v'\)?</p>
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkDerivatives('correct')">
-          \(u'=2x\), \(v'=1\)
-        </button>
-        <button class="option-btn" onclick="checkDerivatives('wrong1')">
-          \(u'=x^2\), \(v'=x\)
-        </button>
-        <button class="option-btn" onclick="checkDerivatives('wrong2')">
-          \(u'=2\), \(v'=0\)
+      <div class="math-input-group">
+        <input
+          id="step-3-answer"
+          class="math-answer-input"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type u prime and v prime"
+          placeholder="Type your answer here"
+        />
+        <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+        <button class="nav-btn check-btn" type="button" onclick="checkDerivatives()">
+          Check
         </button>
       </div>
 
@@ -110,16 +114,20 @@
         Use \(\frac{d}{dx}\left(\frac{u}{v}\right)=\frac{vu'-uv'}{v^2}\).
       </p>
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkQuotient('correct')">
-          \[
-          f'(x)=\frac{x(2x)-(x^2+1)(1)}{x^2}
-          \]
-        </button>
-        <button class="option-btn" onclick="checkQuotient('wrong1')">
-          \[
-          f'(x)=\frac{2x}{x}
-          \]
+      <div class="math-input-group">
+        <input
+          id="step-4-answer"
+          class="math-answer-input"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type the derivative from the quotient rule"
+          placeholder="Type your answer here"
+        />
+        <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+        <button class="nav-btn check-btn" type="button" onclick="checkQuotient()">
+          Check
         </button>
       </div>
 
@@ -171,12 +179,20 @@
         \]
       </div>
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkSolutions('correct')">
-          \(x=1\) and \(x=-1\)
-        </button>
-        <button class="option-btn" onclick="checkSolutions('wrong1')">
-          \(x=0\)
+      <div class="math-input-group">
+        <input
+          id="step-6-answer"
+          class="math-answer-input"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type the stationary x values"
+          placeholder="Type your answer here"
+        />
+        <div id="step-6-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+        <button class="nav-btn check-btn" type="button" onclick="checkSolutions()">
+          Check
         </button>
       </div>
 
@@ -260,6 +276,12 @@
         nextHref: "1c2022.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview", { mode: "list" });
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
+      TypedMath.setupMathInputPreview("step-6-answer", "step-6-preview", { mode: "list" });
+      TypedMath.bindMathInputCheck("step-3-answer", checkDerivatives);
+      TypedMath.bindMathInputCheck("step-4-answer", checkQuotient);
+      TypedMath.bindMathInputCheck("step-6-answer", checkSolutions);
       setupGraphControls();
       drawGraph();
     });
@@ -307,24 +329,48 @@
       }
     }
 
-    function checkDerivatives(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. \\(u'=2x\\) and \\(v'=1\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Differentiate \\(x^2+1\\) and \\(x\\) separately using the power rule.");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkDerivatives() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        mode: "list",
+        options: {
+          ordered: true
+        },
+        acceptedAnswers: ["2x,1"],
+        samples: [{ x: 2 }, { x: -1 }],
+        successMessage: "Correct. \\(u'=2x\\) and \\(v'=1\\).",
+        genericMessage: "Not quite. Differentiate \\(x^2+1\\) and \\(x\\) separately using the power rule.",
+        targetedFeedback: [
+          {
+            mode: "list",
+            options: {
+              ordered: true
+            },
+            answers: ["x^2,x"],
+            message: "Those are the original expressions. Differentiate \\(x^2+1\\) and \\(x\\) separately using the power rule."
+          }
+        ]
+      });
     }
 
-    function checkQuotient(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. Substitute \\(u\\), \\(v\\), \\(u'\\), and \\(v'\\) carefully into the quotient rule.", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Not quite. The quotient rule needs the full numerator \\(vu'-uv'\\), all over \\(v^2\\).");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkQuotient() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        acceptedAnswers: ["(x(2x)-(x^2+1))/x^2"],
+        samples: [{ x: 2 }, { x: -1 }],
+        successMessage: "Correct. Substitute \\(u\\), \\(v\\), \\(u'\\), and \\(v'\\) carefully into the quotient rule.",
+        genericMessage: "Not quite. The quotient rule needs the full numerator \\(vu'-uv'\\), all over \\(v^2\\).",
+        targetedFeedback: [
+          {
+            answers: ["2x/x"],
+            message: "Not quite. The quotient rule needs the full numerator \\(vu'-uv'\\), all over \\(v^2\\)."
+          }
+        ]
+      });
     }
 
     function checkStationary(answer) {
@@ -337,14 +383,25 @@
       }
     }
 
-    function checkSolutions(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-6", "Great work. Solving \\(x^2-1=0\\) gives \\(x=1\\) and \\(x=-1\\).", true);
-        toggleNextStepButton("next-step-6", true);
-      } else {
-        setFeedback("feedback-6", "Not quite. Factor \\(x^2-1\\) as \\((x-1)(x+1)\\) and solve each factor.");
-        toggleNextStepButton("next-step-6", false);
-      }
+    function checkSolutions() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-6-answer",
+        feedbackId: "feedback-6",
+        nextButtonId: "next-step-6",
+        mode: "list",
+        options: {
+          ordered: false
+        },
+        acceptedAnswers: ["-1,1"],
+        successMessage: "Great work. Solving \\(x^2-1=0\\) gives \\(x=1\\) and \\(x=-1\\).",
+        genericMessage: "Not quite. Factor \\(x^2-1\\) as \\((x-1)(x+1)\\) and solve each factor.",
+        targetedFeedback: [
+          {
+            answers: ["0"],
+            message: "Not quite. Factor \\(x^2-1\\) as \\((x-1)(x+1)\\) and solve each factor."
+          }
+        ]
+      });
     }
 
     function setupGraphControls() {

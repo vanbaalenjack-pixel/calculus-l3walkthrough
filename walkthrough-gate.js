@@ -2,6 +2,8 @@ function initializeWalkthroughGate(config) {
   const hintsCard = document.getElementById("hints-card");
   const showHintsButton = document.getElementById("show-hints-btn");
   const walkthroughContent = document.getElementById("walkthrough-content");
+  const questionCard = showHintsButton ? showHintsButton.closest(".question-card") : null;
+  const topBackLink = document.querySelector(".topbar .ghost-link");
 
   if (
     !hintsCard ||
@@ -20,6 +22,57 @@ function initializeWalkthroughGate(config) {
   hintsCard.classList.add("hidden");
   walkthroughContent.classList.add("hidden");
   showHintsButton.classList.remove("hidden");
+
+  function normaliseActionLabel(value) {
+    return (value || "").replace(/[←→]/g, "").replace(/\s+/g, " ").trim();
+  }
+
+  function addEntryActions() {
+    if (!questionCard || questionCard.querySelector(".question-entry-actions")) {
+      return;
+    }
+
+    const actionRow = document.createElement("div");
+    actionRow.className = "gate-actions question-entry-actions";
+    actionRow.appendChild(showHintsButton);
+
+    const entryShowAnswerButton = document.createElement("button");
+    entryShowAnswerButton.type = "button";
+    entryShowAnswerButton.className = "nav-btn secondary";
+    entryShowAnswerButton.textContent = "Show answer";
+    actionRow.appendChild(entryShowAnswerButton);
+
+    const nextLabel = normaliseActionLabel(config.nextLabel);
+    const nextHref = config.nextHref;
+
+    if (topBackLink) {
+      const backHref = topBackLink.getAttribute("href");
+      const backLabel = normaliseActionLabel(topBackLink.textContent);
+      const sameAsNext = backHref === nextHref && backLabel === nextLabel;
+
+      if (!sameAsNext) {
+        const entryBackLink = document.createElement("a");
+        entryBackLink.className = "nav-btn secondary";
+        entryBackLink.href = backHref;
+        entryBackLink.textContent = topBackLink.textContent.trim();
+        actionRow.appendChild(entryBackLink);
+      }
+    }
+
+    const entryNextLink = document.createElement("a");
+    entryNextLink.className = "nav-btn";
+    entryNextLink.href = nextHref;
+    entryNextLink.textContent = config.nextLabel;
+    actionRow.appendChild(entryNextLink);
+
+    questionCard.appendChild(actionRow);
+
+    entryShowAnswerButton.addEventListener("click", function () {
+      revealAnswer();
+    });
+  }
+
+  addEntryActions();
 
   hintsCard.innerHTML = `
     <p class="question-label">Hints</p>
@@ -60,6 +113,46 @@ function initializeWalkthroughGate(config) {
   const answerCard = document.getElementById("answer-card");
   const hintToggleButtons = hintsCard.querySelectorAll(".hint-toggle-btn");
 
+  function revealAnswer() {
+    hintsCard.classList.remove("hidden");
+    showHintsButton.classList.add("hidden");
+    answerCard.classList.remove("hidden");
+    showAnswerButton.classList.add("hidden");
+    nextQuestionLink.classList.remove("hidden");
+    if (typeof renderMath === "function") {
+      renderMath(answerCard);
+    }
+    window.scrollTo({ top: answerCard.offsetTop - 24, behavior: "smooth" });
+  }
+
+  function addWalkthroughSkipButtons() {
+    const stepCards = walkthroughContent.querySelectorAll(".step-card");
+
+    stepCards.forEach(function (stepCard) {
+      if (stepCard.querySelector(".walkthrough-step-actions")) {
+        return;
+      }
+
+      const actionRow = document.createElement("div");
+      actionRow.className = "walkthrough-step-actions";
+
+      const skipButton = document.createElement("button");
+      skipButton.type = "button";
+      skipButton.className = "nav-btn secondary";
+      skipButton.textContent = "Skip to answer";
+      skipButton.addEventListener("click", revealAnswer);
+
+      actionRow.appendChild(skipButton);
+
+      const insertionTarget = stepCard.querySelector(".next-step-btn, .nav-row");
+      if (insertionTarget) {
+        stepCard.insertBefore(actionRow, insertionTarget);
+      } else {
+        stepCard.appendChild(actionRow);
+      }
+    });
+  }
+
   hintToggleButtons.forEach(function (button) {
     button.addEventListener("click", function () {
       const hintIndex = Number(button.dataset.hintIndex);
@@ -89,16 +182,44 @@ function initializeWalkthroughGate(config) {
   showWalkthroughButton.addEventListener("click", function () {
     walkthroughContent.classList.remove("hidden");
     showWalkthroughButton.classList.add("hidden");
+    addWalkthroughSkipButtons();
     window.scrollTo({ top: walkthroughContent.offsetTop - 24, behavior: "smooth" });
   });
 
   showAnswerButton.addEventListener("click", function () {
-    answerCard.classList.remove("hidden");
-    showAnswerButton.classList.add("hidden");
-    nextQuestionLink.classList.remove("hidden");
-    if (typeof renderMath === "function") {
-      renderMath(answerCard);
-    }
-    window.scrollTo({ top: answerCard.offsetTop - 24, behavior: "smooth" });
+    revealAnswer();
   });
 }
+
+(function () {
+  const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noreferrer">here</a>.';
+
+  function ensureReportIssueFooter() {
+    const body = document.body;
+    if (!body) {
+      return;
+    }
+
+    let footer = document.querySelector(".site-footer");
+    if (!footer) {
+      footer = document.createElement("footer");
+      footer.className = "site-footer";
+      body.appendChild(footer);
+    }
+
+    if (footer.querySelector(".report-issue-text")) {
+      return;
+    }
+
+    const reportParagraph = document.createElement("p");
+    reportParagraph.className = "site-footer-text report-issue-text";
+    reportParagraph.innerHTML = reportIssueHtml;
+    footer.appendChild(reportParagraph);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ensureReportIssueFooter);
+  } else {
+    ensureReportIssueFooter();
+  }
+}());

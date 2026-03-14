@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -31,11 +32,9 @@
       <div class="graph-frame question-graph-frame">
         <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Question graph of y equals 6 e to the power of 1 minus 0.5 x with a rectangle under the curve"></svg>
       </div>
-      <div class="question-math">
-        \[
-        \text{Find the maximum possible area of the rectangle.}
-        \]
-      </div>
+      <p class="step-text">
+        Find the maximum possible area of the rectangle.
+      </p>
       <p class="step-text question-note">
         You must use calculus and show any derivatives that you need when solving this problem.
       </p>
@@ -74,16 +73,20 @@
         <h2>Substitute the curve equation</h2>
         <p class="step-text">Because the top-right vertex lies on the curve, we can replace \(y\) with \(6e^{1-0.5x}\).</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkSubstitution('correct')">
-            \[
-            A(x)=6xe^{1-0.5x}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkSubstitution('wrong1')">
-            \[
-            A(x)=x+6e^{1-0.5x}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the area function"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkSubstitution()">
+            Check
           </button>
         </div>
 
@@ -98,16 +101,20 @@
         <h2>Differentiate the area function</h2>
         <p class="step-text">This is a product of \(6x\) and \(e^{1-0.5x}\), so use the product rule.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivative('correct')">
-            \[
-            A'(x)=6e^{1-0.5x}-3xe^{1-0.5x}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivative('wrong1')">
-            \[
-            A'(x)=6e^{1-0.5x}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-3-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the derivative of A"
+            placeholder="Type your answer here"
+          />
+          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
+            Check
           </button>
         </div>
 
@@ -131,11 +138,21 @@
           \]
         </div>
 
-        <div class="button-grid">
-          <button class="option-btn" onclick="checkXValue('correct')">\(x=2\)</button>
-          <button class="option-btn" onclick="checkXValue('wrong1')">\(x=6\)</button>
-          <button class="option-btn" onclick="checkXValue('wrong2')">\(x=3\)</button>
-          <button class="option-btn" onclick="checkXValue('wrong3')">\(x=1\)</button>
+        <div class="math-input-group">
+          <input
+            id="step-4-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the critical x value"
+            placeholder="Type your answer here"
+          />
+          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkXValue()">
+            Check
+          </button>
         </div>
 
         <div id="feedback-4" class="feedback"></div>
@@ -164,9 +181,24 @@
           \]
         </div>
 
-        <div id="feedback-5" class="feedback success">
-          Great work. The maximum possible area is \(12\) square units.
+        <div class="math-input-group">
+          <input
+            id="step-5-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the maximum area"
+            placeholder="Type your answer here"
+          />
+          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkMaximumArea()">
+            Check
+          </button>
         </div>
+
+        <div id="feedback-5" class="feedback"></div>
 
         <div class="graph-card">
           <div class="graph-copy">
@@ -186,7 +218,7 @@
           </div>
         </div>
 
-        <div class="nav-row">
+        <div id="step-5-nav" class="nav-row hidden">
           <a class="nav-btn secondary" href="2c2022.html">← Back to Question 2(c)</a>
           <a class="nav-btn" href="2e2022.html">Next question →</a>
         </div>
@@ -229,6 +261,14 @@
         nextHref: "2e2022.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
+      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
+      TypedMath.bindMathInputCheck("step-2-answer", checkSubstitution);
+      TypedMath.bindMathInputCheck("step-3-answer", checkDerivative);
+      TypedMath.bindMathInputCheck("step-4-answer", checkXValue);
+      TypedMath.bindMathInputCheck("step-5-answer", checkMaximumArea);
       setupGraphControls();
       drawQuestionGraph();
       drawAreaGraph();
@@ -267,34 +307,74 @@
       }
     }
 
-    function checkSubstitution(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Yes. Substitute \\(y=6e^{1-0.5x}\\) into \\(A=xy\\) to get \\(A(x)=6xe^{1-0.5x}\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Not quite. Since the formula is for area, you still need to multiply width by height.");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkSubstitution() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        acceptedAnswers: ["6xe^(1-0.5x)"],
+        samples: [{ x: 1 }, { x: 3 }],
+        successMessage: "Yes. Substitute \\(y=6e^{1-0.5x}\\) into \\(A=xy\\) to get \\(A(x)=6xe^{1-0.5x}\\).",
+        genericMessage: "Not quite. Since the formula is for area, you still need to multiply width by height.",
+        targetedFeedback: [
+          {
+            answers: ["x+6e^(1-0.5x)"],
+            message: "Not quite. Since the formula is for area, you still need to multiply width by height."
+          }
+        ]
+      });
     }
 
-    function checkDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Great. Product rule gives \\(6e^{1-0.5x}+6x\\cdot(-0.5)e^{1-0.5x}\\), which simplifies to \\(6e^{1-0.5x}-3xe^{1-0.5x}\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Close, but you need both terms from the product rule and the chain rule factor from the exponential.");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkDerivative() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        acceptedAnswers: ["6e^(1-0.5x)-3xe^(1-0.5x)"],
+        samples: [{ x: 1 }, { x: 3 }],
+        successMessage: "Great. Product rule gives \\(6e^{1-0.5x}+6x\\cdot(-0.5)e^{1-0.5x}\\), which simplifies to \\(6e^{1-0.5x}-3xe^{1-0.5x}\\).",
+        genericMessage: "Close, but you need both terms from the product rule and the chain rule factor from the exponential.",
+        targetedFeedback: [
+          {
+            answers: ["6e^(1-0.5x)"],
+            message: "Close, but you need both terms from the product rule and the chain rule factor from the exponential."
+          }
+        ]
+      });
     }
 
-    function checkXValue(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. The exponential factor is never zero, so solve \\(6-3x=0\\), which gives \\(x=2\\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Try again. Since \\(e^{1-0.5x}\\neq 0\\), the bracket \\(6-3x\\) must equal zero.");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkXValue() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        acceptedAnswers: ["2"],
+        successMessage: "Correct. The exponential factor is never zero, so solve \\(6-3x=0\\), which gives \\(x=2\\).",
+        genericMessage: "Try again. Since \\(e^{1-0.5x}\\neq 0\\), the bracket \\(6-3x\\) must equal zero.",
+        targetedFeedback: [
+          {
+            answers: ["6", "3", "1"],
+            message: "Not quite. Since \\(e^{1-0.5x}\\neq 0\\), solve the bracket equation \\(6-3x=0\\)."
+          }
+        ]
+      });
+    }
+
+    function checkMaximumArea() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-5-answer",
+        feedbackId: "feedback-5",
+        acceptedAnswers: ["12"],
+        successMessage: "Great work. The maximum possible area is \\(12\\) square units.",
+        genericMessage: "Try again. Substitute \\(x=2\\) into \\(A(x)=6xe^{1-0.5x}\\) and simplify carefully.",
+        targetedFeedback: [
+          {
+            answers: ["12e", "6"],
+            message: "Close, but evaluate the exponent first: when \\(x=2\\), the exponential becomes \\(e^0=1\\)."
+          }
+        ],
+        successRevealId: "step-5-nav"
+      });
     }
 
     function setupGraphControls() {

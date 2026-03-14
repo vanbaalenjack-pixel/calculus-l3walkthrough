@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -25,17 +26,12 @@
 
     <section class="question-card">
       <p class="question-label">Question</p>
-      <div class="question-math">
-        \[
-        \text{The base is always }4\text{ times the perpendicular height.}
-        \]
-        \[
-        \text{Find the rate of change of the area of the triangle with respect to its vertical height}
-        \]
-        \[
-        \text{when the area of the triangle is }98\text{ cm}^2.
-        \]
-      </div>
+      <p class="step-text">
+        The base is always \(4\) times the perpendicular height.
+      </p>
+      <p class="step-text">
+        Find the rate of change of the area of the triangle with respect to its vertical height when the area of the triangle is \(98\text{ cm}^2\).
+      </p>
       <p class="step-text attempt-note">
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
       </p>
@@ -53,16 +49,20 @@
         <h2>Write the base in terms of height</h2>
         <p class="step-text">If the height is \(h\), what is the base?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkBase('correct')">
-            \[
-            b=4h
-            \]
-          </button>
-          <button class="option-btn" onclick="checkBase('wrong1')">
-            \[
-            b=h+4
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-1-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the base in terms of h"
+            placeholder="Type your answer here"
+          />
+          <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkBase()">
+            Check
           </button>
         </div>
 
@@ -77,16 +77,20 @@
         <h2>Form the area expression</h2>
         <p class="step-text">Using \(A=\frac{1}{2}bh\), which expression gives the area in terms of \(h\)?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkAreaExpression('correct')">
-            \[
-            A=2h^2
-            \]
-          </button>
-          <button class="option-btn" onclick="checkAreaExpression('wrong1')">
-            \[
-            A=4h^2
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the area expression in terms of h"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkAreaExpression()">
+            Check
           </button>
         </div>
 
@@ -101,16 +105,20 @@
         <h2>Find the height when the area is 98</h2>
         <p class="step-text">Substitute \(A=98\) into the area formula. What is the height?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkHeight('correct')">
-            \[
-            h=7
-            \]
-          </button>
-          <button class="option-btn" onclick="checkHeight('wrong1')">
-            \[
-            h=49
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-3-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the height"
+            placeholder="Type your answer here"
+          />
+          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkHeight()">
+            Check
           </button>
         </div>
 
@@ -125,16 +133,20 @@
         <h2>Differentiate the area function</h2>
         <p class="step-text">What is \(\frac{dA}{dh}\) if \(A=2h^2\)?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivative('correct')">
-            \[
-            \frac{dA}{dh}=4h
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivative('wrong1')">
-            \[
-            \frac{dA}{dh}=2h
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-4-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the derivative with respect to h"
+            placeholder="Type your answer here"
+          />
+          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
+            Check
           </button>
         </div>
 
@@ -149,16 +161,20 @@
         <h2>Evaluate the rate at \(h=7\)</h2>
         <p class="step-text">Substitute \(h=7\) into the derivative. What is the rate of change?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkRate('correct')">
-            \[
-            \frac{dA}{dh}=28
-            \]
-          </button>
-          <button class="option-btn" onclick="checkRate('wrong1')">
-            \[
-            \frac{dA}{dh}=14
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-5-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the rate of change"
+            placeholder="Type your answer here"
+          />
+          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkRate()">
+            Check
           </button>
         </div>
 
@@ -262,6 +278,16 @@
         nextHref: "3c2025-l2.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
+      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
+      TypedMath.bindMathInputCheck("step-1-answer", checkBase);
+      TypedMath.bindMathInputCheck("step-2-answer", checkAreaExpression);
+      TypedMath.bindMathInputCheck("step-3-answer", checkHeight);
+      TypedMath.bindMathInputCheck("step-4-answer", checkDerivative);
+      TypedMath.bindMathInputCheck("step-5-answer", checkRate);
     });
 
     function showOnlyStep(stepId) {
@@ -289,54 +315,92 @@
       button.classList.toggle("hidden", !shouldShow);
     }
 
-    function checkBase(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. The base is always four times the height, so \\(b=4h\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. 'Four times the height' means multiply the height by 4.");
-        toggleNextStepButton("next-step-1", false);
-      }
+    function checkBase() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-1-answer",
+        feedbackId: "feedback-1",
+        nextButtonId: "next-step-1",
+        acceptedAnswers: ["4h"],
+        samples: [{ h: 1.5 }, { h: 4 }],
+        successMessage: "Correct. The base is always four times the height, so \\(b=4h\\).",
+        genericMessage: "Not quite. 'Four times the height' means multiply the height by 4.",
+        targetedFeedback: [
+          {
+            answers: ["h+4"],
+            message: "Not quite. 'Four times the height' means multiply the height by 4, not add 4."
+          }
+        ]
+      });
     }
 
-    function checkAreaExpression(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Correct. Using \\(A=\\frac{1}{2}bh\\) with \\(b=4h\\) gives \\(A=\\frac{1}{2}(4h)(h)=2h^2\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. Remember the \\(\\frac{1}{2}\\) in the area formula for a triangle.");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkAreaExpression() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        acceptedAnswers: ["2h^2"],
+        samples: [{ h: 1 }, { h: 3 }],
+        successMessage: "Correct. Using \\(A=\\frac{1}{2}bh\\) with \\(b=4h\\) gives \\(A=\\frac{1}{2}(4h)(h)=2h^2\\).",
+        genericMessage: "Try again. Remember the \\(\\frac{1}{2}\\) in the area formula for a triangle.",
+        targetedFeedback: [
+          {
+            answers: ["4h^2"],
+            message: "Close, but the triangle area formula includes \\(\\frac{1}{2}\\), so the result should be half of that."
+          }
+        ]
+      });
     }
 
-    function checkHeight(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. From \\(98=2h^2\\), we get \\(h^2=49\\), so the positive height is \\(7\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. First divide by 2 to get \\(h^2=49\\), then take the positive square root because height must be positive.");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkHeight() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        acceptedAnswers: ["7"],
+        successMessage: "Correct. From \\(98=2h^2\\), we get \\(h^2=49\\), so the positive height is \\(7\\).",
+        genericMessage: "Not quite. First divide by 2 to get \\(h^2=49\\), then take the positive square root because height must be positive.",
+        targetedFeedback: [
+          {
+            answers: ["49"],
+            message: "Close, but \\(49\\) is \\(h^2\\). You still need the positive square root to get the height."
+          }
+        ]
+      });
     }
 
-    function checkDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. Differentiate \\(2h^2\\) using the power rule to get \\(4h\\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Try again. Bring the power down and multiply it by the coefficient.");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkDerivative() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        acceptedAnswers: ["4h"],
+        samples: [{ h: 1 }, { h: 5 }],
+        successMessage: "Correct. Differentiate \\(2h^2\\) using the power rule to get \\(4h\\).",
+        genericMessage: "Try again. Bring the power down and multiply it by the coefficient.",
+        targetedFeedback: [
+          {
+            answers: ["2h"],
+            message: "Not quite. Differentiate \\(h^2\\) to get \\(2h\\), then multiply by the coefficient 2."
+          }
+        ]
+      });
     }
 
-    function checkRate(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Correct. Substituting \\(h=7\\) into \\(\\frac{dA}{dh}=4h\\) gives \\(28\\).", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Not quite. Evaluate \\(4h\\) at \\(h=7\\).");
-        toggleNextStepButton("next-step-5", false);
-      }
+    function checkRate() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-5-answer",
+        feedbackId: "feedback-5",
+        nextButtonId: "next-step-5",
+        acceptedAnswers: ["28"],
+        successMessage: "Correct. Substituting \\(h=7\\) into \\(\\frac{dA}{dh}=4h\\) gives \\(28\\).",
+        genericMessage: "Not quite. Evaluate \\(4h\\) at \\(h=7\\).",
+        targetedFeedback: [
+          {
+            answers: ["14"],
+            message: "Close, but \\(4\\times 7=28\\), not 14."
+          }
+        ]
+      });
     }
   </script>
 </body>

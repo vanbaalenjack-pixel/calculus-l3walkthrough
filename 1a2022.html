@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -90,11 +91,21 @@
 
       <p class="step-text">What is \( \frac{dy}{du} \)?</p>
 
-      <div class="button-grid">
-        <button class="option-btn" onclick="checkOuterDerivative('correct')">\(2u\)</button>
-        <button class="option-btn" onclick="checkOuterDerivative('wrong1')">\(u^2\)</button>
-        <button class="option-btn" onclick="checkOuterDerivative('wrong2')">\(u\)</button>
-        <button class="option-btn" onclick="checkOuterDerivative('wrong3')">\(\frac{u^3}{3}\)</button>
+      <div class="math-input-group">
+        <input
+          id="step-3-answer"
+          class="math-answer-input"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type your answer for dy over du"
+          placeholder="Type your answer here"
+        />
+        <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+        <button class="nav-btn check-btn" type="button" onclick="checkOuterDerivative()">
+          Check
+        </button>
       </div>
 
       <div id="feedback-3" class="feedback"></div>
@@ -108,11 +119,21 @@
       <h2>Differentiate the inside function</h2>
       <p class="step-text">Now find the derivative of \( \ln x \).</p>
 
-      <div class="button-grid">
-        <button class="option-btn" onclick="checkInsideDerivative('correct')">\( \frac{1}{x} \)</button>
-        <button class="option-btn" onclick="checkInsideDerivative('wrong1')">\( \ln x \)</button>
-        <button class="option-btn" onclick="checkInsideDerivative('wrong2')">\( x \)</button>
-        <button class="option-btn" onclick="checkInsideDerivative('wrong3')">\( 2x \)</button>
+      <div class="math-input-group">
+        <input
+          id="step-4-answer"
+          class="math-answer-input"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type your answer for the derivative of natural log x"
+          placeholder="Type your answer here"
+        />
+        <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+        <button class="nav-btn check-btn" type="button" onclick="checkInsideDerivative()">
+          Check
+        </button>
       </div>
 
       <div id="feedback-4" class="feedback"></div>
@@ -143,29 +164,46 @@
 
     <section id="step-6" class="step-card hidden">
       <p class="step-number">Step 6</p>
-      <h2>Final answer</h2>
-      <p class="step-text">Now substitute back and simplify.</p>
+      <h2>Build the final derivative</h2>
+      <p class="step-text">Use the chain rule structure, then substitute back in terms of \(x\).</p>
 
       <div class="math-block">
         \[
         \frac{dy}{dx}=\frac{dy}{du}\cdot\frac{du}{dx}
         \]
         \[
-        \frac{dy}{dx}=2u\cdot\frac{1}{x}
+        \frac{dy}{du}=2u
         \]
         \[
-        \frac{dy}{dx}=2\ln x \cdot \frac{1}{x}
+        \frac{du}{dx}=\frac{1}{x}
         \]
         \[
-        \frac{dy}{dx}=\frac{2\ln x}{x}
+        u=\ln x
         \]
       </div>
 
-      <div id="feedback-6" class="feedback success">
-        Great work.
+      <p class="step-text">What is the final derivative \( \frac{dy}{dx} \)?</p>
+
+      <div class="math-input-group">
+        <input
+          id="step-6-answer"
+          class="math-answer-input"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type the final derivative"
+          placeholder="Type the final derivative here"
+        />
+        <div id="step-6-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+        <button class="nav-btn check-btn" type="button" onclick="checkFinalDerivative()">
+          Check
+        </button>
       </div>
 
-      <div class="nav-row">
+      <div id="feedback-6" class="feedback"></div>
+
+      <div id="step-6-nav" class="nav-row hidden">
         <a class="nav-btn secondary" href="index.html">← Back to paper</a>
         <a class="nav-btn" href="1b2022.html">Next question →</a>
       </div>
@@ -205,6 +243,12 @@
         nextHref: "1b2022.html",
         nextLabel: "Next question →"
       });
+      setupMathInputPreview("step-3-answer", "step-3-preview");
+      setupMathInputPreview("step-4-answer", "step-4-preview");
+      setupMathInputPreview("step-6-answer", "step-6-preview");
+      bindMathInputCheck("step-3-answer", checkOuterDerivative);
+      bindMathInputCheck("step-4-answer", checkInsideDerivative);
+      bindMathInputCheck("step-6-answer", checkFinalDerivative);
     });
 
     function showOnlyStep(stepId) {
@@ -227,6 +271,578 @@
       button.classList.toggle("hidden", !shouldShow);
     }
 
+    function replaceSimpleLatexFractions(value) {
+      let result = value;
+      let previousResult = "";
+
+      while (result !== previousResult) {
+        previousResult = result;
+        result = result.replace(/\\frac\s*\{([^{}]+)\}\s*\{([^{}]+)\}/g, "(($1)/($2))");
+      }
+
+      return result;
+    }
+
+    function normaliseMathInput(value) {
+      if (!value) {
+        return "";
+      }
+
+      let normalised = value.toLowerCase();
+      normalised = normalised.replace(/\\left|\\right/g, "");
+      normalised = normalised.replace(/\\ln\s*\{([^{}]+)\}/g, "\\ln($1)");
+      normalised = normalised.replace(/ln\s*\{([^{}]+)\}/g, "ln($1)");
+      normalised = replaceSimpleLatexFractions(normalised);
+      normalised = normalised.replace(/[{}\[\]]/g, function (character) {
+        return character === "{" || character === "[" ? "(" : ")";
+      });
+      normalised = normalised.replace(/\\cdot|\\times/g, "*");
+      normalised = normalised.replace(/\\div/g, "/");
+      normalised = normalised.replace(/\\ln/g, "ln");
+      normalised = normalised.replace(/\s+/g, "");
+      normalised = normalised.replace(/lnx(?=[+\-*/^)]|$)/g, "ln(x)");
+
+      return normalised;
+    }
+
+    function tokenizeMathExpression(value) {
+      const tokens = [];
+      let index = 0;
+
+      while (index < value.length) {
+        const character = value[index];
+
+        if (/\d|\./.test(character)) {
+          let number = character;
+          index += 1;
+
+          while (index < value.length && /[\d.]/.test(value[index])) {
+            number += value[index];
+            index += 1;
+          }
+
+          if ((number.match(/\./g) || []).length > 1) {
+            return null;
+          }
+
+          tokens.push({ type: "number", value: number });
+          continue;
+        }
+
+        if (character === "x" || character === "u") {
+          tokens.push({ type: "variable", value: character });
+          index += 1;
+          continue;
+        }
+
+        if (value.slice(index, index + 2) === "ln") {
+          tokens.push({ type: "function", value: "ln" });
+          index += 2;
+          continue;
+        }
+
+        if ("+-*/^".includes(character)) {
+          tokens.push({ type: "operator", value: character });
+          index += 1;
+          continue;
+        }
+
+        if (character === "(") {
+          tokens.push({ type: "open", value: character });
+          index += 1;
+          continue;
+        }
+
+        if (character === ")") {
+          tokens.push({ type: "close", value: character });
+          index += 1;
+          continue;
+        }
+
+        return null;
+      }
+
+      return tokens;
+    }
+
+    function shouldInsertImplicitMultiplication(previousToken, currentToken) {
+      if (!previousToken || !currentToken) {
+        return false;
+      }
+
+      const leftCanMultiply = previousToken.type === "number" || previousToken.type === "variable" || previousToken.type === "close";
+      const rightCanMultiply = currentToken.type === "number" || currentToken.type === "variable" || currentToken.type === "function" || currentToken.type === "open";
+
+      return leftCanMultiply && rightCanMultiply;
+    }
+
+    function buildExpressionTokens(value) {
+      const rawTokens = tokenizeMathExpression(value);
+      if (!rawTokens) {
+        return null;
+      }
+
+      const expressionTokens = [];
+
+      rawTokens.forEach(function (token, index) {
+        const previousToken = index > 0 ? rawTokens[index - 1] : null;
+
+        if (shouldInsertImplicitMultiplication(previousToken, token)) {
+          expressionTokens.push({ type: "operator", value: "*", implicit: true });
+        }
+
+        expressionTokens.push({ ...token, implicit: false });
+      });
+
+      return expressionTokens;
+    }
+
+    function parseMathExpression(value) {
+      const normalised = normaliseMathInput(value);
+      if (!normalised) {
+        return null;
+      }
+
+      const tokens = buildExpressionTokens(normalised);
+      if (!tokens) {
+        return null;
+      }
+
+      let index = 0;
+
+      function peek() {
+        return tokens[index] || null;
+      }
+
+      function consume() {
+        const token = tokens[index] || null;
+        index += 1;
+        return token;
+      }
+
+      function parseExpression() {
+        return parseAddSubtract();
+      }
+
+      function parseAddSubtract() {
+        let node = parseMultiplyDivide();
+        if (!node) {
+          return null;
+        }
+
+        while (peek() && peek().type === "operator" && (peek().value === "+" || peek().value === "-")) {
+          const operatorToken = consume();
+          const rightNode = parseMultiplyDivide();
+
+          if (!rightNode) {
+            return null;
+          }
+
+          node = {
+            type: "binary",
+            operator: operatorToken.value,
+            implicit: false,
+            left: node,
+            right: rightNode
+          };
+        }
+
+        return node;
+      }
+
+      function parseMultiplyDivide() {
+        let node = parsePower();
+        if (!node) {
+          return null;
+        }
+
+        while (peek() && peek().type === "operator" && (peek().value === "*" || peek().value === "/")) {
+          const operatorToken = consume();
+          const rightNode = parsePower();
+
+          if (!rightNode) {
+            return null;
+          }
+
+          node = {
+            type: "binary",
+            operator: operatorToken.value,
+            implicit: Boolean(operatorToken.implicit),
+            left: node,
+            right: rightNode
+          };
+        }
+
+        return node;
+      }
+
+      function parsePower() {
+        const leftNode = parseUnary();
+        if (!leftNode) {
+          return null;
+        }
+
+        if (peek() && peek().type === "operator" && peek().value === "^") {
+          consume();
+          const rightNode = parsePower();
+
+          if (!rightNode) {
+            return null;
+          }
+
+          return {
+            type: "binary",
+            operator: "^",
+            implicit: false,
+            left: leftNode,
+            right: rightNode
+          };
+        }
+
+        return leftNode;
+      }
+
+      function parseUnary() {
+        if (peek() && peek().type === "operator" && (peek().value === "+" || peek().value === "-")) {
+          const operatorToken = consume();
+          const operand = parseUnary();
+
+          if (!operand) {
+            return null;
+          }
+
+          return {
+            type: "unary",
+            operator: operatorToken.value,
+            operand
+          };
+        }
+
+        return parsePrimary();
+      }
+
+      function parsePrimary() {
+        const token = peek();
+
+        if (!token) {
+          return null;
+        }
+
+        if (token.type === "number" || token.type === "variable") {
+          consume();
+          return token;
+        }
+
+        if (token.type === "function") {
+          consume();
+          const argument = parsePrimary();
+
+          if (!argument) {
+            return null;
+          }
+
+          return {
+            type: "function-call",
+            name: token.value,
+            argument
+          };
+        }
+
+        if (token.type === "open") {
+          consume();
+          const expression = parseExpression();
+
+          if (!expression || !peek() || peek().type !== "close") {
+            return null;
+          }
+
+          consume();
+          return {
+            type: "group",
+            expression
+          };
+        }
+
+        return null;
+      }
+
+      const ast = parseExpression();
+
+      if (!ast || index !== tokens.length) {
+        return null;
+      }
+
+      return ast;
+    }
+
+    function getNodePrecedence(node) {
+      if (!node) {
+        return 0;
+      }
+
+      if (node.type === "group" || node.type === "number" || node.type === "variable" || node.type === "function-call") {
+        return 5;
+      }
+
+      if (node.type === "unary") {
+        return 4;
+      }
+
+      if (node.type === "binary") {
+        if (node.operator === "^") {
+          return 3;
+        }
+
+        if (node.operator === "*" || node.operator === "/") {
+          return 2;
+        }
+
+        return 1;
+      }
+
+      return 0;
+    }
+
+    function wrapLatexIfNeeded(node, latex, shouldWrap) {
+      if (!shouldWrap) {
+        return latex;
+      }
+
+      return "\\left(" + latex + "\\right)";
+    }
+
+    function astToLatex(node) {
+      if (!node) {
+        return null;
+      }
+
+      if (node.type === "number" || node.type === "variable") {
+        return node.value;
+      }
+
+      if (node.type === "group") {
+        return "\\left(" + astToLatex(node.expression) + "\\right)";
+      }
+
+      if (node.type === "function-call") {
+        const argumentNode = node.argument.type === "group" ? node.argument.expression : node.argument;
+        return "\\ln\\left(" + astToLatex(argumentNode) + "\\right)";
+      }
+
+      if (node.type === "unary") {
+        const operandPrecedence = getNodePrecedence(node.operand);
+        const operandLatex = astToLatex(node.operand);
+        const wrappedOperand = wrapLatexIfNeeded(node.operand, operandLatex, operandPrecedence < getNodePrecedence(node));
+        return node.operator === "+" ? wrappedOperand : "-" + wrappedOperand;
+      }
+
+      if (node.type !== "binary") {
+        return null;
+      }
+
+      if (node.operator === "/") {
+        return "\\frac{" + astToLatex(node.left) + "}{" + astToLatex(node.right) + "}";
+      }
+
+      if (node.operator === "^") {
+        const baseLatex = astToLatex(node.left);
+        const exponentLatex = astToLatex(node.right);
+        const wrappedBase = wrapLatexIfNeeded(
+          node.left,
+          baseLatex,
+          getNodePrecedence(node.left) < getNodePrecedence(node) || node.left.type === "unary"
+        );
+
+        return wrappedBase + "^{" + exponentLatex + "}";
+      }
+
+      const leftLatex = astToLatex(node.left);
+      const rightLatex = astToLatex(node.right);
+      const leftNeedsWrap = getNodePrecedence(node.left) < getNodePrecedence(node);
+      const rightNeedsWrapForMultiply = getNodePrecedence(node.right) < getNodePrecedence(node);
+      const rightNeedsWrapForSubtract = node.operator === "-" && node.right.type === "binary" && (node.right.operator === "+" || node.right.operator === "-");
+      const operatorLatex = node.operator === "+" ? " + " : node.operator === "-" ? " - " : node.implicit ? " " : " \\cdot ";
+
+      return wrapLatexIfNeeded(node.left, leftLatex, leftNeedsWrap)
+        + operatorLatex
+        + wrapLatexIfNeeded(node.right, rightLatex, rightNeedsWrapForMultiply || rightNeedsWrapForSubtract);
+    }
+
+    function formatMathForPreview(value) {
+      if (!value) {
+        return "";
+      }
+
+      const ast = parseMathExpression(value);
+      if (!ast) {
+        return null;
+      }
+
+      return astToLatex(ast);
+    }
+
+    function setupMathInputPreview(inputId, previewId) {
+      const input = document.getElementById(inputId);
+      const preview = document.getElementById(previewId);
+
+      if (!input || !preview) {
+        return;
+      }
+
+      function updatePreview() {
+        const value = input.value.trim();
+
+        if (!value) {
+          preview.textContent = "Preview will appear here.";
+          preview.classList.add("is-placeholder");
+          preview.classList.remove("is-error");
+          return;
+        }
+
+        const previewLatex = formatMathForPreview(value);
+
+        if (!previewLatex) {
+          preview.textContent = "Check your maths formatting.";
+          preview.classList.add("is-error");
+          preview.classList.remove("is-placeholder");
+          return;
+        }
+
+        try {
+          katex.render(previewLatex, preview, {
+            throwOnError: true,
+            displayMode: true
+          });
+          preview.classList.remove("is-placeholder", "is-error");
+        } catch (error) {
+          preview.textContent = "Check your maths formatting.";
+          preview.classList.add("is-error");
+          preview.classList.remove("is-placeholder");
+        }
+      }
+
+      input.addEventListener("input", updatePreview);
+      updatePreview();
+    }
+
+    function bindMathInputCheck(inputId, checkHandler) {
+      const input = document.getElementById(inputId);
+      if (!input) {
+        return;
+      }
+
+      input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          checkHandler();
+        }
+      });
+    }
+
+    function compileMathExpression(value) {
+      const normalised = normaliseMathInput(value);
+      if (!normalised) {
+        return null;
+      }
+
+      const tokens = buildExpressionTokens(normalised);
+      if (!tokens) {
+        return null;
+      }
+
+      const jsExpression = [];
+
+      tokens.forEach(function (token) {
+        if (token.type === "function") {
+          jsExpression.push("Math.log");
+        } else if (token.type === "operator" && token.value === "^") {
+          jsExpression.push("**");
+        } else {
+          jsExpression.push(token.value);
+        }
+      });
+
+      try {
+        return new Function("x", "u", "\"use strict\"; return (" + jsExpression.join("") + ");");
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function checkEquivalentAnswer(value, acceptedAnswers, samples) {
+      const candidate = compileMathExpression(value);
+      if (!candidate) {
+        return false;
+      }
+
+      return acceptedAnswers.some(function (acceptedAnswer) {
+        const accepted = compileMathExpression(acceptedAnswer);
+        if (!accepted) {
+          return false;
+        }
+
+        return samples.every(function (sample) {
+          try {
+            const actualValue = candidate(sample.x, sample.u);
+            const expectedValue = accepted(sample.x, sample.u);
+            return Number.isFinite(actualValue) && Number.isFinite(expectedValue) && Math.abs(actualValue - expectedValue) < 1e-9;
+          } catch (error) {
+            return false;
+          }
+        });
+      });
+    }
+
+    function checkTypedAnswer(config) {
+      const input = document.getElementById(config.inputId);
+      if (!input) {
+        return false;
+      }
+
+      const value = input.value.trim();
+
+      if (!value) {
+        setFeedback(config.feedbackId, "Type an answer before checking.");
+        if (config.nextButtonId) {
+          toggleNextStepButton(config.nextButtonId, false);
+        }
+        if (config.successRevealId) {
+          document.getElementById(config.successRevealId).classList.add("hidden");
+        }
+        return false;
+      }
+
+      if (checkEquivalentAnswer(value, config.acceptedAnswers, config.samples)) {
+        setFeedback(config.feedbackId, config.successMessage, true);
+        if (config.nextButtonId) {
+          toggleNextStepButton(config.nextButtonId, true);
+        }
+        if (config.successRevealId) {
+          document.getElementById(config.successRevealId).classList.remove("hidden");
+        }
+        return true;
+      }
+
+      const targetedMatch = config.targetedFeedback.find(function (entry) {
+        return checkEquivalentAnswer(value, entry.answers, config.samples);
+      });
+
+      if (targetedMatch) {
+        setFeedback(config.feedbackId, targetedMatch.message);
+      } else {
+        setFeedback(config.feedbackId, config.genericMessage);
+      }
+
+      if (config.nextButtonId) {
+        toggleNextStepButton(config.nextButtonId, false);
+      }
+      if (config.successRevealId) {
+        document.getElementById(config.successRevealId).classList.add("hidden");
+      }
+
+      return false;
+    }
+
     function checkRule(answer) {
       if (answer === "chain") {
         setFeedback("feedback-1", "Correct. This is a function inside a function, so we use the chain rule.", true);
@@ -247,24 +863,89 @@
       }
     }
 
-    function checkOuterDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. Since \\(y=u^2\\), we get \\(\\frac{dy}{du}=2u\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Differentiate \\(u^2\\) with the power rule.");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkOuterDerivative() {
+      checkTypedAnswer({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        acceptedAnswers: ["2u"],
+        samples: [
+          { u: -2 },
+          { u: -0.5 },
+          { u: 1 },
+          { u: 3 }
+        ],
+        successMessage: "Correct. Since \\(y=u^2\\), we get \\(\\frac{dy}{du}=2u\\).",
+        targetedFeedback: [
+          {
+            answers: ["u^2"],
+            message: "Close, but \\(u^2\\) is the original expression for \\(y\\), not its derivative."
+          },
+          {
+            answers: ["u"],
+            message: "Almost there. Apply the power rule to \\(u^2\\): bring the 2 down, so the derivative is \\(2u\\)."
+          }
+        ],
+        genericMessage: "Not quite. Differentiate \\(u^2\\) with the power rule."
+      });
     }
 
-    function checkInsideDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. The derivative of \\(\\ln x\\) is \\(\\frac{1}{x}\\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Try again. Recall the standard derivative rule for \\(\\ln x\\).");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkInsideDerivative() {
+      checkTypedAnswer({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        acceptedAnswers: ["1/x"],
+        samples: [
+          { x: 0.5 },
+          { x: 1 },
+          { x: 2 },
+          { x: 4 }
+        ],
+        successMessage: "Correct. The derivative of \\(\\ln x\\) is \\(\\frac{1}{x}\\).",
+        targetedFeedback: [
+          {
+            answers: ["ln(x)"],
+            message: "Close, but \\(\\ln x\\) is the original function, not its derivative."
+          },
+          {
+            answers: ["x"],
+            message: "Not quite. Recall the standard rule: \\(\\frac{d}{dx}(\\ln x)=\\frac{1}{x}\\)."
+          }
+        ],
+        genericMessage: "Try again. Recall the standard derivative rule for \\(\\ln x\\)."
+      });
+    }
+
+    function checkFinalDerivative() {
+      checkTypedAnswer({
+        inputId: "step-6-answer",
+        feedbackId: "feedback-6",
+        successRevealId: "step-6-nav",
+        acceptedAnswers: ["2ln(x)/x"],
+        samples: [
+          { x: 0.5 },
+          { x: 1.2 },
+          { x: 2 },
+          { x: 5 }
+        ],
+        successMessage: "Correct. The final derivative is \\(\\frac{2\\ln x}{x}\\).",
+        targetedFeedback: [
+          {
+            answers: ["2ln(x)"],
+            message: "Almost there. You differentiated the outside, but you still need to multiply by the derivative of the inside, \\(\\frac{1}{x}\\)."
+          },
+          {
+            answers: ["1/x"],
+            message: "That is only the derivative of the inside function. You still need the outside derivative \\(2u\\), then substitute \\(u=\\ln x\\)."
+          },
+          {
+            answers: ["2/x"],
+            message: "Close, but the \\(\\ln x\\) factor is missing from the final derivative."
+          }
+        ],
+        genericMessage: "Not quite. Use \\(\\frac{dy}{dx}=\\frac{dy}{du}\\cdot\\frac{du}{dx}\\), then substitute \\(u=\\ln x\\)."
+      });
     }
 
     function checkCombine(answer) {

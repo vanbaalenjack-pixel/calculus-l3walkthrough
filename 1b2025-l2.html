@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -29,10 +30,10 @@
         \[
         f(x)=-\frac{x^3}{3}+2x^2-3x+6
         \]
-        \[
-        \text{Find the equation of the tangent to the curve at } x=2.
-        \]
       </div>
+      <p class="step-text">
+        Find the equation of the tangent to the curve at \(x=2\).
+      </p>
       <p class="step-text attempt-note">
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
       </p>
@@ -74,11 +75,21 @@
         <h2>Differentiate the function</h2>
         <p class="step-text">Which derivative is correct?</p>
 
-        <div class="button-grid">
-          <button class="option-btn" onclick="checkDerivative('correct')">\(f'(x)=-x^2+4x-3\)</button>
-          <button class="option-btn" onclick="checkDerivative('wrong1')">\(f'(x)=-x^2+2x-3\)</button>
-          <button class="option-btn" onclick="checkDerivative('wrong2')">\(f'(x)=-x^3+4x-3\)</button>
-          <button class="option-btn" onclick="checkDerivative('wrong3')">\(f'(x)=-\frac{x^2}{3}+4x-3\)</button>
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the derivative"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
+            Check
+          </button>
         </div>
 
         <div id="feedback-2" class="feedback"></div>
@@ -92,11 +103,21 @@
         <h2>Find the gradient at \(x=2\)</h2>
         <p class="step-text">Substitute \(x=2\) into the derivative.</p>
 
-        <div class="button-grid">
-          <button class="option-btn" onclick="checkGradient('correct')">\(1\)</button>
-          <button class="option-btn" onclick="checkGradient('wrong1')">\(3\)</button>
-          <button class="option-btn" onclick="checkGradient('wrong2')">\(-1\)</button>
-          <button class="option-btn" onclick="checkGradient('wrong3')">\(\frac{16}{3}\)</button>
+        <div class="math-input-group">
+          <input
+            id="step-3-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the gradient at x equals 2"
+            placeholder="Type your answer here"
+          />
+          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkGradient()">
+            Check
+          </button>
         </div>
 
         <div id="feedback-3" class="feedback"></div>
@@ -132,18 +153,22 @@
       <section id="step-5" class="step-card hidden">
         <p class="step-number">Step 5</p>
         <h2>Simplify the line equation</h2>
-        <p class="step-text">Rearrange the point-slope form into \(y=mx+c\).</p>
+        <p class="step-text">Rearrange the point-slope form into \(y=mx+c\), then type the equation.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkFinalEquation('correct')">
-            \[
-            y=x+\frac{10}{3}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkFinalEquation('wrong1')">
-            \[
-            y=x+\frac{16}{3}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-5-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the tangent equation"
+            placeholder="Type your equation here"
+          />
+          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkFinalEquation()">
+            Check
           </button>
         </div>
 
@@ -242,6 +267,16 @@
         nextHref: "1c2025-l2.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
+      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview", {
+        mode: "equation",
+        equationLhs: "y",
+        allowBareExpression: true
+      });
+      TypedMath.bindMathInputCheck("step-2-answer", checkDerivative);
+      TypedMath.bindMathInputCheck("step-3-answer", checkGradient);
+      TypedMath.bindMathInputCheck("step-5-answer", checkFinalEquation);
       setupGraphControls();
       drawGraph();
     });
@@ -284,24 +319,52 @@
       }
     }
 
-    function checkDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Correct. Differentiate term by term: \\(-\\frac{x^3}{3}\\) becomes \\(-x^2\\), \\(2x^2\\) becomes \\(4x\\), and \\(-3x\\) becomes \\(-3\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. Be careful with \\(-\\frac{x^3}{3}\\): its derivative is \\(-x^2\\), not \\(-\\frac{x^2}{3}\\).");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkDerivative() {
+      TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        acceptedAnswers: ["-x^2+4x-3"],
+        samples: [
+          { x: -2 },
+          { x: -1 },
+          { x: 1 },
+          { x: 3 }
+        ],
+        successMessage: "Correct. Differentiate term by term: \\(-\\frac{x^3}{3}\\) becomes \\(-x^2\\), \\(2x^2\\) becomes \\(4x\\), and \\(-3x\\) becomes \\(-3\\).",
+        targetedFeedback: [
+          {
+            answers: ["-x^2+2x-3"],
+            message: "Close, but the derivative of \\(2x^2\\) is \\(4x\\), not \\(2x\\)."
+          },
+          {
+            answers: ["-x^3+4x-3"],
+            message: "Not quite. \\(-\\frac{x^3}{3}\\) differentiates to \\(-x^2\\), not \\(-x^3\\)."
+          },
+          {
+            answers: ["-x^2/3+4x-3"],
+            message: "Try again. Be careful with \\(-\\frac{x^3}{3}\\): its derivative is \\(-x^2\\), not \\(-\\frac{x^2}{3}\\)."
+          }
+        ],
+        genericMessage: "Try again. Differentiate each term carefully and simplify."
+      });
     }
 
-    function checkGradient(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. \\(f'(2)=-(2)^2+4(2)-3=-4+8-3=1\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Substitute \\(x=2\\) into \\(f'(x)=-x^2+4x-3\\) and simplify carefully.");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkGradient() {
+      TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        acceptedAnswers: ["1"],
+        successMessage: "Correct. \\(f'(2)=-(2)^2+4(2)-3=-4+8-3=1\\).",
+        targetedFeedback: [
+          {
+            answers: ["16/3"],
+            message: "That is the \\(y\\)-value of the point on the curve, not the gradient of the tangent."
+          }
+        ],
+        genericMessage: "Not quite. Substitute \\(x=2\\) into \\(f'(x)=-x^2+4x-3\\) and simplify carefully."
+      });
     }
 
     function checkPointSlope(answer) {
@@ -314,14 +377,32 @@
       }
     }
 
-    function checkFinalEquation(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Correct. From \\(y-\\frac{16}{3}=x-2\\), add \\(\\frac{16}{3}\\) and simplify to get \\(y=x+\\frac{10}{3}\\).", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Not quite. When you move \\(-2\\) to the other side, you add 2, so the constant becomes \\(-2+\\frac{16}{3}=\\frac{10}{3}\\).");
-        toggleNextStepButton("next-step-5", false);
-      }
+    function checkFinalEquation() {
+      TypedMath.checkTypedStep({
+        inputId: "step-5-answer",
+        feedbackId: "feedback-5",
+        nextButtonId: "next-step-5",
+        mode: "equation",
+        options: {
+          equationLhs: "y",
+          allowBareExpression: true
+        },
+        acceptedAnswers: ["y=x+10/3"],
+        samples: [
+          { x: -2, y: 1 },
+          { x: 0, y: -4 },
+          { x: 3, y: 2 }
+        ],
+        successMessage: "Correct. From \\(y-\\frac{16}{3}=x-2\\), add \\(\\frac{16}{3}\\) and simplify to get \\(y=x+\\frac{10}{3}\\).",
+        targetedFeedback: [
+          {
+            mode: "equation",
+            answers: ["y=x+16/3"],
+            message: "Not quite. When you move \\(-2\\) to the other side, you add 2, so the constant becomes \\(-2+\\frac{16}{3}=\\frac{10}{3}\\)."
+          }
+        ],
+        genericMessage: "Not quite. Rearrange \\(y-\\frac{16}{3}=x-2\\) into \\(y=mx+c\\) carefully."
+      });
     }
 
     function setupGraphControls() {

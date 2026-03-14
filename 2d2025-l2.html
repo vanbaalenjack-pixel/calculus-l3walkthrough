@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -29,16 +30,16 @@
         \[
         f(x)=ax^3+bx^2+ax+2
         \]
-        \[
-        \text{The graph intersects the x-axis at }x=1\text{ and has a stationary point at }x=-1.
-        \]
-        \[
-        \text{(i) Find the x-coordinate of the other stationary point.}
-        \]
-        \[
-        \text{(ii) Determine what type of stationary point this is.}
-        \]
       </div>
+      <p class="step-text">
+        The graph intersects the x-axis at \(x=1\) and has a stationary point at \(x=-1\).
+      </p>
+      <p class="step-text">
+        (i) Find the x-coordinate of the other stationary point.
+      </p>
+      <p class="step-text">
+        (ii) Determine what type of stationary point this is.
+      </p>
       <p class="step-text attempt-note">
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
       </p>
@@ -56,16 +57,20 @@
         <h2>Differentiate the function</h2>
         <p class="step-text">What is \(f'(x)\)?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivative('correct')">
-            \[
-            f'(x)=3ax^2+2bx+a
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivative('wrong1')">
-            \[
-            f'(x)=ax^2+2bx+a
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-1-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the derivative of f of x"
+            placeholder="Type your answer here"
+          />
+          <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
+            Check
           </button>
         </div>
 
@@ -80,18 +85,20 @@
         <h2>Use the stationary point at \(x=-1\)</h2>
         <p class="step-text">Since \(x=-1\) is a stationary point, \(f'(-1)=0\). What relation does that give?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkRelation('correct')">
-            \[
-            4a-2b=0
-            \quad\text{so}\quad
-            a=\frac{b}{2}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkRelation('wrong1')">
-            \[
-            3a-2b=0
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the relation between a and b"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkRelation()">
+            Check
           </button>
         </div>
 
@@ -106,16 +113,20 @@
         <h2>Use the x-intercept at \(x=1\)</h2>
         <p class="step-text">Since the graph crosses the x-axis at \(x=1\), we know \(f(1)=0\). Which equation does that give?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkInterceptEquation('correct')">
-            \[
-            2a+b+2=0
-            \]
-          </button>
-          <button class="option-btn" onclick="checkInterceptEquation('wrong1')">
-            \[
-            a+b+2=0
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-3-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the intercept equation"
+            placeholder="Type your answer here"
+          />
+          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkInterceptEquation()">
+            Check
           </button>
         </div>
 
@@ -128,18 +139,22 @@
       <section id="step-4" class="step-card hidden">
         <p class="step-number">Step 4</p>
         <h2>Solve for \(a\) and \(b\)</h2>
-        <p class="step-text">Substitute \(a=\frac{b}{2}\) into \(2a+b+2=0\). What do you get?</p>
+        <p class="step-text">Substitute \(a=\frac{b}{2}\) into \(2a+b+2=0\). Enter your answer as \((a,b)\).</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkConstants('correct')">
-            \[
-            a=-\frac{1}{2},\qquad b=-1
-            \]
-          </button>
-          <button class="option-btn" onclick="checkConstants('wrong1')">
-            \[
-            a=\frac{1}{2},\qquad b=1
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-4-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the values of a and b as an ordered pair"
+            placeholder="Type your answer here"
+          />
+          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkConstants()">
+            Check
           </button>
         </div>
 
@@ -154,16 +169,20 @@
         <h2>Find the other stationary point</h2>
         <p class="step-text">Substitute the values of \(a\) and \(b\) into \(f'(x)\) and solve \(f'(x)=0\).</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkOtherStationary('correct')">
-            \[
-            x=-\frac{1}{3}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkOtherStationary('wrong1')">
-            \[
-            x=\frac{1}{3}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-5-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the x coordinate of the other stationary point"
+            placeholder="Type your answer here"
+          />
+          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkOtherStationary()">
+            Check
           </button>
         </div>
 
@@ -293,6 +312,28 @@
         nextHref: "3a2025-l2.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview", {
+        mode: "equation",
+        equationRhs: "0",
+        allowBareExpression: true
+      });
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview", {
+        mode: "equation",
+        equationRhs: "0",
+        allowBareExpression: true
+      });
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview", {
+        mode: "list",
+        stripOuterParens: true,
+        wrapWithParens: true
+      });
+      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
+      TypedMath.bindMathInputCheck("step-1-answer", checkDerivative);
+      TypedMath.bindMathInputCheck("step-2-answer", checkRelation);
+      TypedMath.bindMathInputCheck("step-3-answer", checkInterceptEquation);
+      TypedMath.bindMathInputCheck("step-4-answer", checkConstants);
+      TypedMath.bindMathInputCheck("step-5-answer", checkOtherStationary);
     });
 
     function showOnlyStep(stepId) {
@@ -320,54 +361,114 @@
       button.classList.toggle("hidden", !shouldShow);
     }
 
-    function checkDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. Differentiate each term to get \\(f'(x)=3ax^2+2bx+a\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. The derivative of \\(ax^3\\) is \\(3ax^2\\), not \\(ax^2\\).");
-        toggleNextStepButton("next-step-1", false);
-      }
+    function checkDerivative() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-1-answer",
+        feedbackId: "feedback-1",
+        nextButtonId: "next-step-1",
+        acceptedAnswers: ["3ax^2+2bx+a"],
+        samples: [{ a: 1, b: 2, x: 2 }, { a: -0.5, b: 3, x: -1 }],
+        successMessage: "Correct. Differentiate each term to get \\(f'(x)=3ax^2+2bx+a\\).",
+        genericMessage: "Not quite. Differentiate each term carefully before you combine them.",
+        targetedFeedback: [
+          {
+            answers: ["ax^2+2bx+a"],
+            message: "Not quite. The derivative of \\(ax^3\\) is \\(3ax^2\\), not \\(ax^2\\)."
+          }
+        ]
+      });
     }
 
-    function checkRelation(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Correct. Substituting \\(x=-1\\) into \\(f'(x)\\) gives \\(3a-2b+a=0\\), so \\(4a-2b=0\\) and therefore \\(a=\\frac{b}{2}\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. Remember there are two \\(a\\)-terms when you substitute \\(x=-1\\) into \\(3ax^2+2bx+a\\).");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkRelation() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        mode: "equation",
+        options: {
+          equationRhs: "0",
+          allowBareExpression: true
+        },
+        acceptedAnswers: ["4a-2b=0", "a=b/2", "b=2a"],
+        samples: [{ a: 1, b: 0 }, { a: 2, b: 5 }, { a: -1, b: 4 }],
+        successMessage: "Correct. Substituting \\(x=-1\\) into \\(f'(x)\\) gives \\(3a-2b+a=0\\), so \\(4a-2b=0\\) and therefore \\(a=\\frac{b}{2}\\).",
+        genericMessage: "Try again. Remember there are two \\(a\\)-terms when you substitute \\(x=-1\\) into \\(3ax^2+2bx+a\\).",
+        targetedFeedback: [
+          {
+            mode: "equation",
+            answers: ["3a-2b=0"],
+            message: "Close, but substituting \\(x=-1\\) leaves both \\(3ax^2\\) and the final \\(+a\\) term, so there are two \\(a\\)-terms to combine."
+          }
+        ]
+      });
     }
 
-    function checkInterceptEquation(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. Since the graph intersects the x-axis at \\(x=1\\), we know \\(f(1)=0\\), which gives \\(a+b+a+2=0\\) or \\(2a+b+2=0\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Substitute \\(x=1\\) into every term of \\(f(x)=ax^3+bx^2+ax+2\\).");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkInterceptEquation() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        mode: "equation",
+        options: {
+          equationRhs: "0",
+          allowBareExpression: true
+        },
+        acceptedAnswers: ["2a+b+2=0"],
+        samples: [{ a: 1, b: 0 }, { a: -1, b: 4 }, { a: 2, b: -3 }],
+        successMessage: "Correct. Since the graph intersects the x-axis at \\(x=1\\), we know \\(f(1)=0\\), which gives \\(a+b+a+2=0\\) or \\(2a+b+2=0\\).",
+        genericMessage: "Not quite. Substitute \\(x=1\\) into every term of \\(f(x)=ax^3+bx^2+ax+2\\).",
+        targetedFeedback: [
+          {
+            mode: "equation",
+            answers: ["a+b+2=0"],
+            message: "Close, but when \\(x=1\\), both the \\(ax^3\\) term and the \\(ax\\) term contribute an \\(a\\)."
+          }
+        ]
+      });
     }
 
-    function checkConstants(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. Using \\(a=\\frac{b}{2}\\) in \\(2a+b+2=0\\) gives \\(b+b+2=0\\), so \\(b=-1\\) and \\(a=-\\frac{1}{2}\\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Not quite. The two conditions force both constants to be negative here.");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkConstants() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        mode: "list",
+        options: {
+          ordered: true,
+          stripOuterParens: true
+        },
+        acceptedAnswers: ["-1/2,-1"],
+        successMessage: "Correct. Using \\(a=\\frac{b}{2}\\) in \\(2a+b+2=0\\) gives \\(b+b+2=0\\), so \\(b=-1\\) and \\(a=-\\frac{1}{2}\\).",
+        genericMessage: "Not quite. Solve the two conditions together, and keep the order \\((a,b)\\).",
+        targetedFeedback: [
+          {
+            mode: "list",
+            options: {
+              ordered: true,
+              stripOuterParens: true
+            },
+            answers: ["1/2,1"],
+            message: "Not quite. The two conditions force both constants to be negative here."
+          }
+        ]
+      });
     }
 
-    function checkOtherStationary(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Correct. With \\(a=-\\frac{1}{2}\\) and \\(b=-1\\), the derivative becomes \\(-\\frac{1}{2}(3x+1)(x+1)\\), so the two stationary points are \\(x=-1\\) and \\(x=-\\frac{1}{3}\\).", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Close, but solving \\((3x+1)(x+1)=0\\) gives \\(x=-1\\) and \\(x=-\\frac{1}{3}\\), not \\(\\frac{1}{3}\\).");
-        toggleNextStepButton("next-step-5", false);
-      }
+    function checkOtherStationary() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-5-answer",
+        feedbackId: "feedback-5",
+        nextButtonId: "next-step-5",
+        acceptedAnswers: ["-1/3"],
+        successMessage: "Correct. With \\(a=-\\frac{1}{2}\\) and \\(b=-1\\), the derivative becomes \\(-\\frac{1}{2}(3x+1)(x+1)\\), so the two stationary points are \\(x=-1\\) and \\(x=-\\frac{1}{3}\\).",
+        genericMessage: "Try again. Solve \\((3x+1)(x+1)=0\\) and ignore the stationary point we already knew about at \\(x=-1\\).",
+        targetedFeedback: [
+          {
+            answers: ["1/3"],
+            message: "Close, but solving \\(3x+1=0\\) gives \\(x=-\\frac{1}{3}\\), not \\(\\frac{1}{3}\\)."
+          }
+        ]
+      });
     }
 
     function checkNature(answer) {

@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -71,16 +72,20 @@
         <h2>Use the chain rule</h2>
         <p class="step-text">Differentiate the exponential, then multiply by the derivative of the exponent.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivative('correct')">
-            \[
-            \frac{dy}{dx}=e^{4\sqrt{x}}\cdot \frac{2}{\sqrt{x}}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivative('wrong1')">
-            \[
-            \frac{dy}{dx}=4e^{4\sqrt{x}}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the derivative"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
+            Check
           </button>
         </div>
 
@@ -145,6 +150,8 @@
         nextHref: "3b2022.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
+      TypedMath.bindMathInputCheck("step-2-answer", checkDerivative);
     });
 
     function showOnlyStep(stepId) {
@@ -177,14 +184,22 @@
       }
     }
 
-    function checkDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Great. The derivative of the exponent \\(4x^{1/2}\\) is \\(2x^{-1/2}=\\frac{2}{\\sqrt{x}}\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Close, but the chain rule means you also need the derivative of the exponent.");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkDerivative() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        acceptedAnswers: ["e^(4sqrt(x))*2/sqrt(x)", "2e^(4sqrt(x))/sqrt(x)"],
+        samples: [{ x: 1 }, { x: 4 }],
+        successMessage: "Great. The derivative of the exponent \\(4x^{1/2}\\) is \\(2x^{-1/2}=\\frac{2}{\\sqrt{x}}\\).",
+        genericMessage: "Close, but the chain rule means you also need the derivative of the exponent.",
+        targetedFeedback: [
+          {
+            answers: ["4e^(4sqrt(x))"],
+            message: "Close, but the chain rule means you also need the derivative of the exponent."
+          }
+        ]
+      });
     }
   </script>
 </body>

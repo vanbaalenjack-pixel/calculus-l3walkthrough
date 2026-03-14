@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -32,10 +33,10 @@
         \[
         \text{where }k\text{ is a positive constant.}
         \]
-        \[
-        \text{Determine the regions where }f(x)\text{ is decreasing.}
-        \]
       </div>
+      <p class="step-text">
+        Determine the regions where \(f(x)\) is decreasing.
+      </p>
       <p class="step-text attempt-note">
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
       </p>
@@ -53,16 +54,20 @@
         <h2>Differentiate the function</h2>
         <p class="step-text">Differentiate term by term. Which derivative is correct?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivative('correct')">
-            \[
-            f'(x)=x^3+(k-3)x^2-3kx
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivative('wrong1')">
-            \[
-            f'(x)=x^3+(k-3)x^2-\frac{3kx}{2}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-1-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the derivative of f of x"
+            placeholder="Type your answer here"
+          />
+          <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
+            Check
           </button>
         </div>
 
@@ -77,16 +82,20 @@
         <h2>Factorise the derivative</h2>
         <p class="step-text">Factor out the common factor, then factorise the quadratic. Which factorised form is correct?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkFactorisedForm('correct')">
-            \[
-            f'(x)=x(x-3)(x+k)
-            \]
-          </button>
-          <button class="option-btn" onclick="checkFactorisedForm('wrong1')">
-            \[
-            f'(x)=x(x+3)(x-k)
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the factorised derivative"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkFactorisedForm()">
+            Check
           </button>
         </div>
 
@@ -101,16 +110,20 @@
         <h2>Find the critical points</h2>
         <p class="step-text">Set \(f'(x)=0\). What are the critical x-values?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkCriticalPoints('correct')">
-            \[
-            x=-k,\quad 0,\quad 3
-            \]
-          </button>
-          <button class="option-btn" onclick="checkCriticalPoints('wrong1')">
-            \[
-            x=k,\quad 0,\quad 3
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-3-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the critical x values"
+            placeholder="Type your answer here"
+          />
+          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkCriticalPoints()">
+            Check
           </button>
         </div>
 
@@ -125,16 +138,20 @@
         <h2>Differentiate again</h2>
         <p class="step-text">We need the second derivative for the second derivative test. Which expression is correct?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkSecondDerivativeFormula('correct')">
-            \[
-            f''(x)=3x^2+2(k-3)x-3k
-            \]
-          </button>
-          <button class="option-btn" onclick="checkSecondDerivativeFormula('wrong1')">
-            \[
-            f''(x)=3x^2+(k-3)x-3k
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-4-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the second derivative"
+            placeholder="Type your answer here"
+          />
+          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkSecondDerivativeFormula()">
+            Check
           </button>
         </div>
 
@@ -296,6 +313,14 @@
         nextHref: "index.html#level-2-2025",
         nextLabel: "Back to paper"
       });
+      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview", { mode: "list" });
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
+      TypedMath.bindMathInputCheck("step-1-answer", checkDerivative);
+      TypedMath.bindMathInputCheck("step-2-answer", checkFactorisedForm);
+      TypedMath.bindMathInputCheck("step-3-answer", checkCriticalPoints);
+      TypedMath.bindMathInputCheck("step-4-answer", checkSecondDerivativeFormula);
     });
 
     function showOnlyStep(stepId) {
@@ -323,44 +348,84 @@
       button.classList.toggle("hidden", !shouldShow);
     }
 
-    function checkDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. The derivative of \\(-\\frac{3kx^2}{2}\\) is \\(-3kx\\), so \\(f'(x)=x^3+(k-3)x^2-3kx\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. The derivative of \\(-\\frac{3kx^2}{2}\\) is \\(-3kx\\), not \\(-\\frac{3kx}{2}\\).");
-        toggleNextStepButton("next-step-1", false);
-      }
+    function checkDerivative() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-1-answer",
+        feedbackId: "feedback-1",
+        nextButtonId: "next-step-1",
+        acceptedAnswers: ["x^3+(k-3)x^2-3kx"],
+        samples: [{ x: 2, k: 4 }, { x: -1, k: 1.5 }],
+        successMessage: "Correct. The derivative of \\(-\\frac{3kx^2}{2}\\) is \\(-3kx\\), so \\(f'(x)=x^3+(k-3)x^2-3kx\\).",
+        genericMessage: "Not quite. Differentiate each term carefully before you combine them.",
+        targetedFeedback: [
+          {
+            answers: ["x^3+(k-3)x^2-(3kx)/2"],
+            message: "Not quite. The derivative of \\(-\\frac{3kx^2}{2}\\) is \\(-3kx\\), not \\(-\\frac{3kx}{2}\\)."
+          }
+        ]
+      });
     }
 
-    function checkFactorisedForm(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Correct. First factor out \\(x\\), then \\(x^2+(k-3)x-3k\\) factorises as \\((x-3)(x+k)\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. The middle term should be \\((k-3)x\\) and the constant term should be \\(-3k\\).");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkFactorisedForm() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        acceptedAnswers: ["x(x-3)(x+k)"],
+        samples: [{ x: 2, k: 4 }, { x: -1, k: 1.5 }],
+        successMessage: "Correct. First factor out \\(x\\), then \\(x^2+(k-3)x-3k\\) factorises as \\((x-3)(x+k)\\).",
+        genericMessage: "Try again. First factor out \\(x\\), then check the signs in the quadratic factor carefully.",
+        targetedFeedback: [
+          {
+            answers: ["x(x+3)(x-k)"],
+            message: "Not quite. The middle term should be \\((k-3)x\\) and the constant term should be \\(-3k\\), so the signs need to work with \\((x-3)(x+k)\\)."
+          }
+        ]
+      });
     }
 
-    function checkCriticalPoints(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. Each factor can be zero, so the critical points are \\(x=-k\\), \\(x=0\\), and \\(x=3\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. From \\(x+k=0\\), we get \\(x=-k\\), not \\(x=k\\).");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkCriticalPoints() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        mode: "list",
+        options: {
+          ordered: false
+        },
+        acceptedAnswers: ["-k,0,3"],
+        samples: [{ k: 2 }, { k: 5 }],
+        successMessage: "Correct. Each factor can be zero, so the critical points are \\(x=-k\\), \\(x=0\\), and \\(x=3\\).",
+        genericMessage: "Not quite. Set each factor of \\(x(x-3)(x+k)\\) equal to zero.",
+        targetedFeedback: [
+          {
+            mode: "list",
+            options: {
+              ordered: false
+            },
+            answers: ["k,0,3"],
+            message: "Close, but from \\(x+k=0\\), we get \\(x=-k\\), not \\(x=k\\)."
+          }
+        ]
+      });
     }
 
-    function checkSecondDerivativeFormula(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. Differentiate \\(x^3+(k-3)x^2-3kx\\) term by term to get \\(3x^2+2(k-3)x-3k\\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Not quite. The derivative of \\((k-3)x^2\\) is \\(2(k-3)x\\).");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkSecondDerivativeFormula() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        acceptedAnswers: ["3x^2+2(k-3)x-3k"],
+        samples: [{ x: 2, k: 4 }, { x: -1, k: 1.5 }],
+        successMessage: "Correct. Differentiate \\(x^3+(k-3)x^2-3kx\\) term by term to get \\(3x^2+2(k-3)x-3k\\).",
+        genericMessage: "Not quite. Differentiate each term carefully, especially the quadratic term.",
+        targetedFeedback: [
+          {
+            answers: ["3x^2+(k-3)x-3k"],
+            message: "Not quite. The derivative of \\((k-3)x^2\\) is \\(2(k-3)x\\)."
+          }
+        ]
+      });
     }
 
     function checkNature(answer) {

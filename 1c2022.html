@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -31,11 +32,9 @@
       <div class="graph-frame question-graph-frame">
         <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Question graph of square root of x plus 2 and its normal line"></svg>
       </div>
-      <div class="question-math">
-        \[
-        \text{Find the coordinates of point } P,\text{ the } x\text{-intercept of the normal.}
-        \]
-      </div>
+      <p class="step-text">
+        Find the coordinates of point \(P\), the \(x\)-intercept of the normal.
+      </p>
       <p class="step-text attempt-note">
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
       </p>
@@ -93,16 +92,20 @@
       <h2>Differentiate using the chain rule</h2>
       <p class="step-text">What is the derivative of \(y=\sqrt{x+2}\)?</p>
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkDerivative('correct')">
-          \[
-          \frac{dy}{dx}=\frac{1}{2\sqrt{x+2}}
-          \]
-        </button>
-        <button class="option-btn" onclick="checkDerivative('wrong1')">
-          \[
-          \frac{dy}{dx}=\sqrt{x+2}
-          \]
+      <div class="math-input-group">
+        <input
+          id="step-3-answer"
+          class="math-answer-input"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type the derivative"
+          placeholder="Type your answer here"
+        />
+        <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+        <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
+          Check
         </button>
       </div>
 
@@ -117,16 +120,20 @@
       <h2>Find the tangent gradient at \(x=0\)</h2>
       <p class="step-text">Substitute \(x=0\) into the derivative.</p>
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkTangentGradient('correct')">
-          \[
-          \frac{1}{2\sqrt{2}}
-          \]
-        </button>
-        <button class="option-btn" onclick="checkTangentGradient('wrong1')">
-          \[
-          2\sqrt{2}
-          \]
+      <div class="math-input-group">
+        <input
+          id="step-4-answer"
+          class="math-answer-input"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type the tangent gradient"
+          placeholder="Type your answer here"
+        />
+        <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+        <button class="nav-btn check-btn" type="button" onclick="checkTangentGradient()">
+          Check
         </button>
       </div>
 
@@ -143,16 +150,20 @@
         The gradient of the normal is the negative reciprocal of the tangent gradient.
       </p>
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkNormalGradient('correct')">
-          \[
-          -2\sqrt{2}
-          \]
-        </button>
-        <button class="option-btn" onclick="checkNormalGradient('wrong1')">
-          \[
-          -\frac{1}{2\sqrt{2}}
-          \]
+      <div class="math-input-group">
+        <input
+          id="step-5-answer"
+          class="math-answer-input"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type the normal gradient"
+          placeholder="Type your answer here"
+        />
+        <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+        <button class="nav-btn check-btn" type="button" onclick="checkNormalGradient()">
+          Check
         </button>
       </div>
 
@@ -180,16 +191,20 @@
 
       <p class="step-text">When the line crosses the \(x\)-axis, \(y=0\). What is \(x\)?</p>
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkIntercept('correct')">
-          \[
-          x=\frac{1}{2}
-          \]
-        </button>
-        <button class="option-btn" onclick="checkIntercept('wrong1')">
-          \[
-          x=2
-          \]
+      <div class="math-input-group">
+        <input
+          id="step-6-answer"
+          class="math-answer-input"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Type the x intercept"
+          placeholder="Type your answer here"
+        />
+        <div id="step-6-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+        <button class="nav-btn check-btn" type="button" onclick="checkIntercept()">
+          Check
         </button>
       </div>
 
@@ -277,6 +292,14 @@
         nextHref: "1d2022.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
+      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
+      TypedMath.setupMathInputPreview("step-6-answer", "step-6-preview");
+      TypedMath.bindMathInputCheck("step-3-answer", checkDerivative);
+      TypedMath.bindMathInputCheck("step-4-answer", checkTangentGradient);
+      TypedMath.bindMathInputCheck("step-5-answer", checkNormalGradient);
+      TypedMath.bindMathInputCheck("step-6-answer", checkIntercept);
       setupGraphControls();
       drawQuestionGraph();
       drawGraph();
@@ -325,44 +348,73 @@
       }
     }
 
-    function checkDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. Differentiate \\((x+2)^{1/2}\\) using the power rule and chain rule to get \\(\\frac{1}{2\\sqrt{x+2}}\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Bring down the power \\(\\frac{1}{2}\\), reduce the power by 1, then multiply by the derivative of \\(x+2\\).");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkDerivative() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        acceptedAnswers: ["1/(2sqrt(x+2))"],
+        samples: [{ x: 0 }, { x: 2 }],
+        successMessage: "Correct. Differentiate \\((x+2)^{1/2}\\) using the power rule and chain rule to get \\(\\frac{1}{2\\sqrt{x+2}}\\).",
+        genericMessage: "Not quite. Bring down the power \\(\\frac{1}{2}\\), reduce the power by 1, then multiply by the derivative of \\(x+2\\).",
+        targetedFeedback: [
+          {
+            answers: ["sqrt(x+2)"],
+            message: "That is the original function, not its derivative. Apply the power rule and chain rule."
+          }
+        ]
+      });
     }
 
-    function checkTangentGradient(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Exactly. Substituting \\(x=0\\) gives \\(\\frac{1}{2\\sqrt{2}}\\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Try again. Substitute into the derivative carefully: \\(\\frac{1}{2\\sqrt{0+2}}\\).");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkTangentGradient() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        acceptedAnswers: ["1/(2sqrt(2))"],
+        successMessage: "Exactly. Substituting \\(x=0\\) gives \\(\\frac{1}{2\\sqrt{2}}\\).",
+        genericMessage: "Try again. Substitute into the derivative carefully: \\(\\frac{1}{2\\sqrt{0+2}}\\).",
+        targetedFeedback: [
+          {
+            answers: ["2sqrt(2)"],
+            message: "Not quite. \\(\\sqrt{2}\\) stays in the denominator when you substitute \\(x=0\\)."
+          }
+        ]
+      });
     }
 
-    function checkNormalGradient(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Correct. The normal gradient is the negative reciprocal of \\(\\frac{1}{2\\sqrt{2}}\\), which is \\(-2\\sqrt{2}\\).", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Not quite. For a normal line, multiply the tangent and normal gradients to get \\(-1\\).");
-        toggleNextStepButton("next-step-5", false);
-      }
+    function checkNormalGradient() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-5-answer",
+        feedbackId: "feedback-5",
+        nextButtonId: "next-step-5",
+        acceptedAnswers: ["-2sqrt(2)"],
+        successMessage: "Correct. The normal gradient is the negative reciprocal of \\(\\frac{1}{2\\sqrt{2}}\\), which is \\(-2\\sqrt{2}\\).",
+        genericMessage: "Not quite. For a normal line, multiply the tangent and normal gradients to get \\(-1\\).",
+        targetedFeedback: [
+          {
+            answers: ["-1/(2sqrt(2))"],
+            message: "Not quite. The normal gradient is the negative reciprocal, so the fraction flips."
+          }
+        ]
+      });
     }
 
-    function checkIntercept(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-6", "Great work. Setting \\(y=0\\) in \\(y=-2\\sqrt{2}x+\\sqrt{2}\\) gives \\(x=\\frac{1}{2}\\).", true);
-        toggleNextStepButton("next-step-6", true);
-      } else {
-        setFeedback("feedback-6", "Not quite. Replace \\(y\\) with 0, then solve \\(0=-2\\sqrt{2}x+\\sqrt{2}\\).");
-        toggleNextStepButton("next-step-6", false);
-      }
+    function checkIntercept() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-6-answer",
+        feedbackId: "feedback-6",
+        nextButtonId: "next-step-6",
+        acceptedAnswers: ["1/2"],
+        successMessage: "Great work. Setting \\(y=0\\) in \\(y=-2\\sqrt{2}x+\\sqrt{2}\\) gives \\(x=\\frac{1}{2}\\).",
+        genericMessage: "Not quite. Replace \\(y\\) with 0, then solve \\(0=-2\\sqrt{2}x+\\sqrt{2}\\).",
+        targetedFeedback: [
+          {
+            answers: ["2"],
+            message: "Not quite. Recheck the algebra after setting \\(y=0\\)."
+          }
+        ]
+      });
     }
 
     function setupGraphControls() {

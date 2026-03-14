@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -64,16 +65,20 @@
         <h2>Differentiate \(C(t)\)</h2>
         <p class="step-text">What is the rate-of-change function \(C'(t)\)?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivative('correct')">
-            \[
-            C'(t)=\frac{t^2}{50}-2.8t+80
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivative('wrong1')">
-            \[
-            C'(t)=\frac{t^2}{150}-1.4t+80
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-1-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the derivative of C of t"
+            placeholder="Type your answer here"
+          />
+          <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
+            Check
           </button>
         </div>
 
@@ -88,16 +93,20 @@
         <h2>Evaluate the rate at 60 minutes</h2>
         <p class="step-text">Substitute \(t=60\) into the derivative.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkRateAt60('correct')">
-            \[
-            C'(60)=-16
-            \]
-          </button>
-          <button class="option-btn" onclick="checkRateAt60('wrong1')">
-            \[
-            C'(60)=16
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the rate at 60 minutes"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkRateAt60()">
+            Check
           </button>
         </div>
 
@@ -110,18 +119,22 @@
       <section id="step-3" class="step-card hidden">
         <p class="step-number">Step 3</p>
         <h2>Find the stationary times</h2>
-        <p class="step-text">For part (ii), set \(C'(t)=0\). Which times do you get?</p>
+        <p class="step-text">For part (ii), set \(C'(t)=0\). Type the two times separated by a comma.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkStationaryTimes('correct')">
-            \[
-            t=40 \text{ and } t=100
-            \]
-          </button>
-          <button class="option-btn" onclick="checkStationaryTimes('wrong1')">
-            \[
-            t=60 \text{ and } t=120
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-3-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the stationary times"
+            placeholder="Type your answers here"
+          />
+          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkStationaryTimes()">
+            Check
           </button>
         </div>
 
@@ -160,16 +173,20 @@
         <h2>Answer in context</h2>
         <p class="step-text">If caffeine starts increasing immediately after Hemi drinks the coffee, when must he have been given it?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkCoffeeTime('correct')">
-            \[
-            100 \text{ minutes}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkCoffeeTime('wrong1')">
-            \[
-            40 \text{ minutes}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-5-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type when Hemi was given the coffee"
+            placeholder="Type your answer here"
+          />
+          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkCoffeeTime()">
+            Check
           </button>
         </div>
 
@@ -261,6 +278,17 @@
         nextHref: "2d2025-l2.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview", {
+        mode: "list",
+        stripOuterParens: true
+      });
+      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
+      TypedMath.bindMathInputCheck("step-1-answer", checkDerivative);
+      TypedMath.bindMathInputCheck("step-2-answer", checkRateAt60);
+      TypedMath.bindMathInputCheck("step-3-answer", checkStationaryTimes);
+      TypedMath.bindMathInputCheck("step-5-answer", checkCoffeeTime);
     });
 
     function showOnlyStep(stepId) {
@@ -288,34 +316,71 @@
       button.classList.toggle("hidden", !shouldShow);
     }
 
-    function checkDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. Differentiate term by term to get \\(C'(t)=\\frac{t^2}{50}-2.8t+80\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. The derivative of \\(\\frac{t^3}{150}\\) is \\(\\frac{3t^2}{150}=\\frac{t^2}{50}\\), and the derivative of \\(-1.4t^2\\) is \\(-2.8t\\).");
-        toggleNextStepButton("next-step-1", false);
-      }
+    function checkDerivative() {
+      TypedMath.checkTypedStep({
+        inputId: "step-1-answer",
+        feedbackId: "feedback-1",
+        nextButtonId: "next-step-1",
+        acceptedAnswers: ["t^2/50-2.8t+80"],
+        samples: [
+          { t: 0 },
+          { t: 20 },
+          { t: 60 },
+          { t: 100 }
+        ],
+        successMessage: "Correct. Differentiate term by term to get \\(C'(t)=\\frac{t^2}{50}-2.8t+80\\).",
+        targetedFeedback: [
+          {
+            answers: ["t^2/150-1.4t+80"],
+            message: "Not quite. The derivative of \\(\\frac{t^3}{150}\\) is \\(\\frac{3t^2}{150}=\\frac{t^2}{50}\\), and the derivative of \\(-1.4t^2\\) is \\(-2.8t\\)."
+          }
+        ],
+        genericMessage: "Differentiate each term carefully and simplify."
+      });
     }
 
-    function checkRateAt60(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Correct. \\(C'(60)=72-168+80=-16\\), so the rate of change is \\(-16\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Close, but the negative sign matters here. The concentration is decreasing at 60 minutes.");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkRateAt60() {
+      TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        acceptedAnswers: ["-16"],
+        successMessage: "Correct. \\(C'(60)=72-168+80=-16\\), so the rate of change is \\(-16\\).",
+        targetedFeedback: [
+          {
+            answers: ["16"],
+            message: "Close, but the negative sign matters here. The concentration is decreasing at 60 minutes."
+          }
+        ],
+        genericMessage: "Substitute \\(t=60\\) carefully and keep track of the negative term."
+      });
     }
 
-    function checkStationaryTimes(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. Solving \\(C'(t)=0\\) gives \\(t=40\\) and \\(t=100\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Solve the quadratic \\(t^2-140t+4000=0\\) after multiplying the derivative equation by 50.");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkStationaryTimes() {
+      TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        mode: "list",
+        options: {
+          ordered: false,
+          stripOuterParens: true
+        },
+        acceptedAnswers: ["40,100"],
+        successMessage: "Correct. Solving \\(C'(t)=0\\) gives \\(t=40\\) and \\(t=100\\).",
+        targetedFeedback: [
+          {
+            mode: "list",
+            options: {
+              ordered: false,
+              stripOuterParens: true
+            },
+            answers: ["60,120"],
+            message: "Not quite. Solve the quadratic \\(t^2-140t+4000=0\\) after multiplying the derivative equation by 50."
+          }
+        ],
+        genericMessage: "Not quite. Solve the quadratic \\(t^2-140t+4000=0\\) after multiplying the derivative equation by 50."
+      });
     }
 
     function checkSecondDerivative(answer) {
@@ -328,14 +393,21 @@
       }
     }
 
-    function checkCoffeeTime(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Correct. The coffee must have been given at the minimum turning point, where the concentration stops decreasing and starts increasing.", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Not quite. After the coffee is consumed, the concentration should begin increasing, so we need the minimum turning point, not the maximum one.");
-        toggleNextStepButton("next-step-5", false);
-      }
+    function checkCoffeeTime() {
+      TypedMath.checkTypedStep({
+        inputId: "step-5-answer",
+        feedbackId: "feedback-5",
+        nextButtonId: "next-step-5",
+        acceptedAnswers: ["100"],
+        successMessage: "Correct. The coffee must have been given at the minimum turning point, where the concentration stops decreasing and starts increasing.",
+        targetedFeedback: [
+          {
+            answers: ["40"],
+            message: "Not quite. After the coffee is consumed, the concentration should begin increasing, so we need the minimum turning point, not the maximum one."
+          }
+        ],
+        genericMessage: "Think about which stationary time is the minimum turning point."
+      });
     }
   </script>
 </body>

@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -25,17 +26,15 @@
 
     <section class="question-card">
       <p class="question-label">Question</p>
-      <div class="question-math">
-        \[
-        \text{A lidless rectangular cuboid has surface area }4.32\text{ m}^2.
-        \]
-        \[
-        \text{Its width is twice its height, and the volume is to be maximised.}
-        \]
-        \[
-        \text{Use calculus to find the maximum volume and prove that it is a maximum.}
-        \]
-      </div>
+      <p class="step-text">
+        A lidless rectangular cuboid has surface area \(4.32\text{ m}^2\).
+      </p>
+      <p class="step-text">
+        Its width is twice its height, and the volume is to be maximised.
+      </p>
+      <p class="step-text">
+        Use calculus to find the maximum volume and prove that it is a maximum.
+      </p>
       <p class="step-text attempt-note">
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
       </p>
@@ -77,16 +76,20 @@
         <h2>Write \(l\) in terms of \(h\)</h2>
         <p class="step-text">Using \(w=2h\), which expression for the length is correct?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkLengthExpression('correct')">
-            \[
-            l=\frac{1.08}{h}-h
-            \]
-          </button>
-          <button class="option-btn" onclick="checkLengthExpression('wrong1')">
-            \[
-            l=\frac{1.08}{h}+h
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-2-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type l in terms of h"
+            placeholder="Type your answer here"
+          />
+          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkLengthExpression()">
+            Check
           </button>
         </div>
 
@@ -101,16 +104,20 @@
         <h2>Form the volume function</h2>
         <p class="step-text">Substitute \(w=2h\) and your expression for \(l\) into \(V=lwh\). Which simplified volume function is correct?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkVolumeFunction('correct')">
-            \[
-            V(h)=2.16h-2h^3
-            \]
-          </button>
-          <button class="option-btn" onclick="checkVolumeFunction('wrong1')">
-            \[
-            V(h)=4.32h-2h^2
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-3-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the volume function"
+            placeholder="Type your answer here"
+          />
+          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkVolumeFunction()">
+            Check
           </button>
         </div>
 
@@ -125,16 +132,20 @@
         <h2>Differentiate and find the stationary point</h2>
         <p class="step-text">Differentiate \(V(h)\) and solve \(V'(h)=0\). Which height do you get?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkHeightValue('correct')">
-            \[
-            h=0.6
-            \]
-          </button>
-          <button class="option-btn" onclick="checkHeightValue('wrong1')">
-            \[
-            h=0.36
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-4-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the stationary height"
+            placeholder="Type your answer here"
+          />
+          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkHeightValue()">
+            Check
           </button>
         </div>
 
@@ -149,16 +160,20 @@
         <h2>Find the maximum volume</h2>
         <p class="step-text">Using \(h=0.6\), what is the maximum volume?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkMaximumVolume('correct')">
-            \[
-            0.864\text{ m}^3
-            \]
-          </button>
-          <button class="option-btn" onclick="checkMaximumVolume('wrong1')">
-            \[
-            0.648\text{ m}^3
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-5-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the maximum volume"
+            placeholder="Type your answer here"
+          />
+          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkMaximumVolume()">
+            Check
           </button>
         </div>
 
@@ -314,6 +329,14 @@
         nextHref: "3d2025-l2.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
+      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
+      TypedMath.bindMathInputCheck("step-2-answer", checkLengthExpression);
+      TypedMath.bindMathInputCheck("step-3-answer", checkVolumeFunction);
+      TypedMath.bindMathInputCheck("step-4-answer", checkHeightValue);
+      TypedMath.bindMathInputCheck("step-5-answer", checkMaximumVolume);
     });
 
     function showOnlyStep(stepId) {
@@ -351,44 +374,74 @@
       }
     }
 
-    function checkLengthExpression(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Correct. Substituting \\(w=2h\\) gives \\(4lh+4h^2=4.32\\), so \\(lh+h^2=1.08\\) and therefore \\(l=\\frac{1.08}{h}-h\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. After rearranging, the \\(h^2\\) term moves to the other side, so it becomes subtraction.");
-        toggleNextStepButton("next-step-2", false);
-      }
+    function checkLengthExpression() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-2-answer",
+        feedbackId: "feedback-2",
+        nextButtonId: "next-step-2",
+        acceptedAnswers: ["1.08/h-h"],
+        samples: [{ h: 0.6 }, { h: 1.2 }],
+        successMessage: "Correct. Substituting \\(w=2h\\) gives \\(4lh+4h^2=4.32\\), so \\(lh+h^2=1.08\\) and therefore \\(l=\\frac{1.08}{h}-h\\).",
+        genericMessage: "Try again. Rearrange carefully after substituting \\(w=2h\\).",
+        targetedFeedback: [
+          {
+            answers: ["1.08/h+h"],
+            message: "Close, but after rearranging, the \\(h^2\\) term moves to the other side, so it becomes subtraction."
+          }
+        ]
+      });
     }
 
-    function checkVolumeFunction(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. Since \\(V=lwh=l(2h)(h)=2lh^2\\), substituting \\(l=\\frac{1.08}{h}-h\\) gives \\(V(h)=2.16h-2h^3\\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Make sure the volume still has cubic behaviour after substitution.");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkVolumeFunction() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        acceptedAnswers: ["2.16h-2h^3"],
+        samples: [{ h: 0.5 }, { h: 1.4 }],
+        successMessage: "Correct. Since \\(V=lwh=l(2h)(h)=2lh^2\\), substituting \\(l=\\frac{1.08}{h}-h\\) gives \\(V(h)=2.16h-2h^3\\).",
+        genericMessage: "Not quite. Make sure the volume still has cubic behaviour after substitution.",
+        targetedFeedback: [
+          {
+            answers: ["4.32h-2h^2"],
+            message: "Not quite. One factor of \\(h\\) cancels, but the volume should still simplify to a cubic function of \\(h\\)."
+          }
+        ]
+      });
     }
 
-    function checkHeightValue(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. \\(V'(h)=2.16-6h^2\\), so setting it equal to zero gives \\(6h^2=2.16\\), then \\(h^2=0.36\\), so \\(h=0.6\\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Not quite. \\(0.36\\) is \\(h^2\\), not the height itself.");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkHeightValue() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        acceptedAnswers: ["0.6"],
+        successMessage: "Correct. \\(V'(h)=2.16-6h^2\\), so setting it equal to zero gives \\(6h^2=2.16\\), then \\(h^2=0.36\\), so \\(h=0.6\\).",
+        genericMessage: "Not quite. Solve for \\(h\\), not just for \\(h^2\\).",
+        targetedFeedback: [
+          {
+            answers: ["0.36"],
+            message: "Close, but \\(0.36\\) is \\(h^2\\). You still need the positive square root to get the height."
+          }
+        ]
+      });
     }
 
-    function checkMaximumVolume(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Correct. At \\(h=0.6\\), we get \\(l=1.2\\) and \\(w=1.2\\), so the volume is \\(1.2\\times1.2\\times0.6=0.864\\text{ m}^3\\).", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Try again. Substitute the optimal dimensions carefully, or evaluate \\(V(0.6)\\) directly.");
-        toggleNextStepButton("next-step-5", false);
-      }
+    function checkMaximumVolume() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-5-answer",
+        feedbackId: "feedback-5",
+        nextButtonId: "next-step-5",
+        acceptedAnswers: ["0.864"],
+        successMessage: "Correct. At \\(h=0.6\\), we get \\(l=1.2\\) and \\(w=1.2\\), so the volume is \\(1.2\\times1.2\\times0.6=0.864\\text{ m}^3\\).",
+        genericMessage: "Try again. Substitute the optimal dimensions carefully, or evaluate \\(V(0.6)\\) directly.",
+        targetedFeedback: [
+          {
+            answers: ["0.648"],
+            message: "Not quite. Recheck the dimensions at \\(h=0.6\\) before multiplying."
+          }
+        ]
+      });
     }
 
     function checkSecondDerivative(answer) {

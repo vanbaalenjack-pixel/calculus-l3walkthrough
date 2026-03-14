@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -25,17 +26,15 @@
 
     <section class="question-card">
       <p class="question-label">Question</p>
-      <div class="question-math">
-        \[
-        \text{The Helena moves at } 5\text{ m s}^{-1}\text{ and is already } 200\text{ m from the dock.}
-        \]
-        \[
-        \text{A smaller boat leaves the dock from rest and accelerates at } 0.5\text{ m s}^{-2}.
-        \]
-        \[
-        \text{Find the distance from the dock at which the smaller boat catches the Helena.}
-        \]
-      </div>
+      <p class="step-text">
+        The Helena moves at \(5\text{ m s}^{-1}\) and is already \(200\text{ m}\) from the dock.
+      </p>
+      <p class="step-text">
+        A smaller boat leaves the dock from rest and accelerates at \(0.5\text{ m s}^{-2}\).
+      </p>
+      <p class="step-text">
+        Find the distance from the dock at which the smaller boat catches the Helena.
+      </p>
       <p class="step-text attempt-note">
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
       </p>
@@ -123,18 +122,22 @@
       <section id="step-4" class="step-card hidden">
         <p class="step-number">Step 4</p>
         <h2>Solve the quadratic for time</h2>
-        <p class="step-text">Which times solve the catch-up equation?</p>
+        <p class="step-text">Type the two times that solve the catch-up equation, separated by a comma.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkTimes('correct')">
-            \[
-            t=40 \text{ or } t=-20
-            \]
-          </button>
-          <button class="option-btn" onclick="checkTimes('wrong1')">
-            \[
-            t=20 \text{ or } t=-40
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-4-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the two times"
+            placeholder="Type your answers here"
+          />
+          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkTimes()">
+            Check
           </button>
         </div>
 
@@ -173,16 +176,20 @@
         <h2>Find the distance from the dock</h2>
         <p class="step-text">Substitute \(t=40\) into either displacement equation.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDistance('correct')">
-            \[
-            s=400
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDistance('wrong1')">
-            \[
-            s=200
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-6-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the distance from the dock"
+            placeholder="Type your answer here"
+          />
+          <div id="step-6-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkDistance()">
+            Check
           </button>
         </div>
 
@@ -270,6 +277,13 @@
         nextHref: "2a2025-l2.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview", {
+        mode: "list",
+        stripOuterParens: true
+      });
+      TypedMath.setupMathInputPreview("step-6-answer", "step-6-preview");
+      TypedMath.bindMathInputCheck("step-4-answer", checkTimes);
+      TypedMath.bindMathInputCheck("step-6-answer", checkDistance);
     });
 
     function showOnlyStep(stepId) {
@@ -327,14 +341,31 @@
       }
     }
 
-    function checkTimes(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. Multiplying by 4 gives \\(t^2=800+20t\\), so \\(t^2-20t-800=0\\), which factors to \\((t-40)(t+20)=0\\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Try again. Rearrange the quadratic carefully before factoring.");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkTimes() {
+      TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        mode: "list",
+        options: {
+          ordered: false,
+          stripOuterParens: true
+        },
+        acceptedAnswers: ["40,-20"],
+        successMessage: "Correct. Multiplying by 4 gives \\(t^2=800+20t\\), so \\(t^2-20t-800=0\\), which factors to \\((t-40)(t+20)=0\\).",
+        targetedFeedback: [
+          {
+            mode: "list",
+            options: {
+              ordered: false,
+              stripOuterParens: true
+            },
+            answers: ["20,-40"],
+            message: "Not quite. Rearrange the quadratic carefully before factoring."
+          }
+        ],
+        genericMessage: "Try again. Rearrange the quadratic carefully before factoring."
+      });
     }
 
     function checkPhysicalTime(answer) {
@@ -347,14 +378,33 @@
       }
     }
 
-    function checkDistance(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-6", "Correct. Using either equation gives \\(s=400\\), so the catch-up point is 400 m from the dock.", true);
-        toggleNextStepButton("next-step-6", true);
-      } else {
-        setFeedback("feedback-6", "Not quite. Substitute \\(t=40\\) into either displacement equation and simplify.");
-        toggleNextStepButton("next-step-6", false);
-      }
+    function normaliseDistanceAnswer(value) {
+      return value.replace(/\s*(m|metres?|meters?)\s*$/i, "").trim();
+    }
+
+    function checkDistance() {
+      const input = document.getElementById("step-6-answer");
+      const originalValue = input.value;
+
+      input.value = normaliseDistanceAnswer(originalValue);
+
+      const isCorrect = TypedMath.checkTypedStep({
+        inputId: "step-6-answer",
+        feedbackId: "feedback-6",
+        nextButtonId: "next-step-6",
+        acceptedAnswers: ["400"],
+        successMessage: "Correct. Using either equation gives \\(s=400\\), so the catch-up point is 400 m from the dock.",
+        targetedFeedback: [
+          {
+            answers: ["200"],
+            message: "Close, but \\(200\\) is only the Helena's head start. You still need the extra distance travelled in 40 seconds."
+          }
+        ],
+        genericMessage: "Not quite. Substitute \\(t=40\\) into either displacement equation and simplify."
+      });
+
+      input.value = originalValue;
+      return isCorrect;
     }
   </script>
 </body>

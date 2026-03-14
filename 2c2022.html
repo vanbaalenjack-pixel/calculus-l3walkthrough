@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260315-5"></script>
+  <script defer src="typed-math.js?v=20260315-7"></script>
 </head>
 <body>
   <main class="app">
@@ -29,10 +30,10 @@
         \[
         d(t)=\frac{t^2-6}{2t^3}, \qquad t>0
         \]
-        \[
-        \text{Find the time(s) when the object is stationary.}
-        \]
       </div>
+      <p class="step-text">
+        Find the time(s) when the object is stationary.
+      </p>
       <p class="step-text question-note">
         You must use calculus and show any derivatives that you need when solving this problem.
       </p>
@@ -88,12 +89,20 @@
         <h2>Differentiate the top and bottom</h2>
         <p class="step-text">Find \(u'\) and \(v'\).</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivatives('correct')">
-            \(u'=2t,\; v'=6t^2\)
-          </button>
-          <button class="option-btn" onclick="checkDerivatives('wrong1')">
-            \(u'=t,\; v'=3t^2\)
+        <div class="math-input-group">
+          <input
+            id="step-3-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type u prime and v prime"
+            placeholder="Type your answer here"
+          />
+          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkDerivatives()">
+            Check
           </button>
         </div>
 
@@ -108,16 +117,20 @@
         <h2>Apply the quotient rule</h2>
         <p class="step-text">Use \(\frac{d}{dt}\left(\frac{u}{v}\right)=\frac{vu'-uv'}{v^2}\).</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkQuotient('correct')">
-            \[
-            d'(t)=\frac{(2t^3)(2t)-(t^2-6)(6t^2)}{(2t^3)^2}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkQuotient('wrong1')">
-            \[
-            d'(t)=\frac{2t}{6t^2}
-            \]
+        <div class="math-input-group">
+          <input
+            id="step-4-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the quotient rule derivative"
+            placeholder="Type your answer here"
+          />
+          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkQuotient()">
+            Check
           </button>
         </div>
 
@@ -146,12 +159,20 @@
 
         <p class="step-text">Which time value is valid when \(t>0\)?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkTime('correct')">
-            \(t=\sqrt{18}=3\sqrt{2}\)
-          </button>
-          <button class="option-btn" onclick="checkTime('wrong1')">
-            \(t=0\)
+        <div class="math-input-group">
+          <input
+            id="step-5-answer"
+            class="math-answer-input"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Type the stationary time"
+            placeholder="Type your answer here"
+          />
+          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
+          <button class="nav-btn check-btn" type="button" onclick="checkTime()">
+            Check
           </button>
         </div>
 
@@ -225,6 +246,12 @@
         nextHref: "2d2022.html",
         nextLabel: "Next question →"
       });
+      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview", { mode: "list" });
+      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
+      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
+      TypedMath.bindMathInputCheck("step-3-answer", checkDerivatives);
+      TypedMath.bindMathInputCheck("step-4-answer", checkQuotient);
+      TypedMath.bindMathInputCheck("step-5-answer", checkTime);
       drawGraph();
     });
 
@@ -271,34 +298,65 @@
       }
     }
 
-    function checkDerivatives(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Yes. Differentiate carefully: \(u'=2t\) and \(v'=6t^2\).", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Differentiate \(t^2-6\) and \(2t^3\) term by term.");
-        toggleNextStepButton("next-step-3", false);
-      }
+    function checkDerivatives() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-3-answer",
+        feedbackId: "feedback-3",
+        nextButtonId: "next-step-3",
+        mode: "list",
+        options: {
+          ordered: true
+        },
+        acceptedAnswers: ["2t,6t^2"],
+        samples: [{ t: 2 }, { t: 4 }],
+        successMessage: "Yes. Differentiate carefully: \\(u'=2t\\) and \\(v'=6t^2\\).",
+        genericMessage: "Not quite. Differentiate \\(t^2-6\\) and \\(2t^3\\) term by term.",
+        targetedFeedback: [
+          {
+            mode: "list",
+            options: {
+              ordered: true
+            },
+            answers: ["t,3t^2"],
+            message: "Close, but each derivative is missing a factor from the power rule."
+          }
+        ]
+      });
     }
 
-    function checkQuotient(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Great. That is the quotient rule set up correctly with \(vu'-uv'\) over \(v^2\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Not quite. Use the full quotient rule expression rather than dividing the derivatives directly.");
-        toggleNextStepButton("next-step-4", false);
-      }
+    function checkQuotient() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-4-answer",
+        feedbackId: "feedback-4",
+        nextButtonId: "next-step-4",
+        acceptedAnswers: ["((2t^3)(2t)-(t^2-6)(6t^2))/((2t^3)^2)"],
+        samples: [{ t: 2 }, { t: 4 }],
+        successMessage: "Great. That is the quotient rule set up correctly with \\(vu'-uv'\\) over \\(v^2\\).",
+        genericMessage: "Not quite. Use the full quotient rule expression rather than dividing the derivatives directly.",
+        targetedFeedback: [
+          {
+            answers: ["2t/(6t^2)"],
+            message: "Not quite. Use the full quotient rule expression rather than dividing the derivatives directly."
+          }
+        ]
+      });
     }
 
-    function checkTime(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Correct. Solving \(t^2-18=0\) gives \(t=\\pm\\sqrt{18}\), but the condition \(t>0\) means only \(t=\\sqrt{18}\) is valid.", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Remember the domain restriction. Although \(t^2\) appears as a factor, \(t=0\) is not allowed because the question states \(t>0\).");
-        toggleNextStepButton("next-step-5", false);
-      }
+    function checkTime() {
+      return TypedMath.checkTypedStep({
+        inputId: "step-5-answer",
+        feedbackId: "feedback-5",
+        nextButtonId: "next-step-5",
+        acceptedAnswers: ["sqrt(18)", "3sqrt(2)"],
+        successMessage: "Correct. Solving \\(t^2-18=0\\) gives \\(t=\\pm\\sqrt{18}\\), but the condition \\(t>0\\) means only \\(t=\\sqrt{18}\\) is valid.",
+        genericMessage: "Remember the domain restriction. Although \\(t^2\\) appears as a factor, \\(t=0\\) is not allowed because the question states \\(t>0\\).",
+        targetedFeedback: [
+          {
+            answers: ["0"],
+            message: "Remember the domain restriction. Although \\(t^2\\) appears as a factor, \\(t=0\\) is not allowed because the question states \\(t>0\\)."
+          }
+        ]
+      });
     }
 
     function drawGraph() {
