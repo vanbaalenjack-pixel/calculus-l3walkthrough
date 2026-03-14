@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="index-page.js"></script>
 </head>
 
 <body>
@@ -31,11 +32,30 @@
       Work through each step, read the feedback, and move to the next stage once you understand the idea. The goal is to help you build the thinking required for Achieved, Merit, and Excellence answers.
     </p>
     <p class="step-text">
-      Choose a paper below to start exploring available walkthroughs.
+      Choose a year below to reveal the walkthroughs for that exam paper.
     </p>
   </section>
 
-  <section class="question-card">
+  <section class="question-card year-picker-card">
+    <p class="question-label">Choose a year</p>
+    <p class="step-text">
+      Select a paper year first. The available walkthroughs for that paper will appear underneath.
+    </p>
+    <div class="year-picker-grid" aria-label="Available exam years">
+      <button
+        class="nav-btn secondary year-option"
+        type="button"
+        data-year="2022"
+        aria-controls="paper-2022"
+        aria-pressed="false"
+      >
+        <span class="year-option-title">2022 Paper</span>
+        <span class="year-option-copy">Standard 91578 Differentiation walkthroughs.</span>
+      </button>
+    </div>
+  </section>
+
+  <section id="paper-2022" class="question-card paper-panel hidden" data-year-panel="2022" aria-hidden="true">
     <p class="question-label">2022 Paper</p>
     <p class="step-text">
       This walkthrough set is for Standard 91578 Differentiation. Start with the 2022 paper and choose a walkthrough to work through.
@@ -124,17 +144,6 @@
 <footer class="site-footer">
   <p class="site-footer-text">Created by Jack van Baalen as part of a Year 13 extended learning project.</p>
 </footer>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-renderMathInElement(document.body, {
-delimiters: [
-{ left: "$$", right: "$$", display: true },
-{ left: "\\(", right: "\\)", display: false }
-]
-});
-});
-</script>
 
 </body>
 </html>

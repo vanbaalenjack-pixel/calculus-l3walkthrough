@@ -423,6 +423,66 @@ input[type="range"] {
   justify-content: flex-start;
 }
 
+.year-picker-card {
+  overflow: hidden;
+}
+
+.year-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.year-option {
+  width: 100%;
+  min-height: 110px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+  text-align: left;
+}
+
+.year-option.secondary {
+  color: var(--text);
+}
+
+.year-option.secondary.is-active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.year-option.secondary.is-active:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.year-option-title,
+.year-option-copy {
+  display: block;
+}
+
+.year-option-title {
+  font-size: 1.15rem;
+  line-height: 1.2;
+}
+
+.year-option-copy {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+.year-option.secondary.is-active .year-option-copy {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.paper-panel {
+  scroll-margin-top: 24px;
+}
+
 .index-group + .index-group {
   margin-top: 24px;
 }
