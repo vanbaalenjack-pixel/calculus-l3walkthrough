@@ -136,7 +136,7 @@
       <section id="step-4" class="step-card hidden">
         <p class="step-number">Step 4</p>
         <h2>Differentiate carefully</h2>
-        <p class="step-text">The square-root term needs the chain rule, so it helps to rewrite it as a power first.</p>
+        <p class="step-text">The square-root term needs the chain rule, so it helps to rewrite it as a power first. Choose the correct simplified derivative.</p>
 
         <div class="math-block">
           \[
@@ -152,20 +152,26 @@
           \]
         </div>
 
-        <div class="math-input-group">
-          <input
-            id="step-4-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the derivative of T"
-            placeholder="Type your answer here"
-          />
-          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
-            Check
+        <div class="button-grid two-col">
+          <button class="option-btn" onclick="checkDerivative('correct')">
+            \[
+            T'(x)=\frac{1}{10}-\frac{4-x}{6\sqrt{(4-x)^2+4}}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkDerivative('wrong1')">
+            \[
+            T'(x)=\frac{1}{10}+\frac{4-x}{6\sqrt{(4-x)^2+4}}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkDerivative('wrong2')">
+            \[
+            T'(x)=-\frac{4-x}{6\sqrt{(4-x)^2+4}}
+            \]
+          </button>
+          <button class="option-btn" onclick="checkDerivative('wrong3')">
+            \[
+            T'(x)=\frac{1}{10}+\frac{1}{12\sqrt{(4-x)^2+4}}
+            \]
           </button>
         </div>
 
@@ -301,11 +307,9 @@
       });
       TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
       TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
-      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
       TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
       TypedMath.bindMathInputCheck("step-2-answer", checkShortcut);
       TypedMath.bindMathInputCheck("step-3-answer", checkTimeFunction);
-      TypedMath.bindMathInputCheck("step-4-answer", checkDerivative);
       TypedMath.bindMathInputCheck("step-5-answer", checkMinimum);
       drawQuestionGraph();
     });
@@ -384,22 +388,20 @@
       });
     }
 
-    function checkDerivative() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-4-answer",
-        feedbackId: "feedback-4",
-        nextButtonId: "next-step-4",
-        acceptedAnswers: ["1/10-(4-x)/(6sqrt((4-x)^2+4))"],
-        samples: [{ x: 1 }, { x: 2.5 }],
-        successMessage: "Correct. The minus sign comes from differentiating \\(4-x\\), so the chain rule gives a negative second term.",
-        genericMessage: "Not quite. Differentiate the square-root term carefully: the inside derivative is \\(-2(4-x)\\), so the final term is negative.",
-        targetedFeedback: [
-          {
-            answers: ["1/10+(4-x)/(6sqrt((4-x)^2+4))"],
-            message: "Not quite. Differentiate the square-root term carefully: the inside derivative is \\(-2(4-x)\\), so the final term is negative."
-          }
-        ]
-      });
+    function checkDerivative(answer) {
+      if (answer === "correct") {
+        setFeedback("feedback-4", "Correct. The derivative of \\(\\frac{x}{10}\\) is \\(\\frac{1}{10}\\), and the chain rule makes the square-root term negative.", true);
+        toggleNextStepButton("next-step-4", true);
+      } else if (answer === "wrong1") {
+        setFeedback("feedback-4", "Not quite. Differentiating \\(4-x\\) gives a negative sign, so the second term should be subtracted.");
+        toggleNextStepButton("next-step-4", false);
+      } else if (answer === "wrong2") {
+        setFeedback("feedback-4", "Not quite. You still need the derivative of the road-time term \\(\\frac{x}{10}\\), which is \\(\\frac{1}{10}\\).");
+        toggleNextStepButton("next-step-4", false);
+      } else {
+        setFeedback("feedback-4", "Not quite. The square-root term needs the chain rule, so the derivative must include the factor \\(4-x\\) as well as the negative sign.");
+        toggleNextStepButton("next-step-4", false);
+      }
     }
 
     function checkMinimum() {
