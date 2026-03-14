@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script defer src="index-page.js?v=20260315-4"></script>
+<script defer src="index-page.js?v=20260315-5"></script>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
       Work through each step, read the feedback, and move to the next stage once you understand the idea. The goal is to help you build the thinking required for Achieved, Merit, and Excellence answers.
     </p>
     <p class="step-text">
-      Choose a level below, then open the standard section you want to work on.
+      Choose a level below, then the standard and paper year you want to work on.
     </p>
   </section>
 
@@ -55,160 +55,196 @@
 
   <section id="level-2" class="question-card paper-panel hidden" data-level-panel="level-2" aria-hidden="true">
     <p class="eyebrow">Level 2</p>
-    <h2>Standards</h2>
+    <h2>Choose A Standard</h2>
     <p class="step-text">
-      Choose a Level 2 standard, then open the paper walkthrough you want to work through.
+      Choose the Level 2 standard you want to work on first.
     </p>
-    <section id="level-2-calculus" class="standard-section">
+    <div class="year-picker-grid standard-picker-grid">
+      <button class="nav-btn secondary year-option standard-option" type="button" data-standard="level-2-calculus" data-parent-level="level-2" aria-pressed="false">
+        <span class="year-option-title">Calculus</span>
+        <span class="year-option-copy">Open the Level 2 Calculus papers.</span>
+      </button>
+      <button class="nav-btn secondary year-option standard-option" type="button" data-standard="level-2-algebra" data-parent-level="level-2" aria-pressed="false">
+        <span class="year-option-title">Algebra</span>
+        <span class="year-option-copy">Open the Level 2 Algebra papers.</span>
+      </button>
+    </div>
+    <p class="step-text question-note">
+      Choose a standard to show its paper years.
+    </p>
+
+    <section id="level-2-calculus" class="standard-section hidden" data-standard-panel="level-2-calculus" data-parent-level="level-2" aria-hidden="true">
       <p class="question-label">Calculus</p>
-      <h3 class="standard-title">2025 Paper</h3>
+      <h3 class="standard-title">Choose A Paper Year</h3>
       <p class="step-text">
-        Work through the 2025 Level 2 Calculus walkthroughs question by question.
+        Select the Level 2 Calculus paper you want to open.
       </p>
-      <div class="index-group">
-        <p class="question-label index-group-label">Question 1</p>
-        <div class="nav-row index-nav">
-          <a class="nav-btn index-link-card" href="1a2025-l2.html">
-            <span class="index-link-title">Question 1(a)</span>
-            <span class="index-link-copy">Focus: using the power rule term by term and evaluating the gradient at a point.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="1b2025-l2.html">
-            <span class="index-link-title">Question 1(b)</span>
-            <span class="index-link-copy">Focus: finding the point of tangency, the gradient, and the tangent equation.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="1c2025-l2.html">
-            <span class="index-link-title">Question 1(c)</span>
-            <span class="index-link-copy">Focus: finding critical points, identifying the minimum, and solving for the constant.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="1d2025-l2.html">
-            <span class="index-link-title">Question 1(d)</span>
-            <span class="index-link-copy">Focus: writing displacement equations, solving when they are equal, and answering in context.</span>
-          </a>
-        </div>
+      <div class="year-picker-grid paper-picker-grid">
+        <button class="nav-btn secondary year-option paper-option" type="button" data-paper="level-2-calculus-2025" data-parent-standard="level-2-calculus" aria-pressed="false">
+          <span class="year-option-title">2025 Paper</span>
+          <span class="year-option-copy">Open the 2025 Level 2 Calculus question list.</span>
+        </button>
       </div>
-      <div class="index-group">
-        <p class="question-label index-group-label">Question 2</p>
-        <div class="nav-row index-nav">
-          <a class="nav-btn index-link-card" href="2a2025-l2.html">
-            <span class="index-link-title">Question 2(a)</span>
-            <span class="index-link-copy">Focus: sketching the derivative from stationary points, signs, and changes in concavity.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="2b2025-l2.html">
-            <span class="index-link-title">Question 2(b)</span>
-            <span class="index-link-copy">Focus: antidifferentiating and using a point on the graph to find the constant.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="2c2025-l2.html">
-            <span class="index-link-title">Question 2(c)</span>
-            <span class="index-link-copy">Focus: differentiating, evaluating a rate, and using derivatives to justify the minimum turning point.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="2d2025-l2.html">
-            <span class="index-link-title">Question 2(d)</span>
-            <span class="index-link-copy">Focus: using a stationary point and an x-intercept to find constants, then classifying the other stationary point.</span>
-          </a>
+      <div id="level-2-calculus-2025" class="paper-year-panel hidden" data-paper-panel="level-2-calculus-2025" data-parent-standard="level-2-calculus" aria-hidden="true">
+        <p class="step-text">
+          Work through the 2025 Level 2 Calculus walkthroughs question by question.
+        </p>
+        <div class="index-group">
+          <p class="question-label index-group-label">Question 1</p>
+          <div class="nav-row index-nav">
+            <a class="nav-btn index-link-card" href="1a2025-l2.html">
+              <span class="index-link-title">Question 1(a)</span>
+              <span class="index-link-copy">Focus: using the power rule term by term and evaluating the gradient at a point.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="1b2025-l2.html">
+              <span class="index-link-title">Question 1(b)</span>
+              <span class="index-link-copy">Focus: finding the point of tangency, the gradient, and the tangent equation.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="1c2025-l2.html">
+              <span class="index-link-title">Question 1(c)</span>
+              <span class="index-link-copy">Focus: finding critical points, identifying the minimum, and solving for the constant.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="1d2025-l2.html">
+              <span class="index-link-title">Question 1(d)</span>
+              <span class="index-link-copy">Focus: writing displacement equations, solving when they are equal, and answering in context.</span>
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="index-group">
-        <p class="question-label index-group-label">Question 3</p>
-        <div class="nav-row index-nav">
-          <a class="nav-btn index-link-card" href="3a2025-l2.html">
-            <span class="index-link-title">Question 3(a)</span>
-            <span class="index-link-copy">Focus: differentiating, solving for the given gradient, and finding the coordinate on the curve.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="3b2025-l2.html">
-            <span class="index-link-title">Question 3(b)</span>
-            <span class="index-link-copy">Focus: forming an area expression, finding the height from the given area, and evaluating the rate of change.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="3c2025-l2.html">
-            <span class="index-link-title">Question 3(c)</span>
-            <span class="index-link-copy">Focus: using a surface-area constraint, writing volume in one variable, maximizing it, and proving the maximum.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="3d2025-l2.html">
-            <span class="index-link-title">Question 3(d)</span>
-            <span class="index-link-copy">Focus: differentiating, factorising, classifying critical points, and finding where the function is decreasing.</span>
-          </a>
+        <div class="index-group">
+          <p class="question-label index-group-label">Question 2</p>
+          <div class="nav-row index-nav">
+            <a class="nav-btn index-link-card" href="2a2025-l2.html">
+              <span class="index-link-title">Question 2(a)</span>
+              <span class="index-link-copy">Focus: sketching the derivative from stationary points, signs, and changes in concavity.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="2b2025-l2.html">
+              <span class="index-link-title">Question 2(b)</span>
+              <span class="index-link-copy">Focus: antidifferentiating and using a point on the graph to find the constant.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="2c2025-l2.html">
+              <span class="index-link-title">Question 2(c)</span>
+              <span class="index-link-copy">Focus: differentiating, evaluating a rate, and using derivatives to justify the minimum turning point.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="2d2025-l2.html">
+              <span class="index-link-title">Question 2(d)</span>
+              <span class="index-link-copy">Focus: using a stationary point and an x-intercept to find constants, then classifying the other stationary point.</span>
+            </a>
+          </div>
+        </div>
+        <div class="index-group">
+          <p class="question-label index-group-label">Question 3</p>
+          <div class="nav-row index-nav">
+            <a class="nav-btn index-link-card" href="3a2025-l2.html">
+              <span class="index-link-title">Question 3(a)</span>
+              <span class="index-link-copy">Focus: differentiating, solving for the given gradient, and finding the coordinate on the curve.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="3b2025-l2.html">
+              <span class="index-link-title">Question 3(b)</span>
+              <span class="index-link-copy">Focus: forming an area expression, finding the height from the given area, and evaluating the rate of change.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="3c2025-l2.html">
+              <span class="index-link-title">Question 3(c)</span>
+              <span class="index-link-copy">Focus: using a surface-area constraint, writing volume in one variable, maximizing it, and proving the maximum.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="3d2025-l2.html">
+              <span class="index-link-title">Question 3(d)</span>
+              <span class="index-link-copy">Focus: differentiating, factorising, classifying critical points, and finding where the function is decreasing.</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="level-2-algebra" class="standard-section">
+    <section id="level-2-algebra" class="standard-section hidden" data-standard-panel="level-2-algebra" data-parent-level="level-2" aria-hidden="true">
       <p class="question-label">Algebra</p>
-      <h3 class="standard-title">2025 Paper</h3>
+      <h3 class="standard-title">Choose A Paper Year</h3>
       <p class="step-text">
-        Work through the 2025 Level 2 Algebra walkthroughs question by question.
+        Select the Level 2 Algebra paper you want to open.
       </p>
-      <div class="index-group">
-        <p class="question-label index-group-label">Question 1</p>
-        <div class="nav-row index-nav">
-          <a class="nav-btn index-link-card" href="alg-1a2025-l2.html">
-            <span class="index-link-title">Question 1(a)</span>
-            <span class="index-link-copy">Focus: simplifying a radical expression.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="alg-1b2025-l2.html">
-            <span class="index-link-title">Question 1(b)</span>
-            <span class="index-link-copy">Focus: rearranging an equation to make x the subject.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="alg-1c2025-l2.html">
-            <span class="index-link-title">Question 1(c)</span>
-            <span class="index-link-copy">Focus: building a quadratic from a root and a point on the graph.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="alg-1d2025-l2.html">
-            <span class="index-link-title">Question 1(d)</span>
-            <span class="index-link-copy">Focus: using Pythagoras to write area in terms of the radius.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="alg-1e2025-l2.html">
-            <span class="index-link-title">Question 1(e)</span>
-            <span class="index-link-copy">Focus: solving an exponential equation with a substitution.</span>
-          </a>
-        </div>
+      <div class="year-picker-grid paper-picker-grid">
+        <button class="nav-btn secondary year-option paper-option" type="button" data-paper="level-2-algebra-2025" data-parent-standard="level-2-algebra" aria-pressed="false">
+          <span class="year-option-title">2025 Paper</span>
+          <span class="year-option-copy">Open the 2025 Level 2 Algebra question list.</span>
+        </button>
       </div>
-      <div class="index-group">
-        <p class="question-label index-group-label">Question 2</p>
-        <div class="nav-row index-nav">
-          <a class="nav-btn index-link-card" href="alg-2a2025-l2.html">
-            <span class="index-link-title">Question 2(a)</span>
-            <span class="index-link-copy">Focus: identifying the missing term in a perfect square.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="alg-2b2025-l2.html">
-            <span class="index-link-title">Question 2(b)</span>
-            <span class="index-link-copy">Focus: factorising and simplifying an algebraic fraction.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="alg-2c2025-l2.html">
-            <span class="index-link-title">Question 2(c)</span>
-            <span class="index-link-copy">Focus: solving a quadratic and matching it to a surd form.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="alg-2d2025-l2.html">
-            <span class="index-link-title">Question 2(d)</span>
-            <span class="index-link-copy">Focus: combining logarithms and solving the resulting equation.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="alg-2e2025-l2.html">
-            <span class="index-link-title">Question 2(e)</span>
-            <span class="index-link-copy">Focus: using the discriminant in simultaneous equations.</span>
-          </a>
+      <div id="level-2-algebra-2025" class="paper-year-panel hidden" data-paper-panel="level-2-algebra-2025" data-parent-standard="level-2-algebra" aria-hidden="true">
+        <p class="step-text">
+          Work through the 2025 Level 2 Algebra walkthroughs question by question.
+        </p>
+        <div class="index-group">
+          <p class="question-label index-group-label">Question 1</p>
+          <div class="nav-row index-nav">
+            <a class="nav-btn index-link-card" href="alg-1a2025-l2.html">
+              <span class="index-link-title">Question 1(a)</span>
+              <span class="index-link-copy">Focus: simplifying a radical expression.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="alg-1b2025-l2.html">
+              <span class="index-link-title">Question 1(b)</span>
+              <span class="index-link-copy">Focus: rearranging an equation to make x the subject.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="alg-1c2025-l2.html">
+              <span class="index-link-title">Question 1(c)</span>
+              <span class="index-link-copy">Focus: building a quadratic from a root and a point on the graph.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="alg-1d2025-l2.html">
+              <span class="index-link-title">Question 1(d)</span>
+              <span class="index-link-copy">Focus: using Pythagoras to write area in terms of the radius.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="alg-1e2025-l2.html">
+              <span class="index-link-title">Question 1(e)</span>
+              <span class="index-link-copy">Focus: solving an exponential equation with a substitution.</span>
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="index-group">
-        <p class="question-label index-group-label">Question 3</p>
-        <div class="nav-row index-nav">
-          <a class="nav-btn index-link-card" href="alg-3a2025-l2.html">
-            <span class="index-link-title">Question 3(a)</span>
-            <span class="index-link-copy">Focus: solving a logarithm with a variable base.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="alg-3b2025-l2.html">
-            <span class="index-link-title">Question 3(b)</span>
-            <span class="index-link-copy">Focus: forming a quadratic equation from its roots.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="alg-3c2025-l2.html">
-            <span class="index-link-title">Question 3(c)</span>
-            <span class="index-link-copy">Focus: rewriting a logarithm in terms of given values.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="alg-3d2025-l2.html">
-            <span class="index-link-title">Question 3(d)</span>
-            <span class="index-link-copy">Focus: using root relationships to rewrite an expression.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="alg-3e2025-l2.html">
-            <span class="index-link-title">Question 3(e)</span>
-            <span class="index-link-copy">Focus: modelling a golf shot with a quadratic and interpreting the result.</span>
-          </a>
+        <div class="index-group">
+          <p class="question-label index-group-label">Question 2</p>
+          <div class="nav-row index-nav">
+            <a class="nav-btn index-link-card" href="alg-2a2025-l2.html">
+              <span class="index-link-title">Question 2(a)</span>
+              <span class="index-link-copy">Focus: identifying the missing term in a perfect square.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="alg-2b2025-l2.html">
+              <span class="index-link-title">Question 2(b)</span>
+              <span class="index-link-copy">Focus: factorising and simplifying an algebraic fraction.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="alg-2c2025-l2.html">
+              <span class="index-link-title">Question 2(c)</span>
+              <span class="index-link-copy">Focus: solving a quadratic and matching it to a surd form.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="alg-2d2025-l2.html">
+              <span class="index-link-title">Question 2(d)</span>
+              <span class="index-link-copy">Focus: combining logarithms and solving the resulting equation.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="alg-2e2025-l2.html">
+              <span class="index-link-title">Question 2(e)</span>
+              <span class="index-link-copy">Focus: using the discriminant in simultaneous equations.</span>
+            </a>
+          </div>
+        </div>
+        <div class="index-group">
+          <p class="question-label index-group-label">Question 3</p>
+          <div class="nav-row index-nav">
+            <a class="nav-btn index-link-card" href="alg-3a2025-l2.html">
+              <span class="index-link-title">Question 3(a)</span>
+              <span class="index-link-copy">Focus: solving a logarithm with a variable base.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="alg-3b2025-l2.html">
+              <span class="index-link-title">Question 3(b)</span>
+              <span class="index-link-copy">Focus: forming a quadratic equation from its roots.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="alg-3c2025-l2.html">
+              <span class="index-link-title">Question 3(c)</span>
+              <span class="index-link-copy">Focus: rewriting a logarithm in terms of given values.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="alg-3d2025-l2.html">
+              <span class="index-link-title">Question 3(d)</span>
+              <span class="index-link-copy">Focus: using root relationships to rewrite an expression.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="alg-3e2025-l2.html">
+              <span class="index-link-title">Question 3(e)</span>
+              <span class="index-link-copy">Focus: modelling a golf shot with a quadratic and interpreting the result.</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -216,94 +252,115 @@
 
   <section id="level-3" class="question-card paper-panel hidden" data-level-panel="level-3" aria-hidden="true">
     <p class="eyebrow">Level 3</p>
-    <h2>Standards</h2>
+    <h2>Choose A Standard</h2>
     <p class="step-text">
-      Choose a Level 3 standard, then open the paper walkthrough you want to work through.
+      Choose the Level 3 standard you want to work on first.
     </p>
-    <section id="level-3-differentiation" class="standard-section">
+    <div class="year-picker-grid standard-picker-grid">
+      <button class="nav-btn secondary year-option standard-option" type="button" data-standard="level-3-differentiation" data-parent-level="level-3" aria-pressed="false">
+        <span class="year-option-title">Differentiation</span>
+        <span class="year-option-copy">Open the Level 3 Differentiation papers.</span>
+      </button>
+    </div>
+    <p class="step-text question-note">
+      Choose a standard to show its paper years.
+    </p>
+
+    <section id="level-3-differentiation" class="standard-section hidden" data-standard-panel="level-3-differentiation" data-parent-level="level-3" aria-hidden="true">
       <p class="question-label">Differentiation</p>
-      <h3 class="standard-title">2022 Paper</h3>
+      <h3 class="standard-title">Choose A Paper Year</h3>
       <p class="step-text">
-        Work through the 2022 Level 3 Differentiation walkthroughs question by question.
+        Select the Level 3 Differentiation paper you want to open.
       </p>
-      <div class="index-group">
-        <p class="question-label index-group-label">Question 1</p>
-        <div class="nav-row index-nav">
-          <a class="nav-btn index-link-card" href="1a2022.html">
-            <span class="index-link-title">Question 1(a)</span>
-            <span class="index-link-copy">Focus: differentiation of the function.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="1b2022.html">
-            <span class="index-link-title">Question 1(b)</span>
-            <span class="index-link-copy">Focus: finding and interpreting stationary points.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="1c2022.html">
-            <span class="index-link-title">Question 1(c)</span>
-            <span class="index-link-copy">Focus: the normal line and its x-intercept.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="1d2022.html">
-            <span class="index-link-title">Question 1(d)</span>
-            <span class="index-link-copy">Focus: parametric differentiation.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="1e2022.html">
-            <span class="index-link-title">Question 1(e)</span>
-            <span class="index-link-copy">Focus: proving there are no points of inflection.</span>
-          </a>
-        </div>
+      <div class="year-picker-grid paper-picker-grid">
+        <button class="nav-btn secondary year-option paper-option" type="button" data-paper="level-3-differentiation-2022" data-parent-standard="level-3-differentiation" aria-pressed="false">
+          <span class="year-option-title">2022 Paper</span>
+          <span class="year-option-copy">Open the 2022 Level 3 Differentiation question list.</span>
+        </button>
       </div>
-      <div class="index-group">
-        <p class="question-label index-group-label">Question 2</p>
-        <div class="nav-row index-nav">
-          <a class="nav-btn index-link-card" href="2a2022.html">
-            <span class="index-link-title">Question 2(a)</span>
-            <span class="index-link-copy">Focus: product rule with a trig chain rule.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="2b2022.html">
-            <span class="index-link-title">Question 2(b)</span>
-            <span class="index-link-copy">Focus: chain rule and finding a tangent gradient.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="2c2022.html">
-            <span class="index-link-title">Question 2(c)</span>
-            <span class="index-link-copy">Focus: quotient rule and finding when motion is stationary.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="2d2022.html">
-            <span class="index-link-title">Question 2(d)</span>
-            <span class="index-link-copy">Focus: forming an area function and maximising it.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="2e2022.html">
-            <span class="index-link-title">Question 2(e)</span>
-            <span class="index-link-copy">Focus: implicit differentiation and tangent-line distance.</span>
-          </a>
+      <div id="level-3-differentiation-2022" class="paper-year-panel hidden" data-paper-panel="level-3-differentiation-2022" data-parent-standard="level-3-differentiation" aria-hidden="true">
+        <p class="step-text">
+          Work through the 2022 Level 3 Differentiation walkthroughs question by question.
+        </p>
+        <div class="index-group">
+          <p class="question-label index-group-label">Question 1</p>
+          <div class="nav-row index-nav">
+            <a class="nav-btn index-link-card" href="1a2022.html">
+              <span class="index-link-title">Question 1(a)</span>
+              <span class="index-link-copy">Focus: differentiation of the function.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="1b2022.html">
+              <span class="index-link-title">Question 1(b)</span>
+              <span class="index-link-copy">Focus: finding and interpreting stationary points.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="1c2022.html">
+              <span class="index-link-title">Question 1(c)</span>
+              <span class="index-link-copy">Focus: the normal line and its x-intercept.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="1d2022.html">
+              <span class="index-link-title">Question 1(d)</span>
+              <span class="index-link-copy">Focus: parametric differentiation.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="1e2022.html">
+              <span class="index-link-title">Question 1(e)</span>
+              <span class="index-link-copy">Focus: proving there are no points of inflection.</span>
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="index-group">
-        <p class="question-label index-group-label">Question 3</p>
-        <div class="nav-row index-nav">
-          <a class="nav-btn index-link-card" href="3a2022.html">
-            <span class="index-link-title">Question 3(a)</span>
-            <span class="index-link-copy">Focus: rewriting radicals and using the chain rule.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="3b2022.html">
-            <span class="index-link-title">Question 3(b)</span>
-            <span class="index-link-copy">Focus: reading differentiability, derivatives, and limits from a graph.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="3c2022.html">
-            <span class="index-link-title">Question 3(c)</span>
-            <span class="index-link-copy">Focus: related rates using volume and height.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="3d2022.html">
-            <span class="index-link-title">Question 3(d)</span>
-            <span class="index-link-copy">Focus: finding stationary points and classifying them.</span>
-          </a>
-          <a class="nav-btn index-link-card" href="3e2022.html">
-            <span class="index-link-title">Question 3(e)</span>
-            <span class="index-link-copy">Focus: building a time function and minimising it.</span>
-          </a>
+        <div class="index-group">
+          <p class="question-label index-group-label">Question 2</p>
+          <div class="nav-row index-nav">
+            <a class="nav-btn index-link-card" href="2a2022.html">
+              <span class="index-link-title">Question 2(a)</span>
+              <span class="index-link-copy">Focus: product rule with a trig chain rule.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="2b2022.html">
+              <span class="index-link-title">Question 2(b)</span>
+              <span class="index-link-copy">Focus: chain rule and finding a tangent gradient.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="2c2022.html">
+              <span class="index-link-title">Question 2(c)</span>
+              <span class="index-link-copy">Focus: quotient rule and finding when motion is stationary.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="2d2022.html">
+              <span class="index-link-title">Question 2(d)</span>
+              <span class="index-link-copy">Focus: forming an area function and maximising it.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="2e2022.html">
+              <span class="index-link-title">Question 2(e)</span>
+              <span class="index-link-copy">Focus: implicit differentiation and tangent-line distance.</span>
+            </a>
+          </div>
         </div>
+        <div class="index-group">
+          <p class="question-label index-group-label">Question 3</p>
+          <div class="nav-row index-nav">
+            <a class="nav-btn index-link-card" href="3a2022.html">
+              <span class="index-link-title">Question 3(a)</span>
+              <span class="index-link-copy">Focus: rewriting radicals and using the chain rule.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="3b2022.html">
+              <span class="index-link-title">Question 3(b)</span>
+              <span class="index-link-copy">Focus: reading differentiability, derivatives, and limits from a graph.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="3c2022.html">
+              <span class="index-link-title">Question 3(c)</span>
+              <span class="index-link-copy">Focus: related rates using volume and height.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="3d2022.html">
+              <span class="index-link-title">Question 3(d)</span>
+              <span class="index-link-copy">Focus: finding stationary points and classifying them.</span>
+            </a>
+            <a class="nav-btn index-link-card" href="3e2022.html">
+              <span class="index-link-title">Question 3(e)</span>
+              <span class="index-link-copy">Focus: building a time function and minimising it.</span>
+            </a>
+          </div>
+        </div>
+        <p class="step-text question-note">
+          More papers can be added inside each standard section as the site grows.
+        </p>
       </div>
-      <p class="step-text question-note">
-        More papers can be added inside each standard section as the site grows.
-      </p>
     </section>
   </section>
 </main>

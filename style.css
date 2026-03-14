@@ -578,6 +578,14 @@ input[type="range"] {
   margin-top: 20px;
 }
 
+.paper-picker-grid {
+  margin-bottom: 8px;
+}
+
+.paper-year-panel {
+  margin-top: 18px;
+}
+
 .standard-title {
   margin: 0 0 10px;
   font-size: 1.45rem;

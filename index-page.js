@@ -24,19 +24,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const levelButtons = Array.from(document.querySelectorAll("[data-level]"));
   const levelPanels = Array.from(document.querySelectorAll("[data-level-panel]"));
+  const standardButtons = Array.from(document.querySelectorAll("[data-standard]"));
+  const standardPanels = Array.from(document.querySelectorAll("[data-standard-panel]"));
+  const paperButtons = Array.from(document.querySelectorAll("[data-paper]"));
+  const paperPanels = Array.from(document.querySelectorAll("[data-paper-panel]"));
   let activeLevel = null;
+  let activeStandard = null;
+  let activePaper = null;
   const hashTargets = {
     "level-2": { level: "level-2" },
     "level-3": { level: "level-3" },
-    "level-2-calculus": { level: "level-2", target: "level-2-calculus" },
-    "level-2-algebra": { level: "level-2", target: "level-2-algebra" },
-    "level-3-differentiation": { level: "level-3", target: "level-3-differentiation" },
-    "level-2-2025": { level: "level-2", target: "level-2-calculus" },
-    "level-2-algebra-2025": { level: "level-2", target: "level-2-algebra" },
-    "level-3-2022": { level: "level-3", target: "level-3-differentiation" }
+    "level-2-calculus": { level: "level-2", standard: "level-2-calculus" },
+    "level-2-algebra": { level: "level-2", standard: "level-2-algebra" },
+    "level-3-differentiation": { level: "level-3", standard: "level-3-differentiation" },
+    "level-2-calculus-2025": {
+      level: "level-2",
+      standard: "level-2-calculus",
+      paper: "level-2-calculus-2025"
+    },
+    "level-2-algebra-2025": {
+      level: "level-2",
+      standard: "level-2-algebra",
+      paper: "level-2-algebra-2025"
+    },
+    "level-3-differentiation-2022": {
+      level: "level-3",
+      standard: "level-3-differentiation",
+      paper: "level-3-differentiation-2022"
+    },
+    "level-2-2025": {
+      level: "level-2",
+      standard: "level-2-calculus",
+      paper: "level-2-calculus-2025"
+    },
+    "level-3-2022": {
+      level: "level-3",
+      standard: "level-3-differentiation",
+      paper: "level-3-differentiation-2022"
+    }
   };
 
   if (!levelButtons.length || !levelPanels.length) {
+    ensureHomepageReportFooter();
     return;
   }
 
@@ -53,60 +82,228 @@ document.addEventListener("DOMContentLoaded", function () {
     window.history.replaceState(null, "", "#" + hash);
   }
 
-  function resolveScrollTarget(level, targetId) {
-    if (targetId) {
-      return document.getElementById(targetId);
-    }
+  function setButtonState(button, isActive) {
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", isActive ? "true" : "false");
+  }
 
+  function setPanelState(panel, isActive) {
+    panel.classList.toggle("hidden", !isActive);
+    panel.setAttribute("aria-hidden", isActive ? "false" : "true");
+  }
+
+  function getLevelPanel(level) {
     return levelPanels.find(function (panel) {
       return panel.dataset.levelPanel === level;
     }) || null;
   }
 
-  function selectLevel(level, shouldScroll, targetId, historyHash) {
-    const activePanel = levelPanels.find(function (panel) {
-      return panel.dataset.levelPanel === level;
+  function getStandardPanel(standard) {
+    return standardPanels.find(function (panel) {
+      return panel.dataset.standardPanel === standard;
+    }) || null;
+  }
+
+  function getPaperPanel(paper) {
+    return paperPanels.find(function (panel) {
+      return panel.dataset.paperPanel === paper;
+    }) || null;
+  }
+
+  function scrollToPanel(targetId) {
+    const scrollTarget = document.getElementById(targetId) ||
+      getLevelPanel(targetId) ||
+      getStandardPanel(targetId) ||
+      getPaperPanel(targetId);
+
+    if (!scrollTarget) {
+      return;
+    }
+
+    window.scrollTo({ top: scrollTarget.offsetTop - 24, behavior: "smooth" });
+  }
+
+  function clearPaperSelection(parentStandard) {
+    const matchingPanels = paperPanels.filter(function (panel) {
+      return !parentStandard || panel.dataset.parentStandard === parentStandard;
     });
+
+    const matchingPaperIds = matchingPanels.map(function (panel) {
+      return panel.dataset.paperPanel;
+    });
+
+    matchingPanels.forEach(function (panel) {
+      setPanelState(panel, false);
+    });
+
+    paperButtons.forEach(function (button) {
+      if (!parentStandard || button.dataset.parentStandard === parentStandard) {
+        setButtonState(button, false);
+      }
+    });
+
+    if (!parentStandard || matchingPaperIds.includes(activePaper)) {
+      activePaper = null;
+    }
+  }
+
+  function clearStandardSelection(parentLevel) {
+    const matchingPanels = standardPanels.filter(function (panel) {
+      return !parentLevel || panel.dataset.parentLevel === parentLevel;
+    });
+
+    const matchingStandardIds = matchingPanels.map(function (panel) {
+      return panel.dataset.standardPanel;
+    });
+
+    matchingPanels.forEach(function (panel) {
+      setPanelState(panel, false);
+      clearPaperSelection(panel.dataset.standardPanel);
+    });
+
+    standardButtons.forEach(function (button) {
+      if (!parentLevel || button.dataset.parentLevel === parentLevel) {
+        setButtonState(button, false);
+      }
+    });
+
+    if (!parentLevel || matchingStandardIds.includes(activeStandard)) {
+      activeStandard = null;
+    }
+  }
+
+  function activateLevel(level) {
+    const activePanel = getLevelPanel(level);
+
+    if (!activePanel) {
+      return null;
+    }
+
+    if (activeLevel && activeLevel !== level) {
+      clearStandardSelection(activeLevel);
+    }
+
+    levelPanels.forEach(function (panel) {
+      const isActive = panel === activePanel;
+      setPanelState(panel, isActive);
+    });
+
+    levelButtons.forEach(function (button) {
+      const isActive = button.dataset.level === level;
+      setButtonState(button, isActive);
+    });
+
+    activeLevel = level;
+    return activePanel;
+  }
+
+  function selectLevel(level, shouldScroll) {
+    const activePanel = activateLevel(level);
 
     if (!activePanel) {
       return;
     }
 
-    levelPanels.forEach(function (panel) {
-      const isActive = panel === activePanel;
-      panel.classList.toggle("hidden", !isActive);
-      panel.setAttribute("aria-hidden", isActive ? "false" : "true");
-    });
-
-    levelButtons.forEach(function (button) {
-      const isActive = button.dataset.level === level;
-      button.classList.toggle("is-active", isActive);
-      button.setAttribute("aria-pressed", isActive ? "true" : "false");
-    });
-
-    activeLevel = level;
-    updateHash(historyHash || targetId || level);
+    clearStandardSelection(level);
+    updateHash(level);
 
     if (shouldScroll) {
-      const scrollTarget = resolveScrollTarget(level, targetId);
-      if (scrollTarget) {
-        window.scrollTo({ top: scrollTarget.offsetTop - 24, behavior: "smooth" });
+      scrollToPanel(level);
+    }
+  }
+
+  function selectStandard(standard, shouldScroll) {
+    const standardPanel = getStandardPanel(standard);
+
+    if (!standardPanel) {
+      return;
+    }
+
+    const parentLevel = standardPanel.dataset.parentLevel;
+    const activePanel = activateLevel(parentLevel);
+
+    if (!activePanel) {
+      return;
+    }
+
+    clearStandardSelection(parentLevel);
+    setPanelState(standardPanel, true);
+
+    standardButtons.forEach(function (button) {
+      if (button.dataset.parentLevel === parentLevel) {
+        setButtonState(button, button.dataset.standard === standard);
       }
+    });
+
+    activeStandard = standard;
+    updateHash(standard);
+
+    if (shouldScroll) {
+      scrollToPanel(standard);
+    }
+  }
+
+  function selectPaper(paper, shouldScroll) {
+    const paperPanel = getPaperPanel(paper);
+
+    if (!paperPanel) {
+      return;
+    }
+
+    const parentStandard = paperPanel.dataset.parentStandard;
+    const standardPanel = getStandardPanel(parentStandard);
+
+    if (!standardPanel) {
+      return;
+    }
+
+    const parentLevel = standardPanel.dataset.parentLevel;
+    const activePanel = activateLevel(parentLevel);
+
+    if (!activePanel) {
+      return;
+    }
+
+    clearStandardSelection(parentLevel);
+    setPanelState(standardPanel, true);
+
+    standardButtons.forEach(function (button) {
+      if (button.dataset.parentLevel === parentLevel) {
+        setButtonState(button, button.dataset.standard === parentStandard);
+      }
+    });
+
+    setPanelState(paperPanel, true);
+
+    paperButtons.forEach(function (button) {
+      if (button.dataset.parentStandard === parentStandard) {
+        setButtonState(button, button.dataset.paper === paper);
+      }
+    });
+
+    activeStandard = parentStandard;
+    activePaper = paper;
+    updateHash(paper);
+
+    if (shouldScroll) {
+      scrollToPanel(paper);
     }
   }
 
   function clearSelection() {
+    clearStandardSelection();
+
     levelPanels.forEach(function (panel) {
-      panel.classList.add("hidden");
-      panel.setAttribute("aria-hidden", "true");
+      setPanelState(panel, false);
     });
 
     levelButtons.forEach(function (button) {
-      button.classList.remove("is-active");
-      button.setAttribute("aria-pressed", "false");
+      setButtonState(button, false);
     });
 
     activeLevel = null;
+    activeStandard = null;
+    activePaper = null;
     updateHash("");
   }
 
@@ -117,19 +314,52 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      selectLevel(button.dataset.level, true, null, button.dataset.level);
+      selectLevel(button.dataset.level, true);
+    });
+  });
+
+  standardButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      const standard = button.dataset.standard;
+      const parentLevel = button.dataset.parentLevel;
+
+      if (activeStandard === standard) {
+        clearStandardSelection(parentLevel);
+        updateHash(parentLevel);
+        scrollToPanel(parentLevel);
+        return;
+      }
+
+      selectStandard(standard, true);
+    });
+  });
+
+  paperButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      const paper = button.dataset.paper;
+      const parentStandard = button.dataset.parentStandard;
+
+      if (activePaper === paper) {
+        clearPaperSelection(parentStandard);
+        updateHash(parentStandard);
+        scrollToPanel(parentStandard);
+        return;
+      }
+
+      selectPaper(paper, true);
     });
   });
 
   const initialHash = window.location.hash.slice(1);
   const initialSelection = hashTargets[initialHash];
   if (initialSelection) {
-    selectLevel(
-      initialSelection.level,
-      true,
-      initialSelection.target || null,
-      initialSelection.target || initialSelection.level
-    );
+    if (initialSelection.paper) {
+      selectPaper(initialSelection.paper, true);
+    } else if (initialSelection.standard) {
+      selectStandard(initialSelection.standard, true);
+    } else if (initialSelection.level) {
+      selectLevel(initialSelection.level, true);
+    }
   }
 
   ensureHomepageReportFooter();
