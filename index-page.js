@@ -37,6 +37,11 @@ document.addEventListener("DOMContentLoaded", function () {
     "level-2-calculus": { level: "level-2", standard: "level-2-calculus" },
     "level-2-algebra": { level: "level-2", standard: "level-2-algebra" },
     "level-3-differentiation": { level: "level-3", standard: "level-3-differentiation" },
+    "level-3-differentiation-2025": {
+      level: "level-3",
+      standard: "level-3-differentiation",
+      paper: "level-3-differentiation-2025"
+    },
     "level-2-calculus-2025": {
       level: "level-2",
       standard: "level-2-calculus",
@@ -61,6 +66,11 @@ document.addEventListener("DOMContentLoaded", function () {
       level: "level-3",
       standard: "level-3-differentiation",
       paper: "level-3-differentiation-2022"
+    },
+    "level-3-2025": {
+      level: "level-3",
+      standard: "level-3-differentiation",
+      paper: "level-3-differentiation-2025"
     }
   };
 
