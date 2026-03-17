@@ -295,7 +295,14 @@
       ${textMarkup(scale, xLeft - 0.35, heightValue + 0.55, "B", "graph-label")}
       ${textMarkup(scale, xRight + 0.15, heightValue + 0.55, "C", "graph-label")}
       ${textMarkup(scale, xRight + 0.15, -0.45, "D", "graph-label")}
-      ${textMarkup(scale, 10.9, 6.55, "y² = 16x - x²", "graph-label")}
+      ${textMarkup(
+        scale,
+        8,
+        7.05,
+        "y² = 16x - x²",
+        "graph-label",
+        ' text-anchor="middle" stroke="#ffffff" stroke-opacity="0.96" stroke-width="6" stroke-linejoin="round" paint-order="stroke"'
+      )}
       ${textMarkup(scale, 15.7, -0.35, "x", "question-axis-label")}
       ${textMarkup(scale, 0.2, 8.6, "y", "question-axis-label")}
     `;
