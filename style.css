@@ -389,6 +389,12 @@ input[type="range"] {
   font-weight: 700;
 }
 
+.graph-equation-label {
+  fill: var(--text);
+  font-size: 15px;
+  font-weight: 800;
+}
+
 .graph-curve-secondary {
   fill: none;
   stroke: #0f766e;
