@@ -295,7 +295,7 @@
       ${textMarkup(scale, xLeft - 0.35, heightValue + 0.55, "B", "graph-label")}
       ${textMarkup(scale, xRight + 0.15, heightValue + 0.55, "C", "graph-label")}
       ${textMarkup(scale, xRight + 0.15, -0.45, "D", "graph-label")}
-      ${textMarkup(scale, 10.9, 6.55, "y^2 = 16x - x^2", "graph-label")}
+      ${textMarkup(scale, 10.9, 6.55, "y² = 16x - x²", "graph-label")}
       ${textMarkup(scale, 15.7, -0.35, "x", "question-axis-label")}
       ${textMarkup(scale, 0.2, 8.6, "y", "question-axis-label")}
     `;
