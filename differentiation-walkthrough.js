@@ -22,8 +22,6 @@
     if (targetStep) {
       targetStep.classList.remove("hidden");
     }
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function setFeedback(id, message, isSuccess) {
