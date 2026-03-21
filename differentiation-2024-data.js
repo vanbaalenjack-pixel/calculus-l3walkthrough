@@ -223,7 +223,7 @@
         raw`If you want the fully tidied version at the end, the negative power can go back into a denominator.`
       ],
       answerHtml: raw`
-        <p class="step-text">Following the walkthrough method:</p>
+        <p class="step-text">A clean way to set this up is:</p>
         <div class="math-block">
           \[
           f(x)=(4-9x^4)^{1/2}
@@ -246,7 +246,7 @@
         {
           type: "typed",
           title: "Rewrite the square root first",
-          text: raw`As in your walkthrough, what is the index-form rewrite of \(\sqrt{4-9x^4}\)?`,
+          text: raw`What is the index-form rewrite of \(\sqrt{4-9x^4}\)?`,
           ariaLabel: "Type the index form rewrite",
           acceptedAnswers: ["(4-9x^4)^(1/2)"],
           samples: [{ x: 0 }, { x: 0.4 }, { x: 0.7 }],
@@ -279,7 +279,7 @@
             "(-18x^3)/sqrt(4-9x^4)"
           ],
           samples: [{ x: 0.1 }, { x: 0.4 }, { x: 0.7 }],
-          successMessage: raw`Nice. That matches the walkthrough exactly, and the simplified denominator form is fine too.`,
+          successMessage: raw`Nice. That is exactly right, and the simplified denominator form is fine too.`,
           targetedFeedback: [
             {
               answers: ["(1/2)(4-9x^4)^(-1/2)"],
@@ -354,7 +354,7 @@
           ariaLabel: "Type the derivative",
           acceptedAnswers: ["(2x+3)sin(x)+(x^2+3x+2)cos(x)"],
           samples: [{ x: 0 }, { x: 1 }, { x: 2 }],
-          successMessage: raw`Correct. That is the product rule result your walkthrough works with before evaluating.`,
+          successMessage: raw`Correct. That is the product rule result we want before evaluating.`,
           targetedFeedback: [
             {
               answers: ["(2x+3)sin(x)+(x^2+3x+2)(-sin(x))"],
@@ -385,9 +385,9 @@
         <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
       `,
       hints: [
-        raw`Go term by term, just like the walkthrough does.`,
+        raw`Go term by term.`,
         raw`A function is decreasing where its derivative is negative.`,
-        raw`After finding the critical values, test a value in between them if you want to copy the walkthrough style.`
+        raw`After finding the critical values, test a value in between them if you want to check the sign directly.`
       ],
       answerHtml: raw`
         <p class="step-text">Differentiate term by term:</p>
@@ -426,7 +426,7 @@
           ariaLabel: "Type the derivative",
           acceptedAnswers: ["24x-84+60/x"],
           samples: [{ x: 1 }, { x: 2 }, { x: 4 }],
-          successMessage: raw`Correct. That matches the term-by-term derivative in your walkthrough.`,
+          successMessage: raw`Correct. That matches the term-by-term derivative.`,
           targetedFeedback: [
             {
               answers: ["12(2x-7)+60/x"],
@@ -459,7 +459,7 @@
                 1<x<\frac{5}{2}
               \]`,
               correct: true,
-              successMessage: raw`Correct. That is exactly the interval your walkthrough lands on after testing a value like \(x=2\).`
+              successMessage: raw`Correct. That is exactly the interval you get after testing a value like \(x=2\).`
             },
             {
               html: raw`\[
@@ -494,7 +494,7 @@
         <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
       `,
       hints: [
-        raw`Your walkthrough uses both the first and second derivatives here.`,
+        raw`We need both the first and second derivatives here.`,
         raw`Differentiate the product first, then solve \(y'=0\).`,
         raw`Once you have the stationary \(x\)-value, use the sign of \(y''\) to decide the nature.`
       ],
@@ -590,7 +590,7 @@
         <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
       `,
       hints: [
-        raw`Your walkthrough starts by finding where the second derivative is zero, because that tells us where \(P\) is.`,
+        raw`Start by finding where the second derivative is zero, because that tells us where \(P\) is.`,
         raw`It helps to simplify the function first: \(y=2x-\frac{1}{x}-2\ln x\).`,
         raw`Once you know \(P\), find the gradient there and write the tangent equation.`
       ],
@@ -637,7 +637,7 @@
           ariaLabel: "Type the first derivative",
           acceptedAnswers: ["2+1/x^2-2/x"],
           samples: [{ x: 1 }, { x: 2 }, { x: 4 }],
-          successMessage: raw`Correct. That is the first derivative your walkthrough uses before going on to the second derivative.`,
+          successMessage: raw`Correct. That is the first derivative we need before going on to the second derivative.`,
           genericMessage: raw`Differentiate \(2x\), \(-x^{-1}\), and \(-2\ln x\) carefully.`
         },
         {
@@ -648,7 +648,7 @@
           acceptedAnswers: ["-2/x^3+2/x^2"],
           samples: [{ x: 1 }, { x: 2 }, { x: 5 }],
           successMessage: raw`Yes. And this is the one we set equal to zero to find the inflection point.`,
-          genericMessage: raw`Watch the signs here, just like the walkthrough warns. Differentiate each term one more time.`
+          genericMessage: raw`Watch the signs here. Differentiate each term one more time.`
         },
         {
           type: "typed",
@@ -689,7 +689,7 @@
       hints: [
         raw`Find \(\frac{dy}{dt}\) and \(\frac{dx}{dt}\) first.`,
         raw`Then divide \(\frac{dy}{dt}\) by \(\frac{dx}{dt}\).`,
-        raw`That is exactly the route your walkthrough takes.`
+        raw`That is exactly the right route here.`
       ],
       answerHtml: raw`
         <p class="step-text">Differentiate each parametric equation:</p>
@@ -733,7 +733,7 @@
           ariaLabel: "Type dy by dx",
           acceptedAnswers: ["-sin(t)/(6t)"],
           samples: [{ t: 0.5 }, { t: 1 }, { t: 2 }],
-          successMessage: raw`Correct. That is the parametric derivative the walkthrough arrives at.`,
+          successMessage: raw`Correct. That is the parametric derivative.`,
           genericMessage: raw`Use \(\frac{dy}{dx}=\frac{dy/dt}{dx/dt}\).`
         }
       ]
@@ -818,7 +818,7 @@
           text: raw`What is the velocity when \(t=1\)?`,
           ariaLabel: "Type the velocity at t equals 1",
           acceptedAnswers: ["11/10", "1.1"],
-          successMessage: raw`Yes. And that is the value the walkthrough lands on after the substitution.`,
+          successMessage: raw`Yes. And that is the value you get after the substitution.`,
           genericMessage: raw`Substitute \(t=1\) carefully into your velocity function and simplify.`
         }
       ]
@@ -915,7 +915,7 @@
       `,
       hints: [
         raw`At a point of inflection, the second derivative is zero.`,
-        raw`Your walkthrough does this with the quotient rule twice, but the simplified derivatives are easier to work with here.`,
+        raw`You can do this with the quotient rule twice, but the simplified derivatives are easier to work with here.`,
         raw`Once you have the \(x\)-value, substitute back into \(f(x)=\frac{\ln x}{x}\).`
       ],
       answerHtml: raw`
@@ -1331,7 +1331,7 @@
       `,
       hints: [
         raw`Use the quotient rule here.`,
-        raw`Your walkthrough expands the numerator after differentiating, which is a good move.`,
+        raw`Expanding the numerator after differentiating is a good move here.`,
         raw`A stationary point happens when the derivative is zero.`
       ],
       answerHtml: raw`
@@ -1448,7 +1448,7 @@
           ariaLabel: "Type V in terms of h",
           acceptedAnswers: ["pi*h^3/12"],
           samples: [{ h: 2 }, { h: 4 }, { h: 6 }],
-          successMessage: raw`Yes. That is the simplified volume expression your walkthrough differentiates next.`,
+          successMessage: raw`Yes. That is the simplified volume expression we differentiate next.`,
           genericMessage: raw`Substitute \(r=\frac{h}{2}\) into \(V=\frac{1}{3}\pi r^2h\) and simplify.`
         },
         {
