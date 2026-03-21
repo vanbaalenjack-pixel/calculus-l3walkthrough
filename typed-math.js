@@ -61,10 +61,12 @@
     normalised = normalised.replace(/\\sin\s*\{([^{}]+)\}/g, "\\sin($1)");
     normalised = normalised.replace(/\\cos\s*\{([^{}]+)\}/g, "\\cos($1)");
     normalised = normalised.replace(/\\tan\s*\{([^{}]+)\}/g, "\\tan($1)");
+    normalised = normalised.replace(/\\sec\s*\{([^{}]+)\}/g, "\\sec($1)");
     normalised = normalised.replace(/ln\s*\{([^{}]+)\}/g, "ln($1)");
     normalised = normalised.replace(/sin\s*\{([^{}]+)\}/g, "sin($1)");
     normalised = normalised.replace(/cos\s*\{([^{}]+)\}/g, "cos($1)");
     normalised = normalised.replace(/tan\s*\{([^{}]+)\}/g, "tan($1)");
+    normalised = normalised.replace(/sec\s*\{([^{}]+)\}/g, "sec($1)");
     normalised = replaceSimpleLatexFractions(normalised);
     normalised = normalised.replace(/[{}\[\]]/g, function (character) {
       return character === "{" || character === "[" ? "(" : ")";
@@ -76,8 +78,9 @@
     normalised = normalised.replace(/\\sin/g, "sin");
     normalised = normalised.replace(/\\cos/g, "cos");
     normalised = normalised.replace(/\\tan/g, "tan");
+    normalised = normalised.replace(/\\sec/g, "sec");
     normalised = normalised.replace(/\s+/g, "");
-    normalised = normalised.replace(/\b(ln|sin|cos|tan|sqrt)([a-z])(?![a-z])/g, "$1($2)");
+    normalised = normalised.replace(/\b(ln|sin|cos|tan|sec|sqrt)([a-z])(?![a-z])/g, "$1($2)");
 
     return normalised;
   }
@@ -142,7 +145,7 @@
   function tokenizeMathExpression(value) {
     const tokens = [];
     let index = 0;
-    const functionNames = ["sqrt", "sin", "cos", "tan", "exp", "ln"];
+    const functionNames = ["sqrt", "sin", "cos", "tan", "sec", "exp", "ln"];
     const constantNames = ["pi", "e"];
 
     while (index < value.length) {
@@ -766,6 +769,8 @@
       if (token.type === "function") {
         if (token.value === "ln") {
           jsExpression.push("Math.log");
+        } else if (token.value === "sec") {
+          jsExpression.push("__sec");
         } else if (token.value === "exp") {
           jsExpression.push("Math.exp");
         } else {
@@ -783,7 +788,10 @@
     });
 
     try {
-      return new Function("scope", "\"use strict\"; return (" + jsExpression.join("") + ");");
+      return new Function(
+        "scope",
+        "\"use strict\"; const __sec = function (value) { return 1 / Math.cos(value); }; return (" + jsExpression.join("") + ");"
+      );
     } catch (error) {
       return null;
     }
