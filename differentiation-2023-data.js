@@ -302,7 +302,7 @@
         },
         {
           type: "choice",
-          title: "Evaluate at \(t=1.5\)",
+          title: raw`Evaluate at \(t=1.5\)`,
           text: raw`What is the rate of change when \(t=1.5\)?`,
           beforeHtml: raw`
             <div class="math-block">
@@ -738,7 +738,7 @@
       steps: [
         {
           type: "choice",
-          title: "Write the triangle area in terms of \(x\)",
+          title: raw`Write the triangle area in terms of \(x\)`,
           text: raw`Which area function is correct?`,
           buttonGridClass: "button-grid two-col",
           choices: [
@@ -1734,7 +1734,7 @@
         },
         {
           type: "choice",
-          title: "Read the limit at \(x=6\)",
+          title: raw`Read the limit at \(x=6\)`,
           text: raw`What is \(\lim_{x\to 6}f(x)\)?`,
           buttonGridClass: "button-grid two-col",
           choices: [
@@ -1861,7 +1861,7 @@
         },
         {
           type: "choice",
-          title: "Evaluate the tangent gradient at \(t=6.25\)",
+          title: raw`Evaluate the tangent gradient at \(t=6.25\)`,
           text: raw`What is the tangent gradient at that instant?`,
           beforeHtml: raw`
             <div class="math-block">
@@ -2019,7 +2019,7 @@
       steps: [
         {
           type: "choice",
-          title: "Find the stationary \(x\)-values",
+          title: raw`Find the stationary \(x\)-values`,
           text: raw`Which \(x\)-values make \(f'(x)=0\)?`,
           buttonGridClass: "button-grid two-col",
           choices: [

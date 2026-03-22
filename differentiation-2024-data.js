@@ -290,7 +290,7 @@
         }
       ]
     }),
-    "1b": createConfig("1b", "2024 Paper — Product rule at \(x=0\)", {
+    "1b": createConfig("1b", raw`2024 Paper — Product rule at \(x=0\)`, {
       questionHtml: raw`
         <p class="step-text">
           A curve is defined by the equation
@@ -414,7 +414,7 @@
         <p class="step-text">So the critical values are \(x=1\) and \(x=\frac{5}{2}\). Testing \(x=2\) gives a negative derivative, so the function is decreasing for</p>
         <div class="math-block">
           \[
-          1<x<\frac{5}{2}.
+          1&lt;x&lt;\frac{5}{2}.
           \]
         </div>
       `,
@@ -456,14 +456,14 @@
           choices: [
             {
               html: raw`\[
-                1<x<\frac{5}{2}
+                1&lt;x&lt;\frac{5}{2}
               \]`,
               correct: true,
               successMessage: raw`Correct. That is exactly the interval you get after testing a value like \(x=2\).`
             },
             {
               html: raw`\[
-                0<x<1
+                0&lt;x&lt;1
               \]`,
               failureMessage: raw`Try testing a value there. The derivative is not negative on that whole interval.`
             },
@@ -475,7 +475,7 @@
             },
             {
               html: raw`\[
-                x<1 \text{ or } x>\frac{5}{2}
+                x&lt;1 \text{ or } x>\frac{5}{2}
               \]`,
               failureMessage: raw`That is the opposite sign pattern. We want where the derivative is negative, not positive.`
             }
@@ -520,7 +520,7 @@
           \frac{d^2y}{dx^2}=e^{-2x}(8x-12)
           \]
           \[
-          \frac{d^2y}{dx^2}\bigg|_{x=1}=-4e^{-2}<0
+          \frac{d^2y}{dx^2}\bigg|_{x=1}=-4e^{-2}&lt;0
           \]
         </div>
         <p class="step-text">So there is a stationary point at \(x=1\), and it is a maximum.</p>
@@ -652,7 +652,7 @@
         },
         {
           type: "typed",
-          title: "Find point \(P\)",
+          title: raw`Find point \(P\)`,
           text: raw`Solving \(\frac{d^2y}{dx^2}=0\) gives the \(x\)-coordinate of \(P\). What is it?`,
           ariaLabel: "Type the x coordinate of P",
           acceptedAnswers: ["1"],
@@ -708,7 +708,7 @@
       steps: [
         {
           type: "typed",
-          title: "Differentiate \(x\) with respect to \(t\)",
+          title: raw`Differentiate \(x\) with respect to \(t\)`,
           text: raw`What is \(\frac{dx}{dt}\)?`,
           ariaLabel: "Type dx by dt",
           acceptedAnswers: ["6t"],
@@ -718,7 +718,7 @@
         },
         {
           type: "typed",
-          title: "Differentiate \(y\) with respect to \(t\)",
+          title: raw`Differentiate \(y\) with respect to \(t\)`,
           text: raw`What is \(\frac{dy}{dt}\)?`,
           ariaLabel: "Type dy by dt",
           acceptedAnswers: ["-sin(t)"],
@@ -728,7 +728,7 @@
         },
         {
           type: "typed",
-          title: "Combine them into \(\frac{dy}{dx}\)",
+          title: raw`Combine them into \(\frac{dy}{dx}\)`,
           text: raw`Now find \(\frac{dy}{dx}\).`,
           ariaLabel: "Type dy by dx",
           acceptedAnswers: ["-sin(t)/(6t)"],
@@ -814,7 +814,7 @@
         },
         {
           type: "typed",
-          title: "Evaluate at \(t=1\)",
+          title: raw`Evaluate at \(t=1\)`,
           text: raw`What is the velocity when \(t=1\)?`,
           ariaLabel: "Type the velocity at t equals 1",
           acceptedAnswers: ["11/10", "1.1"],
@@ -901,7 +901,7 @@
         }
       ]
     }),
-    "2d": createConfig("2d", "2024 Paper — Point of inflection on \(f(x)=\frac{\ln x}{x}\)", {
+    "2d": createConfig("2d", raw`2024 Paper — Point of inflection on \(f(x)=\frac{\ln x}{x}\)`, {
       questionHtml: raw`
         <p class="step-text">
           Consider the function
@@ -974,7 +974,7 @@
         },
         {
           type: "typed",
-          title: "Solve for the \(x\)-coordinate",
+          title: raw`Solve for the \(x\)-coordinate`,
           text: raw`When you set the second derivative equal to zero, what \(x\)-value do you get?`,
           ariaLabel: "Type the x coordinate of the inflection point",
           acceptedAnswers: ["e^(3/2)", "e^1.5"],
@@ -1104,7 +1104,7 @@
         },
         {
           type: "typed",
-          title: "Find \(k\)",
+          title: raw`Find \(k\)`,
           text: raw`What value of \(k\) makes the discriminant zero?`,
           ariaLabel: "Type the value of k",
           acceptedAnswers: ["8/3"],
@@ -1119,7 +1119,7 @@
         },
         {
           type: "typed",
-          title: "Find the turning-point \(x\)-coordinate",
+          title: raw`Find the turning-point \(x\)-coordinate`,
           text: raw`Now substitute your \(k\)-value back into the derivative equation. What is the \(x\)-coordinate of \(Q\)?`,
           ariaLabel: "Type the x coordinate of Q",
           acceptedAnswers: ["-2/3"],
@@ -1128,7 +1128,7 @@
         }
       ]
     }),
-    "3a": createConfig("3a", "2024 Paper — Differentiate \(\sqrt{x}\sec(6x)\)", {
+    "3a": createConfig("3a", raw`2024 Paper — Differentiate \(\sqrt{x}\sec(6x)\)`, {
       questionHtml: raw`
         <div class="question-math">
           \[
@@ -1182,7 +1182,7 @@
         },
         {
           type: "typed",
-          title: "Differentiate the \(\sqrt{x}\) factor",
+          title: raw`Differentiate the \(\sqrt{x}\) factor`,
           text: raw`After rewriting \(\sqrt{x}\) as \(x^{1/2}\), what is its derivative?`,
           ariaLabel: "Type the derivative of square root x",
           acceptedAnswers: ["1/(2sqrt(x))", "(1/2)x^(-1/2)"],
@@ -1233,7 +1233,7 @@
           \text{(i) } x=5
           \]
           \[
-          \text{(ii) } x=1 \text{ and } 3<x<5
+          \text{(ii) } x=1 \text{ and } 3&lt;x&lt;5
           \]
           \[
           \text{(iii) } \lim_{x\to -1}f(x)=1
@@ -1282,10 +1282,10 @@
           choices: [
             {
               html: raw`\[
-                x=1 \text{ and } 3<x<5
+                x=1 \text{ and } 3&lt;x&lt;5
               \]`,
               correct: true,
-              successMessage: raw`Yes. There is a turning point at \(x=1\), and the graph is flat all the way across the horizontal segment for \(3<x<5\).`
+              successMessage: raw`Yes. There is a turning point at \(x=1\), and the graph is flat all the way across the horizontal segment for \(3&lt;x&lt;5\).`
             },
             {
               html: raw`\[
@@ -1295,7 +1295,7 @@
             },
             {
               html: raw`\[
-                3<x\le 5
+                3&lt;x\le 5
               \]`,
               failureMessage: raw`You have missed the stationary turning point at \(x=1\), and the derivative does not exist right at \(x=5\).`
             },
@@ -1368,7 +1368,7 @@
         },
         {
           type: "typed",
-          title: "Solve for the stationary \(x\)-values",
+          title: raw`Solve for the stationary \(x\)-values`,
           text: raw`What \(x\)-values make the derivative zero?`,
           ariaLabel: "Type the stationary x values",
           mode: "list",
@@ -1443,7 +1443,7 @@
         },
         {
           type: "typed",
-          title: "Write the volume in terms of \(h\)",
+          title: raw`Write the volume in terms of \(h\)`,
           text: raw`After substituting for \(r\), what is \(V\) in terms of \(h\)?`,
           ariaLabel: "Type V in terms of h",
           acceptedAnswers: ["pi*h^3/12"],
@@ -1453,7 +1453,7 @@
         },
         {
           type: "typed",
-          title: "Differentiate with respect to \(h\)",
+          title: raw`Differentiate with respect to \(h\)`,
           text: raw`What is \(\frac{dV}{dh}\)?`,
           ariaLabel: "Type dV by dh",
           acceptedAnswers: ["pi*h^2/4"],
@@ -1463,7 +1463,7 @@
         },
         {
           type: "typed",
-          title: "Find the rate when \(h=4\)",
+          title: raw`Find the rate when \(h=4\)`,
           text: raw`What is \(\frac{dh}{dt}\) when the pile is \(4\) cm high?`,
           ariaLabel: "Type dh by dt when h equals 4",
           acceptedAnswers: ["3/(4pi)", "0.2387324146"],
@@ -1472,7 +1472,7 @@
         }
       ]
     }),
-    "3e": createConfig("3e", "2024 Paper — Maximise the area of triangle \(OPQ\)", {
+    "3e": createConfig("3e", raw`2024 Paper — Maximise the area of triangle \(OPQ\)`, {
       questionHtml: raw`
         <p class="step-text">
           The diagram below shows part of the graph of the function

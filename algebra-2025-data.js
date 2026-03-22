@@ -1676,7 +1676,7 @@
               successMessage: raw`Correct. The model gives a height of about \(7.95\) m, so the ball clears the tree by about \(0.45\) m.`
             },
             {
-              html: raw`No, because \(7.95<7.5\).`,
+              html: raw`No, because \(7.95&lt;7.5\).`,
               failureMessage: raw`Check the comparison again. \(7.95\) is greater than \(7.5\).`
             },
             {

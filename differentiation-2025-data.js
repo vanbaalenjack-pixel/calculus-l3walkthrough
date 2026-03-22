@@ -132,33 +132,33 @@
     }
 
     const width = 420;
-    const height = 280;
+    const height = 300;
     const padding = 32;
-    const scale = createScale(width, height, padding, -1.8, 1.9, -3.2, 10.8);
+    const scale = createScale(width, height, padding, -1.8, 1.45, -2.2, 12.8);
     const curvePath = functionPath(function (x) {
       return x * x + Math.exp(2 * x);
-    }, -1.6, 1.55, 0.03, scale);
+    }, -1.55, 1.22, 0.02, scale);
     const slope = 2 + 2 * Math.exp(2);
     const x0 = 1;
     const y0 = 1 + Math.exp(2);
     const tangentPath = functionPath(function (x) {
       return slope * (x - x0) + y0;
-    }, -0.2, 1.6, 0.03, scale);
+    }, 0.36, 1.24, 0.02, scale);
 
     svg.innerHTML = `
       <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
-      ${lineMarkup(scale, -1.8, 0, 1.9, 0, "graph-axis")}
-      ${lineMarkup(scale, 0, -3.2, 0, 10.8, "graph-axis")}
+      ${lineMarkup(scale, -1.8, 0, 1.45, 0, "graph-axis")}
+      ${lineMarkup(scale, 0, -2.2, 0, 12.8, "graph-axis")}
       <path class="question-curve" d="${curvePath}"></path>
       <path class="question-normal" d="${tangentPath}"></path>
-      ${circleMarkup(scale, 1, 1 + Math.exp(2), 4.5, "question-dot")}
+      ${circleMarkup(scale, x0, y0, 4.5, "question-dot")}
       ${circleMarkup(scale, 0.5, 0, 4.5, "question-dot")}
-      ${textMarkup(scale, 1.03, 8.9, "tangent", "graph-label")}
-      ${textMarkup(scale, -0.95, 4.6, "y = x^2 + e^(2x)", "graph-label")}
-      ${textMarkup(scale, 0.48, -0.45, "P", "graph-label")}
-      ${textMarkup(scale, 1.02, 8.05, "T", "graph-label")}
-      ${textMarkup(scale, 1.78, -0.25, "x", "question-axis-label")}
-      ${textMarkup(scale, -0.12, 10.55, "y", "question-axis-label")}
+      ${textMarkup(scale, 1.08, 9.35, "tangent", "graph-label", ' stroke="#ffffff" stroke-opacity="0.96" stroke-width="5" stroke-linejoin="round" paint-order="stroke"')}
+      ${textMarkup(scale, -0.72, 5.05, "y = x² + e²ˣ", "graph-equation-label", ' text-anchor="middle" stroke="#ffffff" stroke-opacity="0.96" stroke-width="6" stroke-linejoin="round" paint-order="stroke"')}
+      ${textMarkup(scale, 0.56, 0.72, "P", "graph-label", ' stroke="#ffffff" stroke-opacity="0.96" stroke-width="4" stroke-linejoin="round" paint-order="stroke"')}
+      ${textMarkup(scale, 1.06, 7.92, "T", "graph-label", ' stroke="#ffffff" stroke-opacity="0.96" stroke-width="4" stroke-linejoin="round" paint-order="stroke"')}
+      ${textMarkup(scale, 1.38, -0.15, "x", "question-axis-label")}
+      ${textMarkup(scale, -0.08, 12.35, "y", "question-axis-label")}
     `;
   }
 
@@ -478,7 +478,7 @@
         },
         {
           type: "typed",
-          title: "Evaluate at \(t=4\)",
+          title: raw`Evaluate at \(t=4\)`,
           text: raw`What is the rate of change \(C'(4)\)?`,
           ariaLabel: "Type the value of C prime at 4",
           acceptedAnswers: ["-5/2"],
@@ -578,7 +578,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows the function \(f(x)=x^2+e^{2x}\) and the tangent to the curve when \(x=1\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-1d" class="graph-svg" viewBox="0 0 420 280" aria-label="Graph of y equals x squared plus e to the power 2x with a tangent at x equals 1"></svg>
+          <svg id="question-graph-1d" class="graph-svg" viewBox="0 0 420 300" aria-label="Graph of y equals x squared plus e to the power 2x with a tangent at x equals 1"></svg>
         </div>
         <p class="step-text">Find the point \(P\), the \(x\)-intercept of this tangent.</p>
         <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
@@ -688,7 +688,7 @@
       steps: [
         {
           type: "typed",
-          title: "Find \(\frac{dy}{dx}\)",
+          title: raw`Find \(\frac{dy}{dx}\)`,
           text: raw`Using the parametric derivatives, what is \(\frac{dy}{dx}\)?`,
           ariaLabel: "Type dy by dx for the parametric curve",
           acceptedAnswers: ["t^2/(t+1)"],
@@ -698,7 +698,7 @@
         },
         {
           type: "typed",
-          title: "Find the stationary value of \(t\)",
+          title: raw`Find the stationary value of \(t\)`,
           text: raw`Stationary points happen when \(\frac{dy}{dx}=0\). What value of \(t\) works here?`,
           ariaLabel: "Type the stationary value of t",
           acceptedAnswers: ["0"],
@@ -831,7 +831,7 @@
           \[
           P=(30t-5t^2)e^{-t},
           \]
-          where \(t\) is measured in hours and \(0<t\le4\).
+          where \(t\) is measured in hours and \(0&lt;t\le4\).
         </p>
         <p class="step-text">Show whether the depth of the water in the harbour is increasing or decreasing after \(2\) hours.</p>
         <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
@@ -884,7 +884,7 @@
         },
         {
           type: "typed",
-          title: "Evaluate the derivative at \(t=2\)",
+          title: raw`Evaluate the derivative at \(t=2\)`,
           text: raw`After differentiating, what is the value of \(P'(2)\)?`,
           beforeHtml: raw`
             <div class="math-block">
@@ -992,7 +992,7 @@
         },
         {
           type: "typed",
-          title: "Find the matching \(x\)-values",
+          title: raw`Find the matching \(x\)-values`,
           text: raw`Solve \(f'(x)=-3\). What two \(x\)-values do you get?`,
           ariaLabel: "Type the x values where the derivative is negative three",
           mode: "list",
@@ -1097,7 +1097,7 @@
       steps: [
         {
           type: "typed",
-          title: "Find \(\frac{dy}{dx}\)",
+          title: raw`Find \(\frac{dy}{dx}\)`,
           text: raw`What is \(\frac{dy}{dx}\) for this parametric curve?`,
           ariaLabel: "Type dy by dx for the parametric curve",
           acceptedAnswers: ["5/(2sin(t))"],
@@ -1279,7 +1279,7 @@
         },
         {
           type: "choice",
-          title: "Find where \(f'(x)=0\)",
+          title: raw`Find where \(f'(x)=0\)`,
           text: raw`Which answer matches the horizontal parts and turning points of the graph?`,
           choices: [
             {
@@ -1546,7 +1546,7 @@
       steps: [
         {
           type: "typed",
-          title: "Find \(\frac{dy}{dx}\)",
+          title: raw`Find \(\frac{dy}{dx}\)`,
           text: raw`What is the gradient \(\frac{dy}{dx}\) in terms of \(t\)?`,
           ariaLabel: "Type dy by dx in terms of t",
           acceptedAnswers: ["-e^(4t)"],
@@ -1638,7 +1638,7 @@
         },
         {
           type: "typed",
-          title: "Solve for the valid \(x\)-value",
+          title: raw`Solve for the valid \(x\)-value`,
           text: raw`Solving \(A'(x)=0\), what valid value of \(x\) do you get?`,
           beforeHtml: raw`
             <div class="math-block">
@@ -1661,7 +1661,7 @@
         },
         {
           type: "typed",
-          title: "Find the maximum length \(AD\)",
+          title: raw`Find the maximum length \(AD\)`,
           text: raw`What is the maximum length \(AD\)?`,
           ariaLabel: "Type the maximum length AD",
           acceptedAnswers: ["8sqrt(2)"],
