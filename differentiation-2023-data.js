@@ -304,6 +304,19 @@
           type: "choice",
           title: "Evaluate at \(t=1.5\)",
           text: raw`What is the rate of change when \(t=1.5\)?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              f'(t)=2te^{2t}(1+t)
+              \]
+              \[
+              f'(1.5)=2(1.5)e^{2(1.5)}(1+1.5)
+              \]
+              \[
+              f'(1.5)=3e^3(2.5)
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -311,7 +324,7 @@
                 150.642
               \]`,
               correct: true,
-              successMessage: raw`Correct. Substituting \(t=1.5\) into \(2te^{2t}(1+t)\) gives approximately \(150.642\).`
+              successMessage: raw`Correct. After substituting \(t=1.5\), the derivative becomes \(3e^3(2.5)\), which evaluates to approximately \(150.642\).`
             },
             {
               html: raw`\[
@@ -421,6 +434,16 @@
           type: "choice",
           title: "Find the first tangent's gradient",
           text: raw`What is the gradient of the tangent when \(x=1\)?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              y'=-\frac{6}{(x+1)^4}
+              \]
+              \[
+              y'(1)=-\frac{6}{(1+1)^4}=-\frac{6}{16}
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -428,7 +451,7 @@
                 -\frac{3}{8}
               \]`,
               correct: true,
-              successMessage: raw`Yes. Substituting \(x=1\) into \(-\frac{6}{(x+1)^4}\) gives \(-\frac{3}{8}\).`
+              successMessage: raw`Yes. The substitution gives \(-\frac{6}{16}\), which simplifies to \(-\frac{3}{8}\).`
             },
             {
               html: raw`\[
@@ -454,6 +477,19 @@
           type: "choice",
           title: "Find the second tangent point",
           text: raw`Which \(x\)-value gives the other point with the same gradient?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              -\frac{6}{(x+1)^4}=-\frac{3}{8}
+              \]
+              \[
+              (x+1)^4=16
+              \]
+              \[
+              x+1=\pm 2
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -461,7 +497,7 @@
                 -3
               \]`,
               correct: true,
-              successMessage: raw`Great. Solving \((x+1)^4=16\) gives \(x=1\) and \(x=-3\), so the second tangent touches at \(x=-3\).`
+              successMessage: raw`Great. The equation gives \(x=1\) and \(x=-3\); since \(x=1\) is the original tangent point, the second tangent touches at \(x=-3\).`
             },
             {
               html: raw`\[
@@ -777,6 +813,19 @@
           type: "choice",
           title: "Compare with the total shaded area",
           text: raw`Which statement is correct for the maximum triangle area?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              A(x)=\frac{x^2}{2}(x-2m)^2
+              \]
+              \[
+              A(m)=\frac{m^2}{2}(m-2m)^2=\frac{m^2}{2}(-m)^2=\frac{m^4}{2}
+              \]
+              \[
+              \frac{3}{8}\left(\frac{4m^4}{3}\right)=\frac{m^4}{2}
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -784,7 +833,7 @@
                 A_{\max}=\frac{m^4}{2}=\frac{3}{8}\left(\frac{4m^4}{3}\right)
               \]`,
               correct: true,
-              successMessage: raw`Great. The maximum triangle area is \(\frac{m^4}{2}\), which is exactly \(\frac{3}{8}\) of the total shaded area.`
+              successMessage: raw`Great. Substituting \(x=m\) gives \(A_{\max}=\frac{m^4}{2}\), and that is exactly \(\frac{3}{8}\) of the total shaded area.`
             },
             {
               html: raw`\[
@@ -976,6 +1025,19 @@
           type: "choice",
           title: "Evaluate the gradient",
           text: raw`What is the gradient when \(x=\frac{\pi}{12}\)?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              y'=-2\csc^2(2x)
+              \]
+              \[
+              y'\left(\frac{\pi}{12}\right)=-2\csc^2\left(2\cdot \frac{\pi}{12}\right)
+              \]
+              \[
+              y'\left(\frac{\pi}{12}\right)=-2\csc^2\left(\frac{\pi}{6}\right)
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -983,7 +1045,7 @@
                 -8
               \]`,
               correct: true,
-              successMessage: raw`Yes. Since \(2x=\frac{\pi}{6}\), we get \(\csc\left(\frac{\pi}{6}\right)=2\), so the gradient is \(-8\).`
+              successMessage: raw`Yes. Since \(\csc\left(\frac{\pi}{6}\right)=2\), the substitution gives \(-2(2^2)=-8\).`
             },
             {
               html: raw`\[
@@ -1083,6 +1145,19 @@
           type: "choice",
           title: "Solve for the horizontal tangents",
           text: raw`Which \(x\)-values make the tangent parallel to the \(x\)-axis?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              0=\frac{e^x(x^2-2)}{(x^2+2x)^2}
+              \]
+              \[
+              e^x(x^2-2)=0
+              \]
+              \[
+              x^2-2=0
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -1090,7 +1165,7 @@
                 x=\pm \sqrt{2}
               \]`,
               correct: true,
-              successMessage: raw`Yes. Since \(e^x\neq 0\), solving \(x^2-2=0\) gives \(x=\pm\sqrt{2}\).`
+              successMessage: raw`Yes. Because \(e^x\) is never zero, the equation reduces to \(x^2-2=0\), so \(x=\pm\sqrt{2}\).`
             },
             {
               html: raw`\[
@@ -1148,6 +1223,12 @@
         <p class="step-text">Set the second derivative equal to zero:</p>
         <div class="math-block">
           \[
+          9+6\ln x=0
+          \]
+          \[
+          6\ln x=-9
+          \]
+          \[
           \frac{3}{2}+\ln x=0
           \]
           \[
@@ -1196,6 +1277,19 @@
           type: "choice",
           title: "Find the second derivative",
           text: raw`Which second derivative should you set equal to zero?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              f'(x)=3x(1+2\ln x)
+              \]
+              \[
+              f''(x)=3(1+2\ln x)+3x\left(\frac{2}{x}\right)
+              \]
+              \[
+              f''(x)=3+6\ln x+6=9+6\ln x
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -1203,7 +1297,7 @@
                 f''(x)=9+6\ln x
               \]`,
               correct: true,
-              successMessage: raw`Yes. Differentiating \(3x(1+2\ln x)\) gives \(9+6\ln x\).`
+              successMessage: raw`Yes. Product rule gives \(3(1+2\ln x)+3x\left(\frac{2}{x}\right)\), which simplifies to \(9+6\ln x\).`
             },
             {
               html: raw`\[
@@ -1229,6 +1323,19 @@
           type: "choice",
           title: "Solve for the inflection point",
           text: raw`What is the \(x\)-value of the point of inflection?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              9+6\ln x=0
+              \]
+              \[
+              6\ln x=-9
+              \]
+              \[
+              \ln x=-\frac{3}{2}
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -1236,7 +1343,7 @@
                 e^{-3/2}
               \]`,
               correct: true,
-              successMessage: raw`Great. Solving \(9+6\ln x=0\) gives \(x=e^{-3/2}\).`
+              successMessage: raw`Great. Once \(\ln x=-\frac{3}{2}\), exponentiating both sides gives \(x=e^{-3/2}\).`
             },
             {
               html: raw`\[
@@ -1357,6 +1464,9 @@
               \[
               x^2=2500^2-400^2,\qquad \theta=\sin^{-1}\left(\frac{400}{2500}\right)
               \]
+              \[
+              0.002\sec^2(0.1607)=-\frac{400}{2500^2-400^2}\frac{dx}{dt}
+              \]
             </div>
           `,
           buttonGridClass: "button-grid two-col",
@@ -1366,7 +1476,7 @@
                 -31.25\text{ m s}^{-1}
               \]`,
               correct: true,
-              successMessage: raw`Yes. The negative sign shows the horizontal distance is shrinking.`
+              successMessage: raw`Yes. Solving the substituted equation gives \(\frac{dx}{dt}=-31.25\text{ m s}^{-1}\), and the negative sign shows the horizontal distance is shrinking.`
             },
             {
               html: raw`\[
@@ -1753,6 +1863,19 @@
           type: "choice",
           title: "Evaluate the tangent gradient at \(t=6.25\)",
           text: raw`What is the tangent gradient at that instant?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \frac{dy}{dx}=\tan\left(\frac{\pi t}{5}\right)
+              \]
+              \[
+              \frac{dy}{dx}\Bigg|_{t=6.25}=\tan\left(\frac{\pi(6.25)}{5}\right)
+              \]
+              \[
+              \frac{dy}{dx}\Bigg|_{t=6.25}=\tan\left(\frac{5\pi}{4}\right)
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -1760,7 +1883,7 @@
                 1
               \]`,
               correct: true,
-              successMessage: raw`Yes. \(\frac{\pi(6.25)}{5}=\frac{5\pi}{4}\), and \(\tan\left(\frac{5\pi}{4}\right)=1\).`
+              successMessage: raw`Yes. Substituting \(t=6.25\) gives the angle \(\frac{5\pi}{4}\), and \(\tan\left(\frac{5\pi}{4}\right)=1\).`
             },
             {
               html: raw`\[
@@ -1786,6 +1909,16 @@
           type: "choice",
           title: "Find the normal gradient",
           text: raw`What is the gradient of the normal?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              m_{\text{tangent}}=1
+              \]
+              \[
+              m_{\text{normal}}=-\frac{1}{m_{\text{tangent}}}=-\frac{1}{1}
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -1793,7 +1926,7 @@
                 -1
               \]`,
               correct: true,
-              successMessage: raw`Great. The normal gradient is the negative reciprocal of the tangent gradient \(1\).`
+              successMessage: raw`Great. The normal gradient is the negative reciprocal of the tangent gradient, so it is \(-1\).`
             },
             {
               html: raw`\[
@@ -1869,10 +2002,16 @@
         <p class="step-text">Find the coordinates:</p>
         <div class="math-block">
           \[
-          f(\sqrt{6})=\frac{\sqrt{6}}{9}
+          f(\sqrt{6})=\frac{1}{\sqrt{6}}-\frac{2}{(\sqrt{6})^3}
           \]
           \[
-          f(-\sqrt{6})=-\frac{\sqrt{6}}{9}
+          f(\sqrt{6})=\frac{1}{\sqrt{6}}-\frac{1}{3\sqrt{6}}=\frac{2}{3\sqrt{6}}=\frac{\sqrt{6}}{9}
+          \]
+          \[
+          f(-\sqrt{6})=\frac{1}{-\sqrt{6}}-\frac{2}{(-\sqrt{6})^3}
+          \]
+          \[
+          f(-\sqrt{6})=-\frac{1}{\sqrt{6}}+\frac{1}{3\sqrt{6}}=-\frac{2}{3\sqrt{6}}=-\frac{\sqrt{6}}{9}
           \]
         </div>
         <p class="step-text">So the graph has a local maximum at \(\left(\sqrt{6},\frac{\sqrt{6}}{9}\right)\) and a local minimum at \(\left(-\sqrt{6},-\frac{\sqrt{6}}{9}\right)\).</p>
@@ -1915,6 +2054,16 @@
           type: "choice",
           title: "Classify the stationary points",
           text: raw`What does the second derivative test tell you?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              f''(x)=2x^{-3}-24x^{-5}
+              \]
+              \[
+              f''(\sqrt{6})&lt;0,\qquad f''(-\sqrt{6})&gt;0
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -1922,7 +2071,7 @@
                 x=\sqrt{6}\text{ is a local maximum, and }x=-\sqrt{6}\text{ is a local minimum}
               \]`,
               correct: true,
-              successMessage: raw`Yes. \(f''(\sqrt{6})\) is negative, while \(f''(-\sqrt{6})\) is positive.`
+              successMessage: raw`Yes. A negative second derivative at \(x=\sqrt{6}\) means local maximum, while a positive second derivative at \(x=-\sqrt{6}\) means local minimum.`
             },
             {
               html: raw`\[
@@ -1948,6 +2097,16 @@
           type: "choice",
           title: "State the coordinates",
           text: raw`Which final answer is correct?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              f(\sqrt{6})=\frac{1}{\sqrt{6}}-\frac{2}{(\sqrt{6})^3}=\frac{\sqrt{6}}{9}
+              \]
+              \[
+              f(-\sqrt{6})=\frac{1}{-\sqrt{6}}-\frac{2}{(-\sqrt{6})^3}=-\frac{\sqrt{6}}{9}
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -1955,7 +2114,7 @@
                 \left(\sqrt{6},\frac{\sqrt{6}}{9}\right)\text{ max, and }\left(-\sqrt{6},-\frac{\sqrt{6}}{9}\right)\text{ min}
               \]`,
               correct: true,
-              successMessage: raw`Great. Those are the correct coordinates and classifications.`
+              successMessage: raw`Great. The substitutions give the \(y\)-values \(\pm\frac{\sqrt{6}}{9}\), so those are the correct coordinates and classifications.`
             },
             {
               html: raw`\[
@@ -2019,10 +2178,22 @@
         <p class="step-text">Now compare with the right-hand side by squaring:</p>
         <div class="math-block">
           \[
-          (ay'')^2=\left(\frac{e^{x/a}+e^{-x/a}}{2}\right)^2=\frac{e^{2x/a}+e^{-2x/a}}{4}+\frac{1}{2}
+          (ay'')^2=\left(\frac{e^{x/a}+e^{-x/a}}{2}\right)^2
           \]
           \[
-          1+(y')^2=1+\left(\frac{e^{x/a}-e^{-x/a}}{2}\right)^2=\frac{e^{2x/a}+e^{-2x/a}}{4}+\frac{1}{2}
+          (ay'')^2=\frac{e^{2x/a}}{4}+\frac{2e^{x/a}e^{-x/a}}{4}+\frac{e^{-2x/a}}{4}
+          \]
+          \[
+          (ay'')^2=\frac{e^{2x/a}}{4}+\frac{1}{2}+\frac{e^{-2x/a}}{4}
+          \]
+          \[
+          1+(y')^2=1+\left(\frac{e^{x/a}-e^{-x/a}}{2}\right)^2
+          \]
+          \[
+          1+(y')^2=1+\frac{e^{2x/a}}{4}-\frac{2e^{x/a}e^{-x/a}}{4}+\frac{e^{-2x/a}}{4}
+          \]
+          \[
+          1+(y')^2=\frac{e^{2x/a}}{4}+\frac{1}{2}+\frac{e^{-2x/a}}{4}
           \]
         </div>
         <p class="step-text">So \((ay'')^2=1+(y')^2\), which verifies the required differential equation.</p>
@@ -2096,34 +2267,84 @@
         },
         {
           type: "choice",
-          title: "Finish the verification",
-          text: raw`Which identity shows the differential equation is satisfied?`,
+          title: "Substitute and expand both sides",
+          text: raw`After substituting \(y'\) and \(ay''\), what do both squared sides simplify to?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              ay''=\frac{e^{x/a}+e^{-x/a}}{2}
+              \qquad
+              y'=\frac{e^{x/a}-e^{-x/a}}{2}
+              \]
+              \[
+              (ay'')^2=\left(\frac{e^{x/a}+e^{-x/a}}{2}\right)^2
+              \qquad
+              1+(y')^2=1+\left(\frac{e^{x/a}-e^{-x/a}}{2}\right)^2
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
               html: raw`\[
-                (ay'')^2=1+(y')^2
+                \frac{e^{2x/a}}{4}+\frac{e^{-2x/a}}{4}+\frac{1}{2}
               \]`,
               correct: true,
-              successMessage: raw`Great. Substituting your derivatives into that identity shows the left- and right-hand sides match, so the function satisfies the differential equation.`
+              successMessage: raw`Correct. Expanding both squares and using \(e^{x/a}e^{-x/a}=1\) gives the same expression on both sides:
+                \[
+                \frac{e^{2x/a}}{4}+\frac{e^{-2x/a}}{4}+\frac{1}{2}.
+                \]`
             },
             {
               html: raw`\[
-                ay''=1+(y')^2
+                \frac{e^{2x/a}}{4}-\frac{e^{-2x/a}}{4}+\frac{1}{2}
               \]`,
-              failureMessage: raw`The right-hand side of the original equation is a square root, so the clean comparison comes after squaring.`
+              failureMessage: raw`The exponential terms should both be positive after expanding and simplifying.`
             },
             {
               html: raw`\[
-                y''=1+(y')^2
+                \frac{e^{2x/a}}{2}+\frac{e^{-2x/a}}{2}
               \]`,
-              failureMessage: raw`The factor of \(a\) is part of the original differential equation.`
+              failureMessage: raw`Check the coefficients after squaring the fractions.`
             },
             {
               html: raw`\[
-                (y'')^2=1+a(y')^2
+                \frac{e^{2x/a}}{4}+\frac{e^{-2x/a}}{4}-\frac{1}{2}
               \]`,
-              failureMessage: raw`That does not match the structure of the given equation.`
+              failureMessage: raw`The middle term becomes \(+\frac{1}{2}\), not negative, once the full expressions are simplified.`
+            }
+          ]
+        },
+        {
+          type: "choice",
+          title: "Finish the verification",
+          text: raw`What can you conclude once both sides simplify to the same expression?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                \text{The function satisfies the differential equation}
+              \]`,
+              correct: true,
+              successMessage: raw`Great. Since the left-hand side and right-hand side simplify to the same expression, the function really does satisfy the given differential equation.`
+            },
+            {
+              html: raw`\[
+                \text{The function only works when }x=0
+              \]`,
+              failureMessage: raw`The matching expansions hold for general \(x\), not just at one point.`
+            },
+            {
+              html: raw`\[
+                \text{The derivatives are close, but not equal}
+              \]`,
+              failureMessage: raw`They are not just close; they simplify to exactly the same expression.`
+            },
+            {
+              html: raw`\[
+                \text{The equation fails because of the square root}
+              \]`,
+              failureMessage: raw`Squaring both sides is exactly what lets us compare the two expressions cleanly.`
             }
           ]
         }
