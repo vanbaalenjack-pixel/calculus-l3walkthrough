@@ -110,10 +110,6 @@
     return calloutBox("mistake", "Common Mistake", text);
   }
 
-  function reviewBox(text) {
-    return calloutBox("review", "Review Note", text);
-  }
-
   function fmt(value) {
     return Number(value.toFixed(2));
   }
@@ -186,10 +182,6 @@
     `;
   }
 
-  // Review note: the original PDF reduces cis(3nπ) to cis(nπ).
-  // That only works if n is an integer, so the student-facing walkthrough keeps cis(3nπ) as the safe answer.
-  // Review note: the original PDF reuses k as the root index in 3(d).
-  // This walkthrough uses n for the root counter so the real constant k stays unambiguous.
   window.Complex2024Walkthroughs = {
     "1a": createConfig("1a", "2024 Paper — Factor theorem", {
       focus: raw`using the factor theorem by substituting the root \(x=-3\).`,
@@ -290,7 +282,6 @@
           z^{15}=m^{15}\operatorname{cis}(3n\pi)
           \]
         `)}
-        ${reviewBox(raw`The original PDF then reduces this to \(\operatorname{cis}(n\pi)\). That only works if \(n\) is an integer. Since the question says \(n\) is a positive real constant, \(\operatorname{cis}(3n\pi)\) is the safer final form.`)}
         ${tipBox(raw`For polar powers, it helps to say out loud: modulus power first, angle multiplication second.`)}
       `,
       steps: [
