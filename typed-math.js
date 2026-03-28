@@ -307,14 +307,14 @@
     }
 
     function parseMultiplyDivide() {
-      let node = parsePower();
+      let node = parseUnary();
       if (!node) {
         return null;
       }
 
       while (peek() && peek().type === "operator" && (peek().value === "*" || peek().value === "/")) {
         const operatorToken = consume();
-        const rightNode = parsePower();
+        const rightNode = parseUnary();
 
         if (!rightNode) {
           return null;
@@ -333,14 +333,14 @@
     }
 
     function parsePower() {
-      const leftNode = parseUnary();
+      const leftNode = parsePrimary();
       if (!leftNode) {
         return null;
       }
 
       if (peek() && peek().type === "operator" && peek().value === "^") {
         consume();
-        const rightNode = parsePower();
+        const rightNode = parseUnary();
 
         if (!rightNode) {
           return null;
@@ -374,7 +374,7 @@
         };
       }
 
-      return parsePrimary();
+      return parsePower();
     }
 
     function parsePrimary() {
@@ -440,15 +440,15 @@
       return 5;
     }
 
-    if (node.type === "unary") {
+    if (node.type === "binary" && node.operator === "^") {
       return 4;
     }
 
-    if (node.type === "binary") {
-      if (node.operator === "^") {
-        return 3;
-      }
+    if (node.type === "unary") {
+      return 3;
+    }
 
+    if (node.type === "binary") {
       if (node.operator === "*" || node.operator === "/") {
         return 2;
       }
@@ -544,6 +544,402 @@
       + wrapLatexIfNeeded(node.right, rightLatex, rightNeedsWrapForMultiply || rightNeedsWrapForSubtract);
   }
 
+  function unwrapGroupNode(node) {
+    let currentNode = node;
+
+    while (currentNode && currentNode.type === "group") {
+      currentNode = currentNode.expression;
+    }
+
+    return currentNode;
+  }
+
+  function createNumberNode(value) {
+    return {
+      type: "number",
+      value: value
+    };
+  }
+
+  function isNumberNode(node, targetValue) {
+    const currentNode = unwrapGroupNode(node);
+    return Boolean(currentNode)
+      && currentNode.type === "number"
+      && Number(currentNode.value) === targetValue;
+  }
+
+  function isZeroNode(node) {
+    return isNumberNode(node, 0);
+  }
+
+  function isOneNode(node) {
+    return isNumberNode(node, 1);
+  }
+
+  function containsImaginaryUnit(node) {
+    const currentNode = unwrapGroupNode(node);
+
+    if (!currentNode) {
+      return false;
+    }
+
+    if (currentNode.type === "variable") {
+      return currentNode.value === "i";
+    }
+
+    if (currentNode.type === "unary") {
+      return containsImaginaryUnit(currentNode.operand);
+    }
+
+    if (currentNode.type === "binary") {
+      return containsImaginaryUnit(currentNode.left) || containsImaginaryUnit(currentNode.right);
+    }
+
+    if (currentNode.type === "function-call") {
+      return containsImaginaryUnit(currentNode.argument);
+    }
+
+    return false;
+  }
+
+  function makeUnaryNode(operator, operand) {
+    const currentOperand = unwrapGroupNode(operand);
+
+    if (operator === "+") {
+      return currentOperand;
+    }
+
+    if (isZeroNode(currentOperand)) {
+      return createNumberNode("0");
+    }
+
+    if (currentOperand && currentOperand.type === "unary") {
+      return currentOperand.operator === "-" ? currentOperand.operand : makeUnaryNode("-", currentOperand.operand);
+    }
+
+    return {
+      type: "unary",
+      operator: operator,
+      operand: currentOperand
+    };
+  }
+
+  function makeBinaryNode(operator, left, right, implicit) {
+    const leftNode = unwrapGroupNode(left);
+    const rightNode = unwrapGroupNode(right);
+
+    if (operator === "+") {
+      if (isZeroNode(leftNode)) {
+        return rightNode;
+      }
+
+      if (isZeroNode(rightNode)) {
+        return leftNode;
+      }
+    }
+
+    if (operator === "-") {
+      if (isZeroNode(rightNode)) {
+        return leftNode;
+      }
+
+      if (isZeroNode(leftNode)) {
+        return makeUnaryNode("-", rightNode);
+      }
+    }
+
+    if (operator === "*") {
+      if (isZeroNode(leftNode) || isZeroNode(rightNode)) {
+        return createNumberNode("0");
+      }
+
+      if (isOneNode(leftNode)) {
+        return rightNode;
+      }
+
+      if (isOneNode(rightNode)) {
+        return leftNode;
+      }
+    }
+
+    if (operator === "/") {
+      if (isZeroNode(leftNode)) {
+        return createNumberNode("0");
+      }
+
+      if (isOneNode(rightNode)) {
+        return leftNode;
+      }
+    }
+
+    if (operator === "^") {
+      if (isZeroNode(rightNode)) {
+        return createNumberNode("1");
+      }
+
+      if (isOneNode(rightNode)) {
+        return leftNode;
+      }
+
+      if (isZeroNode(leftNode)) {
+        return createNumberNode("0");
+      }
+
+      if (isOneNode(leftNode)) {
+        return createNumberNode("1");
+      }
+    }
+
+    return {
+      type: "binary",
+      operator: operator,
+      implicit: Boolean(implicit),
+      left: leftNode,
+      right: rightNode
+    };
+  }
+
+  function createComplexParts(real, imag) {
+    return {
+      real: real,
+      imag: imag
+    };
+  }
+
+  function makeComplexMultiply(leftParts, rightParts) {
+    return createComplexParts(
+      makeBinaryNode(
+        "-",
+        makeBinaryNode("*", leftParts.real, rightParts.real, true),
+        makeBinaryNode("*", leftParts.imag, rightParts.imag, true)
+      ),
+      makeBinaryNode(
+        "+",
+        makeBinaryNode("*", leftParts.real, rightParts.imag, true),
+        makeBinaryNode("*", leftParts.imag, rightParts.real, true)
+      )
+    );
+  }
+
+  function makeComplexDivide(leftParts, rightParts) {
+    const denominator = makeBinaryNode(
+      "+",
+      makeBinaryNode("^", rightParts.real, createNumberNode("2")),
+      makeBinaryNode("^", rightParts.imag, createNumberNode("2"))
+    );
+
+    if (isZeroNode(denominator)) {
+      return null;
+    }
+
+    return createComplexParts(
+      makeBinaryNode(
+        "/",
+        makeBinaryNode(
+          "+",
+          makeBinaryNode("*", leftParts.real, rightParts.real, true),
+          makeBinaryNode("*", leftParts.imag, rightParts.imag, true)
+        ),
+        denominator
+      ),
+      makeBinaryNode(
+        "/",
+        makeBinaryNode(
+          "-",
+          makeBinaryNode("*", leftParts.imag, rightParts.real, true),
+          makeBinaryNode("*", leftParts.real, rightParts.imag, true)
+        ),
+        denominator
+      )
+    );
+  }
+
+  function decomposeComplexNode(node) {
+    const currentNode = unwrapGroupNode(node);
+
+    if (!currentNode) {
+      return null;
+    }
+
+    if (currentNode.type === "number" || currentNode.type === "constant") {
+      return createComplexParts(currentNode, createNumberNode("0"));
+    }
+
+    if (currentNode.type === "variable") {
+      return currentNode.value === "i"
+        ? createComplexParts(createNumberNode("0"), createNumberNode("1"))
+        : createComplexParts(currentNode, createNumberNode("0"));
+    }
+
+    if (currentNode.type === "function-call") {
+      const argumentParts = decomposeComplexNode(currentNode.argument);
+
+      if (!argumentParts || !isZeroNode(argumentParts.imag)) {
+        return null;
+      }
+
+      return createComplexParts({
+        type: "function-call",
+        name: currentNode.name,
+        argument: argumentParts.real
+      }, createNumberNode("0"));
+    }
+
+    if (currentNode.type === "unary") {
+      const operandParts = decomposeComplexNode(currentNode.operand);
+
+      if (!operandParts) {
+        return null;
+      }
+
+      return createComplexParts(
+        makeUnaryNode(currentNode.operator, operandParts.real),
+        makeUnaryNode(currentNode.operator, operandParts.imag)
+      );
+    }
+
+    if (currentNode.type !== "binary") {
+      return null;
+    }
+
+    const leftParts = decomposeComplexNode(currentNode.left);
+    const rightParts = decomposeComplexNode(currentNode.right);
+
+    if (!leftParts || !rightParts) {
+      return null;
+    }
+
+    if (currentNode.operator === "+") {
+      return createComplexParts(
+        makeBinaryNode("+", leftParts.real, rightParts.real),
+        makeBinaryNode("+", leftParts.imag, rightParts.imag)
+      );
+    }
+
+    if (currentNode.operator === "-") {
+      return createComplexParts(
+        makeBinaryNode("-", leftParts.real, rightParts.real),
+        makeBinaryNode("-", leftParts.imag, rightParts.imag)
+      );
+    }
+
+    if (currentNode.operator === "*") {
+      return makeComplexMultiply(leftParts, rightParts);
+    }
+
+    if (currentNode.operator === "/") {
+      return makeComplexDivide(leftParts, rightParts);
+    }
+
+    if (currentNode.operator === "^") {
+      if (!isZeroNode(leftParts.imag) || !isZeroNode(rightParts.imag)) {
+        return null;
+      }
+
+      return createComplexParts(
+        makeBinaryNode("^", leftParts.real, rightParts.real),
+        createNumberNode("0")
+      );
+    }
+
+    return null;
+  }
+
+  function astToMathString(node) {
+    const currentNode = unwrapGroupNode(node);
+
+    if (!currentNode) {
+      return null;
+    }
+
+    if (currentNode.type === "number" || currentNode.type === "variable") {
+      return currentNode.value;
+    }
+
+    if (currentNode.type === "constant") {
+      return currentNode.value;
+    }
+
+    if (currentNode.type === "function-call") {
+      return currentNode.name + "(" + astToMathString(currentNode.argument) + ")";
+    }
+
+    if (currentNode.type === "unary") {
+      return "(" + currentNode.operator + astToMathString(currentNode.operand) + ")";
+    }
+
+    if (currentNode.type === "binary") {
+      return "(" + astToMathString(currentNode.left) + ")" + currentNode.operator + "(" + astToMathString(currentNode.right) + ")";
+    }
+
+    return null;
+  }
+
+  function astToJavascript(node) {
+    const currentNode = unwrapGroupNode(node);
+
+    if (!currentNode) {
+      return null;
+    }
+
+    if (currentNode.type === "number") {
+      return currentNode.value;
+    }
+
+    if (currentNode.type === "variable") {
+      return '(scope[' + JSON.stringify(currentNode.value) + '])';
+    }
+
+    if (currentNode.type === "constant") {
+      return currentNode.value === "pi" ? "Math.PI" : "Math.E";
+    }
+
+    if (currentNode.type === "function-call") {
+      const argumentJavascript = astToJavascript(currentNode.argument);
+
+      if (currentNode.name === "ln") {
+        return "Math.log(" + argumentJavascript + ")";
+      }
+
+      if (currentNode.name === "sec") {
+        return "__sec(" + argumentJavascript + ")";
+      }
+
+      if (currentNode.name === "exp") {
+        return "Math.exp(" + argumentJavascript + ")";
+      }
+
+      return "Math." + currentNode.name + "(" + argumentJavascript + ")";
+    }
+
+    if (currentNode.type === "unary") {
+      return "(" + currentNode.operator + astToJavascript(currentNode.operand) + ")";
+    }
+
+    if (currentNode.type === "binary") {
+      return "(" + astToJavascript(currentNode.left) + (currentNode.operator === "^" ? "**" : currentNode.operator) + astToJavascript(currentNode.right) + ")";
+    }
+
+    return null;
+  }
+
+  function parseComplexNumberInput(value) {
+    const expression = parseMathExpression(value);
+    if (!expression || !containsImaginaryUnit(expression)) {
+      return null;
+    }
+
+    const parts = decomposeComplexNode(expression);
+    if (!parts) {
+      return null;
+    }
+
+    return {
+      parts: [astToMathString(parts.real), astToMathString(parts.imag)],
+      expressions: [parts.real, parts.imag]
+    };
+  }
+
   function parseListInput(value, options) {
     const settings = options || {};
     const normalised = normaliseMathInput(value);
@@ -555,6 +951,18 @@
     const parts = splitTopLevel(content, ",");
     if (!parts || parts.some(function (part) { return !part; })) {
       return null;
+    }
+
+    if (settings.allowComplexInput && parts.length === 1) {
+      const complexParts = parseComplexNumberInput(content);
+
+      if (complexParts) {
+        return {
+          normalised: normalised,
+          parts: complexParts.parts,
+          expressions: complexParts.expressions
+        };
+      }
     }
 
     const expressions = parts.map(function (part) {
@@ -681,6 +1089,7 @@
 
     if (settings.mode === "list") {
       return formatListForPreview(value, {
+        allowComplexInput: Boolean(settings.allowComplexInput),
         stripOuterParens: Boolean(settings.stripOuterParens),
         wrapWithParens: Boolean(settings.wrapWithParens)
       });
@@ -753,44 +1162,20 @@
   }
 
   function compileMathExpression(value) {
-    const normalised = normaliseMathInput(value);
-    if (!normalised) {
+    const ast = parseMathExpression(value);
+    if (!ast) {
       return null;
     }
 
-    const tokens = buildExpressionTokens(normalised);
-    if (!tokens) {
+    const jsExpression = astToJavascript(ast);
+    if (!jsExpression) {
       return null;
     }
-
-    const jsExpression = [];
-
-    tokens.forEach(function (token) {
-      if (token.type === "function") {
-        if (token.value === "ln") {
-          jsExpression.push("Math.log");
-        } else if (token.value === "sec") {
-          jsExpression.push("__sec");
-        } else if (token.value === "exp") {
-          jsExpression.push("Math.exp");
-        } else {
-          jsExpression.push("Math." + token.value);
-        }
-      } else if (token.type === "variable") {
-        jsExpression.push('(scope[' + JSON.stringify(token.value) + '])');
-      } else if (token.type === "constant") {
-        jsExpression.push(token.value === "pi" ? "Math.PI" : "Math.E");
-      } else if (token.type === "operator" && token.value === "^") {
-        jsExpression.push("**");
-      } else {
-        jsExpression.push(token.value);
-      }
-    });
 
     try {
       return new Function(
         "scope",
-        "\"use strict\"; const __sec = function (value) { return 1 / Math.cos(value); }; return (" + jsExpression.join("") + ");"
+        "\"use strict\"; const __sec = function (value) { return 1 / Math.cos(value); }; return " + jsExpression + ";"
       );
     } catch (error) {
       return null;
@@ -971,6 +1356,7 @@
   function checkEquivalentList(value, acceptedAnswers, samples, options, tolerance) {
     const settings = options || {};
     const candidate = parseListInput(value, {
+      allowComplexInput: Boolean(settings.allowComplexInput),
       stripOuterParens: Boolean(settings.stripOuterParens)
     });
 
@@ -980,6 +1366,7 @@
 
     return acceptedAnswers.some(function (acceptedAnswer) {
       const accepted = parseListInput(acceptedAnswer, {
+        allowComplexInput: Boolean(settings.allowComplexInput),
         stripOuterParens: Boolean(settings.stripOuterParens)
       });
 
@@ -1073,7 +1460,7 @@
     const targetedFeedback = config.targetedFeedback || [];
     const targetedMatch = targetedFeedback.find(function (entry) {
       const entryMode = entry.mode || mode;
-      const entryOptions = entry.options || options;
+      const entryOptions = Object.assign({}, options, entry.options || {});
       return runMatcher(entryMode, value, entry.answers, config.samples, entryOptions, config.tolerance);
     });
 
