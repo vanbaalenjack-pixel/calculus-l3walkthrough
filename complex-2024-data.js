@@ -584,13 +584,25 @@
           genericMessage: raw`Use \(b^2-4ac\) with \(a=15\), \(b=-2\), and \(c=8\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Finish the argument",
-          text: raw`What conclusion does that give about \(k\)?`,
-          ariaLabel: "Type the conclusion about k",
-          acceptedAnswers: ["no real k", "there is no real k", "no real value of k"],
-          successMessage: raw`Exactly. No real \(k\) works, so \(w\) never lands on \(y=x\).`,
-          genericMessage: raw`A negative discriminant means the quadratic has no real roots.`
+          text: raw`What conclusion does the negative discriminant give?`,
+          choices: [
+            {
+              html: raw`No real value of \(k\) works.`,
+              correct: true,
+              successMessage: raw`Exactly. No real \(k\) works, so \(w\) never lands on \(y=x\).`
+            },
+            {
+              html: raw`There is exactly one real value of \(k\).`,
+              failureMessage: raw`Not here. A negative discriminant means there are no real roots.`
+            },
+            {
+              html: raw`There are two real values of \(k\).`,
+              failureMessage: raw`That would need a positive discriminant, not a negative one.`
+            }
+          ],
+          genericMessage: raw`Use what a negative discriminant tells you about real roots.`
         }
       ]
     }),
@@ -1507,8 +1519,12 @@
           text: raw`After cubing both sides, what equation do you get before substituting back in \(p\)?`,
           ariaLabel: "Type the expanded cube equation",
           mode: "equation",
-          acceptedAnswers: ["p^3=x^3+1/x^3+3x+3/x", "p^3=x^3+3x+3/x+1/x^3"],
-          samples: [{ x: 2 }, { x: 3 }, { x: 5 }],
+          acceptedAnswers: [
+            "p^3=x^3+1/x^3+3x+3/x",
+            "p^3=x^3+3x+3/x+1/x^3",
+            "p^3=x^3+1/x^3+3(x+1/x)"
+          ],
+          samples: [{ x: 2, p: 5 }, { x: 3, p: 2 }, { x: 5, p: 7 }],
           successMessage: raw`Correct. That is the expanded form of \(\left(x+\frac{1}{x}\right)^3\).`,
           genericMessage: raw`Use \((a+b)^3=a^3+3a^2b+3ab^2+b^3\) with \(a=x\) and \(b=\frac{1}{x}\).`
         },
@@ -1528,6 +1544,7 @@
           text: raw`So what is \(x^3+\frac{1}{x^3}\) in terms of \(p\)?`,
           ariaLabel: "Type the final expression in p",
           acceptedAnswers: ["p^3-3p"],
+          samples: [{ p: 1 }, { p: 3 }, { p: 5 }],
           successMessage: raw`Exactly. Rearranging gives \(x^3+\frac{1}{x^3}=p^3-3p\).`,
           genericMessage: raw`Subtract \(3p\) from both sides.`
         }
