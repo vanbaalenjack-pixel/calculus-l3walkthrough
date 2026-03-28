@@ -27,6 +27,10 @@ function initializeWalkthroughGate(config) {
     return (value || "").replace(/[←→]/g, "").replace(/\s+/g, " ").trim();
   }
 
+  const answerButtonLabel = config.answerButtonLabel || "Show answer";
+  const answerSectionLabel = config.answerSectionLabel || "Answer";
+  const walkthroughButtonLabel = config.walkthroughButtonLabel || "Show full walkthrough";
+
   function addEntryActions() {
     if (!questionCard || questionCard.querySelector(".question-entry-actions")) {
       return;
@@ -39,7 +43,7 @@ function initializeWalkthroughGate(config) {
     const entryShowAnswerButton = document.createElement("button");
     entryShowAnswerButton.type = "button";
     entryShowAnswerButton.className = "nav-btn secondary";
-    entryShowAnswerButton.textContent = "Show answer";
+    entryShowAnswerButton.textContent = answerButtonLabel;
     actionRow.appendChild(entryShowAnswerButton);
 
     const nextLabel = normaliseActionLabel(config.nextLabel);
@@ -91,12 +95,12 @@ function initializeWalkthroughGate(config) {
       `).join("")}
     </div>
     <div class="gate-actions">
-      <button id="show-walkthrough-btn" class="nav-btn" type="button">Show full walkthrough</button>
-      <button id="show-answer-btn" class="nav-btn secondary" type="button">Show answer</button>
+      <button id="show-walkthrough-btn" class="nav-btn" type="button">${walkthroughButtonLabel}</button>
+      <button id="show-answer-btn" class="nav-btn secondary" type="button">${answerButtonLabel}</button>
       <a id="next-question-link" class="nav-btn hidden" href="${config.nextHref}">${config.nextLabel}</a>
     </div>
     <div id="answer-card" class="hint-item hidden">
-      <p class="step-number">Answer</p>
+      <p class="step-number">${answerSectionLabel}</p>
       <div class="hint-body">
         ${config.answerHtml}
       </div>
