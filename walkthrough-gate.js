@@ -3,7 +3,8 @@ function initializeWalkthroughGate(config) {
   const showHintsButton = document.getElementById("show-hints-btn");
   const walkthroughContent = document.getElementById("walkthrough-content");
   const questionCard = showHintsButton ? showHintsButton.closest(".question-card") : null;
-  const topBackLink = document.querySelector(".topbar .ghost-link");
+  let questionMenuButton = null;
+  let questionMenuPanel = null;
 
   if (
     !hintsCard ||
@@ -31,52 +32,177 @@ function initializeWalkthroughGate(config) {
   const answerSectionLabel = config.answerSectionLabel || "Answer";
   const walkthroughButtonLabel = config.walkthroughButtonLabel || "Show full walkthrough";
 
+  function closeQuestionMenu() {
+    if (!questionMenuButton || !questionMenuPanel) {
+      return;
+    }
+
+    questionMenuButton.setAttribute("aria-expanded", "false");
+    questionMenuPanel.classList.add("hidden");
+  }
+
+  function openQuestionMenu() {
+    if (!questionMenuButton || !questionMenuPanel) {
+      return;
+    }
+
+    questionMenuButton.setAttribute("aria-expanded", "true");
+    questionMenuPanel.classList.remove("hidden");
+  }
+
+  function toggleQuestionMenu() {
+    if (!questionMenuButton || !questionMenuPanel) {
+      return;
+    }
+
+    if (questionMenuPanel.classList.contains("hidden")) {
+      openQuestionMenu();
+    } else {
+      closeQuestionMenu();
+    }
+  }
+
+  function getEntryNavigation() {
+    const navRows = walkthroughContent.querySelectorAll(".nav-row");
+    const finalNavRow = navRows.length ? navRows[navRows.length - 1] : null;
+    const secondaryLink = finalNavRow ? finalNavRow.querySelector("a.nav-btn.secondary") : null;
+    const primaryLink = finalNavRow
+      ? Array.from(finalNavRow.querySelectorAll("a.nav-btn")).find(function (link) {
+        return !link.classList.contains("secondary");
+      })
+      : null;
+    const secondaryLabel = secondaryLink ? normaliseActionLabel(secondaryLink.textContent) : "";
+    const previous = secondaryLink && !/back to paper/i.test(secondaryLabel)
+      ? {
+        href: secondaryLink.getAttribute("href"),
+        label: "← Previous question"
+      }
+      : (config.previousHref
+        ? {
+          href: config.previousHref,
+          label: config.previousLabel || "← Previous question"
+        }
+        : null);
+    const next = primaryLink
+      ? {
+        href: primaryLink.getAttribute("href"),
+        label: primaryLink.textContent.trim()
+      }
+      : {
+        href: config.nextHref,
+        label: config.nextLabel
+      };
+
+    return { previous: previous, next: next };
+  }
+
   function addEntryActions() {
     if (!questionCard || questionCard.querySelector(".question-entry-actions")) {
       return;
     }
 
+    const entryNavigation = getEntryNavigation();
     const actionRow = document.createElement("div");
     actionRow.className = "gate-actions question-entry-actions";
-    actionRow.appendChild(showHintsButton);
+    const menuWrap = document.createElement("div");
+    menuWrap.className = "question-menu";
 
-    const entryShowAnswerButton = document.createElement("button");
-    entryShowAnswerButton.type = "button";
-    entryShowAnswerButton.className = "nav-btn secondary";
-    entryShowAnswerButton.textContent = answerButtonLabel;
-    actionRow.appendChild(entryShowAnswerButton);
+    questionMenuButton = document.createElement("button");
+    questionMenuButton.type = "button";
+    questionMenuButton.className = "nav-btn secondary question-menu-button";
+    questionMenuButton.textContent = "Menu";
+    questionMenuButton.setAttribute("aria-expanded", "false");
+    questionMenuButton.setAttribute("aria-haspopup", "true");
 
-    const nextLabel = normaliseActionLabel(config.nextLabel);
-    const nextHref = config.nextHref;
+    questionMenuPanel = document.createElement("div");
+    questionMenuPanel.className = "question-menu-panel hidden";
 
-    if (topBackLink) {
-      const backHref = topBackLink.getAttribute("href");
-      const backLabel = normaliseActionLabel(topBackLink.textContent);
-      const sameAsNext = backHref === nextHref && backLabel === nextLabel;
+    const menuHintsButton = document.createElement("button");
+    menuHintsButton.type = "button";
+    menuHintsButton.className = "nav-btn secondary question-menu-option";
+    menuHintsButton.textContent = "Hints";
 
-      if (!sameAsNext) {
-        const entryBackLink = document.createElement("a");
-        entryBackLink.className = "nav-btn secondary";
-        entryBackLink.href = backHref;
-        entryBackLink.textContent = topBackLink.textContent.trim();
-        actionRow.appendChild(entryBackLink);
-      }
+    const menuWalkthroughButton = document.createElement("button");
+    menuWalkthroughButton.type = "button";
+    menuWalkthroughButton.className = "nav-btn secondary question-menu-option";
+    menuWalkthroughButton.textContent = "Walkthrough";
+
+    const menuAnswerButton = document.createElement("button");
+    menuAnswerButton.type = "button";
+    menuAnswerButton.className = "nav-btn secondary question-menu-option";
+    menuAnswerButton.textContent = "Answer";
+
+    questionMenuPanel.appendChild(menuHintsButton);
+    questionMenuPanel.appendChild(menuWalkthroughButton);
+    questionMenuPanel.appendChild(menuAnswerButton);
+    menuWrap.appendChild(questionMenuButton);
+    menuWrap.appendChild(questionMenuPanel);
+    actionRow.appendChild(menuWrap);
+
+    if (entryNavigation.previous) {
+      const previousLink = document.createElement("a");
+      previousLink.className = "nav-btn secondary";
+      previousLink.href = entryNavigation.previous.href;
+      previousLink.textContent = entryNavigation.previous.label;
+      actionRow.appendChild(previousLink);
+    } else {
+      const previousButton = document.createElement("button");
+      previousButton.type = "button";
+      previousButton.className = "nav-btn secondary is-disabled";
+      previousButton.textContent = "← Previous question";
+      previousButton.disabled = true;
+      previousButton.setAttribute("aria-disabled", "true");
+      actionRow.appendChild(previousButton);
     }
 
-    const entryNextLink = document.createElement("a");
-    entryNextLink.className = "nav-btn";
-    entryNextLink.href = nextHref;
-    entryNextLink.textContent = config.nextLabel;
-    actionRow.appendChild(entryNextLink);
+    const nextLink = document.createElement("a");
+    nextLink.className = "nav-btn";
+    nextLink.href = entryNavigation.next.href;
+    nextLink.textContent = entryNavigation.next.label;
+    actionRow.appendChild(nextLink);
+
+    showHintsButton.classList.add("hidden");
 
     questionCard.appendChild(actionRow);
 
-    entryShowAnswerButton.addEventListener("click", function () {
+    questionMenuButton.addEventListener("click", function (event) {
+      event.stopPropagation();
+      toggleQuestionMenu();
+    });
+
+    menuHintsButton.addEventListener("click", function () {
+      closeQuestionMenu();
+      revealHints();
+    });
+
+    menuWalkthroughButton.addEventListener("click", function () {
+      closeQuestionMenu();
+      revealWalkthrough();
+    });
+
+    menuAnswerButton.addEventListener("click", function () {
+      closeQuestionMenu();
       revealAnswer();
     });
-  }
 
-  addEntryActions();
+    document.addEventListener("click", function (event) {
+      if (!questionMenuPanel || questionMenuPanel.classList.contains("hidden")) {
+        return;
+      }
+
+      if (menuWrap.contains(event.target)) {
+        return;
+      }
+
+      closeQuestionMenu();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeQuestionMenu();
+      }
+    });
+  }
 
   hintsCard.innerHTML = `
     <p class="question-label">Hints</p>
@@ -117,9 +243,26 @@ function initializeWalkthroughGate(config) {
   const answerCard = document.getElementById("answer-card");
   const hintToggleButtons = hintsCard.querySelectorAll(".hint-toggle-btn");
 
-  function revealAnswer() {
+  function ensureHintsVisible() {
     hintsCard.classList.remove("hidden");
     showHintsButton.classList.add("hidden");
+  }
+
+  function revealHints() {
+    ensureHintsVisible();
+    window.scrollTo({ top: hintsCard.offsetTop - 24, behavior: "smooth" });
+  }
+
+  function revealWalkthrough() {
+    ensureHintsVisible();
+    walkthroughContent.classList.remove("hidden");
+    showWalkthroughButton.classList.add("hidden");
+    addWalkthroughSkipButtons();
+    window.scrollTo({ top: walkthroughContent.offsetTop - 24, behavior: "smooth" });
+  }
+
+  function revealAnswer() {
+    ensureHintsVisible();
     answerCard.classList.remove("hidden");
     showAnswerButton.classList.add("hidden");
     nextQuestionLink.classList.remove("hidden");
@@ -128,6 +271,8 @@ function initializeWalkthroughGate(config) {
     }
     window.scrollTo({ top: answerCard.offsetTop - 24, behavior: "smooth" });
   }
+
+  addEntryActions();
 
   function addWalkthroughSkipButtons() {
     const stepCards = walkthroughContent.querySelectorAll(".step-card");
@@ -178,16 +323,11 @@ function initializeWalkthroughGate(config) {
   });
 
   showHintsButton.addEventListener("click", function () {
-    hintsCard.classList.remove("hidden");
-    showHintsButton.classList.add("hidden");
-    window.scrollTo({ top: hintsCard.offsetTop - 24, behavior: "smooth" });
+    revealHints();
   });
 
   showWalkthroughButton.addEventListener("click", function () {
-    walkthroughContent.classList.remove("hidden");
-    showWalkthroughButton.classList.add("hidden");
-    addWalkthroughSkipButtons();
-    window.scrollTo({ top: walkthroughContent.offsetTop - 24, behavior: "smooth" });
+    revealWalkthrough();
   });
 
   showAnswerButton.addEventListener("click", function () {
