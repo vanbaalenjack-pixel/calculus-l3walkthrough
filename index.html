@@ -13,31 +13,34 @@
 <script defer src="index-page.js?v=20260315-5"></script>
 </head>
 
-<body>
+<body class="home-page">
 
-<main class="app">
-  <header class="topbar">
-    <div>
+<main class="app home-app">
+  <header class="topbar home-hero">
+    <div class="home-hero-copy">
       <p class="eyebrow">NCEA Maths Walkthroughs</p>
       <h1>Maths Exam Walkthroughs</h1>
       <p class="subtitle">Browse papers by level, standard, and paper</p>
+      <div class="home-hero-support">
+        <p class="step-text">
+          This site provides interactive walkthroughs for NCEA mathematics papers. Each question is broken into small steps to help you understand the reasoning behind the solution, not just the final answer.
+        </p>
+        <p class="step-text">
+          Work through each step, read the feedback, and move to the next stage once you understand the idea. The goal is to help you build the thinking required for Achieved, Merit, and Excellence answers.
+        </p>
+        <p class="step-text">
+          Choose a level below, then the standard and paper year you want to work on.
+        </p>
+      </div>
+      <div class="home-hero-actions">
+        <a class="nav-btn home-cta" href="#choose-level">Get started</a>
+      </div>
     </div>
   </header>
 
-  <section class="question-card">
-    <p class="step-text">
-      This site provides interactive walkthroughs for NCEA mathematics papers. Each question is broken into small steps to help you understand the reasoning behind the solution, not just the final answer.
-    </p>
-    <p class="step-text">
-      Work through each step, read the feedback, and move to the next stage once you understand the idea. The goal is to help you build the thinking required for Achieved, Merit, and Excellence answers.
-    </p>
-    <p class="step-text">
-      Choose a level below, then the standard and paper year you want to work on.
-    </p>
-  </section>
-
-  <section class="question-card year-picker-card">
-    <p class="question-label">Choose A Level</p>
+  <section id="choose-level" class="question-card year-picker-card home-level-card">
+    <p class="question-label">Step 1</p>
+    <h2>Choose a level</h2>
     <div class="year-picker-grid">
       <button class="nav-btn secondary year-option" type="button" data-level="level-2" aria-pressed="false">
         <span class="year-option-title">Level 2</span>
@@ -796,7 +799,7 @@
   </section>
 </main>
 
-<footer class="site-footer">
+<footer class="site-footer home-footer">
   <p class="site-footer-text">
     Created by Jack van Baalen as part of a Year 13 extended learning project.
     Mathematical explanations and walkthrough design by Jack van Baalen.
