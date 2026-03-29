@@ -37,6 +37,9 @@ function initializeWalkthroughGate(config) {
       return;
     }
 
+    if (questionCard) {
+      questionCard.classList.remove("menu-open");
+    }
     questionMenuButton.setAttribute("aria-expanded", "false");
     questionMenuPanel.classList.add("hidden");
   }
@@ -46,6 +49,9 @@ function initializeWalkthroughGate(config) {
       return;
     }
 
+    if (questionCard) {
+      questionCard.classList.add("menu-open");
+    }
     questionMenuButton.setAttribute("aria-expanded", "true");
     questionMenuPanel.classList.remove("hidden");
   }

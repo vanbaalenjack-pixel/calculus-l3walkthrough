@@ -19,6 +19,8 @@
   --radius-card: 26px;
   --radius-soft: 18px;
   --radius-pill: 999px;
+  --card-action-size: 34px;
+  --card-action-offset: 18px;
   --content-max: 940px;
   --content-wide: 1120px;
 }
@@ -248,6 +250,11 @@ h1 {
   overflow: visible;
   padding: 28px 30px;
   margin-bottom: 26px;
+  z-index: 0;
+}
+
+.question-card.menu-open {
+  z-index: 30;
 }
 
 .home-page .home-level-card {
@@ -341,6 +348,7 @@ h1 {
   align-items: stretch;
   margin-top: 4px;
   margin-bottom: 0;
+  z-index: 2;
 }
 
 .question-entry-actions > .nav-btn,
@@ -804,6 +812,7 @@ input[type="range"] {
   position: relative;
   min-height: 132px;
   padding: 22px 22px 24px;
+  padding-right: calc(var(--card-action-size) + var(--card-action-offset) + 24px);
   border-color: var(--border);
   border-radius: 20px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(246, 250, 255, 0.98) 100%);
@@ -814,12 +823,12 @@ input[type="range"] {
 .home-page .index-link-card::after {
   content: "\2192";
   position: absolute;
-  right: 18px;
-  bottom: 18px;
+  right: var(--card-action-offset);
+  bottom: var(--card-action-offset);
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: var(--card-action-size);
+  height: var(--card-action-size);
   border-radius: 50%;
   background: var(--primary-soft);
   color: var(--primary);
@@ -974,6 +983,7 @@ input[type="range"] {
   width: calc(50% - 6px);
   min-height: 128px;
   padding: 20px 22px 54px;
+  padding-right: calc(var(--card-action-size) + var(--card-action-offset) + 24px);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(246, 250, 255, 0.98) 100%);
   border-color: var(--border);
   text-align: left;

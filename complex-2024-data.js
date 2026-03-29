@@ -1420,7 +1420,7 @@
           3k^2\operatorname{cis}\left(-\frac{\pi}{4}\right)
           \]
         `)}
-        ${tipBox(raw`I’ve used \(n\) as the root counter here so it does not clash with the real constant \(k\).`)}
+        ${tipBox(raw`Make sure to use a different letter for your root counter so it does not get confused with the real constant \(k\).`)}
       `,
       steps: [
         {
