@@ -13,6 +13,14 @@
     renderMathInElement(element, { delimiters: katexDelimiters });
   }
 
+  function getPageScrollTop(target) {
+    if (!target) {
+      return 0;
+    }
+
+    return Math.max(window.scrollY + target.getBoundingClientRect().top - 24, 0);
+  }
+
   function showOnlyStep(stepId) {
     document.querySelectorAll(".step-card").forEach(function (step) {
       step.classList.add("hidden");
@@ -23,7 +31,7 @@
       targetStep.classList.remove("hidden");
       window.requestAnimationFrame(function () {
         window.scrollTo({
-          top: Math.max(targetStep.offsetTop - 24, 0),
+          top: getPageScrollTop(targetStep),
           behavior: "smooth"
         });
       });

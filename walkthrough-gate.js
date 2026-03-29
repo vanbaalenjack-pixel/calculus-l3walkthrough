@@ -24,6 +24,14 @@ function initializeWalkthroughGate(config) {
   walkthroughContent.classList.add("hidden");
   showHintsButton.classList.remove("hidden");
 
+  function getPageScrollTop(target) {
+    if (!target) {
+      return 0;
+    }
+
+    return Math.max(window.scrollY + target.getBoundingClientRect().top - 24, 0);
+  }
+
   function normaliseActionLabel(value) {
     return (value || "").replace(/[←→]/g, "").replace(/\s+/g, " ").trim();
   }
@@ -256,7 +264,7 @@ function initializeWalkthroughGate(config) {
 
   function revealHints() {
     ensureHintsVisible();
-    window.scrollTo({ top: hintsCard.offsetTop - 24, behavior: "smooth" });
+    window.scrollTo({ top: getPageScrollTop(hintsCard), behavior: "smooth" });
   }
 
   function revealWalkthrough() {
@@ -264,7 +272,7 @@ function initializeWalkthroughGate(config) {
     walkthroughContent.classList.remove("hidden");
     showWalkthroughButton.classList.add("hidden");
     addWalkthroughSkipButtons();
-    window.scrollTo({ top: walkthroughContent.offsetTop - 24, behavior: "smooth" });
+    window.scrollTo({ top: getPageScrollTop(walkthroughContent), behavior: "smooth" });
   }
 
   function revealAnswer() {
@@ -275,7 +283,7 @@ function initializeWalkthroughGate(config) {
     if (typeof renderMath === "function") {
       renderMath(answerCard);
     }
-    window.scrollTo({ top: answerCard.offsetTop - 24, behavior: "smooth" });
+    window.scrollTo({ top: getPageScrollTop(answerCard), behavior: "smooth" });
   }
 
   addEntryActions();
@@ -324,7 +332,7 @@ function initializeWalkthroughGate(config) {
         nextButton.classList.remove("hidden");
       }
 
-      window.scrollTo({ top: button.offsetTop - 24, behavior: "smooth" });
+      window.scrollTo({ top: getPageScrollTop(button), behavior: "smooth" });
     });
   });
 
@@ -344,6 +352,14 @@ function initializeWalkthroughGate(config) {
 (function () {
   const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noreferrer">here</a>.';
   const INTERACTION_SELECTOR = ".option-btn, .check-btn, .next-step-btn";
+
+  function getPageScrollTop(target) {
+    if (!target) {
+      return 0;
+    }
+
+    return Math.max(window.scrollY + target.getBoundingClientRect().top - 24, 0);
+  }
 
   function normaliseButtonTypes(root) {
     const scope = root || document;
@@ -388,7 +404,7 @@ function initializeWalkthroughGate(config) {
           }
 
           window.scrollTo({
-            top: Math.max(target.offsetTop - 24, 0),
+            top: getPageScrollTop(target),
             behavior: "smooth"
           });
         });

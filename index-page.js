@@ -150,6 +150,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }) || null;
   }
 
+  function getPageScrollTop(target) {
+    if (!target) {
+      return 0;
+    }
+
+    return Math.max(window.scrollY + target.getBoundingClientRect().top - 24, 0);
+  }
+
   function scrollToPanel(targetId) {
     const scrollTarget = document.getElementById(targetId) ||
       getLevelPanel(targetId) ||
@@ -160,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    window.scrollTo({ top: scrollTarget.offsetTop - 24, behavior: "smooth" });
+    window.scrollTo({ top: getPageScrollTop(scrollTarget), behavior: "smooth" });
   }
 
   function stabilisePickerScroll(button, targetId) {
