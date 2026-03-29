@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
   const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noreferrer">here</a>.';
 
+  document.querySelectorAll("button:not([type])").forEach(function (button) {
+    button.type = "button";
+  });
+
   function ensureHomepageReportFooter() {
     const footer = document.querySelector(".site-footer");
     if (!footer || footer.querySelector(".report-issue-text")) {

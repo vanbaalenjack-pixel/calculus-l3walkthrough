@@ -198,6 +198,13 @@ function initializeWalkthroughGate(config) {
 (function () {
   const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noreferrer">here</a>.';
 
+  function normaliseButtonTypes(root) {
+    const scope = root || document;
+    scope.querySelectorAll("button:not([type])").forEach(function (button) {
+      button.type = "button";
+    });
+  }
+
   function ensureReportIssueFooter() {
     const body = document.body;
     if (!body) {
@@ -222,8 +229,12 @@ function initializeWalkthroughGate(config) {
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", ensureReportIssueFooter);
+    document.addEventListener("DOMContentLoaded", function () {
+      normaliseButtonTypes(document);
+      ensureReportIssueFooter();
+    });
   } else {
+    normaliseButtonTypes(document);
     ensureReportIssueFooter();
   }
 }());
