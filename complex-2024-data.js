@@ -425,22 +425,26 @@
         <p class="step-text">Find the gradient of that line. Justify your answer.</p>
       `,
       hints: [
-        raw`Let \(z=x+yi\).`,
-        raw`Each modulus becomes a square root using real part squared plus imaginary part squared.`,
-        raw`Square both sides, expand, and look for the line equation.`
+        raw`Let \(z=x+yi\), then rewrite each modulus in terms of \(x\) and \(y\).`,
+        raw`Each modulus is a distance in the Argand diagram, using the fixed points \((0,1)\) and \((-1,0)\).`,
+        raw`Square both sides, simplify to \(y=mx+c\), then read off the gradient.`
       ],
       answerHtml: raw`
         <p class="step-text">Let \(z=x+yi\). Then:</p>
         <div class="math-block">
           \[
-          |z-i|=|x+(y-1)i|=\sqrt{x^2+(y-1)^2}
+          |z-i|=|x+yi-i|=|x+(y-1)i|=\sqrt{x^2+(y-1)^2}
           \]
           \[
-          |z+1|=|(x+1)+yi|=\sqrt{(x+1)^2+y^2}
+          |z+1|=|x+yi+1|=|(x+1)+yi|=\sqrt{(x+1)^2+y^2}
           \]
         </div>
-        <p class="step-text">Set them equal and square both sides:</p>
+        <p class="step-text">These are distances from \((x,y)\) to the fixed points \((0,1)\) and \((-1,0)\), so the locus is the set of points equidistant from those two points.</p>
+        <p class="step-text">Set the distances equal and simplify:</p>
         <div class="math-block">
+          \[
+          \sqrt{x^2+(y-1)^2}=\sqrt{(x+1)^2+y^2}
+          \]
           \[
           x^2+(y-1)^2=(x+1)^2+y^2
           \]
@@ -454,7 +458,7 @@
           y=-x
           \]
         </div>
-        <p class="step-text">That is a straight line with gradient \(-1\).</p>
+        <p class="step-text">In the form \(y=mx+c\), the gradient is the coefficient of \(x\), so the gradient is \(-1\).</p>
         ${answerBox(raw`
           \[
           \text{Gradient}=-1
@@ -464,35 +468,298 @@
       `,
       steps: [
         {
-          type: "typed",
-          title: "Rewrite the moduli",
-          text: raw`After letting \(z=x+yi\), what equation do you get before squaring?`,
-          ariaLabel: "Type the equation before squaring",
-          mode: "equation",
-          acceptedAnswers: ["sqrt(x^2+(y-1)^2)=sqrt((x+1)^2+y^2)"],
-          samples: [{ x: 2, y: 1 }, { x: -1, y: 4 }, { x: 3, y: -2 }],
-          successMessage: raw`Correct. Each modulus becomes a distance formula in \(x\) and \(y\).`,
-          genericMessage: raw`Write each complex number in \(a+bi\) form, then use \(|a+bi|=\sqrt{a^2+b^2}\).`
+          type: "choice",
+          title: "Write z in coordinates",
+          text: raw`To work with a locus, we want to express \(z\) in real coordinates. Let \(z=x+yi\). What does the equation become?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              |z-i|=|z+1|
+              \]
+            </div>
+          `,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\(|x+yi-i|=|x+yi+1|\)`,
+              correct: true,
+              successMessage: raw`Correct. We have just replaced each \(z\) with \(x+yi\).`
+            },
+            {
+              html: raw`\(|x+yi+i|=|x+yi-1|\)`,
+              failureMessage: raw`Watch the signs. Substituting into \(z-i\) gives \(x+yi-i\), and substituting into \(z+1\) gives \(x+yi+1\).`
+            },
+            {
+              html: raw`\(|x-yi-i|=|x+yi+1|\)`,
+              failureMessage: raw`Only \(z\) is being replaced. If \(z=x+yi\), the imaginary part stays \(+yi\).`
+            },
+            {
+              html: raw`\(|x+yi-i|=|x-yi+1|\)`,
+              failureMessage: raw`The second expression should still use \(z=x+yi\), so it becomes \(x+yi+1\).`
+            }
+          ]
+        },
+        {
+          type: "choice",
+          title: "Separate real and imaginary parts",
+          text: raw`Rewrite each expression by separating real and imaginary parts. What does the equation become now?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              |x+yi-i|=|x+yi+1|
+              \]
+            </div>
+          `,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\(|x+(y-1)i|=|(x+1)+yi|\)`,
+              correct: true,
+              successMessage: raw`Exactly. The left side has real part \(x\) and imaginary part \(y-1\), while the right side has real part \(x+1\) and imaginary part \(y\).`
+            },
+            {
+              html: raw`\(|x+(y+1)i|=|(x-1)+yi|\)`,
+              failureMessage: raw`Check the signs again. Subtracting \(i\) changes the imaginary part to \(y-1\), and adding \(1\) changes the real part to \(x+1\).`
+            },
+            {
+              html: raw`\(|(x-1)+yi|=|x+(y-1)i|\)`,
+              failureMessage: raw`The left side comes from \(z-i\), so it should keep real part \(x\) and change the imaginary part to \(y-1\).`
+            },
+            {
+              html: raw`\(|x+(y-1)i|=|(x-1)+yi|\)`,
+              failureMessage: raw`The right side comes from \(z+1\), so the real part should become \(x+1\), not \(x-1\).`
+            }
+          ]
+        },
+        {
+          type: "choice",
+          title: "Interpret the locus",
+          text: raw`An equation of the form \(|z-a|=|z-b|\) describes points that are the same distance from two fixed points. What does that tell us about this locus?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              |x+(y-1)i|=|(x+1)+yi|
+              \]
+            </div>
+          `,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`The points are equidistant from two fixed points`,
+              correct: true,
+              successMessage: raw`Yes. This locus is made of points that are the same distance from two fixed points in the Argand diagram.`
+            },
+            {
+              html: raw`The points are all the same distance from the origin`,
+              failureMessage: raw`That would describe a circle centred at the origin. Here, the distances are to two different fixed points.`
+            },
+            {
+              html: raw`The locus must be a circle centred at the origin`,
+              failureMessage: raw`Equal distance from two fixed points does not mean equal distance from the origin.`
+            },
+            {
+              html: raw`The real parts must always be equal`,
+              failureMessage: raw`This equation compares distances, not just real parts.`
+            }
+          ]
         },
         {
           type: "typed",
-          title: "Simplify to a line",
-          text: raw`After squaring and simplifying, what line equation do you get?`,
-          ariaLabel: "Type the line equation",
+          title: "Write the first distance",
+          text: raw`These fixed points are \((0,1)\) and \((-1,0)\). Write the left-hand modulus as a distance from \((x,y)\) to \((0,1)\).`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              |x+(y-1)i|
+              \]
+            </div>
+          `,
+          ariaLabel: "Type the first distance expression",
+          acceptedAnswers: ["sqrt(x^2+(y-1)^2)"],
+          samples: [{ x: 2, y: 3 }, { x: -1, y: 0 }, { x: 4, y: -2 }],
+          successMessage: raw`Correct. That is the distance from \((x,y)\) to \((0,1)\).`,
+          targetedFeedback: [
+            {
+              answers: ["sqrt((x+1)^2+y^2)"],
+              message: raw`That is the distance to \((-1,0)\), which belongs on the right-hand side.`
+            }
+          ],
+          genericMessage: raw`Use \(\sqrt{(\text{real part})^2+(\text{imaginary part})^2}\), or the distance formula from \((x,y)\) to \((0,1)\).`
+        },
+        {
+          type: "typed",
+          title: "Write both distances",
+          text: raw`Now write the full equation using distances from \((x,y)\) to both fixed points. What equation do you get?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              |x+(y-1)i|=|(x+1)+yi|
+              \]
+            </div>
+          `,
+          ariaLabel: "Type the distance equation",
           mode: "equation",
-          acceptedAnswers: ["y=-x", "x+y=0", "-y=x"],
-          samples: [{ x: 2, y: -2 }, { x: -3, y: 3 }, { x: 1, y: -1 }],
-          successMessage: raw`Yes. The locus simplifies to \(y=-x\).`,
-          genericMessage: raw`Expand both sides and cancel the matching \(x^2\), \(y^2\), and constant terms.`
+          acceptedAnswers: ["sqrt(x^2+(y-1)^2)=sqrt((x+1)^2+y^2)"],
+          samples: [{ x: 2, y: 3 }, { x: -1, y: 0 }, { x: 4, y: -2 }],
+          successMessage: raw`Correct. Each side is now written as a distance formula.`,
+          targetedFeedback: [
+            {
+              answers: ["x^2+(y-1)^2=(x+1)^2+y^2"],
+              mode: "equation",
+              message: raw`That comes after squaring. This step still needs square roots because you are writing distances.`
+            }
+          ],
+          genericMessage: raw`Write the distance from \((x,y)\) to \((0,1)\) on the left, and the distance from \((x,y)\) to \((-1,0)\) on the right.`
+        },
+        {
+          type: "choice",
+          title: "Remove the square roots",
+          text: raw`How can we remove the square roots from this equation?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \sqrt{x^2+(y-1)^2}=\sqrt{(x+1)^2+y^2}
+              \]
+            </div>
+          `,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`Square both sides, so \(x^2+(y-1)^2=(x+1)^2+y^2\)`,
+              correct: true,
+              successMessage: raw`Exactly. Squaring both sides removes the square roots cleanly here.`
+            },
+            {
+              html: raw`Take square roots again`,
+              failureMessage: raw`The square roots are already there. We need an operation that removes them.`
+            },
+            {
+              html: raw`Set the real parts equal first`,
+              failureMessage: raw`This equation is comparing distances, not saying the real parts must match. Squaring is the direct way to remove the roots.`
+            },
+            {
+              html: raw`Subtract the moduli`,
+              failureMessage: raw`Subtracting does not remove the square roots.`
+            }
+          ]
+        },
+        {
+          type: "choice",
+          title: "Expand both sides",
+          text: raw`After squaring, expand both sides. Which equation do you get?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              x^2+(y-1)^2=(x+1)^2+y^2
+              \]
+            </div>
+          `,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\(\displaystyle x^2+y^2-2y+1=x^2+2x+1+y^2\)`,
+              correct: true,
+              successMessage: raw`Correct. Expanding \((y-1)^2\) and \((x+1)^2\) gives that line of working.`
+            },
+            {
+              html: raw`\(\displaystyle x^2+y^2-1=x^2+2x+y^2\)`,
+              failureMessage: raw`Check both expansions carefully. \((y-1)^2\) gives \(y^2-2y+1\), and \((x+1)^2\) gives \(x^2+2x+1\).`
+            },
+            {
+              html: raw`\(\displaystyle x^2+y^2+2y+1=x^2-2x+1+y^2\)`,
+              failureMessage: raw`Both middle terms have the wrong signs.`
+            },
+            {
+              html: raw`\(\displaystyle x^2+y^2-2y+1=x^2+x+1+y^2\)`,
+              failureMessage: raw`The expansion of \((x+1)^2\) should give \(x^2+2x+1\), not \(x^2+x+1\).`
+            }
+          ]
+        },
+        {
+          type: "choice",
+          title: "Cancel matching terms",
+          text: raw`Cancel the terms that appear on both sides. What equation is left?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              x^2+y^2-2y+1=x^2+2x+1+y^2
+              \]
+            </div>
+          `,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\(-2y=2x\)`,
+              correct: true,
+              successMessage: raw`Yes. The \(x^2\), \(y^2\), and \(1\) terms cancel, leaving \(-2y=2x\).`
+            },
+            {
+              html: raw`\(\phantom{-}2y=2x\)`,
+              failureMessage: raw`The \(-2y\) term stays negative after cancelling.`
+            },
+            {
+              html: raw`\(-2y=-2x\)`,
+              failureMessage: raw`The right-hand side should still be \(2x\) after the cancellation step.`
+            },
+            {
+              html: raw`\(\phantom{-}2y=-2x\)`,
+              failureMessage: raw`Both signs have flipped here. Go back to the expanded equation and cancel carefully.`
+            }
+          ]
+        },
+        {
+          type: "choice",
+          title: "Make y the subject",
+          text: raw`Rearrange to make \(y\) the subject. Which line equation do you get?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              -2y=2x
+              \]
+            </div>
+          `,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\(\displaystyle y=-x\)`,
+              correct: true,
+              successMessage: raw`Correct. Dividing both sides by \(-2\) gives \(y=-x\).`
+            },
+            {
+              html: raw`\(\displaystyle y=x\)`,
+              failureMessage: raw`Dividing by \(-2\) changes the sign, so the gradient must be negative.`
+            },
+            {
+              html: raw`\(\displaystyle y=x+1\)`,
+              failureMessage: raw`No constant term appears after rearranging \(-2y=2x\).`
+            },
+            {
+              html: raw`\(\displaystyle y=-x+1\)`,
+              failureMessage: raw`There is no \(+1\) left after the cancellation step.`
+            }
+          ]
         },
         {
           type: "typed",
           title: "State the gradient",
-          text: raw`What is the gradient of the line?`,
+          text: raw`Compare \(y=-x\) with \(y=mx+c\). What is the gradient?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              y=-x
+              \]
+            </div>
+          `,
           ariaLabel: "Type the gradient",
           acceptedAnswers: ["-1"],
-          successMessage: raw`Correct. The line \(y=-x\) has gradient \(-1\).`,
-          genericMessage: raw`Read the coefficient of \(x\) from the line equation.`
+          successMessage: raw`Correct. In \(y=-x\), the coefficient of \(x\) is \(-1\).`,
+          targetedFeedback: [
+            {
+              answers: ["1"],
+              message: raw`Check the sign of the coefficient of \(x\). The line is \(y=-x\), not \(y=x\).`
+            }
+          ],
+          genericMessage: raw`Read the coefficient of \(x\) from the line equation \(y=-x\).`
         }
       ]
     }),
