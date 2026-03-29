@@ -197,12 +197,57 @@ function initializeWalkthroughGate(config) {
 
 (function () {
   const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noreferrer">here</a>.';
+  const INTERACTION_SELECTOR = ".option-btn, .check-btn, .next-step-btn";
 
   function normaliseButtonTypes(root) {
     const scope = root || document;
     scope.querySelectorAll("button:not([type])").forEach(function (button) {
       button.type = "button";
     });
+  }
+
+  function stabiliseInteractiveScroll(root) {
+    const scope = root || document;
+
+    scope.addEventListener("click", function (event) {
+      const button = event.target.closest(INTERACTION_SELECTOR);
+      if (!button) {
+        return;
+      }
+
+      const initialScrollY = window.scrollY;
+      const initialStep = button.closest(".step-card");
+
+      window.setTimeout(function () {
+        button.blur();
+      }, 0);
+
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          const currentScrollY = window.scrollY;
+          const jumpedUpALot = initialScrollY - currentScrollY > 180;
+          const jumpedNearTop = initialScrollY > 140 && currentScrollY < 60;
+
+          if (!jumpedUpALot && !jumpedNearTop) {
+            return;
+          }
+
+          const visibleStep = document.querySelector(".step-card:not(.hidden)");
+          const target = button.classList.contains("next-step-btn")
+            ? (visibleStep || initialStep)
+            : (initialStep || visibleStep);
+
+          if (!target) {
+            return;
+          }
+
+          window.scrollTo({
+            top: Math.max(target.offsetTop - 24, 0),
+            behavior: "smooth"
+          });
+        });
+      });
+    }, true);
   }
 
   function ensureReportIssueFooter() {
@@ -231,10 +276,12 @@ function initializeWalkthroughGate(config) {
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
       normaliseButtonTypes(document);
+      stabiliseInteractiveScroll(document);
       ensureReportIssueFooter();
     });
   } else {
     normaliseButtonTypes(document);
+    stabiliseInteractiveScroll(document);
     ensureReportIssueFooter();
   }
 }());

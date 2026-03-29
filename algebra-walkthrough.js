@@ -21,6 +21,12 @@
     const targetStep = document.getElementById(stepId);
     if (targetStep) {
       targetStep.classList.remove("hidden");
+      window.requestAnimationFrame(function () {
+        window.scrollTo({
+          top: Math.max(targetStep.offsetTop - 24, 0),
+          behavior: "smooth"
+        });
+      });
     }
   }
 

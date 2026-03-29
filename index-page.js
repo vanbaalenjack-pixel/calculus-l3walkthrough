@@ -163,6 +163,30 @@ document.addEventListener("DOMContentLoaded", function () {
     window.scrollTo({ top: scrollTarget.offsetTop - 24, behavior: "smooth" });
   }
 
+  function stabilisePickerScroll(button, targetId) {
+    if (!button || !targetId) {
+      return;
+    }
+
+    const initialScrollY = window.scrollY;
+
+    window.setTimeout(function () {
+      button.blur();
+    }, 0);
+
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        const currentScrollY = window.scrollY;
+        const jumpedUpALot = initialScrollY - currentScrollY > 180;
+        const jumpedNearTop = initialScrollY > 140 && currentScrollY < 60;
+
+        if (jumpedUpALot || jumpedNearTop) {
+          scrollToPanel(targetId);
+        }
+      });
+    });
+  }
+
   function clearPaperSelection(parentStandard) {
     const matchingPanels = paperPanels.filter(function (panel) {
       return !parentStandard || panel.dataset.parentStandard === parentStandard;
@@ -355,6 +379,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       selectLevel(button.dataset.level, true);
+      stabilisePickerScroll(button, button.dataset.level);
     });
   });
 
@@ -367,10 +392,12 @@ document.addEventListener("DOMContentLoaded", function () {
         clearStandardSelection(parentLevel);
         updateHash(parentLevel);
         scrollToPanel(parentLevel);
+        stabilisePickerScroll(button, parentLevel);
         return;
       }
 
       selectStandard(standard, true);
+      stabilisePickerScroll(button, standard);
     });
   });
 
@@ -383,10 +410,12 @@ document.addEventListener("DOMContentLoaded", function () {
         clearPaperSelection(parentStandard);
         updateHash(parentStandard);
         scrollToPanel(parentStandard);
+        stabilisePickerScroll(button, parentStandard);
         return;
       }
 
       selectPaper(paper, true);
+      stabilisePickerScroll(button, paper);
     });
   });
 
