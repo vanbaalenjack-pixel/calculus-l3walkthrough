@@ -21,6 +21,53 @@
     wrapWithParens: true
   };
 
+  function answerBox(content) {
+    return `
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+        ${content}
+      </div>
+    `;
+  }
+
+  function calloutBox(kind, title, text) {
+    return `
+      <div class="callout-card ${kind}">
+        <p class="callout-title">${title}</p>
+        <p class="step-text">${text}</p>
+      </div>
+    `;
+  }
+
+  function tipBox(text) {
+    return calloutBox("tip", "Keep Thinking", text);
+  }
+
+  function correctChoice(html, successMessage) {
+    return {
+      html: html,
+      correct: true,
+      successMessage: successMessage
+    };
+  }
+
+  function wrongChoice(html, failureMessage) {
+    return {
+      html: html,
+      failureMessage: failureMessage
+    };
+  }
+
+  function choiceStep(title, text, choices, extra) {
+    return Object.assign({
+      type: "choice",
+      title: title,
+      text: text,
+      buttonGridClass: "button-grid two-col",
+      choices: choices
+    }, extra || {});
+  }
+
   function questionLabel(id) {
     return "Question " + id.charAt(0) + "(" + id.charAt(1) + ")";
   }
@@ -153,7 +200,7 @@
 
   window.Complex2025Walkthroughs = {
     "1a": createConfig("1a", "2025 Paper — Polynomial division and remainder", {
-      focus: raw`dividing a polynomial by \(x-2\) and using the stated remainder to solve for \(p\).`,
+      focus: raw`recognising a remainder-theorem question, substituting \(x=2\), and solving the resulting linear equation in \(p\).`,
       questionHtml: raw`
         <div class="question-math">
           \[
@@ -165,35 +212,27 @@
         </div>
       `,
       hints: [
-        raw`Start the long division with the leading term: \(\frac{3x^4}{x}=3x^3\).`,
-        raw`Each time you subtract, look at the new leading term before choosing the next quotient term.`,
-        raw`At the end, the remainder must equal \(21\), so set your final remainder expression equal to \(21\).`
+        raw`Because the divisor is \(x-2\), the remainder theorem tells us to look at \(f(2)\).`,
+        raw`Substitute \(x=2\) everywhere in the polynomial.`,
+        raw`The output must be \(21\), so solve the linear equation that appears.`
       ],
       answerHtml: raw`
-        <p class="step-text">Divide by \(x-2\), keeping track of the remainder:</p>
+        <p class="step-text">This is a remainder-theorem question, so we do not need long division here.</p>
         <div class="math-block">
           \[
-          \begin{aligned}
-          \frac{3x^4}{x} &= 3x^3 \\
-          3x^4 + px^3 + 0x^2 - 4x + 5 - \left(3x^4 - 6x^3\right) &= (p+6)x^3 - 4x + 5 \\
-          \frac{(p+6)x^3}{x} &= (p+6)x^2 \\
-          (p+6)x^3 + 0x^2 - 4x + 5 - \left((p+6)x^3 - 2(p+6)x^2\right) &= 2(p+6)x^2 - 4x + 5 \\
-          &= (2p+12)x^2 - 4x + 5 \\
-          \frac{(2p+12)x^2}{x} &= (2p+12)x \\
-          (2p+12)x^2 - 4x + 5 - \left((2p+12)x^2 - 2(2p+12)x\right) &= -4x + 5 + (4p+24)x \\
-          &= (4p+20)x + 5 \\
-          \frac{(4p+20)x}{x} &= 4p+20 \\
-          (4p+20)x + 5 - \left((4p+20)x - 2(4p+20)\right) &= 5 + 2(4p+20)
-          \end{aligned}
+          f(2)=21
           \]
         </div>
-        <p class="step-text">Now use the given remainder:</p>
+        <p class="step-text">Substitute \(x=2\) into the polynomial:</p>
         <div class="math-block">
           \[
-          5 + 2(4p+20)=21
+          3(2)^4+p(2)^3-4(2)+5=21
           \]
           \[
-          8p+45=21
+          48+8p-8+5=21
+          \]
+          \[
+          45+8p=21
           \]
           \[
           8p=-24
@@ -202,84 +241,49 @@
           p=-3
           \]
         </div>
+        ${answerBox(raw`
+          \[
+          p=-3
+          \]
+        `)}
       `,
       steps: [
-        {
-          type: "typed",
-          title: "Start the division",
-          text: raw`What is the first quotient term when you divide \(3x^4\) by \(x\)?`,
-          ariaLabel: "Type the first quotient term",
-          acceptedAnswers: ["3x^3"],
-          samples: [{ x: 2 }, { x: -1 }, { x: 3 }],
-          successMessage: raw`Correct. The division starts with \(\frac{3x^4}{x}=3x^3\).`,
-          genericMessage: raw`Divide the leading term \(3x^4\) by the leading term \(x\).`
-        },
-        {
-          type: "typed",
-          title: "Subtract the first product",
-          text: raw`After subtracting \(3x^4-6x^3\), what expression is left?`,
-          ariaLabel: "Type the expression left after the first subtraction",
-          acceptedAnswers: ["(p+6)x^3-4x+5"],
-          samples: [{ p: -3, x: 2 }, { p: 1, x: -1 }, { p: 4, x: 3 }],
-          successMessage: raw`Yes. The \(x^4\) terms cancel, leaving \((p+6)x^3-4x+5\).`,
-          targetedFeedback: [
-            {
-              answers: ["(p-6)x^3-4x+5"],
-              message: raw`Watch the signs. Subtracting \(-6x^3\) adds \(6x^3\), so the coefficient becomes \(p+6\).`
-            }
-          ],
-          genericMessage: raw`Subtract the whole bracket carefully. The cubic term changes because you are subtracting a negative term.`
-        },
-        {
-          type: "typed",
-          title: "Find the next quotient term",
-          text: raw`What quotient term comes next when you divide \((p+6)x^3\) by \(x\)?`,
-          ariaLabel: "Type the next quotient term",
-          acceptedAnswers: ["(p+6)x^2"],
-          samples: [{ p: -3, x: 2 }, { p: 1, x: -1 }, { p: 4, x: 3 }],
-          successMessage: raw`Correct. The next quotient term is \((p+6)x^2\).`,
-          genericMessage: raw`Divide the new leading term \((p+6)x^3\) by \(x\).`
-        },
-        {
-          type: "typed",
-          title: "Keep the pattern going",
-          text: raw`After the next subtraction, what is the next quotient term?`,
-          ariaLabel: "Type the third quotient term",
-          acceptedAnswers: ["(2p+12)x"],
-          samples: [{ p: -3, x: 2 }, { p: 1, x: -1 }, { p: 4, x: 3 }],
-          successMessage: raw`Right. The remaining leading term is \((2p+12)x^2\), so the next quotient term is \((2p+12)x\).`,
-          targetedFeedback: [
-            {
-              answers: ["2p+12"],
-              message: raw`You need one factor of \(x\) here because you are dividing an \(x^2\) term by \(x\).`
-            }
-          ],
-          genericMessage: raw`After the second subtraction, divide the new leading term by \(x\) again.`
-        },
-        {
-          type: "typed",
-          title: "Use the remainder",
-          text: raw`The final remainder works out to \(5+2(4p+20)\). What equation do you get when you use the given remainder?`,
-          ariaLabel: "Type the equation for the remainder",
-          mode: "equation",
-          options: {
-            equationRhs: "21",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["8p+45=21"],
-          samples: [{ p: -3 }, { p: 1 }, { p: 4 }],
-          successMessage: raw`Correct. Since \(5+2(4p+20)=8p+45\), the remainder condition gives \(8p+45=21\).`,
-          genericMessage: raw`Set the remainder expression equal to the stated remainder \(21\), then simplify.`
-        },
-        {
-          type: "typed",
-          title: "Solve for p",
-          text: raw`What value of \(p\) does that give?`,
-          ariaLabel: "Type the value of p",
-          acceptedAnswers: ["-3"],
-          successMessage: raw`Exactly. Solving \(8p+45=21\) gives \(p=-3\).`,
-          genericMessage: raw`Rearrange \(8p+45=21\) and solve the linear equation.`
-        }
+        choiceStep("Choose the method", raw`Should we use the remainder theorem or the factor theorem here?`, [
+          correctChoice(raw`Use the Remainder Theorem.`, raw`Yes. We are given a remainder, not a factor, so this is a remainder-theorem question.`),
+          wrongChoice(raw`Use the Factor Theorem.`, raw`Not here. The factor theorem is for a remainder of \(0\).`),
+          wrongChoice(raw`Use long division straight away.`, raw`You could, but the remainder theorem is the cleaner idea the question is pointing you toward.`),
+          wrongChoice(raw`Differentiate the polynomial first.`, raw`Differentiation does not help with a remainder question.`)
+        ]),
+        choiceStep("Interpret the remainder", raw`If the polynomial is divided by \(x-2\) and leaves a remainder of \(21\), what does that tell us?`, [
+          correctChoice(raw`\(\,f(2)=21\)`, raw`Exactly. Dividing by \(x-2\) means we test \(x=2\), so the output must be \(21\).`),
+          wrongChoice(raw`\(\,f(-2)=21\)`, raw`The divisor is \(x-2\), so the matching value is \(x=2\), not \(-2\).`),
+          wrongChoice(raw`\(\,f(21)=2\)`, raw`That swaps the roles around. We substitute the divisor root, not the remainder.`),
+          wrongChoice(raw`\(\,f(2)=0\)`, raw`That would only happen if \(x-2\) were a factor.`)
+        ]),
+        choiceStep("Substitute carefully", raw`What expression do we get when we substitute \(x=2\) into the polynomial?`, [
+          correctChoice(raw`\(\,3(2)^4+p(2)^3-4(2)+5\)`, raw`Good. Every \(x\) becomes \(2\), so that is the correct substitution.`),
+          wrongChoice(raw`\(\,3(2)^4+p(2)^4-4(2)+5\)`, raw`The power on the \(p\)-term stays \(3\), because the term is \(px^3\).`),
+          wrongChoice(raw`\(\,3(2)^4+p(2)^3+4(2)+5\)`, raw`Watch the sign on the linear term. The polynomial has \(-4x\).`),
+          wrongChoice(raw`\(\,3(2)^3+p(2)^3-4(2)+5\)`, raw`The first term is \(3x^4\), so it must become \(3(2)^4\).`)
+        ]),
+        choiceStep("Evaluate the output", raw`What does that simplify to?`, [
+          correctChoice(raw`\(\,45+8p\)`, raw`Yes. \(3(2)^4+p(2)^3-4(2)+5=48+8p-8+5=45+8p\).`),
+          wrongChoice(raw`\(\,53+8p\)`, raw`Check the constant part again: \(48-8+5=45\), not \(53\).`),
+          wrongChoice(raw`\(\,45+2p\)`, raw`The \(px^3\) term gives \(8p\), because \(2^3=8\).`),
+          wrongChoice(raw`\(\,21+8p\)`, raw`The remainder \(21\) is what we set the output equal to later. It is not the simplification itself.`)
+        ]),
+        choiceStep("Use the remainder", raw`What equation should we solve now?`, [
+          correctChoice(raw`\(\,45+8p=21\)`, raw`Exactly. The polynomial output must equal the stated remainder \(21\).`),
+          wrongChoice(raw`\(\,45+8p=0\)`, raw`A remainder question does not automatically give \(0\).`),
+          wrongChoice(raw`\(\,45+8p=2\)`, raw`We substitute \(x=2\), but the output is the remainder \(21\).`),
+          wrongChoice(raw`\(\,45+8p=45\)`, raw`That would ignore the remainder condition completely.`)
+        ]),
+        choiceStep("Finish the solve", raw`What value of \(p\) does that give?`, [
+          correctChoice(raw`\(\,p=-3\)`, raw`Correct. From \(45+8p=21\), we get \(8p=-24\), so \(p=-3\).`),
+          wrongChoice(raw`\(\,p=3\)`, raw`The sign should be negative because \(21-45=-24\).`),
+          wrongChoice(raw`\(\,p=-24\)`, raw`That is \(8p\), not \(p\). We still need to divide by \(8\).`),
+          wrongChoice(raw`\(\,p=-\frac{45}{8}\)`, raw`That would come from ignoring the \(21\) on the right-hand side.`)
+        ])
       ]
     }),
     "1b": createConfig("1b", "2025 Paper — Completing the square", {
@@ -328,48 +332,42 @@
         </div>
       `,
       steps: [
-        {
-          type: "typed",
-          title: "Write the quadratic in standard form",
-          text: raw`After moving everything to one side, what equation do you get?`,
-          ariaLabel: "Type the quadratic equal to zero",
-          mode: "equation",
-          options: {
-            equationRhs: "0",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["x^2-6kx-k^2=0"],
-          samples: [{ x: 2, k: 1 }, { x: -1, k: 3 }, { x: 4, k: -2 }],
-          successMessage: raw`Correct. Moving \(k^2\) to the left gives \(x^2-6kx-k^2=0\).`,
-          genericMessage: raw`Subtract \(k^2\) from both sides so the equation is equal to \(0\).`
-        },
-        {
-          type: "typed",
-          title: "Complete the square",
-          text: raw`What perfect-square equation do you get after completing the square?`,
-          ariaLabel: "Type the completed-square equation",
-          mode: "equation",
-          acceptedAnswers: ["(x-3k)^2=10k^2"],
-          samples: [{ x: 2, k: 1 }, { x: -1, k: 3 }, { x: 4, k: -2 }],
-          successMessage: raw`Yes. Adding and subtracting \(9k^2\) gives \((x-3k)^2=10k^2\).`,
-          genericMessage: raw`Add and subtract \(9k^2\), then rewrite the left side as a perfect square.`
-        },
-        {
-          type: "typed",
-          title: "Solve for x",
-          text: raw`Type both solutions for \(x\), separated by commas.`,
-          ariaLabel: "Type both solutions for x",
-          mode: "list",
-          options: unorderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: [
-            "3k+ksqrt(10),3k-ksqrt(10)",
-            "k(3+sqrt(10)),k(3-sqrt(10))"
-          ],
-          samples: [{ k: 1 }, { k: 2 }, { k: 5 }],
-          successMessage: raw`Correct. Taking square roots gives \(x=3k\pm k\sqrt{10}\).`,
-          genericMessage: raw`Take square roots of both sides and remember the \(\pm\).`
-        }
+        choiceStep("Identify the equation type", raw`What type of equation is this in \(x\)?`, [
+          correctChoice(raw`A quadratic equation.`, raw`Yes. The highest power of \(x\) is \(2\), so we are solving a quadratic.`),
+          wrongChoice(raw`A linear equation.`, raw`A linear equation would only have \(x\) to the first power.`),
+          wrongChoice(raw`A cubic equation.`, raw`There is no \(x^3\) term here.`),
+          wrongChoice(raw`A modulus equation.`, raw`There is no modulus sign in this question.`)
+        ]),
+        choiceStep("Check the structure", raw`Is the left-hand side already a perfect square?`, [
+          correctChoice(raw`No, because \((x-3k)^2=x^2-6kx+9k^2\).`, raw`Exactly. We are missing the \(+9k^2\) needed to make a perfect square.`),
+          wrongChoice(raw`Yes, it is already \((x-3k)^2\).`, raw`Close, but \((x-3k)^2\) would include \(+9k^2\) as well.`),
+          wrongChoice(raw`Yes, it is already \((x+3k)^2\).`, raw`\((x+3k)^2\) would give a positive middle term, so that cannot match.`),
+          wrongChoice(raw`It cannot be solved because \(k\) is in the equation.`, raw`We can still solve in terms of \(k\).`)
+        ]),
+        choiceStep("Choose the clean method", raw`So what is the most helpful method here?`, [
+          correctChoice(raw`Complete the square.`, raw`Yes. The expression is almost a perfect square, so completing the square is the natural move.`),
+          wrongChoice(raw`Use the factor theorem.`, raw`This is not a polynomial remainder/factor question.`),
+          wrongChoice(raw`Differentiate both sides.`, raw`Differentiation is not part of solving this quadratic.`),
+          wrongChoice(raw`Convert everything to polar form.`, raw`That belongs to complex-number questions, not this quadratic.`)
+        ]),
+        choiceStep("Make the perfect square", raw`What should we add to both sides to complete the square?`, [
+          correctChoice(raw`\(\,9k^2\)`, raw`Right. Half the coefficient of \(x\) is \(-3k\), and squaring that gives \(9k^2\).`),
+          wrongChoice(raw`\(\,6k\)`, raw`We square half the middle coefficient. We do not just reuse the coefficient.`),
+          wrongChoice(raw`\(\,3k^2\)`, raw`Half the middle term is \(-3k\), and then we square it.`),
+          wrongChoice(raw`\(\,k^2\)`, raw`That is not enough to make the left-hand side a perfect square.`)
+        ]),
+        choiceStep("Factorise the left side", raw`What does the equation become after completing the square?`, [
+          correctChoice(raw`\(\,(x-3k)^2=10k^2\)`, raw`Exactly. Adding \(9k^2\) to both sides gives \((x-3k)^2=k^2+9k^2=10k^2\).`),
+          wrongChoice(raw`\(\,(x+3k)^2=10k^2\)`, raw`The sign inside the bracket must match the middle term \(-6kx\).`),
+          wrongChoice(raw`\(\,(x-3k)^2=8k^2\)`, raw`The right-hand side is \(k^2+9k^2=10k^2\).`),
+          wrongChoice(raw`\(\,(x-9k)^2=10k^2\)`, raw`The bracket comes from halving the middle coefficient, not from the added term directly.`)
+        ]),
+        choiceStep("Solve for x", raw`What are the solutions for \(x\)?`, [
+          correctChoice(raw`\(\,x=3k\pm k\sqrt{10}\)`, raw`Correct. Take square roots, then add \(3k\) to both sides.`),
+          wrongChoice(raw`\(\,x=3k\pm 10k\)`, raw`We take the square root of \(10k^2\), so the surd stays as \(\sqrt{10}\).`),
+          wrongChoice(raw`\(\,x=-3k\pm k\sqrt{10}\)`, raw`Once we take square roots, we add \(3k\) to both sides, so the base term is positive.`),
+          wrongChoice(raw`\(\,x=\pm 10k\)`, raw`That skips the shift coming from \((x-3k)^2\).`)
+        ])
       ]
     }),
     "1c": createConfig("1c", "2025 Paper — Discriminant proof", {
@@ -418,56 +416,42 @@
         <p class="step-text">This is always positive for real \(k\), because \(k^4 \ge 0\). So the quadratic has real roots for all real \(k\).</p>
       `,
       steps: [
-        {
-          type: "typed",
-          title: "Rewrite as a quadratic",
-          text: raw`After multiplying by \(k\) and rearranging, what quadratic in \(x\) do you get?`,
-          ariaLabel: "Type the quadratic in x",
-          mode: "equation",
-          options: {
-            equationRhs: "0",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["k^3x^2+x-3k=0"],
-          samples: [{ x: 2, k: 1 }, { x: -1, k: 2 }, { x: 3, k: -2 }],
-          successMessage: raw`Correct. Multiplying by \(k\) gives \(k^3x^2=3k-x\), so the quadratic is \(k^3x^2+x-3k=0\).`,
-          genericMessage: raw`Multiply through by \(k\) to clear the fraction, then move everything to one side.`
-        },
-        {
-          type: "typed",
-          title: "Find the discriminant",
-          text: raw`What is the discriminant of this quadratic?`,
-          ariaLabel: "Type the discriminant",
-          acceptedAnswers: ["1+12k^4"],
-          samples: [{ k: 1 }, { k: 2 }, { k: -3 }],
-          successMessage: raw`Yes. Here \(a=k^3\), \(b=1\), and \(c=-3k\), so \(b^2-4ac=1+12k^4\).`,
-          genericMessage: raw`Use \(b^2-4ac\) with \(a=k^3\), \(b=1\), and \(c=-3k\).`
-        },
-        {
-          type: "choice",
-          title: "Finish the proof",
-          text: raw`Why does that prove the roots are real for every real \(k\)?`,
-          buttonGridClass: "button-grid",
-          choices: [
-            {
-              html: raw`\(\,k^4 \ge 0\) for real \(k\), so \(1+12k^4>0\) and the quadratic has real roots.`,
-              correct: true,
-              successMessage: raw`Exactly. A positive discriminant guarantees real roots, and \(1+12k^4\) is always positive.`
-            },
-            {
-              html: raw`Because \(k \neq 0\), the equation stops being a quadratic.`,
-              failureMessage: raw`Not quite. The equation is still quadratic in \(x\); \(k \neq 0\) only makes the algebra valid.`
-            },
-            {
-              html: raw`Because \(1+12k^4\) is always equal to \(1\).`,
-              failureMessage: raw`That is not true. The key fact is that \(k^4\) is never negative, so the discriminant stays positive.`
-            },
-            {
-              html: raw`Because a discriminant greater than zero means the roots are imaginary.`,
-              failureMessage: raw`It is the other way around. A positive discriminant gives real roots.`
-            }
-          ]
-        }
+        choiceStep("Spot the proof idea", raw`What condition on a quadratic guarantees real roots?`, [
+          correctChoice(raw`A positive discriminant.`, raw`Yes. If the discriminant is positive, the quadratic has real roots.`),
+          wrongChoice(raw`A negative discriminant.`, raw`A negative discriminant gives complex roots, not real ones.`),
+          wrongChoice(raw`A zero coefficient of \(x\).`, raw`That changes the equation, but it is not the general test for real roots.`),
+          wrongChoice(raw`A positive constant term.`, raw`The sign of the constant alone does not decide whether the roots are real.`)
+        ]),
+        choiceStep("Rewrite in standard form", raw`After multiplying through by \(k\) and rearranging, which quadratic do we get?`, [
+          correctChoice(raw`\(\,k^3x^2+x-3k=0\)`, raw`Correct. Multiplying by \(k\) clears the denominator and gives \(k^3x^2+x-3k=0\).`),
+          wrongChoice(raw`\(\,k^2x^2+x-3k=0\)`, raw`The left side becomes \(k(kx)^2=k^3x^2\), not \(k^2x^2\).`),
+          wrongChoice(raw`\(\,k^3x^2-x+3k=0\)`, raw`Watch the signs when you move everything to one side.`),
+          wrongChoice(raw`\(\,k^3x^2+3k-x=0\)`, raw`That is not fully rearranged into standard quadratic form.`)
+        ]),
+        choiceStep("Identify \(a\), \(b\), and \(c\)", raw`What are the coefficients in \(ax^2+bx+c=0\)?`, [
+          correctChoice(raw`\(\,a=k^3,\ b=1,\ c=-3k\)`, raw`Exactly. That is the correct match for \(k^3x^2+x-3k=0\).`),
+          wrongChoice(raw`\(\,a=k^2,\ b=1,\ c=-3k\)`, raw`The coefficient of \(x^2\) is \(k^3\), not \(k^2\).`),
+          wrongChoice(raw`\(\,a=k^3,\ b=-1,\ c=3k\)`, raw`Those signs do not match the rearranged quadratic.`),
+          wrongChoice(raw`\(\,a=1,\ b=k^3,\ c=-3k\)`, raw`\(a\) is the coefficient of \(x^2\), not the constant coefficient of the middle term.`)
+        ]),
+        choiceStep("Substitute into the discriminant", raw`Which expression correctly substitutes into \(b^2-4ac\)?`, [
+          correctChoice(raw`\(\,1^2-4(k^3)(-3k)\)`, raw`Yes. That is the discriminant with the correct values of \(a\), \(b\), and \(c\).`),
+          wrongChoice(raw`\(\,1^2+4(k^3)(-3k)\)`, raw`The formula is \(b^2-4ac\), so keep the minus and let the negative \(c\) handle the sign.`),
+          wrongChoice(raw`\(\,k^6-12k\)`, raw`That is not what you get from \(b^2-4ac\).`),
+          wrongChoice(raw`\(\,1^2-4(k^2)(-3k)\)`, raw`The \(a\)-value should still be \(k^3\).`)
+        ]),
+        choiceStep("Simplify the discriminant", raw`What does the discriminant simplify to?`, [
+          correctChoice(raw`\(\,1+12k^4\)`, raw`Right. The product \(-4(k^3)(-3k)\) simplifies to \(+12k^4\).`),
+          wrongChoice(raw`\(\,1-12k^4\)`, raw`Two negatives multiply to a positive here.`),
+          wrongChoice(raw`\(\,1+12k^3\)`, raw`The powers multiply to \(k^4\), not \(k^3\).`),
+          wrongChoice(raw`\(\,12k^4\)`, raw`Do not lose the \(1\) from \(b^2\).`)
+        ]),
+        choiceStep("Finish the argument", raw`Why is that enough to prove the roots are real for every real \(k\)?`, [
+          correctChoice(raw`\(\,k^4\ge 0\) for real \(k\), so \(1+12k^4>0\).`, raw`Exactly. The discriminant is always positive, so the equation has real roots for every real \(k\neq 0\).`),
+          wrongChoice(raw`\(\,k^4\le 0\) for real \(k\), so the discriminant is negative.`, raw`Real numbers raised to the fourth power are never negative.`),
+          wrongChoice(raw`Because the discriminant is sometimes zero.`, raw`Here the point is stronger: \(1+12k^4\) is always positive.`),
+          wrongChoice(raw`Because \(k\neq 0\) means \(x\) must be real.`, raw`The conclusion comes from the discriminant, not directly from \(k\neq 0\).`)
+        ])
       ]
     }),
     "1d": createConfig("1d", "2025 Paper — Cube roots in polar form", {
@@ -523,59 +507,61 @@
         </div>
       `,
       steps: [
-        {
-          type: "typed",
-          title: "Find the modulus",
-          text: raw`Once you write \(z^3=-8m^{27}i\), what is the modulus of the right-hand side?`,
-          ariaLabel: "Type the modulus",
-          acceptedAnswers: ["8m^27"],
-          samples: [{ m: 2 }, { m: 3 }, { m: 5 }],
-          successMessage: raw`Correct. The modulus is \(8m^{27}\).`,
-          genericMessage: raw`The modulus comes from the size of \(8m^{27}i\), not its direction.`
-        },
-        {
-          type: "typed",
-          title: "Find the principal argument",
-          text: raw`What principal argument should you use for \(-i\)?`,
-          ariaLabel: "Type the principal argument",
-          acceptedAnswers: ["-pi/2", "3pi/2"],
-          successMessage: raw`Yes. \(-i\) lies on the negative imaginary axis, so a principal argument is \(-\frac{\pi}{2}\).`,
-          genericMessage: raw`Look at where \(-i\) sits on the Argand diagram.`
-        },
-        {
-          type: "typed",
-          title: "Take the cube root of the modulus",
-          text: raw`What modulus will each root of \(z\) have?`,
-          ariaLabel: "Type the modulus of each root",
-          acceptedAnswers: ["2m^9"],
-          samples: [{ m: 2 }, { m: 3 }, { m: 5 }],
-          successMessage: raw`Correct. The cube root of \(8m^{27}\) is \(2m^9\).`,
-          genericMessage: raw`Take the cube root of both the number \(8\) and the power \(m^{27}\).`
-        },
-        {
-          type: "typed",
-          title: "List the three raw arguments",
-          text: raw`Using \(k=0,1,2\), what three arguments do you get before adjusting to a principal value?`,
-          ariaLabel: "Type the three cube-root arguments",
-          mode: "list",
-          options: unorderedListOptions,
-          acceptedAnswers: ["-pi/6,pi/2,7pi/6"],
-          successMessage: raw`Exactly. The three arguments are \(-\frac{\pi}{6}\), \(\frac{\pi}{2}\), and \(\frac{7\pi}{6}\).`,
-          genericMessage: raw`Use \(\frac{2k\pi}{3}-\frac{\pi}{6}\) with \(k=0,1,2\).`
-        },
-        {
-          type: "typed",
-          title: "Use the principal value",
-          text: raw`Convert the angle \(\frac{7\pi}{6}\) to its principal-value equivalent.`,
-          ariaLabel: "Type the principal-value angle",
-          acceptedAnswers: ["-5pi/6"],
-          successMessage: raw`Correct. So the three roots are \(2m^9\operatorname{cis}\left(-\frac{\pi}{6}\right)\), \(2m^9\operatorname{cis}\left(\frac{\pi}{2}\right)\), and \(2m^9\operatorname{cis}\left(-\frac{5\pi}{6}\right)\).`,
-          genericMessage: raw`Subtract \(2\pi\) from \(\frac{7\pi}{6}\) to move it into the principal-value range.`
-        }
+        choiceStep("Start with the power", raw`What should we do first?`, [
+          correctChoice(raw`Isolate \(z^3\).`, raw`Yes. We want \(z^3\) on its own before we use polar form and cube roots.`),
+          wrongChoice(raw`Cube both sides immediately.`, raw`We need a clean expression for \(z^3\) first.`),
+          wrongChoice(raw`Differentiate the equation.`, raw`This is a complex-number root question, not a calculus step.`),
+          wrongChoice(raw`Set the expression equal to zero again.`, raw`It is already equal to zero; the next move is to isolate \(z^3\).`)
+        ]),
+        choiceStep("Rearrange the equation", raw`What does that give us?`, [
+          correctChoice(raw`\(\,z^3=-8m^{27}i\)`, raw`Correct. Now the right-hand side is one complex number we can rewrite in polar form.`),
+          wrongChoice(raw`\(\,z^3=8m^{27}i\)`, raw`Moving \(8m^{27}i\) to the other side changes its sign.`),
+          wrongChoice(raw`\(\,z=-8m^{27}i\)`, raw`Only the constant term moves. The power on \(z\) stays \(3\).`),
+          wrongChoice(raw`\(\,z^3=8m^9i\)`, raw`Nothing has been cube-rooted yet.`)
+        ]),
+        choiceStep("Read the direction", raw`What does the argument of \(-8m^{27}i\) tell us about where this number lies?`, [
+          correctChoice(raw`It points straight down the negative imaginary axis.`, raw`Exactly. The number is a negative multiple of \(i\), so it lies in the \(-i\) direction.`),
+          wrongChoice(raw`It lies on the positive real axis.`, raw`There is no real part here.`),
+          wrongChoice(raw`It lies on the positive imaginary axis.`, raw`The sign is negative, so it points down, not up.`),
+          wrongChoice(raw`It lies in the first quadrant.`, raw`Pure imaginary numbers lie on an axis, not inside a quadrant.`)
+        ]),
+        choiceStep("Choose the argument", raw`Which principal argument should we use?`, [
+          correctChoice(raw`\(\,-\frac{\pi}{2}\)`, raw`Yes. The principal argument of \(-i\) is \(-\frac{\pi}{2}\).`),
+          wrongChoice(raw`\(\,\frac{\pi}{2}\)`, raw`That would be the argument of \(+i\).`),
+          wrongChoice(raw`\(\,\pi\)`, raw`\(\pi\) points left along the negative real axis, not down.`),
+          wrongChoice(raw`\(\,0\)`, raw`An argument of \(0\) points along the positive real axis.`)
+        ]),
+        choiceStep("Find the modulus", raw`What is the modulus of \(-8m^{27}i\)?`, [
+          correctChoice(raw`\(\,8m^{27}\)`, raw`Right. The modulus is the size of the number, so the negative sign only affects the argument.`),
+          wrongChoice(raw`\(\,-8m^{27}\)`, raw`Modulus is always non-negative.`),
+          wrongChoice(raw`\(\,2m^9\)`, raw`That is the cube-root modulus, not the modulus of \(z^3\).`),
+          wrongChoice(raw`\(\,27m^8\)`, raw`We do not differentiate or expand the power here.`)
+        ]),
+        choiceStep("Write \(z^3\) in polar form", raw`Which polar form is correct?`, [
+          correctChoice(raw`\(\,z^3=8m^{27}\operatorname{cis}\left(-\frac{\pi}{2}\right)\)`, raw`Exactly. We now have modulus and argument ready for De Moivre.`),
+          wrongChoice(raw`\(\,z^3=8m^{27}\operatorname{cis}\left(\frac{\pi}{2}\right)\)`, raw`The argument needs to point down the negative imaginary axis.`),
+          wrongChoice(raw`\(\,z^3=2m^9\operatorname{cis}\left(-\frac{\pi}{6}\right)\)`, raw`That is already part of the cube-root step.`),
+          wrongChoice(raw`\(\,z=8m^{27}\operatorname{cis}\left(-\frac{\pi}{2}\right)\)`, raw`That still describes \(z^3\), not \(z\).`)
+        ]),
+        choiceStep("Take the cube roots", raw`How do we write the cube roots of this number?`, [
+          correctChoice(raw`\(\,z=2m^9\operatorname{cis}\left(\frac{2k\pi}{3}-\frac{\pi}{6}\right)\)`, raw`Yes. Cube roots divide the argument by \(3\) and use \(k=0,1,2\) for the three solutions.`),
+          wrongChoice(raw`\(\,z=8m^{27}\operatorname{cis}\left(\frac{2k\pi}{3}-\frac{\pi}{6}\right)\)`, raw`The modulus also needs to be cube-rooted.`),
+          wrongChoice(raw`\(\,z=2m^9\operatorname{cis}\left(2k\pi-\frac{\pi}{6}\right)\)`, raw`We divide the whole argument by \(3\), including the periodic part.`),
+          wrongChoice(raw`\(\,z=2m^9\operatorname{cis}\left(\frac{2k\pi}{9}-\frac{\pi}{2}\right)\)`, raw`Only the angle is divided by \(3\), and the original angle is \(-\frac{\pi}{2}\).`)
+        ]),
+        choiceStep("Finish with the three roots", raw`Which list gives all three solutions in polar form?`, [
+          correctChoice(
+            raw`\(\,2m^9\operatorname{cis}\left(-\frac{\pi}{6}\right),\ 2m^9\operatorname{cis}\left(\frac{\pi}{2}\right),\ 2m^9\operatorname{cis}\left(-\frac{5\pi}{6}\right)\)`,
+            raw`Correct. Using \(k=0,1,2\) gives those three cube roots, with the third angle rewritten as a principal value.`
+          ),
+          wrongChoice(raw`\(\,2m^9\operatorname{cis}\left(-\frac{\pi}{2}\right),\ 2m^9\operatorname{cis}(0),\ 2m^9\operatorname{cis}\left(\frac{\pi}{2}\right)\)`, raw`Those angles are spaced by \(\frac{\pi}{2}\), not by the \(\frac{2\pi}{3}\) pattern for cube roots.`),
+          wrongChoice(raw`\(\,8m^{27}\operatorname{cis}\left(-\frac{\pi}{6}\right),\ 8m^{27}\operatorname{cis}\left(\frac{\pi}{2}\right),\ 8m^{27}\operatorname{cis}\left(\frac{7\pi}{6}\right)\)`, raw`The arguments are close, but the modulus should be \(2m^9\), not \(8m^{27}\).`),
+          wrongChoice(raw`\(\,2m^9\operatorname{cis}\left(-\frac{\pi}{6}\right),\ 2m^9\operatorname{cis}\left(\frac{\pi}{6}\right),\ 2m^9\operatorname{cis}\left(\frac{5\pi}{6}\right)\)`, raw`The step size between cube-root arguments should be \(\frac{2\pi}{3}\).`)
+        ])
       ]
     }),
     "1e": createConfig("1e", "2025 Paper — Locus to Cartesian form", {
-      focus: raw`rewriting a modulus locus in terms of \(a+bi\), squaring carefully, and converting the result to Cartesian form.`,
+      focus: raw`recognising a restricted-modulus locus, rewriting \(z=x+yi\), isolating surds carefully, and simplifying to the required Cartesian form.`,
       questionHtml: raw`
         <div class="question-math">
           \[
@@ -585,108 +571,153 @@
         <p class="step-text">Find the Cartesian equation of the locus of \(z\), giving your answer in the form \(ay^2-bx^2=k\), where \(a\), \(b\), and \(k\) are constants.</p>
       `,
       hints: [
-        raw`Rearrange first so one modulus is by itself.`,
-        raw`Let \(z=a+bi\), then rewrite each modulus as a square root.`,
-        raw`You will need to square twice, but simplify after the first squaring before doing it again.`
+        raw`Start by recognising the question type, then let \(z=x+yi\).`,
+        raw`Turn each modulus into a square root using Pythagoras.`,
+        raw`Before you square, isolate one surd. After the first squaring, simplify before doing the second one.`
       ],
       answerHtml: raw`
-        <p class="step-text">Rearrange the locus and substitute \(z=a+bi\):</p>
+        <p class="step-text">Let \(z=x+yi\), then separate the real and imaginary parts inside each modulus:</p>
         <div class="math-block">
           \[
-          |z-5i| = 4 + |z+5i|
+          |x+yi-5i|-|x+yi+5i|=4
           \]
           \[
-          |a+(b-5)i| = 4 + |a+(b+5)i|
-          \]
-          \[
-          \sqrt{a^2+(b-5)^2} = 4 + \sqrt{a^2+(b+5)^2}
+          |x+(y-5)i|-|x+(y+5)i|=4
           \]
         </div>
-        <p class="step-text">Square both sides and simplify:</p>
+        <p class="step-text">Now turn the moduli into distances:</p>
         <div class="math-block">
           \[
-          a^2+(b-5)^2 = 16+a^2+(b+5)^2+8\sqrt{a^2+(b+5)^2}
+          \sqrt{x^2+(y-5)^2}-\sqrt{x^2+(y+5)^2}=4
           \]
           \[
-          (b-5)^2 = 16+(b+5)^2+8\sqrt{a^2+(b+5)^2}
-          \]
-          \[
-          b^2-10b+25 = 16+b^2+10b+25+8\sqrt{a^2+(b+5)^2}
-          \]
-          \[
-          -20b = 16+8\sqrt{a^2+(b+5)^2}
+          \sqrt{x^2+(y-5)^2}=4+\sqrt{x^2+(y+5)^2}
           \]
         </div>
-        <p class="step-text">Now square again:</p>
+        <p class="step-text">Square once, but square whole sides:</p>
         <div class="math-block">
           \[
-          -5b = 4 + 2\sqrt{a^2+(b+5)^2}
+          x^2+(y-5)^2 = 16+8\sqrt{x^2+(y+5)^2}+x^2+(y+5)^2
           \]
           \[
-          2\sqrt{a^2+(b+5)^2} = -5b-4
+          (y-5)^2-(y+5)^2 = 16+8\sqrt{x^2+(y+5)^2}
           \]
           \[
-          4\left(a^2+(b+5)^2\right)=16+25b^2+40b
+          -20y = 16+8\sqrt{x^2+(y+5)^2}
           \]
           \[
-          4a^2+4b^2+40b+100 = 16+25b^2+40b
-          \]
-          \[
-          21b^2-4a^2=84
+          -5y-4=2\sqrt{x^2+(y+5)^2}
           \]
         </div>
-        <p class="step-text">Since \(z=x+yi\), replace \(a\) with \(x\) and \(b\) with \(y\):</p>
+        <p class="step-text">Square again and expand the remaining bracket carefully:</p>
         <div class="math-block">
+          \[
+          (-5y-4)^2=4\left(x^2+(y+5)^2\right)
+          \]
+          \[
+          16+25y^2+40y=4x^2+4(y^2+10y+25)
+          \]
+          \[
+          16+25y^2+40y=4x^2+4y^2+40y+100
+          \]
           \[
           21y^2-4x^2=84
           \]
         </div>
+        ${answerBox(raw`
+          \[
+          21y^2-4x^2=84
+          \]
+        `)}
       `,
       steps: [
-        {
-          type: "typed",
-          title: "Rewrite the moduli",
-          text: raw`After letting \(z=a+bi\), what equation do you get in square-root form?`,
-          ariaLabel: "Type the square-root equation",
-          mode: "equation",
-          acceptedAnswers: ["sqrt(a^2+(b-5)^2)=4+sqrt(a^2+(b+5)^2)"],
-          samples: [{ a: 1, b: 3 }, { a: -2, b: 6 }, { a: 4, b: -1 }],
-          successMessage: raw`Correct. Each modulus turns into a distance formula.`,
-          genericMessage: raw`Replace \(z\) with \(a+bi\), then use \(|x+yi|=\sqrt{x^2+y^2}\).`
-        },
-        {
-          type: "typed",
-          title: "Simplify after the first squaring",
-          text: raw`After squaring once and simplifying, what equation do you get?`,
-          ariaLabel: "Type the equation after the first squaring",
-          mode: "equation",
-          acceptedAnswers: ["-20b=16+8sqrt(a^2+(b+5)^2)"],
-          samples: [{ a: 1, b: 3 }, { a: -2, b: 6 }, { a: 4, b: -1 }],
-          successMessage: raw`Yes. The \(a^2\) terms cancel, and the \(b\)-terms simplify to \(-20b=16+8\sqrt{a^2+(b+5)^2}\).`,
-          genericMessage: raw`Square both sides, expand \((b-5)^2\) and \((b+5)^2\), then collect like terms.`
-        },
-        {
-          type: "typed",
-          title: "Square again",
-          text: raw`What equation do you get after squaring a second time and simplifying fully?`,
-          ariaLabel: "Type the simplified equation in a and b",
-          mode: "equation",
-          acceptedAnswers: ["21b^2-4a^2=84"],
-          samples: [{ a: 1, b: 3 }, { a: -2, b: 6 }, { a: 4, b: -1 }],
-          successMessage: raw`Correct. The second squaring gives \(21b^2-4a^2=84\).`,
-          genericMessage: raw`First isolate the square root, then square again and collect like terms carefully.`
-        },
-        {
-          type: "typed",
-          title: "Switch to x and y",
-          text: raw`Now write the final Cartesian equation using \(z=x+yi\).`,
-          ariaLabel: "Type the Cartesian equation",
-          mode: "equation",
-          acceptedAnswers: ["21y^2-4x^2=84"],
-          samples: [{ x: 1, y: 3 }, { x: -2, y: 6 }, { x: 4, y: -1 }],
-          successMessage: raw`Exactly. Since \(a=x\) and \(b=y\), the Cartesian equation is \(21y^2-4x^2=84\).`,
-          genericMessage: raw`Replace \(a\) with \(x\) and \(b\) with \(y\).`
-        }
+        choiceStep("Identify the question type", raw`What kind of complex-number question is this?`, [
+          correctChoice(raw`A restricted-modulus locus.`, raw`Yes. The modulus signs tell us this is a locus built from distances in the Argand plane.`),
+          wrongChoice(raw`A remainder-theorem question.`, raw`There is no polynomial division or remainder here.`),
+          wrongChoice(raw`A De Moivre question.`, raw`There is no power of a complex number to rewrite in polar form.`),
+          wrongChoice(raw`A conjugate-roots question.`, raw`This is about a locus, not roots of an equation.`)
+        ]),
+        choiceStep("Rewrite \(z\)", raw`To separate the real and imaginary parts, how should we write \(z\)?`, [
+          correctChoice(raw`\(\,z=x+yi\)`, raw`Exactly. Writing \(z=x+yi\) lets us turn each modulus into a distance formula.`),
+          wrongChoice(raw`\(\,z=r\operatorname{cis}\theta\)`, raw`Polar form is not the most helpful start for a Cartesian locus.`),
+          wrongChoice(raw`\(\,z=x+y\)`, raw`We need the imaginary unit \(i\) in the complex form.`),
+          wrongChoice(raw`\(\,z=i(x+y)\)`, raw`That would not separate the real and imaginary parts correctly.`)
+        ]),
+        choiceStep("Substitute into the locus", raw`Which equation shows \(z=x+yi\) substituted correctly?`, [
+          correctChoice(raw`\(\,|x+yi-5i|-|x+yi+5i|=4\)`, raw`Yes. That is the direct substitution before we tidy the imaginary parts.`),
+          wrongChoice(raw`\(\,|x+y-5|-|x+y+5|=4\)`, raw`This loses the imaginary unit completely.`),
+          wrongChoice(raw`\(\,|x+(y-5)|-|x+(y+5)|=4\)`, raw`The imaginary parts still need the \(i\).`),
+          wrongChoice(raw`\(\,|x-5i|-|y+5i|=4\)`, raw`That splits one complex number into two unrelated pieces.`)
+        ]),
+        choiceStep("Separate real and imaginary parts", raw`What is the cleaner form of the two complex numbers inside the moduli?`, [
+          correctChoice(raw`\(\,|x+(y-5)i|-|x+(y+5)i|=4\)`, raw`Good. Now the real distance is \(x\) and the imaginary distances are \(y-5\) and \(y+5\).`),
+          wrongChoice(raw`\(\,|(x-5)+yi|-|(x+5)+yi|=4\)`, raw`The \(\pm 5\) changes the imaginary part, not the real part.`),
+          wrongChoice(raw`\(\,|x+yi|-|x+yi|=4\)`, raw`That would ignore the shifts by \(5i\).`),
+          wrongChoice(raw`\(\,|x-(y-5)i|-|x-(y+5)i|=4\)`, raw`The first complex number is \(x+(y-5)i\), not \(x-(y-5)i\).`)
+        ]),
+        choiceStep("Turn moduli into square roots", raw`What equation do we get using Pythagoras?`, [
+          correctChoice(raw`\(\,\sqrt{x^2+(y-5)^2}-\sqrt{x^2+(y+5)^2}=4\)`, raw`Exactly. Each modulus becomes a distance from the origin in terms of \(x\) and \(y\).`),
+          wrongChoice(raw`\(\,\sqrt{x^2+y^2-25}-\sqrt{x^2+y^2+25}=4\)`, raw`The vertical shifts stay inside the brackets as \(y-5\) and \(y+5\).`),
+          wrongChoice(raw`\(\,x^2+(y-5)^2-x^2-(y+5)^2=4\)`, raw`We need square roots because modulus is a distance, not a squared distance.`),
+          wrongChoice(raw`\(\,\sqrt{x+(y-5)^2}-\sqrt{x+(y+5)^2}=4\)`, raw`The real distance contributes \(x^2\), not \(x\).`)
+        ]),
+        choiceStep("Prepare for squaring", raw`What should we do before we square?`, [
+          correctChoice(raw`Move one surd to the other side.`, raw`Yes. Isolating one surd keeps the next line much cleaner.`),
+          wrongChoice(raw`Square each individual term.`, raw`Not yet, and not term-by-term. We square whole sides.`),
+          wrongChoice(raw`Expand \((y-5)^2\) and \((y+5)^2\) immediately.`, raw`That comes after we isolate the surd and square the equation.`),
+          wrongChoice(raw`Replace \(x\) with \(r\cos\theta\).`, raw`The question wants a Cartesian equation, so stay in \(x\) and \(y\).`)
+        ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \sqrt{x^2+(y-5)^2}-\sqrt{x^2+(y+5)^2}=4
+              \]
+            </div>
+          `
+        }),
+        choiceStep("Square whole sides", raw`Which equation is correct after moving one surd and squaring once?`, [
+          correctChoice(raw`\(\,x^2+(y-5)^2=16+8\sqrt{x^2+(y+5)^2}+x^2+(y+5)^2\)`, raw`Correct. The whole right-hand side is a binomial, so it squares to \(4^2+2\cdot 4\cdot \sqrt{\cdots}+(\sqrt{\cdots})^2\).`),
+          wrongChoice(raw`\(\,x^2+(y-5)^2=16+x^2+(y+5)^2\)`, raw`That misses the middle term from squaring \((4+\sqrt{\cdots})^2\).`),
+          wrongChoice(raw`\(\,x^2+(y-5)^2=4^2+x^2+(y+5)^2\)`, raw`We still need the \(2ab\) term when squaring the binomial.`),
+          wrongChoice(raw`\(\,x^2+(y-5)^2=16+8x^2+8(y+5)^2\)`, raw`The middle term should involve the square root, not distribute across the inside.`)
+        ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \sqrt{x^2+(y-5)^2}=4+\sqrt{x^2+(y+5)^2}
+              \]
+            </div>
+          `
+        }),
+        choiceStep("Simplify before the second squaring", raw`What does the equation reduce to after cancelling the common terms and simplifying the left side?`, [
+          correctChoice(raw`\(\,-20y=16+8\sqrt{x^2+(y+5)^2}\)`, raw`Yes. Subtracting \((y+5)^2\) is the smart move, because \((y-5)^2-(y+5)^2=-20y\).`),
+          wrongChoice(raw`\(\,20y=16+8\sqrt{x^2+(y+5)^2}\)`, raw`The left side simplifies to \(-20y\), not \(+20y\).`),
+          wrongChoice(raw`\(\,-20y=8\sqrt{x^2+(y+5)^2}\)`, raw`Do not lose the constant \(16\).`),
+          wrongChoice(raw`\(\,-10y=16+8\sqrt{x^2+(y+5)^2}\)`, raw`Check the expansion of \((y-5)^2-(y+5)^2\) again.`)
+        ]),
+        choiceStep("Square a second time", raw`After isolating the surd and squaring again, which line is the right one to expand?`, [
+          correctChoice(raw`\(\,16+25y^2+40y=4\left(x^2+(y+5)^2\right)\)`, raw`Exactly. Dividing by \(4\) and isolating the surd first keeps the second squaring tidy.`),
+          wrongChoice(raw`\(\,25y^2+16=4x^2+4(y+5)^2\)`, raw`The \(40y\) term from \((-5y-4)^2\) is missing.`),
+          wrongChoice(raw`\(\,16+25y^2+40y=2\left(x^2+(y+5)^2\right)\)`, raw`The right side is \(2\sqrt{\cdots}\), so squaring gives a factor of \(4\).`),
+          wrongChoice(raw`\(\,(-5y-4)^2=2\left(x^2+(y+5)^2\right)\)`, raw`Squaring \(2\sqrt{\cdots}\) gives \(4(\cdots)\), not \(2(\cdots)\).`)
+        ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              -20y=16+8\sqrt{x^2+(y+5)^2}
+              \]
+              \[
+              -5y-4=2\sqrt{x^2+(y+5)^2}
+              \]
+            </div>
+          `
+        }),
+        choiceStep("Finish in Cartesian form", raw`What is the final Cartesian equation of the locus?`, [
+          correctChoice(raw`\(\,21y^2-4x^2=84\)`, raw`Correct. Expanding the final bracket and cancelling the common \(40y\) terms gives \(21y^2-4x^2=84\).`),
+          wrongChoice(raw`\(\,21x^2-4y^2=84\)`, raw`The question wants the locus in terms of \(y^2\) minus \(x^2\), and the working leads to that order.`),
+          wrongChoice(raw`\(\,25y^2-4x^2=84\)`, raw`Four of the \(y^2\) terms cancel when you expand the right-hand side.`),
+          wrongChoice(raw`\(\,21y^2+4x^2=84\)`, raw`The \(4x^2\) term moves across with a negative sign.`)
+        ])
       ]
     }),
     "2a": createConfig("2a", "2025 Paper — Argand diagram combinations", {
@@ -701,12 +732,12 @@
         </div>
       `,
       questionNotes: [
-        raw`Type coordinates as \((\text{real part},\text{imaginary part})\).`
+        raw`Read each plotted point as \((\text{real part},\text{imaginary part})\), then convert back to \(a+bi\) when needed.`
       ],
       hints: [
         raw`Read \(u\) and \(w\) from the diagram first: each point gives a real coordinate and an imaginary coordinate.`,
         raw`Find \(2u\) and \(3w\) separately before you add them.`,
-        raw`Once you have the coordinate of \(z\), you can rewrite it as a complex number.`
+        raw`Once you have \(z\), place it at \((2,-5)\) on the diagram.`
       ],
       answerHtml: raw`
         <p class="step-text">Read the points from the diagram:</p>
@@ -735,91 +766,60 @@
         </div>
         <p class="step-text">So \(z\) is the point \((2,-5)\) on the Argand diagram.</p>
         ${argandDiagramHtml({ includeZ: true })}
+        ${answerBox(raw`
+          \[
+          z=2-5i
+          \]
+        `)}
       `,
       steps: [
+        choiceStep("Read \(u\)", raw`What are the coordinates of \(u\)?`, [
+          correctChoice(raw`\(\,u=4+2i\)`, raw`Correct. The point \(u\) is at \((4,2)\), so \(u=4+2i\).`),
+          wrongChoice(raw`\(\,u=2+4i\)`, raw`Watch the order: real part first, imaginary part second.`),
+          wrongChoice(raw`\(\,u=4-2i\)`, raw`The point is above the real axis, so the imaginary part is positive.`),
+          wrongChoice(raw`\(\,u=-4+2i\)`, raw`The point is to the right of the origin, so the real part is positive.`)
+        ]),
+        choiceStep("Read \(w\)", raw`What are the coordinates of \(w\)?`, [
+          correctChoice(raw`\(\,w=-2-3i\)`, raw`Yes. The point \(w\) is left \(2\) and down \(3\), so \(w=-2-3i\).`),
+          wrongChoice(raw`\(\,w=-3-2i\)`, raw`The real part is \(-2\) and the imaginary part is \(-3\).`),
+          wrongChoice(raw`\(\,w=2-3i\)`, raw`The point is to the left of the origin, so the real part is negative.`),
+          wrongChoice(raw`\(\,w=-2+3i\)`, raw`The point is below the real axis, so the imaginary part is negative.`)
+        ]),
+        choiceStep("Scale \(u\)", raw`What is \(2u\)?`, [
+          correctChoice(raw`\(\,2u=8+4i\)`, raw`Exactly. Multiply both the real and imaginary parts of \(u\) by \(2\).`),
+          wrongChoice(raw`\(\,2u=6+2i\)`, raw`Both parts need to be doubled.`),
+          wrongChoice(raw`\(\,2u=8+2i\)`, raw`The imaginary part should double as well.`),
+          wrongChoice(raw`\(\,2u=4+4i\)`, raw`The real part should also double.`)
+        ]),
+        choiceStep("Scale \(w\)", raw`What is \(3w\)?`, [
+          correctChoice(raw`\(\,3w=-6-9i\)`, raw`Right. Multiplying \(-2-3i\) by \(3\) gives \(-6-9i\).`),
+          wrongChoice(raw`\(\,3w=-5-6i\)`, raw`Multiply both parts by \(3\), not just adjust them a little.`),
+          wrongChoice(raw`\(\,3w=-6+9i\)`, raw`The imaginary part stays negative.`),
+          wrongChoice(raw`\(\,3w=-3-9i\)`, raw`The real part should be \(-6\), because \(3\times -2=-6\).`)
+        ]),
+        choiceStep("Add the two results", raw`What do we get when we add \(2u\) and \(3w\)?`, [
+          correctChoice(raw`\(\,z=2-5i\)`, raw`Yes. Adding the real parts gives \(2\), and adding the imaginary parts gives \(-5\).`),
+          wrongChoice(raw`\(\,z=-2+5i\)`, raw`Check the signs carefully when you combine the coordinates.`),
+          wrongChoice(raw`\(\,z=14+13i\)`, raw`That adds the sizes without accounting for the negative parts.`),
+          wrongChoice(raw`\(\,z=2+5i\)`, raw`The imaginary part should be negative: \(4i-9i=-5i\).`)
+        ]),
         {
-          type: "typed",
-          title: "Read u from the diagram",
-          text: raw`Type the coordinates of \(u\) as an ordered pair.`,
-          ariaLabel: "Type the coordinates of u",
-          mode: "list",
-          options: complexPairListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["4,2"],
-          successMessage: raw`Correct. The point \(u\) is \((4,2)\), so \(u=4+2i\).`,
-          targetedFeedback: [
-            {
-              answers: ["2,4"],
-              mode: "list",
-              options: orderedListOptions,
-              message: raw`Watch the order. Write \((\text{real},\text{imaginary})\), not the other way around.`
-            }
-          ],
-          genericMessage: raw`Read the horizontal coordinate first, then the vertical coordinate.`
-        },
-        {
-          type: "typed",
-          title: "Read w from the diagram",
-          text: raw`Type the coordinates of \(w\) as an ordered pair.`,
-          ariaLabel: "Type the coordinates of w",
-          mode: "list",
-          options: complexPairListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["-2,-3"],
-          successMessage: raw`Correct. The point \(w\) is \((-2,-3)\), so \(w=-2-3i\).`,
-          targetedFeedback: [
-            {
-              answers: ["-3,-2"],
-              mode: "list",
-              options: orderedListOptions,
-              message: raw`Close, but the real part is \(-2\) and the imaginary part is \(-3\).`
-            }
-          ],
-          genericMessage: raw`Read the point carefully from the grid.`
-        },
-        {
-          type: "typed",
-          title: "Scale u",
-          text: raw`What are the coordinates of \(2u\)?`,
-          ariaLabel: "Type the coordinates of 2u",
-          mode: "list",
-          options: complexPairListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["8,4"],
-          successMessage: raw`Yes. Doubling \((4,2)\) gives \((8,4)\).`,
-          genericMessage: raw`Multiply both coordinates of \(u\) by \(2\).`
-        },
-        {
-          type: "typed",
-          title: "Scale w",
-          text: raw`What are the coordinates of \(3w\)?`,
-          ariaLabel: "Type the coordinates of 3w",
-          mode: "list",
-          options: complexPairListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["-6,-9"],
-          successMessage: raw`Correct. Multiplying \((-2,-3)\) by \(3\) gives \((-6,-9)\).`,
-          genericMessage: raw`Multiply both coordinates of \(w\) by \(3\).`
-        },
-        {
-          type: "typed",
-          title: "Find z",
-          text: raw`Now add \(2u\) and \(3w\). What are the coordinates of \(z\)?`,
-          ariaLabel: "Type the coordinates of z",
-          mode: "list",
-          options: complexPairListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["2,-5"],
-          successMessage: raw`Correct. So \(z=(2,-5)\), which means \(z=2-5i\).`,
-          targetedFeedback: [
-            {
-              answers: ["-2,5"],
-              mode: "list",
-              options: orderedListOptions,
-              message: raw`Check the signs carefully when you add the coordinates.`
-            }
-          ],
-          genericMessage: raw`Add the real parts together, and add the imaginary parts together.`
+          type: "plot",
+          title: "Plot \(z\)",
+          text: raw`Drag the point to where \(z=2-5i\) should be on the Argand diagram.`,
+          plot: {
+            ariaLabel: "Interactive Argand diagram showing u and w with a draggable point for z",
+            targetX: 2,
+            targetY: -5,
+            draggableLabel: "z",
+            points: [
+              { x: 4, y: 2, label: "u", className: "graph-point", labelX: 4.22, labelY: 2.18 },
+              { x: -2, y: -3, label: "w", className: "graph-point", labelX: -2.62, labelY: -3.22 }
+            ]
+          },
+          successMessage: raw`Nice. The point \((2,-5)\) matches \(z=2-5i\).`,
+          genericMessage: raw`Check the real part first, then the imaginary part. \(2-5i\) means right \(2\) and down \(5\).`,
+          emptyMessage: raw`Place the point on the diagram before checking.`
         }
       ]
     }),
@@ -862,36 +862,36 @@
         </div>
       `,
       steps: [
-        {
-          type: "typed",
-          title: "Multiply the argument",
-          text: raw`After applying De Moivre’s Theorem, what is the new argument of \(u^5\)?`,
-          ariaLabel: "Type the new argument",
-          acceptedAnswers: ["3pi/2"],
-          successMessage: raw`Correct. \(5\times\frac{3\pi}{10}=\frac{3\pi}{2}\).`,
-          genericMessage: raw`Multiply the original argument by \(5\).`
-        },
-        {
-          type: "typed",
-          title: "Find a and b",
-          text: raw`Type the values of \((a,b)\) in that order.`,
-          ariaLabel: "Type the values of a and b",
-          mode: "list",
-          options: complexPairListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["0,-m^5"],
-          samples: [{ m: 2 }, { m: 3 }, { m: 5 }],
-          successMessage: raw`Exactly. So \(u^5=0+(-m^5)i=-m^5i\).`,
-          targetedFeedback: [
-            {
-              answers: ["0,m^5"],
-              mode: "list",
-              options: orderedListOptions,
-              message: raw`The real part is correct, but \(\sin\left(\frac{3\pi}{2}\right)=-1\), so the imaginary coefficient is negative.`
-            }
-          ],
-          genericMessage: raw`Use \(\cos\left(\frac{3\pi}{2}\right)=0\) and \(\sin\left(\frac{3\pi}{2}\right)=-1\).`
-        }
+        choiceStep("Identify the theorem", raw`How do we raise complex numbers in polar form to powers?`, [
+          correctChoice(raw`Use De Moivre’s Theorem.`, raw`Exactly. De Moivre tells us how the modulus and argument change when we raise a complex number to a power.`),
+          wrongChoice(raw`Use the remainder theorem.`, raw`That is for polynomial division, not powers of complex numbers.`),
+          wrongChoice(raw`Use the quadratic formula.`, raw`This is not a quadratic equation.`),
+          wrongChoice(raw`Use conjugates.`, raw`Conjugates help in other contexts, but not as the main theorem here.`)
+        ]),
+        choiceStep("Apply the theorem generally", raw`What does De Moivre give for \(u^n\)?`, [
+          correctChoice(raw`\(\,u^n=m^n\operatorname{cis}\left(\frac{3n\pi}{10}\right)\)`, raw`Yes. Raise the modulus to \(n\) and multiply the argument by \(n\).`),
+          wrongChoice(raw`\(\,u^n=m^n\operatorname{cis}\left(\frac{3\pi}{10n}\right)\)`, raw`For powers we multiply the argument by \(n\); we do not divide by \(n\).`),
+          wrongChoice(raw`\(\,u^n=mn\operatorname{cis}\left(\frac{3n\pi}{10}\right)\)`, raw`The modulus becomes \(m^n\), not \(mn\).`),
+          wrongChoice(raw`\(\,u^n=m^n+\operatorname{cis}\left(\frac{3n\pi}{10}\right)\)`, raw`Polar form multiplies the modulus and cis part; it does not add them.`)
+        ]),
+        choiceStep("Specialise to \(u^5\)", raw`If we want \(u^5\), what do we replace \(n\) with?`, [
+          correctChoice(raw`\(\,5\)`, raw`Right. We are finding the fifth power, so \(n=5\).`),
+          wrongChoice(raw`\(\,\frac{1}{5}\)`, raw`That would be for a fifth root, not a fifth power.`),
+          wrongChoice(raw`\(\,\frac{3\pi}{10}\)`, raw`That is the argument, not the power.`),
+          wrongChoice(raw`\(\,m\)`, raw`\(m\) is the modulus parameter, not the exponent.`)
+        ]),
+        choiceStep("Compute \(u^5\)", raw`What does \(u^5\) become in polar form?`, [
+          correctChoice(raw`\(\,u^5=m^5\operatorname{cis}\left(\frac{3\pi}{2}\right)\)`, raw`Exactly. Multiplying the argument by \(5\) gives \(\frac{3\pi}{2}\).`),
+          wrongChoice(raw`\(\,u^5=m^5\operatorname{cis}\left(\frac{3\pi}{10}\right)\)`, raw`The argument still needs to be multiplied by \(5\).`),
+          wrongChoice(raw`\(\,u^5=5m\operatorname{cis}\left(\frac{3\pi}{2}\right)\)`, raw`The modulus becomes \(m^5\), not \(5m\).`),
+          wrongChoice(raw`\(\,u^5=m^5\operatorname{cis}\left(\frac{\pi}{2}\right)\)`, raw`\(5\times \frac{3\pi}{10}=\frac{3\pi}{2}\), not \(\frac{\pi}{2}\).`)
+        ]),
+        choiceStep("Convert to \(a+bi\)", raw`What is \(u^5\) in the form \(a+bi\)?`, [
+          correctChoice(raw`\(\,-m^5i\)`, raw`Correct. \(\cos\left(\frac{3\pi}{2}\right)=0\) and \(\sin\left(\frac{3\pi}{2}\right)=-1\), so \(u^5=-m^5i\).`),
+          wrongChoice(raw`\(\,m^5i\)`, raw`The sine value is \(-1\), so the imaginary part is negative.`),
+          wrongChoice(raw`\(\,m^5\)`, raw`The angle \(\frac{3\pi}{2}\) gives a purely imaginary result, not a real one.`),
+          wrongChoice(raw`\(\,m^5(1-i)\)`, raw`That would need both cosine and sine to be non-zero.`)
+        ])
       ]
     }),
     "2c": createConfig("2c", "2025 Paper — Modulus equation with a real parameter", {
@@ -930,39 +930,32 @@
         </div>
       `,
       steps: [
-        {
-          type: "typed",
-          title: "Rewrite the modulus",
-          text: raw`What does \(|5-mi|\) become as a square root?`,
-          ariaLabel: "Type the square-root form of the modulus",
-          acceptedAnswers: ["sqrt(25+m^2)"],
-          samples: [{ m: -3 }, { m: 2 }, { m: 5 }],
-          successMessage: raw`Correct. The modulus is \(\sqrt{5^2+m^2}=\sqrt{25+m^2}\).`,
-          genericMessage: raw`Use \(|a+bi|=\sqrt{a^2+b^2}\).`
-        },
-        {
-          type: "typed",
-          title: "Square the equation",
-          text: raw`After squaring both sides, what equation do you get?`,
-          ariaLabel: "Type the squared equation",
-          mode: "equation",
-          acceptedAnswers: ["4m^2=25"],
-          samples: [{ m: -3 }, { m: 2 }, { m: 5 }],
-          successMessage: raw`Yes. Squaring gives \(25+m^2=5m^2\), so \(4m^2=25\).`,
-          genericMessage: raw`Square both sides, then collect the \(m^2\) terms together.`
-        },
-        {
-          type: "typed",
-          title: "Solve for m",
-          text: raw`Type both values of \(m\), separated by commas.`,
-          ariaLabel: "Type both values of m",
-          mode: "list",
-          options: unorderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["-5/2,5/2"],
-          successMessage: raw`Correct. Solving \(4m^2=25\) gives \(m=\pm\frac{5}{2}\).`,
-          genericMessage: raw`Divide by \(4\), then take square roots.`
-        }
+        choiceStep("Rewrite the modulus", raw`How can we write the left-hand side as a square root?`, [
+          correctChoice(raw`\(\,\sqrt{5^2+m^2}=\sqrt{5m^2}\)`, raw`Correct. \(|5-mi|\) becomes \(\sqrt{5^2+m^2}\).`),
+          wrongChoice(raw`\(\,\sqrt{5+m}=\sqrt{5m^2}\)`, raw`A modulus uses squared parts, not just \(5+m\).`),
+          wrongChoice(raw`\(\,5-m=\sqrt{5m^2}\)`, raw`The modulus is always non-negative and is written using a square root.`),
+          wrongChoice(raw`\(\,\sqrt{25-m^2}=\sqrt{5m^2}\)`, raw`Both parts are squared and added inside the modulus formula.`)
+        ]),
+        choiceStep("Square and solve", raw`What values of \(m\) does the equation give?`, [
+          correctChoice(raw`\(\,m=\pm\frac{5}{2}\)`, raw`Yes. Squaring gives \(25+m^2=5m^2\), so \(25=4m^2\) and \(m=\pm \frac{5}{2}\).`),
+          wrongChoice(raw`\(\,m=\pm 5\)`, raw`We still need to divide by \(4\) before taking the square root.`),
+          wrongChoice(raw`\(\,m=\frac{5}{4}\)`, raw`Do not forget the \(\pm\) when taking square roots.`),
+          wrongChoice(raw`\(\,m=\pm\sqrt{5}\)`, raw`The equation simplifies to \(m^2=\frac{25}{4}\), not \(m^2=5\).`)
+        ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \sqrt{5^2+m^2}=\sqrt{5m^2}
+              \]
+              \[
+              25+m^2=5m^2
+              \]
+              \[
+              25=4m^2
+              \]
+            </div>
+          `
+        })
       ]
     }),
     "2d": createConfig("2d", "2025 Paper — Matching real and imaginary parts", {
@@ -1011,10 +1004,16 @@
           gh=-28
           \]
         </div>
-        <p class="step-text">Substitute \(h=\frac{3g-26}{2}\) into \(gh=-28\):</p>
+        <p class="step-text">Use the imaginary parts first, then substitute into the real-part equation:</p>
         <div class="math-block">
           \[
-          g\left(\frac{3g-26}{2}\right)=-28
+          h=-\frac{28}{g}
+          \]
+          \[
+          3g-2\left(-\frac{28}{g}\right)=26
+          \]
+          \[
+          3g^2+56=26g
           \]
           \[
           3g^2-26g+56=0
@@ -1028,70 +1027,30 @@
         </div>
       `,
       steps: [
-        {
-          type: "typed",
-          title: "Expand the right side",
-          text: raw`Type the real part and imaginary coefficient of \((10-4i)(3-i)\) as an ordered pair.`,
-          ariaLabel: "Type the real part and imaginary coefficient",
-          mode: "list",
-          options: complexPairListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["26,-22"],
-          successMessage: raw`Correct. The right side simplifies to \(26-22i\).`,
-          genericMessage: raw`Expand carefully and remember that \(i^2=-1\).`
-        },
-        {
-          type: "typed",
-          title: "Match real parts",
-          text: raw`What equation do the real parts give you?`,
-          ariaLabel: "Type the real-parts equation",
-          mode: "equation",
-          acceptedAnswers: ["3g-2h=26"],
-          samples: [{ g: 4, h: -7 }, { g: 14 / 3, h: -6 }, { g: 2, h: 1 }],
-          successMessage: raw`Yes. The real part on the left is \(3g-2h\), so \(3g-2h=26\).`,
-          genericMessage: raw`From the left side, the real part is \(3g-2h\). Match that with the right side.`
-        },
-        {
-          type: "typed",
-          title: "Match imaginary parts",
-          text: raw`What value must \(gh\) have?`,
-          ariaLabel: "Type the value of gh",
-          acceptedAnswers: ["-28"],
-          successMessage: raw`Correct. Since \(6+gh=-22\), it follows that \(gh=-28\).`,
-          genericMessage: raw`Use the imaginary parts: \(6+gh=-22\).`
-        },
-        {
-          type: "typed",
-          title: "Find the values of g",
-          text: raw`Type the two possible values of \(g\) in increasing order.`,
-          ariaLabel: "Type the two values of g",
-          mode: "list",
-          options: orderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["4,14/3"],
-          successMessage: raw`Correct. Solving \(3g^2-26g+56=0\) gives \(g=4\) and \(g=\frac{14}{3}\).`,
-          targetedFeedback: [
-            {
-              answers: ["14/3,4"],
-              mode: "list",
-              options: orderedListOptions,
-              message: raw`Those are the right values, but put them in increasing order.`
-            }
-          ],
-          genericMessage: raw`Substitute \(h=\frac{3g-26}{2}\) into \(gh=-28\), then solve the quadratic in \(g\).`
-        },
-        {
-          type: "typed",
-          title: "Match each value of h",
-          text: raw`Type the matching values of \(h\) in the same order.`,
-          ariaLabel: "Type the matching values of h",
-          mode: "list",
-          options: orderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["-7,-6"],
-          successMessage: raw`Exactly. The two solution pairs are \((4,-7)\) and \(\left(\frac{14}{3},-6\right)\).`,
-          genericMessage: raw`Use \(h=\frac{3g-26}{2}\) for each value of \(g\).`
-        }
+        choiceStep("Expand both sides", raw`Which line shows the equation expanded correctly?`, [
+          correctChoice(raw`\(\,3g-2h+(6+hg)i=26-22i\)`, raw`Correct. Expanding both products gives a real-part equation and an imaginary-part equation to compare.`),
+          wrongChoice(raw`\(\,3g+2h+(6-hg)i=26-22i\)`, raw`Check the sign from \(2hi^2\) and the sign on the \(hg\) term.`),
+          wrongChoice(raw`\(\,3g-2h+(6+hg)i=30-22i\)`, raw`The right side simplifies to \(26-22i\), because \(4i^2=-4\).`),
+          wrongChoice(raw`\(\,3g+2h+(6+hg)i=26+22i\)`, raw`Both the real and imaginary signs are off.`)
+        ]),
+        choiceStep("Use the imaginary parts", raw`What does equating the imaginary parts tell us about \(h\)?`, [
+          correctChoice(raw`\(\,h=-\frac{28}{g}\)`, raw`Yes. From \(6+gh=-22\), we get \(gh=-28\), so \(h=-\frac{28}{g}\).`),
+          wrongChoice(raw`\(\,h=\frac{28}{g}\)`, raw`The sign should be negative because \(gh=-28\).`),
+          wrongChoice(raw`\(\,h=\frac{g}{28}\)`, raw`Solve \(gh=-28\) for \(h\) by dividing by \(g\).`),
+          wrongChoice(raw`\(\,h=-28g\)`, raw`We divide by \(g\); we do not multiply by \(g\).`)
+        ]),
+        choiceStep("Substitute into the real part", raw`What values of \(g\) do we get after substituting into \(3g-2h=26\)?`, [
+          correctChoice(raw`\(\,g=4,\ \frac{14}{3}\)`, raw`Exactly. Substituting \(h=-\frac{28}{g}\) gives \(3g^2-26g+56=0\), which factors to \((3g-14)(g-4)=0\).`),
+          wrongChoice(raw`\(\,g=4,\ -\frac{14}{3}\)`, raw`The second factor gives a positive \(\frac{14}{3}\), not a negative value.`),
+          wrongChoice(raw`\(\,g=-4,\ \frac{14}{3}\)`, raw`The factor \(g-4=0\) gives \(g=4\).`),
+          wrongChoice(raw`\(\,g=7,\ 8\)`, raw`Check the quadratic carefully after substitution.`)
+        ]),
+        choiceStep("Match the corresponding \(h\)-values", raw`What are the two solution pairs \((g,h)\)?`, [
+          correctChoice(raw`\(\,(4,-7)\) and \(\left(\frac{14}{3},-6\right)\)`, raw`Correct. Substituting each \(g\)-value into \(h=-\frac{28}{g}\) gives those two pairs.`),
+          wrongChoice(raw`\(\,(4,7)\) and \(\left(\frac{14}{3},6\right)\)`, raw`Both \(h\)-values should be negative.`),
+          wrongChoice(raw`\(\,(4,-6)\) and \(\left(\frac{14}{3},-7\right)\)`, raw`The \(h\)-values are attached to the wrong \(g\)-values.`),
+          wrongChoice(raw`\(\,(-4,-7)\) and \(\left(\frac{14}{3},-6\right)\)`, raw`The first \(g\)-value is \(4\), not \(-4\).`)
+        ])
       ]
     }),
     "2e": createConfig("2e", "2025 Paper — Argument condition", {
@@ -1140,54 +1099,49 @@
         </div>
       `,
       steps: [
-        {
-          type: "choice",
-          title: "Use the argument",
-          text: raw`What does \(\arg\left(\frac{d+6i}{1-di}\right)=\frac{\pi}{4}\) tell you after rationalising?`,
-          buttonGridClass: "button-grid",
-          choices: [
-            {
-              html: raw`The real part and imaginary part are equal.`,
-              correct: true,
-              successMessage: raw`Correct. Since \(\tan\left(\frac{\pi}{4}\right)=1\), the real part and imaginary part must match.`
-            },
-            {
-              html: raw`The real part must be zero.`,
-              failureMessage: raw`Not here. An argument of \(\frac{\pi}{4}\) does not put the number on the imaginary axis.`
-            },
-            {
-              html: raw`The modulus must be \(1\).`,
-              failureMessage: raw`That is a condition on size, not angle.`
-            },
-            {
-              html: raw`The denominator must be purely real.`,
-              failureMessage: raw`The denominator becomes real after rationalising, but that is not the angle condition itself.`
-            }
-          ]
-        },
-        {
-          type: "typed",
-          title: "Set up the equation",
-          text: raw`After rationalising, what equation do you get by matching the real and imaginary parts?`,
-          ariaLabel: "Type the equation in d",
-          mode: "equation",
-          acceptedAnswers: ["d^2+5d+6=0"],
-          samples: [{ d: -2 }, { d: -3 }, { d: 1 }],
-          successMessage: raw`Yes. Rationalising gives \(\frac{-5d+(6+d^2)i}{1+d^2}\), so matching real and imaginary parts gives \(d^2+5d+6=0\).`,
-          genericMessage: raw`After rationalising, set the real part \(-5d\) equal to the imaginary coefficient \(6+d^2\).`
-        },
-        {
-          type: "typed",
-          title: "Solve for d",
-          text: raw`Type the possible values of \(d\), separated by commas.`,
-          ariaLabel: "Type the possible values of d",
-          mode: "list",
-          options: unorderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["-2,-3"],
-          successMessage: raw`Correct. Solving \(d^2+5d+6=0\) gives \(d=-2\) or \(d=-3\).`,
-          genericMessage: raw`Factor the quadratic \(d^2+5d+6=0\).`
-        }
+        choiceStep("Interpret the argument", raw`What does the argument of a complex number represent?`, [
+          correctChoice(raw`The angle the point makes with the positive real axis.`, raw`Yes. The argument describes the direction of the complex number on the Argand diagram.`),
+          wrongChoice(raw`The distance from the origin.`, raw`That is the modulus, not the argument.`),
+          wrongChoice(raw`The conjugate of the number.`, raw`Conjugate is a different operation entirely.`),
+          wrongChoice(raw`The denominator after rationalising.`, raw`That is not what the argument means.`)
+        ]),
+        choiceStep("Use \(\frac{\pi}{4}\)", raw`What does an argument of \(\frac{\pi}{4}\) tell us about the real and imaginary parts?`, [
+          correctChoice(raw`They are equal.`, raw`Exactly. \(\tan\left(\frac{\pi}{4}\right)=1\), so the real part and imaginary coefficient must match.`),
+          wrongChoice(raw`The real part must be zero.`, raw`That would put the number on the imaginary axis, not at an angle of \(\frac{\pi}{4}\).`),
+          wrongChoice(raw`The imaginary part must be zero.`, raw`That would put the number on the real axis.`),
+          wrongChoice(raw`The modulus must be \(1\).`, raw`This question gives an angle condition, not a size condition.`)
+        ]),
+        choiceStep("Choose the next move", raw`How do we make the real and imaginary parts easy to compare?`, [
+          correctChoice(raw`Multiply by the conjugate of the denominator.`, raw`Yes. Rationalising removes the \(i\) from the denominator so the real and imaginary parts are easy to read.`),
+          wrongChoice(raw`Multiply by the conjugate of the numerator.`, raw`That does not fix the denominator, which is the awkward part here.`),
+          wrongChoice(raw`Square the whole fraction.`, raw`Squaring would change the argument and the value of the expression.`),
+          wrongChoice(raw`Take the modulus of both sides.`, raw`The condition is about argument, not modulus.`)
+        ]),
+        choiceStep("Rationalise the fraction", raw`What do we get after multiplying top and bottom by \(1+di\)?`, [
+          correctChoice(raw`\(\,\frac{-5d+(6+d^2)i}{1+d^2}\)`, raw`Correct. The real part is \(-5d\) and the imaginary coefficient is \(6+d^2\).`),
+          wrongChoice(raw`\(\,\frac{5d+(6+d^2)i}{1+d^2}\)`, raw`The real part comes from \(d+6di^2=d-6d=-5d\).`),
+          wrongChoice(raw`\(\,\frac{-5d+(6-d^2)i}{1+d^2}\)`, raw`The \(d^2i\) term adds to \(6i\), so the imaginary coefficient is \(6+d^2\).`),
+          wrongChoice(raw`\(\,\frac{-5d+(6+d^2)i}{1-d^2}\)`, raw`The denominator is \((1-di)(1+di)=1+d^2\).`)
+        ]),
+        choiceStep("Solve for \(d\)", raw`What are the possible values of \(d\)?`, [
+          correctChoice(raw`\(\,d=-3,\ -2\)`, raw`Exactly. Equating \(-5d\) and \(6+d^2\) gives \(d^2+5d+6=0\), so \(d=-3\) or \(d=-2\).`),
+          wrongChoice(raw`\(\,d=3,\ 2\)`, raw`The factors are \((d+3)(d+2)=0\), so both values are negative.`),
+          wrongChoice(raw`\(\,d=-6,\ 1\)`, raw`Those do not satisfy \(d^2+5d+6=0\).`),
+          wrongChoice(raw`\(\,d=\pm\sqrt{6}\)`, raw`The quadratic factors nicely, so the solutions are simple integers.`)
+        ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \frac{d+6i}{1-di}\cdot\frac{1+di}{1+di}
+              =
+              \frac{-5d+(6+d^2)i}{1+d^2}
+              \]
+              \[
+              -5d=6+d^2
+              \]
+            </div>
+          `
+        })
       ]
     }),
     "3a": createConfig("3a", "2025 Paper — Conjugate roots and a quadratic", {
@@ -1230,46 +1184,24 @@
         </div>
       `,
       steps: [
-        {
-          type: "choice",
-          title: "Use the conjugate-root rule",
-          text: raw`What other root must the quadratic have?`,
-          buttonGridClass: "button-grid",
-          choices: [
-            {
-              html: raw`\(2-\sqrt{p}\,i\)`,
-              correct: true,
-              successMessage: raw`Correct. Real-coefficient quadratics always have complex roots in conjugate pairs.`
-            },
-            {
-              html: raw`\(-2+\sqrt{p}\,i\)`,
-              failureMessage: raw`Not quite. Only the imaginary part changes sign for the conjugate root.`
-            },
-            {
-              html: raw`\(-2-\sqrt{p}\,i\)`,
-              failureMessage: raw`The real part stays \(2\); only the imaginary part changes sign.`
-            },
-            {
-              html: raw`\(2+\sqrt{p}\,i\)`,
-              failureMessage: raw`That is the original root, not the second one.`
-            }
-          ]
-        },
-        {
-          type: "typed",
-          title: "Build the quadratic",
-          text: raw`After multiplying the conjugate factors, what quadratic equation do you get?`,
-          ariaLabel: "Type the quadratic equation",
-          mode: "equation",
-          options: {
-            equationRhs: "0",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["x^2-4x+4+p=0"],
-          samples: [{ x: 2, p: 1 }, { x: -1, p: 4 }, { x: 3, p: 9 }],
-          successMessage: raw`Exactly. The quadratic is \(x^2-4x+4+p=0\).`,
-          genericMessage: raw`Multiply the conjugate pair. The imaginary terms cancel, and \(i^2=-1\).`
-        }
+        choiceStep("Find the other root", raw`What will the other root be?`, [
+          correctChoice(raw`\(\,x=2-\sqrt{p}\,i\)`, raw`Correct. Real-coefficient quadratics have complex roots in conjugate pairs.`),
+          wrongChoice(raw`\(\,x=-2+\sqrt{p}\,i\)`, raw`Only the imaginary part changes sign in the conjugate.`),
+          wrongChoice(raw`\(\,x=-2-\sqrt{p}\,i\)`, raw`The real part stays \(2\).`),
+          wrongChoice(raw`\(\,x=2+\sqrt{p}\,i\)`, raw`That is just the root we were already given.`)
+        ]),
+        choiceStep("Write the factored form", raw`How do we write the quadratic in factored form?`, [
+          correctChoice(raw`\(\,(x-2-\sqrt{p}\,i)(x-2+\sqrt{p}\,i)=0\)`, raw`Yes. Each factor is \(x\) minus one of the roots.`),
+          wrongChoice(raw`\(\,(x+2-\sqrt{p}\,i)(x+2+\sqrt{p}\,i)=0\)`, raw`The factors should be \(x- \text{root}\), not \(x+\text{root}\).`),
+          wrongChoice(raw`\(\,(x-2+\sqrt{p}\,i)^2=0\)`, raw`We need both conjugate factors, not the same factor twice.`),
+          wrongChoice(raw`\(\,(x-\sqrt{p}\,i)(x+\sqrt{p}\,i)=0\)`, raw`That would ignore the real part \(2\).`)
+        ]),
+        choiceStep("Expand to the quadratic", raw`Which expanded equation is correct?`, [
+          correctChoice(raw`\(\,x^2-4x+4+p=0\)`, raw`Exactly. The surd terms cancel, and \((\sqrt{p}\,i)^2=-p\), so subtracting it adds \(p\).`),
+          wrongChoice(raw`\(\,x^2-4x+4-p=0\)`, raw`Remember that \(i^2=-1\), so subtracting \((\sqrt{p}\,i)^2\) gives \(+p\).`),
+          wrongChoice(raw`\(\,x^2+4x+4+p=0\)`, raw`The middle term should be \(-4x\), coming from the pair of \((x-2)\) factors.`),
+          wrongChoice(raw`\(\,x^2-2x+4+p=0\)`, raw`The combined middle term is \(-4x\), not \(-2x\).`)
+        ])
       ]
     }),
     "3b": createConfig("3b", "2025 Paper — Squaring a complex expression", {
@@ -1303,38 +1235,24 @@
         </div>
       `,
       steps: [
-        {
-          type: "typed",
-          title: "Find the real part",
-          text: raw`After simplifying the square terms, what is the real part of the answer?`,
-          ariaLabel: "Type the real part",
-          acceptedAnswers: ["-9a"],
-          samples: [{ a: 1 }, { a: 2 }, { a: 5 }],
-          successMessage: raw`Correct. The real part is \(3a+12ai^2=3a-12a=-9a\).`,
-          targetedFeedback: [
-            {
-              answers: ["15a"],
-              message: raw`Check the \(i^2\) term. Since \(i^2=-1\), the last term is \(-12a\), not \(+12a\).`
-            }
-          ],
-          genericMessage: raw`Combine the square terms and remember that \(i^2=-1\).`
-        },
-        {
-          type: "typed",
-          title: "Find the imaginary coefficient",
-          text: raw`What is the coefficient of \(i\) in the final answer?`,
-          ariaLabel: "Type the coefficient of i",
-          acceptedAnswers: ["-12a"],
-          samples: [{ a: 1 }, { a: 2 }, { a: 5 }],
-          successMessage: raw`Yes. So the full answer is \(-9a-12ai\).`,
-          targetedFeedback: [
-            {
-              answers: ["12a"],
-              message: raw`The cross term is negative because the expression is \((A-B)^2\).`
-            }
-          ],
-          genericMessage: raw`Look at the middle term \(-2AB\).`
-        }
+        choiceStep("Choose the expansion rule", raw`What rule are we using here?`, [
+          correctChoice(raw`\(\,(A+B)^2=A^2+2AB+B^2\)`, raw`Yes. Here the second term already contains the negative sign, so this rule still fits.`),
+          wrongChoice(raw`\(\,(A+B)^2=A^2-B^2\)`, raw`That is not the square-of-a-binomial rule.`),
+          wrongChoice(raw`\(\,(A-B)^2=A^2-B^2\)`, raw`The middle term is missing from that formula.`),
+          wrongChoice(raw`\(\,(A+B)^2=A^2+B^2\)`, raw`We still need the \(2AB\) term.`)
+        ]),
+        choiceStep("Apply the rule", raw`What do we get after applying the rule to the expression?`, [
+          correctChoice(raw`\(\,3a+12ai^2-2\sqrt{36a^2}\,i\)`, raw`Correct. That is the full expansion before we simplify \(i^2\) and the square root.`),
+          wrongChoice(raw`\(\,3a+12a-2\sqrt{36a^2}\,i\)`, raw`The \(12a\) term still comes from \(12ai^2\) at this stage.`),
+          wrongChoice(raw`\(\,3a+12ai^2+2\sqrt{36a^2}\,i\)`, raw`The middle term is negative because the complex term itself is negative.`),
+          wrongChoice(raw`\(\,3a+6ai^2-2\sqrt{12a^2}\,i\)`, raw`Both the square term and the cross term simplify differently from that.`)
+        ]),
+        choiceStep("Simplify fully", raw`What is the final simplified answer?`, [
+          correctChoice(raw`\(\,-9a-12ai\)`, raw`Exactly. Since \(i^2=-1\) and \(\sqrt{36a^2}=6a\), the expression simplifies to \(-9a-12ai\).`),
+          wrongChoice(raw`\(\,15a-12ai\)`, raw`The \(12ai^2\) term becomes \(-12a\), not \(+12a\).`),
+          wrongChoice(raw`\(\,-9a+12ai\)`, raw`The cross term is negative, so the imaginary part stays negative.`),
+          wrongChoice(raw`\(\,9a-12ai\)`, raw`The real part is \(3a-12a=-9a\).`)
+        ])
       ]
     }),
     "3c": createConfig("3c", "2025 Paper — Solving with \u221ax substitution", {
@@ -1388,40 +1306,30 @@
         </div>
       `,
       steps: [
-        {
-          type: "typed",
-          title: "Expand the left side",
-          text: raw`What does the left-hand side simplify to after expanding?`,
-          ariaLabel: "Type the expanded left-hand side",
-          acceptedAnswers: ["4x+8sqrt(x)+3"],
-          samples: [{ x: 1 }, { x: 4 }, { x: 9 }],
-          successMessage: raw`Correct. The expanded left-hand side is \(4x+8\sqrt{x}+3\).`,
-          genericMessage: raw`Multiply each term carefully, then collect the \(\sqrt{x}\) terms.`
-        },
-        {
-          type: "typed",
-          title: "Solve for u",
-          text: raw`After letting \(u=\sqrt{x}\), what valid value of \(u\) do you keep?`,
-          ariaLabel: "Type the valid value of u",
-          acceptedAnswers: ["1/2", "0.5"],
-          successMessage: raw`Yes. The quadratic gives \(u=-1\) or \(u=\frac{1}{2}\), but \(u=\sqrt{x}\) cannot be negative.`,
-          targetedFeedback: [
-            {
-              answers: ["-1"],
-              message: raw`That value solves the quadratic, but it is not valid because \(u=\sqrt{x}\ge 0\).`
-            }
-          ],
-          genericMessage: raw`Solve \(4u^2+2u-2=0\), then keep only the value that works for \(\sqrt{x}\).`
-        },
-        {
-          type: "typed",
-          title: "Find x",
-          text: raw`What is the value of \(x\)?`,
-          ariaLabel: "Type the value of x",
-          acceptedAnswers: ["1/4", "0.25"],
-          successMessage: raw`Correct. Since \(u=\sqrt{x}=\frac{1}{2}\), we get \(x=\frac{1}{4}\).`,
-          genericMessage: raw`Square the valid value of \(u\).`
-        }
+        choiceStep("Make the substitution", raw`What substitution will simplify the equation?`, [
+          correctChoice(raw`\(\,u=\sqrt{x}\)`, raw`Exactly. That turns the radicals into an ordinary quadratic in \(u\).`),
+          wrongChoice(raw`\(\,u=x^2\)`, raw`We want to replace the square root directly.`),
+          wrongChoice(raw`\(\,u=2\sqrt{x}\)`, raw`That would still work eventually, but the PDF’s clean substitution is \(u=\sqrt{x}\).`),
+          wrongChoice(raw`\(\,u=\frac{1}{\sqrt{x}}\)`, raw`That makes the algebra harder, not simpler.`)
+        ]),
+        choiceStep("Rewrite the equation", raw`What does the equation become after that substitution?`, [
+          correctChoice(raw`\(\,(1+2u)(3+2u)=5+6u\)`, raw`Yes. Replacing \(\sqrt{x}\) with \(u\) gives exactly that.`),
+          wrongChoice(raw`\(\,(1+u)(3+u)=5+6u\)`, raw`The coefficients of \(2\sqrt{x}\) should become \(2u\).`),
+          wrongChoice(raw`\(\,(1+2u)(3+u)=5+6u\)`, raw`Both square-root terms should change to \(2u\).`),
+          wrongChoice(raw`\(\,(1+2u)(3+2u)=5+6x\)`, raw`Once we substitute, the right-hand side should also use \(u\).`)
+        ]),
+        choiceStep("Expand and solve for \(u\)", raw`Which values of \(u\) do we get?`, [
+          correctChoice(raw`\(\,u=-1,\ \frac{1}{2}\)`, raw`Correct. Expanding gives \(3+8u+4u^2=5+6u\), so \(4u^2+2u-2=0\), and the roots are \(u=-1\) and \(u=\frac{1}{2}\).`),
+          wrongChoice(raw`\(\,u=1,\ \frac{1}{4}\)`, raw`Those are tempting, but the quadratic is in \(u\), not in \(x\).`),
+          wrongChoice(raw`\(\,u=-\frac{1}{2},\ 1\)`, raw`Check the factorisation or quadratic solving again.`),
+          wrongChoice(raw`\(\,u=\pm\frac{1}{2}\)`, raw`One root is \(-1\), not \(-\frac{1}{2}\).`)
+        ]),
+        choiceStep("Check validity", raw`Which value of \(x\) is valid?`, [
+          correctChoice(raw`\(\,x=\frac{1}{4}\)`, raw`Exactly. Since \(u=\sqrt{x}\ge 0\), we keep \(u=\frac{1}{2}\), so \(x=\left(\frac{1}{2}\right)^2=\frac{1}{4}\).`),
+          wrongChoice(raw`\(\,x=1\)`, raw`That comes from the invalid root \(u=-1\), which cannot equal \(\sqrt{x}\).`),
+          wrongChoice(raw`\(\,x=-1\)`, raw`A square root substitution rules that out straight away.`),
+          wrongChoice(raw`\(\,x=\frac{1}{2}\)`, raw`Once we find \(u=\frac{1}{2}\), we still need to square it to get \(x\).`)
+        ])
       ]
     }),
     "3d": createConfig("3d", "2025 Paper — Cubic with real coefficients", {
@@ -1465,76 +1373,40 @@
         <p class="step-text">So the other two solutions are \(1-i\) and \(\frac{4}{3}\).</p>
       `,
       steps: [
-        {
-          type: "choice",
-          title: "Find the conjugate root",
-          text: raw`What other complex root must exist because the coefficients are real?`,
-          buttonGridClass: "button-grid",
-          choices: [
-            {
-              html: raw`\(1-i\)`,
-              correct: true,
-              successMessage: raw`Correct. Complex roots occur in conjugate pairs when the coefficients are real.`
-            },
-            {
-              html: raw`\(-1+i\)`,
-              failureMessage: raw`The real part stays the same. Only the sign of the imaginary part changes.`
-            },
-            {
-              html: raw`\(-1-i\)`,
-              failureMessage: raw`Not quite. The conjugate of \(1+i\) is \(1-i\).`
-            },
-            {
-              html: raw`\(\frac{4}{3}\)`,
-              failureMessage: raw`That is the remaining real root later on, but it is not the conjugate partner of \(1+i\).`
-            }
-          ]
-        },
-        {
-          type: "typed",
-          title: "Multiply the conjugate pair",
-          text: raw`What quadratic factor comes from the roots \(1+i\) and \(1-i\)?`,
-          ariaLabel: "Type the quadratic factor",
-          acceptedAnswers: ["z^2-2z+2"],
-          samples: [{ z: 0 }, { z: 2 }, { z: 4 }],
-          successMessage: raw`Yes. The conjugate pair gives the factor \(z^2-2z+2\).`,
-          genericMessage: raw`Multiply \((z-1-i)(z-1+i)\).`
-        },
-        {
-          type: "typed",
-          title: "Find the remaining factor",
-          text: raw`What linear factor is left?`,
-          ariaLabel: "Type the linear factor",
-          acceptedAnswers: ["3z-4"],
-          samples: [{ z: 0 }, { z: 2 }, { z: 4 }],
-          successMessage: raw`Correct. The remaining factor is \(3z-4\).`,
-          genericMessage: raw`Use the constant term \(-8\) and the leading coefficient \(3\) to identify the last factor.`
-        },
-        {
-          type: "typed",
-          title: "Find the remaining real root",
-          text: raw`What real root comes from that linear factor?`,
-          ariaLabel: "Type the remaining real root",
-          acceptedAnswers: ["4/3", "1.3333333333333333"],
-          successMessage: raw`Correct. So the other two roots are \(1-i\) and \(\frac{4}{3}\).`,
-          genericMessage: raw`Set \(3z-4=0\) and solve for \(z\).`
-        },
-        {
-          type: "typed",
-          title: "Find p and q",
-          text: raw`Type the values of \((p,q)\) in that order.`,
-          ariaLabel: "Type the values of p and q",
-          mode: "list",
-          options: orderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["-10,14"],
-          successMessage: raw`Exactly. Matching coefficients gives \(p=-10\) and \(q=14\).`,
-          genericMessage: raw`Expand \((z^2-2z+2)(3z-4)\), then compare the coefficients with \(3z^3+pz^2+qz-8\).`
-        }
+        choiceStep("Use the conjugate-root rule", raw`What other complex root must exist because the coefficients are real?`, [
+          correctChoice(raw`\(\,1-i\)`, raw`Correct. Real coefficients force non-real roots to come in conjugate pairs.`),
+          wrongChoice(raw`\(\,-1+i\)`, raw`The real part stays the same when you take the conjugate.`),
+          wrongChoice(raw`\(\,-1-i\)`, raw`The conjugate of \(1+i\) is \(1-i\).`),
+          wrongChoice(raw`\(\,\frac{4}{3}\)`, raw`That is the remaining real root later on, not the conjugate partner.`)
+        ]),
+        choiceStep("Multiply the conjugate pair", raw`What factor do the roots \(1+i\) and \(1-i\) give together?`, [
+          correctChoice(raw`\(\,z^2-2z+2\)`, raw`Yes. Multiplying \((z-1-i)(z-1+i)\) gives the quadratic factor \(z^2-2z+2\).`),
+          wrongChoice(raw`\(\,z^2+2z+2\)`, raw`The middle term should be negative, because both factors start with \(z-1\).`),
+          wrongChoice(raw`\(\,z^2-2z-2\)`, raw`The constant term is positive \(2\).`),
+          wrongChoice(raw`\(\,z^2-z+2\)`, raw`The middle term comes from \(-(1+i)-(1-i)=-2\).`)
+        ]),
+        choiceStep("Find the third factor", raw`What must the remaining linear factor be?`, [
+          correctChoice(raw`\(\,3z-4\)`, raw`Exactly. The constants must multiply to \(-8\), and the leading coefficient must still be \(3\).`),
+          wrongChoice(raw`\(\,z-4\)`, raw`That would not give the leading coefficient \(3\).`),
+          wrongChoice(raw`\(\,3z+4\)`, raw`The constant term would come out positive, not \(-8\).`),
+          wrongChoice(raw`\(\,z+4\)`, raw`That gives the wrong leading coefficient and the wrong constant sign.`)
+        ]),
+        choiceStep("Expand the full polynomial", raw`What do we get when we multiply the factors out?`, [
+          correctChoice(raw`\(\,3z^3-10z^2+14z-8\)`, raw`Correct. That is the fully expanded polynomial to compare with \(3z^3+pz^2+qz-8\).`),
+          wrongChoice(raw`\(\,3z^3-10z^2+8z-8\)`, raw`Check the coefficient of \(z\) after combining like terms.`),
+          wrongChoice(raw`\(\,3z^3-8z^2+14z-8\)`, raw`The \(z^2\)-coefficient should be \(-10\).`),
+          wrongChoice(raw`\(\,3z^3+10z^2+14z-8\)`, raw`The quadratic factor has a negative middle term, so the expanded \(z^2\)-term is negative.`)
+        ]),
+        choiceStep("State the conclusion", raw`What are the other two roots, and what are \(p\) and \(q\)?`, [
+          correctChoice(raw`\(\,1-i,\ \frac{4}{3};\ p=-10,\ q=14\)`, raw`Exactly. The other two roots are \(1-i\) and \(\frac{4}{3}\), and matching coefficients gives \(p=-10\) and \(q=14\).`),
+          wrongChoice(raw`\(\,1-i,\ -\frac{4}{3};\ p=-10,\ q=14\)`, raw`Solve \(3z-4=0\): the real root is positive \(\frac{4}{3}\).`),
+          wrongChoice(raw`\(\,1+i,\ \frac{4}{3};\ p=-10,\ q=14\)`, raw`We need the conjugate root \(1-i\), not the repeated original root.`),
+          wrongChoice(raw`\(\,1-i,\ \frac{4}{3};\ p=10,\ q=14\)`, raw`The expanded coefficient of \(z^2\) is \(-10\), so \(p\) is negative.`)
+        ])
       ]
     }),
     "3e": createConfig("3e", "2025 Paper — Simultaneous complex equations", {
-      focus: raw`writing complex numbers in component form, separating real and imaginary parts, and solving the simultaneous equations.`,
+      focus: raw`using elimination with a strategically chosen multiple, then simplifying the resulting complex fractions to solve for \(u\) and \(v\).`,
       questionHtml: raw`
         <p class="step-text">Given that \(u\) and \(v\) are both complex numbers, solve the following pair of simultaneous equations, giving solutions in the form \(a+bi\).</p>
         <div class="question-math">
@@ -1547,126 +1419,119 @@
         </div>
       `,
       questionNotes: [
-        raw`When you type coefficient pairs, use \((\text{real part},\text{coefficient of }i)\).`
+        raw`Follow the elimination route: make the \(u\)-terms match first, then solve for \(v\), then back-substitute for \(u\).`
       ],
       hints: [
-        raw`Let \(u=a+bi\) and \(v=c+di\).`,
-        raw`Use the first equation to write \(c\) and \(d\) in terms of \(a\) and \(b\).`,
-        raw`Substitute those into the second equation, then match real and imaginary parts again.`
+        raw`Multiply the second equation by \(i\) so both equations contain \(ui\).`,
+        raw`Subtract the new equation from the first one to eliminate \(u\).`,
+        raw`Solve for \(v\) first, then substitute back into \(u+(1-i)v=4\).`
       ],
       answerHtml: raw`
-        <p class="step-text">Let \(u=a+bi\) and \(v=c+di\). Then the first equation gives:</p>
+        <p class="step-text">Multiply the second equation by \(i\) so the \(u\)-terms match:</p>
         <div class="math-block">
           \[
-          ai + bi^2 + 2c + 2di = 3
-          \]
-          \[
-          2c + 2di = 3 - ai + b
-          \]
-          \[
-          2c = 3+b,\qquad 2d = -a
+          ui+(1-i)vi=4i
           \]
         </div>
-        <p class="step-text">So:</p>
+        <p class="step-text">Now subtract this from the first equation:</p>
         <div class="math-block">
           \[
-          c=\frac{3+b}{2},\qquad d=-\frac{a}{2}
+          ui+2v-(ui+(1-i)vi)=3-4i
+          \]
+          \[
+          2v-(1-i)vi=3-4i
+          \]
+          \[
+          2v-vi+vi^2=3-4i
+          \]
+          \[
+          v-vi=3-4i
+          \]
+          \[
+          v(1-i)=3-4i
           \]
         </div>
-        <p class="step-text">Substitute into the second equation and simplify:</p>
+        <p class="step-text">Solve for \(v\):</p>
         <div class="math-block">
           \[
-          4 = a+bi + (1-i)\left(\frac{3+b}{2}-\frac{a}{2}i\right)
+          v=\frac{3-4i}{1-i}
           \]
           \[
-          5 = a+b + (b-a-3)i
+          v=\frac{(3-4i)(1+i)}{(1-i)(1+i)}
+          \]
+          \[
+          v=\frac{3-4i+3i-4i^2}{2}
+          \]
+          \[
+          v=\frac{7-i}{2}
           \]
         </div>
-        <p class="step-text">Match real and imaginary parts:</p>
+        <p class="step-text">Substitute back to find \(u\):</p>
         <div class="math-block">
           \[
-          a+b=5
+          u=4-(1-i)v
           \]
           \[
-          b-a-3=0
+          u=4-\frac{7-i}{2}+\frac{7i-i^2}{2}
           \]
           \[
-          a=1,\qquad b=4
+          2u=8-7+i+7i+1
           \]
-        </div>
-        <p class="step-text">So:</p>
-        <div class="math-block">
+          \[
+          2u=2+8i
+          \]
           \[
           u=1+4i
           \]
-          \[
-          v=\frac{3+4}{2}-\frac{1}{2}i=\frac{7}{2}-\frac{1}{2}i
-          \]
         </div>
+        ${answerBox(raw`
+          \[
+          u=1+4i,\qquad v=\frac{7}{2}-\frac{1}{2}i
+          \]
+        `)}
       `,
       steps: [
-        {
-          type: "typed",
-          title: "Use the real parts from the first equation",
-          text: raw`After letting \(u=a+bi\) and \(v=c+di\), what equation do the real parts give?`,
-          ariaLabel: "Type the real-parts equation",
-          mode: "equation",
-          acceptedAnswers: ["2c=3+b"],
-          samples: [{ a: 1, b: 4, c: 3.5, d: -0.5 }, { a: 2, b: 1, c: 2, d: -1 }, { a: -1, b: 3, c: 3, d: 0.5 }],
-          successMessage: raw`Correct. The real parts from \(ui+2v=3\) give \(2c=3+b\).`,
-          genericMessage: raw`Remember that \(bi^2=-b\), which affects the real part.`
-        },
-        {
-          type: "typed",
-          title: "Use the imaginary parts from the first equation",
-          text: raw`What equation do the imaginary parts give?`,
-          ariaLabel: "Type the imaginary-parts equation",
-          mode: "equation",
-          acceptedAnswers: ["2d=-a"],
-          samples: [{ a: 1, b: 4, c: 3.5, d: -0.5 }, { a: 2, b: 1, c: 2, d: -1 }, { a: -1, b: 3, c: 3, d: 0.5 }],
-          successMessage: raw`Yes. The imaginary coefficient is \(a+2d\), and that must be \(0\), so \(2d=-a\).`,
-          genericMessage: raw`Match the coefficient of \(i\) with the right-hand side, which has no imaginary part.`
-        },
-        {
-          type: "typed",
-          title: "Find u",
-          text: raw`After substituting into the second equation, what are the coefficients of \(u\)? Type \((a,b)\).`,
-          ariaLabel: "Type the coefficients of u",
-          mode: "list",
-          options: complexPairListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["1,4"],
-          successMessage: raw`Correct. Solving \(a+b=5\) and \(b-a-3=0\) gives \(a=1\) and \(b=4\), so \(u=1+4i\).`,
-          targetedFeedback: [
-            {
-              answers: ["4,1"],
-              mode: "list",
-              options: orderedListOptions,
-              message: raw`Watch the order. Type \((a,b)\), not \((b,a)\).`
-            }
-          ],
-          genericMessage: raw`Use the second equation to get \(a+b=5\) and \(b-a-3=0\), then solve the two linear equations.`
-        },
-        {
-          type: "typed",
-          title: "Find v",
-          text: raw`Now type the coefficients of \(v\) as \((c,d)\).`,
-          ariaLabel: "Type the coefficients of v",
-          mode: "list",
-          options: complexPairListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["7/2,-1/2", "3.5,-0.5"],
-          successMessage: raw`Exactly. Substituting \(a=1\) and \(b=4\) gives \(v=\frac{7}{2}-\frac{1}{2}i\).`,
-          targetedFeedback: [
-            {
-              answers: ["-1/2,7/2"],
-              mode: "list",
-              options: orderedListOptions,
-              message: raw`Those values belong to \(d\) and \(c\), but the order should be \((c,d)\).`
-            }
-          ],
-          genericMessage: raw`Use \(c=\frac{3+b}{2}\) and \(d=-\frac{a}{2}\) with \(a=1\) and \(b=4\).`
-        }
+        choiceStep("Make the \(u\)-terms match", raw`What should we do to make the \(u\)-terms the same in both equations?`, [
+          correctChoice(raw`Multiply \(u+(1-i)v=4\) by \(i\).`, raw`Exactly. That gives \(ui+(1-i)vi=4i\), so the \(ui\)-terms are ready to eliminate.`),
+          wrongChoice(raw`Multiply \(ui+2v=3\) by \(i\).`, raw`That would turn \(ui\) into \(-u\), which moves us away from matching terms.`),
+          wrongChoice(raw`Multiply both equations by \(v\).`, raw`That introduces extra products instead of simplifying the system.`),
+          wrongChoice(raw`Divide both equations by \(i\).`, raw`That would not make the \(u\)-terms match cleanly.`)
+        ]),
+        choiceStep("Eliminate \(u\)", raw`What do we get when we subtract the new equation from \(ui+2v=3\)?`, [
+          correctChoice(raw`\(\,2v-(1-i)vi=3-4i\)`, raw`Yes. The \(ui\)-terms cancel, leaving an equation just in \(v\).`),
+          wrongChoice(raw`\(\,2v+(1-i)vi=3-4i\)`, raw`Subtracting keeps the minus sign in front of \((1-i)vi\).`),
+          wrongChoice(raw`\(\,2v-(1-i)vi=3+4i\)`, raw`The right side is \(3-4i\), because we subtract \(4i\).`),
+          wrongChoice(raw`\(\,v-(1-i)vi=3-4i\)`, raw`The \(2v\) stays as \(2v\) at this stage.`)
+        ]),
+        choiceStep("Solve for \(v\)", raw`What is \(v\)?`, [
+          correctChoice(raw`\(\,v=\frac{7-i}{2}\)`, raw`Correct. Simplifying \(2v-(1-i)vi=3-4i\) gives \(v(1-i)=3-4i\), and rationalising leads to \(v=\frac{7-i}{2}\).`),
+          wrongChoice(raw`\(\,v=\frac{7+i}{2}\)`, raw`The imaginary part should be negative after the simplification.`),
+          wrongChoice(raw`\(\,v=\frac{3-4i}{2}\)`, raw`We still need to divide by \(1-i\), not just by \(2\).`),
+          wrongChoice(raw`\(\,v=7-i\)`, raw`The denominator \(2\) remains after rationalising.`)
+        ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              2v-(1-i)vi=3-4i
+              \]
+              \[
+              2v-vi+vi^2=3-4i
+              \]
+              \[
+              v-vi=3-4i
+              \]
+              \[
+              v(1-i)=3-4i
+              \]
+            </div>
+          `
+        }),
+        choiceStep("Back-substitute for \(u\)", raw`What is \(u\)?`, [
+          correctChoice(raw`\(\,u=1+4i\)`, raw`Exactly. Substituting \(v=\frac{7-i}{2}\) into \(u=4-(1-i)v\) gives \(u=1+4i\).`),
+          wrongChoice(raw`\(\,u=4+i\)`, raw`The real part should simplify to \(1\), not \(4\).`),
+          wrongChoice(raw`\(\,u=1-4i\)`, raw`The imaginary part is positive \(4i\).`),
+          wrongChoice(raw`\(\,u=\frac{1+4i}{2}\)`, raw`There is no final factor of \(2\) left after simplifying.`)
+        ])
       ]
     })
   };

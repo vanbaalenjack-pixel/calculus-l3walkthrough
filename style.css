@@ -220,81 +220,6 @@ h1 {
   letter-spacing: -0.01em;
 }
 
-.home-scroll-cue {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  max-width: 100%;
-  margin-top: 18px;
-  padding: 10px 14px;
-  border: 1px solid rgba(148, 163, 184, 0.24);
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.76);
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
-  color: var(--text-soft);
-  text-decoration: none;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-  backdrop-filter: blur(12px);
-}
-
-.home-scroll-cue:hover {
-  transform: translateY(-2px);
-  border-color: rgba(75, 116, 230, 0.24);
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
-}
-
-.home-scroll-cue:focus-visible {
-  outline: none;
-  border-color: rgba(37, 99, 235, 0.45);
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
-}
-
-.home-scroll-cue-label {
-  color: var(--primary);
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.home-scroll-cue-text {
-  color: var(--text);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.home-scroll-cue-arrow {
-  display: grid;
-  place-items: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--primary-soft);
-  flex-shrink: 0;
-}
-
-.home-scroll-cue-arrow::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-right: 1.6px solid var(--primary);
-  border-bottom: 1.6px solid var(--primary);
-  transform: rotate(45deg) translateY(-1px);
-  animation: homeCueFloat 1.9s ease-in-out infinite;
-}
-
-@keyframes homeCueFloat {
-  0%,
-  100% {
-    transform: rotate(45deg) translateY(-2px);
-  }
-
-  50% {
-    transform: rotate(45deg) translateY(1px);
-  }
-}
-
 .ghost-link {
   display: inline-flex;
   align-items: center;
@@ -619,6 +544,17 @@ input[type="range"] {
   color: #8d3c3c;
 }
 
+.feedback .math-block,
+.feedback .answer-highlight,
+.feedback .callout-card {
+  margin: 12px 0 0;
+}
+
+.feedback .step-text:last-child,
+.feedback .katex-display:last-child {
+  margin-bottom: 0;
+}
+
 .next-step-btn {
   margin-top: 12px;
 }
@@ -670,10 +606,20 @@ input[type="range"] {
   background: #ffffff;
 }
 
+.interactive-plot-frame {
+  border-color: rgba(75, 116, 230, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(75, 116, 230, 0.04);
+}
+
 .graph-svg {
   width: 100%;
   height: auto;
   display: block;
+}
+
+.interactive-plot-svg {
+  cursor: crosshair;
+  touch-action: none;
 }
 
 .graph-bg {
@@ -720,10 +666,21 @@ input[type="range"] {
   stroke-width: 2;
 }
 
+.graph-point-draggable {
+  fill: #ef4444;
+  stroke: white;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 6px 12px rgba(239, 68, 68, 0.22));
+}
+
 .graph-label {
   fill: var(--text);
   font-size: 12px;
   font-weight: 700;
+}
+
+.graph-draggable-label {
+  fill: #b91c1c;
 }
 
 .graph-equation-label {
@@ -772,6 +729,22 @@ input[type="range"] {
   fill: #ffffff;
   stroke: #111827;
   stroke-width: 1.4;
+}
+
+.plot-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.plot-status {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.98rem;
+  line-height: 1.45;
 }
 
 .question-label-mark,
@@ -1242,10 +1215,6 @@ input[type="range"] {
     font-size: 1rem;
   }
 
-  .home-scroll-cue {
-    padding: 9px 12px;
-  }
-
   .question-card,
   .step-card {
     padding: 22px 20px;
@@ -1286,11 +1255,4 @@ input[type="range"] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-scroll-cue {
-    transition: none;
-  }
-
-  .home-scroll-cue-arrow::before {
-    animation: none;
-  }
 }
