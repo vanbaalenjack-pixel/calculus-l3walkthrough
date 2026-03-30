@@ -63,6 +63,135 @@
     return index === 0 ? "step-card active" : "step-card hidden";
   }
 
+  function hashString(value) {
+    const text = String(value || "");
+    let hash = 2166136261;
+
+    for (let index = 0; index < text.length; index += 1) {
+      hash ^= text.charCodeAt(index);
+      hash = Math.imul(hash, 16777619);
+    }
+
+    return hash >>> 0;
+  }
+
+  function seededShuffle(values, seed) {
+    const result = values.slice();
+    let state = seed >>> 0;
+
+    if (!state) {
+      state = 0x9e3779b9;
+    }
+
+    for (let index = result.length - 1; index > 0; index -= 1) {
+      state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+      const swapIndex = state % (index + 1);
+      const temp = result[index];
+      result[index] = result[swapIndex];
+      result[swapIndex] = temp;
+    }
+
+    return result;
+  }
+
+  function getChoiceRenderEntries(step) {
+    if (Array.isArray(step.renderChoices) && step.renderChoices.length) {
+      return step.renderChoices;
+    }
+
+    return (step.choices || []).map(function (choice, choiceIndex) {
+      return {
+        choice: choice,
+        originalIndex: choiceIndex
+      };
+    });
+  }
+
+  function buildChoiceRenderEntries(config, step, stepIndex, positionCountsByLength) {
+    const choices = Array.isArray(step.choices) ? step.choices : [];
+    const defaultEntries = choices.map(function (choice, choiceIndex) {
+      return {
+        choice: choice,
+        originalIndex: choiceIndex
+      };
+    });
+    const correctIndices = [];
+
+    choices.forEach(function (choice, choiceIndex) {
+      if (choice && choice.correct) {
+        correctIndices.push(choiceIndex);
+      }
+    });
+
+    if (choices.length < 2 || correctIndices.length !== 1) {
+      return defaultEntries;
+    }
+
+    const choiceCount = choices.length;
+
+    if (!positionCountsByLength[choiceCount]) {
+      positionCountsByLength[choiceCount] = Array(choiceCount).fill(0);
+    }
+
+    const counts = positionCountsByLength[choiceCount];
+    const seedBase = [
+      config.browserTitle || "",
+      config.title || "",
+      step.title || "",
+      step.text || "",
+      String(stepIndex),
+      String(choiceCount)
+    ].join("|");
+    const preferredPositions = seededShuffle(
+      Array.from({ length: choiceCount }, function (_, positionIndex) {
+        return positionIndex;
+      }),
+      hashString(seedBase + "|positions")
+    );
+    let targetCorrectPosition = preferredPositions[0];
+    let lowestCount = counts[targetCorrectPosition];
+
+    preferredPositions.forEach(function (position) {
+      if (counts[position] < lowestCount) {
+        lowestCount = counts[position];
+        targetCorrectPosition = position;
+      }
+    });
+
+    counts[targetCorrectPosition] += 1;
+
+    const distractorIndices = seededShuffle(
+      choices.map(function (_, choiceIndex) {
+        return choiceIndex;
+      }).filter(function (choiceIndex) {
+        return choiceIndex !== correctIndices[0];
+      }),
+      hashString(seedBase + "|distractors")
+    );
+    const orderedIndices = distractorIndices.slice();
+
+    orderedIndices.splice(targetCorrectPosition, 0, correctIndices[0]);
+
+    return orderedIndices.map(function (choiceIndex) {
+      return {
+        choice: choices[choiceIndex],
+        originalIndex: choiceIndex
+      };
+    });
+  }
+
+  function prepareChoiceSteps(config) {
+    const positionCountsByLength = {};
+
+    (config.steps || []).forEach(function (step, stepIndex) {
+      if (step.type !== "choice") {
+        return;
+      }
+
+      step.renderChoices = buildChoiceRenderEntries(config, step, stepIndex, positionCountsByLength);
+    });
+  }
+
   function fmtGraph(value) {
     return Number(value.toFixed(2));
   }
@@ -92,18 +221,19 @@
 
   function renderChoiceButtons(step, stepNumber) {
     const gridClass = step.buttonGridClass || "button-grid";
+    const renderChoices = getChoiceRenderEntries(step);
 
     return `
       <div class="${gridClass}">
-        ${step.choices.map(function (choice, choiceIndex) {
+        ${renderChoices.map(function (entry) {
           return `
             <button
               class="option-btn"
               type="button"
               data-choice-step="${stepNumber}"
-              data-choice-index="${choiceIndex}"
+              data-choice-index="${entry.originalIndex}"
             >
-              ${choice.html}
+              ${entry.choice.html}
             </button>
           `;
         }).join("")}
@@ -571,6 +701,7 @@
       return;
     }
 
+    prepareChoiceSteps(config);
     document.title = config.browserTitle;
 
     const eyebrow = document.getElementById("page-eyebrow");

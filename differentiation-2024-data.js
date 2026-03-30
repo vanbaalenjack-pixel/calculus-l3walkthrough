@@ -364,13 +364,37 @@
           genericMessage: raw`Use \(u'v+uv'\), with \(u=x^2+3x+2\) and \(v=\sin x\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Evaluate the gradient",
           text: raw`Now evaluate at \(x=0\). What gradient do you get?`,
-          ariaLabel: "Type the gradient at x equals 0",
-          acceptedAnswers: ["2"],
-          successMessage: raw`Yes. Since \(\sin 0=0\) and \(\cos 0=1\), the gradient comes out to \(2\).`,
-          genericMessage: raw`Substitute \(x=0\) into the derivative and use the exact trig values.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                2
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. Since \(\sin 0=0\) and \(\cos 0=1\), the gradient comes out to \(2\).`
+            },
+            {
+              html: raw`\[
+                -2
+              \]`,
+              failureMessage: raw`Check the trig derivative sign. The \(\cos 0\) term is positive here.`
+            },
+            {
+              html: raw`\[
+                0
+              \]`,
+              failureMessage: raw`The \(\sin 0\) term vanishes, but the \((x^2+3x+2)\cos x\) term does not.`
+            },
+            {
+              html: raw`\[
+                3
+              \]`,
+              failureMessage: raw`That comes from part of the derivative, but you still need to evaluate the full expression at \(x=0\).`
+            }
+          ]
         }
       ]
     }),
@@ -436,18 +460,37 @@
           genericMessage: raw`Differentiate the squared bracket with the chain rule, then add the derivative of \(60\ln x\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find the critical values",
           text: raw`When you solve \(\frac{dy}{dx}=0\), which two \(x\)-values do you get?`,
-          ariaLabel: "Type the critical values",
-          mode: "list",
-          options: {
-            ordered: false,
-            stripOuterParens: true
-          },
-          acceptedAnswers: ["1,5/2"],
-          successMessage: raw`Yes. The derivative is zero at \(x=1\) and \(x=\frac{5}{2}\).`,
-          genericMessage: raw`Clear the fraction first, then factorise the quadratic carefully.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                x=1,\ \frac{5}{2}
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. The derivative is zero at \(x=1\) and \(x=\frac{5}{2}\).`
+            },
+            {
+              html: raw`\[
+                x=-1,\ \frac{5}{2}
+              \]`,
+              failureMessage: raw`One root is right, but the smaller critical value should be positive.`
+            },
+            {
+              html: raw`\[
+                x=1,\ -\frac{5}{2}
+              \]`,
+              failureMessage: raw`The second root has the wrong sign.`
+            },
+            {
+              html: raw`\[
+                x=0,\ \frac{7}{2}
+              \]`,
+              failureMessage: raw`Those do not come from factorising the quadratic after clearing the fraction.`
+            }
+          ]
         },
         {
           type: "choice",
@@ -543,13 +586,37 @@
           genericMessage: raw`Use the product rule, and remember the derivative of \(e^{-2x}\) brings in a factor of \(-2\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Solve for the stationary point",
           text: raw`When you set the first derivative equal to zero, what \(x\)-value do you get?`,
-          ariaLabel: "Type the stationary x value",
-          acceptedAnswers: ["1"],
-          successMessage: raw`Yes. The exponential factor is never zero, so the stationary point comes from \(4-4x=0\).`,
-          genericMessage: raw`Focus on the bracket. \(e^{-2x}\) never equals zero.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                1
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. The exponential factor is never zero, so the stationary point comes from \(4-4x=0\).`
+            },
+            {
+              html: raw`\[
+                -1
+              \]`,
+              failureMessage: raw`Check the sign when solving \(4-4x=0\).`
+            },
+            {
+              html: raw`\[
+                0
+              \]`,
+              failureMessage: raw`The exponential factor does not become zero, so \(x=0\) is not the stationary value.`
+            },
+            {
+              html: raw`\[
+                \frac{1}{2}
+              \]`,
+              failureMessage: raw`Rearranging \(4-4x=0\) gives \(x=1\), not \(\frac{1}{2}\).`
+            }
+          ]
         },
         {
           type: "choice",
@@ -651,28 +718,70 @@
           genericMessage: raw`Watch the signs here. Differentiate each term one more time.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: raw`Find point \(P\)`,
           text: raw`Solving \(\frac{d^2y}{dx^2}=0\) gives the \(x\)-coordinate of \(P\). What is it?`,
-          ariaLabel: "Type the x coordinate of P",
-          acceptedAnswers: ["1"],
-          successMessage: raw`Correct. Point \(P\) happens at \(x=1\).`,
-          genericMessage: raw`Factor or clear the denominators so you can solve the second-derivative equation cleanly.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                1
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. Point \(P\) happens at \(x=1\).`
+            },
+            {
+              html: raw`\[
+                -1
+              \]`,
+              failureMessage: raw`The equation is solved in the positive domain \(x>0\), and the algebra gives \(x=1\).`
+            },
+            {
+              html: raw`\[
+                \frac{1}{2}
+              \]`,
+              failureMessage: raw`There is a simplification slip here. Recheck the second-derivative equation.`
+            },
+            {
+              html: raw`\[
+                2
+              \]`,
+              failureMessage: raw`That does not satisfy the equation obtained from \(\frac{d^2y}{dx^2}=0\).`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Write the tangent equation",
           text: raw`At \(x=1\), the point is \((1,1)\) and the gradient is \(1\). What is the tangent equation?`,
-          ariaLabel: "Type the tangent equation",
-          mode: "equation",
-          options: {
-            equationLhs: "y",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["y=x"],
-          samples: [{ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 }],
-          successMessage: raw`Exactly. A rare anticlimax: the tangent equation is just \(y=x\).`,
-          genericMessage: raw`Use point-gradient form with point \((1,1)\) and gradient \(1\), then simplify.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                y=x
+              \]`,
+              correct: true,
+              successMessage: raw`Exactly. A rare anticlimax: the tangent equation is just \(y=x\).`
+            },
+            {
+              html: raw`\[
+                y=-x
+              \]`,
+              failureMessage: raw`The gradient is \(+1\), not \(-1\).`
+            },
+            {
+              html: raw`\[
+                y=x+1
+              \]`,
+              failureMessage: raw`A line of gradient \(1\) through \((1,1)\) has intercept \(0\), not \(1\).`
+            },
+            {
+              html: raw`\[
+                y=1
+              \]`,
+              failureMessage: raw`That would have gradient \(0\), not \(1\).`
+            }
+          ]
         }
       ]
     }),
@@ -813,13 +922,37 @@
           genericMessage: raw`Differentiate the inside, then divide by the original inside expression.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: raw`Evaluate at \(t=1\)`,
           text: raw`What is the velocity when \(t=1\)?`,
-          ariaLabel: "Type the velocity at t equals 1",
-          acceptedAnswers: ["11/10", "1.1"],
-          successMessage: raw`Yes. And that is the value you get after the substitution.`,
-          genericMessage: raw`Substitute \(t=1\) carefully into your velocity function and simplify.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                \frac{11}{10}
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. And that is the value you get after the substitution.`
+            },
+            {
+              html: raw`\[
+                \frac{11}{5}
+              \]`,
+              failureMessage: raw`The numerator is right, but the denominator at \(t=1\) is \(10\), not \(5\).`
+            },
+            {
+              html: raw`\[
+                \frac{1}{10}
+              \]`,
+              failureMessage: raw`That loses most of the numerator. Re-evaluate \(6(1)+5\).`
+            },
+            {
+              html: raw`\[
+                -\frac{11}{10}
+              \]`,
+              failureMessage: raw`The velocity is positive here because both numerator and denominator are positive at \(t=1\).`
+            }
+          ]
         }
       ]
     }),
@@ -973,41 +1106,70 @@
           genericMessage: raw`Differentiate \(f'(x)\) once more and simplify the result over a common denominator.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: raw`Solve for the \(x\)-coordinate`,
           text: raw`When you set the second derivative equal to zero, what \(x\)-value do you get?`,
-          ariaLabel: "Type the x coordinate of the inflection point",
-          acceptedAnswers: ["e^(3/2)", "e^1.5"],
-          successMessage: raw`Correct. The logarithm step gives \(x=e^{3/2}\).`,
-          genericMessage: raw`Only the numerator needs to be zero, so solve \(-3+2\ln x=0\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                e^{3/2}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. The logarithm step gives \(x=e^{3/2}\).`
+            },
+            {
+              html: raw`\[
+                e^{-3/2}
+              \]`,
+              failureMessage: raw`That would come from \(\ln x=-\frac{3}{2}\), but the equation gives \(\ln x=\frac{3}{2}\).`
+            },
+            {
+              html: raw`\[
+                \frac{3}{2}
+              \]`,
+              failureMessage: raw`That is the value of \(\ln x\), not of \(x\) itself.`
+            },
+            {
+              html: raw`\[
+                \ln\left(\frac{3}{2}\right)
+              \]`,
+              failureMessage: raw`We solve for \(x\) by undoing the logarithm, so the answer should be exponential, not logarithmic.`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find the coordinates",
           text: raw`What are the coordinates of the point of inflection?`,
-          ariaLabel: "Type the coordinates of the point of inflection",
-          mode: "list",
-          options: {
-            ordered: true,
-            stripOuterParens: true
-          },
-          previewOptions: {
-            wrapWithParens: true
-          },
-          acceptedAnswers: ["e^(3/2),3/(2e^(3/2))"],
-          successMessage: raw`Exactly. That is the exact-coordinate version of the point.`,
-          targetedFeedback: [
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["3/(2e^(3/2)),e^(3/2)"],
-              mode: "list",
-              options: {
-                ordered: true,
-                stripOuterParens: true
-              },
-              message: raw`Watch the order. The point should be written as \((x,y)\), not \((y,x)\).`
+              html: raw`\[
+                \left(e^{3/2},\frac{3}{2e^{3/2}}\right)
+              \]`,
+              correct: true,
+              successMessage: raw`Exactly. That is the exact-coordinate version of the point.`
+            },
+            {
+              html: raw`\[
+                \left(\frac{3}{2e^{3/2}},e^{3/2}\right)
+              \]`,
+              failureMessage: raw`Watch the order. The point should be written as \((x,y)\), not \((y,x)\).`
+            },
+            {
+              html: raw`\[
+                \left(e^{3/2},\frac{3e^{3/2}}{2}\right)
+              \]`,
+              failureMessage: raw`The denominator should still contain \(e^{3/2}\) because \(y=\frac{\ln x}{x}\).`
+            },
+            {
+              html: raw`\[
+                \left(\frac{3}{2},e^{3/2}\right)
+              \]`,
+              failureMessage: raw`The \(x\)-coordinate is \(e^{3/2}\), not \(\frac{3}{2}\).`
             }
-          ],
-          genericMessage: raw`Substitute your \(x\)-value back into \(f(x)=\frac{\ln x}{x}\) and write the point as \((x,y)\).`
+          ]
         }
       ]
     }),
@@ -1103,28 +1265,70 @@
           ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: raw`Find \(k\)`,
           text: raw`What value of \(k\) makes the discriminant zero?`,
-          ariaLabel: "Type the value of k",
-          acceptedAnswers: ["8/3"],
-          successMessage: raw`Correct. The valid non-zero constant is \(k=\frac{8}{3}\).`,
-          targetedFeedback: [
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["0"],
-              message: raw`\(k=0\) comes out of the factorisation too, but the question says \(k\) is non-zero, so we ignore it.`
+              html: raw`\[
+                \frac{8}{3}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. The valid non-zero constant is \(k=\frac{8}{3}\).`
+            },
+            {
+              html: raw`\[
+                0
+              \]`,
+              failureMessage: raw`\(\,0\) comes out of the factorisation too, but the question says \(k\) is non-zero, so we ignore it.`
+            },
+            {
+              html: raw`\[
+                -\frac{8}{3}
+              \]`,
+              failureMessage: raw`The non-zero root from \(9k^2-24k=0\) is positive, not negative.`
+            },
+            {
+              html: raw`\[
+                \frac{3}{8}
+              \]`,
+              failureMessage: raw`That inverts the fraction. Recheck the factorisation and division.`
             }
-          ],
-          genericMessage: raw`Solve \(9k^2-24k=0\), then remember the question says \(k\neq 0\).`
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: raw`Find the turning-point \(x\)-coordinate`,
           text: raw`Now substitute your \(k\)-value back into the derivative equation. What is the \(x\)-coordinate of \(Q\)?`,
-          ariaLabel: "Type the x coordinate of Q",
-          acceptedAnswers: ["-2/3"],
-          successMessage: raw`Yes. That repeated root gives the single turning point at \(x=-\frac{2}{3}\).`,
-          genericMessage: raw`Put \(k=\frac{8}{3}\) back into the quadratic and solve the repeated-root equation.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                -\frac{2}{3}
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. That repeated root gives the single turning point at \(x=-\frac{2}{3}\).`
+            },
+            {
+              html: raw`\[
+                \frac{2}{3}
+              \]`,
+              failureMessage: raw`The sign is wrong. Solve the repeated-root quadratic carefully.`
+            },
+            {
+              html: raw`\[
+                -\frac{4}{3}
+              \]`,
+              failureMessage: raw`There is a factor slip when you simplify the quadratic.`
+            },
+            {
+              html: raw`\[
+                0
+              \]`,
+              failureMessage: raw`The repeated root does not occur at \(x=0\).`
+            }
+          ]
         }
       ]
     }),
@@ -1308,13 +1512,37 @@
           ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Read the limit",
           text: raw`What is \(\lim\limits_{x\to -1}f(x)\)?`,
-          ariaLabel: "Type the limit value",
-          acceptedAnswers: ["1"],
-          successMessage: raw`Correct. Both sides of the graph are heading towards the open point at \((-1,1)\), so the limit is \(1\).`,
-          genericMessage: raw`Look at the \(y\)-value both sides are approaching as \(x\) gets close to \(-1\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                1
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. Both sides of the graph are heading towards the open point at \((-1,1)\), so the limit is \(1\).`
+            },
+            {
+              html: raw`\[
+                0
+              \]`,
+              failureMessage: raw`Check the open point the graph is approaching near \(x=-1\).`
+            },
+            {
+              html: raw`\[
+                -1
+              \]`,
+              failureMessage: raw`That is the \(x\)-value being approached, not the limit of \(f(x)\).`
+            },
+            {
+              html: raw`\[
+                \text{Does not exist}
+              \]`,
+              failureMessage: raw`The graph has a hole there, but both sides still approach the same \(y\)-value.`
+            }
+          ]
         }
       ]
     }),
@@ -1367,18 +1595,37 @@
           genericMessage: raw`Use the quotient rule carefully, then expand and simplify the top.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: raw`Solve for the stationary \(x\)-values`,
           text: raw`What \(x\)-values make the derivative zero?`,
-          ariaLabel: "Type the stationary x values",
-          mode: "list",
-          options: {
-            ordered: false,
-            stripOuterParens: true
-          },
-          acceptedAnswers: ["-2,2"],
-          successMessage: raw`Yes. Those are the two stationary \(x\)-values.`,
-          genericMessage: raw`Set the numerator equal to zero. The denominator does not give stationary points here.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                x=-2,\ 2
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. Those are the two stationary \(x\)-values.`
+            },
+            {
+              html: raw`\[
+                x=-2
+              \]`,
+              failureMessage: raw`That is only one solution. The numerator is a quadratic in \(x^2\), so it gives two values.`
+            },
+            {
+              html: raw`\[
+                x=2
+              \]`,
+              failureMessage: raw`There is also the negative solution because the equation is \(x^2=4\).`
+            },
+            {
+              html: raw`\[
+                x=-4,\ 4
+              \]`,
+              failureMessage: raw`Check the constant term in the derivative numerator. It gives \(x^2=4\), not \(16\).`
+            }
+          ]
         }
       ]
     }),
@@ -1432,14 +1679,37 @@
       `,
       steps: [
         {
-          type: "typed",
+          type: "choice",
           title: "Relate the radius and the height",
           text: raw`If the height equals the diameter, what is \(r\) in terms of \(h\)?`,
-          ariaLabel: "Type r in terms of h",
-          acceptedAnswers: ["h/2"],
-          samples: [{ h: 2 }, { h: 4 }, { h: 6 }],
-          successMessage: raw`Correct. That substitution is the key step that makes the related-rates algebra manageable.`,
-          genericMessage: raw`The radius is half the diameter.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                r=\frac{h}{2}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. That substitution is the key step that makes the related-rates algebra manageable.`
+            },
+            {
+              html: raw`\[
+                r=2h
+              \]`,
+              failureMessage: raw`The radius is half the diameter, not twice the height.`
+            },
+            {
+              html: raw`\[
+                r=h
+              \]`,
+              failureMessage: raw`If height equals diameter, then the radius is only half of that.`
+            },
+            {
+              html: raw`\[
+                r=\frac{h^2}{2}
+              \]`,
+              failureMessage: raw`This relation is linear, not quadratic.`
+            }
+          ]
         },
         {
           type: "typed",
@@ -1462,13 +1732,37 @@
           genericMessage: raw`Differentiate \(\frac{\pi h^3}{12}\) with respect to \(h\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: raw`Find the rate when \(h=4\)`,
           text: raw`What is \(\frac{dh}{dt}\) when the pile is \(4\) cm high?`,
-          ariaLabel: "Type dh by dt when h equals 4",
-          acceptedAnswers: ["3/(4pi)", "0.2387324146"],
-          successMessage: raw`Exactly. The height is increasing at \(\frac{3}{4\pi}\text{ cm s}^{-1}\) when \(h=4\).`,
-          genericMessage: raw`Use \(\frac{dV}{dt}=3\) together with your \(\frac{dV}{dh}\), then substitute \(h=4\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                \frac{3}{4\pi}
+              \]`,
+              correct: true,
+              successMessage: raw`Exactly. The height is increasing at \(\frac{3}{4\pi}\text{ cm s}^{-1}\) when \(h=4\).`
+            },
+            {
+              html: raw`\[
+                \frac{3}{\pi}
+              \]`,
+              failureMessage: raw`That forgets to substitute \(h=4\) into the \(h^2\) term in the denominator.`
+            },
+            {
+              html: raw`\[
+                \frac{4}{3\pi}
+              \]`,
+              failureMessage: raw`The factors have been inverted. Use \(\frac{dV}{dt}=3\) with \(\frac{dV}{dh}=\frac{\pi h^2}{4}\).`
+            },
+            {
+              html: raw`\[
+                \frac{3}{16\pi}
+              \]`,
+              failureMessage: raw`That keeps the \(16\) but misses the factor of \(4\) in \(\frac{dh}{dt}=\frac{4}{\pi h^2}\cdot 3\).`
+            }
+          ]
         }
       ]
     }),
@@ -1550,22 +1844,70 @@
           genericMessage: raw`Differentiate \(xe^{-x^2}\) with the product rule, then factor out the common exponential.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find the positive critical value",
           text: raw`Solve \(A'(x)=0\). Since \(x\ge 0\), which value of \(x\) do we keep?`,
-          ariaLabel: "Type the positive x value",
-          acceptedAnswers: ["1/sqrt(2)"],
-          successMessage: raw`Correct. The negative root is ignored because the question says \(x\ge 0\).`,
-          genericMessage: raw`The exponential factor is never zero, so solve \(1-2x^2=0\) and keep the valid root.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                \frac{1}{\sqrt{2}}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. The negative root is ignored because the question says \(x\ge 0\).`
+            },
+            {
+              html: raw`\[
+                -\frac{1}{\sqrt{2}}
+              \]`,
+              failureMessage: raw`That root is excluded by the condition \(x\ge 0\).`
+            },
+            {
+              html: raw`\[
+                \frac{1}{2}
+              \]`,
+              failureMessage: raw`You still need the square root when solving \(1-2x^2=0\).`
+            },
+            {
+              html: raw`\[
+                \sqrt{2}
+              \]`,
+              failureMessage: raw`The solution is the reciprocal of this value.`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "State the largest area",
           text: raw`What is the largest possible area of triangle \(OPQ\)?`,
-          ariaLabel: "Type the largest possible area",
-          acceptedAnswers: ["1/sqrt(2e)", "(1/sqrt(2))*e^(-1/2)"],
-          successMessage: raw`Exactly. That is the value the question asks you to prove.`,
-          genericMessage: raw`Substitute \(x=\frac{1}{\sqrt{2}}\) back into \(A(x)=xe^{-x^2}\) and simplify.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                \frac{1}{\sqrt{2e}}
+              \]`,
+              correct: true,
+              successMessage: raw`Exactly. That is the value the question asks you to prove.`
+            },
+            {
+              html: raw`\[
+                \frac{e}{\sqrt{2}}
+              \]`,
+              failureMessage: raw`The exponential should be \(e^{-1/2}\), not \(e\).`
+            },
+            {
+              html: raw`\[
+                \frac{1}{2e}
+              \]`,
+              failureMessage: raw`That misses the square root in the simplification.`
+            },
+            {
+              html: raw`\[
+                \frac{1}{\sqrt{2}}
+              \]`,
+              failureMessage: raw`You still need the \(e^{-1/2}\) factor from substituting into the area function.`
+            }
+          ]
         }
       ]
     })

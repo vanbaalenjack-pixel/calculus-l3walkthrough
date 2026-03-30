@@ -477,13 +477,37 @@
           genericMessage: raw`Try again. Use the power rule on each term in the power-form expression.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: raw`Evaluate at \(t=4\)`,
           text: raw`What is the rate of change \(C'(4)\)?`,
-          ariaLabel: "Type the value of C prime at 4",
-          acceptedAnswers: ["-5/2"],
-          successMessage: raw`Yes. The oven temperature is changing at \(-\frac{5}{2}^\circ\text{C}\) per minute after \(4\) minutes.`,
-          genericMessage: raw`Check the substitution into \(C'(t)\) again, especially the negative first term.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                -\frac{5}{2}
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. The oven temperature is changing at \(-\frac{5}{2}^\circ\text{C}\) per minute after \(4\) minutes.`
+            },
+            {
+              html: raw`\[
+                \frac{5}{2}
+              \]`,
+              failureMessage: raw`Watch the sign. The negative first term matters when you substitute \(t=4\).`
+            },
+            {
+              html: raw`\[
+                -\frac{5}{4}
+              \]`,
+              failureMessage: raw`There is a simplification slip here. Recheck the powers of \(4\) in each term.`
+            },
+            {
+              html: raw`\[
+                -10
+              \]`,
+              failureMessage: raw`That is too large in magnitude. Substitute into both terms of \(C'(t)\) and simplify more carefully.`
+            }
+          ]
         }
       ]
     }),
@@ -545,32 +569,70 @@
           ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find the tangent gradient",
           text: raw`After differentiating, what is the gradient of the tangent when \(x=\frac{\pi}{4}\)?`,
-          ariaLabel: "Type the tangent gradient",
-          acceptedAnswers: ["1/2"],
-          successMessage: raw`Correct. The tangent gradient at \(x=\frac{\pi}{4}\) is \(\frac{1}{2}\).`,
-          genericMessage: raw`Try again. Evaluate your derivative at \(x=\frac{\pi}{4}\) using \(\sin\frac{\pi}{4}=\cos\frac{\pi}{4}=\frac{\sqrt{2}}{2}\).`
-        },
-        {
-          type: "typed",
-          title: "Convert to the normal gradient",
-          text: raw`What is the gradient of the normal?`,
-          ariaLabel: "Type the normal gradient",
-          acceptedAnswers: ["-2"],
-          successMessage: raw`Yes. The negative reciprocal of \(\frac{1}{2}\) is \(-2\).`,
-          targetedFeedback: [
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["2"],
-              message: raw`Remember the normal gradient is the negative reciprocal, not just the reciprocal.`
+              html: raw`\[
+                \frac{1}{2}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. The tangent gradient at \(x=\frac{\pi}{4}\) is \(\frac{1}{2}\).`
             },
             {
-              answers: ["-1/2"],
-              message: raw`That only changes the sign. You also need the reciprocal of the tangent gradient.`
+              html: raw`\[
+                -\frac{1}{2}
+              \]`,
+              failureMessage: raw`Check the sign carefully when you evaluate the derivative at \(x=\frac{\pi}{4}\).`
+            },
+            {
+              html: raw`\[
+                2
+              \]`,
+              failureMessage: raw`That is the reciprocal, not the tangent gradient itself.`
+            },
+            {
+              html: raw`\[
+                -2
+              \]`,
+              failureMessage: raw`That is the normal gradient, not the tangent gradient.`
             }
-          ],
-          genericMessage: raw`Take the negative reciprocal of the tangent gradient.`
+          ]
+        },
+        {
+          type: "choice",
+          title: "Convert to the normal gradient",
+          text: raw`What is the gradient of the normal?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                -2
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. The negative reciprocal of \(\frac{1}{2}\) is \(-2\).`
+            },
+            {
+              html: raw`\[
+                2
+              \]`,
+              failureMessage: raw`Remember the normal gradient is the negative reciprocal, not just the reciprocal.`
+            },
+            {
+              html: raw`\[
+                -\frac{1}{2}
+              \]`,
+              failureMessage: raw`That only changes the sign. You also need the reciprocal of the tangent gradient.`
+            },
+            {
+              html: raw`\[
+                \frac{1}{2}
+              \]`,
+              failureMessage: raw`That is the tangent gradient, not the normal gradient.`
+            }
+          ]
         }
       ]
     }),
@@ -618,13 +680,37 @@
       afterRender: draw1dGraph,
       steps: [
         {
-          type: "typed",
+          type: "choice",
           title: "Find the point of tangency",
           text: raw`When \(x=1\), what is the \(y\)-coordinate of the point on the curve?`,
-          ariaLabel: "Type the y coordinate of the point of tangency",
-          acceptedAnswers: ["1+e^2"],
-          successMessage: raw`Correct. Substituting \(x=1\) gives \(1^2+e^2=1+e^2\).`,
-          genericMessage: raw`Substitute \(x=1\) into \(x^2+e^{2x}\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                1+e^2
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. Substituting \(x=1\) gives \(1^2+e^2=1+e^2\).`
+            },
+            {
+              html: raw`\[
+                1-e^2
+              \]`,
+              failureMessage: raw`Both terms are positive here, so the expression should be added, not subtracted.`
+            },
+            {
+              html: raw`\[
+                2+e^2
+              \]`,
+              failureMessage: raw`The \(x^2\) term becomes \(1\), not \(2\).`
+            },
+            {
+              html: raw`\[
+                e^2
+              \]`,
+              failureMessage: raw`Do not forget the \(x^2\) part of the function.`
+            }
+          ]
         },
         {
           type: "typed",
@@ -636,19 +722,37 @@
           genericMessage: raw`Differentiate first, then substitute \(x=1\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find the x-intercept",
           text: raw`Set the tangent equation equal to \(0\). What is the \(x\)-coordinate of point \(P\)?`,
-          ariaLabel: "Type the x coordinate of P",
-          acceptedAnswers: ["1/2"],
-          successMessage: raw`Correct. The tangent crosses the \(x\)-axis at \(x=\frac{1}{2}\), so \(P=\left(\frac{1}{2},0\right)\).`,
-          targetedFeedback: [
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["-1/2"],
-              message: raw`Check the rearrangement carefully. The tangent intercept is to the right of the \(y\)-axis.`
+              html: raw`\[
+                \frac{1}{2}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. The tangent crosses the \(x\)-axis at \(x=\frac{1}{2}\), so \(P=\left(\frac{1}{2},0\right)\).`
+            },
+            {
+              html: raw`\[
+                -\frac{1}{2}
+              \]`,
+              failureMessage: raw`Check the rearrangement carefully. The tangent intercept is to the right of the \(y\)-axis.`
+            },
+            {
+              html: raw`\[
+                1
+              \]`,
+              failureMessage: raw`That is the \(x\)-coordinate of the point of tangency, not the \(x\)-intercept.`
+            },
+            {
+              html: raw`\[
+                0
+              \]`,
+              failureMessage: raw`The tangent does not pass through the origin.`
             }
-          ],
-          genericMessage: raw`Use the point-gradient form of the tangent line, then put \(y=0\).`
+          ]
         }
       ]
     }),
@@ -697,47 +801,70 @@
           genericMessage: raw`Differentiate \(x\) and \(y\) with respect to \(t\), then divide \(\frac{dy}{dt}\) by \(\frac{dx}{dt}\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: raw`Find the stationary value of \(t\)`,
           text: raw`Stationary points happen when \(\frac{dy}{dx}=0\). What value of \(t\) works here?`,
-          ariaLabel: "Type the stationary value of t",
-          acceptedAnswers: ["0"],
-          successMessage: raw`Yes. The numerator \(t^2\) is zero when \(t=0\), giving a stationary point.`,
-          targetedFeedback: [
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["-1"],
-              message: raw`\(t=-1\) makes the denominator zero, so the gradient is undefined there.`
+              html: raw`\[
+                0
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. The numerator \(t^2\) is zero when \(t=0\), giving a stationary point.`
+            },
+            {
+              html: raw`\[
+                -1
+              \]`,
+              failureMessage: raw`\(-1\) makes the denominator zero, so the gradient is undefined there.`
+            },
+            {
+              html: raw`\[
+                1
+              \]`,
+              failureMessage: raw`Check the numerator of \(\frac{t^2}{t+1}\). It is only zero when \(t=0\).`
+            },
+            {
+              html: raw`\[
+                2
+              \]`,
+              failureMessage: raw`The numerator is not zero at \(t=2\).`
             }
-          ],
-          genericMessage: raw`Set the numerator of \(\frac{t^2}{t+1}\) equal to zero.`
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find the coordinates",
           text: raw`Substitute the valid value of \(t\) back into the parametric equations. What point do you get?`,
-          ariaLabel: "Type the coordinates of the point",
-          mode: "list",
-          options: {
-            ordered: true,
-            stripOuterParens: true
-          },
-          previewOptions: {
-            wrapWithParens: true
-          },
-          acceptedAnswers: ["1,0"],
-          successMessage: raw`Correct. At \(t=0\), the point is \((1,0)\), which is the required stationary point of inflection.`,
-          targetedFeedback: [
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["0,1"],
-              mode: "list",
-              options: {
-                ordered: true,
-                stripOuterParens: true
-              },
-              message: raw`Watch the order. Write the point as \((x,y)\), not \((y,x)\).`
+              html: raw`\[
+                (1,0)
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. At \(t=0\), the point is \((1,0)\), which is the required stationary point of inflection.`
+            },
+            {
+              html: raw`\[
+                (0,1)
+              \]`,
+              failureMessage: raw`Watch the order. The point should be written as \((x,y)\), not \((y,x)\).`
+            },
+            {
+              html: raw`\[
+                (1,2)
+              \]`,
+              failureMessage: raw`Substituting \(t=0\) gives \(y=2(0)^3=0\), not \(2\).`
+            },
+            {
+              html: raw`\[
+                (0,0)
+              \]`,
+              failureMessage: raw`Check the \(x\)-equation. When \(t=0\), \(x=3(0)^2+6(0)+1=1\).`
             }
-          ],
-          genericMessage: raw`Substitute \(t=0\) into both parametric equations and write the answer as \((x,y)\).`
+          ]
         }
       ]
     }),
@@ -883,7 +1010,7 @@
           ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: raw`Evaluate the derivative at \(t=2\)`,
           text: raw`After differentiating, what is the value of \(P'(2)\)?`,
           beforeHtml: raw`
@@ -896,10 +1023,34 @@
               \]
             </div>
           `,
-          ariaLabel: "Type the value of P prime at 2",
-          acceptedAnswers: ["-30/e^2"],
-          successMessage: raw`Correct. Substituting \(t=2\) gives \(P'(2)=-30e^{-2}\).`,
-          genericMessage: raw`Substitute \(t=2\) into the derivative carefully and simplify.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                -30e^{-2}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. Substituting \(t=2\) gives \(P'(2)=-30e^{-2}\).`
+            },
+            {
+              html: raw`\[
+                30e^{-2}
+              \]`,
+              failureMessage: raw`Check the sign after substitution. The bracket \(5t^2-40t+30\) is negative at \(t=2\).`
+            },
+            {
+              html: raw`\[
+                -10e^{-2}
+              \]`,
+              failureMessage: raw`There is an arithmetic slip in the bracket. Evaluate \(5(2)^2-40(2)+30\) again.`
+            },
+            {
+              html: raw`\[
+                30e^2
+              \]`,
+              failureMessage: raw`The exponential factor stays \(e^{-2}\), not \(e^2\).`
+            }
+          ]
         },
         {
           type: "choice",
@@ -991,29 +1142,37 @@
           genericMessage: raw`Use the quotient rule carefully, then simplify the numerator.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: raw`Find the matching \(x\)-values`,
           text: raw`Solve \(f'(x)=-3\). What two \(x\)-values do you get?`,
-          ariaLabel: "Type the x values where the derivative is negative three",
-          mode: "list",
-          options: {
-            ordered: false,
-            stripOuterParens: true
-          },
-          acceptedAnswers: ["-6,-2"],
-          successMessage: raw`Yes. The two tangency points occur when \(x=-6\) and \(x=-2\).`,
-          targetedFeedback: [
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["-8,0"],
-              mode: "list",
-              options: {
-                ordered: false,
-                stripOuterParens: true
-              },
-              message: raw`Those are the zeros of the derivative numerator, but here you need the points where the derivative equals \(-3\), not \(0\).`
+              html: raw`\[
+                x=-6,\ -2
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. The two tangency points occur when \(x=-6\) and \(x=-2\).`
+            },
+            {
+              html: raw`\[
+                x=-8,\ 0
+              \]`,
+              failureMessage: raw`Those are the zeros of the derivative numerator, but here you need the points where the derivative equals \(-3\), not \(0\).`
+            },
+            {
+              html: raw`\[
+                x=6,\ 2
+              \]`,
+              failureMessage: raw`The signs do not match the solutions of the rearranged equation.`
+            },
+            {
+              html: raw`\[
+                x=-6,\ 2
+              \]`,
+              failureMessage: raw`One value is right, but the second solution should also be negative.`
             }
-          ],
-          genericMessage: raw`Set the derivative equal to \(-3\) and solve the resulting equation.`
+          ]
         },
         {
           type: "choice",
@@ -1106,32 +1265,70 @@
           genericMessage: raw`Differentiate \(x\) and \(y\) with respect to \(t\), then divide \(\frac{dy}{dt}\) by \(\frac{dx}{dt}\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find the point on the curve",
           text: raw`When \(t=\frac{\pi}{6}\), what point \((x,y)\) lies on the curve?`,
-          ariaLabel: "Type the point on the curve",
-          mode: "list",
-          options: {
-            ordered: true,
-            stripOuterParens: true
-          },
-          previewOptions: {
-            wrapWithParens: true
-          },
-          acceptedAnswers: ["4/sqrt(3),5/sqrt(3)"],
-          successMessage: raw`Correct. At \(t=\frac{\pi}{6}\), the point is \(\left(\frac{4}{\sqrt{3}},\frac{5}{\sqrt{3}}\right)\).`,
-          genericMessage: raw`Substitute \(t=\frac{\pi}{6}\) into both parametric equations and write the coordinates as \((x,y)\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                \left(\frac{4}{\sqrt{3}},\frac{5}{\sqrt{3}}\right)
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. At \(t=\frac{\pi}{6}\), the point is \(\left(\frac{4}{\sqrt{3}},\frac{5}{\sqrt{3}}\right)\).`
+            },
+            {
+              html: raw`\[
+                \left(\frac{2}{\sqrt{3}},\frac{5}{\sqrt{3}}\right)
+              \]`,
+              failureMessage: raw`Check \(x=2\sec\left(\frac{\pi}{6}\right)\). Since \(\sec\left(\frac{\pi}{6}\right)=\frac{2}{\sqrt{3}}\), the extra factor of \(2\) is still needed.`
+            },
+            {
+              html: raw`\[
+                \left(\frac{4}{\sqrt{3}},5\right)
+              \]`,
+              failureMessage: raw`The \(y\)-coordinate is \(5\tan\left(\frac{\pi}{6}\right)=\frac{5}{\sqrt{3}}\), not \(5\).`
+            },
+            {
+              html: raw`\[
+                \left(\frac{5}{\sqrt{3}},\frac{4}{\sqrt{3}}\right)
+              \]`,
+              failureMessage: raw`The coordinates have been swapped.`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Write the tangent equation",
           text: raw`What is the equation of the tangent line?`,
-          ariaLabel: "Type the tangent line equation",
-          mode: "equation",
-          acceptedAnswers: ["y=5x-5sqrt(3)"],
-          samples: [{ x: 0 }, { x: 1 }, { x: 3 }],
-          successMessage: raw`Yes. The tangent has gradient \(5\) and passes through \(\left(\frac{4}{\sqrt{3}},\frac{5}{\sqrt{3}}\right)\), so \(y=5x-5\sqrt{3}\).`,
-          genericMessage: raw`Use the point-gradient form \(y-y_1=m(x-x_1)\), then simplify.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                y=5x-5\sqrt{3}
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. The tangent has gradient \(5\) and passes through \(\left(\frac{4}{\sqrt{3}},\frac{5}{\sqrt{3}}\right)\), so \(y=5x-5\sqrt{3}\).`
+            },
+            {
+              html: raw`\[
+                y=5x+5\sqrt{3}
+              \]`,
+              failureMessage: raw`The intercept sign is wrong after simplifying the point-gradient form.`
+            },
+            {
+              html: raw`\[
+                y=\frac{5}{\sqrt{3}}x-5
+              \]`,
+              failureMessage: raw`That uses the point coordinates, but the gradient should be \(5\), not \(\frac{5}{\sqrt{3}}\).`
+            },
+            {
+              html: raw`\[
+                y=5x-\frac{4}{\sqrt{3}}
+              \]`,
+              failureMessage: raw`That intercept does not come from substituting the point into the tangent equation correctly.`
+            }
+          ]
         }
       ]
     }),
@@ -1196,13 +1393,37 @@
           genericMessage: raw`Differentiate the first derivative again, remembering the chain rule for the angle \(4x\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Evaluate the radius of curvature",
           text: raw`What is the radius of curvature when \(x=\frac{\pi}{3}\)?`,
-          ariaLabel: "Type the radius of curvature",
-          acceptedAnswers: ["2"],
-          successMessage: raw`Correct. Substituting the derivative values into the formula gives \(\rho=2\).`,
-          genericMessage: raw`Evaluate both derivatives at \(x=\frac{\pi}{3}\), then substitute into the radius of curvature formula.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                2
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. Substituting the derivative values into the formula gives \(\rho=2\).`
+            },
+            {
+              html: raw`\[
+                4
+              \]`,
+              failureMessage: raw`That looks like the denominator value only. You still need the full \(\left(1+\left(\frac{dy}{dx}\right)^2\right)^{3/2}\) numerator.`
+            },
+            {
+              html: raw`\[
+                8
+              \]`,
+              failureMessage: raw`That is \((1+3)^{3/2}\) before dividing by the second derivative.`
+            },
+            {
+              html: raw`\[
+                \frac{1}{2}
+              \]`,
+              failureMessage: raw`The curvature formula divides by \(\frac{d^2y}{dx^2}\), but the numerator is greater than \(1\) here.`
+            }
+          ]
         }
       ]
     }),
@@ -1394,13 +1615,37 @@
           genericMessage: raw`Try rewriting the function as \(\frac{1}{2}(\ln x)x^{-1}\) or use the quotient rule, then simplify.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Solve for the stationary point",
           text: raw`Set the derivative equal to zero. What is the \(x\)-coordinate of the stationary point?`,
-          ariaLabel: "Type the x coordinate of the stationary point",
-          acceptedAnswers: ["e"],
-          successMessage: raw`Yes. Setting \(1-\ln x=0\) gives \(\ln x=1\), so \(x=e\).`,
-          genericMessage: raw`Set the derivative equal to zero and solve the logarithmic equation.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                e
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. Setting \(1-\ln x=0\) gives \(\ln x=1\), so \(x=e\).`
+            },
+            {
+              html: raw`\[
+                \frac{1}{e}
+              \]`,
+              failureMessage: raw`That would come from \(\ln x=-1\), but the equation here is \(\ln x=1\).`
+            },
+            {
+              html: raw`\[
+                1
+              \]`,
+              failureMessage: raw`At \(x=1\), \(\ln x=0\), so the derivative is not zero yet.`
+            },
+            {
+              html: raw`\[
+                \ln e
+              \]`,
+              failureMessage: raw`\(\ln e=1\), but the solution for \(x\) is \(e\), not \(1\).`
+            }
+          ]
         }
       ]
     }),
@@ -1484,13 +1729,37 @@
           genericMessage: raw`Differentiate \(V=\frac{4}{3}\pi r^3\) with respect to \(r\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find the rate of change of volume",
           text: raw`What is \(\frac{dV}{dt}\) when \(r=6\) and \(\frac{dr}{dt}=-0.05\)?`,
-          ariaLabel: "Type dV by dt",
-          acceptedAnswers: ["-36pi/5"],
-          successMessage: raw`Yes. The volume is decreasing at \(-\frac{36\pi}{5}\text{ cm}^3\text{s}^{-1}\).`,
-          genericMessage: raw`Substitute \(r=6\) and \(\frac{dr}{dt}=-0.05\) into \(\frac{dV}{dt}=\frac{dV}{dr}\cdot\frac{dr}{dt}\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                -\frac{36\pi}{5}
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. The volume is decreasing at \(-\frac{36\pi}{5}\text{ cm}^3\text{s}^{-1}\).`
+            },
+            {
+              html: raw`\[
+                \frac{36\pi}{5}
+              \]`,
+              failureMessage: raw`Watch the sign. The radius is decreasing, so \(\frac{dr}{dt}\) is negative.`
+            },
+            {
+              html: raw`\[
+                -\frac{24\pi}{5}
+              \]`,
+              failureMessage: raw`There is an arithmetic slip in evaluating \(4\pi r^2\) at \(r=6\).`
+            },
+            {
+              html: raw`\[
+                -\frac{72\pi}{5}
+              \]`,
+              failureMessage: raw`That doubles the result. Recheck the product \(4\pi(6)^2(-0.05)\).`
+            }
+          ]
         }
       ]
     }),
@@ -1555,30 +1824,70 @@
           genericMessage: raw`Differentiate both parametric equations with respect to \(t\), then divide \(\frac{dy}{dt}\) by \(\frac{dx}{dt}\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Solve for the parameter",
           text: raw`Set the gradient equal to \(-2\). What value of \(t\) do you get?`,
-          ariaLabel: "Type the value of t",
-          acceptedAnswers: ["ln(2)/4"],
-          successMessage: raw`Yes. Solving \(-e^{4t}=-2\) gives \(t=\frac{\ln 2}{4}\).`,
-          genericMessage: raw`Set \(-e^{4t}\) equal to \(-2\), then solve the exponential equation.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                \frac{\ln 2}{4}
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. Solving \(-e^{4t}=-2\) gives \(t=\frac{\ln 2}{4}\).`
+            },
+            {
+              html: raw`\[
+                \frac{\ln 2}{2}
+              \]`,
+              failureMessage: raw`You still need to divide the logarithm by \(4\), because the exponent is \(4t\).`
+            },
+            {
+              html: raw`\[
+                \frac{1}{\ln 2}
+              \]`,
+              failureMessage: raw`That is not how we solve \(e^{4t}=2\). Take logs, then divide by \(4\).`
+            },
+            {
+              html: raw`\[
+                -\frac{\ln 2}{4}
+              \]`,
+              failureMessage: raw`Since \(e^{4t}=2>1\), the exponent \(4t\) must be positive.`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find the coordinates",
           text: raw`What point on the curve has this gradient?`,
-          ariaLabel: "Type the coordinates of the point",
-          mode: "list",
-          options: {
-            ordered: true,
-            stripOuterParens: true
-          },
-          previewOptions: {
-            wrapWithParens: true
-          },
-          acceptedAnswers: ["5/sqrt(2),5sqrt(2)"],
-          successMessage: raw`Correct. Substituting the value of \(t\) gives \(\left(\frac{5}{\sqrt{2}},5\sqrt{2}\right)\).`,
-          genericMessage: raw`Substitute \(t=\frac{\ln 2}{4}\) into both parametric equations and write the point as \((x,y)\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                \left(\frac{5}{\sqrt{2}},5\sqrt{2}\right)
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. Substituting the value of \(t\) gives \(\left(\frac{5}{\sqrt{2}},5\sqrt{2}\right)\).`
+            },
+            {
+              html: raw`\[
+                \left(5\sqrt{2},\frac{5}{\sqrt{2}}\right)
+              \]`,
+              failureMessage: raw`The coordinates are swapped. Remember \(x=5e^{-2t}\) and \(y=5e^{2t}\).`
+            },
+            {
+              html: raw`\[
+                \left(\frac{5}{2},10\right)
+              \]`,
+              failureMessage: raw`Those values do not come from substituting \(t=\frac{\ln 2}{4}\) into the exponentials.`
+            },
+            {
+              html: raw`\[
+                \left(5\sqrt{2},5\sqrt{2}\right)
+              \]`,
+              failureMessage: raw`Only the \(y\)-coordinate picks up the factor \(\sqrt{2}\); the \(x\)-coordinate is divided by \(\sqrt{2}\).`
+            }
+          ]
         }
       ]
     }),
@@ -1637,7 +1946,7 @@
           genericMessage: raw`Use symmetry to find \(AD=16-2x\), then multiply by the height \(AB=\sqrt{16x-x^2}\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: raw`Solve for the valid \(x\)-value`,
           text: raw`Solving \(A'(x)=0\), what valid value of \(x\) do you get?`,
           beforeHtml: raw`
@@ -1647,27 +1956,67 @@
               \]
             </div>
           `,
-          ariaLabel: "Type the valid x value",
-          acceptedAnswers: ["8-4sqrt(2)"],
-          tolerance: 1e-3,
-          successMessage: raw`Yes. The valid value is \(x=8-4\sqrt{2}\), which is about \(2.343\).`,
-          targetedFeedback: [
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["8+4sqrt(2)"],
-              message: raw`That value lies to the right of the centre, so it does not match point \(A\) on the left side of the rectangle.`
+              html: raw`\[
+                8-4\sqrt{2}
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. The valid value is \(x=8-4\sqrt{2}\), which is about \(2.343\).`
+            },
+            {
+              html: raw`\[
+                8+4\sqrt{2}
+              \]`,
+              failureMessage: raw`That value lies to the right of the centre, so it does not match point \(A\) on the left side of the rectangle.`
+            },
+            {
+              html: raw`\[
+                4\sqrt{2}
+              \]`,
+              failureMessage: raw`This misses the horizontal shift. Solve the derivative equation completely before simplifying.`
+            },
+            {
+              html: raw`\[
+                8-2\sqrt{2}
+              \]`,
+              failureMessage: raw`There is a factor error here. Recheck the algebra after solving the quadratic step.`
             }
-          ],
-          genericMessage: raw`Solve the derivative equation and keep the value that fits the left-hand corner \(A\) on the diagram.`
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: raw`Find the maximum length \(AD\)`,
           text: raw`What is the maximum length \(AD\)?`,
-          ariaLabel: "Type the maximum length AD",
-          acceptedAnswers: ["8sqrt(2)"],
-          tolerance: 1e-3,
-          successMessage: raw`Correct. The rectangle has maximum length \(AD=8\sqrt{2}\), which is about \(11.314\) units.`,
-          genericMessage: raw`Use \(AD=16-2x\) with your value of \(x\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                8\sqrt{2}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. The rectangle has maximum length \(AD=8\sqrt{2}\), which is about \(11.314\) units.`
+            },
+            {
+              html: raw`\[
+                4\sqrt{2}
+              \]`,
+              failureMessage: raw`You have only kept half the width. Remember \(AD=16-2x\).`
+            },
+            {
+              html: raw`\[
+                16-8\sqrt{2}
+              \]`,
+              failureMessage: raw`That expression still needs to be simplified after substituting \(x=8-4\sqrt{2}\).`
+            },
+            {
+              html: raw`\[
+                8+4\sqrt{2}
+              \]`,
+              failureMessage: raw`Check the substitution into \(16-2x\) carefully.`
+            }
+          ]
         }
       ]
     })

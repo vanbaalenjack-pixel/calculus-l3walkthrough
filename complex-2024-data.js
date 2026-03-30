@@ -222,13 +222,37 @@
       `,
       steps: [
         {
-          type: "typed",
+          type: "choice",
           title: "Use the factor theorem",
           text: raw`What value of \(x\) should you substitute into the polynomial?`,
-          ariaLabel: "Type the x value to substitute",
-          acceptedAnswers: ["-3"],
-          successMessage: raw`Correct. Since \(x+3=0\), the root is \(x=-3\).`,
-          genericMessage: raw`Set the factor \(x+3\) equal to \(0\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                -3
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. Since \(x+3=0\), the root is \(x=-3\).`
+            },
+            {
+              html: raw`\[
+                3
+              \]`,
+              failureMessage: raw`Watch the sign. \(x+3=x-(-3)\), so the matching value is \(-3\).`
+            },
+            {
+              html: raw`\[
+                0
+              \]`,
+              failureMessage: raw`The factor theorem uses the value that makes the factor zero, not the constant term.`
+            },
+            {
+              html: raw`\[
+                12
+              \]`,
+              failureMessage: raw`That number comes from the polynomial, but it is not the root of the factor \(x+3\).`
+            }
+          ]
         },
         {
           type: "typed",
@@ -242,13 +266,37 @@
           genericMessage: raw`Work through \((-3)^3\), \(p(-3)^2\), \(5(-3)\), and \(-12\), then collect like terms.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Solve for p",
           text: raw`What value of \(p\) makes the factor theorem work?`,
-          ariaLabel: "Type the value of p",
-          acceptedAnswers: ["6"],
-          successMessage: raw`Exactly. Solving \(9p-54=0\) gives \(p=6\).`,
-          genericMessage: raw`Rearrange the linear equation and divide by \(9\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                6
+              \]`,
+              correct: true,
+              successMessage: raw`Exactly. Solving \(9p-54=0\) gives \(p=6\).`
+            },
+            {
+              html: raw`\[
+                -6
+              \]`,
+              failureMessage: raw`Check the sign after moving \(54\) to the other side.`
+            },
+            {
+              html: raw`\[
+                9
+              \]`,
+              failureMessage: raw`That is the coefficient of \(p\), not the solution.`
+            },
+            {
+              html: raw`\[
+                54
+              \]`,
+              failureMessage: raw`You still need to divide by \(9\).`
+            }
+          ]
         }
       ]
     }),
@@ -286,24 +334,70 @@
       `,
       steps: [
         {
-          type: "typed",
+          type: "choice",
           title: "Raise the modulus",
           text: raw`What happens to the modulus when you work out \(z^{15}\)?`,
-          ariaLabel: "Type the new modulus",
-          acceptedAnswers: ["m^15"],
-          samples: [{ m: 2 }, { m: 5 }, { m: 7 }],
-          successMessage: raw`Correct. The modulus becomes \(m^{15}\).`,
-          genericMessage: raw`De Moivre raises the modulus to the same power.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                m^{15}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. The modulus becomes \(m^{15}\).`
+            },
+            {
+              html: raw`\[
+                15m
+              \]`,
+              failureMessage: raw`The modulus is raised to the power; it is not multiplied by the power.`
+            },
+            {
+              html: raw`\[
+                m^5
+              \]`,
+              failureMessage: raw`Nothing gets divided by \(3\) here. The modulus takes the full power \(15\).`
+            },
+            {
+              html: raw`\[
+                m^3
+              \]`,
+              failureMessage: raw`Only the argument simplifies to a multiple of \(3\); the modulus still becomes \(m^{15}\).`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Multiply the argument",
           text: raw`What argument do you get after multiplying by \(15\)?`,
-          ariaLabel: "Type the new argument",
-          acceptedAnswers: ["3npi", "3*pi*n", "n*3pi"],
-          samples: [{ n: 1 }, { n: 2 }, { n: 3 }],
-          successMessage: raw`Yes. \(15\times \frac{n\pi}{5}=3n\pi\).`,
-          genericMessage: raw`Multiply the original angle \(\frac{n\pi}{5}\) by \(15\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                3n\pi
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. \(15\times \frac{n\pi}{5}=3n\pi\).`
+            },
+            {
+              html: raw`\[
+                15n\pi
+              \]`,
+              failureMessage: raw`You still need to divide by the \(5\) from the original argument.`
+            },
+            {
+              html: raw`\[
+                \frac{n\pi}{3}
+              \]`,
+              failureMessage: raw`The argument grows when we raise to a power; it does not get divided here.`
+            },
+            {
+              html: raw`\[
+                \frac{3\pi}{n}
+              \]`,
+              failureMessage: raw`The \(n\) stays as a multiplier in the angle.`
+            }
+          ]
         },
         {
           type: "choice",
@@ -396,20 +490,37 @@
           genericMessage: raw`Square both sides of \(12=8\sqrt{kx}\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Solve for x",
           text: raw`What is \(x\) in terms of \(k\)?`,
-          ariaLabel: "Type x in terms of k",
-          acceptedAnswers: ["9/(4k)", "9/4k"],
-          samples: [{ k: 1 }, { k: 2 }, { k: 5 }],
-          successMessage: raw`Exactly. Dividing by \(64k\) gives \(x=\frac{9}{4k}\).`,
-          targetedFeedback: [
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["9/4"],
-              message: raw`You still need the \(k\) in the denominator.`
+              html: raw`\[
+                \frac{9}{4k}
+              \]`,
+              correct: true,
+              successMessage: raw`Exactly. Dividing by \(64k\) gives \(x=\frac{9}{4k}\).`
+            },
+            {
+              html: raw`\[
+                \frac{9}{4}
+              \]`,
+              failureMessage: raw`You still need the \(k\) in the denominator.`
+            },
+            {
+              html: raw`\[
+                \frac{4k}{9}
+              \]`,
+              failureMessage: raw`That flips the fraction. Solve \(144=64kx\) by dividing both sides by \(64k\).`
+            },
+            {
+              html: raw`\[
+                \frac{9}{64k}
+              \]`,
+              failureMessage: raw`The fraction needs simplifying. \(144/64\) reduces to \(9/4\).`
             }
-          ],
-          genericMessage: raw`Rearrange \(144=64kx\) and divide by \(64k\).`
+          ]
         }
       ]
     }),
@@ -740,7 +851,7 @@
           ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "State the gradient",
           text: raw`Compare \(y=-x\) with \(y=mx+c\). What is the gradient?`,
           beforeHtml: raw`
@@ -750,16 +861,34 @@
               \]
             </div>
           `,
-          ariaLabel: "Type the gradient",
-          acceptedAnswers: ["-1"],
-          successMessage: raw`Correct. In \(y=-x\), the coefficient of \(x\) is \(-1\).`,
-          targetedFeedback: [
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["1"],
-              message: raw`Check the sign of the coefficient of \(x\). The line is \(y=-x\), not \(y=x\).`
+              html: raw`\[
+                -1
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. In \(y=-x\), the coefficient of \(x\) is \(-1\).`
+            },
+            {
+              html: raw`\[
+                1
+              \]`,
+              failureMessage: raw`Check the sign of the coefficient of \(x\). The line is \(y=-x\), not \(y=x\).`
+            },
+            {
+              html: raw`\[
+                0
+              \]`,
+              failureMessage: raw`A gradient of \(0\) would give a horizontal line, and \(y=-x\) is not horizontal.`
+            },
+            {
+              html: raw`\[
+                \text{undefined}
+              \]`,
+              failureMessage: raw`The line is sloping, not vertical, so its gradient is defined.`
             }
-          ],
-          genericMessage: raw`Read the coefficient of \(x\) from the line equation \(y=-x\).`
+          ]
         }
       ]
     }),
@@ -842,13 +971,37 @@
           genericMessage: raw`Write \(w\) in \(a+bi\) form, then use \(a=b\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Check the discriminant",
           text: raw`What is the discriminant of \(15k^2-2k+8=0\)?`,
-          ariaLabel: "Type the discriminant",
-          acceptedAnswers: ["-476"],
-          successMessage: raw`Right. The discriminant is negative, so there are no real solutions for \(k\).`,
-          genericMessage: raw`Use \(b^2-4ac\) with \(a=15\), \(b=-2\), and \(c=8\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                -476
+              \]`,
+              correct: true,
+              successMessage: raw`Right. The discriminant is negative, so there are no real solutions for \(k\).`
+            },
+            {
+              html: raw`\[
+                476
+              \]`,
+              failureMessage: raw`The calculation gives \(4-480\), so the result is negative.`
+            },
+            {
+              html: raw`\[
+                -236
+              \]`,
+              failureMessage: raw`There is an arithmetic slip in \(4ac\). Here \(4(15)(8)=480\).`
+            },
+            {
+              html: raw`\[
+                4
+              \]`,
+              failureMessage: raw`That is only the \(b^2\) part. You still need to subtract \(4ac\).`
+            }
+          ]
         },
         {
           type: "choice",
@@ -920,17 +1073,29 @@
       `,
       steps: [
         {
-          type: "typed",
+          type: "choice",
           title: "Choose the conjugate",
-          text: raw`What pair \((\text{real part},\text{imaginary coefficient})\) represents the conjugate of \(2k+i\)?`,
-          ariaLabel: "Type the conjugate pair",
-          mode: "list",
-          options: orderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["2k,-1"],
-          samples: [{ k: 1 }, { k: 2 }, { k: 5 }],
-          successMessage: raw`Correct. The conjugate is \(2k-i\), so the pair is \((2k,-1)\).`,
-          genericMessage: raw`Keep the real part the same and change the sign of the imaginary part.`
+          text: raw`Which pair \((\text{real part},\text{imaginary coefficient})\) represents the conjugate of \(2k+i\)?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\((2k,-1)\)`,
+              correct: true,
+              successMessage: raw`Correct. The conjugate is \(2k-i\), so the pair is \((2k,-1)\).`
+            },
+            {
+              html: raw`\((2k,1)\)`,
+              failureMessage: raw`That is the original number, not its conjugate.`
+            },
+            {
+              html: raw`\((-2k,-1)\)`,
+              failureMessage: raw`The real part stays the same when you take a conjugate.`
+            },
+            {
+              html: raw`\((-2k,1)\)`,
+              failureMessage: raw`Both signs have changed, but only the imaginary part should change sign.`
+            }
+          ]
         },
         {
           type: "typed",
@@ -946,25 +1111,37 @@
           genericMessage: raw`Expand \(i(2k-i)\) and replace \(i^2\) with \(-1\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Read off a and b",
-          text: raw`Type the coefficients \((a,b)\) for the final form \(a+bi\).`,
-          ariaLabel: "Type the values of a and b",
-          mode: "list",
-          options: orderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["1/(4k^2+1),2k/(4k^2+1)"],
-          samples: [{ k: 1 }, { k: 2 }, { k: 5 }],
-          successMessage: raw`Correct. So \(a=\frac{1}{4k^2+1}\) and \(b=\frac{2k}{4k^2+1}\).`,
-          targetedFeedback: [
+          text: raw`Which pair gives the coefficients \((a,b)\) in the final form \(a+bi\)?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["2k/(4k^2+1),1/(4k^2+1)"],
-              mode: "list",
-              options: orderedListOptions,
-              message: raw`Those are the right pieces, but the order should be \((a,b)\).`
+              html: raw`\[
+                \left(\frac{1}{4k^2+1},\frac{2k}{4k^2+1}\right)
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. So \(a=\frac{1}{4k^2+1}\) and \(b=\frac{2k}{4k^2+1}\).`
+            },
+            {
+              html: raw`\[
+                \left(\frac{2k}{4k^2+1},\frac{1}{4k^2+1}\right)
+              \]`,
+              failureMessage: raw`Those are the right pieces, but the order should be \((a,b)\).`
+            },
+            {
+              html: raw`\[
+                \left(\frac{1}{4k^2-1},\frac{2k}{4k^2-1}\right)
+              \]`,
+              failureMessage: raw`The denominator comes from \((2k+i)(2k-i)=4k^2+1\), not \(4k^2-1\).`
+            },
+            {
+              html: raw`\[
+                (1,2k)
+              \]`,
+              failureMessage: raw`You still need to divide both parts by the denominator \(4k^2+1\).`
             }
-          ],
-          genericMessage: raw`Split \(\frac{1+2ki}{4k^2+1}\) into a real part and an imaginary coefficient.`
+          ]
         }
       ]
     }),
@@ -1033,16 +1210,37 @@
           genericMessage: raw`Expand \((3+2r)^2\), then combine like terms carefully.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Solve for r",
-          text: raw`Type both values of \(r\), separated by commas.`,
-          ariaLabel: "Type both values of r",
-          mode: "list",
-          options: unorderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["1/2,-15/2"],
-          successMessage: raw`Exactly. The values are \(r=\frac{1}{2}\) and \(r=-\frac{15}{2}\).`,
-          genericMessage: raw`Solve \(4r^2+28r-15=0\).`
+          text: raw`Which pair of values for \(r\) is correct?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                \frac{1}{2},\ -\frac{15}{2}
+              \]`,
+              correct: true,
+              successMessage: raw`Exactly. The values are \(r=\frac{1}{2}\) and \(r=-\frac{15}{2}\).`
+            },
+            {
+              html: raw`\[
+                -\frac{1}{2},\ \frac{15}{2}
+              \]`,
+              failureMessage: raw`Both signs have flipped. Recheck the factorisation or quadratic formula step.`
+            },
+            {
+              html: raw`\[
+                \frac{1}{2},\ \frac{15}{2}
+              \]`,
+              failureMessage: raw`One sign is wrong. The larger root should be negative here.`
+            },
+            {
+              html: raw`\[
+                -\frac{1}{2},\ -\frac{15}{2}
+              \]`,
+              failureMessage: raw`Only one of the roots is negative.`
+            }
+          ]
         }
       ]
     }),
@@ -1150,33 +1348,70 @@
           genericMessage: raw`Multiply both sides of \(\frac{w}{w+i}=2-i\) by the denominator \(w+i\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find w",
-          text: raw`If \(w=a+bi\), what pair \((a,b)\) do you get?`,
-          ariaLabel: "Type the values of a and b",
-          mode: "list",
-          options: complexPairListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["1/2,-3/2"],
-          successMessage: raw`Yes. So \(w=\frac{1}{2}-\frac{3}{2}i\).`,
-          targetedFeedback: [
+          text: raw`If \(w=a+bi\), which pair \((a,b)\) do you get?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["-3/2,1/2"],
-              mode: "list",
-              options: orderedListOptions,
-              message: raw`Those are the right numbers, but the order should be \((a,b)\).`
+              html: raw`\[
+                \left(\frac{1}{2},-\frac{3}{2}\right)
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. So \(w=\frac{1}{2}-\frac{3}{2}i\).`
+            },
+            {
+              html: raw`\[
+                \left(-\frac{3}{2},\frac{1}{2}\right)
+              \]`,
+              failureMessage: raw`Those are the right numbers, but the order should be \((a,b)\).`
+            },
+            {
+              html: raw`\[
+                \left(\frac{1}{2},\frac{3}{2}\right)
+              \]`,
+              failureMessage: raw`The imaginary part should be negative, not positive.`
+            },
+            {
+              html: raw`\[
+                \left(-\frac{1}{2},-\frac{3}{2}\right)
+              \]`,
+              failureMessage: raw`The real part should be positive \(\frac{1}{2}\).`
             }
-          ],
-          genericMessage: raw`Match real and imaginary parts after substituting \(w=a+bi\).`
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find the modulus",
           text: raw`What is \(|w|\)?`,
-          ariaLabel: "Type the modulus of w",
-          acceptedAnswers: ["sqrt(10)/2"],
-          successMessage: raw`Correct. \(|w|=\frac{\sqrt{10}}{2}\).`,
-          genericMessage: raw`Use \(|a+bi|=\sqrt{a^2+b^2}\) with \(a=\frac{1}{2}\) and \(b=-\frac{3}{2}\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                \frac{\sqrt{10}}{2}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. \(|w|=\frac{\sqrt{10}}{2}\).`
+            },
+            {
+              html: raw`\[
+                \sqrt{10}
+              \]`,
+              failureMessage: raw`You still need the factor of \(\frac{1}{2}\) because both coordinates are halves.`
+            },
+            {
+              html: raw`\[
+                \frac{5}{2}
+              \]`,
+              failureMessage: raw`That adds the magnitudes instead of using \(\sqrt{a^2+b^2}\).`
+            },
+            {
+              html: raw`\[
+                \frac{10}{4}
+              \]`,
+              failureMessage: raw`That is the value under the square root before simplifying, not the modulus itself.`
+            }
+          ]
         }
       ]
     }),
@@ -1237,16 +1472,37 @@
       `,
       steps: [
         {
-          type: "typed",
+          type: "choice",
           title: "Use the conjugate root",
-          text: raw`Type the conjugate root as \((\text{real part},\text{imaginary coefficient})\).`,
-          ariaLabel: "Type the conjugate root as a pair",
-          mode: "list",
-          options: orderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["6,2"],
-          successMessage: raw`Correct. The conjugate root is \(6+2i\).`,
-          genericMessage: raw`Take the conjugate of \(6-2i\) by changing the sign of the imaginary part.`
+          text: raw`Which conjugate root should you use?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                6+2i
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. The conjugate root is \(6+2i\).`
+            },
+            {
+              html: raw`\[
+                6-2i
+              \]`,
+              failureMessage: raw`That is the root already given in the question, not its conjugate.`
+            },
+            {
+              html: raw`\[
+                -6+2i
+              \]`,
+              failureMessage: raw`The real part stays the same when you take a conjugate.`
+            },
+            {
+              html: raw`\[
+                -6-2i
+              \]`,
+              failureMessage: raw`Only the sign of the imaginary part changes for a conjugate root.`
+            }
+          ]
         },
         {
           type: "typed",
@@ -1259,24 +1515,70 @@
           genericMessage: raw`Multiply \((z-6+2i)(z-6-2i)\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find the remaining root",
-          text: raw`Type the other two roots, separated by commas.`,
-          ariaLabel: "Type the remaining roots",
-          mode: "list",
-          options: complexListOptions,
-          acceptedAnswers: ["6+2i,5/2"],
-          successMessage: raw`Correct. The last factor is \(2z-5\), so the remaining roots are \(6+2i\) and \(\frac{5}{2}\).`,
-          genericMessage: raw`Use the constant term to find the last factor, then solve it.`
+          text: raw`Which pair gives the other two roots?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                6+2i,\ \frac{5}{2}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. The last factor is \(2z-5\), so the remaining roots are \(6+2i\) and \(\frac{5}{2}\).`
+            },
+            {
+              html: raw`\[
+                6-2i,\ \frac{5}{2}
+              \]`,
+              failureMessage: raw`That repeats the root already given instead of using its conjugate.`
+            },
+            {
+              html: raw`\[
+                6+2i,\ -\frac{5}{2}
+              \]`,
+              failureMessage: raw`The sign of the real root is wrong. The last factor is \(2z-5\), not \(2z+5\).`
+            },
+            {
+              html: raw`\[
+                -6+2i,\ \frac{5}{2}
+              \]`,
+              failureMessage: raw`The conjugate keeps the real part \(6\), not \(-6\).`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Match the coefficient",
           text: raw`What value of \(d\) does the expansion give?`,
-          ariaLabel: "Type the value of d",
-          acceptedAnswers: ["-29"],
-          successMessage: raw`Exactly. Expanding gives \(2z^3-29z^2+140z-200\), so \(d=-29\).`,
-          genericMessage: raw`Expand \((z^2-12z+40)(2z-5)\) and compare the \(z^2\) coefficient.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                -29
+              \]`,
+              correct: true,
+              successMessage: raw`Exactly. Expanding gives \(2z^3-29z^2+140z-200\), so \(d=-29\).`
+            },
+            {
+              html: raw`\[
+                29
+              \]`,
+              failureMessage: raw`The coefficient of \(z^2\) is negative after expansion.`
+            },
+            {
+              html: raw`\[
+                -12
+              \]`,
+              failureMessage: raw`That comes from the quadratic factor, but the cubic coefficient match happens after multiplying by the linear factor as well.`
+            },
+            {
+              html: raw`\[
+                140
+              \]`,
+              failureMessage: raw`That is the coefficient of \(z\), not of \(z^2\).`
+            }
+          ]
         }
       ]
     }),
@@ -1375,26 +1677,70 @@
           genericMessage: raw`Expand first, then collect terms and complete the square in both variables.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Use x = 3",
           text: raw`After substituting \(x=3\), what equation do you get for \(y\)?`,
-          ariaLabel: "Type the equation in y",
-          mode: "equation",
-          acceptedAnswers: ["(y-3)^2=4"],
-          samples: [{ y: 1 }, { y: 5 }, { y: 6 }],
-          successMessage: raw`Correct. Substituting \(x=3\) leaves \((y-3)^2=4\).`,
-          genericMessage: raw`Put \(x=3\) into the circle equation and simplify.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                (y-3)^2=4
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. Substituting \(x=3\) leaves \((y-3)^2=4\).`
+            },
+            {
+              html: raw`\[
+                (y-3)^2=8
+              \]`,
+              failureMessage: raw`You still need to subtract the \(x\)-part contribution \(4\) from the right-hand side \(8\).`
+            },
+            {
+              html: raw`\[
+                y^2-3=4
+              \]`,
+              failureMessage: raw`The completed-square form should stay centred around \(y-3\).`
+            },
+            {
+              html: raw`\[
+                (y+3)^2=4
+              \]`,
+              failureMessage: raw`The circle is centred at \(y=3\), not at \(y=-3\).`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find u",
-          text: raw`Type both possible values of \(u\), separated by commas.`,
-          ariaLabel: "Type both possible values of u",
-          mode: "list",
-          options: complexListOptions,
-          acceptedAnswers: ["3+5i,3+i"],
-          successMessage: raw`Exactly. The two values are \(u=3+5i\) and \(u=3+i\).`,
-          genericMessage: raw`Use the two possible \(y\)-values with real part \(3\).`
+          text: raw`Which pair of complex numbers matches \(u\)?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                3+5i,\ 3+i
+              \]`,
+              correct: true,
+              successMessage: raw`Exactly. The two values are \(u=3+5i\) and \(u=3+i\).`
+            },
+            {
+              html: raw`\[
+                3-5i,\ 3-i
+              \]`,
+              failureMessage: raw`The \(y\)-values here are \(5\) and \(1\), so both imaginary parts should be positive.`
+            },
+            {
+              html: raw`\[
+                5+3i,\ 1+3i
+              \]`,
+              failureMessage: raw`Those swap the real and imaginary parts. The real part is fixed at \(3\).`
+            },
+            {
+              html: raw`\[
+                3+4i,\ 3+2i
+              \]`,
+              failureMessage: raw`Those do not solve \((y-3)^2=4\).`
+            }
+          ]
         }
       ]
     }),
@@ -1441,33 +1787,103 @@
       `,
       steps: [
         {
-          type: "typed",
+          type: "choice",
           title: "Pick the conjugate",
           text: raw`What conjugate should you multiply by?`,
-          ariaLabel: "Type the conjugate",
-          acceptedAnswers: ["sqrt(2p)+sqrt(p)"],
-          samples: [{ p: 1 }, { p: 2 }, { p: 5 }],
-          successMessage: raw`Correct. That conjugate removes the surd from the denominator.`,
-          genericMessage: raw`Change the sign between the two surds.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                \sqrt{2p}+\sqrt{p}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. That conjugate removes the surd from the denominator.`
+            },
+            {
+              html: raw`\[
+                \sqrt{2p}-\sqrt{p}
+              \]`,
+              failureMessage: raw`That is the original denominator, not its conjugate.`
+            },
+            {
+              html: raw`\[
+                \sqrt{2p}+\sqrt{2p}
+              \]`,
+              failureMessage: raw`The second term should be \(\sqrt{p}\), not a repeat of the first surd.`
+            },
+            {
+              html: raw`\[
+                \sqrt{p}-\sqrt{2p}
+              \]`,
+              failureMessage: raw`That reverses the terms and keeps the wrong sign pattern for the conjugate we need.`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Simplify the denominator",
           text: raw`What does the denominator simplify to after using the difference of two squares?`,
-          ariaLabel: "Type the simplified denominator",
-          acceptedAnswers: ["p"],
-          samples: [{ p: 1 }, { p: 2 }, { p: 5 }],
-          successMessage: raw`Yes. \((\sqrt{2p})^2-(\sqrt{p})^2=2p-p=p\).`,
-          genericMessage: raw`Use \(a^2-b^2\) with \(a=\sqrt{2p}\) and \(b=\sqrt{p}\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                p
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. \((\sqrt{2p})^2-(\sqrt{p})^2=2p-p=p\).`
+            },
+            {
+              html: raw`\[
+                3p
+              \]`,
+              failureMessage: raw`The denominator simplifies to \(2p-p\), not \(2p+p\).`
+            },
+            {
+              html: raw`\[
+                p^2
+              \]`,
+              failureMessage: raw`Difference of squares keeps the same power of \(p\) here; it does not square it.`
+            },
+            {
+              html: raw`\[
+                \sqrt{p}
+              \]`,
+              failureMessage: raw`Once the squares are applied, the surds disappear from the denominator.`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Finish the simplification",
           text: raw`What is the final simplified result?`,
-          ariaLabel: "Type the final simplified result",
-          acceptedAnswers: ["2+sqrt(2)"],
-          successMessage: raw`Exactly. The whole expression simplifies to \(2+\sqrt{2}\).`,
-          genericMessage: raw`Cancel the common factor of \(p\) after expanding the numerator.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                2+\sqrt{2}
+              \]`,
+              correct: true,
+              successMessage: raw`Exactly. The whole expression simplifies to \(2+\sqrt{2}\).`
+            },
+            {
+              html: raw`\[
+                2-\sqrt{2}
+              \]`,
+              failureMessage: raw`The conjugate changes the denominator, but the simplified numerator still gives a positive \(\sqrt{2}\) term.`
+            },
+            {
+              html: raw`\[
+                \sqrt{2}
+              \]`,
+              failureMessage: raw`You have lost the \(2\) coming from \(\frac{2p}{p}\).`
+            },
+            {
+              html: raw`\[
+                2p+\sqrt{2}
+              \]`,
+              failureMessage: raw`The \(p\) cancels out completely in the simplification.`
+            }
+          ]
         }
       ]
     }),
@@ -1537,28 +1953,70 @@
       `,
       steps: [
         {
-          type: "typed",
+          type: "choice",
           title: "Read z from the diagram",
-          text: raw`Type the coefficients of \(z\) as \((\text{real part},\text{imaginary coefficient})\).`,
-          ariaLabel: "Type the coefficients of z",
-          mode: "list",
-          options: orderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["-2,3"],
-          successMessage: raw`Correct. So \(z=-2+3i\).`,
-          genericMessage: raw`Read the horizontal coordinate first and the vertical coordinate second.`
+          text: raw`Which pair gives the coefficients of \(z\)?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                (-2,3)
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. So \(z=-2+3i\).`
+            },
+            {
+              html: raw`\[
+                (2,3)
+              \]`,
+              failureMessage: raw`The point is to the left of the imaginary axis, so the real part is negative.`
+            },
+            {
+              html: raw`\[
+                (-2,-3)
+              \]`,
+              failureMessage: raw`The point is above the real axis, so the imaginary coefficient is positive.`
+            },
+            {
+              html: raw`\[
+                (3,-2)
+              \]`,
+              failureMessage: raw`That swaps the coordinates and changes the signs.`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find the plotted point",
           text: raw`What ordered pair should you plot for \(w=z^2\)?`,
-          ariaLabel: "Type the coordinates of w",
-          mode: "list",
-          options: complexPairListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["-5,-12"],
-          successMessage: raw`Exactly. Squaring gives \(w=-5-12i\), so the point is \((-5,-12)\).`,
-          genericMessage: raw`Square \((-2+3i)\) first, then read the real and imaginary parts as coordinates.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                (-5,-12)
+              \]`,
+              correct: true,
+              successMessage: raw`Exactly. Squaring gives \(w=-5-12i\), so the point is \((-5,-12)\).`
+            },
+            {
+              html: raw`\[
+                (-5,12)
+              \]`,
+              failureMessage: raw`Check the sign of the imaginary part after squaring \((-2+3i)\).`
+            },
+            {
+              html: raw`\[
+                (5,-12)
+              \]`,
+              failureMessage: raw`The real part should be negative because \(4-9=-5\).`
+            },
+            {
+              html: raw`\[
+                (-1,-6)
+              \]`,
+              failureMessage: raw`That comes from incomplete simplification. Expand the square fully first.`
+            }
+          ]
         }
       ]
     }),
@@ -1622,16 +2080,37 @@
           genericMessage: raw`Use \((3-di)(3+di)\) on the left-hand side.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Solve for d",
-          text: raw`Type both possible values of \(d\), separated by commas.`,
-          ariaLabel: "Type the values of d",
-          mode: "list",
-          options: unorderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["9,1"],
-          successMessage: raw`Exactly. The solutions are \(d=9\) and \(d=1\).`,
-          genericMessage: raw`Factor \(d^2-10d+9\).`
+          text: raw`Which pair of values for \(d\) is correct?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                9,\ 1
+              \]`,
+              correct: true,
+              successMessage: raw`Exactly. The solutions are \(d=9\) and \(d=1\).`
+            },
+            {
+              html: raw`\[
+                -9,\ -1
+              \]`,
+              failureMessage: raw`Both signs are wrong. Factor \(d^2-10d+9\) carefully.`
+            },
+            {
+              html: raw`\[
+                9,\ -1
+              \]`,
+              failureMessage: raw`One value is right, but the second root should also be positive.`
+            },
+            {
+              html: raw`\[
+                10,\ 0
+              \]`,
+              failureMessage: raw`Those come from the coefficients, not from the factorised roots.`
+            }
+          ]
         }
       ]
     }),
@@ -1691,24 +2170,70 @@
       `,
       steps: [
         {
-          type: "typed",
+          type: "choice",
           title: "Rewrite the right-hand side",
           text: raw`What is the modulus of \(-81k^8\)?`,
-          ariaLabel: "Type the modulus",
-          acceptedAnswers: ["81k^8"],
-          samples: [{ k: 1 }, { k: 2 }, { k: 3 }],
-          successMessage: raw`Correct. The modulus is \(81k^8\).`,
-          genericMessage: raw`A modulus is always non-negative, so use the size of the number only.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                81k^8
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. The modulus is \(81k^8\).`
+            },
+            {
+              html: raw`\[
+                -81k^8
+              \]`,
+              failureMessage: raw`A modulus is always non-negative, so the sign must disappear.`
+            },
+            {
+              html: raw`\[
+                9k^4
+              \]`,
+              failureMessage: raw`That is the fourth-root modulus, not the modulus of the original right-hand side.`
+            },
+            {
+              html: raw`\[
+                81k^2
+              \]`,
+              failureMessage: raw`The exponent on \(k\) should stay \(8\) before taking roots.`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "General argument form",
           text: raw`What general expression can you use for the fourth-root arguments?`,
-          ariaLabel: "Type the general root argument",
-          acceptedAnswers: ["pi/4+npi/2", "npi/2+pi/4"],
-          samples: [{ n: 0 }, { n: 1 }, { n: 2 }, { n: 3 }],
-          successMessage: raw`Yes. The arguments are \(\frac{\pi}{4}+n\frac{\pi}{2}\).`,
-          genericMessage: raw`Start from argument \(\pi\), then divide by \(4\) and allow the usual full set of roots.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                \frac{\pi}{4}+n\frac{\pi}{2}
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. The arguments are \(\frac{\pi}{4}+n\frac{\pi}{2}\).`
+            },
+            {
+              html: raw`\[
+                \frac{\pi}{4}+n\frac{\pi}{4}
+              \]`,
+              failureMessage: raw`The roots should be spaced by \(\frac{2\pi}{4}=\frac{\pi}{2}\), not by \(\frac{\pi}{4}\).`
+            },
+            {
+              html: raw`\[
+                \pi+n\frac{\pi}{2}
+              \]`,
+              failureMessage: raw`The initial argument should be divided by \(4\) when taking fourth roots.`
+            },
+            {
+              html: raw`\[
+                \frac{\pi}{2}+n\pi
+              \]`,
+              failureMessage: raw`That gives the wrong starting angle and the wrong spacing for fourth roots.`
+            }
+          ]
         },
         {
           type: "typed",
@@ -1796,24 +2321,70 @@
           genericMessage: raw`Use \((a+b)^3=a^3+3a^2b+3ab^2+b^3\) with \(a=x\) and \(b=\frac{1}{x}\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Substitute the given relation",
           text: raw`What does \(3\left(x+\frac{1}{x}\right)\) become?`,
-          ariaLabel: "Type the substituted term",
-          acceptedAnswers: ["3p"],
-          samples: [{ p: 1 }, { p: 3 }, { p: 5 }],
-          successMessage: raw`Yes. Since \(x+\frac{1}{x}=p\), the whole bracket becomes \(3p\).`,
-          genericMessage: raw`Use the given relation exactly as written.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                3p
+              \]`,
+              correct: true,
+              successMessage: raw`Yes. Since \(x+\frac{1}{x}=p\), the whole bracket becomes \(3p\).`
+            },
+            {
+              html: raw`\[
+                p^3
+              \]`,
+              failureMessage: raw`The given relation is \(x+\frac{1}{x}=p\), so multiplying that bracket by \(3\) gives \(3p\), not \(p^3\).`
+            },
+            {
+              html: raw`\[
+                \frac{3}{p}
+              \]`,
+              failureMessage: raw`The bracket is replaced directly by \(p\); nothing is inverted here.`
+            },
+            {
+              html: raw`\[
+                p
+              \]`,
+              failureMessage: raw`Do not forget the factor of \(3\) in front of the bracket.`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Isolate the target expression",
           text: raw`So what is \(x^3+\frac{1}{x^3}\) in terms of \(p\)?`,
-          ariaLabel: "Type the final expression in p",
-          acceptedAnswers: ["p^3-3p"],
-          samples: [{ p: 1 }, { p: 3 }, { p: 5 }],
-          successMessage: raw`Exactly. Rearranging gives \(x^3+\frac{1}{x^3}=p^3-3p\).`,
-          genericMessage: raw`Subtract \(3p\) from both sides.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                p^3-3p
+              \]`,
+              correct: true,
+              successMessage: raw`Exactly. Rearranging gives \(x^3+\frac{1}{x^3}=p^3-3p\).`
+            },
+            {
+              html: raw`\[
+                p^3+3p
+              \]`,
+              failureMessage: raw`The \(3p\) term is moved to the other side, so it should be subtracted.`
+            },
+            {
+              html: raw`\[
+                p^3-p
+              \]`,
+              failureMessage: raw`The coefficient of the middle term stays \(3\).`
+            },
+            {
+              html: raw`\[
+                3p-p^3
+              \]`,
+              failureMessage: raw`That has the terms in the wrong order after rearranging.`
+            }
+          ]
         }
       ]
     })

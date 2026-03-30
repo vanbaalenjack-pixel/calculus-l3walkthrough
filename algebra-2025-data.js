@@ -171,30 +171,37 @@
           ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Write the equation after cubing",
-          text: raw`After cubing both sides, what equation do you get?`,
-          ariaLabel: "Type the equation after cubing",
-          mode: "equation",
-          options: {
-            equationRhs: "7x-5",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["8y^3=7x-5"],
-          samples: [
-            { x: 2, y: 1 },
-            { x: -1, y: 3 },
-            { x: 4, y: -2 }
-          ],
-          successMessage: raw`Correct. \((2y)^3=8y^3\), so the equation becomes \(8y^3=7x-5\).`,
-          targetedFeedback: [
+          text: raw`After cubing both sides, which equation do you get?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["4y^3=7x-5"],
-              mode: "equation",
-              message: raw`Almost there. \((2y)^3=8y^3\), not \(4y^3\).`
+              html: raw`\[
+                8y^3=7x-5
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. \((2y)^3=8y^3\), so the equation becomes \(8y^3=7x-5\).`
+            },
+            {
+              html: raw`\[
+                4y^3=7x-5
+              \]`,
+              failureMessage: raw`Close, but \((2y)^3=8y^3\), not \(4y^3\).`
+            },
+            {
+              html: raw`\[
+                8y^2=7x-5
+              \]`,
+              failureMessage: raw`The whole factor \(2y\) is cubed, so the power on \(y\) should be \(3\).`
+            },
+            {
+              html: raw`\[
+                8y^3=7x+5
+              \]`,
+              failureMessage: raw`Watch the sign. Cubing removes the cube root, but it does not change the \(-5\) inside it.`
             }
-          ],
-          genericMessage: raw`Cube both sides carefully. Remember the \(2\) is cubed as well.`
+          ]
         },
         {
           type: "typed",
@@ -344,17 +351,29 @@
           genericMessage: raw`Expand \((2x+4)(x-1.5)\) carefully and then collect like terms.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Read off a and b",
-          text: raw`Type the values of \(a\) and \(b\) as \(a,b\).`,
-          ariaLabel: "Type a and b",
-          mode: "list",
-          options: {
-            ordered: true
-          },
-          acceptedAnswers: ["1,-6"],
-          successMessage: raw`Correct. Comparing \(2x^2+x-6\) with \(2x^2+ax+b\) gives \(a=1\) and \(b=-6\).`,
-          genericMessage: raw`Compare the coefficient of \(x\) and the constant term with \(2x^2+ax+b\).`
+          text: raw`Which pair of values matches \(a\) and \(b\)?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\(a=1,\ b=-6\)`,
+              correct: true,
+              successMessage: raw`Correct. Comparing \(2x^2+x-6\) with \(2x^2+ax+b\) gives \(a=1\) and \(b=-6\).`
+            },
+            {
+              html: raw`\(a=-1,\ b=-6\)`,
+              failureMessage: raw`The constant is right, but the coefficient of \(x\) is \(+1\), not \(-1\).`
+            },
+            {
+              html: raw`\(a=1,\ b=6\)`,
+              failureMessage: raw`Check the constant term. It should be \(-6\), not \(+6\).`
+            },
+            {
+              html: raw`\(a=-1,\ b=6\)`,
+              failureMessage: raw`Both signs are off compared with \(2x^2+x-6\).`
+            }
+          ]
         }
       ]
     },
@@ -613,19 +632,37 @@
           genericMessage: raw`Rewrite everything in terms of \(u\) after dividing the equation by \(5\).`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Choose the valid value of u",
-          text: raw`Solve the quadratic. What value of \(u\) can you use?`,
-          ariaLabel: "Type the valid value of u",
-          acceptedAnswers: ["8"],
-          successMessage: raw`Correct. The quadratic roots are \(8\) and \(-3\), but \(u=5^x\) must be positive, so \(u=8\).`,
-          targetedFeedback: [
+          text: raw`Solve the quadratic. Which value of \(u\) can you actually use?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["-3"],
-              message: raw`The quadratic has that root too, but \(u=5^x\) cannot be negative.`
+              html: raw`\[
+                u=8
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. The quadratic roots are \(8\) and \(-3\), but \(u=5^x\) must be positive, so \(u=8\).`
+            },
+            {
+              html: raw`\[
+                u=-3
+              \]`,
+              failureMessage: raw`The quadratic has that root too, but \(u=5^x\) cannot be negative.`
+            },
+            {
+              html: raw`\[
+                u=3
+              \]`,
+              failureMessage: raw`Check the factorisation again. The roots are \(8\) and \(-3\), not \(3\).`
+            },
+            {
+              html: raw`\[
+                u=-8
+              \]`,
+              failureMessage: raw`That is not a root of the quadratic, and it would not be valid for \(u=5^x\) anyway.`
             }
-          ],
-          genericMessage: raw`Factorise or solve the quadratic, then keep the root that makes sense for \(u=5^x\).`
+          ]
         },
         {
           type: "typed",
@@ -714,13 +751,37 @@
           ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Read off k",
           text: raw`What value of \(k\) is needed?`,
-          ariaLabel: "Type the value of k",
-          acceptedAnswers: ["25"],
-          successMessage: raw`Correct. Since \(9x^2-30x+k=(3x-5)^2\), the constant term must be \(25\).`,
-          genericMessage: raw`Expand \((3x-5)^2\) and compare the constant term.`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                25
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. Since \(9x^2-30x+k=(3x-5)^2\), the constant term must be \(25\).`
+            },
+            {
+              html: raw`\[
+                10
+              \]`,
+              failureMessage: raw`That comes from the numbers inside the bracket, but the constant term of \((3x-5)^2\) is \(5^2\).`
+            },
+            {
+              html: raw`\[
+                -25
+              \]`,
+              failureMessage: raw`Squaring makes the constant positive, so it should be \(+25\).`
+            },
+            {
+              html: raw`\[
+                30
+              \]`,
+              failureMessage: raw`That is related to the middle term, not the constant term.`
+            }
+          ]
         }
       ]
     },
@@ -917,30 +978,62 @@
           genericMessage: raw`Multiply both sides by \((3x-1)^2\), expand, and then move everything to one side.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Solve for x",
-          text: raw`Type both solutions, separated by a comma.`,
-          ariaLabel: "Type both solutions for x",
-          mode: "list",
-          options: {
-            ordered: false
-          },
-          acceptedAnswers: ["(1+sqrt(5))/3,(1-sqrt(5))/3"],
-          successMessage: raw`Correct. The solutions are \(\frac{1+\sqrt{5}}{3}\) and \(\frac{1-\sqrt{5}}{3}\).`,
-          genericMessage: raw`Solve the quadratic and simplify the surd expression.`
+          text: raw`Which pair of solutions is correct?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                x=\frac{1+\sqrt{5}}{3}\quad\text{or}\quad x=\frac{1-\sqrt{5}}{3}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. Those are the two solutions after simplifying the quadratic-formula result.`
+            },
+            {
+              html: raw`\[
+                x=\frac{1+\sqrt{5}}{6}\quad\text{or}\quad x=\frac{1-\sqrt{5}}{6}
+              \]`,
+              failureMessage: raw`The denominator has been halved too far. Simplifying \(\frac{6\pm6\sqrt{5}}{18}\) gives denominator \(3\), not \(6\).`
+            },
+            {
+              html: raw`\[
+                x=\frac{3+\sqrt{5}}{3}\quad\text{or}\quad x=\frac{3-\sqrt{5}}{3}
+              \]`,
+              failureMessage: raw`Check the numerator. The quadratic formula gives \(6\pm6\sqrt{5}\), which simplifies to \(1\pm\sqrt{5}\), not \(3\pm\sqrt{5}\).`
+            },
+            {
+              html: raw`\[
+                x=\frac{1+\sqrt{20}}{3}\quad\text{or}\quad x=\frac{1-\sqrt{20}}{3}
+              \]`,
+              failureMessage: raw`You still need to simplify the surd. \(\sqrt{20}=2\sqrt{5}\), so this is not in the correct final form.`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Read off a and b",
-          text: raw`Now type the values of \(a\) and \(b\) as \(a,b\).`,
-          ariaLabel: "Type a and b",
-          mode: "list",
-          options: {
-            ordered: true
-          },
-          acceptedAnswers: ["5,3"],
-          successMessage: raw`Correct. Comparing \(\frac{1\pm\sqrt{5}}{3}\) with \(\frac{1\pm\sqrt{a}}{b}\) gives \(a=5\) and \(b=3\).`,
-          genericMessage: raw`Compare your solutions directly with \(\frac{1\pm\sqrt{a}}{b}\).`
+          text: raw`Comparing with \(\frac{1\pm\sqrt{a}}{b}\), which values match \(a\) and \(b\)?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\(a=5,\ b=3\)`,
+              correct: true,
+              successMessage: raw`Correct. Comparing \(\frac{1\pm\sqrt{5}}{3}\) with \(\frac{1\pm\sqrt{a}}{b}\) gives \(a=5\) and \(b=3\).`
+            },
+            {
+              html: raw`\(a=5,\ b=18\)`,
+              failureMessage: raw`That denominator appears before simplifying. The final denominator is \(3\).`
+            },
+            {
+              html: raw`\(a=20,\ b=18\)`,
+              failureMessage: raw`Those come from the unsimplified discriminant step. We need the simplified final form.`
+            },
+            {
+              html: raw`\(a=20,\ b=3\)`,
+              failureMessage: raw`The denominator is right, but the surd simplifies to \(\sqrt{5}\), not \(\sqrt{20}\).`
+            }
+          ]
         }
       ]
     },
@@ -992,7 +1085,7 @@
       `,
       steps: [
         {
-          type: "typed",
+          type: "choice",
           title: "Combine into one logarithm",
           text: raw`After combining the left side into a single logarithm, what should go inside the log?`,
           beforeHtml: raw`
@@ -1005,49 +1098,100 @@
               \]
             </div>
           `,
-          ariaLabel: "Type the expression inside the single logarithm",
-          acceptedAnswers: ["(x+6)^2/x"],
-          samples: [
-            { x: 1 },
-            { x: 2 },
-            { x: 7 }
-          ],
-          successMessage: raw`Correct. \(2\log_5(x+6)=\log_5((x+6)^2)\), so the argument becomes \(\frac{(x+6)^2}{x}\).`,
-          targetedFeedback: [
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["25"],
-              message: raw`\(25\) comes in the next step, when you remove the logarithm. Here, you are only combining the logs into one single logarithm first.`
+              html: raw`\[
+                \frac{(x+6)^2}{x}
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. \(2\log_5(x+6)=\log_5((x+6)^2)\), so the argument becomes \(\frac{(x+6)^2}{x}\).`
+            },
+            {
+              html: raw`\[
+                \frac{x}{(x+6)^2}
+              \]`,
+              failureMessage: raw`The quotient is upside down. Subtracting \(\log_5 x\) puts \(x\) in the denominator.`
+            },
+            {
+              html: raw`\[
+                (x+6)^2-x
+              \]`,
+              failureMessage: raw`Logarithms combine by multiplying, dividing, and powers here, not by subtraction inside the bracket.`
+            },
+            {
+              html: raw`\[
+                \frac{x+6}{x^2}
+              \]`,
+              failureMessage: raw`The power rule applies to \(x+6\), so the whole bracket should be squared.`
             }
-          ],
-          genericMessage: raw`Use the power rule first, then the quotient rule for logarithms.`
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Take it out of log form",
           text: raw`What equation do you get after removing the logarithm?`,
-          ariaLabel: "Type the equation without logs",
-          mode: "equation",
-          acceptedAnswers: ["(x+6)^2/x=25", "(x+6)^2=25x", "x^2-13x+36=0"],
-          samples: [
-            { x: 1 },
-            { x: 2 },
-            { x: 7 }
-          ],
-          successMessage: raw`Correct. Any equivalent form of the resulting equation is fine here.`,
-          genericMessage: raw`If \(\log_5(\text{expression})=2\), then the expression must equal \(5^2\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                \frac{(x+6)^2}{x}=25
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. If \(\log_5(\text{expression})=2\), then the expression must equal \(5^2=25\).`
+            },
+            {
+              html: raw`\[
+                \frac{(x+6)^2}{x}=2
+              \]`,
+              failureMessage: raw`The right-hand side is the exponent, so the expression should equal \(5^2\), not \(2\).`
+            },
+            {
+              html: raw`\[
+                (x+6)^2=5x
+              \]`,
+              failureMessage: raw`Check the base power carefully. Removing the log gives \(25\), not \(5\).`
+            },
+            {
+              html: raw`\[
+                2(x+6)-x=25
+              \]`,
+              failureMessage: raw`That treats the logarithms like ordinary brackets. We first combined them into one log before removing it.`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Solve the equation",
-          text: raw`Type both solutions, separated by a comma.`,
-          ariaLabel: "Type the two solutions",
-          mode: "list",
-          options: {
-            ordered: false
-          },
-          acceptedAnswers: ["4,9"],
-          successMessage: raw`Correct. The solutions are \(x=4\) and \(x=9\).`,
-          genericMessage: raw`Factorise the quadratic or use the quadratic formula, then list both valid values of \(x\).`
+          text: raw`Which pair of solutions is correct?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                x=4,\ 9
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. Solving the quadratic gives \(x=4\) and \(x=9\).`
+            },
+            {
+              html: raw`\[
+                x=-4,\ -9
+              \]`,
+              failureMessage: raw`Those signs do not match the factorisation \((x-4)(x-9)=0\).`
+            },
+            {
+              html: raw`\[
+                x=4,\ -9
+              \]`,
+              failureMessage: raw`One sign is still wrong. Both roots are positive here.`
+            },
+            {
+              html: raw`\[
+                x=9,\ 25
+              \]`,
+              failureMessage: raw`Check the quadratic again. \(25\) comes from the log step, not from the factorised solutions.`
+            }
+          ]
         }
       ]
     },
@@ -1161,41 +1305,70 @@
           genericMessage: raw`Substitute \(y=2x+13\) into \(x^2+2ky=6k\), then collect all terms on one side.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Use the repeated-root condition",
           text: raw`Because there is only one solution, what is the value of \(k\)?`,
-          ariaLabel: "Type the value of k",
-          acceptedAnswers: ["5"],
-          successMessage: raw`Correct. Setting the discriminant to \(0\) gives \(16k^2-80k=0\), so \(k=5\) because \(k\neq 0\).`,
-          genericMessage: raw`Use \(b^2-4ac=0\) on the quadratic \(x^2+4kx+20k=0\).`
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                5
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. Setting the discriminant to \(0\) gives \(16k^2-80k=0\), so \(k=5\) because \(k\neq 0\).`
+            },
+            {
+              html: raw`\[
+                0
+              \]`,
+              failureMessage: raw`That comes out of the factorisation too, but the question says \(k\) is non-zero.`
+            },
+            {
+              html: raw`\[
+                -5
+              \]`,
+              failureMessage: raw`Check the factorisation carefully. The valid non-zero root is positive.`
+            },
+            {
+              html: raw`\[
+                20
+              \]`,
+              failureMessage: raw`That number appears during the discriminant setup, but it is not the solution for \(k\).`
+            }
+          ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Find the simultaneous solution",
-          text: raw`Type the solution as an ordered pair \((x,y)\).`,
-          ariaLabel: "Type the simultaneous solution as an ordered pair",
-          mode: "list",
-          options: {
-            ordered: true,
-            stripOuterParens: true
-          },
-          previewOptions: {
-            wrapWithParens: true
-          },
-          acceptedAnswers: ["-10,-7"],
-          successMessage: raw`Correct. With \(k=5\), the equations meet at \((-10,-7)\).`,
-          targetedFeedback: [
+          text: raw`Which ordered pair is the solution?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["-10,7"],
-              mode: "list",
-              options: {
-                ordered: true,
-                stripOuterParens: true
-              },
-              message: raw`The \(x\)-value is right, but check the sign of \(y\). Substitute \(x=-10\) into \(y=2x+13\).`
+              html: raw`\[
+                (-10,-7)
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. With \(k=5\), the equations meet at \((-10,-7)\).`
+            },
+            {
+              html: raw`\[
+                (-10,7)
+              \]`,
+              failureMessage: raw`The \(x\)-value is right, but substituting into \(y=2x+13\) gives \(y=-7\), not \(7\).`
+            },
+            {
+              html: raw`\[
+                (10,-7)
+              \]`,
+              failureMessage: raw`Check the repeated root carefully. The \(x\)-value is \(-10\), not \(10\).`
+            },
+            {
+              html: raw`\[
+                (-7,-10)
+              \]`,
+              failureMessage: raw`Watch the order. The solution should be written as \((x,y)\).`
             }
-          ],
-          genericMessage: raw`Substitute \(k=5\), solve for \(x\), then use \(y=2x+13\).`
+          ]
         }
       ]
     },
@@ -1366,17 +1539,29 @@
           genericMessage: raw`Multiply the brackets carefully and collect like terms.`
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Read off a, b, and c",
-          text: raw`Type the values of \(a\), \(b\), and \(c\) as \(a,b,c\).`,
-          ariaLabel: "Type a b and c",
-          mode: "list",
-          options: {
-            ordered: true
-          },
-          acceptedAnswers: ["15,7,-2"],
-          successMessage: raw`Correct. Comparing with \(ax^2+bx+c=0\) gives \(a=15\), \(b=7\), and \(c=-2\).`,
-          genericMessage: raw`Read the coefficients directly from your expanded quadratic.`
+          text: raw`Which set of coefficients matches \(ax^2+bx+c=0\)?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\(a=15,\ b=7,\ c=-2\)`,
+              correct: true,
+              successMessage: raw`Correct. Comparing with \(ax^2+bx+c=0\) gives \(a=15\), \(b=7\), and \(c=-2\).`
+            },
+            {
+              html: raw`\(a=15,\ b=-7,\ c=-2\)`,
+              failureMessage: raw`The leading and constant terms are right, but the coefficient of \(x\) is \(+7\), not \(-7\).`
+            },
+            {
+              html: raw`\(a=15,\ b=7,\ c=2\)`,
+              failureMessage: raw`The constant term should be negative because the expanded equation ends with \(-2\).`
+            },
+            {
+              html: raw`\(a=5,\ b=3,\ c=2\)`,
+              failureMessage: raw`Those look like pieces from the factors, not the coefficients of the expanded quadratic.`
+            }
+          ]
         }
       ]
     },
@@ -1452,24 +1637,37 @@
           ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Substitute p and q",
           text: raw`Now write \(\log_a 75\) in terms of \(p\) and \(q\).`,
-          ariaLabel: "Type log a 75 in terms of p and q",
-          acceptedAnswers: ["p+2q", "2q+p"],
-          samples: [
-            { p: 1, q: 2 },
-            { p: 3, q: -1 },
-            { p: -2, q: 4 }
-          ],
-          successMessage: raw`Correct. \(\log_a 75=p+2q\).`,
-          targetedFeedback: [
+          buttonGridClass: "button-grid two-col",
+          choices: [
             {
-              answers: ["p+q"],
-              message: raw`You are missing the extra factor of \(5\). Remember \(75=3\times 5^2\).`
+              html: raw`\[
+                p+2q
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. \(\log_a 75=\log_a 3+2\log_a 5=p+2q\).`
+            },
+            {
+              html: raw`\[
+                p+q
+              \]`,
+              failureMessage: raw`You are missing the extra factor of \(5\). Remember \(75=3\times 5^2\).`
+            },
+            {
+              html: raw`\[
+                2p+q
+              \]`,
+              failureMessage: raw`The square applies to \(5\), not to \(3\).`
+            },
+            {
+              html: raw`\[
+                pq
+              \]`,
+              failureMessage: raw`Logarithms of products add here; they do not multiply together.`
             }
-          ],
-          genericMessage: raw`Replace \(\log_a 3\) with \(p\) and \(\log_a 5\) with \(q\).`
+          ]
         }
       ]
     },
@@ -1546,18 +1744,37 @@
           ]
         },
         {
-          type: "typed",
+          type: "choice",
           title: "Substitute into the identity",
-          text: raw`What is \(a^2+b^2\) in terms of \(m\) and \(n\)?`,
-          ariaLabel: "Type a squared plus b squared in terms of m and n",
-          acceptedAnswers: ["m^2-2n"],
-          samples: [
-            { m: 2, n: 1 },
-            { m: -3, n: 4 },
-            { m: 5, n: -2 }
-          ],
-          successMessage: raw`Correct. Substituting \(a+b=m\) and \(ab=n\) gives \(a^2+b^2=m^2-2n\).`,
-          genericMessage: raw`Use the identity \(a^2+b^2=(a+b)^2-2ab\), then replace \(a+b\) and \(ab\).`
+          text: raw`What does the identity simplify to in terms of \(m\) and \(n\)?`,
+          buttonGridClass: "button-grid two-col",
+          choices: [
+            {
+              html: raw`\[
+                m^2-2n
+              \]`,
+              correct: true,
+              successMessage: raw`Correct. Substituting \(a+b=m\) and \(ab=n\) gives \(a^2+b^2=m^2-2n\).`
+            },
+            {
+              html: raw`\[
+                m^2+2n
+              \]`,
+              failureMessage: raw`Watch the identity carefully: \(a^2+b^2=(a+b)^2-2ab\), so the \(2n\) term is subtracted.`
+            },
+            {
+              html: raw`\[
+                2m^2-n
+              \]`,
+              failureMessage: raw`That does not match the structure of the identity. Square the sum once, then subtract twice the product.`
+            },
+            {
+              html: raw`\[
+                m^2-n^2
+              \]`,
+              failureMessage: raw`The product enters linearly as \(ab=n\), not as \(n^2\).`
+            }
+          ]
         }
       ]
     },
