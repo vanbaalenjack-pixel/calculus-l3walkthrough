@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2023 Level 3 Complex Numbers Paper</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="walkthrough-gate.js?v=20260329-1"></script>
+  <script defer src="typed-math.js?v=20260328-1"></script>
+  <script defer src="complex-walkthrough.js?v=20260330-2"></script>
+  <script defer src="complex-2023-data.js?v=20260404-1"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p id="page-eyebrow" class="eyebrow">Level 3 Complex Numbers Walkthrough</p>
+        <h1 id="page-title">Question 1(a)</h1>
+        <p id="page-subtitle" class="subtitle">2023 Paper</p>
+      </div>
+      <a id="back-link" class="ghost-link" href="index.html#level-3-complex-2023">← Back to paper</a>
+    </header>
+
+    <section id="question-card" class="question-card"></section>
+    <section id="hints-card" class="question-card hidden"></section>
+    <div id="walkthrough-content" class="hidden"></div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const params = new URLSearchParams(window.location.search);
+      const questionId = params.get("q") || "1a";
+      const fallbackId = "1a";
+      const walkthroughs = window.Complex2023Walkthroughs || {};
+      initializeComplexWalkthrough(walkthroughs[questionId] || walkthroughs[fallbackId]);
+    });
+  </script>
+</body>
+</html>
