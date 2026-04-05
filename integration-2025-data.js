@@ -501,6 +501,16 @@
           buttonGridClass: "button-grid two-col"
         }),
         typedStep("Find the constant", raw`Use \(y=10\) when \(x=4\). What is the value of \(C\)?`, ["-14"], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              y=2x^{3/2}+4x^{1/2}+C
+              \]
+              \[
+              10=2(4)^{3/2}+4(4)^{1/2}+C
+              \]
+            </div>
+          `,
           ariaLabel: "Type the constant C",
           successMessage: raw`Yes. Substituting \(x=4\) gives \(10=16+8+C\), so \(C=-14\).`,
           genericMessage: raw`Substitute \(x=4\) into \(y=2x^{3/2}+4x^{1/2}+C\), then solve for \(C\).`
@@ -608,6 +618,16 @@
             a=6+3k
           \]`, raw`The constant on the right is \(3\), not \(6\).`)
         ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \left[ax+\frac{6k}{x}\right]_1^2=3
+              \]
+              \[
+              \left(2a+3k\right)-\left(a+6k\right)=3
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col"
         }),
         choiceStep("Solve for \(k\)", raw`Once you substitute \(a=3+3k\) into \(\int_1^k 6x\,dx=a\), which values of \(k\) work?`, [
@@ -624,6 +644,19 @@
             k=2 \text{ only}
           \]`, raw`There are two possible values because the quadratic has two real factors.`)
         ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \int_1^k 6x\,dx=3k^2-3
+              \]
+              \[
+              3k^2-3=3+3k
+              \]
+              \[
+              k^2-k-2=0
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col"
         })
       ]
@@ -867,6 +900,15 @@
             -\frac{1}{(2x+1)^4}+C
           \]`, raw`The power should increase from \(-6\) to \(-5\), not to \(-4\).`)
         ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \int 10(2x+1)^{-6}\,dx
+              =
+              \frac{10(2x+1)^{-5}}{-5\times 2}+C
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col"
         })
       ]
@@ -925,6 +967,16 @@
           buttonGridClass: "button-grid two-col"
         }),
         typedStep("Find the constant", raw`Using \(p=8\) when \(t=\frac{\pi}{24}\), what is \(C\)?`, ["59/8", "7.375"], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              p=\frac{5}{4}\sin(4t)+C
+              \]
+              \[
+              8=\frac{5}{4}\sin\left(4\cdot\frac{\pi}{24}\right)+C
+              \]
+            </div>
+          `,
           ariaLabel: "Type the constant C for p",
           successMessage: raw`Yes. Since \(\sin\left(\frac{\pi}{6}\right)=\frac{1}{2}\), we get \(8=\frac{5}{8}+C\), so \(C=\frac{59}{8}=7.375\).`,
           genericMessage: raw`Substitute \(t=\frac{\pi}{24}\) into the sine expression first, then solve \(8=\frac{5}{4}\sin(4t)+C\).`
@@ -1012,6 +1064,16 @@
             1=\frac{4k+1-1}{2}
           \]`, raw`Do not lose the square root when evaluating the antiderivative.`)
         ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              1=\left[\frac{\sqrt{4x+1}}{2}\right]_0^k
+              \]
+              \[
+              1=\frac{\sqrt{4k+1}}{2}-\frac{1}{2}
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col"
         }),
         choiceStep("Solve for \(k\)", raw`What is the value of \(k\)?`, [
@@ -1394,6 +1456,16 @@
             \ln|2k-1|-\ln 1
           \]`, raw`The factor of \(5\) from the antiderivative has disappeared.`)
         ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \left[5\ln|2x-1|\right]_1^k
+              \]
+              \[
+              =5\ln|2k-1|-5\ln 1
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col"
         }),
         choiceStep("Simplify using \(k>1\)", raw`What is the final answer in terms of \(k\)?`, [
@@ -1410,6 +1482,16 @@
             10\ln(2k-1)
           \]`, raw`That doubles the answer and ignores the divide-by-\(2\) step from the antiderivative.`)
         ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              5\ln|2k-1|-5\ln 1
+              \]
+              \[
+              5\ln|2k-1|
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col"
         })
       ]
@@ -1726,6 +1808,16 @@
             \left[\frac{(x^2+3)^3}{9}\right]_0^3=189
           \]`, raw`The denominator should be \(18\), not \(9\), because \(du=2x\,dx\).`)
         ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \int_0^3 xf(x)\,dx=\int_0^3 \frac{x(x^2+3)^2}{3}\,dx
+              \]
+              \[
+              u=x^2+3,\qquad du=2x\,dx
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col"
         }),
         choiceStep("Evaluate the denominator", raw`Which result matches \(\int_0^3 f(x)\,dx\)?`, [
@@ -1742,6 +1834,16 @@
             \left[\frac{x^5}{12}+2x^3+3x\right]_0^3=43.2
           \]`, raw`The coefficients in the antiderivative do not match the expanded function.`)
         ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              f(x)=\frac{(x^2+3)^2}{3}
+              \]
+              \[
+              f(x)=\frac{x^4}{3}+2x^2+3
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col"
         }),
         choiceStep("Find the hanging point", raw`What is the \(x\)-value of the hanging position?`, [

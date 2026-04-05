@@ -56,6 +56,13 @@
           type: "typed",
           title: "Simplify the square root",
           text: raw`What does \(\sqrt{\frac{y^6}{64}}\) simplify to?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \sqrt{\frac{y^6}{64}}=\frac{\sqrt{y^6}}{\sqrt{64}}
+              \]
+            </div>
+          `,
           ariaLabel: "Type the simplified radical",
           acceptedAnswers: ["y^3/8"],
           samples: [
@@ -207,6 +214,16 @@
           type: "typed",
           title: "Make x the subject",
           text: raw`Now rearrange the equation and type \(x\) in terms of \(y\).`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              8y^3=7x-5
+              \]
+              \[
+              8y^3+5=7x
+              \]
+            </div>
+          `,
           ariaLabel: "Type x in terms of y",
           acceptedAnswers: ["(8y^3+5)/7"],
           samples: [
@@ -754,6 +771,13 @@
           type: "choice",
           title: "Read off k",
           text: raw`What value of \(k\) is needed?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              (3x-5)^2=9x^2-30x+25
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -981,6 +1005,16 @@
           type: "choice",
           title: "Solve for x",
           text: raw`Which pair of solutions is correct?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              9x^2-6x-4=0
+              \]
+              \[
+              x=\frac{6\pm\sqrt{(-6)^2-4(9)(-4)}}{18}
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -1131,6 +1165,13 @@
           type: "choice",
           title: "Take it out of log form",
           text: raw`What equation do you get after removing the logarithm?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \log_5\left(\frac{(x+6)^2}{x}\right)=2
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -1522,6 +1563,13 @@
           type: "typed",
           title: "Expand the equation",
           text: raw`Expand the brackets. What quadratic equation do you get?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              (5x-1)(3x+2)=0
+              \]
+            </div>
+          `,
           ariaLabel: "Type the expanded quadratic equation",
           mode: "equation",
           options: {
@@ -1640,6 +1688,16 @@
           type: "choice",
           title: "Substitute p and q",
           text: raw`Now write \(\log_a 75\) in terms of \(p\) and \(q\).`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \log_a 75=\log_a(3\times 5^2)
+              \]
+              \[
+              \log_a 75=\log_a 3+2\log_a 5
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -1747,6 +1805,16 @@
           type: "choice",
           title: "Substitute into the identity",
           text: raw`What does the identity simplify to in terms of \(m\) and \(n\)?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              a^2+b^2=(a+b)^2-2ab
+              \]
+              \[
+              a+b=m,\qquad ab=n
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {

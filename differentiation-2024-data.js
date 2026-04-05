@@ -399,6 +399,7 @@
       ]
     }),
     "1c": createConfig("1c", "2024 Paper — Find where the function is decreasing", {
+      focus: raw`differentiating first, then solving \(\frac{dy}{dx}<0\) to locate the interval where the graph is falling.`,
       questionHtml: raw`
         <p class="step-text">
           For the function below, find the range of values of \(x\) for which the function is decreasing.
@@ -957,6 +958,7 @@
       ]
     }),
     "2c": createConfig("2c", "2024 Paper — Show a function satisfies a differential equation", {
+      focus: raw`finding \(y'\) and \(y''\), then substituting back into the left-hand side and simplifying until the matching terms appear.`,
       questionHtml: raw`
         <p class="step-text">
           Show that
@@ -1174,6 +1176,7 @@
       ]
     }),
     "2e": createConfig("2e", "2024 Paper — A single turning point via the discriminant", {
+      focus: raw`differentiating to get the turning-point equation, then using the discriminant to force one repeated solution.`,
       questionHtml: raw`
         <p class="step-text">
           The graph of the function
@@ -1588,6 +1591,13 @@
           type: "typed",
           title: "Differentiate the quotient",
           text: raw`What is \(f'(x)\)?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              f'(x)=\frac{(x^2+5x+4)(2x-5)-(x^2-5x+4)(2x+5)}{(x^2+5x+4)^2}
+              \]
+            </div>
+          `,
           ariaLabel: "Type the derivative",
           acceptedAnswers: ["(10x^2-40)/(x^2+5x+4)^2", "10(x^2-4)/(x^2+5x+4)^2"],
           samples: [{ x: -2 }, { x: 0 }, { x: 2 }],
@@ -1598,6 +1608,19 @@
           type: "choice",
           title: raw`Solve for the stationary \(x\)-values`,
           text: raw`What \(x\)-values make the derivative zero?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \frac{10x^2-40}{(x^2+5x+4)^2}=0
+              \]
+              \[
+              10x^2-40=0
+              \]
+              \[
+              x^2=4
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {

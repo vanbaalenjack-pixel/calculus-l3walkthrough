@@ -1989,6 +1989,19 @@
           type: "choice",
           title: "Find the plotted point",
           text: raw`What ordered pair should you plot for \(w=z^2\)?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              z=-2+3i
+              \]
+              \[
+              z^2=(-2+3i)^2=4-12i+9i^2
+              \]
+              \[
+              z^2=-5-12i
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -2072,6 +2085,16 @@
           type: "typed",
           title: "Clear the inverse",
           text: raw`What equation do you get after multiplying through by \(z\)?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \overline{z}=3-di
+              \]
+              \[
+              (3-di)(3+di)=10d
+              \]
+            </div>
+          `,
           ariaLabel: "Type the equation after clearing the inverse",
           mode: "equation",
           acceptedAnswers: ["9+d^2=10d"],
@@ -2083,6 +2106,19 @@
           type: "choice",
           title: "Solve for d",
           text: raw`Which pair of values for \(d\) is correct?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              9+d^2=10d
+              \]
+              \[
+              d^2-10d+9=0
+              \]
+              \[
+              (d-9)(d-1)=0
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {

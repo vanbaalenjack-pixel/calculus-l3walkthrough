@@ -935,7 +935,15 @@
           wrongChoice(raw`\(\,\sqrt{5+m}=\sqrt{5m^2}\)`, raw`A modulus uses squared parts, not just \(5+m\).`),
           wrongChoice(raw`\(\,5-m=\sqrt{5m^2}\)`, raw`The modulus is always non-negative and is written using a square root.`),
           wrongChoice(raw`\(\,\sqrt{25-m^2}=\sqrt{5m^2}\)`, raw`Both parts are squared and added inside the modulus formula.`)
-        ]),
+        ], {
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              |a+bi|=\sqrt{a^2+b^2}
+              \]
+            </div>
+          `
+        }),
         choiceStep("Square and solve", raw`What values of \(m\) does the equation give?`, [
           correctChoice(raw`\(\,m=\pm\frac{5}{2}\)`, raw`Yes. Squaring gives \(25+m^2=5m^2\), so \(25=4m^2\) and \(m=\pm \frac{5}{2}\).`),
           wrongChoice(raw`\(\,m=\pm 5\)`, raw`We still need to divide by \(4\) before taking the square root.`),

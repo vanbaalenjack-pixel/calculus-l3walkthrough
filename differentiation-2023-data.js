@@ -271,6 +271,16 @@
           type: "choice",
           title: "Differentiate the product",
           text: raw`Which derivative is correct?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              f(x)=x^2\sec x
+              \]
+              \[
+              \frac{df}{dx}=(x^2)'\sec x+x^2(\sec x)'
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -1112,6 +1122,16 @@
           type: "choice",
           title: "Simplify the derivative",
           text: raw`Which simplified derivative is correct?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              f'(x)=\frac{(x^2+2x)e^x-(2x+2)e^x}{(x^2+2x)^2}
+              \]
+              \[
+              f'(x)=\frac{e^x\big((x^2+2x)-(2x+2)\big)}{(x^2+2x)^2}
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {
@@ -1596,6 +1616,16 @@
           type: "choice",
           title: "Build the logarithmic derivative",
           text: raw`Which final derivative is correct?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              u=x^2-x^4+1
+              \]
+              \[
+              \frac{dy}{dx}=\frac{u'}{u}
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {

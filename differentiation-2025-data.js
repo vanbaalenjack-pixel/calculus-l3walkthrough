@@ -937,6 +937,16 @@
           type: "typed",
           title: "Differentiate the function",
           text: raw`What is \(f'(x)\)?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \frac{d}{dx}\left(\frac{7}{x}\right)=-\frac{7}{x^2}
+              \]
+              \[
+              \frac{d}{dx}\left[\ln(3x^3-2x^2+5)\right]=\frac{9x^2-4x}{3x^3-2x^2+5}
+              \]
+            </div>
+          `,
           ariaLabel: "Type the derivative of f",
           acceptedAnswers: ["-7/x^2-(9x^2-4x)/(3x^3-2x^2+5)"],
           samples: [{ x: 1 }, { x: 2 }, { x: 3 }],
@@ -1608,6 +1618,13 @@
           type: "typed",
           title: "Differentiate the curve",
           text: raw`What is \(\frac{dy}{dx}\)?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              y=\frac{1}{2}(\ln x)x^{-1}
+              \]
+            </div>
+          `,
           ariaLabel: "Type the derivative of y",
           acceptedAnswers: ["(1-ln(x))/(2x^2)"],
           samples: [{ x: 1.5 }, { x: 2 }, { x: 4 }],
@@ -1618,6 +1635,16 @@
           type: "choice",
           title: "Solve for the stationary point",
           text: raw`Set the derivative equal to zero. What is the \(x\)-coordinate of the stationary point?`,
+          beforeHtml: raw`
+            <div class="math-block">
+              \[
+              \frac{1-\ln x}{2x^2}=0
+              \]
+              \[
+              1-\ln x=0
+              \]
+            </div>
+          `,
           buttonGridClass: "button-grid two-col",
           choices: [
             {

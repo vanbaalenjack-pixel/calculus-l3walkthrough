@@ -307,6 +307,13 @@
   }
 
   function buildQuestionCardHtml(config) {
+    const fallbackFocus = !config.focus && Array.isArray(config.hints) && config.hints.length
+      ? config.hints[0]
+      : "";
+    const focusText = config.focus || fallbackFocus;
+    const focusHtml = focusText
+      ? `<p class="step-text"><strong>Focus:</strong> ${focusText}</p>`
+      : "";
     const noteHtml = (config.questionNotes || []).map(function (note) {
       return `<p class="step-text question-note">${note}</p>`;
     }).join("");
@@ -314,6 +321,7 @@
     return `
       <p class="question-label">Question</p>
       ${config.questionHtml}
+      ${focusHtml}
       <p class="step-text attempt-note">
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
       </p>
@@ -431,6 +439,10 @@
       return;
     }
 
+    const gateHints = !config.focus && Array.isArray(config.hints) && config.hints.length > 1
+      ? config.hints.slice(1)
+      : config.hints;
+
     prepareChoiceSteps(config);
     document.title = config.browserTitle;
 
@@ -459,7 +471,7 @@
     renderMath(document.body);
 
     initializeWalkthroughGate({
-      hints: config.hints,
+      hints: gateHints,
       answerHtml: config.answerHtml,
       nextHref: config.gateNextHref || config.nextHref,
       nextLabel: config.gateNextLabel || config.nextLabel || "Next question →"
