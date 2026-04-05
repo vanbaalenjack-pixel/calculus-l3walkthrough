@@ -23,6 +23,51 @@ function getWalkthroughPageScrollTop(target) {
   return Math.max(window.scrollY + target.getBoundingClientRect().top - 24, 0);
 }
 
+function syncQuestionCardStickyState(questionCard) {
+  if (!questionCard) {
+    return;
+  }
+
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+  const stickyTop = viewportWidth >= 1100 ? 24 : 20;
+  const minimumVisibleStepArea = viewportWidth >= 980 ? 260 : 220;
+  const questionCardHeight = questionCard.offsetHeight;
+  const enableSticky = viewportWidth >= 760
+    && questionCardHeight > 0
+    && viewportHeight - questionCardHeight - stickyTop >= minimumVisibleStepArea;
+
+  document.documentElement.style.setProperty("--question-sticky-top", stickyTop + "px");
+  questionCard.classList.toggle("sticky-question-card-enabled", enableSticky);
+}
+
+function setupQuestionCardSticky(questionCard) {
+  if (!questionCard) {
+    return;
+  }
+
+  const updateStickyState = function () {
+    syncQuestionCardStickyState(questionCard);
+  };
+
+  updateStickyState();
+  window.requestAnimationFrame(updateStickyState);
+
+  if (questionCard.dataset.stickySetup === "true") {
+    return;
+  }
+
+  questionCard.dataset.stickySetup = "true";
+  window.addEventListener("resize", updateStickyState);
+  window.addEventListener("load", updateStickyState);
+
+  if ("ResizeObserver" in window) {
+    const resizeObserver = new ResizeObserver(updateStickyState);
+    resizeObserver.observe(questionCard);
+    questionCard._stickyResizeObserver = resizeObserver;
+  }
+}
+
 function ensureTipsCard(questionCard, walkthroughContent) {
   if (!questionCard || !walkthroughContent || !walkthroughContent.parentNode) {
     return null;
@@ -73,6 +118,7 @@ function initializeWalkthroughGate(config) {
   const tipsCard = ensureTipsCard(initialQuestionCard, walkthroughContent);
 
   moveQuestionSupportToTips(initialQuestionCard, tipsCard);
+  setupQuestionCardSticky(initialQuestionCard);
 
   const showHintsButton = document.getElementById("show-hints-btn");
   const entryCard = tipsCard || (showHintsButton ? showHintsButton.closest(".question-card") : null);

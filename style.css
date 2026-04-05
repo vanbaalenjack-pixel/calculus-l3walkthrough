@@ -23,6 +23,7 @@
   --card-action-offset: 18px;
   --content-max: 940px;
   --content-wide: 1120px;
+  --question-sticky-top: 20px;
 }
 
 * {
@@ -58,6 +59,7 @@ body {
   width: min(100%, var(--content-max));
   margin: 0 auto;
   padding: 30px 20px 64px;
+  overflow: visible;
 }
 
 .home-app {
@@ -261,6 +263,7 @@ h1 {
 }
 
 .sticky-question-card {
+  position: relative;
   scroll-margin-top: 24px;
 }
 
@@ -1173,10 +1176,10 @@ input[type="range"] {
 }
 
 @media (min-width: 760px) {
-  .sticky-question-card {
+  .sticky-question-card.sticky-question-card-enabled {
     position: sticky;
-    top: 20px;
-    z-index: 12;
+    top: var(--question-sticky-top);
+    z-index: 4;
   }
 }
 
