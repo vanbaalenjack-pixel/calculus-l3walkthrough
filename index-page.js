@@ -63,6 +63,11 @@ document.addEventListener("DOMContentLoaded", function () {
       standard: "level-3-complex",
       paper: "level-3-complex-2023"
     },
+    "level-3-complex-2022": {
+      level: "level-3",
+      standard: "level-3-complex",
+      paper: "level-3-complex-2022"
+    },
     "level-3-differentiation-2024": {
       level: "level-3",
       standard: "level-3-differentiation",
