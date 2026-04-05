@@ -18,6 +18,10 @@
       return 0;
     }
 
+    if (typeof getWalkthroughPageScrollTop === "function") {
+      return getWalkthroughPageScrollTop(target);
+    }
+
     return Math.max(window.scrollY + target.getBoundingClientRect().top - 24, 0);
   }
 
@@ -271,6 +275,23 @@
     `;
   }
 
+  function getOrCreateTipsCard(questionCard, walkthroughContent) {
+    if (!questionCard || !walkthroughContent || !walkthroughContent.parentNode) {
+      return null;
+    }
+
+    const tipsCard = document.getElementById("tips-card") || document.createElement("section");
+
+    if (!tipsCard.id) {
+      tipsCard.id = "tips-card";
+    }
+
+    tipsCard.classList.add("question-card", "tips-card");
+    walkthroughContent.parentNode.insertBefore(tipsCard, walkthroughContent);
+
+    return tipsCard;
+  }
+
   function renderStep(step, index, config) {
     const stepNumber = index + 1;
     const interactionHtml = step.type === "choice"
@@ -307,6 +328,13 @@
   }
 
   function buildQuestionCardHtml(config) {
+    return `
+      <p class="question-label">Question</p>
+      ${config.questionHtml}
+    `;
+  }
+
+  function buildTipsCardHtml(config) {
     const fallbackFocus = !config.focus && Array.isArray(config.hints) && config.hints.length
       ? config.hints[0]
       : "";
@@ -319,8 +347,7 @@
     }).join("");
 
     return `
-      <p class="question-label">Question</p>
-      ${config.questionHtml}
+      <p class="question-label">Tips</p>
       ${focusHtml}
       <p class="step-text attempt-note">
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
@@ -452,8 +479,9 @@
     const backLink = document.getElementById("back-link");
     const questionCard = document.getElementById("question-card");
     const walkthroughContent = document.getElementById("walkthrough-content");
+    const tipsCard = getOrCreateTipsCard(questionCard, walkthroughContent);
 
-    if (!eyebrow || !pageTitle || !subtitle || !backLink || !questionCard || !walkthroughContent) {
+    if (!eyebrow || !pageTitle || !subtitle || !backLink || !questionCard || !walkthroughContent || !tipsCard) {
       return;
     }
 
@@ -462,7 +490,9 @@
     subtitle.textContent = config.subtitle;
     backLink.href = config.backHref;
 
+    questionCard.classList.add("sticky-question-card");
     questionCard.innerHTML = buildQuestionCardHtml(config);
+    tipsCard.innerHTML = buildTipsCardHtml(config);
     walkthroughContent.innerHTML = config.steps.map(function (step, index) {
       return renderStep(step, index, config);
     }).join("");

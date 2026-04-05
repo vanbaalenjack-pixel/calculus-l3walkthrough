@@ -260,6 +260,10 @@ h1 {
   z-index: 0;
 }
 
+.sticky-question-card {
+  scroll-margin-top: 24px;
+}
+
 .question-card.menu-open {
   z-index: 30;
 }
@@ -386,7 +390,7 @@ h1 {
 .question-entry-actions {
   position: relative;
   align-items: stretch;
-  margin-top: 4px;
+  margin-top: 16px;
   margin-bottom: 0;
   z-index: 2;
 }
@@ -432,6 +436,7 @@ h1 {
 
 .step-card {
   padding: 30px;
+  scroll-margin-top: 24px;
 }
 
 .hidden {
@@ -1196,6 +1201,14 @@ input[type="range"] {
   margin-right: auto;
   color: #627086;
   line-height: 1.7;
+}
+
+@media (min-width: 760px) {
+  .sticky-question-card {
+    position: sticky;
+    top: 20px;
+    z-index: 12;
+  }
 }
 
 @media (max-width: 700px) {

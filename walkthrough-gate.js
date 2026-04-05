@@ -1,15 +1,87 @@
+function getWalkthroughPageScrollTop(target) {
+  if (!target) {
+    return 0;
+  }
+
+  const stickyQuestionCard = document.querySelector(".sticky-question-card");
+
+  if (stickyQuestionCard) {
+    const styles = window.getComputedStyle(stickyQuestionCard);
+
+    if (styles.position === "sticky") {
+      const stickyTop = parseFloat(styles.top) || 0;
+      const stickyGap = 18;
+
+      return Math.max(
+        window.scrollY + target.getBoundingClientRect().top
+          - (stickyQuestionCard.getBoundingClientRect().height + stickyTop + stickyGap),
+        0
+      );
+    }
+  }
+
+  return Math.max(window.scrollY + target.getBoundingClientRect().top - 24, 0);
+}
+
+function ensureTipsCard(questionCard, walkthroughContent) {
+  if (!questionCard || !walkthroughContent || !walkthroughContent.parentNode) {
+    return null;
+  }
+
+  const tipsCard = document.getElementById("tips-card") || document.createElement("section");
+
+  if (!tipsCard.id) {
+    tipsCard.id = "tips-card";
+  }
+
+  questionCard.classList.add("sticky-question-card");
+  tipsCard.classList.add("question-card", "tips-card");
+  walkthroughContent.parentNode.insertBefore(tipsCard, walkthroughContent);
+
+  return tipsCard;
+}
+
+function moveQuestionSupportToTips(questionCard, tipsCard) {
+  if (!questionCard || !tipsCard || questionCard === tipsCard) {
+    return;
+  }
+
+  const supportNodes = questionCard.querySelectorAll(".attempt-note, .question-note, #show-hints-btn");
+
+  if (!supportNodes.length) {
+    return;
+  }
+
+  if (!tipsCard.querySelector(".question-label")) {
+    const tipsLabel = document.createElement("p");
+    tipsLabel.className = "question-label";
+    tipsLabel.textContent = "Tips";
+    tipsCard.appendChild(tipsLabel);
+  }
+
+  supportNodes.forEach(function (node) {
+    tipsCard.appendChild(node);
+  });
+}
+
 function initializeWalkthroughGate(config) {
   const hintsCard = document.getElementById("hints-card");
-  const showHintsButton = document.getElementById("show-hints-btn");
   const walkthroughContent = document.getElementById("walkthrough-content");
-  const questionCard = showHintsButton ? showHintsButton.closest(".question-card") : null;
-  let questionMenuButton = null;
-  let questionMenuPanel = null;
+  const initialQuestionCard = document.querySelector(".sticky-question-card")
+    || document.getElementById("question-card")
+    || document.querySelector(".question-card");
+  const tipsCard = ensureTipsCard(initialQuestionCard, walkthroughContent);
+
+  moveQuestionSupportToTips(initialQuestionCard, tipsCard);
+
+  const showHintsButton = document.getElementById("show-hints-btn");
+  const entryCard = tipsCard || (showHintsButton ? showHintsButton.closest(".question-card") : null);
 
   if (
     !hintsCard ||
     !showHintsButton ||
     !walkthroughContent ||
+    !entryCard ||
     !config ||
     !Array.isArray(config.hints) ||
     !config.answerHtml ||
@@ -36,14 +108,6 @@ function initializeWalkthroughGate(config) {
   walkthroughContent.classList.add("hidden");
   showHintsButton.classList.remove("hidden");
 
-  function getPageScrollTop(target) {
-    if (!target) {
-      return 0;
-    }
-
-    return Math.max(window.scrollY + target.getBoundingClientRect().top - 24, 0);
-  }
-
   function normaliseActionLabel(value) {
     return (value || "").replace(/[←→]/g, "").replace(/\s+/g, " ").trim();
   }
@@ -51,42 +115,6 @@ function initializeWalkthroughGate(config) {
   const answerButtonLabel = config.answerButtonLabel || "Show answer";
   const answerSectionLabel = config.answerSectionLabel || "Answer";
   const walkthroughButtonLabel = config.walkthroughButtonLabel || "Show full walkthrough";
-
-  function closeQuestionMenu() {
-    if (!questionMenuButton || !questionMenuPanel) {
-      return;
-    }
-
-    if (questionCard) {
-      questionCard.classList.remove("menu-open");
-    }
-    questionMenuButton.setAttribute("aria-expanded", "false");
-    questionMenuPanel.classList.add("hidden");
-  }
-
-  function openQuestionMenu() {
-    if (!questionMenuButton || !questionMenuPanel) {
-      return;
-    }
-
-    if (questionCard) {
-      questionCard.classList.add("menu-open");
-    }
-    questionMenuButton.setAttribute("aria-expanded", "true");
-    questionMenuPanel.classList.remove("hidden");
-  }
-
-  function toggleQuestionMenu() {
-    if (!questionMenuButton || !questionMenuPanel) {
-      return;
-    }
-
-    if (questionMenuPanel.classList.contains("hidden")) {
-      openQuestionMenu();
-    } else {
-      closeQuestionMenu();
-    }
-  }
 
   function getEntryNavigation() {
     const navRows = walkthroughContent.querySelectorAll(".nav-row");
@@ -98,18 +126,25 @@ function initializeWalkthroughGate(config) {
       })
       : null;
     const secondaryLabel = secondaryLink ? normaliseActionLabel(secondaryLink.textContent) : "";
-    const previous = secondaryLink && !/back to paper/i.test(secondaryLabel)
+    const secondary = secondaryLink
       ? {
         href: secondaryLink.getAttribute("href"),
-        label: "← Previous question"
+        label: /back to paper/i.test(secondaryLabel)
+          ? secondaryLink.textContent.trim()
+          : "← Previous question"
       }
       : (config.previousHref
         ? {
           href: config.previousHref,
           label: config.previousLabel || "← Previous question"
         }
-        : null);
-    const next = primaryLink
+        : (config.backHref
+          ? {
+            href: config.backHref,
+            label: "← Back to paper"
+          }
+          : null));
+    const primary = primaryLink
       ? {
         href: primaryLink.getAttribute("href"),
         label: primaryLink.textContent.trim()
@@ -119,115 +154,36 @@ function initializeWalkthroughGate(config) {
         label: config.nextLabel
       };
 
-    return { previous: previous, next: next };
+    return { secondary: secondary, primary: primary };
   }
 
   function addEntryActions() {
-    if (!questionCard || questionCard.querySelector(".question-entry-actions")) {
+    if (!entryCard || entryCard.querySelector(".question-entry-actions")) {
       return;
     }
 
     const entryNavigation = getEntryNavigation();
     const actionRow = document.createElement("div");
     actionRow.className = "gate-actions question-entry-actions";
-    const menuWrap = document.createElement("div");
-    menuWrap.className = "question-menu";
+    actionRow.appendChild(showHintsButton);
 
-    questionMenuButton = document.createElement("button");
-    questionMenuButton.type = "button";
-    questionMenuButton.className = "nav-btn secondary question-menu-button";
-    questionMenuButton.textContent = "Menu";
-    questionMenuButton.setAttribute("aria-expanded", "false");
-    questionMenuButton.setAttribute("aria-haspopup", "true");
-
-    questionMenuPanel = document.createElement("div");
-    questionMenuPanel.className = "question-menu-panel hidden";
-
-    const menuHintsButton = document.createElement("button");
-    menuHintsButton.type = "button";
-    menuHintsButton.className = "nav-btn secondary question-menu-option";
-    menuHintsButton.textContent = "Hints";
-
-    const menuWalkthroughButton = document.createElement("button");
-    menuWalkthroughButton.type = "button";
-    menuWalkthroughButton.className = "nav-btn secondary question-menu-option";
-    menuWalkthroughButton.textContent = "Walkthrough";
-
-    const menuAnswerButton = document.createElement("button");
-    menuAnswerButton.type = "button";
-    menuAnswerButton.className = "nav-btn secondary question-menu-option";
-    menuAnswerButton.textContent = "Answer";
-
-    questionMenuPanel.appendChild(menuHintsButton);
-    questionMenuPanel.appendChild(menuWalkthroughButton);
-    questionMenuPanel.appendChild(menuAnswerButton);
-    menuWrap.appendChild(questionMenuButton);
-    menuWrap.appendChild(questionMenuPanel);
-    actionRow.appendChild(menuWrap);
-
-    if (entryNavigation.previous) {
-      const previousLink = document.createElement("a");
-      previousLink.className = "nav-btn secondary";
-      previousLink.href = entryNavigation.previous.href;
-      previousLink.textContent = entryNavigation.previous.label;
-      actionRow.appendChild(previousLink);
-    } else {
-      const previousButton = document.createElement("button");
-      previousButton.type = "button";
-      previousButton.className = "nav-btn secondary is-disabled";
-      previousButton.textContent = "← Previous question";
-      previousButton.disabled = true;
-      previousButton.setAttribute("aria-disabled", "true");
-      actionRow.appendChild(previousButton);
+    if (entryNavigation.secondary) {
+      const secondaryLink = document.createElement("a");
+      secondaryLink.className = "nav-btn secondary";
+      secondaryLink.href = entryNavigation.secondary.href;
+      secondaryLink.textContent = entryNavigation.secondary.label;
+      actionRow.appendChild(secondaryLink);
     }
 
-    const nextLink = document.createElement("a");
-    nextLink.className = "nav-btn";
-    nextLink.href = entryNavigation.next.href;
-    nextLink.textContent = entryNavigation.next.label;
-    actionRow.appendChild(nextLink);
+    if (entryNavigation.primary) {
+      const primaryLink = document.createElement("a");
+      primaryLink.className = "nav-btn";
+      primaryLink.href = entryNavigation.primary.href;
+      primaryLink.textContent = entryNavigation.primary.label;
+      actionRow.appendChild(primaryLink);
+    }
 
-    showHintsButton.classList.add("hidden");
-
-    questionCard.appendChild(actionRow);
-
-    questionMenuButton.addEventListener("click", function (event) {
-      event.stopPropagation();
-      toggleQuestionMenu();
-    });
-
-    menuHintsButton.addEventListener("click", function () {
-      closeQuestionMenu();
-      revealHints();
-    });
-
-    menuWalkthroughButton.addEventListener("click", function () {
-      closeQuestionMenu();
-      revealWalkthrough();
-    });
-
-    menuAnswerButton.addEventListener("click", function () {
-      closeQuestionMenu();
-      revealAnswer();
-    });
-
-    document.addEventListener("click", function (event) {
-      if (!questionMenuPanel || questionMenuPanel.classList.contains("hidden")) {
-        return;
-      }
-
-      if (menuWrap.contains(event.target)) {
-        return;
-      }
-
-      closeQuestionMenu();
-    });
-
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
-        closeQuestionMenu();
-      }
-    });
+    entryCard.appendChild(actionRow);
   }
 
   hintsCard.innerHTML = `
@@ -276,7 +232,7 @@ function initializeWalkthroughGate(config) {
 
   function revealHints() {
     ensureHintsVisible();
-    window.scrollTo({ top: getPageScrollTop(hintsCard), behavior: "smooth" });
+    window.scrollTo({ top: getWalkthroughPageScrollTop(hintsCard), behavior: "smooth" });
   }
 
   function revealWalkthrough() {
@@ -284,7 +240,7 @@ function initializeWalkthroughGate(config) {
     walkthroughContent.classList.remove("hidden");
     showWalkthroughButton.classList.add("hidden");
     addWalkthroughSkipButtons();
-    window.scrollTo({ top: getPageScrollTop(walkthroughContent), behavior: "smooth" });
+    window.scrollTo({ top: getWalkthroughPageScrollTop(walkthroughContent), behavior: "smooth" });
   }
 
   function revealAnswer() {
@@ -295,7 +251,7 @@ function initializeWalkthroughGate(config) {
     if (typeof renderMath === "function") {
       renderMath(answerCard);
     }
-    window.scrollTo({ top: getPageScrollTop(answerCard), behavior: "smooth" });
+    window.scrollTo({ top: getWalkthroughPageScrollTop(answerCard), behavior: "smooth" });
   }
 
   addEntryActions();
@@ -344,7 +300,7 @@ function initializeWalkthroughGate(config) {
         nextButton.classList.remove("hidden");
       }
 
-      window.scrollTo({ top: getPageScrollTop(button), behavior: "smooth" });
+      window.scrollTo({ top: getWalkthroughPageScrollTop(button), behavior: "smooth" });
     });
   });
 
@@ -364,14 +320,6 @@ function initializeWalkthroughGate(config) {
 (function () {
   const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noreferrer">here</a>.';
   const INTERACTION_SELECTOR = ".option-btn, .check-btn, .next-step-btn";
-
-  function getPageScrollTop(target) {
-    if (!target) {
-      return 0;
-    }
-
-    return Math.max(window.scrollY + target.getBoundingClientRect().top - 24, 0);
-  }
 
   function normaliseButtonTypes(root) {
     const scope = root || document;
@@ -416,7 +364,7 @@ function initializeWalkthroughGate(config) {
           }
 
           window.scrollTo({
-            top: getPageScrollTop(target),
+            top: getWalkthroughPageScrollTop(target),
             behavior: "smooth"
           });
         });
