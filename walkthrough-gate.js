@@ -19,6 +19,18 @@ function initializeWalkthroughGate(config) {
     return;
   }
 
+  function placeHintsAfterWalkthrough() {
+    if (!hintsCard.parentNode || hintsCard.parentNode !== walkthroughContent.parentNode) {
+      return;
+    }
+
+    if (walkthroughContent.nextElementSibling !== hintsCard) {
+      walkthroughContent.parentNode.insertBefore(hintsCard, walkthroughContent.nextSibling);
+    }
+  }
+
+  placeHintsAfterWalkthrough();
+
   // Force the initial closed state in case the browser restores prior page state.
   hintsCard.classList.add("hidden");
   walkthroughContent.classList.add("hidden");
