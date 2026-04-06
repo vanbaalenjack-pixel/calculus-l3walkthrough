@@ -353,7 +353,6 @@
         Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
       </p>
       ${noteHtml}
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
     `;
   }
 

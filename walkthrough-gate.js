@@ -86,12 +86,35 @@ function ensureTipsCard(questionCard, walkthroughContent) {
   return tipsCard;
 }
 
+function ensureControlsSection(tipsCard, walkthroughContent) {
+  if (!walkthroughContent || !walkthroughContent.parentNode) {
+    return null;
+  }
+
+  const controlsSection = document.getElementById("question-controls") || document.createElement("nav");
+
+  if (!controlsSection.id) {
+    controlsSection.id = "question-controls";
+  }
+
+  controlsSection.classList.add("question-controls");
+  controlsSection.setAttribute("aria-label", "Page controls");
+
+  const insertionPoint = tipsCard || walkthroughContent;
+
+  if (insertionPoint.nextElementSibling !== controlsSection) {
+    walkthroughContent.parentNode.insertBefore(controlsSection, walkthroughContent);
+  }
+
+  return controlsSection;
+}
+
 function moveQuestionSupportToTips(questionCard, tipsCard) {
   if (!questionCard || !tipsCard || questionCard === tipsCard) {
     return;
   }
 
-  const supportNodes = questionCard.querySelectorAll(".attempt-note, .question-note, #show-hints-btn");
+  const supportNodes = questionCard.querySelectorAll(".attempt-note, .question-note");
 
   if (!supportNodes.length) {
     return;
@@ -116,18 +139,18 @@ function initializeWalkthroughGate(config) {
     || document.getElementById("question-card")
     || document.querySelector(".question-card");
   const tipsCard = ensureTipsCard(initialQuestionCard, walkthroughContent);
+  const controlsSection = ensureControlsSection(tipsCard, walkthroughContent);
 
   moveQuestionSupportToTips(initialQuestionCard, tipsCard);
   setupQuestionCardSticky(initialQuestionCard);
 
-  const showHintsButton = document.getElementById("show-hints-btn");
-  const entryCard = tipsCard || (showHintsButton ? showHintsButton.closest(".question-card") : null);
+  let showHintsButton = document.getElementById("show-hints-btn");
+  const pageBackLink = document.getElementById("back-link");
 
   if (
     !hintsCard ||
-    !showHintsButton ||
     !walkthroughContent ||
-    !entryCard ||
+    !controlsSection ||
     !config ||
     !Array.isArray(config.hints) ||
     !config.answerHtml ||
@@ -152,6 +175,11 @@ function initializeWalkthroughGate(config) {
   // Force the initial closed state in case the browser restores prior page state.
   hintsCard.classList.add("hidden");
   walkthroughContent.classList.add("hidden");
+
+  if (!showHintsButton) {
+    showHintsButton = createShowHintsButton();
+  }
+
   showHintsButton.classList.remove("hidden");
 
   function normaliseActionLabel(value) {
@@ -163,54 +191,52 @@ function initializeWalkthroughGate(config) {
   const walkthroughButtonLabel = config.walkthroughButtonLabel || "Show full walkthrough";
 
   function getEntryNavigation() {
-    const navRows = walkthroughContent.querySelectorAll(".nav-row");
-    const finalNavRow = navRows.length ? navRows[navRows.length - 1] : null;
-    const secondaryLink = finalNavRow ? finalNavRow.querySelector("a.nav-btn.secondary") : null;
-    const primaryLink = finalNavRow
-      ? Array.from(finalNavRow.querySelectorAll("a.nav-btn")).find(function (link) {
-        return !link.classList.contains("secondary");
-      })
+    const secondary = config.backHref
+      ? {
+        href: config.backHref,
+        label: config.backLabel || "← Back to paper"
+      }
       : null;
-    const secondaryLabel = secondaryLink ? normaliseActionLabel(secondaryLink.textContent) : "";
-    const secondary = secondaryLink
+    const nextLabel = normaliseActionLabel(config.nextLabel);
+    const primary = config.nextHref
+      && config.nextLabel
+      && (
+        /next question/i.test(nextLabel)
+        || config.nextHref !== config.backHref
+      )
       ? {
-        href: secondaryLink.getAttribute("href"),
-        label: /back to paper/i.test(secondaryLabel)
-          ? secondaryLink.textContent.trim()
-          : "← Previous question"
-      }
-      : (config.previousHref
-        ? {
-          href: config.previousHref,
-          label: config.previousLabel || "← Previous question"
-        }
-        : (config.backHref
-          ? {
-            href: config.backHref,
-            label: "← Back to paper"
-          }
-          : null));
-    const primary = primaryLink
-      ? {
-        href: primaryLink.getAttribute("href"),
-        label: primaryLink.textContent.trim()
-      }
-      : {
         href: config.nextHref,
         label: config.nextLabel
-      };
+      }
+      : null;
 
     return { secondary: secondary, primary: primary };
   }
 
+  function createShowHintsButton() {
+    const button = document.createElement("button");
+    button.id = "show-hints-btn";
+    button.className = "nav-btn secondary";
+    button.type = "button";
+    button.textContent = "Show hints";
+    return button;
+  }
+
   function addEntryActions() {
-    if (!entryCard || entryCard.querySelector(".question-entry-actions")) {
+    if (!controlsSection || controlsSection.querySelector(".question-entry-actions")) {
       return;
+    }
+
+    if (!showHintsButton) {
+      showHintsButton = createShowHintsButton();
     }
 
     const entryNavigation = getEntryNavigation();
     const actionRow = document.createElement("div");
     actionRow.className = "gate-actions question-entry-actions";
+
+    showHintsButton.classList.add("secondary");
+    showHintsButton.classList.remove("hidden");
     actionRow.appendChild(showHintsButton);
 
     if (entryNavigation.secondary) {
@@ -229,7 +255,11 @@ function initializeWalkthroughGate(config) {
       actionRow.appendChild(primaryLink);
     }
 
-    entryCard.appendChild(actionRow);
+    controlsSection.appendChild(actionRow);
+
+    if (pageBackLink) {
+      pageBackLink.classList.add("hidden");
+    }
   }
 
   hintsCard.innerHTML = `

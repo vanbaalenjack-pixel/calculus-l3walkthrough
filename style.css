@@ -386,10 +386,14 @@ h1 {
   margin-bottom: 20px;
 }
 
+.question-controls {
+  margin-bottom: 26px;
+}
+
 .question-entry-actions {
   position: relative;
   align-items: stretch;
-  margin-top: 16px;
+  margin-top: 0;
   margin-bottom: 0;
   z-index: 2;
 }
@@ -1195,6 +1199,10 @@ input[type="range"] {
 
   .nav-row {
     flex-direction: column;
+  }
+
+  .question-controls {
+    margin-bottom: 22px;
   }
 
   .question-entry-actions {
