@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script defer src="index-page.js?v=20260329-3"></script>
+<script defer src="index-page.js?v=20260409-1"></script>
 </head>
 
 <body class="home-page">
@@ -27,7 +27,7 @@
         <li>Build Achieved, Merit, and Excellence reasoning, not just final answers.</li>
       </ul>
       <div class="home-hero-actions">
-        <a class="nav-btn home-cta" href="#choose-level">
+        <a class="nav-btn home-cta" href="#choose-level" data-reveal-level-picker aria-controls="choose-level" aria-expanded="false">
           <span>Start practising</span>
           <span class="home-cta-icon" aria-hidden="true">→</span>
         </a>
@@ -68,7 +68,7 @@
     </aside>
   </header>
 
-  <section id="choose-level" class="question-card year-picker-card home-level-card">
+  <section id="choose-level" class="question-card year-picker-card home-level-card hidden" aria-hidden="true">
     <p class="question-label home-step-label">Start here</p>
     <h2>Step 1: Choose a level</h2>
     <p class="step-text home-level-intro">

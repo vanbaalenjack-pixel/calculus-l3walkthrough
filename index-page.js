@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const standardPanels = Array.from(document.querySelectorAll("[data-standard-panel]"));
   const paperButtons = Array.from(document.querySelectorAll("[data-paper]"));
   const paperPanels = Array.from(document.querySelectorAll("[data-paper-panel]"));
+  const levelChooser = document.getElementById("choose-level");
+  const revealLevelPickerButton = document.querySelector("[data-reveal-level-picker]");
   let activeLevel = null;
   let activeStandard = null;
   let activePaper = null;
@@ -151,6 +153,19 @@ document.addEventListener("DOMContentLoaded", function () {
   function setPanelState(panel, isActive) {
     panel.classList.toggle("hidden", !isActive);
     panel.setAttribute("aria-hidden", isActive ? "false" : "true");
+  }
+
+  function setLevelChooserState(isVisible) {
+    if (!levelChooser) {
+      return;
+    }
+
+    levelChooser.classList.toggle("hidden", !isVisible);
+    levelChooser.setAttribute("aria-hidden", isVisible ? "false" : "true");
+
+    if (revealLevelPickerButton) {
+      revealLevelPickerButton.setAttribute("aria-expanded", isVisible ? "true" : "false");
+    }
   }
 
   function getLevelPanel(level) {
@@ -297,6 +312,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
+    setLevelChooserState(true);
     clearStandardSelection(level);
     updateHash(level);
 
@@ -319,6 +335,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
+    setLevelChooserState(true);
     clearStandardSelection(parentLevel);
     setPanelState(standardPanel, true);
 
@@ -357,6 +374,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
+    setLevelChooserState(true);
     clearStandardSelection(parentLevel);
     setPanelState(standardPanel, true);
 
@@ -412,6 +430,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  if (revealLevelPickerButton) {
+    revealLevelPickerButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      setLevelChooserState(true);
+      updateHash("choose-level");
+      scrollToPanel("choose-level");
+    });
+  }
+
   standardButtons.forEach(function (button) {
     button.addEventListener("click", function () {
       const standard = button.dataset.standard;
@@ -450,7 +477,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const initialHash = window.location.hash.slice(1);
   const initialSelection = hashTargets[initialHash];
-  if (initialSelection) {
+  if (initialHash === "choose-level") {
+    setLevelChooserState(true);
+    scrollToPanel("choose-level");
+  } else if (initialSelection) {
+    setLevelChooserState(true);
     if (initialSelection.paper) {
       selectPaper(initialSelection.paper, true);
     } else if (initialSelection.standard) {
