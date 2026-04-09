@@ -1,3 +1,100 @@
+function getSiteHeader() {
+  return document.querySelector(".site-header");
+}
+
+function getSiteHeaderHeight() {
+  const siteHeader = getSiteHeader();
+
+  if (siteHeader) {
+    return Math.ceil(siteHeader.getBoundingClientRect().height || siteHeader.offsetHeight || 0);
+  }
+
+  const rootStyles = window.getComputedStyle(document.documentElement);
+  return parseFloat(rootStyles.getPropertyValue("--site-header-height")) || 0;
+}
+
+function getSiteScrollOffset(extraOffset) {
+  const baseOffset = Number.isFinite(extraOffset) ? extraOffset : 24;
+  return getSiteHeaderHeight() + baseOffset;
+}
+
+function syncSiteHeaderMetrics(siteHeader) {
+  const header = siteHeader || getSiteHeader();
+  const headerHeight = header
+    ? Math.ceil(header.getBoundingClientRect().height || header.offsetHeight || 0)
+    : 0;
+
+  document.documentElement.style.setProperty("--site-header-height", headerHeight + "px");
+  document.documentElement.style.setProperty("--site-scroll-offset", headerHeight + 24 + "px");
+}
+
+function ensureSiteHeader() {
+  const body = document.body;
+
+  if (!body) {
+    return null;
+  }
+
+  let siteHeader = getSiteHeader();
+
+  if (!siteHeader) {
+    siteHeader = document.createElement("header");
+    siteHeader.className = "site-header";
+
+    const headerInner = document.createElement("nav");
+    headerInner.className = "site-header-inner";
+    headerInner.setAttribute("aria-label", "Site");
+
+    const brandLink = document.createElement("a");
+    brandLink.className = "site-brand";
+    brandLink.href = "index.html";
+    brandLink.textContent = "calc.nz";
+
+    headerInner.appendChild(brandLink);
+    siteHeader.appendChild(headerInner);
+
+    const main = document.querySelector("main");
+
+    if (main && main.parentNode === body) {
+      body.insertBefore(siteHeader, main);
+    } else {
+      body.insertBefore(siteHeader, body.firstChild);
+    }
+  }
+
+  body.classList.add("has-site-header");
+  syncSiteHeaderMetrics(siteHeader);
+
+  if (siteHeader.dataset.metricsSetup === "true") {
+    return siteHeader;
+  }
+
+  siteHeader.dataset.metricsSetup = "true";
+
+  const updateSiteHeaderMetrics = function () {
+    syncSiteHeaderMetrics(siteHeader);
+
+    const stickyQuestionCard = document.querySelector(".sticky-question-card");
+    if (stickyQuestionCard) {
+      syncQuestionCardStickyState(stickyQuestionCard);
+    }
+  };
+
+  window.addEventListener("resize", updateSiteHeaderMetrics);
+  window.addEventListener("load", updateSiteHeaderMetrics);
+  window.addEventListener("pageshow", updateSiteHeaderMetrics);
+
+  if ("ResizeObserver" in window) {
+    const resizeObserver = new ResizeObserver(updateSiteHeaderMetrics);
+    resizeObserver.observe(siteHeader);
+    siteHeader._headerResizeObserver = resizeObserver;
+  }
+
+  window.requestAnimationFrame(updateSiteHeaderMetrics);
+
+  return siteHeader;
+}
+
 function getWalkthroughPageScrollTop(target) {
   if (!target) {
     return 0;
@@ -20,7 +117,10 @@ function getWalkthroughPageScrollTop(target) {
     }
   }
 
-  return Math.max(window.scrollY + target.getBoundingClientRect().top - 24, 0);
+  return Math.max(
+    window.scrollY + target.getBoundingClientRect().top - getSiteScrollOffset(24),
+    0
+  );
 }
 
 function syncQuestionCardStickyState(questionCard) {
@@ -30,13 +130,15 @@ function syncQuestionCardStickyState(questionCard) {
 
   const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
   const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+  const headerHeight = getSiteHeaderHeight();
   const hasFinePointer = typeof window.matchMedia !== "function"
     || window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   const graphCount = questionCard.querySelectorAll(".graph-frame").length;
   const imageCount = questionCard.querySelectorAll("img").length;
   const containsVisual = graphCount > 0 || imageCount > 0;
   const hasMultipleVisuals = graphCount > 1 || imageCount > 1;
-  const stickyTop = viewportWidth >= 1380 ? 28 : viewportWidth >= 1100 ? 24 : 20;
+  const stickyGap = viewportWidth >= 1380 ? 28 : viewportWidth >= 1100 ? 24 : 20;
+  const stickyClearance = headerHeight + stickyGap;
   const minimumVisibleStepArea = viewportWidth >= 1280 ? 320 : 280;
   const questionCardHeight = Math.ceil(questionCard.getBoundingClientRect().height || questionCard.offsetHeight || 0);
   const maxStickyHeight = containsVisual
@@ -47,9 +149,9 @@ function syncQuestionCardStickyState(questionCard) {
     && questionCardHeight > 0
     && !hasMultipleVisuals
     && questionCardHeight <= maxStickyHeight
-    && viewportHeight - questionCardHeight - stickyTop >= minimumVisibleStepArea;
+    && viewportHeight - questionCardHeight - stickyClearance >= minimumVisibleStepArea;
 
-  document.documentElement.style.setProperty("--question-sticky-top", stickyTop + "px");
+  document.documentElement.style.setProperty("--question-sticky-top", stickyGap + "px");
   questionCard.classList.toggle("question-card-with-visual", containsVisual);
   questionCard.classList.toggle("question-card-multi-visual", hasMultipleVisuals);
   questionCard.classList.toggle("sticky-question-card-enabled", enableSticky);
@@ -148,6 +250,8 @@ function moveQuestionSupportToTips(questionCard, tipsCard) {
 }
 
 function initializeWalkthroughGate(config) {
+  ensureSiteHeader();
+
   const hintsCard = document.getElementById("hints-card");
   const walkthroughContent = document.getElementById("walkthrough-content");
   const initialQuestionCard = document.querySelector(".sticky-question-card")
@@ -488,11 +592,13 @@ function initializeWalkthroughGate(config) {
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
+      ensureSiteHeader();
       normaliseButtonTypes(document);
       stabiliseInteractiveScroll(document);
       ensureReportIssueFooter();
     });
   } else {
+    ensureSiteHeader();
     normaliseButtonTypes(document);
     stabiliseInteractiveScroll(document);
     ensureReportIssueFooter();

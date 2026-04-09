@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
   const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noreferrer">here</a>.';
 
+  if (typeof ensureSiteHeader === "function") {
+    ensureSiteHeader();
+  }
+
   document.querySelectorAll("button:not([type])").forEach(function (button) {
     button.type = "button";
   });
@@ -191,7 +195,11 @@ document.addEventListener("DOMContentLoaded", function () {
       return 0;
     }
 
-    return Math.max(window.scrollY + target.getBoundingClientRect().top - 24, 0);
+    const scrollOffset = typeof getSiteScrollOffset === "function"
+      ? getSiteScrollOffset(24)
+      : 24;
+
+    return Math.max(window.scrollY + target.getBoundingClientRect().top - scrollOffset, 0);
   }
 
   function scrollToPanel(targetId) {
