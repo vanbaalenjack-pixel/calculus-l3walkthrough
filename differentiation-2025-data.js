@@ -206,8 +206,8 @@
       <path class="graph-normal" d="${tangentTwo}" stroke-dasharray="8 6"></path>
       ${circleMarkup(scale, -6, -18, 4, "question-dot")}
       ${circleMarkup(scale, -2, 2, 4, "question-dot")}
-      ${textMarkup(scale, -9.7, -33.5, "y = f(x)", "graph-label")}
-      ${textMarkup(scale, 3.2, 1.4, "y = f(x)", "graph-label")}
+      ${textMarkup(scale, -9.7, -33.5, "y = f(x)", "graph-equation-label")}
+      ${textMarkup(scale, 3.2, 1.4, "y = f(x)", "graph-equation-label")}
       ${textMarkup(scale, -3.65, 8.7, "x = -4", "graph-label")}
       ${textMarkup(scale, 9.6, -1.3, "x", "question-axis-label")}
       ${textMarkup(scale, 0.2, 9.2, "y", "question-axis-label")}

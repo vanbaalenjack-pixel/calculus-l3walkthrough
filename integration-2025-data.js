@@ -195,7 +195,7 @@
       ${textMarkup(scale, xMax - 0.004, -0.12, "π/6", "graph-label", ' text-anchor="end"')}
       ${textMarkup(scale, xMax + 0.052, -0.05, "x", "question-axis-label")}
       ${textMarkup(scale, -0.008, 4.04, "y", "question-axis-label")}
-      ${textMarkup(scale, 0.36, 2.56, "y = 4 sin(5x) cos(3x)", "graph-label", ' text-anchor="middle"')}
+      ${textMarkup(scale, 0.36, 2.56, "y = 4 sin(5x) cos(3x)", "graph-equation-label", ' text-anchor="middle"')}
       <rect class="graph-chip" x="320" y="52" width="112" height="44" rx="12"></rect>
       <text class="graph-label" x="376" y="70" text-anchor="middle">Diagram is</text>
       <text class="graph-label" x="376" y="88" text-anchor="middle">not to scale</text>
@@ -228,7 +228,7 @@
       <path class="question-curve" d="${curvePath}"></path>
       ${circleMarkup(scale, xMax, 0, 4.2, "question-origin")}
       ${textMarkup(scale, xMax - 0.02, 0.014, "(π/2, 0)", "graph-label", ' text-anchor="end"')}
-      ${textMarkup(scale, 1.18, 0.11, "y = sin³x cos³x", "graph-label", ' text-anchor="middle"')}
+      ${textMarkup(scale, 1.18, 0.11, "y = sin³x cos³x", "graph-equation-label", ' text-anchor="middle"')}
       ${textMarkup(scale, xMax + 0.07, -0.005, "x", "question-axis-label")}
       ${textMarkup(scale, -0.012, 0.153, "y", "question-axis-label")}
       <rect class="graph-chip" x="310" y="42" width="116" height="44" rx="12"></rect>
@@ -325,7 +325,7 @@
       ${circleMarkup(scale, 0, 0, 4.2, "question-origin")}
       ${textMarkup(scale, 1, -0.18, "p", "graph-label", ' text-anchor="middle"')}
       ${textMarkup(scale, 2, -0.18, "2p", "graph-label", ' text-anchor="middle"')}
-      ${textMarkup(scale, 1.62, 2.55, "y = (x² + 6) / x⁴", "graph-label", ' text-anchor="middle"')}
+      ${textMarkup(scale, 1.62, 2.55, "y = (x² + 6) / x⁴", "graph-equation-label", ' text-anchor="middle"')}
       ${textMarkup(scale, 2.32, -0.03, "x", "question-axis-label")}
       ${textMarkup(scale, -0.02, 7.62, "y", "question-axis-label")}
       <rect class="graph-chip" x="80" y="28" width="114" height="44" rx="12"></rect>
@@ -359,7 +359,7 @@
       ${lineMarkup(scale, 2, 0, 2, 44, "graph-guide")}
       <path class="question-shade" d="${areaPath}"></path>
       <path class="question-curve" d="${curvePath}"></path>
-      ${textMarkup(scale, 1.96, 20, "f(x) = (x² + 3)² / 3", "graph-label", ' text-anchor="middle"')}
+      ${textMarkup(scale, 1.96, 20, "f(x) = (x² + 3)² / 3", "graph-equation-label", ' text-anchor="middle"')}
       ${textMarkup(scale, 3.12, -0.24, "x", "question-axis-label")}
       ${textMarkup(scale, -0.02, 49.6, "y", "question-axis-label")}
       ${textMarkup(scale, 1, -0.18, "1", "graph-label", ' text-anchor="middle"')}

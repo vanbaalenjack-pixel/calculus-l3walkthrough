@@ -216,7 +216,7 @@
       ${circleMarkup(scale, 0, 0, 4.2, "question-origin")}
       ${textMarkup(scale, -0.4, -2.5, "-0.4", "graph-label", ' text-anchor="middle"')}
       ${textMarkup(scale, 0.03, 3.6, "(0, 0)", "graph-label")}
-      ${textMarkup(scale, -0.56, 34, "y = 40x(5x² - 3)³", "graph-label", ' text-anchor="middle"')}
+      ${textMarkup(scale, -0.56, 34, "y = 40x(5x² - 3)³", "graph-equation-label", ' text-anchor="middle"')}
       ${textMarkup(scale, -0.4, 28, "x = -0.4", "graph-label", ' text-anchor="middle"')}
       ${textMarkup(scale, 0.105, -1.5, "x", "question-axis-label")}
       ${textMarkup(scale, -0.035, 76, "y", "question-axis-label")}
@@ -259,8 +259,8 @@
       ${circleMarkup(scale, 0, 0, 4.2, "question-origin")}
       ${textMarkup(scale, 1, -0.32, "1", "graph-label", ' text-anchor="middle"')}
       ${textMarkup(scale, 0.03, 9.05, "x = 1", "graph-label")}
-      ${textMarkup(scale, 0.65, 5.15, "y = 3 sec²x", "graph-label", ' text-anchor="middle"')}
-      ${textMarkup(scale, 0.96, 6.95, "y = 2 tan²x", "graph-label", ' text-anchor="middle"')}
+      ${textMarkup(scale, 0.65, 5.15, "y = 3 sec²x", "graph-equation-label", ' text-anchor="middle"')}
+      ${textMarkup(scale, 0.96, 6.95, "y = 2 tan²x", "graph-equation-label", ' text-anchor="middle"')}
       ${textMarkup(scale, 1.25, -0.15, "x", "question-axis-label")}
       ${textMarkup(scale, -0.02, 11.05, "y", "question-axis-label")}
       <rect class="graph-chip" x="296" y="24" width="116" height="44" rx="12"></rect>
@@ -306,8 +306,8 @@
       <path class="question-shade" d="${areaPath}"></path>
       <path class="question-curve" d="${curvePath}"></path>
       ${circleMarkup(scale, 0, 0, 4.2, "question-origin")}
-      ${textMarkup(scale, 0.66, 1.045, "y = 1", "graph-label")}
-      ${textMarkup(scale, 0.72, 0.34, "y = sin²x", "graph-label")}
+      ${textMarkup(scale, 0.66, 1.045, "y = 1", "graph-equation-label")}
+      ${textMarkup(scale, 0.72, 0.34, "y = sin²x", "graph-equation-label")}
       ${textMarkup(scale, -Math.PI / 2, 1.1, "x = -π/2", "graph-label", ' text-anchor="middle"')}
       ${textMarkup(scale, Math.PI / 2, 1.1, "x = π/2", "graph-label", ' text-anchor="middle"')}
       ${textMarkup(scale, 1.9, -0.06, "x", "question-axis-label")}
@@ -344,7 +344,7 @@
       <path class="question-shade" d="${areaPath}"></path>
       <path class="question-curve" d="${curvePath}"></path>
       ${circleMarkup(scale, 0, 0, 4.2, "question-origin")}
-      ${textMarkup(scale, 1.92, 1.18, "y = 2 cos(x/2)", "graph-label", ' text-anchor="middle"')}
+      ${textMarkup(scale, 1.92, 1.18, "y = 2 cos(x/2)", "graph-equation-label", ' text-anchor="middle"')}
       ${textMarkup(scale, k, -0.12, "k", "graph-label", ' text-anchor="middle"')}
       ${textMarkup(scale, Math.PI, -0.12, "π", "graph-label", ' text-anchor="middle"')}
       ${textMarkup(scale, 0.46, 0.93, "Area A", "graph-label", ' text-anchor="middle"')}

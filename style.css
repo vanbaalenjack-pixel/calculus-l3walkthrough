@@ -991,6 +991,10 @@ img.graph-svg {
   fill: var(--text);
   font-size: 12px;
   font-weight: 700;
+  paint-order: stroke fill;
+  stroke: rgba(255, 255, 255, 0.96);
+  stroke-width: 4px;
+  stroke-linejoin: round;
 }
 
 .graph-grid-line,
@@ -1024,6 +1028,10 @@ img.graph-svg {
   fill: var(--text);
   font-size: 15px;
   font-weight: 800;
+  paint-order: stroke fill;
+  stroke: rgba(255, 255, 255, 0.98);
+  stroke-width: 6px;
+  stroke-linejoin: round;
 }
 
 .graph-curve-secondary {
