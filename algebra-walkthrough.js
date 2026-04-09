@@ -489,7 +489,6 @@
     subtitle.textContent = config.subtitle;
     backLink.href = config.backHref;
 
-    questionCard.classList.add("sticky-question-card");
     questionCard.innerHTML = buildQuestionCardHtml(config);
     tipsCard.innerHTML = buildTipsCardHtml(config);
     walkthroughContent.innerHTML = config.steps.map(function (step, index) {

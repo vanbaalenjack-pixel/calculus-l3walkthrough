@@ -30,14 +30,28 @@ function syncQuestionCardStickyState(questionCard) {
 
   const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
   const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-  const stickyTop = viewportWidth >= 1100 ? 24 : 20;
-  const minimumVisibleStepArea = viewportWidth >= 980 ? 260 : 220;
-  const questionCardHeight = questionCard.offsetHeight;
-  const enableSticky = viewportWidth >= 760
+  const hasFinePointer = typeof window.matchMedia !== "function"
+    || window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const graphCount = questionCard.querySelectorAll(".graph-frame").length;
+  const imageCount = questionCard.querySelectorAll("img").length;
+  const containsVisual = graphCount > 0 || imageCount > 0;
+  const hasMultipleVisuals = graphCount > 1 || imageCount > 1;
+  const stickyTop = viewportWidth >= 1380 ? 28 : viewportWidth >= 1100 ? 24 : 20;
+  const minimumVisibleStepArea = viewportWidth >= 1280 ? 320 : 280;
+  const questionCardHeight = Math.ceil(questionCard.getBoundingClientRect().height || questionCard.offsetHeight || 0);
+  const maxStickyHeight = containsVisual
+    ? Math.min(viewportHeight * 0.42, 380)
+    : Math.min(viewportHeight * 0.48, 460);
+  const enableSticky = hasFinePointer
+    && viewportWidth >= 1120
     && questionCardHeight > 0
+    && !hasMultipleVisuals
+    && questionCardHeight <= maxStickyHeight
     && viewportHeight - questionCardHeight - stickyTop >= minimumVisibleStepArea;
 
   document.documentElement.style.setProperty("--question-sticky-top", stickyTop + "px");
+  questionCard.classList.toggle("question-card-with-visual", containsVisual);
+  questionCard.classList.toggle("question-card-multi-visual", hasMultipleVisuals);
   questionCard.classList.toggle("sticky-question-card-enabled", enableSticky);
 }
 
@@ -60,6 +74,7 @@ function setupQuestionCardSticky(questionCard) {
   questionCard.dataset.stickySetup = "true";
   window.addEventListener("resize", updateStickyState);
   window.addEventListener("load", updateStickyState);
+  window.addEventListener("pageshow", updateStickyState);
 
   if ("ResizeObserver" in window) {
     const resizeObserver = new ResizeObserver(updateStickyState);
