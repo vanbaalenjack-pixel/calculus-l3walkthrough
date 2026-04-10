@@ -757,7 +757,7 @@
       hints: [
         raw`For parametric equations, start with \(\frac{dy}{dx}=\frac{dy/dt}{dx/dt}\).`,
         raw`Stationary points happen when \(\frac{dy}{dx}=0\).`,
-        raw`Then check the second derivative condition and convert back to coordinates.`
+        raw`You do need the second derivative here: solve \(\frac{d^2y}{dx^2}=0\), then compare those values with the stationary values.`
       ],
       answerHtml: raw`
         <p class="step-text">First find the gradient:</p>
@@ -767,6 +767,25 @@
           \]
         </div>
         <p class="step-text">Stationary points satisfy \(\frac{dy}{dx}=0\), so \(t=0\).</p>
+        <p class="step-text">Now find the second derivative:</p>
+        <div class="math-block">
+          \[
+          \frac{d}{dt}\left(\frac{dy}{dx}\right)=\frac{d}{dt}\left(\frac{t^2}{t+1}\right)=\frac{2t(t+1)-t^2}{(t+1)^2}=\frac{t(t+2)}{(t+1)^2}
+          \]
+          \[
+          \frac{d^2y}{dx^2}=\frac{\frac{d}{dt}\left(\frac{dy}{dx}\right)}{\frac{dx}{dt}}=\frac{t(t+2)}{(t+1)^2(6t+6)}=\frac{t(t+2)}{6(t+1)^3}
+          \]
+        </div>
+        <p class="step-text">For a point of inflection, set the second derivative equal to zero:</p>
+        <div class="math-block">
+          \[
+          \frac{t(t+2)}{6(t+1)^3}=0
+          \]
+          \[
+          t=0 \text{ or } t=-2
+          \]
+        </div>
+        <p class="step-text">The only value that is both stationary and an inflection candidate is \(t=0\).</p>
         <p class="step-text">At \(t=0\):</p>
         <div class="math-block">
           \[
@@ -775,83 +794,107 @@
         </div>
         <p class="step-text">This gives the stationary point of inflection \((1,0)\).</p>
       `,
-      steps: [
-        {
-          type: "typed",
-          title: raw`Find \(\frac{dy}{dx}\)`,
-          text: raw`Using the parametric derivatives, what is \(\frac{dy}{dx}\)?`,
-          ariaLabel: "Type dy by dx for the parametric curve",
-          acceptedAnswers: ["t^2/(t+1)"],
-          samples: [{ t: -0.5 }, { t: 1 }, { t: 2 }],
-          successMessage: raw`Correct. \(\frac{dy}{dx}=\frac{dy/dt}{dx/dt}=\frac{6t^2}{6t+6}=\frac{t^2}{t+1}\).`,
-          genericMessage: raw`Differentiate \(x\) and \(y\) with respect to \(t\), then divide \(\frac{dy}{dt}\) by \(\frac{dx}{dt}\).`
-        },
-        {
-          type: "choice",
-          title: raw`Find the stationary value of \(t\)`,
-          text: raw`Stationary points happen when \(\frac{dy}{dx}=0\). What value of \(t\) works here?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
-                0
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. The numerator \(t^2\) is zero when \(t=0\), giving a stationary point.`
-            },
-            {
-              html: raw`\[
-                -1
-              \]`,
-              failureMessage: raw`\(-1\) makes the denominator zero, so the gradient is undefined there.`
-            },
-            {
-              html: raw`\[
-                1
-              \]`,
-              failureMessage: raw`Check the numerator of \(\frac{t^2}{t+1}\). It is only zero when \(t=0\).`
-            },
-            {
-              html: raw`\[
-                2
-              \]`,
-              failureMessage: raw`The numerator is not zero at \(t=2\).`
-            }
-          ]
-        },
-        {
-          type: "choice",
-          title: "Find the coordinates",
-          text: raw`Substitute the valid value of \(t\) back into the parametric equations. What point do you get?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
-                (1,0)
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. At \(t=0\), the point is \((1,0)\), which is the required stationary point of inflection.`
-            },
-            {
-              html: raw`\[
-                (0,1)
-              \]`,
-              failureMessage: raw`Watch the order. The point should be written as \((x,y)\), not \((y,x)\).`
-            },
-            {
-              html: raw`\[
-                (1,2)
-              \]`,
-              failureMessage: raw`Substituting \(t=0\) gives \(y=2(0)^3=0\), not \(2\).`
-            },
-            {
-              html: raw`\[
-                (0,0)
-              \]`,
-              failureMessage: raw`Check the \(x\)-equation. When \(t=0\), \(x=3(0)^2+6(0)+1=1\).`
-            }
-          ]
-        }
+      guidedSteps: [
+        guidedStep("Find the first derivative", raw`
+          <p class="step-text">For parametric equations, differentiate both \(x\) and \(y\) with respect to \(t\), then divide.</p>
+          <div class="math-block">
+            \[
+            \frac{dx}{dt}=6t+6,\qquad \frac{dy}{dt}=6t^2
+            \]
+            \[
+            \frac{dy}{dx}=\frac{dy/dt}{dx/dt}=\frac{6t^2}{6t+6}=\frac{t^2}{t+1}
+            \]
+          </div>
+        `, {
+          previewHtml: raw`Start with \(\frac{dy}{dx}=\frac{dy/dt}{dx/dt}\).`
+        }),
+        guidedStep("Find the stationary value of \(t\)", raw`
+          <p class="step-text">A stationary point occurs when \(\frac{dy}{dx}=0\).</p>
+          <div class="math-block">
+            \[
+            \frac{t^2}{t+1}=0
+            \]
+          </div>
+          <p class="step-text">A fraction is zero when its numerator is zero, provided the denominator is not zero.</p>
+          <div class="math-block">
+            \[
+            t^2=0
+            \]
+            \[
+            t=0
+            \]
+          </div>
+        `, {
+          previewHtml: raw`Set the first derivative equal to zero.`
+        }),
+        guidedStep("Set up the second derivative", raw`
+          <p class="step-text">For a parametric curve, differentiate \(\frac{dy}{dx}\) with respect to \(t\), then divide by \(\frac{dx}{dt}\).</p>
+          <div class="math-block">
+            \[
+            \frac{d}{dt}\left(\frac{dy}{dx}\right)=\frac{d}{dt}\left(\frac{t^2}{t+1}\right)
+            =\frac{2t(t+1)-t^2}{(t+1)^2}
+            =\frac{t(t+2)}{(t+1)^2}
+            \]
+            \[
+            \frac{d^2y}{dx^2}
+            =\frac{\frac{d}{dt}\left(\frac{dy}{dx}\right)}{\frac{dx}{dt}}
+            =\frac{t(t+2)}{(t+1)^2(6t+6)}
+            =\frac{t(t+2)}{6(t+1)^3}
+            \]
+          </div>
+        `, {
+          previewHtml: raw`Now form \(\frac{d^2y}{dx^2}\) for the parametric curve.`
+        }),
+        guidedStep("Find the inflection candidates", raw`
+          <p class="step-text">For a point of inflection, set the second derivative equal to zero.</p>
+          <p class="step-text">The question says you may assume any values found this way are genuine points of inflection, so we only need to solve the equation.</p>
+          <div class="math-block">
+            \[
+            \frac{t(t+2)}{6(t+1)^3}=0
+            \]
+            \[
+            t(t+2)=0
+            \]
+            \[
+            t=0 \text{ or } t=-2
+            \]
+          </div>
+        `, {
+          previewHtml: raw`Set the second derivative equal to zero as well.`
+        }),
+        guidedStep("Compare the two conditions", raw`
+          <p class="step-text">We now compare the two conditions.</p>
+          <div class="math-block">
+            \[
+            \text{Stationary: } t=0
+            \]
+            \[
+            \text{Inflection candidates: } t=0,\,-2
+            \]
+          </div>
+          <p class="step-text">The only value that satisfies both conditions is \(t=0\).</p>
+        `, {
+          previewHtml: raw`Match the stationary value with the inflection candidate values.`
+        }),
+        guidedStep("Convert back to coordinates", raw`
+          <p class="step-text">Substitute \(t=0\) into the parametric equations.</p>
+          <div class="math-block">
+            \[
+            x=3(0)^2+6(0)+1=1
+            \]
+            \[
+            y=2(0)^3=0
+            \]
+          </div>
+          <p class="step-text">So the stationary point of inflection is</p>
+          <div class="math-block">
+            \[
+            (1,0)
+            \]
+          </div>
+        `, {
+          previewHtml: raw`Use the shared value of \(t\) to find the coordinates.`
+        })
       ]
     }),
     "2a": createConfig("2a", "2025 Paper — Differentiate a reciprocal and log function", {
