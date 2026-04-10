@@ -681,19 +681,194 @@ function buildLegacyPlotHtml(step) {
   `;
 }
 
+function containsLegacyMathContent(html) {
+  return /\\\(|\\\[|<div[^>]*math-block|<span[^>]*math|\$\$|\$[^$]+\$/.test(String(html || ""));
+}
+
+function rewriteLegacyPromptText(text) {
+  const value = String(text || "").trim();
+
+  if (!value) {
+    return "";
+  }
+
+  let rewritten = value
+    .replace(/\bwhat is the equation of\b/ig, "find the equation of")
+    .replace(/\bwhat is the gradient of\b/ig, "find the gradient of")
+    .replace(/\bwhat is the value of\b/ig, "find the value of")
+    .replace(/\bwhat is the maximum\b/ig, "find the maximum")
+    .replace(/\bwhat is the\b/ig, "find the")
+    .replace(/\bwhat are the\b/ig, "find the")
+    .replace(/\bwhat are\b/ig, "find")
+    .replace(/\bwhat is\b/ig, "find")
+    .replace(/\bwhich pair of\b/ig, "identify the pair of")
+    .replace(/\bwhich set of\b/ig, "identify the set of")
+    .replace(/\bwhich value of\b/ig, "identify the value of")
+    .replace(/\bwhich value\b/ig, "identify the value")
+    .replace(/\bwhich equation\b/ig, "identify the equation")
+    .replace(/\bwhich derivative\b/ig, "identify the derivative")
+    .replace(/\bwhich expression\b/ig, "identify the expression")
+    .replace(/\bwhich rewrite\b/ig, "identify the rewrite")
+    .replace(/\bwhich statement\b/ig, "identify the statement")
+    .replace(/\bwhich relationship\b/ig, "identify the relationship")
+    .replace(/\bwhich rule\b/ig, "identify the rule")
+    .replace(/\bwhich answer\b/ig, "identify the answer")
+    .replace(/\bwhich\b/ig, "identify")
+    .replace(/\bwhat valid value of\b/ig, "find the valid value of")
+    .replace(/\?+\s*$/g, "");
+
+  if (/[A-Za-z0-9)\]]$/.test(rewritten)) {
+    rewritten += ".";
+  }
+
+  return rewritten.charAt(0).toUpperCase() + rewritten.slice(1);
+}
+
+function cleanLegacyFeedbackTone(html) {
+  const value = String(html || "").trim();
+
+  if (!value) {
+    return "";
+  }
+
+  return value
+    .replace(/^<p([^>]*)>\s*(Correct|Yes|Exactly|Nice|Right|Great|Try again|Not quite|Close|Almost|Watch the signs here)\.\s*/i, "<p$1>")
+    .replace(/^(Correct|Yes|Exactly|Nice|Right|Great|Try again|Not quite|Close|Almost|Watch the signs here)\.\s*/i, "")
+    .replace(/^That is also correct\.\s*/i, "")
+    .replace(/^That is exactly right,?\s*(and\s+)?/i, "")
+    .replace(/^A rare anticlimax:\s*/i, "");
+}
+
+function buildLegacyTypedAnswerHtml(step) {
+  if (!step || step.type !== "typed" || !Array.isArray(step.acceptedAnswers) || !step.acceptedAnswers.length) {
+    return "";
+  }
+
+  if (!window.TypedMath || typeof window.TypedMath.formatMathForPreview !== "function") {
+    return "";
+  }
+
+  const previewOptions = Object.assign({
+    mode: step.mode || "expression"
+  }, step.options || {});
+  const latex = window.TypedMath.formatMathForPreview(step.acceptedAnswers[0], previewOptions);
+
+  if (!latex) {
+    return "";
+  }
+
+  return buildAnswerHighlight(step.resultLabel || "Key result", `
+    <div class="math-block">
+      \\[
+      ${latex}
+      \\]
+    </div>
+  `);
+}
+
+function buildLegacyIntroHtml(step, explanationHtml) {
+  const coachingHtml = cleanLegacyFeedbackTone(step && step.genericMessage);
+
+  if (coachingHtml) {
+    return coachingHtml;
+  }
+
+  if (!step || step.type === "choice" || step.type === "plot") {
+    return "";
+  }
+
+  if (containsLegacyMathContent(explanationHtml)) {
+    return "";
+  }
+
+  return rewriteLegacyPromptText(step.text);
+}
+
+function normaliseLegacyStandalonePrompts(root) {
+  if (!root || typeof root.querySelectorAll !== "function") {
+    return;
+  }
+
+  root.querySelectorAll(".step-card:not(.walkthrough-step-card) .step-text").forEach(function (node) {
+    if (!node || !node.closest(".step-card") || !node.closest(".step-card").querySelector(".feedback")) {
+      return;
+    }
+
+    const originalHtml = String(node.innerHTML || "").trim();
+
+    if (!originalHtml || !/[?]/.test(originalHtml)) {
+      return;
+    }
+
+    const rewrittenHtml = rewriteLegacyPromptText(originalHtml);
+
+    if (rewrittenHtml && rewrittenHtml !== originalHtml) {
+      node.innerHTML = rewrittenHtml;
+    }
+  });
+}
+
+function installLegacyFeedbackNormaliser(root) {
+  if (!root || typeof root.querySelectorAll !== "function") {
+    return;
+  }
+
+  function normaliseFeedbackElement(element) {
+    if (!element) {
+      return;
+    }
+
+    const cleanedHtml = cleanLegacyFeedbackTone(element.innerHTML);
+
+    if (cleanedHtml && cleanedHtml !== element.innerHTML) {
+      element.innerHTML = cleanedHtml;
+    }
+  }
+
+  root.querySelectorAll(".feedback").forEach(function (element) {
+    normaliseFeedbackElement(element);
+
+    if (typeof MutationObserver === "function") {
+      const observer = new MutationObserver(function () {
+        normaliseFeedbackElement(element);
+      });
+
+      observer.observe(element, {
+        childList: true,
+        characterData: true,
+        subtree: true
+      });
+    }
+  });
+
+  if (typeof window.setFeedback === "function" && !window.setFeedback.__walkthroughToneWrapped) {
+    const originalSetFeedback = window.setFeedback;
+    const wrappedSetFeedback = function wrappedSetFeedback(id, message, isSuccess) {
+      return originalSetFeedback.call(this, id, cleanLegacyFeedbackTone(message), isSuccess);
+    };
+
+    wrappedSetFeedback.__walkthroughToneWrapped = true;
+    window.setFeedback = wrappedSetFeedback;
+  }
+}
+
 // Legacy walkthrough data still stores interactive prompts; convert those prompts into
 // reveal-only explanations so every page can use the same guided UI while migrations happen incrementally.
 function buildLegacyWorkingHtml(config, step, stepIndex, totalSteps) {
   const parts = [];
   const correctChoice = getCorrectChoice(step);
-  const explanationHtml = step.workingHtml
+  const explanationHtml = cleanLegacyFeedbackTone(step.workingHtml
     || step.explanationHtml
     || step.successMessage
     || (correctChoice && correctChoice.successMessage)
-    || "";
+    || "");
+  const introHtml = buildLegacyIntroHtml(step, explanationHtml);
+  const typedAnswerHtml = !containsLegacyMathContent(explanationHtml)
+    ? buildLegacyTypedAnswerHtml(step)
+    : "";
 
-  if (step.text) {
-    parts.push(normaliseRichTextBlock(step.text, "step-text walkthrough-working-intro"));
+  if (introHtml) {
+    parts.push(normaliseRichTextBlock(introHtml, "step-text walkthrough-working-intro"));
   }
 
   if (step.beforeHtml) {
@@ -706,6 +881,10 @@ function buildLegacyWorkingHtml(config, step, stepIndex, totalSteps) {
 
   if (explanationHtml) {
     parts.push(normaliseRichTextBlock(explanationHtml, "step-text"));
+  }
+
+  if (typedAnswerHtml) {
+    parts.push(typedAnswerHtml);
   }
 
   if (step.type === "choice" && correctChoice && correctChoice.html) {
@@ -1180,12 +1359,16 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
     document.addEventListener("DOMContentLoaded", function () {
       ensureSiteHeader();
       normaliseButtonTypes(document);
+      normaliseLegacyStandalonePrompts(document);
+      installLegacyFeedbackNormaliser(document);
       stabiliseInteractiveScroll(document);
       ensureReportIssueFooter();
     });
   } else {
     ensureSiteHeader();
     normaliseButtonTypes(document);
+    normaliseLegacyStandalonePrompts(document);
+    installLegacyFeedbackNormaliser(document);
     stabiliseInteractiveScroll(document);
     ensureReportIssueFooter();
   }
