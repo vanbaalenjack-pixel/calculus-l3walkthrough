@@ -66,6 +66,13 @@
     }, details);
   }
 
+  function guidedStep(title, workingHtml, extra) {
+    return Object.assign({
+      title: title,
+      workingHtml: workingHtml
+    }, extra || {});
+  }
+
   function fmt(value) {
     return Number(value.toFixed(2));
   }
@@ -318,81 +325,60 @@
         </div>
         <p class="step-text question-note">You do not need to simplify your answer.</p>
       `,
-      hints: [
-        raw`This is a chain rule question with an outer power and an inside cubic.`,
-        raw`Differentiate the outside first: \(u^5 \to 5u^4\).`,
-        raw`Then multiply by the derivative of the inside, \(5x^3-2x+1\).`
+      tips: [
+        raw`Treat the bracket \(5x^3-2x+1\) as one inside function before you start differentiating.`,
+        raw`A power outside a bracket usually points to the chain rule.`
       ],
-      answerHtml: raw`
-        <p class="step-text">Use the chain rule:</p>
-        <div class="math-block">
-          \[
-          f'(x)=5(5x^3-2x+1)^4(15x^2-2)
-          \]
-        </div>
-      `,
-      steps: [
-        {
-          type: "choice",
-          title: "Choose the rule",
-          text: raw`What is the main differentiation rule you need here?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`Chain rule`,
-              correct: true,
-              successMessage: raw`Correct. The whole bracket is raised to a power, so this is a chain rule question.`
-            },
-            {
-              html: raw`Product rule`,
-              failureMessage: raw`Not quite. There is no product of two separate functions here.`
-            },
-            {
-              html: raw`Quotient rule`,
-              failureMessage: raw`Not here. The function is not written as one expression divided by another.`
-            },
-            {
-              html: raw`Implicit differentiation`,
-              failureMessage: raw`Not this time. The function is already given explicitly in terms of \(x\).`
-            }
-          ]
-        },
-        {
-          type: "typed",
-          title: "Differentiate the inside",
-          text: raw`What is the derivative of the inside function \(5x^3-2x+1\)?`,
-          ariaLabel: "Type the derivative of the inside function",
-          acceptedAnswers: ["15x^2-2"],
-          samples: [{ x: 0 }, { x: 1 }, { x: 2 }],
-          successMessage: raw`Correct. Differentiate each term separately: \(15x^2-2+0\).`,
-          targetedFeedback: [
-            {
-              answers: ["15x^2-2x"],
-              message: raw`Close, but the derivative of \(-2x\) is just \(-2\), not \(-2x\).`
-            }
-          ],
-          genericMessage: raw`Try again. Differentiate \(5x^3\), \(-2x\), and \(1\) term by term.`
-        },
-        {
-          type: "typed",
-          title: "Build the full derivative",
-          text: raw`Now combine the outside derivative with the inside derivative.`,
-          ariaLabel: "Type the full derivative",
-          acceptedAnswers: ["5(5x^3-2x+1)^4(15x^2-2)"],
-          samples: [{ x: -1 }, { x: 0.5 }, { x: 2 }],
-          successMessage: raw`Yes. The chain rule gives \(5(5x^3-2x+1)^4\) multiplied by \(15x^2-2\).`,
-          targetedFeedback: [
-            {
-              answers: ["(5x^3-2x+1)^4(15x^2-2)"],
-              message: raw`You are missing the outside coefficient \(5\).`
-            },
-            {
-              answers: ["5(5x^3-2x+1)^5(15x^2-2)"],
-              message: raw`The outer power drops from \(5\) to \(4\) after differentiating.`
-            }
-          ],
-          genericMessage: raw`Use the chain rule structure carefully: derivative of the outside, then multiply by the derivative of the inside.`
-        }
+      guidedSteps: [
+        guidedStep("Recognise a composite function", raw`
+          <p class="step-text">The expression has the form \(f(x)=\bigl(u(x)\bigr)^5\), where</p>
+          <div class="math-block">
+            \[
+            u(x)=5x^3-2x+1.
+            \]
+          </div>
+          <p class="step-text">That means this is a chain rule question: differentiate the outside power, then multiply by the derivative of the inside.</p>
+        `, {
+          previewHtml: raw`Treat the whole bracket as one inside function.`
+        }),
+        guidedStep("Differentiate the outer power", raw`
+          <p class="step-text">If the outside function is \(u^5\), its derivative is \(5u^4\).</p>
+          <div class="math-block">
+            \[
+            \frac{d}{dx}\left((u)^5\right)=5u^4\cdot \frac{du}{dx}
+            \]
+          </div>
+          <p class="step-text">So before we deal with the inside derivative, the outside part becomes</p>
+          <div class="math-block">
+            \[
+            5(5x^3-2x+1)^4.
+            \]
+          </div>
+        `, {
+          previewHtml: raw`Differentiate \(u^5\) as \(5u^4\).`
+        }),
+        guidedStep("Differentiate the inner cubic", raw`
+          <p class="step-text">Now differentiate \(5x^3-2x+1\) term by term.</p>
+          <div class="math-block">
+            \[
+            \frac{d}{dx}(5x^3-2x+1)=15x^2-2.
+            \]
+          </div>
+          <p class="step-text">The constant differentiates to \(0\), so the inner derivative is \(15x^2-2\).</p>
+        `, {
+          previewHtml: raw`Work through the bracket term by term.`
+        }),
+        guidedStep("Apply the chain rule", raw`
+          <p class="step-text">Multiply the outer derivative by the derivative of the inside.</p>
+          <div class="math-block">
+            \[
+            f'(x)=5(5x^3-2x+1)^4(15x^2-2)
+            \]
+          </div>
+          <p class="step-text">That is already a correct final answer, so you do not need to simplify it further.</p>
+        `, {
+          previewHtml: raw`Combine the two derivatives to finish.`
+        })
       ]
     }),
     "1b": createConfig("1b", "2025 Paper — Rate of change of oven temperature", {
