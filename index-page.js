@@ -74,6 +74,11 @@ document.addEventListener("DOMContentLoaded", function () {
       standard: "level-3-integration",
       paper: "level-3-integration-2022"
     },
+    "level-3-integration-2021": {
+      level: "level-3",
+      standard: "level-3-integration",
+      paper: "level-3-integration-2021"
+    },
     "level-3-complex-2025": {
       level: "level-3",
       standard: "level-3-complex",
@@ -88,6 +93,11 @@ document.addEventListener("DOMContentLoaded", function () {
       level: "level-3",
       standard: "level-3-complex",
       paper: "level-3-complex-2022"
+    },
+    "level-3-complex-2021": {
+      level: "level-3",
+      standard: "level-3-complex",
+      paper: "level-3-complex-2021"
     },
     "level-3-differentiation-2024": {
       level: "level-3",
