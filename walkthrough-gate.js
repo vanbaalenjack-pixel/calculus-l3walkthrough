@@ -8,6 +8,30 @@ const WALKTHROUGH_KATEX_DELIMITERS = [
   { left: "\\(", right: "\\)", display: false }
 ];
 
+const STICKY_QUESTION_STORAGE_KEY = "calc.nz.stickyQuestionCard";
+let stickyQuestionPreferenceFallback = true;
+
+function getStickyQuestionPreference() {
+  try {
+    const storedPreference = window.localStorage.getItem(STICKY_QUESTION_STORAGE_KEY);
+    stickyQuestionPreferenceFallback = storedPreference === null
+      ? stickyQuestionPreferenceFallback
+      : storedPreference !== "false";
+    return stickyQuestionPreferenceFallback;
+  } catch (error) {
+    return stickyQuestionPreferenceFallback;
+  }
+}
+
+function setStickyQuestionPreference(enabled) {
+  stickyQuestionPreferenceFallback = enabled;
+  try {
+    window.localStorage.setItem(STICKY_QUESTION_STORAGE_KEY, enabled ? "true" : "false");
+  } catch (error) {
+    // The setting still applies for this page when storage is unavailable.
+  }
+}
+
 function ensureWalkthroughMathRenderer() {
   if (typeof window.renderMath === "function") {
     return window.renderMath;
@@ -166,7 +190,9 @@ function syncQuestionCardStickyState(questionCard) {
   const maxStickyHeight = containsVisual
     ? Math.min(viewportHeight * 0.42, 380)
     : Math.min(viewportHeight * 0.48, 460);
-  const enableSticky = hasFinePointer
+  const stickyPreferenceEnabled = getStickyQuestionPreference();
+  const enableSticky = stickyPreferenceEnabled
+    && hasFinePointer
     && viewportWidth >= 1120
     && questionCardHeight > 0
     && !hasMultipleVisuals
@@ -177,6 +203,69 @@ function syncQuestionCardStickyState(questionCard) {
   questionCard.classList.toggle("question-card-with-visual", containsVisual);
   questionCard.classList.toggle("question-card-multi-visual", hasMultipleVisuals);
   questionCard.classList.toggle("sticky-question-card-enabled", enableSticky);
+
+  const preferenceControl = document.getElementById("sticky-question-setting");
+  const preferenceStatus = document.getElementById("sticky-question-setting-status");
+
+  if (preferenceControl) {
+    preferenceControl.checked = stickyPreferenceEnabled;
+  }
+
+  if (preferenceStatus) {
+    preferenceStatus.textContent = !stickyPreferenceEnabled
+      ? "Off. Questions scroll with the page."
+      : enableSticky
+        ? "On for this question."
+        : "On when the question fits safely; large cards stay in the normal page flow.";
+  }
+}
+
+function ensureStickyQuestionPreferenceControl(questionCard) {
+  const app = document.querySelector("main.app:not(.home-app)");
+
+  if (!app || !questionCard) {
+    return null;
+  }
+
+  let setting = document.getElementById("sticky-question-setting-panel");
+
+  if (!setting) {
+    setting = document.createElement("aside");
+    setting.id = "sticky-question-setting-panel";
+    setting.className = "walkthrough-setting-panel";
+    setting.setAttribute("aria-label", "Walkthrough display settings");
+    setting.innerHTML = `
+      <label class="walkthrough-setting-toggle" for="sticky-question-setting">
+        <input id="sticky-question-setting" type="checkbox" />
+        <span class="walkthrough-setting-switch" aria-hidden="true"></span>
+        <span class="walkthrough-setting-label">Keep question visible while scrolling</span>
+      </label>
+      <span id="sticky-question-setting-status" class="walkthrough-setting-status" aria-live="polite"></span>
+    `;
+
+    const topbar = app.querySelector(".topbar");
+    if (topbar) {
+      topbar.insertAdjacentElement("afterend", setting);
+    } else {
+      app.insertBefore(setting, app.firstChild);
+    }
+  }
+
+  const checkbox = document.getElementById("sticky-question-setting");
+
+  if (checkbox && checkbox.dataset.preferenceSetup !== "true") {
+    checkbox.dataset.preferenceSetup = "true";
+    checkbox.checked = getStickyQuestionPreference();
+    checkbox.addEventListener("change", function () {
+      setStickyQuestionPreference(checkbox.checked);
+      document.querySelectorAll(".sticky-question-card").forEach(function (card) {
+        syncQuestionCardStickyState(card);
+      });
+    });
+  }
+
+  syncQuestionCardStickyState(questionCard);
+  return setting;
 }
 
 function setupQuestionCardSticky(questionCard) {
@@ -205,6 +294,38 @@ function setupQuestionCardSticky(questionCard) {
     resizeObserver.observe(questionCard);
     questionCard._stickyResizeObserver = resizeObserver;
   }
+}
+
+function renderPartNavigation(config, questionCard) {
+  const items = config && Array.isArray(config.partNavigation)
+    ? config.partNavigation
+    : [];
+  let navigation = document.getElementById("walkthrough-part-navigation");
+
+  if (!items.length || !questionCard || !questionCard.parentNode) {
+    if (navigation) {
+      navigation.remove();
+    }
+    return;
+  }
+
+  if (!navigation) {
+    navigation = document.createElement("nav");
+    navigation.id = "walkthrough-part-navigation";
+    navigation.className = "question-card walkthrough-part-navigation";
+    navigation.setAttribute("aria-label", config.partNavigationLabel || "Paper questions");
+    questionCard.parentNode.insertBefore(navigation, questionCard);
+  }
+
+  navigation.innerHTML = `
+    <p class="question-label">${config.partNavigationTitle || "2020 paper questions"}</p>
+    <div class="paper-part-nav">
+      ${items.map(function (item) {
+        const current = item.current ? ' aria-current="page"' : "";
+        return `<a class="nav-btn secondary" href="${item.href}"${current}>${item.label}</a>`;
+      }).join("")}
+    </div>
+  `;
 }
 
 function ensureTipsCard(questionCard, walkthroughContent) {
@@ -283,6 +404,7 @@ function initializeWalkthroughGate(config) {
   const controlsSection = ensureControlsSection(tipsCard, walkthroughContent);
 
   moveQuestionSupportToTips(initialQuestionCard, tipsCard);
+  ensureStickyQuestionPreferenceControl(initialQuestionCard);
   setupQuestionCardSticky(initialQuestionCard);
 
   let showHintsButton = document.getElementById("show-hints-btn");
@@ -1253,6 +1375,7 @@ function initializeProgressiveWalkthrough(config, options) {
 
   questionCard.classList.add("sticky-question-card");
   questionCard.innerHTML = buildQuestionCardHtml(normalisedConfig);
+  renderPartNavigation(normalisedConfig, questionCard);
 
   if (normalisedConfig.tips.length) {
     tipsCard.innerHTML = buildTipsCardHtml(normalisedConfig, normalisedConfig.tips);
@@ -1265,6 +1388,7 @@ function initializeProgressiveWalkthrough(config, options) {
   walkthroughContent.innerHTML = buildProgressiveWalkthroughHtml(normalisedConfig);
   walkthroughContent.classList.remove("hidden");
 
+  ensureStickyQuestionPreferenceControl(questionCard);
   setupQuestionCardSticky(questionCard);
 
   if (typeof normalisedConfig.afterRender === "function") {
@@ -1358,6 +1482,12 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
       ensureSiteHeader();
+      const questionCard = document.getElementById("question-card");
+      if (questionCard && document.querySelector("main.app:not(.home-app)")) {
+        questionCard.classList.add("sticky-question-card");
+        ensureStickyQuestionPreferenceControl(questionCard);
+        setupQuestionCardSticky(questionCard);
+      }
       normaliseButtonTypes(document);
       normaliseLegacyStandalonePrompts(document);
       installLegacyFeedbackNormaliser(document);
@@ -1366,6 +1496,12 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
     });
   } else {
     ensureSiteHeader();
+    const questionCard = document.getElementById("question-card");
+    if (questionCard && document.querySelector("main.app:not(.home-app)")) {
+      questionCard.classList.add("sticky-question-card");
+      ensureStickyQuestionPreferenceControl(questionCard);
+      setupQuestionCardSticky(questionCard);
+    }
     normaliseButtonTypes(document);
     normaliseLegacyStandalonePrompts(document);
     installLegacyFeedbackNormaliser(document);
