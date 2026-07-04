@@ -1485,9 +1485,10 @@ img.graph-svg {
 
 .question-screenshot {
   display: block;
-  width: 100%;
-  max-width: 900px;
+  width: auto;
+  max-width: 100%;
   height: auto;
+  object-fit: contain;
   border: 1px solid var(--border);
   border-radius: var(--radius-soft);
   background: #fff;
