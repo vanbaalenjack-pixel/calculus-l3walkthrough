@@ -110,14 +110,14 @@
   }
 
   window.Integration2020Walkthroughs = {
-    "1a": createConfig("1a", raw`Rewrite the reciprocal term as (3x^{-1}), then integrate term by term.`, raw`
+    "1a": createConfig("1a", raw`Rewrite the reciprocal term as \(3x^{-1}\), then integrate term by term.`, raw`
       <div class="math-block">
         \[
         \boxed{\frac{x^2}{2}+2x+3\ln|x|+C}
         \]
       </div>
     `, [
-      guidedStep("Rewrite the integrand", raw`Put the third term in exponential form, while recognising that an (x^{-1}) term integrates logarithmically.`, raw`
+      guidedStep("Rewrite the integrand", raw`Put the third term in exponential form, while recognising that an \(x^{-1}\) term integrates logarithmically.`, raw`
         <div class="math-block">
           \[
           \int\left(x+2+\frac{3}{x}\right)\,dx
@@ -125,7 +125,7 @@
           \]
         </div>
       `),
-      guidedStep("Integrate term by term", raw`Use the power rule on (x), integrate the constant (2), and use (int x^{-1}\,dx=\ln|x|).`, raw`
+      guidedStep("Integrate term by term", raw`Use the power rule on \(x\), integrate the constant \(2\), and use \(\int x^{-1}\,dx=\ln|x|\).`, raw`
         <div class="math-block">
           \[
           \int\left(x+2+3x^{-1}\right)\,dx
@@ -135,7 +135,7 @@
       `)
     ]),
 
-    "1b": createConfig("1b", raw`Velocity is the derivative of displacement, so integrate (v(t)), use (s(0)=5), then evaluate (s(16)).`, raw`
+    "1b": createConfig("1b", raw`Velocity is the derivative of displacement, so integrate \(v(t)\), use \(s(0)=5\), then evaluate \(s(16)\).`, raw`
       <div class="math-block">
         \[
         \boxed{s(16)=30.6\text{ cm}}
@@ -154,7 +154,7 @@
           \]
         </div>
       `),
-      guidedStep("Use the initial displacement", raw`Substitute (t=0) and (s=5) to find the constant of integration.`, raw`
+      guidedStep("Use the initial displacement", raw`Substitute \(t=0\) and \(s=5\) to find the constant of integration.`, raw`
         <div class="math-block">
           \[
           5=0.4(0)^{3/2}+C
@@ -166,7 +166,7 @@
           \]
         </div>
       `),
-      guidedStep("Evaluate after 16 seconds", raw`Substitute (t=16) into the displacement function and retain the given units.`, raw`
+      guidedStep("Evaluate after 16 seconds", raw`Substitute \(t=16\) into the displacement function and retain the given units.`, raw`
         <div class="math-block">
           \[
           s(16)=0.4(16)^{3/2}+5
@@ -177,14 +177,14 @@
       `)
     ]),
 
-    "1c": createConfig("1c", raw`Rewrite the numerator as a multiple of (x-3) plus a constant, then integrate the reciprocal term logarithmically.`, raw`
+    "1c": createConfig("1c", raw`Rewrite the numerator as a multiple of \(x-3\) plus a constant, then integrate the reciprocal term logarithmically.`, raw`
       <div class="math-block">
         \[
         \boxed{20+4\ln 5\approx 26.43775\text{ units}^2}
         \]
       </div>
     `, [
-      guidedStep("Rewrite the rational function", raw`Write (5x-11=5(x-3)+4) so that (x) no longer appears in the numerator of the fraction.`, raw`
+      guidedStep("Rewrite the rational function", raw`Write \(5x-11=5(x-3)+4\) so that \(x\) no longer appears in the numerator of the fraction.`, raw`
         <div class="math-block">
           \[
           \frac{5x-11}{x-3}
@@ -197,7 +197,7 @@
           \]
         </div>
       `),
-      guidedStep("Integrate and evaluate", raw`The reciprocal term gives (ln|x-3|). Apply the upper limit and subtract the lower limit.`, raw`
+      guidedStep("Integrate and evaluate", raw`The reciprocal term gives \(\ln|x-3|\). Apply the upper limit and subtract the lower limit.`, raw`
         <div class="math-block">
           \[
           \int_4^8\left(5+\frac{4}{x-3}\right)\,dx
@@ -221,7 +221,7 @@
         \]
       </div>
     `, [
-      guidedStep("Find the limits", raw`The shaded region starts and ends where (y=x+\frac3x) meets (y=4).`, raw`
+      guidedStep("Find the limits", raw`The shaded region starts and ends where \(y=x+\frac3x\) meets \(y=4\).`, raw`
         <div class="math-block">
           \[
           x+\frac3x=4
@@ -237,7 +237,7 @@
           \]
         </div>
       `),
-      guidedStep("Set up the shaded area", raw`The line (y=4) is above the curve on (1\le x\le3), so use top minus bottom.`, raw`
+      guidedStep("Set up the shaded area", raw`The line \(y=4\) is above the curve on \(1\le x\le3\), so use top minus bottom.`, raw`
         <div class="math-block">
           \[
           A=\int_1^3\left(4-x-\frac3x\right)\,dx
@@ -257,19 +257,19 @@
           A\approx0.704\text{ units}^2
           \]
         </div>
-        <p class="step-text question-note"><strong>Source correction:</strong> the PDF prints the lower-limit value as (\frac75), but substituting (x=1) gives (\frac72). Its final decimal (0.704) is consistent with (\frac72), as shown here.</p>
+        <p class="step-text question-note"><strong>Source correction:</strong> the PDF prints the lower-limit value as \(\frac75\), but substituting \(x=1\) gives \(\frac72\). Its final decimal \(0.704\) is consistent with \(\frac72\), as shown here.</p>
       `)
     ]),
 
-    "1e": createConfig("1e", raw`Separate (x) and (y), integrate (rac{\sec^2x}{\tan x}) as (ln|\tan x|), then use the initial condition.`, raw`
+    "1e": createConfig("1e", raw`Separate \(x\) and \(y\), integrate \(\frac{\sec^2x}{\tan x}\) as \(\ln|\tan x|\), then use the initial condition.`, raw`
       <div class="math-block">
         \[
         \boxed{y=\pm\sqrt{4+\ln3}\approx\pm2.26}
         \]
       </div>
-      <p class="step-text question-note">The PDF gives both algebraic roots. For the continuous solution through (y=2), the positive branch gives (y\approx2.26).</p>
+      <p class="step-text question-note">The PDF gives both algebraic roots. For the continuous solution through \(y=2\), the positive branch gives \(y\approx2.26\).</p>
     `, [
-      guidedStep("Separate and integrate", raw`Move (y) to the left and divide by (	an x) before integrating.`, raw`
+      guidedStep("Separate and integrate", raw`Move \(y\) to the left and divide by \(\tan x\) before integrating.`, raw`
         <div class="math-block">
           \[
           y\,dy=\frac{\sec^2x}{\tan x}\,dx
@@ -282,7 +282,7 @@
           \]
         </div>
       `),
-      guidedStep("Use the initial condition", raw`At (x=\frac\pi4), (	an\frac\pi4=1), and (y=2).`, raw`
+      guidedStep("Use the initial condition", raw`At \(x=\frac\pi4\), \(\tan\frac\pi4=1\), and \(y=2\).`, raw`
         <div class="math-block">
           \[
           \frac{2^2}{2}=\ln\left|\tan\frac\pi4\right|+C
@@ -296,7 +296,7 @@
           \]
         </div>
       `),
-      guidedStep("Evaluate at x equals pi over three", raw`Substitute (	an\frac\pi3=\sqrt3), then solve the resulting equation for (y).`, raw`
+      guidedStep("Evaluate at x equals pi over three", raw`Substitute \(\tan\frac\pi3=\sqrt3\), then solve the resulting equation for \(y\).`, raw`
         <div class="math-block">
           \[
           \frac{y^2}{2}=\ln\sqrt3+2
@@ -309,11 +309,11 @@
           y=\pm\sqrt{4+\ln3}\approx\pm2.26
           \]
         </div>
-        <p class="step-text question-note"><strong>Branch note:</strong> the source PDF reports (\pm2.26). Since the specified solution begins at (y=2), continuity selects the positive branch unless the question is interpreted as asking only for algebraic roots of the implicit relation.</p>
+        <p class="step-text question-note"><strong>Branch note:</strong> the source PDF reports \(\pm2.26\). Since the specified solution begins at \(y=2\), continuity selects the positive branch unless the question is interpreted as asking only for algebraic roots of the implicit relation.</p>
       `)
     ], { finalLabel: "PDF final answer and branch note" }),
 
-    "2a": createConfig("2a", raw`Rewrite the reciprocal square as (x^{-2}), then apply the power rule.`, raw`
+    "2a": createConfig("2a", raw`Rewrite the reciprocal square as \(x^{-2}\), then apply the power rule.`, raw`
       <div class="math-block">
         \[
         \boxed{\pi x+\frac2x+C}
@@ -328,7 +328,7 @@
           \]
         </div>
       `),
-      guidedStep("Integrate", raw`Integrating (-2x^{-2}) produces (+2x^{-1}). Include the constant of integration.`, raw`
+      guidedStep("Integrate", raw`Integrating \(-2x^{-2}\) produces \(+2x^{-1}\). Include the constant of integration.`, raw`
         <div class="math-block">
           \[
           \int\left(\pi-2x^{-2}\right)\,dx
@@ -339,14 +339,14 @@
       `)
     ]),
 
-    "2b": createConfig("2b", raw`There are six equal strips of width (h=0.5), so Simpson’s Rule uses weights (1,4,2,4,2,4,1).`, raw`
+    "2b": createConfig("2b", raw`There are six equal strips of width \(h=0.5\), so Simpson’s Rule uses weights \(1,4,2,4,2,4,1\).`, raw`
       <div class="math-block">
         \[
         \boxed{\int_0^3 f(x)\,dx\approx6}
         \]
       </div>
     `, [
-      guidedStep("Find the strip width", raw`Read the constant spacing between consecutive (x)-values in the table.`, raw`
+      guidedStep("Find the strip width", raw`Read the constant spacing between consecutive \(x\)-values in the table.`, raw`
         <div class="math-block">
           \[
           h=0.5,
@@ -354,7 +354,7 @@
           \]
         </div>
       `),
-      guidedStep("Apply Simpson’s Rule", raw`Use the endpoint values once, alternating weights (4) and (2) across the interior values.`, raw`
+      guidedStep("Apply Simpson’s Rule", raw`Use the endpoint values once, alternating weights \(4\) and \(2\) across the interior values.`, raw`
         <div class="math-block">
           \[
           \int_0^3 f(x)\,dx
@@ -386,7 +386,7 @@
           \]
         </div>
       `),
-      guidedStep("Integrate", raw`Increase the power by one, divide by the new power, and also divide by the inside derivative (3).`, raw`
+      guidedStep("Integrate", raw`Increase the power by one, divide by the new power, and also divide by the inside derivative \(3\).`, raw`
         <div class="math-block">
           \[
           \int9(3x-2)^{1/2}\,dx
@@ -395,7 +395,7 @@
           \]
         </div>
       `),
-      guidedStep("Apply the limits and solve", raw`Set the evaluated integral equal to (126), then undo the (\frac32) power.`, raw`
+      guidedStep("Apply the limits and solve", raw`Set the evaluated integral equal to \(126\), then undo the \(\frac32\) power.`, raw`
         <div class="math-block">
           \[
           126=\left[2(3x-2)^{3/2}\right]_1^k
@@ -412,14 +412,14 @@
       `)
     ]),
 
-    "2d": createConfig("2d", raw`Separate the radical in (y), integrate both sides, and use the given point before evaluating the new (x)-value.`, raw`
+    "2d": createConfig("2d", raw`Separate the radical in \(y\), integrate both sides, and use the given point before evaluating the new \(x\)-value.`, raw`
       <div class="math-block">
         \[
         \boxed{y=\frac{49}{64}}
         \]
       </div>
     `, [
-      guidedStep("Separate and integrate", raw`Move (sqrt y) to the left, then integrate the cosine with its inside factor (4).`, raw`
+      guidedStep("Separate and integrate", raw`Move \(\sqrt y\) to the left, then integrate the cosine with its inside factor \(4\).`, raw`
         <div class="math-block">
           \[
           y^{-1/2}\,dy=\cos(4x)\,dx
@@ -429,7 +429,7 @@
           \]
         </div>
       `),
-      guidedStep("Find the constant", raw`Use (y=1) when (x=\frac\pi8), noting that (sin\frac\pi2=1).`, raw`
+      guidedStep("Find the constant", raw`Use \(y=1\) when \(x=\frac\pi8\), noting that \(\sin\frac\pi2=1\).`, raw`
         <div class="math-block">
           \[
           2=\frac{\sin(4\pi/8)}4+C
@@ -440,7 +440,7 @@
           \]
         </div>
       `),
-      guidedStep("Evaluate at x equals pi over four", raw`At (x=\frac\pi4), (sin(4x)=sin\pi=0).`, raw`
+      guidedStep("Evaluate at x equals pi over four", raw`At \(x=\frac\pi4\), \(\sin(4x)=\sin\pi=0\).`, raw`
         <div class="math-block">
           \[
           2\sqrt y=\frac{\sin(4\pi/4)}4+\frac74
@@ -463,7 +463,7 @@
         \]
       </div>
     `, [
-      guidedStep("Find the x-intercept", raw`Let (u=\sqrt x), solve the quadratic in (u), and retain (u\ge0).`, raw`
+      guidedStep("Find the x-intercept", raw`Let \(u=\sqrt x\), solve the quadratic in \(u\), and retain \(u\ge0\).`, raw`
         <div class="math-block">
           \[
           x+2\sqrt x-3=0
@@ -481,7 +481,7 @@
           \]
         </div>
       `),
-      guidedStep("Split the geometric area", raw`The curve is below the (x)-axis on (0\le x\le1), then above it on (1\le x\le4).`, raw`
+      guidedStep("Split the geometric area", raw`The curve is below the \(x\)-axis on \(0\le x\le1\), then above it on \(1\le x\le4\).`, raw`
         <div class="math-block">
           \[
           A=-\int_0^1\left(x+2\sqrt x-3\right)\,dx
@@ -517,14 +517,14 @@
       `)
     ]),
 
-    "3a": createConfig("3a", raw`Recognise the reverse chain-rule derivative of (sec(2x)).`, raw`
+    "3a": createConfig("3a", raw`Recognise the reverse chain-rule derivative of \(\sec(2x)\).`, raw`
       <div class="math-block">
         \[
         \boxed{\frac12\sec(2x)+C}
         \]
       </div>
     `, [
-      guidedStep("Use the sec-tan derivative", raw`Because (rac{d}{dx}\sec(2x)=2\sec(2x)\tan(2x)), compensate with a factor of (rac12).`, raw`
+      guidedStep("Use the sec-tan derivative", raw`Because \(\frac{d}{dx}\sec(2x)=2\sec(2x)\tan(2x)\), compensate with a factor of \(\frac12\).`, raw`
         <div class="math-block">
           \[
           \int\sec(2x)\tan(2x)\,dx
@@ -534,14 +534,14 @@
       `)
     ]),
 
-    "3b": createConfig("3b", raw`Integrate the gradient, use the initial condition to find (C), then evaluate at (x=\frac\pi4).`, raw`
+    "3b": createConfig("3b", raw`Integrate the gradient, use the initial condition to find \(C\), then evaluate at \(x=\frac\pi4\).`, raw`
       <div class="math-block">
         \[
         \boxed{y=\frac54}
         \]
       </div>
     `, [
-      guidedStep("Integrate the gradient", raw`Reverse the chain rule for (cos(2x)).`, raw`
+      guidedStep("Integrate the gradient", raw`Reverse the chain rule for \(\cos(2x)\).`, raw`
         <div class="math-block">
           \[
           y=\int\cos(2x)\,dx
@@ -549,7 +549,7 @@
           \]
         </div>
       `),
-      guidedStep("Find the constant", raw`At (x=\frac\pi{12}), the angle (2x) is (rac\pi6).`, raw`
+      guidedStep("Find the constant", raw`At \(x=\frac\pi{12}\), the angle \(2x\) is \(\frac\pi6\).`, raw`
         <div class="math-block">
           \[
           1=\frac{\sin(2\pi/12)}2+C
@@ -560,7 +560,7 @@
           \]
         </div>
       `),
-      guidedStep("Evaluate at x equals pi over four", raw`Now (2x=\frac\pi2), so (sin(2x)=1).`, raw`
+      guidedStep("Evaluate at x equals pi over four", raw`Now \(2x=\frac\pi2\), so \(\sin(2x)=1\).`, raw`
         <div class="math-block">
           \[
           y=\frac{\sin(2\pi/4)}2+\frac34
@@ -571,14 +571,14 @@
       `)
     ]),
 
-    "3c": createConfig("3c", raw`Acceleration is (rac{dv}{dt}). Integrate it, use (v(0)=8), then evaluate (v(10)).`, raw`
+    "3c": createConfig("3c", raw`Acceleration is \(\frac{dv}{dt}\). Integrate it, use \(v(0)=8\), then evaluate \(v(10)\).`, raw`
       <div class="math-block">
         \[
         \boxed{v(10)=53+5e^2\approx89.945\text{ m s}^{-1}}
         \]
       </div>
     `, [
-      guidedStep("Integrate the acceleration", raw`Integrate the polynomial and exponential terms separately, including the reverse-chain-rule factor for (e^{0.2t}).`, raw`
+      guidedStep("Integrate the acceleration", raw`Integrate the polynomial and exponential terms separately, including the reverse-chain-rule factor for \(e^{0.2t}\).`, raw`
         <div class="math-block">
           \[
           v(t)=\int\left(t+e^{0.2t}\right)\,dt
@@ -588,7 +588,7 @@
           \]
         </div>
       `),
-      guidedStep("Use the initial velocity", raw`Substitute (t=0) and (v=8).`, raw`
+      guidedStep("Use the initial velocity", raw`Substitute \(t=0\) and \(v=8\).`, raw`
         <div class="math-block">
           \[
           8=\frac{0^2}{2}+5e^0+C
@@ -599,7 +599,7 @@
           \]
         </div>
       `),
-      guidedStep("Evaluate at 10 seconds", raw`Substitute (t=10) and keep velocity units.`, raw`
+      guidedStep("Evaluate at 10 seconds", raw`Substitute \(t=10\) and keep velocity units.`, raw`
         <div class="math-block">
           \[
           v(10)=\frac{10^2}{2}+5e^{0.2(10)}+3
@@ -612,14 +612,14 @@
       `)
     ]),
 
-    "3d": createConfig("3d", raw`Solve the separable decay equation, use the half-life to find (k), then set the remaining proportion to (0.05).`, raw`
+    "3d": createConfig("3d", raw`Solve the separable decay equation, use the half-life to find \(k\), then set the remaining proportion to \(0.05\).`, raw`
       <div class="math-block">
         \[
         \boxed{t\approx24.2\text{ days}}
         \]
       </div>
     `, [
-      guidedStep("Solve the differential equation", raw`Separate (N) and (t), then integrate.`, raw`
+      guidedStep("Solve the differential equation", raw`Separate \(N\) and \(t\), then integrate.`, raw`
         <div class="math-block">
           \[
           \frac{1}{N}\,dN=k\,dt
@@ -632,7 +632,7 @@
           \]
         </div>
       `),
-      guidedStep("Use the half-life", raw`After (5.6) days, the remaining proportion is (rac12).`, raw`
+      guidedStep("Use the half-life", raw`After \(5.6\) days, the remaining proportion is \(\frac12\).`, raw`
         <div class="math-block">
           \[
           \frac{N}{N_0}=e^{5.6k}=\frac12
@@ -643,7 +643,7 @@
           \]
         </div>
       `),
-      guidedStep("Translate 95 percent decayed", raw`If (95\%) has decayed, (5\%) remains, so (rac{N}{N_0}=0.05).`, raw`
+      guidedStep("Translate 95 percent decayed", raw`If \(95\%\) has decayed, \(5\%\) remains, so \(\frac{N}{N_0}=0.05\).`, raw`
         <div class="math-block">
           \[
           0.05=e^{kt}
@@ -654,7 +654,7 @@
           \]
         </div>
       `),
-      guidedStep("Calculate the time", raw`Evaluate without rounding (k) too early.`, raw`
+      guidedStep("Calculate the time", raw`Evaluate without rounding \(k\) too early.`, raw`
         <div class="math-block">
           \[
           t\approx24.2\text{ days}
@@ -663,14 +663,14 @@
       `)
     ]),
 
-    "3e": createConfig("3e", raw`Use top minus bottom, then rewrite (cos^3x) with identities so every term can be integrated directly.`, raw`
+    "3e": createConfig("3e", raw`Use top minus bottom, then rewrite \(\cos^3x\) with identities so every term can be integrated directly.`, raw`
       <div class="math-block">
         \[
         \boxed{\frac13\text{ units}^2}
         \]
       </div>
     `, [
-      guidedStep("Rewrite the cube term", raw`Express (cos^3x) as a sum of linear cosine terms using (sin^2x=\frac{1-\cos2x}{2}) and product-to-sum.`, raw`
+      guidedStep("Rewrite the cube term", raw`Express \(\cos^3x\) as a sum of linear cosine terms using \(\sin^2x=\frac{1-\cos2x}{2}\) and product-to-sum.`, raw`
         <div class="math-block">
           \[
           \cos^3x=\cos x(1-\sin^2x)
@@ -689,7 +689,7 @@
           \]
         </div>
       `),
-      guidedStep("Integrate the area between the curves", raw`On the given interval, (cos x) is the top curve. Substitute the identity and integrate.`, raw`
+      guidedStep("Integrate the area between the curves", raw`On the given interval, \(\cos x\) is the top curve. Substitute the identity and integrate.`, raw`
         <div class="math-block">
           \[
           A=\int_0^{\pi/2}\left(\cos x-\cos^3x\right)\,dx

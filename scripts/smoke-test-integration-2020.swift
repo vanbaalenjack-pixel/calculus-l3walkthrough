@@ -195,6 +195,27 @@ private final class Runner: NSObject, WKNavigationDelegate {
               checks.finalAnswer = Boolean(document.querySelector(".walkthrough-step-card:last-child .answer-highlight"));
               checks.finalNavigation = Boolean(document.querySelector("#walkthrough-final-nav:not(.hidden) a.nav-btn"));
               checks.katex = document.querySelectorAll(".katex").length > 0 && !document.querySelector(".katex-error");
+              checks.inlineKatex = Array.from(document.querySelectorAll(".katex")).some(function (node) {
+                return !node.closest(".katex-display");
+              });
+
+              const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+              const unrenderedMathText = [];
+              let textNode = textWalker.nextNode();
+              while (textNode) {
+                const parent = textNode.parentElement;
+                const text = textNode.nodeValue || "";
+                const isRenderedMath = parent && parent.closest(".katex");
+                const isIgnoredElement = parent && parent.closest("script, style");
+                if (!isRenderedMath && !isIgnoredElement && (
+                  /[\u0000-\u0008\u000b\u000c\u000e-\u001f\ufffd]/.test(text)
+                  || /\\(?:frac|sqrt|sin|cos|tan|sec|ln|int|left|right|approx|pm|le|ge|\(|\))/.test(text)
+                )) {
+                  unrenderedMathText.push(text.trim());
+                }
+                textNode = textWalker.nextNode();
+              }
+              checks.noUnrenderedMathText = unrenderedMathText.length === 0;
               checks.noPageOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
 
               if (mode === "mobile") {
