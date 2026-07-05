@@ -257,7 +257,6 @@
           A\approx0.704\text{ units}^2
           \]
         </div>
-        <p class="step-text question-note"><strong>Source correction:</strong> the PDF prints the lower-limit value as \(\frac75\), but substituting \(x=1\) gives \(\frac72\). Its final decimal \(0.704\) is consistent with \(\frac72\), as shown here.</p>
       `)
     ]),
 
