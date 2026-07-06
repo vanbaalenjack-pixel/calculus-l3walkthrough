@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const backButtonLabel = document.querySelector("[data-selection-back-label]");
   const breadcrumb = document.querySelector("[data-selection-breadcrumb]");
   const selectionStatus = document.querySelector("[data-selection-status]");
-  let activeSelection = { level: null, standard: null, paper: null };
+  let activeSelection = { level: null, standard: null, paper: null, paperView: null };
 
   if (window.history && "scrollRestoration" in window.history) {
     window.history.scrollRestoration = "manual";
@@ -99,11 +99,12 @@ document.addEventListener("DOMContentLoaded", function () {
     return getChoiceLabel("paper", paper).replace(/\s+Paper$/i, "");
   }
 
-  function makeSelection(level, standard, paper) {
+  function makeSelection(level, standard, paper, paperView) {
     return {
       level: level || null,
       standard: standard || null,
-      paper: paper || null
+      paper: paper || null,
+      paperView: paper ? (paperView === "questions" ? "questions" : "entry") : null
     };
   }
 
@@ -111,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let level = selection && selection.level;
     let standard = selection && selection.standard;
     let paper = selection && selection.paper;
+    let paperView = selection && selection.paperView;
     let standardPanel = standard ? getStandardPanel(standard) : null;
     const paperPanel = paper ? getPaperPanel(paper) : null;
 
@@ -119,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
       standardPanel = getStandardPanel(standard);
     } else {
       paper = null;
+      paperView = null;
     }
 
     if (standardPanel) {
@@ -126,28 +129,40 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       standard = null;
       paper = null;
+      paperView = null;
     }
 
     if (!getLevelPanel(level)) {
       return makeSelection();
     }
 
-    return makeSelection(level, standard, paper);
+    return makeSelection(level, standard, paper, paperView);
   }
 
   function selectionsMatch(first, second) {
     return first.level === second.level &&
       first.standard === second.standard &&
-      first.paper === second.paper;
+      first.paper === second.paper &&
+      first.paperView === second.paperView;
   }
 
   function getSelectionHash(selection) {
+    if (selection.paper && selection.paperView === "questions") {
+      return selection.paper + "-questions";
+    }
+
     return selection.paper || selection.standard || selection.level || "choose-level";
   }
 
   function getSelectionForHash(hash) {
     if (!hash || hash === "choose-level") {
       return makeSelection();
+    }
+
+    const questionPickerMatch = hash.match(/^(.*)-questions$/);
+    const questionPickerPaper = questionPickerMatch ? questionPickerMatch[1] : null;
+    if (questionPickerPaper && getPaperPanel(questionPickerPaper)) {
+      return normaliseSelection({ paper: questionPickerPaper, paperView: "questions" });
     }
 
     const paperPanel = getPaperPanel(hash);
@@ -193,24 +208,70 @@ document.addEventListener("DOMContentLoaded", function () {
     }) || null;
   }
 
-  function addPaperStageHeadings() {
+  function addGuidedModeToHref(href) {
+    if (!href) {
+      return "";
+    }
+
+    const url = new URL(href, window.location.href);
+    url.searchParams.set("mode", "guided");
+    return url.pathname + url.search + url.hash;
+  }
+
+  function setupPaperEntryChoices() {
     paperPanels.forEach(function (panel) {
-      if (panel.querySelector(".paper-stage-header")) {
+      if (panel.querySelector(".paper-entry-choice")) {
         return;
       }
 
       const standard = panel.dataset.parentStandard;
+      const paper = panel.dataset.paperPanel;
+      const standardPanel = getStandardPanel(standard);
+      const level = standardPanel ? standardPanel.dataset.parentLevel : null;
+      const existingChildren = Array.from(panel.children);
+      const firstQuestionLink = panel.querySelector("a.index-link-card");
+      const entry = document.createElement("div");
+      const questionPicker = document.createElement("div");
       const header = document.createElement("div");
       const label = document.createElement("p");
       const heading = document.createElement("h2");
 
+      entry.className = "paper-entry-choice";
+      entry.innerHTML = `
+        <p class="question-label">${getChoiceLabel("standard", standard)} · ${getPaperYear(paper)} paper</p>
+        <h2>Where would you like to start?</h2>
+        <p class="step-text paper-entry-intro">Choose a guided lesson from Question 1(a), or jump straight to the question you need.</p>
+        <div class="year-picker-grid paper-entry-grid">
+          <a class="nav-btn secondary year-option paper-entry-option" data-paper-start-guided href="${addGuidedModeToHref(firstQuestionLink ? firstQuestionLink.getAttribute("href") : "")}">
+            <span class="year-option-title">From the start</span>
+            <span class="year-option-copy">Begin at Question 1(a) and work through the paper as a guided lesson.</span>
+          </a>
+          <button class="nav-btn secondary year-option paper-entry-option" data-paper-start-specific type="button">
+            <span class="year-option-title">A specific question</span>
+            <span class="year-option-copy">Open the question menu and jump directly to the part you want to revise.</span>
+          </button>
+        </div>
+      `;
+
+      questionPicker.className = "paper-question-picker hidden";
       header.className = "paper-stage-header";
       label.className = "question-label";
-      label.textContent = getChoiceLabel("standard", standard) + " · " + getPaperYear(panel.dataset.paperPanel) + " paper";
+      label.textContent = getChoiceLabel("standard", standard) + " · " + getPaperYear(paper) + " paper";
       heading.textContent = "Choose a question";
       header.appendChild(label);
       header.appendChild(heading);
-      panel.insertBefore(header, panel.firstChild);
+      questionPicker.appendChild(header);
+      existingChildren.forEach(function (child) {
+        questionPicker.appendChild(child);
+      });
+
+      const specificQuestionButton = entry.querySelector("[data-paper-start-specific]");
+      specificQuestionButton.addEventListener("click", function () {
+        navigateToSelection(makeSelection(level, standard, paper, "questions"));
+      });
+
+      panel.appendChild(entry);
+      panel.appendChild(questionPicker);
     });
   }
 
@@ -224,9 +285,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function getCurrentStage(selection) {
     if (selection.paper) {
       const paperPanel = getPaperPanel(selection.paper);
+      const paperStage = paperPanel
+        ? paperPanel.querySelector(selection.paperView === "questions" ? ".paper-question-picker" : ".paper-entry-choice")
+        : null;
       return {
-        element: paperPanel,
-        heading: paperPanel ? paperPanel.querySelector(".paper-stage-header h2") : null
+        element: paperStage || paperPanel,
+        heading: paperStage ? paperStage.querySelector("h2") : null
       };
     }
 
@@ -309,6 +373,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function getParentSelection(selection) {
+    if (selection.paper && selection.paperView === "questions") {
+      return makeSelection(selection.level, selection.standard, selection.paper);
+    }
     if (selection.paper) {
       return makeSelection(selection.level, selection.standard);
     }
@@ -376,7 +443,9 @@ document.addEventListener("DOMContentLoaded", function () {
       breadcrumb.appendChild(listItem);
     });
 
-    if (selection.paper) {
+    if (selection.paper && selection.paperView === "questions") {
+      backButtonLabel.textContent = "Back to start options";
+    } else if (selection.paper) {
       backButtonLabel.textContent = "Back to " + getChoiceLabel("standard", selection.standard) + " years";
     } else if (selection.standard) {
       backButtonLabel.textContent = "Back to " + getChoiceLabel("level", selection.level) + " standards";
@@ -390,8 +459,10 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    if (selection.paper) {
+    if (selection.paper && selection.paperView === "questions") {
       selectionStatus.textContent = "Choose a question from the " + getPaperYear(selection.paper) + " " + getChoiceLabel("standard", selection.standard) + " paper.";
+    } else if (selection.paper) {
+      selectionStatus.textContent = "Choose where to begin the " + getPaperYear(selection.paper) + " " + getChoiceLabel("standard", selection.standard) + " walkthrough.";
     } else if (selection.standard) {
       selectionStatus.textContent = "Choose a paper year for " + getChoiceLabel("standard", selection.standard) + ".";
     } else if (selection.level) {
@@ -402,7 +473,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function animateCurrentStage(selection) {
-    const stageElements = [levelChooser].concat(levelPanels, standardPanels, paperPanels);
+    const paperStageViews = Array.from(document.querySelectorAll(".paper-entry-choice, .paper-question-picker"));
+    const stageElements = [levelChooser].concat(levelPanels, standardPanels, paperPanels, paperStageViews);
     const currentStage = getCurrentStage(selection).element;
 
     stageElements.forEach(function (element) {
@@ -439,7 +511,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     paperPanels.forEach(function (panel) {
-      setPanelState(panel, panel.dataset.paperPanel === nextSelection.paper);
+      const isActive = panel.dataset.paperPanel === nextSelection.paper;
+      const entry = panel.querySelector(".paper-entry-choice");
+      const questionPicker = panel.querySelector(".paper-question-picker");
+      setPanelState(panel, isActive);
+
+      if (entry) {
+        setPanelState(entry, isActive && nextSelection.paperView !== "questions");
+      }
+      if (questionPicker) {
+        setPanelState(questionPicker, isActive && nextSelection.paperView === "questions");
+      }
     });
 
     levelButtons.forEach(function (button) {
@@ -506,7 +588,7 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
 
-  addPaperStageHeadings();
+  setupPaperEntryChoices();
 
   levelButtons.forEach(function (button) {
     button.addEventListener("click", function () {

@@ -1146,8 +1146,7 @@ input[type="range"] {
 }
 
 .walkthrough-sequence {
-  display: grid;
-  gap: 18px;
+  position: relative;
 }
 
 .walkthrough-step-card {
@@ -1217,6 +1216,44 @@ input[type="range"] {
   animation: walkthroughReveal 180ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.legacy-working-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.legacy-step-working {
+  margin-top: 18px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(194, 210, 236, 0.72);
+}
+
+.legacy-step-working.is-visible {
+  animation: walkthroughReveal 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.legacy-step-navigation {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(120px, 1fr) minmax(0, auto);
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(194, 210, 236, 0.72);
+}
+
+.legacy-step-progress {
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.legacy-step-navigation .next-step-btn {
+  margin-top: 0;
+}
+
 .walkthrough-working-label {
   margin: 0 0 12px;
   color: var(--primary);
@@ -1277,7 +1314,7 @@ input[type="range"] {
 .walkthrough-progress-row {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 18px;
 }
@@ -1294,12 +1331,44 @@ input[type="range"] {
   letter-spacing: -0.02em;
 }
 
-.walkthrough-progress-note {
-  margin-bottom: 0;
+.walkthrough-progress-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
 }
 
-.walkthrough-next-btn {
-  min-width: 210px;
+.walkthrough-progress-dot {
+  width: 9px;
+  height: 9px;
+  border: 1px solid rgba(70, 111, 216, 0.24);
+  border-radius: 50%;
+  background: rgba(70, 111, 216, 0.08);
+  transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.walkthrough-progress-dot.is-complete {
+  border-color: rgba(70, 111, 216, 0.36);
+  background: rgba(70, 111, 216, 0.34);
+}
+
+.walkthrough-progress-dot.is-current {
+  transform: scale(1.25);
+  border-color: var(--primary);
+  background: var(--primary);
+}
+
+.walkthrough-step-navigation {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.walkthrough-next-btn,
+.walkthrough-previous-btn {
+  min-width: 178px;
 }
 
 @keyframes walkthroughReveal {
@@ -2057,6 +2126,28 @@ img.graph-svg {
   margin-bottom: 12px;
 }
 
+.paper-entry-choice h2 {
+  margin-bottom: 12px;
+}
+
+.paper-entry-intro {
+  max-width: 58ch;
+  margin-bottom: 24px;
+}
+
+.paper-entry-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.home-page .paper-entry-option {
+  min-height: 174px;
+}
+
+.paper-question-picker.home-stage-current,
+.paper-entry-choice.home-stage-current {
+  animation: home-stage-enter var(--transition-smooth) both;
+}
+
 .standard-title {
   margin: 0 0 12px;
   font-size: 1.46rem;
@@ -2266,8 +2357,12 @@ img.graph-svg {
     align-items: stretch;
   }
 
-  .walkthrough-next-btn {
+  .walkthrough-step-navigation {
     width: 100%;
+  }
+
+  .walkthrough-step-navigation > .nav-btn {
+    flex: 1 1 210px;
   }
 }
 
@@ -2332,6 +2427,10 @@ img.graph-svg {
     scroll-margin-top: calc(var(--site-scroll-offset) + 132px);
   }
 
+  .paper-entry-grid {
+    grid-template-columns: 1fr;
+  }
+
   .topbar {
     flex-direction: column;
     padding: 24px 22px;
@@ -2357,9 +2456,30 @@ img.graph-svg {
     align-items: flex-start;
   }
 
+  .walkthrough-step-navigation {
+    flex-direction: column-reverse;
+  }
+
+  .walkthrough-step-navigation > .nav-btn {
+    width: 100%;
+  }
+
   .walkthrough-step-working {
     padding: 18px 18px 20px;
     border-radius: 20px;
+  }
+
+  .legacy-step-navigation {
+    grid-template-columns: 1fr;
+  }
+
+  .legacy-step-progress {
+    grid-row: 1;
+    text-align: left;
+  }
+
+  .legacy-step-navigation .nav-btn {
+    width: 100%;
   }
 
   .index-link-card {

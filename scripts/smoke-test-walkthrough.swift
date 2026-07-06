@@ -27,6 +27,8 @@ private let tests = [
     TestCase(name: "1(a) mobile", path: "1a2020.html#question-1a", width: 390, height: 844, expectedPart: "1a", expectedSteps: 4, revealAll: true, preferenceAction: "mobile-toggle", legacyRedirect: false, snapshotName: nil),
     TestCase(name: "2(d) mobile tall question", path: "2d2020.html#question-2d", width: 390, height: 844, expectedPart: "2d", expectedSteps: 4, revealAll: false, preferenceAction: "none", legacyRedirect: false, snapshotName: "calc-walkthrough-mobile.png"),
     TestCase(name: "sitewide setting on 2021 walkthrough", path: "1a2021.html", width: 1280, height: 900, expectedPart: nil, expectedSteps: 3, revealAll: false, preferenceAction: "none", legacyRedirect: false, snapshotName: nil),
+    TestCase(name: "guided sequential walkthrough", path: "1a2020.html?mode=guided#question-1a", width: 1280, height: 900, expectedPart: "1a", expectedSteps: 4, revealAll: true, preferenceAction: "guided", legacyRedirect: false, snapshotName: "guided-walkthrough-desktop.png"),
+    TestCase(name: "legacy guided single-step walkthrough", path: "1a2022.html?mode=guided", width: 1280, height: 900, expectedPart: nil, expectedSteps: 6, revealAll: false, preferenceAction: "legacy-guided", legacyRedirect: false, snapshotName: nil),
     TestCase(name: "homepage drill-down flow", path: "index.html?smoke=flow", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-flow", legacyRedirect: false, snapshotName: "home-flow-desktop.png"),
     TestCase(name: "Level 2 direct paper flow", path: "index.html?smoke=level-2#level-2-algebra-2025", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-level-2", legacyRedirect: false, snapshotName: nil),
     TestCase(name: "Level 3 Integration direct paper flow", path: "index.html?smoke=integration#level-3-integration-2020", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-integration", legacyRedirect: false, snapshotName: nil),
@@ -186,13 +188,19 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 const complexPaper = document.querySelector('[data-paper-panel="level-3-complex-2020"]');
                 const complexLinks = Array.from(complexPaper.querySelectorAll("a.index-link-card"));
                 checks.paperReplacesYears = getComputedStyle(document.querySelector('[data-standard-panel="level-3-complex"] > .paper-picker-grid')).display === "none";
+                checks.entryChoiceVisible = isVisible(complexPaper.querySelector(".paper-entry-choice")) && !isVisible(complexPaper.querySelector(".paper-question-picker"));
+                checks.entryChoiceHeading = complexPaper.querySelector(".paper-entry-choice h2").textContent.trim() === "Where would you like to start?";
+                checks.guidedStartRoute = /\/complex-2020\.html\?q=1a&mode=guided$/.test(complexPaper.querySelector("[data-paper-start-guided]").href);
+                complexPaper.querySelector("[data-paper-start-specific]").click();
+                checks.specificQuestionHash = window.location.hash === "#level-3-complex-2020-questions";
+                checks.questionPickerVisible = !isVisible(complexPaper.querySelector(".paper-entry-choice")) && isVisible(complexPaper.querySelector(".paper-question-picker"));
                 checks.paperQuestionLinks = complexLinks.length === 15 && complexLinks.every(function (link) {
                   return /\/complex-2020\.html\?q=[123][a-e]$/.test(link.href);
                 });
                 checks.completeBreadcrumb = Array.from(document.querySelectorAll(".home-breadcrumb li")).map(function (item) {
                   return item.textContent.trim();
                 }).join(" → ") === "Level 3 → Complex Numbers → 2020";
-                checks.contextualBackButton = /Complex Numbers years/.test(document.querySelector("[data-selection-back-label]").textContent);
+                checks.contextualBackButton = /start options/.test(document.querySelector("[data-selection-back-label]").textContent);
                 checks.oneVisibleLevel = document.querySelectorAll('[data-level-panel]:not(.hidden)').length === 1;
                 checks.oneVisibleStandard = document.querySelectorAll('[data-standard-panel]:not(.hidden)').length === 1;
                 checks.oneVisiblePaper = document.querySelectorAll('[data-paper-panel]:not(.hidden)').length === 1;
@@ -203,6 +211,8 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 checks.level2AncestorsReplaced = getComputedStyle(document.querySelector('[data-level-panel="level-2"] > .standard-picker-grid')).display === "none" &&
                   getComputedStyle(document.querySelector('[data-standard-panel="level-2-algebra"] > .paper-picker-grid')).display === "none";
                 checks.level2QuestionLinks = algebraPaper.querySelectorAll("a.index-link-card").length === 15;
+                checks.level2EntryChoice = isVisible(algebraPaper.querySelector(".paper-entry-choice"));
+                checks.level2GuidedRoute = /\/alg-1a2025-l2\.html\?mode=guided$/.test(algebraPaper.querySelector("[data-paper-start-guided]").href);
                 document.querySelector("[data-selection-back]").click();
                 checks.directLinkBackWorks = window.location.hash === "#level-2-algebra" &&
                   isVisible(document.querySelector('[data-standard-panel="level-2-algebra"]')) &&
@@ -211,6 +221,8 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 const integrationPaper = document.querySelector('[data-paper-panel="level-3-integration-2020"]');
                 const integrationLinks = Array.from(integrationPaper.querySelectorAll("a.index-link-card"));
                 checks.integrationPaperVisible = isVisible(integrationPaper);
+                checks.integrationEntryChoice = isVisible(integrationPaper.querySelector(".paper-entry-choice"));
+                checks.integrationGuidedRoute = /\/int-1a2020\.html\?mode=guided#question-1a$/.test(integrationPaper.querySelector("[data-paper-start-guided]").href);
                 checks.integrationHasAllParts = integrationLinks.length === 15;
                 checks.integrationUsesDirectPartRoutes = integrationLinks.every(function (link) {
                   return /\/int-[123][a-e]2020\.html#question-[123][a-e]$/.test(link.href);
@@ -247,43 +259,112 @@ private final class Runner: NSObject, WKNavigationDelegate {
               });
             }
 
+            if (preferenceAction === "legacy-guided") {
+              const walkthroughContent = document.getElementById("walkthrough-content");
+              const legacySteps = Array.from(walkthroughContent.querySelectorAll(":scope > .step-card"));
+              const firstStep = legacySteps[0];
+              const workingToggle = firstStep.querySelector(".legacy-working-toggle");
+              const workingPanel = firstStep.querySelector(".legacy-step-working");
+
+              checks.guidedMode = new URLSearchParams(window.location.search).get("mode") === "guided";
+              checks.walkthroughStartsOpen = !walkthroughContent.classList.contains("hidden");
+              checks.legacyStepCount = legacySteps.length === expectedSteps;
+              checks.oneLegacyStepVisible = legacySteps.filter(function (step) { return !step.classList.contains("hidden"); }).length === 1;
+              checks.legacyStartsAtStepOne = !firstStep.classList.contains("hidden") && firstStep.querySelector(".legacy-step-progress").textContent.trim() === "Step 1 of 6";
+              checks.previousInitiallyDisabled = firstStep.querySelector(".legacy-previous-btn").disabled;
+              workingToggle.click();
+              checks.legacyWorkingShows = !workingPanel.classList.contains("hidden") && workingToggle.textContent.trim() === "Hide working";
+              workingToggle.click();
+              checks.legacyWorkingHides = workingPanel.classList.contains("hidden") && workingToggle.textContent.trim() === "Show working";
+              workingToggle.click();
+              window.showOnlyStep("step-2");
+              checks.legacyAdvancesOneAtATime = !legacySteps[1].classList.contains("hidden") && firstStep.classList.contains("hidden");
+              legacySteps[1].querySelector(".legacy-previous-btn").click();
+              checks.legacyPreviousWorks = !firstStep.classList.contains("hidden") && legacySteps[1].classList.contains("hidden");
+              checks.legacyWorkingPreserved = !workingPanel.classList.contains("hidden");
+              window.showOnlyStep("step-6");
+              const legacyCompleteButton = legacySteps[legacySteps.length - 1].querySelector(".legacy-complete-btn");
+              checks.legacyFinalAction = Boolean(legacyCompleteButton && legacyCompleteButton.textContent.trim() === "Show final answer");
+              if (legacyCompleteButton) {
+                legacyCompleteButton.click();
+              }
+              checks.legacyAnswerVisible = !document.getElementById("answer-card").classList.contains("hidden");
+              const guidedNextQuestion = document.getElementById("next-question-link");
+              checks.guidedModeContinues = Boolean(guidedNextQuestion && /mode=guided/.test(guidedNextQuestion.href));
+              checks.legacyStickySetting = Boolean(document.getElementById("sticky-question-setting"));
+              checks.noHorizontalOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
+
+              const failedChecks = Object.keys(checks).filter(function (key) { return !checks[key]; });
+              return JSON.stringify({
+                url: window.location.href,
+                checks: checks,
+                failedChecks: failedChecks,
+                errors: window.__walkthroughTestErrors || []
+              });
+            }
+
             const questionCard = document.getElementById("question-card");
             const image = questionCard && questionCard.querySelector("img.question-screenshot");
             const setting = document.getElementById("sticky-question-setting");
-            const stepCards = Array.from(document.querySelectorAll(".walkthrough-step-card"));
-            const revealButton = document.getElementById("walkthrough-next-btn");
+            const stepCards = Array.from(document.querySelectorAll("#walkthrough-content > .walkthrough-sequence > .walkthrough-step-card"));
+            const previousButton = document.getElementById("walkthrough-previous-btn");
+            const nextButton = document.getElementById("walkthrough-next-btn");
 
             checks.questionRendered = Boolean(questionCard && questionCard.children.length);
             checks.settingPresent = Boolean(setting);
             checks.stepCount = expectedSteps === null || stepCards.length === expectedSteps;
             checks.katexRendered = document.querySelectorAll(".katex").length > 0;
             checks.noHorizontalOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
+            checks.oneStepVisible = stepCards.filter(function (card) { return !card.classList.contains("hidden"); }).length === 1;
+            checks.startsAtFirstStep = Boolean(stepCards[0] && !stepCards[0].classList.contains("hidden"));
+            checks.progressStartsAtOne = !stepCards.length || /Step 1 of \d+/.test(document.getElementById("walkthrough-progress-status").textContent);
+            checks.previousStartsDisabled = !previousButton || previousButton.disabled;
+            checks.workingTogglePresent = !stepCards.length || Boolean(stepCards[0].querySelector(".step-working-btn"));
 
             if (expectedPart !== null) {
               const chips = Array.from(document.querySelectorAll("#walkthrough-part-navigation .nav-btn"));
               const activeChip = document.querySelector("#walkthrough-part-navigation [aria-current='page']");
               checks.partChips = chips.length === 15;
               checks.partLinks = chips.every(function (link) {
-                return /\/[123][a-e]2020\.html#question-[123][a-e]$/.test(link.href);
+                return /\/[123][a-e]2020\.html(?:\?mode=guided)?#question-[123][a-e]$/.test(link.href);
               });
               checks.activePart = Boolean(activeChip && activeChip.textContent.trim() === expectedPart.charAt(0) + "(" + expectedPart.charAt(1) + ")");
               checks.directHash = window.location.hash === "#question-" + expectedPart;
               checks.sharpQuestionImage = Boolean(image && image.complete && image.naturalWidth === 3125 && image.clientWidth <= image.naturalWidth);
             }
 
-            if (revealAll && revealButton) {
+            if (revealAll && nextButton) {
+              const firstWorkingButton = stepCards[0].querySelector(".step-working-btn");
+              const firstWorkingPanel = stepCards[0].querySelector(".walkthrough-step-working");
+              firstWorkingButton.click();
+              checks.workingShows = !firstWorkingPanel.classList.contains("hidden") && firstWorkingButton.textContent.trim() === "Hide working";
+              firstWorkingButton.click();
+              checks.workingHides = firstWorkingPanel.classList.contains("hidden") && firstWorkingButton.textContent.trim() === "Show working";
+              firstWorkingButton.click();
+              nextButton.click();
+              checks.nextShowsOnlySecond = stepCards.length < 2 || (!stepCards[1].classList.contains("hidden") && stepCards[0].classList.contains("hidden"));
+              previousButton.click();
+              checks.previousReturnsToFirst = !stepCards[0].classList.contains("hidden");
+              checks.workingVisibilityPreserved = stepCards[0].dataset.workingVisible === "true";
+
               let guard = 0;
-              while (!revealButton.disabled && guard < 20) {
-                revealButton.click();
+              while (!nextButton.disabled && guard < 20) {
+                nextButton.click();
                 guard += 1;
               }
-              document.querySelectorAll(".step-working-btn:not(:disabled)").forEach(function (button) {
-                button.click();
-              });
-              checks.allStepsRevealed = stepCards.every(function (card) { return !card.classList.contains("hidden"); });
-              checks.allWorkingRevealed = stepCards.every(function (card) { return card.dataset.workingVisible === "true"; });
-              checks.finalAnswerVisible = Boolean(document.querySelector(".walkthrough-step-card:last-child .answer-highlight"));
+              checks.oneStepStillVisible = stepCards.filter(function (card) { return !card.classList.contains("hidden"); }).length === 1;
+              checks.lastStepVisible = Boolean(stepCards.length && !stepCards[stepCards.length - 1].classList.contains("hidden"));
+              checks.finalWorkingVisible = stepCards[stepCards.length - 1].dataset.workingVisible === "true";
+              checks.finalAnswerVisible = Boolean(document.querySelector(".walkthrough-step-card:last-child .answer-highlight, .walkthrough-step-card:last-child .walkthrough-answer-highlight"));
               checks.previousNextVisible = Boolean(document.querySelector("#walkthrough-final-nav:not(.hidden)"));
+              checks.questionComplete = nextButton.disabled && /complete/i.test(nextButton.textContent);
+              checks.navigationGuard = guard <= stepCards.length + 2;
+            }
+
+            if (preferenceAction === "guided") {
+              checks.guidedQueryPreserved = new URLSearchParams(window.location.search).get("mode") === "guided";
+              const nextQuestionLink = document.querySelector("#walkthrough-final-nav a:not(.secondary)");
+              checks.guidedNextQuestion = Boolean(nextQuestionLink && /mode=guided/.test(nextQuestionLink.href));
             }
 
             if (preferenceAction === "disable" && setting) {
@@ -371,15 +452,14 @@ private final class Runner: NSObject, WKNavigationDelegate {
     private func verifyHomepageHistory(_ test: TestCase) {
         let script = #"""
           (function () {
-            const standardPanel = document.querySelector('[data-standard-panel="level-3-complex"]');
             const paperPanel = document.querySelector('[data-paper-panel="level-3-complex-2020"]');
             const checks = {
-              correctHash: window.location.hash === "#level-3-complex",
-              standardVisible: Boolean(standardPanel && !standardPanel.hidden && !standardPanel.classList.contains("hidden")),
-              standardHasHeight: Boolean(standardPanel && standardPanel.getBoundingClientRect().height > 300),
-              standardIsOpaque: Boolean(standardPanel && Number.parseFloat(getComputedStyle(standardPanel).opacity) > 0.99),
-              yearChoicesVisible: Boolean(standardPanel && getComputedStyle(standardPanel.querySelector(":scope > .paper-picker-grid")).display === "grid"),
-              paperHidden: Boolean(paperPanel && (paperPanel.hidden || paperPanel.classList.contains("hidden")))
+              correctHash: window.location.hash === "#level-3-complex-2020",
+              paperVisible: Boolean(paperPanel && !paperPanel.hidden && !paperPanel.classList.contains("hidden")),
+              paperHasHeight: Boolean(paperPanel && paperPanel.getBoundingClientRect().height > 300),
+              paperIsOpaque: Boolean(paperPanel && Number.parseFloat(getComputedStyle(paperPanel).opacity) > 0.99),
+              entryChoiceVisible: Boolean(paperPanel && getComputedStyle(paperPanel.querySelector(".paper-entry-choice")).display !== "none"),
+              questionPickerHidden: Boolean(paperPanel && getComputedStyle(paperPanel.querySelector(".paper-question-picker")).display === "none")
             };
             const navigationOffset = document.getElementById("selection-flow-nav").getBoundingClientRect().top - document.querySelector(".site-header").getBoundingClientRect().bottom;
             checks.navigationAligned = navigationOffset >= 10 && navigationOffset <= 48;

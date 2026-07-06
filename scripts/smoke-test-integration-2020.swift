@@ -157,6 +157,8 @@ private final class Runner: NSObject, WKNavigationDelegate {
               const links = panel ? Array.from(panel.querySelectorAll("a.index-link-card")) : [];
               checks.pickerButton = Boolean(button && button.getAttribute("aria-pressed") === "true");
               checks.panelVisible = Boolean(panel && !panel.classList.contains("hidden") && panel.getAttribute("aria-hidden") === "false");
+              checks.entryChoiceVisible = Boolean(panel && !panel.querySelector(".paper-entry-choice").classList.contains("hidden"));
+              checks.guidedStartRoute = Boolean(panel && /\/int-1a2020\.html\?mode=guided#question-1a$/.test(panel.querySelector("[data-paper-start-guided]").href));
               checks.fifteenLinks = links.length === 15;
               checks.directRoutes = links.every(function (link) {
                 return /\/int-[123][a-e]2020\.html#question-[123][a-e]$/.test(link.href);
@@ -166,7 +168,8 @@ private final class Runner: NSObject, WKNavigationDelegate {
               const image = questionCard && questionCard.querySelector("img.question-screenshot");
               const setting = document.getElementById("sticky-question-setting");
               const stepCards = Array.from(document.querySelectorAll(".walkthrough-step-card"));
-              const revealButton = document.getElementById("walkthrough-next-btn");
+              const previousButton = document.getElementById("walkthrough-previous-btn");
+              const nextButton = document.getElementById("walkthrough-next-btn");
               const chips = Array.from(document.querySelectorAll("#walkthrough-part-navigation .nav-btn"));
               const activeChip = document.querySelector("#walkthrough-part-navigation [aria-current='page']");
 
@@ -179,21 +182,26 @@ private final class Runner: NSObject, WKNavigationDelegate {
               checks.focusCard = Boolean(document.querySelector("#hints-card:not(.hidden) .walkthrough-tip-card"));
               checks.stepsPresent = stepCards.length > 0;
               checks.stickySetting = Boolean(setting);
+              checks.oneStepStartsVisible = stepCards.filter(function (card) { return !card.classList.contains("hidden"); }).length === 1;
+              checks.previousStartsDisabled = previousButton.disabled;
 
-              let revealGuard = 0;
-              while (revealButton && !revealButton.disabled && revealGuard < 20) {
-                revealButton.click();
-                revealGuard += 1;
+              const firstWorkingButton = stepCards[0].querySelector(".step-working-btn");
+              firstWorkingButton.click();
+              nextButton.click();
+              previousButton.click();
+              checks.workingPreserved = stepCards[0].dataset.workingVisible === "true";
+
+              let navigationGuard = 0;
+              while (nextButton && !nextButton.disabled && navigationGuard < 20) {
+                nextButton.click();
+                navigationGuard += 1;
               }
-              document.querySelectorAll(".step-working-btn:not(:disabled)").forEach(function (button) {
-                button.click();
-              });
-
-              checks.allStepsRevealed = stepCards.every(function (card) {
-                return !card.classList.contains("hidden") && card.dataset.workingVisible === "true";
-              });
+              checks.oneStepRemainsVisible = stepCards.filter(function (card) { return !card.classList.contains("hidden"); }).length === 1;
+              checks.finalStepVisible = !stepCards[stepCards.length - 1].classList.contains("hidden");
+              checks.finalWorkingVisible = stepCards[stepCards.length - 1].dataset.workingVisible === "true";
               checks.finalAnswer = Boolean(document.querySelector(".walkthrough-step-card:last-child .answer-highlight"));
               checks.finalNavigation = Boolean(document.querySelector("#walkthrough-final-nav:not(.hidden) a.nav-btn"));
+              checks.navigationCompleted = nextButton.disabled && navigationGuard < 20;
               checks.katex = document.querySelectorAll(".katex").length > 0 && !document.querySelector(".katex-error");
               checks.inlineKatex = Array.from(document.querySelectorAll(".katex")).some(function (node) {
                 return !node.closest(".katex-display");

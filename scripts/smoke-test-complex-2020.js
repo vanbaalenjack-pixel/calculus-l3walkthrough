@@ -13,6 +13,15 @@
         && !panel.classList.contains("hidden")
         && panel.getAttribute("aria-hidden") === "false"
       );
+      checks.entryChoiceVisible = Boolean(
+        panel && !panel.querySelector(".paper-entry-choice").classList.contains("hidden")
+      );
+      checks.guidedStartRoute = Boolean(
+        panel
+        && /\/complex-2020\.html\?q=1a&mode=guided$/.test(
+          panel.querySelector("[data-paper-start-guided]").href
+        )
+      );
       checks.fifteenLinks = links.length === 15;
       checks.directRoutes = links.every(function (link) {
         return /\/complex-2020\.html\?q=[123][a-e]$/.test(link.href);
@@ -22,7 +31,8 @@
       const image = questionCard && questionCard.querySelector("img.question-screenshot");
       const setting = document.getElementById("sticky-question-setting");
       const stepCards = Array.from(document.querySelectorAll(".walkthrough-step-card"));
-      const revealButton = document.getElementById("walkthrough-next-btn");
+      const previousButton = document.getElementById("walkthrough-previous-btn");
+      const nextButton = document.getElementById("walkthrough-next-btn");
       const chips = Array.from(document.querySelectorAll("#walkthrough-part-navigation .nav-btn"));
       const activeChip = document.querySelector("#walkthrough-part-navigation [aria-current='page']");
 
@@ -44,24 +54,30 @@
       checks.focusCard = Boolean(document.querySelector("#hints-card:not(.hidden) .walkthrough-tip-card"));
       checks.stepsPresent = stepCards.length > 0;
       checks.stickySetting = Boolean(setting);
+      checks.oneStepStartsVisible = stepCards.filter(function (card) {
+        return !card.classList.contains("hidden");
+      }).length === 1;
+      checks.previousStartsDisabled = previousButton.disabled;
 
-      let revealGuard = 0;
-      while (revealButton && !revealButton.disabled && revealGuard < 20) {
-        revealButton.click();
-        revealGuard += 1;
-      }
       const workingButtons = Array.from(document.querySelectorAll(".step-working-btn"));
-      workingButtons.filter(function (button) {
-        return !button.disabled;
-      }).forEach(function (button) {
-        button.click();
-      });
+      workingButtons[0].click();
+      nextButton.click();
+      previousButton.click();
+      checks.workingPreserved = stepCards[0].dataset.workingVisible === "true";
 
-      checks.revealCompleted = Boolean(revealButton && revealButton.disabled && revealGuard < 20);
+      let navigationGuard = 0;
+      while (nextButton && !nextButton.disabled && navigationGuard < 20) {
+        nextButton.click();
+        navigationGuard += 1;
+      }
+
+      checks.navigationCompleted = Boolean(nextButton && nextButton.disabled && navigationGuard < 20);
       checks.showWorkingButtons = workingButtons.length === stepCards.length;
-      checks.allStepsRevealed = stepCards.every(function (card) {
-        return !card.classList.contains("hidden") && card.dataset.workingVisible === "true";
-      });
+      checks.oneStepRemainsVisible = stepCards.filter(function (card) {
+        return !card.classList.contains("hidden");
+      }).length === 1;
+      checks.finalStepVisible = !stepCards[stepCards.length - 1].classList.contains("hidden");
+      checks.finalWorkingVisible = stepCards[stepCards.length - 1].dataset.workingVisible === "true";
       checks.finalAnswer = Boolean(
         document.querySelector(".walkthrough-step-card:last-child .answer-highlight")
       );

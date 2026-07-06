@@ -296,6 +296,35 @@ function setupQuestionCardSticky(questionCard) {
   }
 }
 
+function isGuidedWalkthroughMode() {
+  return new URLSearchParams(window.location.search).get("mode") === "guided";
+}
+
+function getGuidedWalkthroughHref(href) {
+  if (!isGuidedWalkthroughMode() || !href || /(?:^|\/)index\.html(?:[?#]|$)/i.test(href)) {
+    return href;
+  }
+
+  const url = new URL(href, window.location.href);
+  url.searchParams.set("mode", "guided");
+  return url.pathname + url.search + url.hash;
+}
+
+function carryGuidedModeToQuestionLinks(root) {
+  if (!isGuidedWalkthroughMode() || !root) {
+    return;
+  }
+
+  root.querySelectorAll("a[href]").forEach(function (link) {
+    const label = String(link.textContent || "").trim();
+    const href = link.getAttribute("href");
+
+    if (/question/i.test(label) && href && !/(?:^|\/)index\.html(?:[?#]|$)/i.test(href)) {
+      link.setAttribute("href", getGuidedWalkthroughHref(href));
+    }
+  });
+}
+
 function renderPartNavigation(config, questionCard) {
   const items = config && Array.isArray(config.partNavigation)
     ? config.partNavigation
@@ -322,7 +351,7 @@ function renderPartNavigation(config, questionCard) {
     <div class="paper-part-nav">
       ${items.map(function (item) {
         const current = item.current ? ' aria-current="page"' : "";
-        return `<a class="nav-btn secondary" href="${item.href}"${current}>${item.label}</a>`;
+        return `<a class="nav-btn secondary" href="${getGuidedWalkthroughHref(item.href)}"${current}>${item.label}</a>`;
       }).join("")}
     </div>
   `;
@@ -390,6 +419,159 @@ function moveQuestionSupportToTips(questionCard, tipsCard) {
   supportNodes.forEach(function (node) {
     tipsCard.appendChild(node);
   });
+}
+
+function attachLegacySingleStepNavigation(walkthroughContent, options) {
+  if (!walkthroughContent || walkthroughContent.dataset.singleStepSetup === "true") {
+    return;
+  }
+
+  const stepCards = Array.from(walkthroughContent.querySelectorAll(":scope > .step-card"));
+  if (!stepCards.length) {
+    return;
+  }
+
+  const settings = options || {};
+  walkthroughContent.dataset.singleStepSetup = "true";
+  let currentStepIndex = Math.max(stepCards.findIndex(function (stepCard) {
+    return !stepCard.classList.contains("hidden");
+  }), 0);
+
+  function moveToStep(stepCard, shouldFocus) {
+    if (!stepCard) {
+      return;
+    }
+
+    const heading = stepCard.querySelector(":scope > h2");
+    if (heading && !heading.hasAttribute("tabindex")) {
+      heading.setAttribute("tabindex", "-1");
+    }
+
+    window.setTimeout(function () {
+      window.scrollTo({
+        top: getWalkthroughPageScrollTop(stepCard),
+        behavior: window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth"
+      });
+
+      if (shouldFocus && heading) {
+        try {
+          heading.focus({ preventScroll: true });
+        } catch (error) {
+          heading.focus();
+        }
+      }
+    }, 0);
+  }
+
+  function showStep(stepIndex, shouldMove) {
+    if (stepIndex < 0 || stepIndex >= stepCards.length) {
+      return;
+    }
+
+    currentStepIndex = stepIndex;
+    stepCards.forEach(function (stepCard, index) {
+      const isCurrent = index === currentStepIndex;
+      stepCard.classList.toggle("hidden", !isCurrent);
+      stepCard.setAttribute("aria-hidden", isCurrent ? "false" : "true");
+
+      const previousButton = stepCard.querySelector("[data-legacy-previous-step]");
+      if (previousButton) {
+        previousButton.disabled = index === 0;
+      }
+    });
+
+    if (shouldMove !== false) {
+      moveToStep(stepCards[currentStepIndex], true);
+    }
+  }
+
+  stepCards.forEach(function (stepCard, stepIndex) {
+    const stepLabel = stepCard.querySelector(":scope > .step-number");
+    const heading = stepCard.querySelector(":scope > h2");
+    const originalChildren = Array.from(stepCard.children);
+    const workingPanel = document.createElement("div");
+    const workingActions = document.createElement("div");
+    const workingButton = document.createElement("button");
+    const navigation = document.createElement("nav");
+    const previousButton = document.createElement("button");
+    const progress = document.createElement("span");
+
+    stepCard.classList.add("legacy-managed-step");
+    stepCard.setAttribute("aria-hidden", stepIndex === currentStepIndex ? "false" : "true");
+
+    workingPanel.className = "legacy-step-working hidden";
+    workingPanel.id = "legacy-step-working-" + (stepIndex + 1);
+    originalChildren.forEach(function (child) {
+      if (child !== stepLabel && child !== heading) {
+        workingPanel.appendChild(child);
+      }
+    });
+
+    workingActions.className = "walkthrough-step-actions legacy-working-actions";
+    workingButton.className = "nav-btn secondary legacy-working-toggle";
+    workingButton.type = "button";
+    workingButton.textContent = "Show working";
+    workingButton.setAttribute("aria-controls", workingPanel.id);
+    workingButton.setAttribute("aria-expanded", "false");
+    workingButton.addEventListener("click", function () {
+      const shouldShow = workingPanel.classList.contains("hidden");
+      workingPanel.classList.toggle("hidden", !shouldShow);
+      workingPanel.classList.toggle("is-visible", shouldShow);
+      stepCard.dataset.workingVisible = shouldShow ? "true" : "false";
+      workingButton.textContent = shouldShow ? "Hide working" : "Show working";
+      workingButton.setAttribute("aria-expanded", shouldShow ? "true" : "false");
+
+      if (shouldShow) {
+        moveToStep(stepCard, false);
+      }
+    });
+    workingActions.appendChild(workingButton);
+
+    navigation.className = "legacy-step-navigation";
+    navigation.setAttribute("aria-label", "Walkthrough step navigation");
+    previousButton.className = "nav-btn secondary legacy-previous-btn";
+    previousButton.type = "button";
+    previousButton.dataset.legacyPreviousStep = String(stepIndex - 1);
+    previousButton.textContent = "← Previous step";
+    previousButton.disabled = stepIndex === 0;
+    previousButton.addEventListener("click", function () {
+      showStep(stepIndex - 1);
+    });
+    progress.className = "legacy-step-progress";
+    progress.textContent = "Step " + (stepIndex + 1) + " of " + stepCards.length;
+
+    navigation.appendChild(previousButton);
+    navigation.appendChild(progress);
+
+    const originalNextButton = workingPanel.querySelector(".next-step-btn");
+    if (originalNextButton) {
+      originalNextButton.textContent = "Next step →";
+      navigation.appendChild(originalNextButton);
+    } else if (stepIndex === stepCards.length - 1 && typeof settings.onComplete === "function") {
+      const completeButton = document.createElement("button");
+      completeButton.className = "nav-btn legacy-complete-btn";
+      completeButton.type = "button";
+      completeButton.textContent = "Show final answer";
+      completeButton.addEventListener("click", settings.onComplete);
+      navigation.appendChild(completeButton);
+    }
+
+    stepCard.appendChild(workingActions);
+    stepCard.appendChild(workingPanel);
+    stepCard.appendChild(navigation);
+  });
+
+  window.showOnlyStep = function showManagedLegacyStep(stepId) {
+    const stepIndex = stepCards.findIndex(function (stepCard) {
+      return stepCard.id === stepId;
+    });
+    showStep(stepIndex);
+  };
+
+  carryGuidedModeToQuestionLinks(walkthroughContent);
+  showStep(currentStepIndex, false);
 }
 
 function initializeWalkthroughGate(config) {
@@ -468,7 +650,7 @@ function initializeWalkthroughGate(config) {
         || config.nextHref !== config.backHref
       )
       ? {
-        href: config.nextHref,
+        href: getGuidedWalkthroughHref(config.nextHref),
         label: config.nextLabel
       }
       : null;
@@ -544,7 +726,7 @@ function initializeWalkthroughGate(config) {
     <div class="gate-actions">
       <button id="show-walkthrough-btn" class="nav-btn" type="button">${walkthroughButtonLabel}</button>
       <button id="show-answer-btn" class="nav-btn secondary" type="button">${answerButtonLabel}</button>
-      <a id="next-question-link" class="nav-btn hidden" href="${config.nextHref}">${config.nextLabel}</a>
+      <a id="next-question-link" class="nav-btn hidden" href="${getGuidedWalkthroughHref(config.nextHref)}">${config.nextLabel}</a>
     </div>
     <div id="answer-card" class="hint-item hidden">
       <p class="step-number">${answerSectionLabel}</p>
@@ -576,9 +758,10 @@ function initializeWalkthroughGate(config) {
 
   function revealWalkthrough() {
     ensureHintsVisible();
+    addWalkthroughSkipButtons();
+    attachLegacySingleStepNavigation(walkthroughContent, { onComplete: revealAnswer });
     walkthroughContent.classList.remove("hidden");
     showWalkthroughButton.classList.add("hidden");
-    addWalkthroughSkipButtons();
     window.scrollTo({ top: getWalkthroughPageScrollTop(walkthroughContent), behavior: "smooth" });
   }
 
@@ -654,6 +837,10 @@ function initializeWalkthroughGate(config) {
   showAnswerButton.addEventListener("click", function () {
     revealAnswer();
   });
+
+  if (isGuidedWalkthroughMode()) {
+    revealWalkthrough();
+  }
 }
 
 function getOrCreateWalkthroughTipsCard(questionCard, walkthroughContent) {
@@ -1039,7 +1226,7 @@ function normaliseGuidedStep(config, step, stepIndex, totalSteps, stepsAreGuided
     workingHtml: normaliseRichTextBlock(workingHtml, "step-text")
       || normaliseRichTextBlock(step.text, "step-text"),
     workingButtonLabel: step.workingButtonLabel || "Show working",
-    workingShownLabel: step.workingShownLabel || "Working shown"
+    workingHideLabel: step.workingHideLabel || "Hide working"
   };
 }
 
@@ -1137,10 +1324,10 @@ function buildProgressiveFinalNavHtml(config) {
       : null
   };
   const secondaryButton = nav.secondary
-    ? `<a class="nav-btn secondary" href="${nav.secondary.href}">${nav.secondary.label}</a>`
+    ? `<a class="nav-btn secondary" href="${getGuidedWalkthroughHref(nav.secondary.href)}">${nav.secondary.label}</a>`
     : "";
   const primaryButton = nav.primary
-    ? `<a class="nav-btn" href="${nav.primary.href}">${nav.primary.label}</a>`
+    ? `<a class="nav-btn" href="${getGuidedWalkthroughHref(nav.primary.href)}">${nav.primary.label}</a>`
     : "";
 
   if (!secondaryButton && !primaryButton) {
@@ -1166,6 +1353,7 @@ function renderProgressiveStep(step, index) {
       id="walkthrough-step-${stepNumber}"
       class="step-card walkthrough-step-card hidden"
       data-step-index="${index}"
+      aria-hidden="true"
     >
       <div class="walkthrough-step-header">
         <p class="step-number">Step ${stepNumber}</p>
@@ -1178,7 +1366,8 @@ function renderProgressiveStep(step, index) {
           class="nav-btn secondary step-working-btn"
           type="button"
           data-working-step="${index}"
-          data-shown-label="${step.workingShownLabel}"
+          data-hidden-label="${step.workingButtonLabel}"
+          data-shown-label="${step.workingHideLabel}"
           aria-controls="walkthrough-step-${stepNumber}-working"
           aria-expanded="false"
         >
@@ -1205,14 +1394,21 @@ function buildProgressiveWalkthroughHtml(config) {
         return renderProgressiveStep(step, index);
       }).join("")}
     </div>
-    <section class="question-card walkthrough-progress-card">
+    <section class="question-card walkthrough-progress-card" aria-label="Walkthrough step navigation">
       <p class="question-label">Walkthrough</p>
       <div class="walkthrough-progress-row">
         <div class="walkthrough-progress-copy">
           <p id="walkthrough-progress-status" class="walkthrough-progress-status" aria-live="polite"></p>
-          <p class="step-text walkthrough-progress-note">Reveal the strategy first, then show the detailed working only when you want the next layer of help.</p>
+          <div class="walkthrough-progress-dots" aria-hidden="true">
+            ${config.guidedSteps.map(function (_, index) {
+              return `<span class="walkthrough-progress-dot" data-progress-step="${index}"></span>`;
+            }).join("")}
+          </div>
         </div>
-        <button id="walkthrough-next-btn" class="nav-btn walkthrough-next-btn" type="button"></button>
+        <div class="walkthrough-step-navigation">
+          <button id="walkthrough-previous-btn" class="nav-btn secondary walkthrough-previous-btn" type="button">← Previous step</button>
+          <button id="walkthrough-next-btn" class="nav-btn walkthrough-next-btn" type="button">Next step →</button>
+        </div>
       </div>
     </section>
     ${buildProgressiveFinalNavHtml(config)}
@@ -1242,77 +1438,149 @@ function normaliseProgressiveWalkthroughConfig(config) {
 
 function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
   const stepCards = Array.from(walkthroughContent.querySelectorAll(".walkthrough-step-card"));
-  const revealButton = document.getElementById("walkthrough-next-btn");
+  const previousButton = document.getElementById("walkthrough-previous-btn");
+  const nextButton = document.getElementById("walkthrough-next-btn");
   const progressStatus = document.getElementById("walkthrough-progress-status");
+  const progressDots = Array.from(walkthroughContent.querySelectorAll(".walkthrough-progress-dot"));
   const finalNav = document.getElementById("walkthrough-final-nav");
-  let revealedCount = 0;
+  let currentStepIndex = 0;
+  let walkthroughComplete = false;
 
   function updateProgressUi() {
-    if (!revealButton || !progressStatus) {
+    if (!previousButton || !nextButton || !progressStatus) {
       return;
     }
 
     const totalSteps = stepCards.length;
-    const stepLabel = totalSteps === 1 ? "step" : "steps";
-    progressStatus.textContent = revealedCount + " of " + totalSteps + " " + stepLabel + " revealed";
 
     if (!totalSteps) {
-      revealButton.textContent = "No steps available";
-      revealButton.disabled = true;
+      progressStatus.textContent = "No steps available";
+      previousButton.disabled = true;
+      nextButton.disabled = true;
       return;
     }
 
-    if (revealedCount === 0) {
-      revealButton.textContent = config.startRevealLabel || "Reveal first step";
-      revealButton.disabled = false;
-      if (finalNav) {
-        finalNav.classList.add("hidden");
-      }
-      return;
+    progressStatus.textContent = (walkthroughComplete ? "Complete · " : "")
+      + "Step " + (currentStepIndex + 1) + " of " + totalSteps;
+    previousButton.disabled = currentStepIndex === 0;
+
+    const isLastStep = currentStepIndex === totalSteps - 1;
+    const currentWorkingVisible = stepCards[currentStepIndex]
+      && stepCards[currentStepIndex].dataset.workingVisible === "true";
+
+    if (!isLastStep) {
+      nextButton.textContent = "Next step →";
+      nextButton.disabled = false;
+    } else if (walkthroughComplete) {
+      nextButton.textContent = "Question complete";
+      nextButton.disabled = true;
+    } else {
+      nextButton.textContent = currentWorkingVisible ? "Finish question" : "Show final answer";
+      nextButton.disabled = false;
     }
 
-    if (revealedCount < totalSteps) {
-      revealButton.textContent = config.nextRevealLabel || "Reveal next step";
-      revealButton.disabled = false;
-      if (finalNav) {
-        finalNav.classList.add("hidden");
-      }
-      return;
-    }
-
-    revealButton.textContent = config.allStepsShownLabel || "All steps revealed";
-    revealButton.disabled = true;
+    progressDots.forEach(function (dot, index) {
+      dot.classList.toggle("is-current", index === currentStepIndex);
+      dot.classList.toggle("is-complete", index < currentStepIndex || walkthroughComplete);
+    });
 
     if (finalNav) {
-      finalNav.classList.remove("hidden");
+      finalNav.classList.toggle("hidden", !walkthroughComplete || !isLastStep);
     }
   }
 
-  function revealStep(stepCard) {
-    if (!stepCard || !stepCard.classList.contains("hidden")) {
+  function moveToCurrentStep(shouldFocus) {
+    const stepCard = stepCards[currentStepIndex];
+    if (!stepCard) {
       return;
     }
 
-    stepCard.classList.remove("hidden");
-    stepCard.classList.add("is-revealed");
+    const heading = stepCard.querySelector("h2");
+    if (heading && !heading.hasAttribute("tabindex")) {
+      heading.setAttribute("tabindex", "-1");
+    }
 
-    window.requestAnimationFrame(function () {
+    window.setTimeout(function () {
       window.scrollTo({
         top: getWalkthroughPageScrollTop(stepCard),
-        behavior: "smooth"
+        behavior: window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth"
       });
+
+      if (shouldFocus && heading) {
+        try {
+          heading.focus({ preventScroll: true });
+        } catch (error) {
+          heading.focus();
+        }
+      }
+    }, 0);
+  }
+
+  function showStep(stepIndex, options) {
+    if (stepIndex < 0 || stepIndex >= stepCards.length) {
+      return;
+    }
+
+    currentStepIndex = stepIndex;
+    stepCards.forEach(function (stepCard, index) {
+      const isCurrent = index === currentStepIndex;
+      stepCard.classList.toggle("hidden", !isCurrent);
+      stepCard.classList.toggle("is-revealed", isCurrent);
+      stepCard.setAttribute("aria-hidden", isCurrent ? "false" : "true");
+    });
+
+    updateProgressUi();
+
+    const settings = options || {};
+    if (settings.scroll !== false) {
+      moveToCurrentStep(settings.focus !== false);
+    }
+  }
+
+  function setWorkingVisibility(stepIndex, isVisible, shouldScroll) {
+    const stepCard = stepCards[stepIndex];
+    const button = walkthroughContent.querySelector('[data-working-step="' + stepIndex + '"]');
+    const workingPanel = document.getElementById("walkthrough-step-" + (stepIndex + 1) + "-working");
+
+    if (!stepCard || !button || !workingPanel) {
+      return;
+    }
+
+    workingPanel.classList.toggle("hidden", !isVisible);
+    workingPanel.classList.toggle("is-visible", isVisible);
+    stepCard.dataset.workingVisible = isVisible ? "true" : "false";
+    button.textContent = isVisible
+      ? (button.dataset.shownLabel || "Hide working")
+      : (button.dataset.hiddenLabel || "Show working");
+    button.setAttribute("aria-expanded", isVisible ? "true" : "false");
+    updateProgressUi();
+
+    if (isVisible && shouldScroll !== false) {
+      moveToCurrentStep(false);
+    }
+  }
+
+  if (previousButton) {
+    previousButton.addEventListener("click", function () {
+      showStep(currentStepIndex - 1);
     });
   }
 
-  if (revealButton) {
-    revealButton.addEventListener("click", function () {
-      if (revealedCount >= stepCards.length) {
+  if (nextButton) {
+    nextButton.addEventListener("click", function () {
+      if (currentStepIndex < stepCards.length - 1) {
+        showStep(currentStepIndex + 1);
         return;
       }
 
-      revealStep(stepCards[revealedCount]);
-      revealedCount += 1;
-      updateProgressUi();
+      if (!walkthroughComplete && stepCards[currentStepIndex]) {
+        setWorkingVisibility(currentStepIndex, true, false);
+        walkthroughComplete = true;
+        updateProgressUi();
+        moveToCurrentStep(false);
+      }
     });
   }
 
@@ -1322,27 +1590,15 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
       const stepCard = stepCards[stepIndex];
       const workingPanel = document.getElementById("walkthrough-step-" + (stepIndex + 1) + "-working");
 
-      if (!stepCard || !workingPanel || !workingPanel.classList.contains("hidden")) {
+      if (!stepCard || !workingPanel) {
         return;
       }
 
-      workingPanel.classList.remove("hidden");
-      workingPanel.classList.add("is-visible");
-      stepCard.dataset.workingVisible = "true";
-      button.disabled = true;
-      button.textContent = button.dataset.shownLabel || "Working shown";
-      button.setAttribute("aria-expanded", "true");
-
-      window.requestAnimationFrame(function () {
-        window.scrollTo({
-          top: getWalkthroughPageScrollTop(stepCard),
-          behavior: "smooth"
-        });
-      });
+      setWorkingVisibility(stepIndex, workingPanel.classList.contains("hidden"));
     });
   });
 
-  updateProgressUi();
+  showStep(0, { scroll: false, focus: false });
 }
 
 function initializeProgressiveWalkthrough(config, options) {
@@ -1387,6 +1643,7 @@ function initializeProgressiveWalkthrough(config, options) {
 
   walkthroughContent.innerHTML = buildProgressiveWalkthroughHtml(normalisedConfig);
   walkthroughContent.classList.remove("hidden");
+  carryGuidedModeToQuestionLinks(walkthroughContent);
 
   ensureStickyQuestionPreferenceControl(questionCard);
   setupQuestionCardSticky(questionCard);
@@ -1403,7 +1660,7 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
 
 (function () {
   const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noreferrer">here</a>.';
-  const INTERACTION_SELECTOR = ".option-btn, .check-btn, .next-step-btn, .walkthrough-next-btn, .step-working-btn";
+  const INTERACTION_SELECTOR = ".option-btn, .check-btn, .next-step-btn, .walkthrough-next-btn, .walkthrough-previous-btn, .step-working-btn, .legacy-working-toggle, .legacy-previous-btn";
 
   function normaliseButtonTypes(root) {
     const scope = root || document;
