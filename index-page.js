@@ -38,183 +38,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const paperPanels = Array.from(document.querySelectorAll("[data-paper-panel]"));
   const levelChooser = document.getElementById("choose-level");
   const revealLevelPickerButton = document.querySelector("[data-reveal-level-picker]");
-  let activeLevel = null;
-  let activeStandard = null;
-  let activePaper = null;
-  const hashTargets = {
-    "level-2": { level: "level-2" },
-    "level-3": { level: "level-3" },
-    "level-2-calculus": { level: "level-2", standard: "level-2-calculus" },
-    "level-2-algebra": { level: "level-2", standard: "level-2-algebra" },
-    "level-3-differentiation": { level: "level-3", standard: "level-3-differentiation" },
-    "level-3-integration": { level: "level-3", standard: "level-3-integration" },
-    "level-3-complex": { level: "level-3", standard: "level-3-complex" },
-    "level-3-differentiation-2025": {
-      level: "level-3",
-      standard: "level-3-differentiation",
-      paper: "level-3-differentiation-2025"
-    },
-    "level-3-integration-2025": {
-      level: "level-3",
-      standard: "level-3-integration",
-      paper: "level-3-integration-2025"
-    },
-    "level-3-integration-2024": {
-      level: "level-3",
-      standard: "level-3-integration",
-      paper: "level-3-integration-2024"
-    },
-    "level-3-integration-2023": {
-      level: "level-3",
-      standard: "level-3-integration",
-      paper: "level-3-integration-2023"
-    },
-    "level-3-integration-2022": {
-      level: "level-3",
-      standard: "level-3-integration",
-      paper: "level-3-integration-2022"
-    },
-    "level-3-integration-2021": {
-      level: "level-3",
-      standard: "level-3-integration",
-      paper: "level-3-integration-2021"
-    },
-    "level-3-integration-2020": {
-      level: "level-3",
-      standard: "level-3-integration",
-      paper: "level-3-integration-2020"
-    },
-    "level-3-complex-2025": {
-      level: "level-3",
-      standard: "level-3-complex",
-      paper: "level-3-complex-2025"
-    },
-    "level-3-complex-2023": {
-      level: "level-3",
-      standard: "level-3-complex",
-      paper: "level-3-complex-2023"
-    },
-    "level-3-complex-2022": {
-      level: "level-3",
-      standard: "level-3-complex",
-      paper: "level-3-complex-2022"
-    },
-    "level-3-complex-2021": {
-      level: "level-3",
-      standard: "level-3-complex",
-      paper: "level-3-complex-2021"
-    },
-    "level-3-complex-2020": {
-      level: "level-3",
-      standard: "level-3-complex",
-      paper: "level-3-complex-2020"
-    },
-    "level-3-differentiation-2024": {
-      level: "level-3",
-      standard: "level-3-differentiation",
-      paper: "level-3-differentiation-2024"
-    },
-    "level-3-differentiation-2023": {
-      level: "level-3",
-      standard: "level-3-differentiation",
-      paper: "level-3-differentiation-2023"
-    },
-    "level-2-calculus-2025": {
-      level: "level-2",
-      standard: "level-2-calculus",
-      paper: "level-2-calculus-2025"
-    },
-    "level-2-algebra-2025": {
-      level: "level-2",
-      standard: "level-2-algebra",
-      paper: "level-2-algebra-2025"
-    },
-    "level-3-differentiation-2022": {
-      level: "level-3",
-      standard: "level-3-differentiation",
-      paper: "level-3-differentiation-2022"
-    },
-    "level-3-differentiation-2021": {
-      level: "level-3",
-      standard: "level-3-differentiation",
-      paper: "level-3-differentiation-2021"
-    },
-    "level-3-differentiation-2020": {
-      level: "level-3",
-      standard: "level-3-differentiation",
-      paper: "level-3-differentiation-2020"
-    },
-    "level-2-2025": {
-      level: "level-2",
-      standard: "level-2-calculus",
-      paper: "level-2-calculus-2025"
-    },
-    "level-3-2022": {
-      level: "level-3",
-      standard: "level-3-differentiation",
-      paper: "level-3-differentiation-2022"
-    },
-    "level-3-2021": {
-      level: "level-3",
-      standard: "level-3-differentiation",
-      paper: "level-3-differentiation-2021"
-    },
-    "level-3-2024": {
-      level: "level-3",
-      standard: "level-3-differentiation",
-      paper: "level-3-differentiation-2024"
-    },
-    "level-3-2023": {
-      level: "level-3",
-      standard: "level-3-differentiation",
-      paper: "level-3-differentiation-2023"
-    },
-    "level-3-2025": {
-      level: "level-3",
-      standard: "level-3-differentiation",
-      paper: "level-3-differentiation-2025"
-    }
-  };
+  const flowNavigation = document.getElementById("selection-flow-nav");
+  const backButton = document.querySelector("[data-selection-back]");
+  const backButtonLabel = document.querySelector("[data-selection-back-label]");
+  const breadcrumb = document.querySelector("[data-selection-breadcrumb]");
+  const selectionStatus = document.querySelector("[data-selection-status]");
+  let activeSelection = { level: null, standard: null, paper: null };
 
-  if (!levelButtons.length || !levelPanels.length) {
+  if (window.history && "scrollRestoration" in window.history) {
+    window.history.scrollRestoration = "manual";
+  }
+
+  if (!levelChooser || !levelButtons.length || !levelPanels.length) {
     ensureHomepageReportFooter();
     return;
-  }
-
-  function updateHash(hash) {
-    if (!window.history || typeof window.history.replaceState !== "function") {
-      return;
-    }
-
-    if (!hash) {
-      window.history.replaceState(null, "", window.location.pathname);
-      return;
-    }
-
-    window.history.replaceState(null, "", "#" + hash);
-  }
-
-  function setButtonState(button, isActive) {
-    button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-pressed", isActive ? "true" : "false");
-  }
-
-  function setPanelState(panel, isActive) {
-    panel.classList.toggle("hidden", !isActive);
-    panel.setAttribute("aria-hidden", isActive ? "false" : "true");
-  }
-
-  function setLevelChooserState(isVisible) {
-    if (!levelChooser) {
-      return;
-    }
-
-    levelChooser.classList.toggle("hidden", !isVisible);
-    levelChooser.setAttribute("aria-hidden", isVisible ? "false" : "true");
-
-    if (revealLevelPickerButton) {
-      revealLevelPickerButton.setAttribute("aria-expanded", isVisible ? "true" : "false");
-    }
   }
 
   function getLevelPanel(level) {
@@ -235,313 +72,510 @@ document.addEventListener("DOMContentLoaded", function () {
     }) || null;
   }
 
+  function getChoiceButton(type, value) {
+    const buttons = type === "level"
+      ? levelButtons
+      : type === "standard"
+        ? standardButtons
+        : paperButtons;
+
+    return buttons.find(function (button) {
+      return button.dataset[type] === value;
+    }) || null;
+  }
+
+  function getChoiceLabel(type, value) {
+    const button = getChoiceButton(type, value);
+    const title = button ? button.querySelector(".year-option-title") : null;
+    return title ? title.textContent.trim() : value;
+  }
+
+  function getPaperYear(paper) {
+    const yearMatch = paper ? paper.match(/(\d{4})$/) : null;
+    if (yearMatch) {
+      return yearMatch[1];
+    }
+
+    return getChoiceLabel("paper", paper).replace(/\s+Paper$/i, "");
+  }
+
+  function makeSelection(level, standard, paper) {
+    return {
+      level: level || null,
+      standard: standard || null,
+      paper: paper || null
+    };
+  }
+
+  function normaliseSelection(selection) {
+    let level = selection && selection.level;
+    let standard = selection && selection.standard;
+    let paper = selection && selection.paper;
+    let standardPanel = standard ? getStandardPanel(standard) : null;
+    const paperPanel = paper ? getPaperPanel(paper) : null;
+
+    if (paperPanel) {
+      standard = paperPanel.dataset.parentStandard;
+      standardPanel = getStandardPanel(standard);
+    } else {
+      paper = null;
+    }
+
+    if (standardPanel) {
+      level = standardPanel.dataset.parentLevel;
+    } else {
+      standard = null;
+      paper = null;
+    }
+
+    if (!getLevelPanel(level)) {
+      return makeSelection();
+    }
+
+    return makeSelection(level, standard, paper);
+  }
+
+  function selectionsMatch(first, second) {
+    return first.level === second.level &&
+      first.standard === second.standard &&
+      first.paper === second.paper;
+  }
+
+  function getSelectionHash(selection) {
+    return selection.paper || selection.standard || selection.level || "choose-level";
+  }
+
+  function getSelectionForHash(hash) {
+    if (!hash || hash === "choose-level") {
+      return makeSelection();
+    }
+
+    const paperPanel = getPaperPanel(hash);
+    if (paperPanel) {
+      return normaliseSelection({ paper: hash });
+    }
+
+    const standardPanel = getStandardPanel(hash);
+    if (standardPanel) {
+      return normaliseSelection({ standard: hash });
+    }
+
+    if (getLevelPanel(hash)) {
+      return makeSelection(hash);
+    }
+
+    const legacyDifferentiationMatch = hash.match(/^level-3-(202[0-5])$/);
+    if (legacyDifferentiationMatch) {
+      return normaliseSelection({ paper: "level-3-differentiation-" + legacyDifferentiationMatch[1] });
+    }
+
+    if (hash === "level-2-2025") {
+      return normaliseSelection({ paper: "level-2-calculus-2025" });
+    }
+
+    return makeSelection();
+  }
+
+  function setButtonState(button, isActive) {
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", isActive ? "true" : "false");
+  }
+
+  function setPanelState(panel, isActive) {
+    panel.hidden = !isActive;
+    panel.classList.toggle("hidden", !isActive);
+    panel.setAttribute("aria-hidden", isActive ? "false" : "true");
+  }
+
+  function getDirectHeading(container) {
+    return Array.from(container.children).find(function (child) {
+      return /^H[1-6]$/.test(child.tagName);
+    }) || null;
+  }
+
+  function addPaperStageHeadings() {
+    paperPanels.forEach(function (panel) {
+      if (panel.querySelector(".paper-stage-header")) {
+        return;
+      }
+
+      const standard = panel.dataset.parentStandard;
+      const header = document.createElement("div");
+      const label = document.createElement("p");
+      const heading = document.createElement("h2");
+
+      header.className = "paper-stage-header";
+      label.className = "question-label";
+      label.textContent = getChoiceLabel("standard", standard) + " · " + getPaperYear(panel.dataset.paperPanel) + " paper";
+      heading.textContent = "Choose a question";
+      header.appendChild(label);
+      header.appendChild(heading);
+      panel.insertBefore(header, panel.firstChild);
+    });
+  }
+
+  function setHeadingFocusTarget(heading) {
+    if (heading && !heading.hasAttribute("tabindex")) {
+      heading.setAttribute("tabindex", "-1");
+    }
+    return heading;
+  }
+
+  function getCurrentStage(selection) {
+    if (selection.paper) {
+      const paperPanel = getPaperPanel(selection.paper);
+      return {
+        element: paperPanel,
+        heading: paperPanel ? paperPanel.querySelector(".paper-stage-header h2") : null
+      };
+    }
+
+    if (selection.standard) {
+      const standardPanel = getStandardPanel(selection.standard);
+      return {
+        element: standardPanel,
+        heading: standardPanel ? getDirectHeading(standardPanel) : null
+      };
+    }
+
+    if (selection.level) {
+      const levelPanel = getLevelPanel(selection.level);
+      return {
+        element: levelPanel,
+        heading: levelPanel ? getDirectHeading(levelPanel) : null
+      };
+    }
+
+    return {
+      element: levelChooser,
+      heading: getDirectHeading(levelChooser)
+    };
+  }
+
   function getPageScrollTop(target) {
     if (!target) {
       return 0;
     }
 
-    const scrollOffset = typeof getSiteScrollOffset === "function"
-      ? getSiteScrollOffset(24)
-      : 24;
+    const helperOffset = typeof getSiteScrollOffset === "function"
+      ? getSiteScrollOffset(20)
+      : 20;
+    const siteHeader = document.querySelector(".site-header");
+    const measuredHeaderOffset = siteHeader
+      ? Math.ceil(siteHeader.getBoundingClientRect().height || siteHeader.offsetHeight || 0) + 20
+      : 20;
+    const scrollOffset = Math.max(helperOffset, measuredHeaderOffset);
 
     return Math.max(window.scrollY + target.getBoundingClientRect().top - scrollOffset, 0);
   }
 
-  function scrollToPanel(targetId) {
-    const scrollTarget = document.getElementById(targetId) ||
-      getLevelPanel(targetId) ||
-      getStandardPanel(targetId) ||
-      getPaperPanel(targetId);
-
-    if (!scrollTarget) {
-      return;
-    }
-
-    window.scrollTo({ top: getPageScrollTop(scrollTarget), behavior: "smooth" });
+  function prefersReducedMotion() {
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
 
-  function stabilisePickerScroll(button, targetId) {
-    if (!button || !targetId) {
-      return;
-    }
-
-    const initialScrollY = window.scrollY;
+  function moveToSelection(selection, behavior) {
+    const target = selection.level && flowNavigation ? flowNavigation : levelChooser;
+    const scrollBehavior = prefersReducedMotion() ? "auto" : behavior;
 
     window.setTimeout(function () {
-      button.blur();
+      const scrollTop = getPageScrollTop(target);
+      if (scrollBehavior === "auto") {
+        const root = document.documentElement;
+        const previousInlineBehavior = root.style.scrollBehavior;
+        root.style.scrollBehavior = "auto";
+        window.scrollTo(0, scrollTop);
+        root.style.scrollBehavior = previousInlineBehavior;
+        return;
+      }
+
+      window.scrollTo({ top: scrollTop, behavior: scrollBehavior });
     }, 0);
+  }
 
-    window.requestAnimationFrame(function () {
-      window.requestAnimationFrame(function () {
-        const currentScrollY = window.scrollY;
-        const jumpedUpALot = initialScrollY - currentScrollY > 180;
-        const jumpedNearTop = initialScrollY > 140 && currentScrollY < 60;
+  function focusCurrentStage(selection) {
+    const stage = getCurrentStage(selection);
+    const heading = setHeadingFocusTarget(stage.heading);
+    if (!heading) {
+      return;
+    }
 
-        if (jumpedUpALot || jumpedNearTop) {
-          scrollToPanel(targetId);
-        }
+    window.setTimeout(function () {
+      try {
+        heading.focus({ preventScroll: true });
+      } catch (error) {
+        heading.focus();
+      }
+    }, 0);
+  }
+
+  function getParentSelection(selection) {
+    if (selection.paper) {
+      return makeSelection(selection.level, selection.standard);
+    }
+    if (selection.standard) {
+      return makeSelection(selection.level);
+    }
+    return makeSelection();
+  }
+
+  function updateBreadcrumb(selection) {
+    if (!flowNavigation || !breadcrumb || !backButtonLabel) {
+      return;
+    }
+
+    const isVisible = Boolean(selection.level);
+    setPanelState(flowNavigation, isVisible);
+    breadcrumb.textContent = "";
+
+    if (!isVisible) {
+      return;
+    }
+
+    const items = [
+      {
+        label: getChoiceLabel("level", selection.level),
+        selection: makeSelection(selection.level)
+      }
+    ];
+
+    if (selection.standard) {
+      items.push({
+        label: getChoiceLabel("standard", selection.standard),
+        selection: makeSelection(selection.level, selection.standard)
       });
-    });
-  }
+    }
 
-  function clearPaperSelection(parentStandard) {
-    const matchingPanels = paperPanels.filter(function (panel) {
-      return !parentStandard || panel.dataset.parentStandard === parentStandard;
-    });
+    if (selection.paper) {
+      items.push({
+        label: getPaperYear(selection.paper),
+        selection: makeSelection(selection.level, selection.standard, selection.paper)
+      });
+    }
 
-    const matchingPaperIds = matchingPanels.map(function (panel) {
-      return panel.dataset.paperPanel;
-    });
+    items.forEach(function (item, index) {
+      const listItem = document.createElement("li");
+      const isCurrent = index === items.length - 1;
 
-    matchingPanels.forEach(function (panel) {
-      setPanelState(panel, false);
-    });
-
-    paperButtons.forEach(function (button) {
-      if (!parentStandard || button.dataset.parentStandard === parentStandard) {
-        setButtonState(button, false);
+      if (isCurrent) {
+        const current = document.createElement("span");
+        current.className = "home-breadcrumb-current";
+        current.setAttribute("aria-current", "step");
+        current.textContent = item.label;
+        listItem.appendChild(current);
+      } else {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "home-breadcrumb-button";
+        button.textContent = item.label;
+        button.addEventListener("click", function () {
+          navigateToSelection(item.selection);
+        });
+        listItem.appendChild(button);
       }
+
+      breadcrumb.appendChild(listItem);
     });
 
-    if (!parentStandard || matchingPaperIds.includes(activePaper)) {
-      activePaper = null;
+    if (selection.paper) {
+      backButtonLabel.textContent = "Back to " + getChoiceLabel("standard", selection.standard) + " years";
+    } else if (selection.standard) {
+      backButtonLabel.textContent = "Back to " + getChoiceLabel("level", selection.level) + " standards";
+    } else {
+      backButtonLabel.textContent = "Back to level choice";
     }
   }
 
-  function clearStandardSelection(parentLevel) {
-    const matchingPanels = standardPanels.filter(function (panel) {
-      return !parentLevel || panel.dataset.parentLevel === parentLevel;
-    });
+  function updateSelectionStatus(selection) {
+    if (!selectionStatus) {
+      return;
+    }
 
-    const matchingStandardIds = matchingPanels.map(function (panel) {
-      return panel.dataset.standardPanel;
-    });
-
-    matchingPanels.forEach(function (panel) {
-      setPanelState(panel, false);
-      clearPaperSelection(panel.dataset.standardPanel);
-    });
-
-    standardButtons.forEach(function (button) {
-      if (!parentLevel || button.dataset.parentLevel === parentLevel) {
-        setButtonState(button, false);
-      }
-    });
-
-    if (!parentLevel || matchingStandardIds.includes(activeStandard)) {
-      activeStandard = null;
+    if (selection.paper) {
+      selectionStatus.textContent = "Choose a question from the " + getPaperYear(selection.paper) + " " + getChoiceLabel("standard", selection.standard) + " paper.";
+    } else if (selection.standard) {
+      selectionStatus.textContent = "Choose a paper year for " + getChoiceLabel("standard", selection.standard) + ".";
+    } else if (selection.level) {
+      selectionStatus.textContent = "Choose a standard for " + getChoiceLabel("level", selection.level) + ".";
+    } else {
+      selectionStatus.textContent = "Choose an NCEA level.";
     }
   }
 
-  function activateLevel(level) {
-    const activePanel = getLevelPanel(level);
+  function animateCurrentStage(selection) {
+    const stageElements = [levelChooser].concat(levelPanels, standardPanels, paperPanels);
+    const currentStage = getCurrentStage(selection).element;
 
-    if (!activePanel) {
-      return null;
+    stageElements.forEach(function (element) {
+      element.classList.remove("home-stage-current");
+    });
+
+    if (currentStage) {
+      void currentStage.offsetWidth;
+      currentStage.classList.add("home-stage-current");
     }
+  }
 
-    if (activeLevel && activeLevel !== level) {
-      clearStandardSelection(activeLevel);
+  function renderSelection(selection, options) {
+    const nextSelection = normaliseSelection(selection);
+    const settings = options || {};
+    const hasChanged = !selectionsMatch(nextSelection, activeSelection);
+    const showLevelChooser = !nextSelection.level;
+
+    setPanelState(levelChooser, showLevelChooser);
+    if (revealLevelPickerButton) {
+      revealLevelPickerButton.setAttribute("aria-expanded", showLevelChooser ? "true" : "false");
     }
 
     levelPanels.forEach(function (panel) {
-      const isActive = panel === activePanel;
+      const isActive = panel.dataset.levelPanel === nextSelection.level;
       setPanelState(panel, isActive);
+      panel.classList.toggle("is-showing-standard", isActive && Boolean(nextSelection.standard));
+    });
+
+    standardPanels.forEach(function (panel) {
+      const isActive = panel.dataset.standardPanel === nextSelection.standard;
+      setPanelState(panel, isActive);
+      panel.classList.toggle("is-showing-paper", isActive && Boolean(nextSelection.paper));
+    });
+
+    paperPanels.forEach(function (panel) {
+      setPanelState(panel, panel.dataset.paperPanel === nextSelection.paper);
     });
 
     levelButtons.forEach(function (button) {
-      const isActive = button.dataset.level === level;
-      setButtonState(button, isActive);
+      setButtonState(button, button.dataset.level === nextSelection.level);
     });
-
-    activeLevel = level;
-    return activePanel;
-  }
-
-  function selectLevel(level, shouldScroll) {
-    const activePanel = activateLevel(level);
-
-    if (!activePanel) {
-      return;
-    }
-
-    setLevelChooserState(true);
-    clearStandardSelection(level);
-    updateHash(level);
-
-    if (shouldScroll) {
-      scrollToPanel(level);
-    }
-  }
-
-  function selectStandard(standard, shouldScroll) {
-    const standardPanel = getStandardPanel(standard);
-
-    if (!standardPanel) {
-      return;
-    }
-
-    const parentLevel = standardPanel.dataset.parentLevel;
-    const activePanel = activateLevel(parentLevel);
-
-    if (!activePanel) {
-      return;
-    }
-
-    setLevelChooserState(true);
-    clearStandardSelection(parentLevel);
-    setPanelState(standardPanel, true);
-
     standardButtons.forEach(function (button) {
-      if (button.dataset.parentLevel === parentLevel) {
-        setButtonState(button, button.dataset.standard === standard);
-      }
+      setButtonState(button, button.dataset.standard === nextSelection.standard);
     });
-
-    activeStandard = standard;
-    updateHash(standard);
-
-    if (shouldScroll) {
-      scrollToPanel(standard);
-    }
-  }
-
-  function selectPaper(paper, shouldScroll) {
-    const paperPanel = getPaperPanel(paper);
-
-    if (!paperPanel) {
-      return;
-    }
-
-    const parentStandard = paperPanel.dataset.parentStandard;
-    const standardPanel = getStandardPanel(parentStandard);
-
-    if (!standardPanel) {
-      return;
-    }
-
-    const parentLevel = standardPanel.dataset.parentLevel;
-    const activePanel = activateLevel(parentLevel);
-
-    if (!activePanel) {
-      return;
-    }
-
-    setLevelChooserState(true);
-    clearStandardSelection(parentLevel);
-    setPanelState(standardPanel, true);
-
-    standardButtons.forEach(function (button) {
-      if (button.dataset.parentLevel === parentLevel) {
-        setButtonState(button, button.dataset.standard === parentStandard);
-      }
-    });
-
-    setPanelState(paperPanel, true);
-
     paperButtons.forEach(function (button) {
-      if (button.dataset.parentStandard === parentStandard) {
-        setButtonState(button, button.dataset.paper === paper);
-      }
+      setButtonState(button, button.dataset.paper === nextSelection.paper);
     });
 
-    activeStandard = parentStandard;
-    activePaper = paper;
-    updateHash(paper);
+    activeSelection = nextSelection;
+    updateBreadcrumb(nextSelection);
+    updateSelectionStatus(nextSelection);
 
-    if (shouldScroll) {
-      scrollToPanel(paper);
+    if (hasChanged || settings.animate) {
+      animateCurrentStage(nextSelection);
+    }
+    if (settings.scroll) {
+      moveToSelection(nextSelection, settings.scrollBehavior || "smooth");
+    }
+    if (hasChanged && settings.focus) {
+      focusCurrentStage(nextSelection);
     }
   }
 
-  function clearSelection() {
-    clearStandardSelection();
-
-    levelPanels.forEach(function (panel) {
-      setPanelState(panel, false);
-    });
-
-    levelButtons.forEach(function (button) {
-      setButtonState(button, false);
-    });
-
-    activeLevel = null;
-    activeStandard = null;
-    activePaper = null;
-    updateHash("");
+  function createHistoryState(selection, cameFromHash) {
+    return {
+      selectionFlow: true,
+      selectionHash: getSelectionHash(selection),
+      cameFromHash: cameFromHash || null
+    };
   }
+
+  function navigateToSelection(selection, historyMode) {
+    const nextSelection = normaliseSelection(selection);
+    const nextHash = getSelectionHash(nextSelection);
+    const currentHash = getSelectionHash(activeSelection);
+    const method = historyMode === "replace" ? "replaceState" : "pushState";
+
+    if (window.history && typeof window.history[method] === "function") {
+      window.history[method](createHistoryState(nextSelection, currentHash), "", "#" + nextHash);
+      renderSelection(nextSelection, { scroll: true, focus: true });
+      return;
+    }
+
+    window.location.hash = nextHash;
+  }
+
+  function navigateBackOneStep() {
+    const parentSelection = getParentSelection(activeSelection);
+    const parentHash = getSelectionHash(parentSelection);
+    const historyState = window.history ? window.history.state : null;
+
+    if (historyState && historyState.selectionFlow && historyState.cameFromHash === parentHash) {
+      window.history.back();
+      return;
+    }
+
+    navigateToSelection(
+      parentSelection,
+      historyState && historyState.selectionFlow && historyState.cameFromHash ? "push" : "replace"
+    );
+  }
+
+  addPaperStageHeadings();
 
   levelButtons.forEach(function (button) {
     button.addEventListener("click", function () {
-      if (activeLevel === button.dataset.level) {
-        clearSelection();
-        return;
-      }
-
-      selectLevel(button.dataset.level, true);
-      stabilisePickerScroll(button, button.dataset.level);
+      navigateToSelection(makeSelection(button.dataset.level));
     });
   });
 
-  if (revealLevelPickerButton) {
-    revealLevelPickerButton.addEventListener("click", function (event) {
-      event.preventDefault();
-      setLevelChooserState(true);
-      updateHash("choose-level");
-      scrollToPanel("choose-level");
-    });
-  }
-
   standardButtons.forEach(function (button) {
     button.addEventListener("click", function () {
-      const standard = button.dataset.standard;
-      const parentLevel = button.dataset.parentLevel;
-
-      if (activeStandard === standard) {
-        clearStandardSelection(parentLevel);
-        updateHash(parentLevel);
-        scrollToPanel(parentLevel);
-        stabilisePickerScroll(button, parentLevel);
-        return;
-      }
-
-      selectStandard(standard, true);
-      stabilisePickerScroll(button, standard);
+      navigateToSelection(makeSelection(button.dataset.parentLevel, button.dataset.standard));
     });
   });
 
   paperButtons.forEach(function (button) {
     button.addEventListener("click", function () {
-      const paper = button.dataset.paper;
-      const parentStandard = button.dataset.parentStandard;
-
-      if (activePaper === paper) {
-        clearPaperSelection(parentStandard);
-        updateHash(parentStandard);
-        scrollToPanel(parentStandard);
-        stabilisePickerScroll(button, parentStandard);
-        return;
-      }
-
-      selectPaper(paper, true);
-      stabilisePickerScroll(button, paper);
+      const standardPanel = getStandardPanel(button.dataset.parentStandard);
+      const level = standardPanel ? standardPanel.dataset.parentLevel : null;
+      navigateToSelection(makeSelection(level, button.dataset.parentStandard, button.dataset.paper));
     });
   });
 
-  const initialHash = window.location.hash.slice(1);
-  const initialSelection = hashTargets[initialHash];
-  if (initialHash === "choose-level") {
-    setLevelChooserState(true);
-    scrollToPanel("choose-level");
-  } else if (initialSelection) {
-    setLevelChooserState(true);
-    if (initialSelection.paper) {
-      selectPaper(initialSelection.paper, true);
-    } else if (initialSelection.standard) {
-      selectStandard(initialSelection.standard, true);
-    } else if (initialSelection.level) {
-      selectLevel(initialSelection.level, true);
+  if (backButton) {
+    backButton.addEventListener("click", navigateBackOneStep);
+  }
+
+  if (revealLevelPickerButton) {
+    revealLevelPickerButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      navigateToSelection(makeSelection());
+    });
+  }
+
+  function handleHistoryNavigation() {
+    const hash = window.location.hash.slice(1);
+    const historySelection = getSelectionForHash(hash);
+    renderSelection(historySelection, {
+      scroll: true,
+      scrollBehavior: "auto",
+      focus: true
+    });
+    window.setTimeout(function () {
+      moveToSelection(historySelection, "auto");
+    }, 100);
+  }
+
+  window.addEventListener("popstate", handleHistoryNavigation);
+  window.addEventListener("hashchange", function () {
+    const hashSelection = getSelectionForHash(window.location.hash.slice(1));
+    if (!selectionsMatch(hashSelection, activeSelection)) {
+      handleHistoryNavigation();
     }
+  });
+
+  const initialHash = window.location.hash.slice(1);
+  const initialSelection = getSelectionForHash(initialHash);
+  renderSelection(initialSelection, {
+    animate: true,
+    scroll: Boolean(initialHash),
+    scrollBehavior: "auto"
+  });
+
+  if (window.history && typeof window.history.replaceState === "function") {
+    window.history.replaceState(createHistoryState(initialSelection, null), "", window.location.href);
+  }
+
+  if (initialHash) {
+    window.addEventListener("load", function () {
+      moveToSelection(initialSelection, "auto");
+    }, { once: true });
   }
 
   ensureHomepageReportFooter();

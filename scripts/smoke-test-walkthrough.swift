@@ -27,7 +27,11 @@ private let tests = [
     TestCase(name: "1(a) mobile", path: "1a2020.html#question-1a", width: 390, height: 844, expectedPart: "1a", expectedSteps: 4, revealAll: true, preferenceAction: "mobile-toggle", legacyRedirect: false, snapshotName: nil),
     TestCase(name: "2(d) mobile tall question", path: "2d2020.html#question-2d", width: 390, height: 844, expectedPart: "2d", expectedSteps: 4, revealAll: false, preferenceAction: "none", legacyRedirect: false, snapshotName: "calc-walkthrough-mobile.png"),
     TestCase(name: "sitewide setting on 2021 walkthrough", path: "1a2021.html", width: 1280, height: 900, expectedPart: nil, expectedSteps: 3, revealAll: false, preferenceAction: "none", legacyRedirect: false, snapshotName: nil),
-    TestCase(name: "2020 native paper picker", path: "index.html#level-3-differentiation-2020", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-picker", legacyRedirect: false, snapshotName: nil),
+    TestCase(name: "homepage drill-down flow", path: "index.html?smoke=flow", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-flow", legacyRedirect: false, snapshotName: "home-flow-desktop.png"),
+    TestCase(name: "Level 2 direct paper flow", path: "index.html?smoke=level-2#level-2-algebra-2025", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-level-2", legacyRedirect: false, snapshotName: nil),
+    TestCase(name: "Level 3 Integration direct paper flow", path: "index.html?smoke=integration#level-3-integration-2020", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-integration", legacyRedirect: false, snapshotName: nil),
+    TestCase(name: "Level 3 Complex Numbers mobile flow", path: "index.html?smoke=complex-mobile#level-3-complex", width: 390, height: 844, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-mobile", legacyRedirect: false, snapshotName: "home-flow-mobile.png"),
+    TestCase(name: "2020 native paper picker", path: "index.html?smoke=differentiation#level-3-differentiation-2020", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-picker", legacyRedirect: false, snapshotName: nil),
     TestCase(name: "legacy 2020 hash redirect", path: "differentiation-2020.html#question-two-d", width: 1280, height: 900, expectedPart: "2d", expectedSteps: 4, revealAll: false, preferenceAction: "none", legacyRedirect: true, snapshotName: nil)
 ]
 
@@ -146,14 +150,94 @@ private final class Runner: NSObject, WKNavigationDelegate {
             const preferenceAction = "\#(test.preferenceAction)";
             const checks = {};
 
-            if (preferenceAction === "index-picker") {
-              const panel = document.getElementById("level-3-differentiation-2020");
-              const links = panel ? Array.from(panel.querySelectorAll("a.index-link-card")) : [];
-              checks.paperPanelVisible = Boolean(panel && !panel.classList.contains("hidden") && panel.getAttribute("aria-hidden") === "false");
-              checks.paperHasAllParts = links.length === 15;
-              checks.paperUsesDirectPartRoutes = links.every(function (link) {
-                return /\/[123][a-e]2020\.html#question-[123][a-e]$/.test(link.href);
-              });
+            if (preferenceAction.indexOf("index-") === 0) {
+              const isVisible = function (element) {
+                return Boolean(element && !element.hidden && !element.classList.contains("hidden") && getComputedStyle(element).display !== "none");
+              };
+              const levelChooser = document.getElementById("choose-level");
+              const flowNavigation = document.getElementById("selection-flow-nav");
+
+              if (preferenceAction === "index-flow") {
+                checks.levelChooserStartsAlone = isVisible(levelChooser) && !isVisible(flowNavigation);
+
+                document.querySelector('[data-level="level-3"]').click();
+                checks.levelReplacesChooser = !isVisible(levelChooser) && isVisible(document.querySelector('[data-level-panel="level-3"]'));
+                checks.levelHash = window.location.hash === "#level-3";
+                checks.levelThreeStandards = ["level-3-differentiation", "level-3-integration", "level-3-complex"].every(function (standard) {
+                  return Boolean(document.querySelector('[data-standard="' + standard + '"]'));
+                });
+
+                document.querySelector('[data-standard="level-3-differentiation"]').click();
+                const differentiationPanel = document.querySelector('[data-standard-panel="level-3-differentiation"]');
+                checks.standardReplacesLevel = getComputedStyle(document.querySelector('[data-level-panel="level-3"] > .standard-picker-grid')).display === "none";
+                checks.differentiationYears = differentiationPanel.querySelectorAll(":scope > .paper-picker-grid [data-paper]").length === 6;
+
+                document.querySelector(".home-breadcrumb-button").click();
+                document.querySelector('[data-standard="level-3-integration"]').click();
+                checks.integrationAppears = isVisible(document.querySelector('[data-standard-panel="level-3-integration"]'));
+                checks.integrationYears = document.querySelectorAll('[data-standard-panel="level-3-integration"] > .paper-picker-grid [data-paper]').length === 6;
+
+                document.querySelector(".home-breadcrumb-button").click();
+                document.querySelector('[data-standard="level-3-complex"]').click();
+                checks.complexAppears = isVisible(document.querySelector('[data-standard-panel="level-3-complex"]'));
+                checks.complexYears = document.querySelectorAll('[data-standard-panel="level-3-complex"] > .paper-picker-grid [data-paper]').length === 6;
+
+                document.querySelector('[data-paper="level-3-complex-2020"]').click();
+                const complexPaper = document.querySelector('[data-paper-panel="level-3-complex-2020"]');
+                const complexLinks = Array.from(complexPaper.querySelectorAll("a.index-link-card"));
+                checks.paperReplacesYears = getComputedStyle(document.querySelector('[data-standard-panel="level-3-complex"] > .paper-picker-grid')).display === "none";
+                checks.paperQuestionLinks = complexLinks.length === 15 && complexLinks.every(function (link) {
+                  return /\/complex-2020\.html\?q=[123][a-e]$/.test(link.href);
+                });
+                checks.completeBreadcrumb = Array.from(document.querySelectorAll(".home-breadcrumb li")).map(function (item) {
+                  return item.textContent.trim();
+                }).join(" → ") === "Level 3 → Complex Numbers → 2020";
+                checks.contextualBackButton = /Complex Numbers years/.test(document.querySelector("[data-selection-back-label]").textContent);
+                checks.oneVisibleLevel = document.querySelectorAll('[data-level-panel]:not(.hidden)').length === 1;
+                checks.oneVisibleStandard = document.querySelectorAll('[data-standard-panel]:not(.hidden)').length === 1;
+                checks.oneVisiblePaper = document.querySelectorAll('[data-paper-panel]:not(.hidden)').length === 1;
+                window.history.back();
+              } else if (preferenceAction === "index-level-2") {
+                const algebraPaper = document.querySelector('[data-paper-panel="level-2-algebra-2025"]');
+                checks.level2PaperVisible = isVisible(algebraPaper);
+                checks.level2AncestorsReplaced = getComputedStyle(document.querySelector('[data-level-panel="level-2"] > .standard-picker-grid')).display === "none" &&
+                  getComputedStyle(document.querySelector('[data-standard-panel="level-2-algebra"] > .paper-picker-grid')).display === "none";
+                checks.level2QuestionLinks = algebraPaper.querySelectorAll("a.index-link-card").length === 15;
+                document.querySelector("[data-selection-back]").click();
+                checks.directLinkBackWorks = window.location.hash === "#level-2-algebra" &&
+                  isVisible(document.querySelector('[data-standard-panel="level-2-algebra"]')) &&
+                  !isVisible(algebraPaper);
+              } else if (preferenceAction === "index-integration") {
+                const integrationPaper = document.querySelector('[data-paper-panel="level-3-integration-2020"]');
+                const integrationLinks = Array.from(integrationPaper.querySelectorAll("a.index-link-card"));
+                checks.integrationPaperVisible = isVisible(integrationPaper);
+                checks.integrationHasAllParts = integrationLinks.length === 15;
+                checks.integrationUsesDirectPartRoutes = integrationLinks.every(function (link) {
+                  return /\/int-[123][a-e]2020\.html#question-[123][a-e]$/.test(link.href);
+                });
+              } else if (preferenceAction === "index-mobile") {
+                const complexPanel = document.querySelector('[data-standard-panel="level-3-complex"]');
+                checks.mobileComplexVisible = isVisible(complexPanel);
+                checks.mobileSixYears = complexPanel.querySelectorAll(":scope > .paper-picker-grid [data-paper]").length === 6;
+                checks.mobileAncestorChoicesHidden = getComputedStyle(document.querySelector('[data-level-panel="level-3"] > .standard-picker-grid')).display === "none";
+                checks.mobileCardsFit = Array.from(complexPanel.querySelectorAll(":scope > .paper-picker-grid .year-option")).every(function (card) {
+                  return card.getBoundingClientRect().right <= window.innerWidth + 1;
+                });
+                checks.mobileNavigationFits = flowNavigation.getBoundingClientRect().right <= window.innerWidth + 1;
+                const mobileNavigationOffset = flowNavigation.getBoundingClientRect().top - document.querySelector(".site-header").getBoundingClientRect().bottom;
+                checks.mobileNavigationAligned = mobileNavigationOffset >= 10 && mobileNavigationOffset <= 48;
+              } else if (preferenceAction === "index-picker") {
+                const panel = document.getElementById("level-3-differentiation-2020");
+                const links = panel ? Array.from(panel.querySelectorAll("a.index-link-card")) : [];
+                checks.paperPanelVisible = isVisible(panel) && panel.getAttribute("aria-hidden") === "false";
+                checks.paperHasAllParts = links.length === 15;
+                checks.paperUsesDirectPartRoutes = links.every(function (link) {
+                  return /\/[123][a-e]2020\.html#question-[123][a-e]$/.test(link.href);
+                });
+              }
+
+              checks.keyboardControls = Boolean(document.querySelector("[data-selection-back]") && document.querySelector("[data-selection-back]").tagName === "BUTTON");
+              checks.noHorizontalOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
               const failedChecks = Object.keys(checks).filter(function (key) { return !checks[key]; });
               return JSON.stringify({
                 url: window.location.href,
@@ -258,18 +342,78 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 return
             }
 
-            if failedChecks.isEmpty && errors.isEmpty && self.consoleCollector.messages.isEmpty {
-                print("PASS \(test.name)")
-            } else {
-                let reasons = [
-                    failedChecks.isEmpty ? nil : "failed checks: \(failedChecks.joined(separator: ", "))",
-                    errors.isEmpty ? nil : "page errors: \(errors.joined(separator: " | "))",
-                    self.consoleCollector.messages.isEmpty ? nil : "console errors: \(self.consoleCollector.messages.joined(separator: " | "))"
-                ].compactMap { $0 }
+            let reasons = [
+                failedChecks.isEmpty ? nil : "failed checks: \(failedChecks.joined(separator: ", "))",
+                errors.isEmpty ? nil : "page errors: \(errors.joined(separator: " | "))",
+                self.consoleCollector.messages.isEmpty ? nil : "console errors: \(self.consoleCollector.messages.joined(separator: " | "))"
+            ].compactMap { $0 }
+
+            if !reasons.isEmpty {
                 self.failures.append("\(test.name): \(reasons.joined(separator: "; "))")
-                print("FAIL \(test.name): \(reasons.joined(separator: "; "))")
             }
 
+            if test.preferenceAction == "index-flow" {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
+                    self?.verifyHomepageHistory(test)
+                }
+                return
+            }
+
+            if reasons.isEmpty {
+                print("PASS \(test.name)")
+            } else {
+                print("FAIL \(test.name): \(reasons.joined(separator: "; "))")
+            }
+            self.finishCase(test)
+        }
+    }
+
+    private func verifyHomepageHistory(_ test: TestCase) {
+        let script = #"""
+          (function () {
+            const standardPanel = document.querySelector('[data-standard-panel="level-3-complex"]');
+            const paperPanel = document.querySelector('[data-paper-panel="level-3-complex-2020"]');
+            const checks = {
+              correctHash: window.location.hash === "#level-3-complex",
+              standardVisible: Boolean(standardPanel && !standardPanel.hidden && !standardPanel.classList.contains("hidden")),
+              standardHasHeight: Boolean(standardPanel && standardPanel.getBoundingClientRect().height > 300),
+              standardIsOpaque: Boolean(standardPanel && Number.parseFloat(getComputedStyle(standardPanel).opacity) > 0.99),
+              yearChoicesVisible: Boolean(standardPanel && getComputedStyle(standardPanel.querySelector(":scope > .paper-picker-grid")).display === "grid"),
+              paperHidden: Boolean(paperPanel && (paperPanel.hidden || paperPanel.classList.contains("hidden")))
+            };
+            const navigationOffset = document.getElementById("selection-flow-nav").getBoundingClientRect().top - document.querySelector(".site-header").getBoundingClientRect().bottom;
+            checks.navigationAligned = navigationOffset >= 10 && navigationOffset <= 48;
+            return JSON.stringify(checks);
+          }());
+        """#
+
+        webView.evaluateJavaScript(script) { [weak self] result, error in
+            guard let self else { return }
+            var historyFailure: String?
+
+            if let error {
+                historyFailure = "browser Back check failed: \(error.localizedDescription)"
+            } else if let json = result as? String,
+                      let data = json.data(using: .utf8),
+                      let checks = try? JSONSerialization.jsonObject(with: data) as? [String: Bool] {
+                let failedChecks = checks.filter { !$0.value }.map(\.key).sorted()
+                if !failedChecks.isEmpty {
+                    historyFailure = "browser Back failed checks: \(failedChecks.joined(separator: ", "))"
+                }
+            } else {
+                historyFailure = "browser Back result could not be decoded"
+            }
+
+            if let historyFailure {
+                self.failures.append("\(test.name): \(historyFailure)")
+            }
+
+            let caseFailures = self.failures.filter { $0.hasPrefix(test.name + ":") }
+            if caseFailures.isEmpty {
+                print("PASS \(test.name)")
+            } else {
+                print("FAIL \(test.name): \(caseFailures.joined(separator: "; "))")
+            }
             self.finishCase(test)
         }
     }

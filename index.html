@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NCEA Maths Walkthroughs</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=20260706-1">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <script defer src="walkthrough-gate.js?v=20260705-1"></script>
-<script defer src="index-page.js?v=20260706-1"></script>
+<script defer src="index-page.js?v=20260706-8"></script>
 </head>
 
 <body class="home-page">
@@ -71,6 +71,15 @@
     </aside>
   </header>
 
+  <nav id="selection-flow-nav" class="home-flow-nav hidden" aria-label="Paper selection path" aria-hidden="true">
+    <button class="nav-btn secondary home-flow-back" type="button" data-selection-back>
+      <span aria-hidden="true">←</span>
+      <span data-selection-back-label>Back</span>
+    </button>
+    <ol class="home-breadcrumb" data-selection-breadcrumb></ol>
+  </nav>
+  <p class="home-flow-status" data-selection-status aria-live="polite"></p>
+
   <section id="choose-level" class="question-card year-picker-card home-level-card" aria-hidden="false">
     <p class="question-label home-step-label">Start here</p>
     <h2>Step 1: Choose a level</h2>
@@ -88,7 +97,7 @@
       </button>
     </div>
     <p class="step-text question-note">
-      Select a level to reveal its standards, or select it again to hide them.
+      Select a level to continue to its standards.
     </p>
   </section>
 
@@ -114,7 +123,7 @@
 
     <section id="level-2-calculus" class="standard-section hidden" data-standard-panel="level-2-calculus" data-parent-level="level-2" aria-hidden="true">
       <p class="question-label">Calculus</p>
-      <h3 class="standard-title">Choose a paper year</h3>
+      <h2 class="standard-title">Choose a paper year</h2>
       <p class="step-text">
         Select the Level 2 Calculus paper you want to open.
       </p>
@@ -196,7 +205,7 @@
 
     <section id="level-2-algebra" class="standard-section hidden" data-standard-panel="level-2-algebra" data-parent-level="level-2" aria-hidden="true">
       <p class="question-label">Algebra</p>
-      <h3 class="standard-title">Choose a paper year</h3>
+      <h2 class="standard-title">Choose a paper year</h2>
       <p class="step-text">
         Select the Level 2 Algebra paper you want to open.
       </p>
@@ -315,7 +324,7 @@
 
     <section id="level-3-differentiation" class="standard-section hidden" data-standard-panel="level-3-differentiation" data-parent-level="level-3" aria-hidden="true">
       <p class="question-label">Differentiation</p>
-      <h3 class="standard-title">Choose a paper year</h3>
+      <h2 class="standard-title">Choose a paper year</h2>
       <p class="step-text">
         Select the Level 3 Differentiation paper you want to open.
       </p>
@@ -829,7 +838,7 @@
 
     <section id="level-3-integration" class="standard-section hidden" data-standard-panel="level-3-integration" data-parent-level="level-3" aria-hidden="true">
       <p class="question-label">Integration</p>
-      <h3 class="standard-title">Choose a paper year</h3>
+      <h2 class="standard-title">Choose a paper year</h2>
       <p class="step-text">
         Select the Level 3 Integration paper you want to open.
       </p>
@@ -1349,7 +1358,7 @@
 
     <section id="level-3-complex" class="standard-section hidden" data-standard-panel="level-3-complex" data-parent-level="level-3" aria-hidden="true">
       <p class="question-label">Complex Numbers</p>
-      <h3 class="standard-title">Choose a paper year</h3>
+      <h2 class="standard-title">Choose a paper year</h2>
       <p class="step-text">
         Select the Level 3 Complex Numbers paper you want to open.
       </p>
