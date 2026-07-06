@@ -325,6 +325,563 @@ function carryGuidedModeToQuestionLinks(root) {
   });
 }
 
+const WALKTHROUGH_SIDEBAR_STORAGE_KEY = "calc.nz.walkthroughSidebarVisible";
+const WALKTHROUGH_NAV_PARTS = [
+  "1a", "1b", "1c", "1d", "1e",
+  "2a", "2b", "2c", "2d", "2e",
+  "3a", "3b", "3c", "3d", "3e"
+];
+const WALKTHROUGH_NAV_L2_CALCULUS_PARTS = [
+  "1a", "1b", "1c", "1d",
+  "2a", "2b", "2c", "2d",
+  "3a", "3b", "3c", "3d"
+];
+const WALKTHROUGH_NAV_YEARS = [2025, 2024, 2023, 2022, 2021, 2020];
+let walkthroughSidebarPreferenceFallback = null;
+
+function createWalkthroughPaper(id, year, routeTemplate, parts) {
+  return {
+    id: id,
+    year: year,
+    label: year + " Paper",
+    indexHref: "index.html#" + id,
+    routeTemplate: routeTemplate,
+    parts: parts || WALKTHROUGH_NAV_PARTS
+  };
+}
+
+function createWalkthroughYearPapers(standardId, routeTemplate, years) {
+  return (years || WALKTHROUGH_NAV_YEARS).map(function (year) {
+    return createWalkthroughPaper(
+      standardId + "-" + year,
+      year,
+      routeTemplate.replace(/\{year\}/g, String(year))
+    );
+  });
+}
+
+const WALKTHROUGH_NAV_CATALOG = [
+  {
+    id: "level-2",
+    label: "Level 2",
+    indexHref: "index.html#level-2",
+    standards: [
+      {
+        id: "level-2-calculus",
+        label: "Calculus",
+        indexHref: "index.html#level-2-calculus",
+        papers: [
+          createWalkthroughPaper(
+            "level-2-calculus-2025",
+            2025,
+            "{part}2025-l2.html",
+            WALKTHROUGH_NAV_L2_CALCULUS_PARTS
+          )
+        ]
+      },
+      {
+        id: "level-2-algebra",
+        label: "Algebra",
+        indexHref: "index.html#level-2-algebra",
+        papers: [
+          createWalkthroughPaper("level-2-algebra-2025", 2025, "alg-{part}2025-l2.html")
+        ]
+      }
+    ]
+  },
+  {
+    id: "level-3",
+    label: "Level 3",
+    indexHref: "index.html#level-3",
+    standards: [
+      {
+        id: "level-3-differentiation",
+        label: "Differentiation",
+        indexHref: "index.html#level-3-differentiation",
+        papers: createWalkthroughYearPapers("level-3-differentiation", "{part}{year}.html")
+      },
+      {
+        id: "level-3-integration",
+        label: "Integration",
+        indexHref: "index.html#level-3-integration",
+        papers: createWalkthroughYearPapers("level-3-integration", "int-{part}{year}.html")
+      },
+      {
+        id: "level-3-complex",
+        label: "Complex Numbers",
+        indexHref: "index.html#level-3-complex",
+        papers: [
+          createWalkthroughPaper("level-3-complex-2025", 2025, "complex-{part}2025.html")
+        ].concat(createWalkthroughYearPapers("level-3-complex", "complex-{year}.html?q={part}", [2024, 2023, 2022, 2021, 2020]))
+      }
+    ]
+  }
+];
+
+function escapeWalkthroughSidebarHtml(value) {
+  return String(value == null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function walkthroughPartLabel(partId) {
+  const value = String(partId || "");
+  return value.charAt(0) + "(" + value.charAt(1) + ")";
+}
+
+function walkthroughQuestionLabel(partId) {
+  return "Question " + walkthroughPartLabel(partId);
+}
+
+function getWalkthroughPartHref(paper, partId) {
+  if (!paper || !partId) {
+    return "";
+  }
+
+  const targetPart = paper.parts.indexOf(partId) >= 0 ? partId : paper.parts[0];
+  return paper.routeTemplate.replace(/\{part\}/g, encodeURIComponent(targetPart));
+}
+
+function getWalkthroughPaperStartHref(paper, preferredPart) {
+  if (!paper || !paper.parts.length) {
+    return "";
+  }
+
+  const partId = paper.parts.indexOf(preferredPart) >= 0 ? preferredPart : paper.parts[0];
+  return getGuidedWalkthroughHref(getWalkthroughPartHref(paper, partId));
+}
+
+function getWalkthroughFileName(pathname) {
+  const parts = String(pathname || "").split("/");
+  return parts[parts.length - 1] || "index.html";
+}
+
+function walkthroughPaperUsesQuery(paper) {
+  return Boolean(paper && /\?q=\{part\}/.test(paper.routeTemplate));
+}
+
+function currentLocationMatchesWalkthroughPart(paper, partId) {
+  if (!paper || !partId) {
+    return false;
+  }
+
+  const targetUrl = new URL(getWalkthroughPartHref(paper, partId), window.location.href);
+  const currentFileName = getWalkthroughFileName(window.location.pathname);
+  const targetFileName = getWalkthroughFileName(targetUrl.pathname);
+
+  if (currentFileName !== targetFileName) {
+    return false;
+  }
+
+  if (walkthroughPaperUsesQuery(paper)) {
+    const currentPart = new URLSearchParams(window.location.search).get("q") || paper.parts[0];
+    return currentPart === partId;
+  }
+
+  return true;
+}
+
+function getWalkthroughCatalogEntries() {
+  const entries = [];
+
+  WALKTHROUGH_NAV_CATALOG.forEach(function (level) {
+    level.standards.forEach(function (standard) {
+      standard.papers.forEach(function (paper) {
+        entries.push({
+          level: level,
+          standard: standard,
+          paper: paper
+        });
+      });
+    });
+  });
+
+  return entries;
+}
+
+function findWalkthroughPaperById(paperId) {
+  return getWalkthroughCatalogEntries().find(function (entry) {
+    return entry.paper.id === paperId;
+  }) || null;
+}
+
+function findWalkthroughPaperByBackHref(backHref) {
+  if (!backHref) {
+    return null;
+  }
+
+  const hash = new URL(backHref, window.location.href).hash.replace(/^#/, "");
+  return hash ? findWalkthroughPaperById(hash) : null;
+}
+
+function getWalkthroughPartFromText(value) {
+  const match = String(value || "").match(/Question\s+([123])\s*\(?([a-e])\)?|([123])\s*\(([a-e])\)/i);
+
+  if (!match) {
+    return null;
+  }
+
+  return (match[1] || match[3]) + (match[2] || match[4]).toLowerCase();
+}
+
+function findCurrentWalkthroughContext(config) {
+  const entries = getWalkthroughCatalogEntries();
+
+  for (let entryIndex = 0; entryIndex < entries.length; entryIndex += 1) {
+    const entry = entries[entryIndex];
+
+    for (let partIndex = 0; partIndex < entry.paper.parts.length; partIndex += 1) {
+      const partId = entry.paper.parts[partIndex];
+
+      if (currentLocationMatchesWalkthroughPart(entry.paper, partId)) {
+        return Object.assign({ partId: partId }, entry);
+      }
+    }
+  }
+
+  const backHref = config && config.backHref
+    ? config.backHref
+    : (document.getElementById("back-link") || document.querySelector(".topbar .ghost-link") || {}).href;
+  const paperEntry = findWalkthroughPaperByBackHref(backHref);
+  const titleText = config && config.title
+    ? config.title
+    : (document.getElementById("page-title") || document.querySelector(".topbar h1") || {}).textContent;
+  const partId = getWalkthroughPartFromText(titleText);
+
+  if (paperEntry && partId && paperEntry.paper.parts.indexOf(partId) >= 0) {
+    return Object.assign({ partId: partId }, paperEntry);
+  }
+
+  return null;
+}
+
+function getWalkthroughSidebarStoredPreference() {
+  try {
+    const storedPreference = window.localStorage.getItem(WALKTHROUGH_SIDEBAR_STORAGE_KEY);
+
+    if (storedPreference === "true" || storedPreference === "false") {
+      walkthroughSidebarPreferenceFallback = storedPreference === "true";
+      return walkthroughSidebarPreferenceFallback;
+    }
+  } catch (error) {
+    return walkthroughSidebarPreferenceFallback;
+  }
+
+  return walkthroughSidebarPreferenceFallback;
+}
+
+function setWalkthroughSidebarStoredPreference(isVisible) {
+  walkthroughSidebarPreferenceFallback = isVisible;
+
+  try {
+    window.localStorage.setItem(WALKTHROUGH_SIDEBAR_STORAGE_KEY, isVisible ? "true" : "false");
+  } catch (error) {
+    // The current page still reflects the preference when storage is unavailable.
+  }
+}
+
+function isWalkthroughSidebarDesktop() {
+  return typeof window.matchMedia !== "function"
+    || window.matchMedia("(min-width: 981px)").matches;
+}
+
+function shouldShowWalkthroughSidebarByDefault() {
+  const storedPreference = getWalkthroughSidebarStoredPreference();
+  return storedPreference === null ? isWalkthroughSidebarDesktop() : storedPreference;
+}
+
+function setWalkthroughSidebarInteractivity(sidebar, isVisible) {
+  if (!sidebar) {
+    return;
+  }
+
+  sidebar.setAttribute("aria-hidden", isVisible ? "false" : "true");
+
+  if ("inert" in sidebar) {
+    sidebar.inert = !isVisible;
+    return;
+  }
+
+  sidebar.querySelectorAll("a, button").forEach(function (control) {
+    if (!control.dataset.originalTabIndex && control.hasAttribute("tabindex")) {
+      control.dataset.originalTabIndex = control.getAttribute("tabindex");
+    }
+
+    if (isVisible) {
+      if (control.dataset.originalTabIndex) {
+        control.setAttribute("tabindex", control.dataset.originalTabIndex);
+      } else {
+        control.removeAttribute("tabindex");
+      }
+    } else {
+      control.setAttribute("tabindex", "-1");
+    }
+  });
+}
+
+function setWalkthroughSidebarVisible(isVisible, options) {
+  const settings = options || {};
+  const body = document.body;
+  const sidebar = document.getElementById("walkthrough-sidebar");
+  const toggle = document.getElementById("walkthrough-sidebar-toggle");
+  const backdrop = document.getElementById("walkthrough-sidebar-backdrop");
+
+  if (!body || !sidebar) {
+    return;
+  }
+
+  if (settings.persist) {
+    setWalkthroughSidebarStoredPreference(isVisible);
+  }
+
+  body.classList.toggle("walkthrough-nav-visible", isVisible);
+  body.classList.toggle("walkthrough-nav-hidden", !isVisible);
+  body.classList.toggle("walkthrough-nav-mobile-open", isVisible && !isWalkthroughSidebarDesktop());
+  setWalkthroughSidebarInteractivity(sidebar, isVisible);
+
+  if (toggle) {
+    toggle.setAttribute("aria-expanded", isVisible ? "true" : "false");
+    toggle.textContent = isVisible ? "Hide navigation" : "Show navigation";
+    toggle.setAttribute("aria-label", toggle.textContent);
+  }
+
+  if (backdrop) {
+    backdrop.hidden = !isVisible || isWalkthroughSidebarDesktop();
+  }
+}
+
+function syncWalkthroughSidebarState() {
+  setWalkthroughSidebarVisible(shouldShowWalkthroughSidebarByDefault(), { persist: false });
+}
+
+function ensureWalkthroughLayout(app) {
+  if (!app || app.closest(".walkthrough-layout")) {
+    return app ? app.closest(".walkthrough-layout") : null;
+  }
+
+  const layout = document.createElement("div");
+  layout.id = "walkthrough-layout";
+  layout.className = "walkthrough-layout";
+  app.parentNode.insertBefore(layout, app);
+  layout.appendChild(app);
+  app.classList.add("walkthrough-main");
+
+  return layout;
+}
+
+function ensureWalkthroughSidebarToggle(app) {
+  let toggle = document.getElementById("walkthrough-sidebar-toggle");
+
+  if (!toggle) {
+    toggle = document.createElement("button");
+    toggle.id = "walkthrough-sidebar-toggle";
+    toggle.className = "ghost-link walkthrough-sidebar-toggle";
+    toggle.type = "button";
+    toggle.setAttribute("aria-controls", "walkthrough-sidebar");
+    toggle.addEventListener("click", function () {
+      const nextVisible = !document.body.classList.contains("walkthrough-nav-visible");
+      setWalkthroughSidebarVisible(nextVisible, { persist: true });
+    });
+  }
+
+  const topbar = app ? app.querySelector(".topbar") : null;
+
+  if (!topbar) {
+    if (app && toggle.parentNode !== app) {
+      app.insertBefore(toggle, app.firstChild);
+    }
+    return toggle;
+  }
+
+  let actions = topbar.querySelector(".walkthrough-topbar-actions");
+
+  if (!actions) {
+    actions = document.createElement("div");
+    actions.className = "walkthrough-topbar-actions";
+
+    Array.from(topbar.children).forEach(function (child) {
+      if (child.matches(".ghost-link") || child.id === "back-link") {
+        actions.appendChild(child);
+      }
+    });
+
+    topbar.appendChild(actions);
+  }
+
+  if (!actions.contains(toggle)) {
+    actions.appendChild(toggle);
+  }
+
+  return toggle;
+}
+
+function renderWalkthroughSidebarLink(item) {
+  const current = item.current ? ' aria-current="' + (item.currentValue || "location") + '"' : "";
+  const className = "walkthrough-sidebar-link" + (item.current ? " is-current" : "");
+  const ariaLabel = item.ariaLabel ? ' aria-label="' + escapeWalkthroughSidebarHtml(item.ariaLabel) + '"' : "";
+
+  return `<a class="${className}" href="${escapeWalkthroughSidebarHtml(item.href)}"${current}${ariaLabel} data-close-walkthrough-sidebar>${escapeWalkthroughSidebarHtml(item.label)}</a>`;
+}
+
+function renderWalkthroughPartGroups(context) {
+  const groups = [];
+
+  context.paper.parts.forEach(function (partId) {
+    const questionNumber = partId.charAt(0);
+    let group = groups.find(function (existingGroup) {
+      return existingGroup.questionNumber === questionNumber;
+    });
+
+    if (!group) {
+      group = {
+        questionNumber: questionNumber,
+        parts: []
+      };
+      groups.push(group);
+    }
+
+    group.parts.push(partId);
+  });
+
+  return groups.map(function (group) {
+    return `
+      <div class="walkthrough-sidebar-question-group">
+        <p class="walkthrough-sidebar-question-label">Question ${escapeWalkthroughSidebarHtml(group.questionNumber)}</p>
+        <div class="walkthrough-sidebar-part-grid">
+          ${group.parts.map(function (partId) {
+            const current = partId === context.partId;
+            const href = getGuidedWalkthroughHref(getWalkthroughPartHref(context.paper, partId));
+            return renderWalkthroughSidebarLink({
+              href: href,
+              label: walkthroughPartLabel(partId),
+              current: current,
+              currentValue: "page",
+              ariaLabel: walkthroughQuestionLabel(partId) + ", " + context.paper.year + " " + context.standard.label
+            });
+          }).join("")}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function buildWalkthroughSidebarHtml(context) {
+  const levelLinks = WALKTHROUGH_NAV_CATALOG.map(function (level) {
+    return renderWalkthroughSidebarLink({
+      href: level.indexHref,
+      label: level.label,
+      current: level.id === context.level.id
+    });
+  }).join("");
+  const standardLinks = context.level.standards.map(function (standard) {
+    return renderWalkthroughSidebarLink({
+      href: standard.indexHref,
+      label: standard.label,
+      current: standard.id === context.standard.id
+    });
+  }).join("");
+  const paperLinks = context.standard.papers.map(function (paper) {
+    return renderWalkthroughSidebarLink({
+      href: getWalkthroughPaperStartHref(paper, context.partId),
+      label: String(paper.year),
+      current: paper.id === context.paper.id,
+      ariaLabel: paper.year + " " + context.standard.label + " paper"
+    });
+  }).join("");
+
+  return `
+    <div class="walkthrough-sidebar-header">
+      <p class="question-label">Navigation</p>
+      <p class="walkthrough-sidebar-current">${escapeWalkthroughSidebarHtml(context.level.label)} &middot; ${escapeWalkthroughSidebarHtml(context.standard.label)} &middot; ${escapeWalkthroughSidebarHtml(String(context.paper.year))}</p>
+    </div>
+    <nav class="walkthrough-sidebar-nav" aria-label="Walkthrough navigation">
+      <section class="walkthrough-sidebar-section" aria-labelledby="walkthrough-nav-level">
+        <p id="walkthrough-nav-level" class="walkthrough-sidebar-section-title">Level</p>
+        <div class="walkthrough-sidebar-link-list">${levelLinks}</div>
+      </section>
+      <section class="walkthrough-sidebar-section" aria-labelledby="walkthrough-nav-standard">
+        <p id="walkthrough-nav-standard" class="walkthrough-sidebar-section-title">Standard</p>
+        <div class="walkthrough-sidebar-link-list">${standardLinks}</div>
+      </section>
+      <section class="walkthrough-sidebar-section" aria-labelledby="walkthrough-nav-paper">
+        <p id="walkthrough-nav-paper" class="walkthrough-sidebar-section-title">Year</p>
+        <div class="walkthrough-sidebar-year-list">${paperLinks}</div>
+      </section>
+      <section class="walkthrough-sidebar-section" aria-labelledby="walkthrough-nav-parts">
+        <p id="walkthrough-nav-parts" class="walkthrough-sidebar-section-title">Questions</p>
+        ${renderWalkthroughPartGroups(context)}
+      </section>
+    </nav>
+  `;
+}
+
+function ensureWalkthroughSidebar(config) {
+  const app = document.querySelector("main.app:not(.home-app)");
+  const context = findCurrentWalkthroughContext(config);
+
+  if (!app || !context) {
+    return false;
+  }
+
+  const layout = ensureWalkthroughLayout(app);
+  let sidebar = document.getElementById("walkthrough-sidebar");
+
+  if (!sidebar) {
+    sidebar = document.createElement("aside");
+    sidebar.id = "walkthrough-sidebar";
+    sidebar.className = "walkthrough-sidebar";
+    sidebar.setAttribute("aria-label", "Walkthrough navigation");
+    layout.insertBefore(sidebar, app);
+  }
+
+  sidebar.innerHTML = buildWalkthroughSidebarHtml(context);
+
+  let backdrop = document.getElementById("walkthrough-sidebar-backdrop");
+  if (!backdrop) {
+    backdrop = document.createElement("button");
+    backdrop.id = "walkthrough-sidebar-backdrop";
+    backdrop.className = "walkthrough-sidebar-backdrop";
+    backdrop.type = "button";
+    backdrop.hidden = true;
+    backdrop.setAttribute("aria-label", "Close navigation");
+    document.body.appendChild(backdrop);
+    backdrop.addEventListener("click", function () {
+      setWalkthroughSidebarVisible(false, { persist: true });
+    });
+  }
+
+  ensureWalkthroughSidebarToggle(app);
+  syncWalkthroughSidebarState();
+
+  if (sidebar.dataset.sidebarSetup !== "true") {
+    sidebar.dataset.sidebarSetup = "true";
+    sidebar.addEventListener("click", function (event) {
+      const link = event.target.closest("[data-close-walkthrough-sidebar]");
+      if (link && !isWalkthroughSidebarDesktop()) {
+        setWalkthroughSidebarVisible(false, { persist: true });
+      }
+    });
+  }
+
+  if (document.body.dataset.walkthroughSidebarSetup !== "true") {
+    document.body.dataset.walkthroughSidebarSetup = "true";
+    window.addEventListener("resize", syncWalkthroughSidebarState);
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && document.body.classList.contains("walkthrough-nav-visible")) {
+        setWalkthroughSidebarVisible(false, { persist: true });
+        const toggle = document.getElementById("walkthrough-sidebar-toggle");
+        if (toggle) {
+          toggle.focus();
+        }
+      }
+    });
+  }
+
+  return true;
+}
+
 function renderPartNavigation(config, questionCard) {
   const items = config && Array.isArray(config.partNavigation)
     ? config.partNavigation
@@ -576,6 +1133,7 @@ function attachLegacySingleStepNavigation(walkthroughContent, options) {
 
 function initializeWalkthroughGate(config) {
   ensureSiteHeader();
+  ensureWalkthroughSidebar(config);
 
   const hintsCard = document.getElementById("hints-card");
   const walkthroughContent = document.getElementById("walkthrough-content");
@@ -1628,6 +2186,7 @@ function initializeProgressiveWalkthrough(config, options) {
   pageTitle.textContent = normalisedConfig.title || pageTitle.textContent;
   subtitle.textContent = normalisedConfig.subtitle || subtitle.textContent;
   backLink.href = normalisedConfig.backHref || backLink.href;
+  ensureWalkthroughSidebar(normalisedConfig);
 
   questionCard.classList.add("sticky-question-card");
   questionCard.innerHTML = buildQuestionCardHtml(normalisedConfig);
