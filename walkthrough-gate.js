@@ -338,6 +338,7 @@ const WALKTHROUGH_NAV_L2_CALCULUS_PARTS = [
   "3a", "3b", "3c", "3d"
 ];
 const WALKTHROUGH_NAV_YEARS = [2025, 2024, 2023, 2022, 2021, 2020];
+const WALKTHROUGH_NAV_DIFFERENTIATION_YEARS = [2025, 2024, 2023, 2022, 2021, 2020, 2019];
 let walkthroughSidebarPreferenceFallback = null;
 let walkthroughProgressFallback = {};
 
@@ -400,7 +401,7 @@ const WALKTHROUGH_NAV_CATALOG = [
         id: "level-3-differentiation",
         label: "Differentiation",
         indexHref: "index.html#level-3-differentiation",
-        papers: createWalkthroughYearPapers("level-3-differentiation", "{part}{year}.html")
+        papers: createWalkthroughYearPapers("level-3-differentiation", "{part}{year}.html", WALKTHROUGH_NAV_DIFFERENTIATION_YEARS)
       },
       {
         id: "level-3-integration",
