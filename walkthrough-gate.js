@@ -342,6 +342,7 @@ const WALKTHROUGH_NAV_L2_CALCULUS_PARTS = [
 ];
 const WALKTHROUGH_NAV_YEARS = [2025, 2024, 2023, 2022, 2021, 2020];
 const WALKTHROUGH_NAV_DIFFERENTIATION_YEARS = [2025, 2024, 2023, 2022, 2021, 2020, 2019];
+const WALKTHROUGH_NAV_INTEGRATION_YEARS = [2025, 2024, 2023, 2022, 2021, 2020, 2019];
 let walkthroughSidebarPreferenceFallback = null;
 let walkthroughProgressFallback = {};
 let walkthroughLastVisitedFallback = null;
@@ -412,7 +413,7 @@ const WALKTHROUGH_NAV_CATALOG = [
         id: "level-3-integration",
         label: "Integration",
         indexHref: "index.html#level-3-integration",
-        papers: createWalkthroughYearPapers("level-3-integration", "int-{part}{year}.html")
+        papers: createWalkthroughYearPapers("level-3-integration", "int-{part}{year}.html", WALKTHROUGH_NAV_INTEGRATION_YEARS)
       },
       {
         id: "level-3-complex",
