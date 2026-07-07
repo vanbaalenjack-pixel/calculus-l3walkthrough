@@ -231,6 +231,12 @@ h1 {
   text-wrap: balance;
 }
 
+.walkthrough-main .topbar h1 {
+  font-size: 2.45rem;
+  line-height: 1.06;
+  letter-spacing: 0;
+}
+
 .subtitle {
   max-width: 48ch;
   margin: 16px 0 0;
@@ -692,6 +698,10 @@ h1 {
   padding: 20px 22px;
 }
 
+body.walkthrough-nav-visible .walkthrough-part-navigation {
+  display: none;
+}
+
 .walkthrough-part-navigation .question-label {
   margin-bottom: 0;
 }
@@ -748,6 +758,18 @@ body.walkthrough-nav-hidden .walkthrough-sidebar {
   cursor: pointer;
 }
 
+.walkthrough-sidebar-toggle[hidden] {
+  display: none;
+}
+
+.walkthrough-sidebar-close-toggle {
+  min-width: 0;
+  min-height: 42px;
+  padding: 10px 13px;
+  border-radius: 14px;
+  font-size: 0.86rem;
+}
+
 .walkthrough-sidebar {
   position: sticky;
   top: calc(var(--site-header-height) + 20px);
@@ -764,9 +786,15 @@ body.walkthrough-nav-hidden .walkthrough-sidebar {
 }
 
 .walkthrough-sidebar-header {
+  display: grid;
+  gap: 12px;
   margin-bottom: 18px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border);
+}
+
+.walkthrough-sidebar-header-copy {
+  min-width: 0;
 }
 
 .walkthrough-sidebar-header .question-label {
@@ -830,6 +858,7 @@ body.walkthrough-nav-hidden .walkthrough-sidebar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   min-width: 0;
   min-height: 38px;
   padding: 8px 10px;
@@ -843,6 +872,38 @@ body.walkthrough-nav-hidden .walkthrough-sidebar {
   text-align: center;
   text-decoration: none;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+}
+
+.walkthrough-sidebar-link[data-walkthrough-sidebar-part]::after {
+  content: "";
+  display: none;
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.walkthrough-sidebar-link.is-visited::after {
+  display: block;
+  border: 1px solid rgba(70, 111, 216, 0.42);
+  background: rgba(70, 111, 216, 0.08);
+}
+
+.walkthrough-sidebar-link.is-complete::after {
+  display: block;
+  border: 0;
+  background: #1f9d55;
+  box-shadow: 0 0 0 3px rgba(31, 157, 85, 0.12);
+}
+
+.walkthrough-sidebar-link.is-current.is-visited::after {
+  border-color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.walkthrough-sidebar-link.is-current.is-complete::after {
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.22);
 }
 
 .walkthrough-sidebar-link:hover {
@@ -2528,6 +2589,10 @@ img.graph-svg {
     box-shadow: var(--shadow-lift);
   }
 
+  .walkthrough-sidebar-close-toggle {
+    width: 100%;
+  }
+
   .walkthrough-topbar-actions {
     justify-content: flex-start;
   }
@@ -2646,6 +2711,10 @@ img.graph-svg {
   .topbar {
     flex-direction: column;
     padding: 24px 22px;
+  }
+
+  .walkthrough-main .topbar h1 {
+    font-size: 2rem;
   }
 
   .walkthrough-layout,

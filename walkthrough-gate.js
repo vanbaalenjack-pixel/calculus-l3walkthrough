@@ -238,7 +238,7 @@ function ensureStickyQuestionPreferenceControl(questionCard) {
       <label class="walkthrough-setting-toggle" for="sticky-question-setting">
         <input id="sticky-question-setting" type="checkbox" />
         <span class="walkthrough-setting-switch" aria-hidden="true"></span>
-        <span class="walkthrough-setting-label">Keep question visible while scrolling</span>
+        <span class="walkthrough-setting-label">Pin question while scrolling</span>
       </label>
       <span id="sticky-question-setting-status" class="walkthrough-setting-status" aria-live="polite"></span>
     `;
@@ -326,6 +326,7 @@ function carryGuidedModeToQuestionLinks(root) {
 }
 
 const WALKTHROUGH_SIDEBAR_STORAGE_KEY = "calc.nz.walkthroughSidebarVisible";
+const WALKTHROUGH_PROGRESS_STORAGE_KEY = "calc.nz.walkthroughSessionProgress";
 const WALKTHROUGH_NAV_PARTS = [
   "1a", "1b", "1c", "1d", "1e",
   "2a", "2b", "2c", "2d", "2e",
@@ -338,6 +339,7 @@ const WALKTHROUGH_NAV_L2_CALCULUS_PARTS = [
 ];
 const WALKTHROUGH_NAV_YEARS = [2025, 2024, 2023, 2022, 2021, 2020];
 let walkthroughSidebarPreferenceFallback = null;
+let walkthroughProgressFallback = {};
 
 function createWalkthroughPaper(id, year, routeTemplate, parts) {
   return {
@@ -433,6 +435,161 @@ function walkthroughPartLabel(partId) {
 
 function walkthroughQuestionLabel(partId) {
   return "Question " + walkthroughPartLabel(partId);
+}
+
+function getWalkthroughProgressStorage() {
+  try {
+    return window.sessionStorage;
+  } catch (error) {
+    return null;
+  }
+}
+
+function readWalkthroughProgressMap() {
+  const storage = getWalkthroughProgressStorage();
+
+  if (!storage) {
+    return walkthroughProgressFallback;
+  }
+
+  try {
+    const storedProgress = storage.getItem(WALKTHROUGH_PROGRESS_STORAGE_KEY);
+    const parsedProgress = storedProgress ? JSON.parse(storedProgress) : {};
+
+    if (parsedProgress && typeof parsedProgress === "object" && !Array.isArray(parsedProgress)) {
+      walkthroughProgressFallback = parsedProgress;
+      return parsedProgress;
+    }
+  } catch (error) {
+    return walkthroughProgressFallback;
+  }
+
+  return walkthroughProgressFallback;
+}
+
+function writeWalkthroughProgressMap(progressMap) {
+  walkthroughProgressFallback = progressMap;
+
+  const storage = getWalkthroughProgressStorage();
+  if (!storage) {
+    return;
+  }
+
+  try {
+    storage.setItem(WALKTHROUGH_PROGRESS_STORAGE_KEY, JSON.stringify(progressMap));
+  } catch (error) {
+    // Session indicators are optional; keep the in-memory copy when storage is unavailable.
+  }
+}
+
+function getWalkthroughProgressKey(context, partId) {
+  if (!context || !context.paper || !partId) {
+    return "";
+  }
+
+  return context.paper.id + ":" + partId;
+}
+
+function getWalkthroughPartProgressState(context, partId) {
+  const key = getWalkthroughProgressKey(context, partId);
+  const progressMap = readWalkthroughProgressMap();
+
+  return key && progressMap[key] && typeof progressMap[key] === "object"
+    ? progressMap[key]
+    : {};
+}
+
+function getWalkthroughPartProgressLabel(state) {
+  if (state && state.completed) {
+    return "Completed this session";
+  }
+
+  if (state && state.visited) {
+    return "Visited this session";
+  }
+
+  return "";
+}
+
+function getWalkthroughPartProgressClass(state) {
+  if (state && state.completed) {
+    return " is-complete";
+  }
+
+  if (state && state.visited) {
+    return " is-visited";
+  }
+
+  return "";
+}
+
+function applyWalkthroughProgressStateToLink(link, state) {
+  if (!link) {
+    return;
+  }
+
+  const progressLabel = getWalkthroughPartProgressLabel(state);
+  const baseAriaLabel = link.dataset.baseAriaLabel || String(link.textContent || "").trim();
+
+  link.classList.toggle("is-visited", Boolean(state && state.visited));
+  link.classList.toggle("is-complete", Boolean(state && state.completed));
+  link.dataset.progressState = state && state.completed
+    ? "complete"
+    : state && state.visited
+      ? "visited"
+      : "";
+
+  if (baseAriaLabel) {
+    link.setAttribute("aria-label", progressLabel ? baseAriaLabel + ", " + progressLabel.toLowerCase() : baseAriaLabel);
+  }
+}
+
+function updateWalkthroughSidebarProgressIndicators(context) {
+  const sidebar = document.getElementById("walkthrough-sidebar");
+
+  if (!sidebar || !context) {
+    return;
+  }
+
+  sidebar.querySelectorAll("[data-walkthrough-sidebar-part]").forEach(function (link) {
+    const partId = link.dataset.walkthroughSidebarPart;
+    applyWalkthroughProgressStateToLink(link, getWalkthroughPartProgressState(context, partId));
+  });
+}
+
+function markWalkthroughPartProgress(context, partId, updates) {
+  const key = getWalkthroughProgressKey(context, partId);
+
+  if (!key) {
+    return;
+  }
+
+  const progressMap = Object.assign({}, readWalkthroughProgressMap());
+  const currentState = Object.assign({}, progressMap[key] || {});
+  const now = String(Date.now());
+
+  if (updates && updates.visited) {
+    currentState.visited = true;
+    currentState.visitedAt = currentState.visitedAt || now;
+  }
+
+  if (updates && updates.completed) {
+    currentState.visited = true;
+    currentState.completed = true;
+    currentState.completedAt = now;
+  }
+
+  progressMap[key] = currentState;
+  writeWalkthroughProgressMap(progressMap);
+  updateWalkthroughSidebarProgressIndicators(context);
+}
+
+function markCurrentWalkthroughPartComplete() {
+  const context = window.__walkthroughCurrentContext || findCurrentWalkthroughContext(window.__walkthroughCurrentConfig);
+
+  if (context) {
+    markWalkthroughPartProgress(context, context.partId, { visited: true, completed: true });
+  }
 }
 
 function getWalkthroughPartHref(paper, partId) {
@@ -557,6 +714,65 @@ function findCurrentWalkthroughContext(config) {
   return null;
 }
 
+function escapeWalkthroughRegExp(value) {
+  return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function getWalkthroughHeaderTitle(context) {
+  if (!context) {
+    return "";
+  }
+
+  return context.paper.year + " " + context.standard.label + " \u00b7 " + walkthroughQuestionLabel(context.partId);
+}
+
+function getWalkthroughHeaderSubtitle(context, sourceSubtitle) {
+  if (!context) {
+    return String(sourceSubtitle || "").trim();
+  }
+
+  const source = String(sourceSubtitle || "").trim();
+  const year = String(context.paper.year);
+  const standard = context.standard.label;
+  const base = context.level.label + " " + standard;
+  const separatorPattern = "(?:\\s*(?:-|\\u2013|\\u2014)\\s*)?";
+  let detail = source
+    .replace(new RegExp("^" + escapeWalkthroughRegExp(year) + "\\s+Paper" + separatorPattern, "i"), "")
+    .replace(new RegExp("^" + escapeWalkthroughRegExp(year) + "\\s+" + escapeWalkthroughRegExp(standard) + separatorPattern, "i"), "")
+    .trim();
+
+  if (!detail || /^paper$/i.test(detail)) {
+    return base + " walkthrough";
+  }
+
+  return base + " \u00b7 " + detail;
+}
+
+function syncWalkthroughPageHeaderContext(context, config) {
+  const app = document.querySelector("main.app:not(.home-app)");
+  const pageTitle = document.getElementById("page-title") || (app && app.querySelector(".topbar h1"));
+  const subtitle = document.getElementById("page-subtitle") || (app && app.querySelector(".topbar .subtitle"));
+
+  if (pageTitle && !pageTitle.dataset.walkthroughOriginalTitle) {
+    pageTitle.dataset.walkthroughOriginalTitle = pageTitle.textContent || "";
+  }
+
+  if (subtitle && !subtitle.dataset.walkthroughOriginalSubtitle) {
+    subtitle.dataset.walkthroughOriginalSubtitle = subtitle.textContent || "";
+  }
+
+  if (pageTitle) {
+    pageTitle.textContent = getWalkthroughHeaderTitle(context) || pageTitle.textContent;
+  }
+
+  if (subtitle) {
+    subtitle.textContent = getWalkthroughHeaderSubtitle(
+      context,
+      config && config.subtitle ? config.subtitle : subtitle.dataset.walkthroughOriginalSubtitle
+    );
+  }
+}
+
 function getWalkthroughSidebarStoredPreference() {
   try {
     const storedPreference = window.localStorage.getItem(WALKTHROUGH_SIDEBAR_STORAGE_KEY);
@@ -588,8 +804,12 @@ function isWalkthroughSidebarDesktop() {
 }
 
 function shouldShowWalkthroughSidebarByDefault() {
+  if (!isWalkthroughSidebarDesktop()) {
+    return false;
+  }
+
   const storedPreference = getWalkthroughSidebarStoredPreference();
-  return storedPreference === null ? isWalkthroughSidebarDesktop() : storedPreference;
+  return storedPreference === null ? true : storedPreference;
 }
 
 function setWalkthroughSidebarInteractivity(sidebar, isVisible) {
@@ -625,7 +845,8 @@ function setWalkthroughSidebarVisible(isVisible, options) {
   const settings = options || {};
   const body = document.body;
   const sidebar = document.getElementById("walkthrough-sidebar");
-  const toggle = document.getElementById("walkthrough-sidebar-toggle");
+  const openToggle = document.getElementById("walkthrough-sidebar-open-toggle");
+  const closeToggle = document.getElementById("walkthrough-sidebar-close-toggle");
   const backdrop = document.getElementById("walkthrough-sidebar-backdrop");
 
   if (!body || !sidebar) {
@@ -641,10 +862,17 @@ function setWalkthroughSidebarVisible(isVisible, options) {
   body.classList.toggle("walkthrough-nav-mobile-open", isVisible && !isWalkthroughSidebarDesktop());
   setWalkthroughSidebarInteractivity(sidebar, isVisible);
 
-  if (toggle) {
-    toggle.setAttribute("aria-expanded", isVisible ? "true" : "false");
-    toggle.textContent = isVisible ? "Hide navigation" : "Show navigation";
-    toggle.setAttribute("aria-label", toggle.textContent);
+  if (openToggle) {
+    openToggle.hidden = isVisible;
+    openToggle.setAttribute("aria-expanded", isVisible ? "true" : "false");
+    openToggle.textContent = "Show navigation";
+    openToggle.setAttribute("aria-label", "Show navigation");
+  }
+
+  if (closeToggle) {
+    closeToggle.setAttribute("aria-expanded", isVisible ? "true" : "false");
+    closeToggle.textContent = "Hide navigation";
+    closeToggle.setAttribute("aria-label", "Hide navigation");
   }
 
   if (backdrop) {
@@ -654,6 +882,72 @@ function setWalkthroughSidebarVisible(isVisible, options) {
 
 function syncWalkthroughSidebarState() {
   setWalkthroughSidebarVisible(shouldShowWalkthroughSidebarByDefault(), { persist: false });
+}
+
+function isWalkthroughShortcutSuppressed(event) {
+  const target = event && event.target;
+
+  if (!event || event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) {
+    return true;
+  }
+
+  if (!target || typeof target.closest !== "function") {
+    return false;
+  }
+
+  return Boolean(target.closest("input, textarea, select, button, a, [contenteditable='true'], [role='button'], [role='link']"));
+}
+
+function getCurrentWalkthroughContext() {
+  return window.__walkthroughCurrentContext || findCurrentWalkthroughContext(window.__walkthroughCurrentConfig);
+}
+
+function getAdjacentWalkthroughPartHref(offset) {
+  const context = getCurrentWalkthroughContext();
+
+  if (!context || !context.paper || !Array.isArray(context.paper.parts)) {
+    return "";
+  }
+
+  const currentIndex = context.paper.parts.indexOf(context.partId);
+  if (currentIndex < 0) {
+    return "";
+  }
+
+  const targetPart = context.paper.parts[currentIndex + offset];
+
+  return targetPart ? getGuidedWalkthroughHref(getWalkthroughPartHref(context.paper, targetPart)) : "";
+}
+
+function navigateAdjacentWalkthroughPart(offset) {
+  const href = getAdjacentWalkthroughPartHref(offset);
+
+  if (!href) {
+    return false;
+  }
+
+  window.location.href = href;
+  return true;
+}
+
+function toggleCurrentWalkthroughWorking() {
+  const currentProgressiveStep = document.querySelector(".walkthrough-step-card:not(.hidden)");
+  const progressiveButton = currentProgressiveStep && currentProgressiveStep.querySelector(".step-working-btn");
+
+  if (progressiveButton) {
+    progressiveButton.click();
+    return true;
+  }
+
+  const currentLegacyStep = document.querySelector(".legacy-managed-step:not(.hidden)");
+  const legacyButton = currentLegacyStep && currentLegacyStep.querySelector(".legacy-working-toggle");
+
+  if (legacyButton) {
+    legacyButton.click();
+    return true;
+  }
+
+  return false;
 }
 
 function ensureWalkthroughLayout(app) {
@@ -672,27 +966,29 @@ function ensureWalkthroughLayout(app) {
 }
 
 function ensureWalkthroughSidebarToggle(app) {
-  let toggle = document.getElementById("walkthrough-sidebar-toggle");
+  let openToggle = document.getElementById("walkthrough-sidebar-open-toggle");
 
-  if (!toggle) {
-    toggle = document.createElement("button");
-    toggle.id = "walkthrough-sidebar-toggle";
-    toggle.className = "ghost-link walkthrough-sidebar-toggle";
-    toggle.type = "button";
-    toggle.setAttribute("aria-controls", "walkthrough-sidebar");
-    toggle.addEventListener("click", function () {
-      const nextVisible = !document.body.classList.contains("walkthrough-nav-visible");
-      setWalkthroughSidebarVisible(nextVisible, { persist: true });
+  if (!openToggle) {
+    openToggle = document.createElement("button");
+    openToggle.id = "walkthrough-sidebar-open-toggle";
+    openToggle.className = "ghost-link walkthrough-sidebar-toggle walkthrough-sidebar-open-toggle";
+    openToggle.type = "button";
+    openToggle.textContent = "Show navigation";
+    openToggle.setAttribute("aria-controls", "walkthrough-sidebar");
+    openToggle.setAttribute("aria-expanded", "false");
+    openToggle.setAttribute("aria-label", "Show navigation");
+    openToggle.addEventListener("click", function () {
+      setWalkthroughSidebarVisible(true, { persist: true });
     });
   }
 
   const topbar = app ? app.querySelector(".topbar") : null;
 
   if (!topbar) {
-    if (app && toggle.parentNode !== app) {
-      app.insertBefore(toggle, app.firstChild);
+    if (app && openToggle.parentNode !== app) {
+      app.insertBefore(openToggle, app.firstChild);
     }
-    return toggle;
+    return openToggle;
   }
 
   let actions = topbar.querySelector(".walkthrough-topbar-actions");
@@ -710,19 +1006,30 @@ function ensureWalkthroughSidebarToggle(app) {
     topbar.appendChild(actions);
   }
 
-  if (!actions.contains(toggle)) {
-    actions.appendChild(toggle);
+  if (!actions.contains(openToggle)) {
+    actions.appendChild(openToggle);
   }
 
-  return toggle;
+  return openToggle;
 }
 
 function renderWalkthroughSidebarLink(item) {
   const current = item.current ? ' aria-current="' + (item.currentValue || "location") + '"' : "";
-  const className = "walkthrough-sidebar-link" + (item.current ? " is-current" : "");
-  const ariaLabel = item.ariaLabel ? ' aria-label="' + escapeWalkthroughSidebarHtml(item.ariaLabel) + '"' : "";
+  const progressLabel = getWalkthroughPartProgressLabel(item.progressState);
+  const baseAriaLabel = item.ariaLabel || item.label;
+  const className = "walkthrough-sidebar-link"
+    + (item.current ? " is-current" : "")
+    + getWalkthroughPartProgressClass(item.progressState);
+  const ariaLabel = (item.ariaLabel || progressLabel)
+    ? ' aria-label="' + escapeWalkthroughSidebarHtml(baseAriaLabel + (progressLabel ? ", " + progressLabel.toLowerCase() : "")) + '"'
+    : "";
+  const partAttributes = item.partId
+    ? ' data-walkthrough-sidebar-part="' + escapeWalkthroughSidebarHtml(item.partId) + '"'
+      + ' data-base-aria-label="' + escapeWalkthroughSidebarHtml(baseAriaLabel) + '"'
+      + ' data-progress-state="' + escapeWalkthroughSidebarHtml(item.progressState && item.progressState.completed ? "complete" : item.progressState && item.progressState.visited ? "visited" : "") + '"'
+    : "";
 
-  return `<a class="${className}" href="${escapeWalkthroughSidebarHtml(item.href)}"${current}${ariaLabel} data-close-walkthrough-sidebar>${escapeWalkthroughSidebarHtml(item.label)}</a>`;
+  return `<a class="${className}" href="${escapeWalkthroughSidebarHtml(item.href)}"${current}${ariaLabel}${partAttributes} data-close-walkthrough-sidebar>${escapeWalkthroughSidebarHtml(item.label)}</a>`;
 }
 
 function renderWalkthroughPartGroups(context) {
@@ -756,6 +1063,8 @@ function renderWalkthroughPartGroups(context) {
             return renderWalkthroughSidebarLink({
               href: href,
               label: walkthroughPartLabel(partId),
+              partId: partId,
+              progressState: getWalkthroughPartProgressState(context, partId),
               current: current,
               currentValue: "page",
               ariaLabel: walkthroughQuestionLabel(partId) + ", " + context.paper.year + " " + context.standard.label
@@ -793,8 +1102,20 @@ function buildWalkthroughSidebarHtml(context) {
 
   return `
     <div class="walkthrough-sidebar-header">
-      <p class="question-label">Navigation</p>
-      <p class="walkthrough-sidebar-current">${escapeWalkthroughSidebarHtml(context.level.label)} &middot; ${escapeWalkthroughSidebarHtml(context.standard.label)} &middot; ${escapeWalkthroughSidebarHtml(String(context.paper.year))}</p>
+      <div class="walkthrough-sidebar-header-copy">
+        <p class="question-label">Navigation</p>
+        <p class="walkthrough-sidebar-current">${escapeWalkthroughSidebarHtml(context.level.label)} &middot; ${escapeWalkthroughSidebarHtml(context.standard.label)} &middot; ${escapeWalkthroughSidebarHtml(String(context.paper.year))}</p>
+      </div>
+      <button
+        id="walkthrough-sidebar-close-toggle"
+        class="ghost-link walkthrough-sidebar-toggle walkthrough-sidebar-close-toggle"
+        type="button"
+        aria-controls="walkthrough-sidebar"
+        aria-expanded="true"
+        aria-label="Hide navigation"
+      >
+        Hide navigation
+      </button>
     </div>
     <nav class="walkthrough-sidebar-nav" aria-label="Walkthrough navigation">
       <section class="walkthrough-sidebar-section" aria-labelledby="walkthrough-nav-level">
@@ -824,6 +1145,11 @@ function ensureWalkthroughSidebar(config) {
   if (!app || !context) {
     return false;
   }
+
+  window.__walkthroughCurrentConfig = config || null;
+  window.__walkthroughCurrentContext = context;
+  markWalkthroughPartProgress(context, context.partId, { visited: true });
+  syncWalkthroughPageHeaderContext(context, config);
 
   const layout = ensureWalkthroughLayout(app);
   let sidebar = document.getElementById("walkthrough-sidebar");
@@ -858,6 +1184,16 @@ function ensureWalkthroughSidebar(config) {
   if (sidebar.dataset.sidebarSetup !== "true") {
     sidebar.dataset.sidebarSetup = "true";
     sidebar.addEventListener("click", function (event) {
+      const closeToggle = event.target.closest("#walkthrough-sidebar-close-toggle");
+      if (closeToggle) {
+        setWalkthroughSidebarVisible(false, { persist: true });
+        const openToggle = document.getElementById("walkthrough-sidebar-open-toggle");
+        if (openToggle) {
+          openToggle.focus();
+        }
+        return;
+      }
+
       const link = event.target.closest("[data-close-walkthrough-sidebar]");
       if (link && !isWalkthroughSidebarDesktop()) {
         setWalkthroughSidebarVisible(false, { persist: true });
@@ -869,12 +1205,32 @@ function ensureWalkthroughSidebar(config) {
     document.body.dataset.walkthroughSidebarSetup = "true";
     window.addEventListener("resize", syncWalkthroughSidebarState);
     document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && document.body.classList.contains("walkthrough-nav-visible")) {
+      if (!event.defaultPrevented && event.key === "Escape" && document.body.classList.contains("walkthrough-nav-visible")) {
         setWalkthroughSidebarVisible(false, { persist: true });
-        const toggle = document.getElementById("walkthrough-sidebar-toggle");
-        if (toggle) {
-          toggle.focus();
+        const openToggle = document.getElementById("walkthrough-sidebar-open-toggle");
+        if (openToggle) {
+          openToggle.focus();
         }
+        event.preventDefault();
+        return;
+      }
+
+      if (isWalkthroughShortcutSuppressed(event)) {
+        return;
+      }
+
+      if (event.key === "ArrowLeft" && navigateAdjacentWalkthroughPart(-1)) {
+        event.preventDefault();
+        return;
+      }
+
+      if (event.key === "ArrowRight" && navigateAdjacentWalkthroughPart(1)) {
+        event.preventDefault();
+        return;
+      }
+
+      if ((event.key === " " || event.key === "Spacebar" || event.code === "Space") && toggleCurrentWalkthroughWorking()) {
+        event.preventDefault();
       }
     });
   }
@@ -1261,7 +1617,7 @@ function initializeWalkthroughGate(config) {
     controlsSection.appendChild(actionRow);
 
     if (pageBackLink) {
-      pageBackLink.classList.add("hidden");
+      pageBackLink.classList.remove("hidden");
     }
   }
 
@@ -1328,6 +1684,7 @@ function initializeWalkthroughGate(config) {
     answerCard.classList.remove("hidden");
     showAnswerButton.classList.add("hidden");
     nextQuestionLink.classList.remove("hidden");
+    markCurrentWalkthroughPartComplete();
     if (typeof renderMath === "function") {
       renderMath(answerCard);
     }
@@ -2136,6 +2493,7 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
       if (!walkthroughComplete && stepCards[currentStepIndex]) {
         setWorkingVisibility(currentStepIndex, true, false);
         walkthroughComplete = true;
+        markCurrentWalkthroughPartComplete();
         updateProgressUi();
         moveToCurrentStep(false);
       }
