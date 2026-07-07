@@ -44,6 +44,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const breadcrumb = document.querySelector("[data-selection-breadcrumb]");
   const selectionStatus = document.querySelector("[data-selection-status]");
   let activeSelection = { level: null, standard: null, paper: null, paperView: null };
+  const homepageStorageKeys = {
+    progress: window.CalcNzWalkthrough && window.CalcNzWalkthrough.progressStorageKey
+      ? window.CalcNzWalkthrough.progressStorageKey
+      : "calc.nz.walkthroughProgress",
+    lastVisited: window.CalcNzWalkthrough && window.CalcNzWalkthrough.lastVisitedStorageKey
+      ? window.CalcNzWalkthrough.lastVisitedStorageKey
+      : "calc.nz.lastWalkthrough"
+  };
 
   if (window.history && "scrollRestoration" in window.history) {
     window.history.scrollRestoration = "manual";
@@ -97,6 +105,104 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     return getChoiceLabel("paper", paper).replace(/\s+Paper$/i, "");
+  }
+
+  function escapeHomeHtml(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function readHomepageJsonStorage(key, fallbackValue) {
+    try {
+      const storedValue = window.localStorage.getItem(key);
+      const parsedValue = storedValue ? JSON.parse(storedValue) : fallbackValue;
+
+      return parsedValue && typeof parsedValue === "object" && !Array.isArray(parsedValue)
+        ? parsedValue
+        : fallbackValue;
+    } catch (error) {
+      return fallbackValue;
+    }
+  }
+
+  function readHomepageProgressMap() {
+    if (window.CalcNzWalkthrough && typeof window.CalcNzWalkthrough.readProgressMap === "function") {
+      return window.CalcNzWalkthrough.readProgressMap();
+    }
+
+    return readHomepageJsonStorage(homepageStorageKeys.progress, {});
+  }
+
+  function readHomepageLastWalkthrough() {
+    if (window.CalcNzWalkthrough && typeof window.CalcNzWalkthrough.readLastWalkthrough === "function") {
+      return window.CalcNzWalkthrough.readLastWalkthrough();
+    }
+
+    return readHomepageJsonStorage(homepageStorageKeys.lastVisited, null);
+  }
+
+  function getPaperPartLinks(paper) {
+    const panel = getPaperPanel(paper);
+
+    return panel ? Array.from(panel.querySelectorAll("a.index-link-card[href]")) : [];
+  }
+
+  function getPaperProgress(paper) {
+    if (window.CalcNzWalkthrough && typeof window.CalcNzWalkthrough.getPaperProgressById === "function") {
+      const sharedProgress = window.CalcNzWalkthrough.getPaperProgressById(paper);
+      const total = sharedProgress.total || getPaperPartLinks(paper).length;
+
+      return Object.assign({}, sharedProgress, { total: total });
+    }
+
+    const links = getPaperPartLinks(paper);
+    const progressMap = readHomepageProgressMap();
+    let visited = 0;
+    let completed = 0;
+
+    links.forEach(function (link) {
+      const title = link.querySelector(".index-link-title");
+      const partMatch = (title ? title.textContent : link.textContent).match(/Question\s+([123])\(([a-e])\)/i);
+      const partId = partMatch ? partMatch[1] + partMatch[2].toLowerCase() : "";
+      const state = progressMap[paper + ":" + partId] || {};
+
+      if (state.visited) {
+        visited += 1;
+      }
+      if (state.completed) {
+        completed += 1;
+      }
+    });
+
+    return {
+      visited: visited,
+      completed: completed,
+      total: links.length
+    };
+  }
+
+  function getPaperProgressText(progress) {
+    const state = progress || {};
+
+    return (state.completed || 0) + " of " + (state.total || 0) + " completed";
+  }
+
+  function getPaperContext(paper) {
+    const panel = getPaperPanel(paper);
+    const standard = panel ? panel.dataset.parentStandard : null;
+    const standardPanel = standard ? getStandardPanel(standard) : null;
+    const level = standardPanel ? standardPanel.dataset.parentLevel : null;
+
+    return {
+      level: level,
+      standard: standard,
+      levelLabel: level ? getChoiceLabel("level", level) : "",
+      standardLabel: standard ? getChoiceLabel("standard", standard) : "",
+      year: getPaperYear(paper)
+    };
   }
 
   function makeSelection(level, standard, paper, paperView) {
@@ -240,6 +346,7 @@ document.addEventListener("DOMContentLoaded", function () {
       entry.innerHTML = `
         <p class="question-label">${getChoiceLabel("standard", standard)} · ${getPaperYear(paper)} paper</p>
         <h2>Where would you like to start?</h2>
+        <p class="paper-progress-chip" data-paper-progress="${paper}">${getPaperProgressText(getPaperProgress(paper))}</p>
         <p class="step-text paper-entry-intro">Choose a guided lesson from Question 1(a), or jump straight to the question you need.</p>
         <div class="year-picker-grid paper-entry-grid">
           <a class="nav-btn secondary year-option paper-entry-option" data-paper-start-guided href="${addGuidedModeToHref(firstQuestionLink ? firstQuestionLink.getAttribute("href") : "")}">
@@ -273,6 +380,210 @@ document.addEventListener("DOMContentLoaded", function () {
       panel.appendChild(entry);
       panel.appendChild(questionPicker);
     });
+  }
+
+  function updatePaperProgressSummaries() {
+    document.querySelectorAll("[data-paper-progress]").forEach(function (summary) {
+      const paper = summary.dataset.paperProgress;
+      summary.textContent = getPaperProgressText(getPaperProgress(paper));
+    });
+  }
+
+  function updateHomepageContinueCard() {
+    const card = document.getElementById("homepage-continue-card");
+    const record = readHomepageLastWalkthrough();
+
+    if (!card) {
+      return;
+    }
+
+    if (!record || !record.href || !record.paperId || !getPaperPanel(record.paperId)) {
+      card.hidden = true;
+      return;
+    }
+
+    const context = getPaperContext(record.paperId);
+    const questionLabel = record.questionLabel || "Question " + (record.partId || "").charAt(0) + "(" + (record.partId || "").charAt(1) + ")";
+    const title = "Continue " + context.year + " " + context.standardLabel + " · " + questionLabel;
+
+    card.hidden = false;
+    card.innerHTML = `
+      <div class="home-continue-copy">
+        <p class="question-label">Continue where you left off</p>
+        <h2>${escapeHomeHtml(title)}</h2>
+        <p class="step-text">Pick up from your most recent walkthrough.</p>
+      </div>
+      <a class="nav-btn home-continue-button" href="${escapeHomeHtml(record.href)}">Continue</a>
+    `;
+  }
+
+  function setupHomepageContinueCard() {
+    if (document.getElementById("homepage-continue-card") || !levelChooser.parentNode) {
+      updateHomepageContinueCard();
+      return;
+    }
+
+    const card = document.createElement("section");
+    card.id = "homepage-continue-card";
+    card.className = "question-card home-continue-card";
+    card.hidden = true;
+    levelChooser.parentNode.insertBefore(card, levelChooser);
+    updateHomepageContinueCard();
+  }
+
+  function normaliseSearchText(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function buildWalkthroughSearchIndex() {
+    const results = [];
+
+    paperPanels.forEach(function (panel) {
+      const paper = panel.dataset.paperPanel;
+      const context = getPaperContext(paper);
+
+      getPaperPartLinks(paper).forEach(function (link) {
+        const title = link.querySelector(".index-link-title");
+        const copy = link.querySelector(".index-link-copy");
+        const titleText = title ? title.textContent.trim() : link.textContent.trim();
+        const copyText = copy ? copy.textContent.trim() : "";
+        const contextText = [
+          context.levelLabel,
+          context.standardLabel,
+          context.year,
+          context.year + " " + context.standardLabel,
+          paper
+        ].join(" ");
+
+        results.push({
+          href: link.getAttribute("href"),
+          title: titleText,
+          copy: copyText,
+          levelLabel: context.levelLabel,
+          standardLabel: context.standardLabel,
+          year: context.year,
+          haystack: normaliseSearchText([titleText, copyText, contextText].join(" "))
+        });
+      });
+    });
+
+    return results;
+  }
+
+  function scoreSearchResult(entry, tokens, query) {
+    let score = 0;
+    const title = normaliseSearchText(entry.title);
+    const copy = normaliseSearchText(entry.copy);
+    const standard = normaliseSearchText(entry.standardLabel);
+
+    tokens.forEach(function (token) {
+      if (title.indexOf(token) >= 0) {
+        score += 6;
+      }
+      if (standard.indexOf(token) >= 0) {
+        score += 5;
+      }
+      if (String(entry.year) === token) {
+        score += 5;
+      }
+      if (copy.indexOf(token) >= 0) {
+        score += 3;
+      }
+    });
+
+    if (entry.haystack.indexOf(query) >= 0) {
+      score += 4;
+    }
+
+    return score;
+  }
+
+  function setupWalkthroughSearch() {
+    if (document.getElementById("walkthrough-site-search") || !levelChooser.parentNode) {
+      return;
+    }
+
+    const searchIndex = buildWalkthroughSearchIndex();
+    const searchSection = document.createElement("section");
+    searchSection.id = "walkthrough-site-search";
+    searchSection.className = "question-card home-search-card";
+    searchSection.innerHTML = `
+      <div class="home-search-heading">
+        <p class="question-label">Find a walkthrough</p>
+        <h2>Search by topic, year, or standard</h2>
+      </div>
+      <form class="home-search-form" role="search">
+        <label class="visually-hidden" for="walkthrough-search-input">Search walkthroughs</label>
+        <input id="walkthrough-search-input" class="home-search-input" type="search" autocomplete="off" placeholder="Try chain rule, cylinder, integration 2020" />
+      </form>
+      <div class="home-search-results" data-search-results hidden aria-live="polite"></div>
+    `;
+
+    levelChooser.parentNode.insertBefore(searchSection, levelChooser);
+
+    const input = searchSection.querySelector("#walkthrough-search-input");
+    const resultsContainer = searchSection.querySelector("[data-search-results]");
+
+    function renderSearchResults() {
+      const rawQuery = input.value || "";
+      const query = normaliseSearchText(rawQuery);
+      const tokens = query ? query.split(" ").filter(Boolean) : [];
+
+      if (!tokens.length) {
+        resultsContainer.hidden = true;
+        resultsContainer.innerHTML = "";
+        return;
+      }
+
+      const matches = searchIndex
+        .filter(function (entry) {
+          return tokens.every(function (token) {
+            return entry.haystack.indexOf(token) >= 0;
+          });
+        })
+        .map(function (entry) {
+          return Object.assign({ score: scoreSearchResult(entry, tokens, query) }, entry);
+        })
+        .sort(function (first, second) {
+          return second.score - first.score || second.year.localeCompare(first.year) || first.title.localeCompare(second.title);
+        })
+        .slice(0, 10);
+
+      resultsContainer.hidden = false;
+
+      if (!matches.length) {
+        resultsContainer.innerHTML = '<p class="home-search-empty">No matching walkthroughs found.</p>';
+        return;
+      }
+
+      resultsContainer.innerHTML = `
+        <div class="home-search-result-list" role="list">
+          ${matches.map(function (entry) {
+            return `
+              <a class="home-search-result" href="${escapeHomeHtml(entry.href)}" role="listitem">
+                <span class="home-search-result-meta">${escapeHomeHtml(entry.year)} · ${escapeHomeHtml(entry.standardLabel)}</span>
+                <span class="home-search-result-title">${escapeHomeHtml(entry.title)}</span>
+                <span class="home-search-result-copy">${escapeHomeHtml(entry.copy)}</span>
+              </a>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
+    searchSection.querySelector(".home-search-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const firstResult = resultsContainer.querySelector("a.home-search-result");
+      if (firstResult) {
+        window.location.href = firstResult.href;
+      }
+    });
+
+    input.addEventListener("input", renderSearchResults);
   }
 
   function setHeadingFocusTarget(heading) {
@@ -589,6 +900,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   setupPaperEntryChoices();
+  setupHomepageContinueCard();
+  setupWalkthroughSearch();
+  updatePaperProgressSummaries();
 
   levelButtons.forEach(function (button) {
     button.addEventListener("click", function () {
@@ -640,6 +954,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!selectionsMatch(hashSelection, activeSelection)) {
       handleHistoryNavigation();
     }
+  });
+  window.addEventListener("pageshow", function () {
+    updateHomepageContinueCard();
+    updatePaperProgressSummaries();
   });
 
   const initialHash = window.location.hash.slice(1);

@@ -326,7 +326,10 @@ function carryGuidedModeToQuestionLinks(root) {
 }
 
 const WALKTHROUGH_SIDEBAR_STORAGE_KEY = "calc.nz.walkthroughSidebarVisible";
-const WALKTHROUGH_PROGRESS_STORAGE_KEY = "calc.nz.walkthroughSessionProgress";
+const WALKTHROUGH_PROGRESS_STORAGE_KEY = "calc.nz.walkthroughProgress";
+const WALKTHROUGH_SESSION_PROGRESS_STORAGE_KEY = "calc.nz.walkthroughSessionProgress";
+const WALKTHROUGH_LAST_VISITED_STORAGE_KEY = "calc.nz.lastWalkthrough";
+const WALKTHROUGH_EXAM_MODE_STORAGE_KEY = "calc.nz.examMode";
 const WALKTHROUGH_NAV_PARTS = [
   "1a", "1b", "1c", "1d", "1e",
   "2a", "2b", "2c", "2d", "2e",
@@ -341,6 +344,8 @@ const WALKTHROUGH_NAV_YEARS = [2025, 2024, 2023, 2022, 2021, 2020];
 const WALKTHROUGH_NAV_DIFFERENTIATION_YEARS = [2025, 2024, 2023, 2022, 2021, 2020, 2019];
 let walkthroughSidebarPreferenceFallback = null;
 let walkthroughProgressFallback = {};
+let walkthroughLastVisitedFallback = null;
+let walkthroughExamModeFallback = false;
 
 function createWalkthroughPaper(id, year, routeTemplate, parts) {
   return {
@@ -440,9 +445,22 @@ function walkthroughQuestionLabel(partId) {
 
 function getWalkthroughProgressStorage() {
   try {
-    return window.sessionStorage;
+    return window.localStorage;
   } catch (error) {
     return null;
+  }
+}
+
+function readWalkthroughSessionProgressMap() {
+  try {
+    const storedProgress = window.sessionStorage.getItem(WALKTHROUGH_SESSION_PROGRESS_STORAGE_KEY);
+    const parsedProgress = storedProgress ? JSON.parse(storedProgress) : {};
+
+    return parsedProgress && typeof parsedProgress === "object" && !Array.isArray(parsedProgress)
+      ? parsedProgress
+      : {};
+  } catch (error) {
+    return {};
   }
 }
 
@@ -455,10 +473,13 @@ function readWalkthroughProgressMap() {
 
   try {
     const storedProgress = storage.getItem(WALKTHROUGH_PROGRESS_STORAGE_KEY);
-    const parsedProgress = storedProgress ? JSON.parse(storedProgress) : {};
+    const parsedProgress = storedProgress ? JSON.parse(storedProgress) : readWalkthroughSessionProgressMap();
 
     if (parsedProgress && typeof parsedProgress === "object" && !Array.isArray(parsedProgress)) {
       walkthroughProgressFallback = parsedProgress;
+      if (!storedProgress && Object.keys(parsedProgress).length) {
+        writeWalkthroughProgressMap(parsedProgress);
+      }
       return parsedProgress;
     }
   } catch (error) {
@@ -479,7 +500,7 @@ function writeWalkthroughProgressMap(progressMap) {
   try {
     storage.setItem(WALKTHROUGH_PROGRESS_STORAGE_KEY, JSON.stringify(progressMap));
   } catch (error) {
-    // Session indicators are optional; keep the in-memory copy when storage is unavailable.
+    // Progress indicators are optional; keep the in-memory copy when storage is unavailable.
   }
 }
 
@@ -502,11 +523,11 @@ function getWalkthroughPartProgressState(context, partId) {
 
 function getWalkthroughPartProgressLabel(state) {
   if (state && state.completed) {
-    return "Completed this session";
+    return "Completed";
   }
 
   if (state && state.visited) {
-    return "Visited this session";
+    return "Visited";
   }
 
   return "";
@@ -522,6 +543,90 @@ function getWalkthroughPartProgressClass(state) {
   }
 
   return "";
+}
+
+function getWalkthroughPaperProgress(context) {
+  const paper = context && context.paper;
+  const parts = paper && Array.isArray(paper.parts) ? paper.parts : [];
+  let visited = 0;
+  let completed = 0;
+
+  parts.forEach(function (partId) {
+    const state = getWalkthroughPartProgressState(context, partId);
+
+    if (state && state.visited) {
+      visited += 1;
+    }
+    if (state && state.completed) {
+      completed += 1;
+    }
+  });
+
+  return {
+    visited: visited,
+    completed: completed,
+    total: parts.length
+  };
+}
+
+function getWalkthroughPaperProgressText(progress) {
+  const state = progress || {};
+  const total = state.total || 0;
+
+  return (state.completed || 0) + " of " + total + " completed";
+}
+
+function getWalkthroughPaperProgressPercent(progress) {
+  const state = progress || {};
+
+  if (!state.total) {
+    return 0;
+  }
+
+  return Math.round(((state.completed || 0) / state.total) * 100);
+}
+
+function readLastWalkthrough() {
+  try {
+    const storedLastVisited = window.localStorage.getItem(WALKTHROUGH_LAST_VISITED_STORAGE_KEY);
+    const parsedLastVisited = storedLastVisited ? JSON.parse(storedLastVisited) : null;
+
+    if (parsedLastVisited && typeof parsedLastVisited === "object" && !Array.isArray(parsedLastVisited)) {
+      walkthroughLastVisitedFallback = parsedLastVisited;
+      return parsedLastVisited;
+    }
+  } catch (error) {
+    return walkthroughLastVisitedFallback;
+  }
+
+  return walkthroughLastVisitedFallback;
+}
+
+function writeLastWalkthrough(context, partId) {
+  if (!context || !context.paper || !partId) {
+    return;
+  }
+
+  const href = getWalkthroughPartHref(context.paper, partId);
+  const payload = {
+    paperId: context.paper.id,
+    partId: partId,
+    href: href,
+    label: context.paper.year + " " + context.standard.label + " \u00b7 " + walkthroughQuestionLabel(partId),
+    levelLabel: context.level.label,
+    standardLabel: context.standard.label,
+    year: context.paper.year,
+    questionLabel: walkthroughQuestionLabel(partId),
+    updatedAt: Date.now()
+  };
+
+  walkthroughLastVisitedFallback = payload;
+
+  try {
+    window.localStorage.setItem(WALKTHROUGH_LAST_VISITED_STORAGE_KEY, JSON.stringify(payload));
+  } catch (error) {
+    // The continue card can fall back to this page's in-memory state.
+  }
 }
 
 function applyWalkthroughProgressStateToLink(link, state) {
@@ -556,6 +661,18 @@ function updateWalkthroughSidebarProgressIndicators(context) {
     const partId = link.dataset.walkthroughSidebarPart;
     applyWalkthroughProgressStateToLink(link, getWalkthroughPartProgressState(context, partId));
   });
+
+  const progress = getWalkthroughPaperProgress(context);
+  const progressText = sidebar.querySelector("[data-walkthrough-paper-progress-text]");
+  const progressBar = sidebar.querySelector("[data-walkthrough-paper-progress-bar]");
+
+  if (progressText) {
+    progressText.textContent = getWalkthroughPaperProgressText(progress);
+  }
+
+  if (progressBar) {
+    progressBar.style.width = getWalkthroughPaperProgressPercent(progress) + "%";
+  }
 }
 
 function markWalkthroughPartProgress(context, partId, updates) {
@@ -582,6 +699,9 @@ function markWalkthroughPartProgress(context, partId, updates) {
 
   progressMap[key] = currentState;
   writeWalkthroughProgressMap(progressMap);
+  if (updates && updates.visited) {
+    writeLastWalkthrough(context, partId);
+  }
   updateWalkthroughSidebarProgressIndicators(context);
 }
 
@@ -1078,6 +1198,7 @@ function renderWalkthroughPartGroups(context) {
 }
 
 function buildWalkthroughSidebarHtml(context) {
+  const paperProgress = getWalkthroughPaperProgress(context);
   const levelLinks = WALKTHROUGH_NAV_CATALOG.map(function (level) {
     return renderWalkthroughSidebarLink({
       href: level.indexHref,
@@ -1106,6 +1227,12 @@ function buildWalkthroughSidebarHtml(context) {
       <div class="walkthrough-sidebar-header-copy">
         <p class="question-label">Navigation</p>
         <p class="walkthrough-sidebar-current">${escapeWalkthroughSidebarHtml(context.level.label)} &middot; ${escapeWalkthroughSidebarHtml(context.standard.label)} &middot; ${escapeWalkthroughSidebarHtml(String(context.paper.year))}</p>
+        <div class="walkthrough-sidebar-progress" aria-label="Paper progress">
+          <p class="walkthrough-sidebar-progress-text" data-walkthrough-paper-progress-text>${escapeWalkthroughSidebarHtml(getWalkthroughPaperProgressText(paperProgress))}</p>
+          <div class="walkthrough-sidebar-progress-track" aria-hidden="true">
+            <span class="walkthrough-sidebar-progress-bar" data-walkthrough-paper-progress-bar style="width: ${getWalkthroughPaperProgressPercent(paperProgress)}%"></span>
+          </div>
+        </div>
       </div>
       <button
         id="walkthrough-sidebar-close-toggle"
@@ -1312,6 +1439,309 @@ function ensureControlsSection(tipsCard, walkthroughContent) {
   return controlsSection;
 }
 
+function getWalkthroughExamModePreference() {
+  try {
+    const storedPreference = window.localStorage.getItem(WALKTHROUGH_EXAM_MODE_STORAGE_KEY);
+
+    if (storedPreference === "true" || storedPreference === "false") {
+      walkthroughExamModeFallback = storedPreference === "true";
+      return walkthroughExamModeFallback;
+    }
+  } catch (error) {
+    return walkthroughExamModeFallback;
+  }
+
+  return walkthroughExamModeFallback;
+}
+
+function setWalkthroughExamModePreference(enabled) {
+  walkthroughExamModeFallback = Boolean(enabled);
+
+  try {
+    window.localStorage.setItem(WALKTHROUGH_EXAM_MODE_STORAGE_KEY, enabled ? "true" : "false");
+  } catch (error) {
+    // The page still follows the preference for this visit when storage is unavailable.
+  }
+}
+
+function ensureExamModeSettingControl(questionCard) {
+  const app = document.querySelector("main.app:not(.home-app)");
+
+  if (!app || !questionCard) {
+    return null;
+  }
+
+  const setting = document.getElementById("sticky-question-setting-panel")
+    || ensureStickyQuestionPreferenceControl(questionCard);
+
+  if (!setting) {
+    return null;
+  }
+
+  let examSetting = document.getElementById("exam-mode-setting");
+
+  if (!examSetting) {
+    const wrapper = document.createElement("span");
+    wrapper.className = "walkthrough-setting-divider";
+    wrapper.setAttribute("aria-hidden", "true");
+    wrapper.textContent = "";
+    setting.appendChild(wrapper);
+
+    const label = document.createElement("label");
+    label.className = "walkthrough-setting-toggle";
+    label.setAttribute("for", "exam-mode-setting");
+    label.innerHTML = `
+      <input id="exam-mode-setting" type="checkbox" />
+      <span class="walkthrough-setting-switch" aria-hidden="true"></span>
+      <span class="walkthrough-setting-label">Exam mode</span>
+    `;
+    setting.appendChild(label);
+
+    const status = document.createElement("span");
+    status.id = "exam-mode-setting-status";
+    status.className = "walkthrough-setting-status exam-mode-setting-status";
+    status.setAttribute("aria-live", "polite");
+    setting.appendChild(status);
+    examSetting = label.querySelector("#exam-mode-setting");
+  }
+
+  return examSetting;
+}
+
+function setupExamModeControls(options) {
+  const settings = options || {};
+  const questionCard = settings.questionCard;
+  const hiddenElements = (settings.hiddenElements || []).filter(Boolean);
+
+  if (!questionCard || questionCard.dataset.examModeSetup === "true") {
+    return;
+  }
+
+  const checkbox = ensureExamModeSettingControl(questionCard);
+  const parent = questionCard.parentNode;
+
+  if (!checkbox || !parent) {
+    return;
+  }
+
+  let revealPanel = document.getElementById("walkthrough-exam-mode-reveal-panel");
+
+  if (!revealPanel) {
+    revealPanel = document.createElement("section");
+    revealPanel.id = "walkthrough-exam-mode-reveal-panel";
+    revealPanel.className = "question-card exam-mode-reveal-panel";
+    revealPanel.innerHTML = `
+      <p class="question-label">Exam Mode</p>
+      <h2>Attempt the question first</h2>
+      <p class="step-text">The walkthrough is hidden until you are ready to check your thinking.</p>
+      <div class="nav-row exam-mode-actions">
+        <button id="exam-mode-reveal-btn" class="nav-btn" type="button">Reveal walkthrough</button>
+        <button id="exam-mode-off-btn" class="nav-btn secondary" type="button">Turn off exam mode</button>
+      </div>
+    `;
+  }
+
+  if (questionCard.nextElementSibling !== revealPanel) {
+    parent.insertBefore(revealPanel, questionCard.nextSibling);
+  }
+
+  const status = document.getElementById("exam-mode-setting-status");
+  const revealButton = revealPanel.querySelector("#exam-mode-reveal-btn");
+  const offButton = revealPanel.querySelector("#exam-mode-off-btn");
+  let revealedForThisQuestion = false;
+
+  function applyExamModeState() {
+    const isEnabled = getWalkthroughExamModePreference();
+    const shouldHideWalkthrough = isEnabled && !revealedForThisQuestion;
+
+    checkbox.checked = isEnabled;
+    document.body.classList.toggle("exam-mode-active", shouldHideWalkthrough);
+    revealPanel.hidden = !shouldHideWalkthrough;
+
+    hiddenElements.forEach(function (element) {
+      element.classList.toggle("exam-mode-hidden", shouldHideWalkthrough);
+      if (shouldHideWalkthrough) {
+        element.setAttribute("aria-hidden", "true");
+      } else if (!element.classList.contains("hidden") && !element.hidden) {
+        element.setAttribute("aria-hidden", "false");
+      }
+    });
+
+    if (status) {
+      status.textContent = !isEnabled
+        ? "Off. Walkthroughs reveal normally."
+        : revealedForThisQuestion
+          ? "Revealed for this question. Future questions still start hidden."
+          : "On. Walkthrough hidden until you reveal it.";
+    }
+  }
+
+  checkbox.dataset.preferenceSetup = "true";
+  checkbox.checked = getWalkthroughExamModePreference();
+  checkbox.addEventListener("change", function () {
+    revealedForThisQuestion = false;
+    setWalkthroughExamModePreference(checkbox.checked);
+    applyExamModeState();
+  });
+
+  if (revealButton) {
+    revealButton.addEventListener("click", function () {
+      revealedForThisQuestion = true;
+      applyExamModeState();
+      if (typeof settings.onReveal === "function") {
+        settings.onReveal();
+        applyExamModeState();
+      }
+    });
+  }
+
+  if (offButton) {
+    offButton.addEventListener("click", function () {
+      revealedForThisQuestion = true;
+      setWalkthroughExamModePreference(false);
+      applyExamModeState();
+      checkbox.focus();
+    });
+  }
+
+  questionCard.dataset.examModeSetup = "true";
+  applyExamModeState();
+}
+
+function ensureQuestionImageLightbox() {
+  let lightbox = document.getElementById("question-image-lightbox");
+
+  if (!lightbox) {
+    lightbox = document.createElement("div");
+    lightbox.id = "question-image-lightbox";
+    lightbox.className = "question-image-lightbox";
+    lightbox.hidden = true;
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-modal", "true");
+    lightbox.setAttribute("aria-label", "Question image preview");
+    lightbox.innerHTML = `
+      <button class="question-image-lightbox-close" type="button" aria-label="Close image preview">Close</button>
+      <div class="question-image-lightbox-stage">
+        <img class="question-image-lightbox-img" alt="" />
+        <div class="question-image-lightbox-graphic" hidden></div>
+      </div>
+    `;
+    document.body.appendChild(lightbox);
+  }
+
+  if (lightbox.dataset.lightboxSetup !== "true") {
+    lightbox.dataset.lightboxSetup = "true";
+    const closeButton = lightbox.querySelector(".question-image-lightbox-close");
+
+    function closeLightbox() {
+      const previousFocus = lightbox._previousQuestionFocus;
+      lightbox.hidden = true;
+      document.body.classList.remove("question-image-lightbox-open");
+
+      const image = lightbox.querySelector(".question-image-lightbox-img");
+      const graphic = lightbox.querySelector(".question-image-lightbox-graphic");
+      if (image) {
+        image.removeAttribute("src");
+        image.alt = "";
+      }
+      if (graphic) {
+        graphic.innerHTML = "";
+        graphic.hidden = true;
+      }
+
+      lightbox._previousQuestionFocus = null;
+      if (previousFocus && typeof previousFocus.focus === "function") {
+        previousFocus.focus();
+      }
+    }
+
+    lightbox._closeQuestionImageLightbox = closeLightbox;
+
+    if (closeButton) {
+      closeButton.addEventListener("click", closeLightbox);
+    }
+
+    lightbox.addEventListener("click", function (event) {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (!lightbox.hidden && event.key === "Escape") {
+        closeLightbox();
+      }
+    });
+  }
+
+  return lightbox;
+}
+
+function openQuestionImageLightbox(target) {
+  const lightbox = ensureQuestionImageLightbox();
+  const closeButton = lightbox.querySelector(".question-image-lightbox-close");
+  const image = lightbox.querySelector(".question-image-lightbox-img");
+  const graphic = lightbox.querySelector(".question-image-lightbox-graphic");
+
+  if (!target || !lightbox || !image || !graphic) {
+    return;
+  }
+
+  lightbox._previousQuestionFocus = target;
+  graphic.innerHTML = "";
+  graphic.hidden = true;
+  image.hidden = false;
+
+  if (target.tagName === "IMG") {
+    image.src = target.currentSrc || target.src;
+    image.alt = target.alt || "Question image";
+  } else {
+    const clone = target.cloneNode(true);
+    clone.removeAttribute("id");
+    image.hidden = true;
+    image.removeAttribute("src");
+    image.alt = "";
+    graphic.hidden = false;
+    graphic.appendChild(clone);
+  }
+
+  lightbox.hidden = false;
+  document.body.classList.add("question-image-lightbox-open");
+
+  if (closeButton) {
+    closeButton.focus();
+  }
+}
+
+function setupQuestionImageZoom(root) {
+  if (!root || typeof root.querySelectorAll !== "function") {
+    return;
+  }
+
+  const targets = Array.from(root.querySelectorAll("img.question-screenshot, .question-prompt img, .paper-question-prompt img, .question-graph-frame, .question-card .graph-frame"));
+
+  targets.forEach(function (target) {
+    if (target.dataset.imageZoomSetup === "true") {
+      return;
+    }
+
+    target.dataset.imageZoomSetup = "true";
+    target.classList.add("question-image-zoomable");
+    target.setAttribute("role", "button");
+    target.setAttribute("tabindex", "0");
+    target.setAttribute("aria-label", target.getAttribute("aria-label") || "Open larger view");
+    target.addEventListener("click", function () {
+      openQuestionImageLightbox(target);
+    });
+    target.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " " || event.key === "Spacebar") {
+        event.preventDefault();
+        openQuestionImageLightbox(target);
+      }
+    });
+  });
+}
+
 function moveQuestionSupportToTips(questionCard, tipsCard) {
   if (!questionCard || !tipsCard || questionCard === tipsCard) {
     return;
@@ -1508,6 +1938,7 @@ function initializeWalkthroughGate(config) {
   moveQuestionSupportToTips(initialQuestionCard, tipsCard);
   ensureStickyQuestionPreferenceControl(initialQuestionCard);
   setupQuestionCardSticky(initialQuestionCard);
+  setupQuestionImageZoom(initialQuestionCard);
 
   let showHintsButton = document.getElementById("show-hints-btn");
   const pageBackLink = document.getElementById("back-link");
@@ -1698,6 +2129,13 @@ function initializeWalkthroughGate(config) {
   }
 
   addEntryActions();
+  setupExamModeControls({
+    questionCard: initialQuestionCard,
+    hiddenElements: [tipsCard, hintsCard, controlsSection, walkthroughContent],
+    onReveal: function () {
+      revealWalkthrough();
+    }
+  });
 
   function addWalkthroughSkipButtons() {
     const stepCards = walkthroughContent.querySelectorAll(".step-card");
@@ -2555,6 +2993,7 @@ function initializeProgressiveWalkthrough(config, options) {
   questionCard.classList.add("sticky-question-card");
   questionCard.innerHTML = buildQuestionCardHtml(normalisedConfig);
   renderPartNavigation(normalisedConfig, questionCard);
+  setupQuestionImageZoom(questionCard);
 
   if (normalisedConfig.tips.length) {
     tipsCard.innerHTML = buildTipsCardHtml(normalisedConfig, normalisedConfig.tips);
@@ -2577,7 +3016,40 @@ function initializeProgressiveWalkthrough(config, options) {
 
   window.renderMath(document.body);
   attachProgressiveWalkthroughHandlers(normalisedConfig, walkthroughContent);
+  setupExamModeControls({
+    questionCard: questionCard,
+    hiddenElements: [tipsCard, walkthroughContent],
+    onReveal: function () {
+      const target = tipsCard && !tipsCard.classList.contains("hidden") ? tipsCard : walkthroughContent;
+      window.scrollTo({ top: getWalkthroughPageScrollTop(target), behavior: "smooth" });
+    }
+  });
 }
+
+function getWalkthroughPaperProgressById(paperId) {
+  const entry = findWalkthroughPaperById(paperId);
+
+  if (!entry) {
+    return {
+      visited: 0,
+      completed: 0,
+      total: 0
+    };
+  }
+
+  return getWalkthroughPaperProgress(Object.assign({ partId: entry.paper.parts[0] }, entry));
+}
+
+window.CalcNzWalkthrough = Object.assign(window.CalcNzWalkthrough || {}, {
+  progressStorageKey: WALKTHROUGH_PROGRESS_STORAGE_KEY,
+  lastVisitedStorageKey: WALKTHROUGH_LAST_VISITED_STORAGE_KEY,
+  examModeStorageKey: WALKTHROUGH_EXAM_MODE_STORAGE_KEY,
+  readProgressMap: readWalkthroughProgressMap,
+  readLastWalkthrough: readLastWalkthrough,
+  getPaperProgressById: getWalkthroughPaperProgressById,
+  getPaperProgressText: getWalkthroughPaperProgressText,
+  getCatalogEntries: getWalkthroughCatalogEntries
+});
 
 window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
 
@@ -2667,6 +3139,7 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
         questionCard.classList.add("sticky-question-card");
         ensureStickyQuestionPreferenceControl(questionCard);
         setupQuestionCardSticky(questionCard);
+        setupQuestionImageZoom(questionCard);
       }
       normaliseButtonTypes(document);
       normaliseLegacyStandalonePrompts(document);
@@ -2681,6 +3154,7 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
       questionCard.classList.add("sticky-question-card");
       ensureStickyQuestionPreferenceControl(questionCard);
       setupQuestionCardSticky(questionCard);
+      setupQuestionImageZoom(questionCard);
     }
     normaliseButtonTypes(document);
     normaliseLegacyStandalonePrompts(document);
