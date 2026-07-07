@@ -1460,7 +1460,12 @@ function attachLegacySingleStepNavigation(walkthroughContent, options) {
 
     const originalNextButton = workingPanel.querySelector(".next-step-btn");
     if (originalNextButton) {
+      originalNextButton.classList.remove("hidden");
       originalNextButton.textContent = "Next step →";
+      originalNextButton.removeAttribute("onclick");
+      originalNextButton.addEventListener("click", function () {
+        showStep(stepIndex + 1);
+      });
       navigation.appendChild(originalNextButton);
     } else if (stepIndex === stepCards.length - 1 && typeof settings.onComplete === "function") {
       const completeButton = document.createElement("button");
