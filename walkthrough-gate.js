@@ -421,7 +421,7 @@ const WALKTHROUGH_NAV_CATALOG = [
         indexHref: "index.html#level-3-complex",
         papers: [
           createWalkthroughPaper("level-3-complex-2025", 2025, "complex-{part}2025.html")
-        ].concat(createWalkthroughYearPapers("level-3-complex", "complex-{year}.html?q={part}", [2024, 2023, 2022, 2021, 2020]))
+        ].concat(createWalkthroughYearPapers("level-3-complex", "complex-{year}.html?q={part}", [2024, 2023, 2022, 2021, 2020, 2019]))
       }
     ]
   }

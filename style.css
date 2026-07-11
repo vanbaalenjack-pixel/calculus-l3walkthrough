@@ -2242,6 +2242,10 @@ img.graph-svg {
     linear-gradient(180deg, rgba(248, 251, 255, 0.98) 0%, rgba(255, 255, 255, 0.98) 100%);
 }
 
+.exam-mode-reveal-panel[hidden] {
+  display: none;
+}
+
 .exam-mode-reveal-panel h2 {
   margin-bottom: 0;
   font-size: 1.45rem;
