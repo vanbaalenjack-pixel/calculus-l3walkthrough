@@ -2095,8 +2095,11 @@ img.graph-svg {
 
 .table-wrap {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   margin: 12px 0 18px;
   overflow-x: auto;
+  contain: inline-size;
 }
 
 .question-data-table {
@@ -3243,6 +3246,17 @@ body.question-image-lightbox-open {
 
   .question-card {
     margin-bottom: 22px;
+  }
+
+  .question-data-table {
+    min-width: 0;
+    table-layout: fixed;
+    font-size: 0.84rem;
+  }
+
+  .question-data-table th,
+  .question-data-table td {
+    padding: 8px 4px;
   }
 
   .walkthrough-setting-panel {
