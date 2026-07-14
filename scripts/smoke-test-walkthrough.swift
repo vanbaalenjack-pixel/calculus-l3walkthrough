@@ -182,7 +182,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 document.querySelector(".home-breadcrumb-button").click();
                 document.querySelector('[data-standard="level-3-complex"]').click();
                 checks.complexAppears = isVisible(document.querySelector('[data-standard-panel="level-3-complex"]'));
-                checks.complexYears = document.querySelectorAll('[data-standard-panel="level-3-complex"] > .paper-picker-grid [data-paper]').length === 7;
+                checks.complexYears = document.querySelectorAll('[data-standard-panel="level-3-complex"] > .paper-picker-grid [data-paper]').length === 8;
 
                 document.querySelector('[data-paper="level-3-complex-2020"]').click();
                 const complexPaper = document.querySelector('[data-paper-panel="level-3-complex-2020"]');
@@ -230,7 +230,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
               } else if (preferenceAction === "index-mobile") {
                 const complexPanel = document.querySelector('[data-standard-panel="level-3-complex"]');
                 checks.mobileComplexVisible = isVisible(complexPanel);
-                checks.mobileSevenYears = complexPanel.querySelectorAll(":scope > .paper-picker-grid [data-paper]").length === 7;
+                checks.mobileEightYears = complexPanel.querySelectorAll(":scope > .paper-picker-grid [data-paper]").length === 8;
                 checks.mobileAncestorChoicesHidden = getComputedStyle(document.querySelector('[data-level-panel="level-3"] > .standard-picker-grid')).display === "none";
                 checks.mobileCardsFit = Array.from(complexPanel.querySelectorAll(":scope > .paper-picker-grid .year-option")).every(function (card) {
                   return card.getBoundingClientRect().right <= window.innerWidth + 1;

@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2022 Integration Paper — Question 1(b)</title>
+  <title>2018 Level 3 Complex Numbers Paper</title>
 
-  <link rel="stylesheet" href="style.css?v=20260707-2" />
+  <link rel="stylesheet" href="style.css?v=20260714-1" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
   <script defer src="walkthrough-gate.js?v=20260715-1"></script>
   <script defer src="typed-math.js?v=20260328-1"></script>
-  <script defer src="differentiation-walkthrough.js?v=20260411-1"></script>
-  <script defer src="integration-2022-data.js?v=20260502-1"></script>
+  <script defer src="complex-walkthrough.js?v=20260411-1"></script>
+  <script defer src="complex-2018-data.js?v=20260715-1"></script>
 </head>
 <body>
   <main class="app">
     <header class="topbar">
       <div>
-        <p id="page-eyebrow" class="eyebrow">Level 3 Integration Walkthrough</p>
-        <h1 id="page-title">Question 1(b)</h1>
-        <p id="page-subtitle" class="subtitle">2022 Paper</p>
+        <p id="page-eyebrow" class="eyebrow">Level 3 Complex Numbers Walkthrough</p>
+        <h1 id="page-title">Question 1(a)</h1>
+        <p id="page-subtitle" class="subtitle">2018 Complex Numbers</p>
       </div>
-      <a id="back-link" class="ghost-link" href="index.html#level-3-integration-2022">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="index.html#level-3-complex-2018">← Back to paper</a>
     </header>
 
     <section id="question-card" class="question-card"></section>
@@ -33,7 +33,11 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      initializeDifferentiationWalkthrough(window.Integration2022Walkthroughs["1b"]);
+      const params = new URLSearchParams(window.location.search);
+      const questionId = params.get("q") || "1a";
+      const fallbackId = "1a";
+      const walkthroughs = window.Complex2018Walkthroughs || {};
+      initializeComplexWalkthrough(walkthroughs[questionId] || walkthroughs[fallbackId]);
     });
   </script>
 </body>
