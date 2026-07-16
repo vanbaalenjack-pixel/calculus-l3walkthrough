@@ -341,7 +341,7 @@ const WALKTHROUGH_NAV_L2_CALCULUS_PARTS = [
   "3a", "3b", "3c", "3d"
 ];
 const WALKTHROUGH_NAV_YEARS = [2025, 2024, 2023, 2022, 2021, 2020];
-const WALKTHROUGH_NAV_DIFFERENTIATION_YEARS = [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018];
+const WALKTHROUGH_NAV_DIFFERENTIATION_YEARS = [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
 const WALKTHROUGH_NAV_INTEGRATION_YEARS = [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018];
 let walkthroughSidebarPreferenceFallback = null;
 let walkthroughProgressFallback = {};
@@ -1609,6 +1609,55 @@ function setupExamModeControls(options) {
   applyExamModeState();
 }
 
+let questionGraphicCloneSequence = 0;
+
+function cloneQuestionGraphicForLightbox(target) {
+  const clone = target.cloneNode(true);
+  const idMap = {};
+  const suffix = "-lightbox-" + (++questionGraphicCloneSequence);
+
+  clone.removeAttribute("id");
+  clone.querySelectorAll("[id]").forEach(function (element) {
+    const originalId = element.id;
+    const cloneId = originalId + suffix;
+
+    idMap[originalId] = cloneId;
+    element.id = cloneId;
+  });
+
+  clone.querySelectorAll("*").forEach(function (element) {
+    ["aria-labelledby", "aria-describedby"].forEach(function (attributeName) {
+      const value = element.getAttribute(attributeName);
+
+      if (value) {
+        element.setAttribute(attributeName, value.split(/\s+/).map(function (id) {
+          return idMap[id] || id;
+        }).join(" "));
+      }
+    });
+
+    Array.from(element.attributes).forEach(function (attribute) {
+      let value = attribute.value;
+
+      Object.keys(idMap).forEach(function (originalId) {
+        if (value === "#" + originalId) {
+          value = "#" + idMap[originalId];
+        } else {
+          value = value
+            .split("url(#" + originalId + ")")
+            .join("url(#" + idMap[originalId] + ")");
+        }
+      });
+
+      if (value !== attribute.value) {
+        element.setAttribute(attribute.name, value);
+      }
+    });
+  });
+
+  return clone;
+}
+
 function ensureQuestionImageLightbox() {
   let lightbox = document.getElementById("question-image-lightbox");
 
@@ -1697,8 +1746,7 @@ function openQuestionImageLightbox(target) {
     image.src = target.currentSrc || target.src;
     image.alt = target.alt || "Question image";
   } else {
-    const clone = target.cloneNode(true);
-    clone.removeAttribute("id");
+    const clone = cloneQuestionGraphicForLightbox(target);
     image.hidden = true;
     image.removeAttribute("src");
     image.alt = "";

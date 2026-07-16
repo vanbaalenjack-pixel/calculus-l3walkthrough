@@ -172,7 +172,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 document.querySelector('[data-standard="level-3-differentiation"]').click();
                 const differentiationPanel = document.querySelector('[data-standard-panel="level-3-differentiation"]');
                 checks.standardReplacesLevel = getComputedStyle(document.querySelector('[data-level-panel="level-3"] > .standard-picker-grid')).display === "none";
-                checks.differentiationYears = differentiationPanel.querySelectorAll(":scope > .paper-picker-grid [data-paper]").length === 8;
+                checks.differentiationYears = differentiationPanel.querySelectorAll(":scope > .paper-picker-grid [data-paper]").length === 9;
 
                 document.querySelector(".home-breadcrumb-button").click();
                 document.querySelector('[data-standard="level-3-integration"]').click();
