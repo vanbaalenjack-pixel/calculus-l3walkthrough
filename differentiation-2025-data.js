@@ -808,7 +808,7 @@
         `, {
           previewHtml: raw`Start with \(\frac{dy}{dx}=\frac{dy/dt}{dx/dt}\).`
         }),
-        guidedStep("Find the stationary value of \(t\)", raw`
+        guidedStep(raw`Find the stationary value of \(t\)`, raw`
           <p class="step-text">A stationary point occurs when \(\frac{dy}{dx}=0\).</p>
           <div class="math-block">
             \[

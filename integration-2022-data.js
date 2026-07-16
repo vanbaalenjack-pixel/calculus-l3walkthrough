@@ -1208,6 +1208,7 @@
         <p class="step-text">Use the values in the table below to find an approximation to \(\int_{0}^{2} f(x)\,dx\) using the Trapezium Rule.</p>
         <div class="table-wrap">
           <table class="question-data-table">
+            <caption class="visually-hidden">Values of x and f of x from zero to two in steps of zero point four</caption>
             <thead>
               <tr>
                 <th scope="col">\(x\)</th>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2017 Integration Walkthrough</title>
+  <link rel="stylesheet" href="style.css?v=20260714-2" />
+  <script>
+    (function () {
+      const routes = {};
+      const questionWords = { "1": "one", "2": "two", "3": "three" };
+
+      ["1a", "1b", "1c", "1d", "1e", "2a", "2b", "2c", "2d", "2e", "3a", "3b", "3c", "3d", "3e"].forEach(function (part) {
+        const target = "int-" + part + "2017.html#question-" + part;
+        routes[part] = target;
+        routes["question-" + part] = target;
+        routes["question-" + questionWords[part.charAt(0)] + "-" + part.charAt(1)] = target;
+      });
+
+      const hash = window.location.hash.slice(1).toLowerCase();
+      const target = new URL(routes[hash] || routes["1a"], window.location.href);
+      const sourceParams = new URLSearchParams(window.location.search);
+
+      sourceParams.forEach(function (value, key) {
+        target.searchParams.set(key, value);
+      });
+
+      window.location.replace(target.href);
+    }());
+  </script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Level 3 Integration Walkthrough</p>
+        <h1>2017 Integration</h1>
+        <p class="subtitle">Opening Question 1(a)…</p>
+      </div>
+    </header>
+    <p><a class="nav-btn" href="int-1a2017.html#question-1a">Open the 2017 walkthrough</a></p>
+  </main>
+</body>
+</html>

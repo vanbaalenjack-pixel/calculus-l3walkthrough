@@ -394,13 +394,13 @@
         ${tipBox(raw`For special arguments like \(\frac{\pi}{4}\), look for a geometry shortcut before you reach for trigonometry.`)}
       `,
       steps: [
-        choiceStep("Multiply \(u\) and \(v\)", raw`What is \(uv\)?`, [
+        choiceStep(raw`Multiply \(u\) and \(v\)`, raw`What is \(uv\)?`, [
           correctChoice(raw`\(\,8+14i\)`, raw`Correct. The \(i^2\) term changes the real part from \(12\) down to \(8\).`),
           wrongChoice(raw`\(\,12+14i\)`, raw`You need to include the \(4i^2=-4\) term in the real part.`),
           wrongChoice(raw`\(\,8+10i\)`, raw`The imaginary terms are \(6i\) and \(8i\), which add to \(14i\).`),
           wrongChoice(raw`\(\,4+14i\)`, raw`The real part should be \(12-4=8\).`)
         ]),
-        choiceStep("Multiply by \(w\)", raw`After multiplying by \(w=2+ki\), what is \(uvw\)?`, [
+        choiceStep(raw`Multiply by \(w\)`, raw`After multiplying by \(w=2+ki\), what is \(uvw\)?`, [
           correctChoice(raw`\(\,16-14k+(28+8k)i\)`, raw`Exactly. The \(14ki^2\) term becomes \(-14k\) in the real part.`),
           wrongChoice(raw`\(\,16+14k+(28+8k)i\)`, raw`Remember that \(i^2=-1\), so the \(14ki^2\) term is negative.`),
           wrongChoice(raw`\(\,16-14k+(28-8k)i\)`, raw`The \(8ki\) term stays positive in the imaginary part.`),
@@ -412,7 +412,7 @@
           wrongChoice(raw`The imaginary part is the negative of the real part.`, raw`That would correspond to an angle of \(-\frac{\pi}{4}\).`),
           wrongChoice(raw`The modulus must be \(1\).`, raw`Argument tells us the direction, not the size.`)
         ]),
-        choiceStep("Solve for \(k\)", raw`What value of \(k\) satisfies the condition?`, [
+        choiceStep(raw`Solve for \(k\)`, raw`What value of \(k\) satisfies the condition?`, [
           correctChoice(raw`\(\,-\frac{6}{11}\)`, raw`Correct. Equating the parts gives \(16-14k=28+8k\), so \(k=-\frac{6}{11}\).`),
           wrongChoice(raw`\(\,\frac{6}{11}\)`, raw`Check the sign after you move the \(k\)-terms to one side.`),
           wrongChoice(raw`\(\,-\frac{3}{11}\)`, raw`The coefficient of \(k\) is \(-22\), not \(-44\).`),
@@ -502,7 +502,7 @@
           successMessage: raw`Yes. That is the discriminant condition that forces one repeated real root.`,
           genericMessage: raw`Use \(a=1\), \(b=6\), and \(c=25-4p\), then set \(b^2-4ac\) equal to \(0\).`
         },
-        choiceStep("Find \(p\)", raw`What value of \(p\) gives exactly one real solution?`, [
+        choiceStep(raw`Find \(p\)`, raw`What value of \(p\) gives exactly one real solution?`, [
           correctChoice(raw`\(\,4\)`, raw`Correct. Solving the discriminant equation gives \(p=4\).`),
           wrongChoice(raw`\(\,-4\)`, raw`The sign changes the other way when you solve \(16p=64\).`),
           wrongChoice(raw`\(\,\frac{1}{4}\)`, raw`That would happen if you divided the wrong way around.`),
@@ -663,7 +663,7 @@
           wrongChoice(raw`\(\,(-2)^3-3(-2)^2+b+9=3\)`, raw`The \(bx\) term still needs the factor of \(-2\).`),
           wrongChoice(raw`\(\,(-2)^3-3(-2)^2+b(-2)+9=0\)`, raw`The remainder is \(3\), so the expression must equal \(3\), not \(0\).`)
         ]),
-        choiceStep("Solve for \(b\)", raw`What is the value of \(b\)?`, [
+        choiceStep(raw`Solve for \(b\)`, raw`What is the value of \(b\)?`, [
           correctChoice(raw`\(\,-7\)`, raw`Correct. Simplifying the substitution gives \(-11-2b=3\), so \(b=-7\).`),
           wrongChoice(raw`\(\,7\)`, raw`The final sign is negative because \(-2b=14\).`),
           wrongChoice(raw`\(\,-14\)`, raw`You still need to divide by \(-2\).`),
@@ -736,7 +736,7 @@
           wrongChoice(raw`\(\,a=15\text{ and }b=12\)`, raw`You still need to account for the coefficients \(5\) and \(-3\).`),
           wrongChoice(raw`\(\,5a=-15\text{ and }-3b=-12\)`, raw`The right-hand side is \(15+12i\), so both parts are positive there.`)
         ]),
-        choiceStep("Write \(z\)", raw`What is the complex number \(z\)?`, [
+        choiceStep(raw`Write \(z\)`, raw`What is the complex number \(z\)?`, [
           correctChoice(raw`\(\,3-4i\)`, raw`Correct. That is the value of \(a+bi\).`),
           wrongChoice(raw`\(\,3+4i\)`, raw`The imaginary part is negative because \(b=-4\).`),
           wrongChoice(raw`\(\,-3-4i\)`, raw`The real part is \(3\), not \(-3\).`),
@@ -812,7 +812,7 @@
           wrongChoice(raw`\(\,180-4h\)`, raw`That misses the contribution from the other terms in the division.`),
           wrongChoice(raw`\(\,24-h\)`, raw`That is only part of the quadratic coefficient, not the full remainder.`)
         ]),
-        choiceStep("Find \(h\)", raw`What value of \(h\) makes the remainder zero?`, [
+        choiceStep(raw`Find \(h\)`, raw`What value of \(h\) makes the remainder zero?`, [
           correctChoice(raw`\(\,21\)`, raw`Correct. Solving \(84-4h=0\) gives \(h=21\).`),
           wrongChoice(raw`\(\,-21\)`, raw`The remainder equation gives a positive value for \(h\).`),
           wrongChoice(raw`\(\,84\)`, raw`You still need to divide by \(4\).`),
@@ -832,7 +832,7 @@
         ])
       ]
     }),
-    "2d": createConfig("2d", "2022 Paper — Argument from \(a+bi\) form", {
+    "2d": createConfig("2d", raw`2022 Paper — Argument from \(a+bi\) form`, {
       focus: raw`rationalising the denominator, rewriting \(w\) in standard form, and then choosing the correct quadrant for the argument.`,
       questionHtml: raw`
         <div class="question-math">
@@ -882,7 +882,7 @@
           wrongChoice(raw`\(\,-1+\sqrt{3}i\)`, raw`The real part should stay the same when you take the conjugate.`),
           wrongChoice(raw`\(\,-1-\sqrt{3}i\)`, raw`Both signs should not flip.`)
         ]),
-        choiceStep("Rewrite \(w\) in \(a+bi\) form", raw`What is \(w\) after rationalising and simplifying?`, [
+        choiceStep(raw`Rewrite \(w\) in \(a+bi\) form`, raw`What is \(w\) after rationalising and simplifying?`, [
           correctChoice(raw`\(\,-1+\sqrt{3}i\)`, raw`Yes. \(\frac{4}{1-\sqrt{3}i}=1+\sqrt{3}i\), then subtracting \(2\) gives \(-1+\sqrt{3}i\).`),
           wrongChoice(raw`\(\,1+\sqrt{3}i\)`, raw`Do not forget the final \(-2\).`),
           wrongChoice(raw`\(\,-1-\sqrt{3}i\)`, raw`The imaginary part stays positive after the simplification.`),
@@ -961,7 +961,7 @@
         `)}
       `,
       steps: [
-        choiceStep("Write \(z\) in Cartesian form", raw`How should we start the locus question?`, [
+        choiceStep(raw`Write \(z\) in Cartesian form`, raw`How should we start the locus question?`, [
           correctChoice(raw`\(\,z=x+yi\)`, raw`Exactly. Cartesian form is the natural start for a Cartesian locus.`),
           wrongChoice(raw`\(\,z=r\operatorname{cis}\theta\)`, raw`Polar form is less helpful when the answer needs to be in \(x\) and \(y\).`),
           wrongChoice(raw`\(\,z=x+y\)`, raw`A complex number in standard form needs the imaginary unit \(i\).`),
@@ -1045,25 +1045,25 @@
         `)}
       `,
       steps: [
-        choiceStep("Read \(r\)", raw`What complex number does the point \(r\) represent?`, [
+        choiceStep(raw`Read \(r\)`, raw`What complex number does the point \(r\) represent?`, [
           correctChoice(raw`\(\,3+2i\)`, raw`Correct. The point \(r\) is at \((3,2)\).`),
           wrongChoice(raw`\(\,2+3i\)`, raw`Keep the real part first and the imaginary part second.`),
           wrongChoice(raw`\(\,3-2i\)`, raw`The point is above the real axis, so the imaginary part is positive.`),
           wrongChoice(raw`\(\,-3+2i\)`, raw`The point is to the right of the imaginary axis, so the real part is positive.`)
         ]),
-        choiceStep("Read \(s\)", raw`What complex number does the point \(s\) represent?`, [
+        choiceStep(raw`Read \(s\)`, raw`What complex number does the point \(s\) represent?`, [
           correctChoice(raw`\(\,2-5i\)`, raw`Yes. The point \(s\) is at \((2,-5)\).`),
           wrongChoice(raw`\(\,-2-5i\)`, raw`The point is to the right of the origin, so the real part is positive.`),
           wrongChoice(raw`\(\,2+5i\)`, raw`The point is below the real axis, so the imaginary part is negative.`),
           wrongChoice(raw`\(\,5-2i\)`, raw`That swaps the coordinates.`)
         ]),
-        choiceStep("Double \(r\)", raw`What is \(2r\)?`, [
+        choiceStep(raw`Double \(r\)`, raw`What is \(2r\)?`, [
           correctChoice(raw`\(\,6+4i\)`, raw`Exactly. Double both parts of \(r=3+2i\).`),
           wrongChoice(raw`\(\,6+2i\)`, raw`The imaginary part should double too.`),
           wrongChoice(raw`\(\,3+4i\)`, raw`The real part must also be doubled.`),
           wrongChoice(raw`\(\,6-4i\)`, raw`The imaginary part stays positive.`)
         ]),
-        choiceStep("Find \(v\)", raw`What is \(v=2r-s\)?`, [
+        choiceStep(raw`Find \(v\)`, raw`What is \(v=2r-s\)?`, [
           correctChoice(raw`\(\,4+9i\)`, raw`Correct. Subtracting \(2-5i\) means subtract \(2\) from the real part and add \(5\) to the imaginary part.`),
           wrongChoice(raw`\(\,8-1i\)`, raw`That treats the subtraction signs incorrectly.`),
           wrongChoice(raw`\(\,4-9i\)`, raw`The imaginary part becomes \(4-(-5)=9\), not \(-9\).`),
@@ -1071,7 +1071,7 @@
         ]),
         {
           type: "plot",
-          title: "Plot \(v\)",
+          title: raw`Plot \(v\)`,
           text: raw`Drag the point to where \(v=4+9i\) should be on the Argand diagram.`,
           plot: {
             ariaLabel: "Interactive Argand diagram showing r and s with a draggable point for v",
@@ -1318,7 +1318,7 @@
           wrongChoice(raw`\(\,z=|z|+i\)`, raw`That moves the terms the wrong way around.`),
           wrongChoice(raw`\(\,|z|+z=i\)`, raw`We want to isolate \(|z|\), not add another \(z\) to it.`)
         ]),
-        choiceStep("Use the fact that \(|z|\) is real", raw`If \(z=a+bi\), what must be true?`, [
+        choiceStep(raw`Use the fact that \(|z|\) is real`, raw`If \(z=a+bi\), what must be true?`, [
           correctChoice(raw`\(\,b=-1\)`, raw`Yes. Since \(|z|=a+(b+1)i\) is real, the imaginary part must be zero.`),
           wrongChoice(raw`\(\,b=1\)`, raw`The imaginary part is \(b+1\), so it must equal \(0\), giving \(b=-1\).`),
           wrongChoice(raw`\(\,a=-1\)`, raw`The reality of \(|z|\) tells us about the imaginary part, not the real part.`),
@@ -1338,7 +1338,7 @@
         ])
       ]
     }),
-    "3e": createConfig("3e", "2022 Paper — Solving for \(a\) and \(b\) using \(z\) and \(\overline{z}\)", {
+    "3e": createConfig("3e", raw`2022 Paper — Solving for \(a\) and \(b\) using \(z\) and \(\overline{z}\)`, {
       focus: raw`clearing the denominators with \(z\overline{z}\), then equating real and imaginary parts in terms of \(a\) and \(b\).`,
       questionHtml: raw`
         <div class="question-math">
@@ -1413,7 +1413,7 @@
           wrongChoice(raw`\(\,i+3=z\overline{z}\)`, raw`You still need the extra \(z\) and \(\overline{z}\) factors from clearing the denominators.`),
           wrongChoice(raw`\(\,i\overline{z}+3z=1\)`, raw`The right-hand side also gets multiplied by \(z\overline{z}\).`)
         ]),
-        choiceStep("Substitute \(a+bi\)", raw`After substituting \(z=a+bi\), what does the left-hand side simplify to?`, [
+        choiceStep(raw`Substitute \(a+bi\)`, raw`After substituting \(z=a+bi\), what does the left-hand side simplify to?`, [
           correctChoice(raw`\(\,(3a+b)+(a+3b)i\)`, raw`Exactly. \(i(a-bi)=b+ai\), then adding \(3a+3bi\) gives that expression.`),
           wrongChoice(raw`\(\,(3a-b)+(a-3b)i\)`, raw`Both signs on the \(b\)-terms should be positive after the simplification.`),
           wrongChoice(raw`\(\,(a+3b)+(3a+b)i\)`, raw`That swaps the real and imaginary parts.`),

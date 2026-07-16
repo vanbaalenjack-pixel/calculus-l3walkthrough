@@ -428,7 +428,7 @@
           wrongChoice(raw`\(\,k^3x^2-x+3k=0\)`, raw`Watch the signs when you move everything to one side.`),
           wrongChoice(raw`\(\,k^3x^2+3k-x=0\)`, raw`That is not fully rearranged into standard quadratic form.`)
         ]),
-        choiceStep("Identify \(a\), \(b\), and \(c\)", raw`What are the coefficients in \(ax^2+bx+c=0\)?`, [
+        choiceStep(raw`Identify \(a\), \(b\), and \(c\)`, raw`What are the coefficients in \(ax^2+bx+c=0\)?`, [
           correctChoice(raw`\(\,a=k^3,\ b=1,\ c=-3k\)`, raw`Exactly. That is the correct match for \(k^3x^2+x-3k=0\).`),
           wrongChoice(raw`\(\,a=k^2,\ b=1,\ c=-3k\)`, raw`The coefficient of \(x^2\) is \(k^3\), not \(k^2\).`),
           wrongChoice(raw`\(\,a=k^3,\ b=-1,\ c=3k\)`, raw`Those signs do not match the rearranged quadratic.`),
@@ -537,7 +537,7 @@
           wrongChoice(raw`\(\,2m^9\)`, raw`That is the cube-root modulus, not the modulus of \(z^3\).`),
           wrongChoice(raw`\(\,27m^8\)`, raw`We do not differentiate or expand the power here.`)
         ]),
-        choiceStep("Write \(z^3\) in polar form", raw`Which polar form is correct?`, [
+        choiceStep(raw`Write \(z^3\) in polar form`, raw`Which polar form is correct?`, [
           correctChoice(raw`\(\,z^3=8m^{27}\operatorname{cis}\left(-\frac{\pi}{2}\right)\)`, raw`Exactly. We now have modulus and argument ready for De Moivre.`),
           wrongChoice(raw`\(\,z^3=8m^{27}\operatorname{cis}\left(\frac{\pi}{2}\right)\)`, raw`The argument needs to point down the negative imaginary axis.`),
           wrongChoice(raw`\(\,z^3=2m^9\operatorname{cis}\left(-\frac{\pi}{6}\right)\)`, raw`That is already part of the cube-root step.`),
@@ -637,7 +637,7 @@
           wrongChoice(raw`A De Moivre question.`, raw`There is no power of a complex number to rewrite in polar form.`),
           wrongChoice(raw`A conjugate-roots question.`, raw`This is about a locus, not roots of an equation.`)
         ]),
-        choiceStep("Rewrite \(z\)", raw`To separate the real and imaginary parts, how should we write \(z\)?`, [
+        choiceStep(raw`Rewrite \(z\)`, raw`To separate the real and imaginary parts, how should we write \(z\)?`, [
           correctChoice(raw`\(\,z=x+yi\)`, raw`Exactly. Writing \(z=x+yi\) lets us turn each modulus into a distance formula.`),
           wrongChoice(raw`\(\,z=r\operatorname{cis}\theta\)`, raw`Polar form is not the most helpful start for a Cartesian locus.`),
           wrongChoice(raw`\(\,z=x+y\)`, raw`We need the imaginary unit \(i\) in the complex form.`),
@@ -773,25 +773,25 @@
         `)}
       `,
       steps: [
-        choiceStep("Read \(u\)", raw`What are the coordinates of \(u\)?`, [
+        choiceStep(raw`Read \(u\)`, raw`What are the coordinates of \(u\)?`, [
           correctChoice(raw`\(\,u=4+2i\)`, raw`Correct. The point \(u\) is at \((4,2)\), so \(u=4+2i\).`),
           wrongChoice(raw`\(\,u=2+4i\)`, raw`Watch the order: real part first, imaginary part second.`),
           wrongChoice(raw`\(\,u=4-2i\)`, raw`The point is above the real axis, so the imaginary part is positive.`),
           wrongChoice(raw`\(\,u=-4+2i\)`, raw`The point is to the right of the origin, so the real part is positive.`)
         ]),
-        choiceStep("Read \(w\)", raw`What are the coordinates of \(w\)?`, [
+        choiceStep(raw`Read \(w\)`, raw`What are the coordinates of \(w\)?`, [
           correctChoice(raw`\(\,w=-2-3i\)`, raw`Yes. The point \(w\) is left \(2\) and down \(3\), so \(w=-2-3i\).`),
           wrongChoice(raw`\(\,w=-3-2i\)`, raw`The real part is \(-2\) and the imaginary part is \(-3\).`),
           wrongChoice(raw`\(\,w=2-3i\)`, raw`The point is to the left of the origin, so the real part is negative.`),
           wrongChoice(raw`\(\,w=-2+3i\)`, raw`The point is below the real axis, so the imaginary part is negative.`)
         ]),
-        choiceStep("Scale \(u\)", raw`What is \(2u\)?`, [
+        choiceStep(raw`Scale \(u\)`, raw`What is \(2u\)?`, [
           correctChoice(raw`\(\,2u=8+4i\)`, raw`Exactly. Multiply both the real and imaginary parts of \(u\) by \(2\).`),
           wrongChoice(raw`\(\,2u=6+2i\)`, raw`Both parts need to be doubled.`),
           wrongChoice(raw`\(\,2u=8+2i\)`, raw`The imaginary part should double as well.`),
           wrongChoice(raw`\(\,2u=4+4i\)`, raw`The real part should also double.`)
         ]),
-        choiceStep("Scale \(w\)", raw`What is \(3w\)?`, [
+        choiceStep(raw`Scale \(w\)`, raw`What is \(3w\)?`, [
           correctChoice(raw`\(\,3w=-6-9i\)`, raw`Right. Multiplying \(-2-3i\) by \(3\) gives \(-6-9i\).`),
           wrongChoice(raw`\(\,3w=-5-6i\)`, raw`Multiply both parts by \(3\), not just adjust them a little.`),
           wrongChoice(raw`\(\,3w=-6+9i\)`, raw`The imaginary part stays negative.`),
@@ -805,7 +805,7 @@
         ]),
         {
           type: "plot",
-          title: "Plot \(z\)",
+          title: raw`Plot \(z\)`,
           text: raw`Drag the point to where \(z=2-5i\) should be on the Argand diagram.`,
           plot: {
             ariaLabel: "Interactive Argand diagram showing u and w with a draggable point for z",
@@ -874,19 +874,19 @@
           wrongChoice(raw`\(\,u^n=mn\operatorname{cis}\left(\frac{3n\pi}{10}\right)\)`, raw`The modulus becomes \(m^n\), not \(mn\).`),
           wrongChoice(raw`\(\,u^n=m^n+\operatorname{cis}\left(\frac{3n\pi}{10}\right)\)`, raw`Polar form multiplies the modulus and cis part; it does not add them.`)
         ]),
-        choiceStep("Specialise to \(u^5\)", raw`If we want \(u^5\), what do we replace \(n\) with?`, [
+        choiceStep(raw`Specialise to \(u^5\)`, raw`If we want \(u^5\), what do we replace \(n\) with?`, [
           correctChoice(raw`\(\,5\)`, raw`Right. We are finding the fifth power, so \(n=5\).`),
           wrongChoice(raw`\(\,\frac{1}{5}\)`, raw`That would be for a fifth root, not a fifth power.`),
           wrongChoice(raw`\(\,\frac{3\pi}{10}\)`, raw`That is the argument, not the power.`),
           wrongChoice(raw`\(\,m\)`, raw`\(m\) is the modulus parameter, not the exponent.`)
         ]),
-        choiceStep("Compute \(u^5\)", raw`What does \(u^5\) become in polar form?`, [
+        choiceStep(raw`Compute \(u^5\)`, raw`What does \(u^5\) become in polar form?`, [
           correctChoice(raw`\(\,u^5=m^5\operatorname{cis}\left(\frac{3\pi}{2}\right)\)`, raw`Exactly. Multiplying the argument by \(5\) gives \(\frac{3\pi}{2}\).`),
           wrongChoice(raw`\(\,u^5=m^5\operatorname{cis}\left(\frac{3\pi}{10}\right)\)`, raw`The argument still needs to be multiplied by \(5\).`),
           wrongChoice(raw`\(\,u^5=5m\operatorname{cis}\left(\frac{3\pi}{2}\right)\)`, raw`The modulus becomes \(m^5\), not \(5m\).`),
           wrongChoice(raw`\(\,u^5=m^5\operatorname{cis}\left(\frac{\pi}{2}\right)\)`, raw`\(5\times \frac{3\pi}{10}=\frac{3\pi}{2}\), not \(\frac{\pi}{2}\).`)
         ]),
-        choiceStep("Convert to \(a+bi\)", raw`What is \(u^5\) in the form \(a+bi\)?`, [
+        choiceStep(raw`Convert to \(a+bi\)`, raw`What is \(u^5\) in the form \(a+bi\)?`, [
           correctChoice(raw`\(\,-m^5i\)`, raw`Correct. \(\cos\left(\frac{3\pi}{2}\right)=0\) and \(\sin\left(\frac{3\pi}{2}\right)=-1\), so \(u^5=-m^5i\).`),
           wrongChoice(raw`\(\,m^5i\)`, raw`The sine value is \(-1\), so the imaginary part is negative.`),
           wrongChoice(raw`\(\,m^5\)`, raw`The angle \(\frac{3\pi}{2}\) gives a purely imaginary result, not a real one.`),
@@ -1053,7 +1053,7 @@
           wrongChoice(raw`\(\,g=-4,\ \frac{14}{3}\)`, raw`The factor \(g-4=0\) gives \(g=4\).`),
           wrongChoice(raw`\(\,g=7,\ 8\)`, raw`Check the quadratic carefully after substitution.`)
         ]),
-        choiceStep("Match the corresponding \(h\)-values", raw`What are the two solution pairs \((g,h)\)?`, [
+        choiceStep(raw`Match the corresponding \(h\)-values`, raw`What are the two solution pairs \((g,h)\)?`, [
           correctChoice(raw`\(\,(4,-7)\) and \(\left(\frac{14}{3},-6\right)\)`, raw`Correct. Substituting each \(g\)-value into \(h=-\frac{28}{g}\) gives those two pairs.`),
           wrongChoice(raw`\(\,(4,7)\) and \(\left(\frac{14}{3},6\right)\)`, raw`Both \(h\)-values should be negative.`),
           wrongChoice(raw`\(\,(4,-6)\) and \(\left(\frac{14}{3},-7\right)\)`, raw`The \(h\)-values are attached to the wrong \(g\)-values.`),
@@ -1113,7 +1113,7 @@
           wrongChoice(raw`The conjugate of the number.`, raw`Conjugate is a different operation entirely.`),
           wrongChoice(raw`The denominator after rationalising.`, raw`That is not what the argument means.`)
         ]),
-        choiceStep("Use \(\frac{\pi}{4}\)", raw`What does an argument of \(\frac{\pi}{4}\) tell us about the real and imaginary parts?`, [
+        choiceStep(raw`Use \(\frac{\pi}{4}\)`, raw`What does an argument of \(\frac{\pi}{4}\) tell us about the real and imaginary parts?`, [
           correctChoice(raw`They are equal.`, raw`Exactly. \(\tan\left(\frac{\pi}{4}\right)=1\), so the real part and imaginary coefficient must match.`),
           wrongChoice(raw`The real part must be zero.`, raw`That would put the number on the imaginary axis, not at an angle of \(\frac{\pi}{4}\).`),
           wrongChoice(raw`The imaginary part must be zero.`, raw`That would put the number on the real axis.`),
@@ -1131,7 +1131,7 @@
           wrongChoice(raw`\(\,\frac{-5d+(6-d^2)i}{1+d^2}\)`, raw`The \(d^2i\) term adds to \(6i\), so the imaginary coefficient is \(6+d^2\).`),
           wrongChoice(raw`\(\,\frac{-5d+(6+d^2)i}{1-d^2}\)`, raw`The denominator is \((1-di)(1+di)=1+d^2\).`)
         ]),
-        choiceStep("Solve for \(d\)", raw`What are the possible values of \(d\)?`, [
+        choiceStep(raw`Solve for \(d\)`, raw`What are the possible values of \(d\)?`, [
           correctChoice(raw`\(\,d=-3,\ -2\)`, raw`Exactly. Equating \(-5d\) and \(6+d^2\) gives \(d^2+5d+6=0\), so \(d=-3\) or \(d=-2\).`),
           wrongChoice(raw`\(\,d=3,\ 2\)`, raw`The factors are \((d+3)(d+2)=0\), so both values are negative.`),
           wrongChoice(raw`\(\,d=-6,\ 1\)`, raw`Those do not satisfy \(d^2+5d+6=0\).`),
@@ -1326,7 +1326,7 @@
           wrongChoice(raw`\(\,(1+2u)(3+u)=5+6u\)`, raw`Both square-root terms should change to \(2u\).`),
           wrongChoice(raw`\(\,(1+2u)(3+2u)=5+6x\)`, raw`Once we substitute, the right-hand side should also use \(u\).`)
         ]),
-        choiceStep("Expand and solve for \(u\)", raw`Which values of \(u\) do we get?`, [
+        choiceStep(raw`Expand and solve for \(u\)`, raw`Which values of \(u\) do we get?`, [
           correctChoice(raw`\(\,u=-1,\ \frac{1}{2}\)`, raw`Correct. Expanding gives \(3+8u+4u^2=5+6u\), so \(4u^2+2u-2=0\), and the roots are \(u=-1\) and \(u=\frac{1}{2}\).`),
           wrongChoice(raw`\(\,u=1,\ \frac{1}{4}\)`, raw`Those are tempting, but the quadratic is in \(u\), not in \(x\).`),
           wrongChoice(raw`\(\,u=-\frac{1}{2},\ 1\)`, raw`Check the factorisation or quadratic solving again.`),
@@ -1499,19 +1499,19 @@
         `)}
       `,
       steps: [
-        choiceStep("Make the \(u\)-terms match", raw`What should we do to make the \(u\)-terms the same in both equations?`, [
+        choiceStep(raw`Make the \(u\)-terms match`, raw`What should we do to make the \(u\)-terms the same in both equations?`, [
           correctChoice(raw`Multiply \(u+(1-i)v=4\) by \(i\).`, raw`Exactly. That gives \(ui+(1-i)vi=4i\), so the \(ui\)-terms are ready to eliminate.`),
           wrongChoice(raw`Multiply \(ui+2v=3\) by \(i\).`, raw`That would turn \(ui\) into \(-u\), which moves us away from matching terms.`),
           wrongChoice(raw`Multiply both equations by \(v\).`, raw`That introduces extra products instead of simplifying the system.`),
           wrongChoice(raw`Divide both equations by \(i\).`, raw`That would not make the \(u\)-terms match cleanly.`)
         ]),
-        choiceStep("Eliminate \(u\)", raw`What do we get when we subtract the new equation from \(ui+2v=3\)?`, [
+        choiceStep(raw`Eliminate \(u\)`, raw`What do we get when we subtract the new equation from \(ui+2v=3\)?`, [
           correctChoice(raw`\(\,2v-(1-i)vi=3-4i\)`, raw`Yes. The \(ui\)-terms cancel, leaving an equation just in \(v\).`),
           wrongChoice(raw`\(\,2v+(1-i)vi=3-4i\)`, raw`Subtracting keeps the minus sign in front of \((1-i)vi\).`),
           wrongChoice(raw`\(\,2v-(1-i)vi=3+4i\)`, raw`The right side is \(3-4i\), because we subtract \(4i\).`),
           wrongChoice(raw`\(\,v-(1-i)vi=3-4i\)`, raw`The \(2v\) stays as \(2v\) at this stage.`)
         ]),
-        choiceStep("Solve for \(v\)", raw`What is \(v\)?`, [
+        choiceStep(raw`Solve for \(v\)`, raw`What is \(v\)?`, [
           correctChoice(raw`\(\,v=\frac{7-i}{2}\)`, raw`Correct. Simplifying \(2v-(1-i)vi=3-4i\) gives \(v(1-i)=3-4i\), and rationalising leads to \(v=\frac{7-i}{2}\).`),
           wrongChoice(raw`\(\,v=\frac{7+i}{2}\)`, raw`The imaginary part should be negative after the simplification.`),
           wrongChoice(raw`\(\,v=\frac{3-4i}{2}\)`, raw`We still need to divide by \(1-i\), not just by \(2\).`),
@@ -1534,7 +1534,7 @@
             </div>
           `
         }),
-        choiceStep("Back-substitute for \(u\)", raw`What is \(u\)?`, [
+        choiceStep(raw`Back-substitute for \(u\)`, raw`What is \(u\)?`, [
           correctChoice(raw`\(\,u=1+4i\)`, raw`Exactly. Substituting \(v=\frac{7-i}{2}\) into \(u=4-(1-i)v\) gives \(u=1+4i\).`),
           wrongChoice(raw`\(\,u=4+i\)`, raw`The real part should simplify to \(1\), not \(4\).`),
           wrongChoice(raw`\(\,u=1-4i\)`, raw`The imaginary part is positive \(4i\).`),

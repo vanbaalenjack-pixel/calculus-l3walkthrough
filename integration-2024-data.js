@@ -619,7 +619,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        typedStep("Find the time", raw`When \(v(t)=264\), what is the value of \(t\)?`, ["1000"], {
+        typedStep(raw`Find the time`, raw`When \(v(t)=264\), what is the value of \(t\)?`, ["1000"], {
           beforeHtml: raw`
             <div class="math-block">
               \[
@@ -748,7 +748,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        typedStep("Find the constant", raw`Using \(y=6\) when \(x=\frac{\pi}{3}\), what is the value of \(C\)?`, ["15/2", "7.5"], {
+        typedStep(raw`Find the constant`, raw`Using \(y=6\) when \(x=\frac{\pi}{3}\), what is the value of \(C\)?`, ["15/2", "7.5"], {
           beforeHtml: raw`
             <div class="math-block">
               \[
@@ -760,7 +760,7 @@
           successMessage: raw`Correct. Since \(\cos\frac{4\pi}{3}=-\frac{1}{2}\) and \(\cos\frac{2\pi}{3}=-\frac{1}{2}\), the equation becomes \(6=-1.5+C\).`,
           genericMessage: raw`Substitute the cosine values at \(\frac{4\pi}{3}\) and \(\frac{2\pi}{3}\), then solve for \(C\).`
         }),
-        choiceStep("Evaluate at \(x=\frac{\pi}{2}\)", raw`What is the value of \(y\) when \(x=\frac{\pi}{2}\)?`, [
+        choiceStep(raw`Evaluate at \(x=\frac{\pi}{2}\)`, raw`What is the value of \(y\) when \(x=\frac{\pi}{2}\)?`, [
           wrongChoice(raw`\[
             1.5
           \]`, raw`Check the sign of the \(6\cos(\pi)\) term. Since \(\cos(\pi)=-1\), that term is negative.`),
@@ -1050,7 +1050,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        typedStep("Solve for \(k\)", raw`What is the value of \(k\)?`, ["4"], {
+        typedStep(raw`Solve for \(k\)`, raw`What is the value of \(k\)?`, ["4"], {
           beforeHtml: raw`
             <div class="math-block">
               \[
@@ -1167,7 +1167,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        choiceStep("Evaluate at \(x=\frac{1}{3}\)", raw`What is the value of \(y\) when \(x=\frac{1}{3}\)?`, [
+        choiceStep(raw`Evaluate at \(x=\frac{1}{3}\)`, raw`What is the value of \(y\) when \(x=\frac{1}{3}\)?`, [
           wrongChoice(raw`\[
             \frac{1}{4e-6}\approx 0.2052
           \]`, raw`The sign should be negative because the equation is \(-\frac{1}{y}=4e-6\).`),
@@ -1185,7 +1185,7 @@
         })
       ]
     }),
-    "2d": createConfig("2d", "2024 Paper — Shaded area between \(y=\sin^2x\) and \(y=1\)", {
+    "2d": createConfig("2d", raw`2024 Paper — Shaded area between \(y=\sin^2x\) and \(y=1\)`, {
       questionHtml: raw`
         <p class="step-text">The graph below shows part of the graph of the function \(y=\sin^2x\).</p>
         <div class="graph-frame question-graph-frame">
@@ -1559,7 +1559,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        typedStep("Use the condition", raw`What is the value of \(C\)?`, ["10"], {
+        typedStep(raw`Use the condition`, raw`What is the value of \(C\)?`, ["10"], {
           beforeHtml: raw`
             <div class="math-block">
               \[
@@ -1698,7 +1698,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        choiceStep("Solve for \(m\)", raw`What is the value of \(m\)?`, [
+        choiceStep(raw`Solve for \(m\)`, raw`What is the value of \(m\)?`, [
           wrongChoice(raw`\[
             \frac{e^4+3}{2}
           \]`, raw`The \(3\) should be subtracted when solving \(2m+3=e^4\).`),

@@ -1067,6 +1067,7 @@
         <p class="step-text">Use the values given in the table below to find an approximation to \(\int_{1}^{2.5}f(x)\,dx\) using the Trapezium Rule.</p>
         <div class="table-wrap">
           <table class="question-data-table">
+            <caption class="visually-hidden">Values of x and f of x from one to two point five in steps of zero point two five</caption>
             <thead>
               <tr>
                 <th scope="col">\(x\)</th>

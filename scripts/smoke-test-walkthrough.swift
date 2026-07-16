@@ -177,7 +177,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 document.querySelector(".home-breadcrumb-button").click();
                 document.querySelector('[data-standard="level-3-integration"]').click();
                 checks.integrationAppears = isVisible(document.querySelector('[data-standard-panel="level-3-integration"]'));
-                checks.integrationYears = document.querySelectorAll('[data-standard-panel="level-3-integration"] > .paper-picker-grid [data-paper]').length === 8;
+                checks.integrationYears = document.querySelectorAll('[data-standard-panel="level-3-integration"] > .paper-picker-grid [data-paper]').length === 9;
 
                 document.querySelector(".home-breadcrumb-button").click();
                 document.querySelector('[data-standard="level-3-complex"]').click();

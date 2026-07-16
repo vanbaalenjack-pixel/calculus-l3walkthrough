@@ -579,7 +579,7 @@
       ], {
         buttonGridClass: "button-grid two-col"
       }),
-      typedStep("Use the initial distance", raw`Since \(s(0)=3\), what is the value of \(C\)?`, ["3"], {
+      typedStep(raw`Use the initial distance`, raw`Since \(s(0)=3\), what is the value of \(C\)?`, ["3"], {
         beforeHtml: raw`
           <div class="math-block">
             \[
@@ -674,7 +674,7 @@
     `,
     afterRender: draw1cGraph,
     steps: [
-      typedStep("Find the non-zero intersection", raw`Besides \(x=0\), where do the two curves meet?`, ["4"], {
+      typedStep(raw`Find the non-zero intersection`, raw`Besides \(x=0\), where do the two curves meet?`, ["4"], {
         beforeHtml: raw`
           <div class="math-block">
             \[
@@ -804,7 +804,7 @@
       ], {
         buttonGridClass: "button-grid two-col"
       }),
-      typedStep("Use the initial condition", raw`After substituting \(x=2\) and \(y=1\), what is the value of \(C\)?`, ["4"], {
+      typedStep(raw`Use the initial condition`, raw`After substituting \(x=2\) and \(y=1\), what is the value of \(C\)?`, ["4"], {
         beforeHtml: raw`
           <div class="math-block">
             \[
@@ -1156,7 +1156,7 @@
       ], {
         buttonGridClass: "button-grid two-col"
       }),
-      typedStep("Find the constant", raw`Using \(x=6\) and \(y=7.5\), what is \(C\)?`, ["5"], {
+      typedStep(raw`Find the constant`, raw`Using \(x=6\) and \(y=7.5\), what is \(C\)?`, ["5"], {
         beforeHtml: raw`
           <div class="math-block">
             \[
@@ -1600,7 +1600,7 @@
     `,
     afterRender: draw3aGraph,
     steps: [
-      typedStep("Find h", raw`What is the value of \(h\) in Simpson’s Rule?`, ["3"], {
+      typedStep(raw`Find h`, raw`What is the value of \(h\) in Simpson’s Rule?`, ["3"], {
         ariaLabel: "Type the value of h",
         successMessage: raw`Correct. The measurements are taken every \(3\) metres.`,
         genericMessage: raw`Look at the spacing marked along the path.`
@@ -1911,7 +1911,7 @@
       ], {
         buttonGridClass: "button-grid two-col"
       }),
-      typedStep("Use the initial velocity", raw`Given that \(v(0)=5\), what is the value of \(C\)?`, ["5"], {
+      typedStep(raw`Use the initial velocity`, raw`Given that \(v(0)=5\), what is the value of \(C\)?`, ["5"], {
         beforeHtml: raw`
           <div class="math-block">
             \[

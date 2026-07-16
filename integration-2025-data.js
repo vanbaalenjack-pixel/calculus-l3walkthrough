@@ -447,7 +447,7 @@
         })
       ]
     }),
-    "1b": createConfig("1b", "2025 Paper — Solving by integrating and fitting \(C\)", {
+    "1b": createConfig("1b", raw`2025 Paper — Solving by integrating and fitting \(C\)`, {
       questionHtml: raw`
         <p class="step-text">
           Solve the differential equation
@@ -500,7 +500,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        typedStep("Find the constant", raw`Use \(y=10\) when \(x=4\). What is the value of \(C\)?`, ["-14"], {
+        typedStep(raw`Find the constant`, raw`Use \(y=10\) when \(x=4\). What is the value of \(C\)?`, ["-14"], {
           beforeHtml: raw`
             <div class="math-block">
               \[
@@ -604,7 +604,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        choiceStep("Use the first integral to link \(a\) and \(k\)", raw`After evaluating from \(1\) to \(2\), what equation do you get for \(a\)?`, [
+        choiceStep(raw`Use the first integral to link \(a\) and \(k\)`, raw`After evaluating from \(1\) to \(2\), what equation do you get for \(a\)?`, [
           wrongChoice(raw`\[
             a=3-3k
           \]`, raw`Check the signs when you subtract \(F(1)\) from \(F(2)\).`),
@@ -630,7 +630,7 @@
           `,
           buttonGridClass: "button-grid two-col"
         }),
-        choiceStep("Solve for \(k\)", raw`Once you substitute \(a=3+3k\) into \(\int_1^k 6x\,dx=a\), which values of \(k\) work?`, [
+        choiceStep(raw`Solve for \(k\)`, raw`Once you substitute \(a=3+3k\) into \(\int_1^k 6x\,dx=a\), which values of \(k\) work?`, [
           wrongChoice(raw`\[
             k=1 \text{ or } k=2
           \]`, raw`\(k=1\) does not satisfy the quadratic \(k^2-k-2=0\).`),
@@ -822,7 +822,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        choiceStep("Evaluate at \(x=2\)", raw`What is the value of \(y\) when \(x=2\)?`, [
+        choiceStep(raw`Evaluate at \(x=2\)`, raw`What is the value of \(y\) when \(x=2\)?`, [
           wrongChoice(raw`\[
             y=\frac{9}{e^2}\approx 1.218
           \]`, raw`That keeps only one factor of \(3\), but the logarithm term contributes \(3^3\) overall.`),
@@ -966,7 +966,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        typedStep("Find the constant", raw`Using \(p=8\) when \(t=\frac{\pi}{24}\), what is \(C\)?`, ["59/8", "7.375"], {
+        typedStep(raw`Find the constant`, raw`Using \(p=8\) when \(t=\frac{\pi}{24}\), what is \(C\)?`, ["59/8", "7.375"], {
           beforeHtml: raw`
             <div class="math-block">
               \[
@@ -1076,7 +1076,7 @@
           `,
           buttonGridClass: "button-grid two-col"
         }),
-        choiceStep("Solve for \(k\)", raw`What is the value of \(k\)?`, [
+        choiceStep(raw`Solve for \(k\)`, raw`What is the value of \(k\)?`, [
           wrongChoice(raw`\[
             1
           \]`, raw`If \(k=1\), the upper-bound value is too small to make the integral equal \(1\).`),
@@ -1164,7 +1164,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        typedStep("Use the initial velocity", raw`Since \(v(0)=6\), what is the constant in the velocity function?`, ["14"], {
+        typedStep(raw`Use the initial velocity`, raw`Since \(v(0)=6\), what is the constant in the velocity function?`, ["14"], {
           ariaLabel: "Type the velocity constant",
           successMessage: raw`Yes. Substituting \(t=0\) gives \(6=-8+C\), so \(C=14\).`,
           genericMessage: raw`Substitute \(t=0\) into \(v(t)=-8e^{-0.3t}-t+C\) and use \(v(0)=6\).`
@@ -1185,7 +1185,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        choiceStep("Evaluate at \(t=3\)", raw`How far from \(P\) is the particle after \(3\) seconds?`, [
+        choiceStep(raw`Evaluate at \(t=3\)`, raw`How far from \(P\) is the particle after \(3\) seconds?`, [
           wrongChoice(raw`\[
             18.675\text{ m}
           \]`, raw`That underestimates the positive contribution from the fitted velocity model.`),
@@ -1277,7 +1277,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        choiceStep("Integrate in \(u\)", raw`Which antiderivative is correct?`, [
+        choiceStep(raw`Integrate in \(u\)`, raw`Which antiderivative is correct?`, [
           wrongChoice(raw`\[
             \frac{u^4}{4}+\frac{u^6}{6}
           \]`, raw`The second term should stay negative.`),
@@ -1392,7 +1392,7 @@
         })
       ]
     }),
-    "3b": createConfig("3b", "2025 Paper — Logarithmic antiderivative in terms of \(k\)", {
+    "3b": createConfig("3b", raw`2025 Paper — Logarithmic antiderivative in terms of \(k\)`, {
       questionHtml: raw`
         <p class="step-text">
           Find
@@ -1468,7 +1468,7 @@
           `,
           buttonGridClass: "button-grid two-col"
         }),
-        choiceStep("Simplify using \(k>1\)", raw`What is the final answer in terms of \(k\)?`, [
+        choiceStep(raw`Simplify using \(k>1\)`, raw`What is the final answer in terms of \(k\)?`, [
           wrongChoice(raw`\[
             5\ln|k-1|
           \]`, raw`The expression inside the logarithm should be \(2k-1\).`),
@@ -1596,7 +1596,7 @@
         ], {
           buttonGridClass: "button-grid two-col"
         }),
-        choiceStep("Solve for \(y\) at \(x=\frac{4}{5}\)", raw`What value of \(y\) do you get?`, [
+        choiceStep(raw`Solve for \(y\) at \(x=\frac{4}{5}\)`, raw`What value of \(y\) do you get?`, [
           wrongChoice(raw`\[
             \frac{25}{16}
           \]`, raw`That is too small. Recheck the value of the left-hand side after substituting \(x=\frac{4}{5}\).`),

@@ -411,7 +411,7 @@
           \]
         </div>
       `),
-      guidedStep("Qualify the answer for every real \(p\)", raw`Because \(\sqrt[4]{16p^2}=2\sqrt{|p|}\), replace \(2\sqrt p\) by \(2\sqrt{|p|}\) when \(p\) may be negative. The angles do not change.`, raw`
+      guidedStep(raw`Qualify the answer for every real \(p\)`, raw`Because \(\sqrt[4]{16p^2}=2\sqrt{|p|}\), replace \(2\sqrt p\) by \(2\sqrt{|p|}\) when \(p\) may be negative. The angles do not change.`, raw`
         <div class="math-block">
           \[
           z=2\sqrt{|p|}\,\operatorname{cis}\!\left(\frac{3\pi}{8}+\frac{k\pi}{2}\right),
@@ -497,7 +497,7 @@
           \]
         </div>
       `),
-      guidedStep("Use \(|z|=1\) and finish the proof", raw`Since \(x^2+y^2=1\), the real numerator is zero. Also, \(z\ne1\) ensures \(1-z\ne0\), so the denominator is nonzero.`, raw`
+      guidedStep(raw`Use \(|z|=1\) and finish the proof`, raw`Since \(x^2+y^2=1\), the real numerator is zero. Also, \(z\ne1\) ensures \(1-z\ne0\), so the denominator is nonzero.`, raw`
         <div class="math-block">
           \[
           1-x^2-y^2=0
@@ -599,7 +599,7 @@
           \]
         </div>
       `),
-      guidedStep("Rearrange for \(x\)", raw`Collect the terms containing \(x\), then divide by \(4-w^2\).`, raw`
+      guidedStep(raw`Rearrange for \(x\)`, raw`Collect the terms containing \(x\), then divide by \(4-w^2\).`, raw`
         <div class="math-block">
           \[
           4x-12=w^2x
@@ -699,7 +699,7 @@
           \]
         </div>
       `),
-      guidedStep("Complete the square in \(k\)", raw`Write the discriminant as a nonnegative square plus a positive constant.`, raw`
+      guidedStep(raw`Complete the square in \(k\)`, raw`Write the discriminant as a nonnegative square plus a positive constant.`, raw`
         <div class="math-block">
           \[
           =5(k-3)^2+49-45

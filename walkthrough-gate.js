@@ -7,6 +7,14 @@ const WALKTHROUGH_KATEX_DELIMITERS = [
   { left: "\\[", right: "\\]", display: true },
   { left: "\\(", right: "\\)", display: false }
 ];
+const WALKTHROUGH_FOCUSABLE_SELECTOR = [
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
+  "[tabindex]:not([tabindex='-1'])"
+].join(", ");
 
 const STICKY_QUESTION_STORAGE_KEY = "calc.nz.stickyQuestionCard";
 let stickyQuestionPreferenceFallback = true;
@@ -46,6 +54,121 @@ function ensureWalkthroughMathRenderer() {
   };
 
   return window.renderMath;
+}
+
+function getWalkthroughFocusableElements(container) {
+  if (!container || typeof container.querySelectorAll !== "function") {
+    return [];
+  }
+
+  return Array.from(container.querySelectorAll(WALKTHROUGH_FOCUSABLE_SELECTOR)).filter(function (element) {
+    return !element.hidden
+      && !element.closest("[hidden], .hidden, [inert]")
+      && element.getAttribute("aria-hidden") !== "true";
+  });
+}
+
+function containWalkthroughFocus(event, container) {
+  if (!event || event.key !== "Tab" || !container) {
+    return false;
+  }
+
+  const focusableElements = getWalkthroughFocusableElements(container);
+
+  if (!focusableElements.length) {
+    event.preventDefault();
+    if (!container.hasAttribute("tabindex")) {
+      container.setAttribute("tabindex", "-1");
+    }
+    container.focus();
+    return true;
+  }
+
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+  const activeElement = document.activeElement;
+
+  if (event.shiftKey && (activeElement === firstElement || !container.contains(activeElement))) {
+    event.preventDefault();
+    lastElement.focus();
+    return true;
+  }
+
+  if (!event.shiftKey && (activeElement === lastElement || !container.contains(activeElement))) {
+    event.preventDefault();
+    firstElement.focus();
+    return true;
+  }
+
+  return false;
+}
+
+function setWalkthroughModalSiblingsInert(modal, shouldBeInert) {
+  if (!modal || !document.body) {
+    return;
+  }
+
+  if (shouldBeInert) {
+    modal._inertedSiblings = Array.from(document.body.children).filter(function (element) {
+      return element !== modal && "inert" in element;
+    }).map(function (element) {
+      const state = { element: element, wasInert: element.inert };
+      element.inert = true;
+      return state;
+    });
+    return;
+  }
+
+  (modal._inertedSiblings || []).forEach(function (state) {
+    if (state.element && state.element.isConnected) {
+      state.element.inert = state.wasInert;
+    }
+  });
+  modal._inertedSiblings = [];
+}
+
+function setWalkthroughSidebarBackgroundInert(sidebar, shouldBeInert) {
+  if (!sidebar || !document.body) {
+    return;
+  }
+
+  if (shouldBeInert) {
+    if (Array.isArray(sidebar._inertedBackgroundElements)) {
+      return;
+    }
+
+    const sidebarParent = sidebar.parentElement;
+    const backdrop = document.getElementById("walkthrough-sidebar-backdrop");
+    const lightbox = document.getElementById("question-image-lightbox");
+    const targets = Array.from(document.body.children).filter(function (element) {
+      return element !== sidebarParent
+        && element !== backdrop
+        && element !== lightbox
+        && "inert" in element;
+    });
+
+    if (sidebarParent) {
+      Array.from(sidebarParent.children).forEach(function (element) {
+        if (element !== sidebar && "inert" in element) {
+          targets.push(element);
+        }
+      });
+    }
+
+    sidebar._inertedBackgroundElements = targets.map(function (element) {
+      const state = { element: element, wasInert: element.inert };
+      element.inert = true;
+      return state;
+    });
+    return;
+  }
+
+  (sidebar._inertedBackgroundElements || []).forEach(function (state) {
+    if (state.element && state.element.isConnected) {
+      state.element.inert = state.wasInert;
+    }
+  });
+  sidebar._inertedBackgroundElements = null;
 }
 
 function getSiteHeaderHeight() {
@@ -340,31 +463,41 @@ const WALKTHROUGH_NAV_L2_CALCULUS_PARTS = [
   "2a", "2b", "2c", "2d",
   "3a", "3b", "3c", "3d"
 ];
+const WALKTHROUGH_NAV_INTEGRATION_2021_PART_LABELS = {
+  "1a": "1(a)",
+  "1b": "1(b)(i)",
+  "1c": "1(b)(ii)",
+  "1d": "1(c)",
+  "1e": "1(d)"
+};
 const WALKTHROUGH_NAV_YEARS = [2025, 2024, 2023, 2022, 2021, 2020];
 const WALKTHROUGH_NAV_DIFFERENTIATION_YEARS = [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
-const WALKTHROUGH_NAV_INTEGRATION_YEARS = [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018];
+const WALKTHROUGH_NAV_INTEGRATION_YEARS = [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
 let walkthroughSidebarPreferenceFallback = null;
 let walkthroughProgressFallback = {};
 let walkthroughLastVisitedFallback = null;
 let walkthroughExamModeFallback = false;
 
-function createWalkthroughPaper(id, year, routeTemplate, parts) {
+function createWalkthroughPaper(id, year, routeTemplate, parts, partLabels) {
   return {
     id: id,
     year: year,
     label: year + " Paper",
     indexHref: "index.html#" + id,
     routeTemplate: routeTemplate,
-    parts: parts || WALKTHROUGH_NAV_PARTS
+    parts: parts || WALKTHROUGH_NAV_PARTS,
+    partLabels: partLabels || null
   };
 }
 
-function createWalkthroughYearPapers(standardId, routeTemplate, years) {
+function createWalkthroughYearPapers(standardId, routeTemplate, years, partLabelsByYear) {
   return (years || WALKTHROUGH_NAV_YEARS).map(function (year) {
     return createWalkthroughPaper(
       standardId + "-" + year,
       year,
-      routeTemplate.replace(/\{year\}/g, String(year))
+      routeTemplate.replace(/\{year\}/g, String(year)),
+      null,
+      partLabelsByYear && partLabelsByYear[year]
     );
   });
 }
@@ -413,7 +546,12 @@ const WALKTHROUGH_NAV_CATALOG = [
         id: "level-3-integration",
         label: "Integration",
         indexHref: "index.html#level-3-integration",
-        papers: createWalkthroughYearPapers("level-3-integration", "int-{part}{year}.html", WALKTHROUGH_NAV_INTEGRATION_YEARS)
+        papers: createWalkthroughYearPapers(
+          "level-3-integration",
+          "int-{part}{year}.html",
+          WALKTHROUGH_NAV_INTEGRATION_YEARS,
+          { 2021: WALKTHROUGH_NAV_INTEGRATION_2021_PART_LABELS }
+        )
       },
       {
         id: "level-3-complex",
@@ -435,13 +573,18 @@ function escapeWalkthroughSidebarHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
-function walkthroughPartLabel(partId) {
+function walkthroughPartLabel(partId, paper) {
   const value = String(partId || "");
+
+  if (paper && paper.partLabels && paper.partLabels[value]) {
+    return paper.partLabels[value];
+  }
+
   return value.charAt(0) + "(" + value.charAt(1) + ")";
 }
 
-function walkthroughQuestionLabel(partId) {
-  return "Question " + walkthroughPartLabel(partId);
+function walkthroughQuestionLabel(partId, paper) {
+  return "Question " + walkthroughPartLabel(partId, paper);
 }
 
 function getWalkthroughProgressStorage() {
@@ -613,11 +756,11 @@ function writeLastWalkthrough(context, partId) {
     paperId: context.paper.id,
     partId: partId,
     href: href,
-    label: context.paper.year + " " + context.standard.label + " \u00b7 " + walkthroughQuestionLabel(partId),
+    label: context.paper.year + " " + context.standard.label + " \u00b7 " + walkthroughQuestionLabel(partId, context.paper),
     levelLabel: context.level.label,
     standardLabel: context.standard.label,
     year: context.paper.year,
-    questionLabel: walkthroughQuestionLabel(partId),
+    questionLabel: walkthroughQuestionLabel(partId, context.paper),
     updatedAt: Date.now()
   };
 
@@ -845,7 +988,7 @@ function getWalkthroughHeaderTitle(context) {
     return "";
   }
 
-  return context.paper.year + " " + context.standard.label + " \u00b7 " + walkthroughQuestionLabel(context.partId);
+  return context.paper.year + " " + context.standard.label + " \u00b7 " + walkthroughQuestionLabel(context.partId, context.paper);
 }
 
 function getWalkthroughHeaderSubtitle(context, sourceSubtitle) {
@@ -975,14 +1118,31 @@ function setWalkthroughSidebarVisible(isVisible, options) {
     return;
   }
 
+  const wasVisible = body.classList.contains("walkthrough-nav-visible");
+  const isDesktop = isWalkthroughSidebarDesktop();
+  const willBeMobileOpen = isVisible && !isDesktop;
+
+  if (isVisible && !wasVisible && settings.focus !== false) {
+    sidebar._previousWalkthroughFocus = settings.trigger || document.activeElement;
+  }
+
   if (settings.persist) {
     setWalkthroughSidebarStoredPreference(isVisible);
   }
 
   body.classList.toggle("walkthrough-nav-visible", isVisible);
   body.classList.toggle("walkthrough-nav-hidden", !isVisible);
-  body.classList.toggle("walkthrough-nav-mobile-open", isVisible && !isWalkthroughSidebarDesktop());
+  body.classList.toggle("walkthrough-nav-mobile-open", willBeMobileOpen);
   setWalkthroughSidebarInteractivity(sidebar, isVisible);
+  setWalkthroughSidebarBackgroundInert(sidebar, willBeMobileOpen);
+
+  if (willBeMobileOpen) {
+    sidebar.setAttribute("role", "dialog");
+    sidebar.setAttribute("aria-modal", "true");
+  } else {
+    sidebar.removeAttribute("role");
+    sidebar.removeAttribute("aria-modal");
+  }
 
   if (openToggle) {
     openToggle.hidden = isVisible;
@@ -998,12 +1158,39 @@ function setWalkthroughSidebarVisible(isVisible, options) {
   }
 
   if (backdrop) {
-    backdrop.hidden = !isVisible || isWalkthroughSidebarDesktop();
+    backdrop.hidden = !willBeMobileOpen;
+  }
+
+  if (isVisible && !wasVisible && settings.focus !== false) {
+    (closeToggle || sidebar).focus();
+  }
+
+  if (wasVisible && !isVisible) {
+    const previousFocus = sidebar._previousWalkthroughFocus;
+    sidebar._previousWalkthroughFocus = null;
+
+    if (settings.restoreFocus !== false) {
+      const focusTarget = previousFocus && previousFocus.isConnected
+        ? previousFocus
+        : openToggle;
+
+      if (focusTarget && typeof focusTarget.focus === "function") {
+        focusTarget.focus();
+      }
+    } else if (sidebar.contains(document.activeElement)
+      && openToggle
+      && typeof openToggle.focus === "function") {
+      openToggle.focus();
+    }
   }
 }
 
 function syncWalkthroughSidebarState() {
-  setWalkthroughSidebarVisible(shouldShowWalkthroughSidebarByDefault(), { persist: false });
+  setWalkthroughSidebarVisible(shouldShowWalkthroughSidebarByDefault(), {
+    persist: false,
+    focus: false,
+    restoreFocus: false
+  });
 }
 
 function isWalkthroughShortcutSuppressed(event) {
@@ -1100,7 +1287,7 @@ function ensureWalkthroughSidebarToggle(app) {
     openToggle.setAttribute("aria-expanded", "false");
     openToggle.setAttribute("aria-label", "Show navigation");
     openToggle.addEventListener("click", function () {
-      setWalkthroughSidebarVisible(true, { persist: true });
+      setWalkthroughSidebarVisible(true, { persist: true, trigger: openToggle });
     });
   }
 
@@ -1184,12 +1371,12 @@ function renderWalkthroughPartGroups(context) {
             const href = getGuidedWalkthroughHref(getWalkthroughPartHref(context.paper, partId));
             return renderWalkthroughSidebarLink({
               href: href,
-              label: walkthroughPartLabel(partId),
+              label: walkthroughPartLabel(partId, context.paper),
               partId: partId,
               progressState: getWalkthroughPartProgressState(context, partId),
               current: current,
               currentValue: "page",
-              ariaLabel: walkthroughQuestionLabel(partId) + ", " + context.paper.year + " " + context.standard.label
+              ariaLabel: walkthroughQuestionLabel(partId, context.paper) + ", " + context.paper.year + " " + context.standard.label
             });
           }).join("")}
         </div>
@@ -1303,7 +1490,7 @@ function ensureWalkthroughSidebar(config) {
     backdrop.setAttribute("aria-label", "Close navigation");
     document.body.appendChild(backdrop);
     backdrop.addEventListener("click", function () {
-      setWalkthroughSidebarVisible(false, { persist: true });
+      setWalkthroughSidebarVisible(false, { persist: true, restoreFocus: true });
     });
   }
 
@@ -1315,17 +1502,13 @@ function ensureWalkthroughSidebar(config) {
     sidebar.addEventListener("click", function (event) {
       const closeToggle = event.target.closest("#walkthrough-sidebar-close-toggle");
       if (closeToggle) {
-        setWalkthroughSidebarVisible(false, { persist: true });
-        const openToggle = document.getElementById("walkthrough-sidebar-open-toggle");
-        if (openToggle) {
-          openToggle.focus();
-        }
+        setWalkthroughSidebarVisible(false, { persist: true, restoreFocus: true });
         return;
       }
 
       const link = event.target.closest("[data-close-walkthrough-sidebar]");
       if (link && !isWalkthroughSidebarDesktop()) {
-        setWalkthroughSidebarVisible(false, { persist: true });
+        setWalkthroughSidebarVisible(false, { persist: true, restoreFocus: false });
       }
     });
   }
@@ -1334,12 +1517,20 @@ function ensureWalkthroughSidebar(config) {
     document.body.dataset.walkthroughSidebarSetup = "true";
     window.addEventListener("resize", syncWalkthroughSidebarState);
     document.addEventListener("keydown", function (event) {
+      const sidebar = document.getElementById("walkthrough-sidebar");
+      const lightbox = document.getElementById("question-image-lightbox");
+
+      if (lightbox && !lightbox.hidden) {
+        return;
+      }
+
+      if (document.body.classList.contains("walkthrough-nav-mobile-open")
+        && containWalkthroughFocus(event, sidebar)) {
+        return;
+      }
+
       if (!event.defaultPrevented && event.key === "Escape" && document.body.classList.contains("walkthrough-nav-visible")) {
-        setWalkthroughSidebarVisible(false, { persist: true });
-        const openToggle = document.getElementById("walkthrough-sidebar-open-toggle");
-        if (openToggle) {
-          openToggle.focus();
-        }
+        setWalkthroughSidebarVisible(false, { persist: true, restoreFocus: true });
         event.preventDefault();
         return;
       }
@@ -1616,6 +1807,19 @@ function cloneQuestionGraphicForLightbox(target) {
   const idMap = {};
   const suffix = "-lightbox-" + (++questionGraphicCloneSequence);
 
+  [clone].concat(Array.from(clone.querySelectorAll(".question-image-zoomable, [data-image-zoom-setup='true']"))).forEach(function (zoomClone) {
+    if (!zoomClone.matches(".question-image-zoomable, [data-image-zoom-setup='true']")) {
+      return;
+    }
+
+    zoomClone.classList.remove("question-image-zoomable");
+    zoomClone.removeAttribute("role");
+    zoomClone.removeAttribute("tabindex");
+    zoomClone.removeAttribute("aria-label");
+    delete zoomClone.dataset.imageZoomSetup;
+    delete zoomClone.dataset.imageZoomDescription;
+  });
+
   clone.removeAttribute("id");
   clone.querySelectorAll("[id]").forEach(function (element) {
     const originalId = element.id;
@@ -1669,6 +1873,7 @@ function ensureQuestionImageLightbox() {
     lightbox.setAttribute("role", "dialog");
     lightbox.setAttribute("aria-modal", "true");
     lightbox.setAttribute("aria-label", "Question image preview");
+    lightbox.setAttribute("tabindex", "-1");
     lightbox.innerHTML = `
       <button class="question-image-lightbox-close" type="button" aria-label="Close image preview">Close</button>
       <div class="question-image-lightbox-stage">
@@ -1687,6 +1892,7 @@ function ensureQuestionImageLightbox() {
       const previousFocus = lightbox._previousQuestionFocus;
       lightbox.hidden = true;
       document.body.classList.remove("question-image-lightbox-open");
+      setWalkthroughModalSiblingsInert(lightbox, false);
 
       const image = lightbox.querySelector(".question-image-lightbox-img");
       const graphic = lightbox.querySelector(".question-image-lightbox-graphic");
@@ -1700,7 +1906,7 @@ function ensureQuestionImageLightbox() {
       }
 
       lightbox._previousQuestionFocus = null;
-      if (previousFocus && typeof previousFocus.focus === "function") {
+      if (previousFocus && previousFocus.isConnected && typeof previousFocus.focus === "function") {
         previousFocus.focus();
       }
     }
@@ -1718,7 +1924,16 @@ function ensureQuestionImageLightbox() {
     });
 
     document.addEventListener("keydown", function (event) {
-      if (!lightbox.hidden && event.key === "Escape") {
+      if (lightbox.hidden) {
+        return;
+      }
+
+      if (containWalkthroughFocus(event, lightbox)) {
+        return;
+      }
+
+      if (event.key === "Escape") {
+        event.preventDefault();
         closeLightbox();
       }
     });
@@ -1738,6 +1953,10 @@ function openQuestionImageLightbox(target) {
   }
 
   lightbox._previousQuestionFocus = target;
+  const zoomDescription = getQuestionImageZoomDescription(target);
+  lightbox.setAttribute("aria-label", zoomDescription
+    ? "Larger view: " + zoomDescription
+    : "Question image preview");
   graphic.innerHTML = "";
   graphic.hidden = true;
   image.hidden = false;
@@ -1756,9 +1975,85 @@ function openQuestionImageLightbox(target) {
 
   lightbox.hidden = false;
   document.body.classList.add("question-image-lightbox-open");
+  setWalkthroughModalSiblingsInert(lightbox, true);
 
   if (closeButton) {
     closeButton.focus();
+  } else {
+    lightbox.focus();
+  }
+}
+
+function getQuestionImageZoomDescription(target) {
+  if (!target) {
+    return "";
+  }
+
+  if (target.dataset.imageZoomDescription) {
+    return target.dataset.imageZoomDescription;
+  }
+
+  const authoredLabel = String(target.getAttribute("aria-label") || "").trim();
+  if (authoredLabel) {
+    const zoomPrefix = /^Open (?:a )?larger view(?:(?: of)|:)?\s*/i;
+    const authoredDescription = authoredLabel.replace(zoomPrefix, "").trim();
+
+    if (authoredDescription && authoredDescription !== authoredLabel) {
+      return authoredDescription;
+    }
+
+    if (!zoomPrefix.test(authoredLabel)) {
+      return authoredLabel;
+    }
+  }
+
+  if (target.tagName === "IMG" && target.alt && target.alt.trim()) {
+    return target.alt.trim();
+  }
+
+  const graphic = target.matches("svg") ? target : target.querySelector("svg");
+  if (graphic) {
+    const graphicLabel = String(graphic.getAttribute("aria-label") || "").trim();
+    if (graphicLabel) {
+      return graphicLabel;
+    }
+
+    const labelledBy = String(graphic.getAttribute("aria-labelledby") || "").trim();
+    if (labelledBy) {
+      const labelledText = labelledBy.split(/\s+/).map(function (id) {
+        const labelElement = document.getElementById(id);
+        return labelElement ? String(labelElement.textContent || "").trim() : "";
+      }).filter(Boolean).join(". ");
+
+      if (labelledText) {
+        return labelledText;
+      }
+    }
+
+    const title = graphic.querySelector("title");
+    const description = graphic.querySelector("desc");
+    const graphicText = [title, description].map(function (element) {
+      return element ? String(element.textContent || "").trim() : "";
+    }).filter(Boolean).join(". ");
+
+    if (graphicText) {
+      return graphicText;
+    }
+  }
+
+  const figure = target.closest("figure");
+  const caption = figure && figure.querySelector("figcaption");
+  return caption ? String(caption.textContent || "").trim() : "";
+}
+
+function syncQuestionImageZoomLabel(target) {
+  const description = getQuestionImageZoomDescription(target);
+
+  if (description) {
+    target.dataset.imageZoomDescription = description;
+    target.setAttribute("aria-label", "Open larger view: " + description);
+  } else {
+    target.setAttribute("aria-label", "Open larger view");
   }
 }
 
@@ -1771,6 +2066,7 @@ function setupQuestionImageZoom(root) {
 
   targets.forEach(function (target) {
     if (target.dataset.imageZoomSetup === "true") {
+      syncQuestionImageZoomLabel(target);
       return;
     }
 
@@ -1778,7 +2074,7 @@ function setupQuestionImageZoom(root) {
     target.classList.add("question-image-zoomable");
     target.setAttribute("role", "button");
     target.setAttribute("tabindex", "0");
-    target.setAttribute("aria-label", target.getAttribute("aria-label") || "Open larger view");
+    syncQuestionImageZoomLabel(target);
     target.addEventListener("click", function () {
       openQuestionImageLightbox(target);
     });
@@ -1787,6 +2083,10 @@ function setupQuestionImageZoom(root) {
         event.preventDefault();
         openQuestionImageLightbox(target);
       }
+    });
+
+    window.requestAnimationFrame(function () {
+      syncQuestionImageZoomLabel(target);
     });
   });
 }
