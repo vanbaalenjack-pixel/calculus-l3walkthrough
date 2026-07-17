@@ -2123,6 +2123,118 @@ img.graph-svg {
   overflow-x: auto;
 }
 
+.long-division-region {
+  max-width: 100%;
+  margin: 18px 0 22px;
+}
+
+.long-division-region > figcaption {
+  margin-bottom: 10px;
+}
+
+.long-division-scroll-hint {
+  display: none;
+  margin: -2px 0 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.long-division-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 18px 16px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-soft);
+  background: linear-gradient(180deg, rgba(246, 249, 255, 0.98) 0%, rgba(251, 253, 255, 0.98) 100%);
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.long-division-scroll:focus-visible {
+  outline: none;
+  border-color: rgba(37, 99, 235, 0.45);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.polynomial-long-division-table {
+  width: max-content;
+  min-width: 580px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  color: var(--text);
+  font-size: 1.02rem;
+}
+
+.polynomial-long-division-table th,
+.polynomial-long-division-table td {
+  min-width: 102px;
+  height: 42px;
+  padding: 6px 10px;
+  text-align: right;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.polynomial-long-division-table th:first-child,
+.polynomial-long-division-table td:first-child {
+  min-width: 68px;
+  text-align: center;
+}
+
+.long-division-quotient td {
+  font-weight: 700;
+}
+
+.long-division-dividend > td {
+  border-top: 2px solid rgba(30, 56, 92, 0.78);
+}
+
+.polynomial-long-division-table .long-division-bracket {
+  border-left: 2px solid rgba(30, 56, 92, 0.78);
+}
+
+.polynomial-long-division-table .long-division-rule {
+  border-bottom: 2px solid rgba(30, 56, 92, 0.7);
+}
+
+.long-division-product > td:first-child,
+.long-division-remainder > td:last-child {
+  font-weight: 700;
+}
+
+.polar-root-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 18px;
+}
+
+.polar-root-item {
+  min-width: 0;
+  padding: 10px 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .long-division-scroll-hint {
+    display: block;
+  }
+
+  .polar-root-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .polar-root-item {
+    overflow-x: auto;
+    padding: 8px 4px;
+  }
+
+  .compact-answer-math .katex {
+    font-size: 0.84em;
+  }
+}
+
 .question-card .katex-display,
 .step-card .katex-display,
 .feedback .katex-display,
