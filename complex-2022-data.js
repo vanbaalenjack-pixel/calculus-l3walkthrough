@@ -1072,9 +1072,9 @@
         {
           type: "plot",
           title: raw`Plot \(v\)`,
-          text: raw`Drag the point to where \(v=4+9i\) should be on the Argand diagram.`,
+          text: raw`The answer point \(v=4+9i\) is shown on the Argand diagram.`,
           plot: {
-            ariaLabel: "Interactive Argand diagram showing r and s with a draggable point for v",
+            ariaLabel: "Argand diagram showing r, s, and v at four, nine",
             xMin: -10.5,
             xMax: 10.5,
             yMin: -10.5,

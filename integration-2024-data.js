@@ -249,13 +249,20 @@
     const areaPath = shadedBetweenPath(topFn, bottomFn, 0, 1, 0.006, scale);
 
     svg.innerHTML = `
+      <defs>
+        <clipPath id="int-2024-1e-plot-clip" clipPathUnits="userSpaceOnUse">
+          <rect x="${padding}" y="${padding}" width="${width - padding * 2}" height="${height - padding * 2}"></rect>
+        </clipPath>
+      </defs>
       <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
       ${lineMarkup(scale, -0.12, 0, 1.28, 0, "graph-axis")}
       ${lineMarkup(scale, 0, -1.1, 0, 11.4, "graph-axis")}
-      ${lineMarkup(scale, 1, 0, 1, 9.4, "graph-guide")}
-      <path class="question-shade" d="${areaPath}"></path>
-      <path class="question-curve" d="${topPath}"></path>
-      <path class="question-curve" d="${bottomPath}"></path>
+      ${lineMarkup(scale, 1, 0, 1, topFn(1), "graph-guide")}
+      <g clip-path="url(#int-2024-1e-plot-clip)">
+        <path class="question-shade" d="${areaPath}"></path>
+        <path class="question-curve" d="${topPath}"></path>
+        <path class="question-curve" d="${bottomPath}"></path>
+      </g>
       ${circleMarkup(scale, 0, 0, 4.2, "question-origin")}
       ${textMarkup(scale, 1, -0.32, "1", "graph-label", ' text-anchor="middle"')}
       ${textMarkup(scale, 0.03, 9.05, "x = 1", "graph-label")}
@@ -437,7 +444,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows the function \(y=40x(5x^2-3)^3\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-1b-int-2024" class="graph-svg" viewBox="0 0 460 300" aria-label="Shaded region under y equals 40x times 5x squared minus 3 cubed from x equals negative 0.4 to x equals 0"></svg>
+          <svg id="question-graph-1b-int-2024" class="graph-svg" viewBox="0 0 460 300" aria-label="Shaded region under y equals 40x times 5x squared minus 3 cubed from x equals negative 0.4 to x equals 0" role="img"></svg>
         </div>
         <p class="step-text">Find the shaded area.</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
@@ -782,7 +789,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows the curves \(y=3\sec^2x\) and \(y=2\tan^2x\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-1e-int-2024" class="graph-svg" viewBox="0 0 460 300" aria-label="Shaded region between y equals 3 sec squared x and y equals 2 tan squared x from x equals 0 to x equals 1"></svg>
+          <svg id="question-graph-1e-int-2024" class="graph-svg" viewBox="0 0 460 300" aria-label="Shaded region between y equals 3 sec squared x and y equals 2 tan squared x from x equals 0 to x equals 1" role="img"></svg>
         </div>
         <p class="step-text">Find the area of the shaded region enclosed by the two curves, \(x=1\), and the \(y\)-axis.</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
@@ -1189,7 +1196,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows part of the graph of the function \(y=\sin^2x\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-2d-int-2024" class="graph-svg" viewBox="0 0 470 310" aria-label="Shaded region between y equals sine squared x and y equals 1 from x equals negative pi over 2 to pi over 2"></svg>
+          <svg id="question-graph-2d-int-2024" class="graph-svg" viewBox="0 0 470 310" aria-label="Shaded region between y equals sine squared x and y equals 1 from x equals negative pi over 2 to pi over 2" role="img"></svg>
         </div>
         <p class="step-text">Find the shaded area enclosed between the lines \(y=\sin^2x\), \(y=1\), \(x=-\frac{\pi}{2}\), and \(x=\frac{\pi}{2}\).</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
@@ -1720,7 +1727,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows the function \(y=2\cos\left(\frac{x}{2}\right)\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3d-int-2024" class="graph-svg" viewBox="0 0 470 300" aria-label="Area under y equals 2 cosine x over 2 from x equals 0 to x equals pi, split into Area A and Area B by x equals k"></svg>
+          <svg id="question-graph-3d-int-2024" class="graph-svg" viewBox="0 0 470 300" aria-label="Area under y equals 2 cosine x over 2 from x equals 0 to x equals pi, split into Area A and Area B by x equals k" role="img"></svg>
         </div>
         <p class="step-text">Find the value of \(k\) so that the shaded Area A will be equal to the shaded Area B.</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>

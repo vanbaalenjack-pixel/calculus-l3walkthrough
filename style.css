@@ -1858,12 +1858,6 @@ input[type="range"] {
   background: #ffffff;
 }
 
-.interactive-plot-frame {
-  --graph-render-max-width: 520px;
-  border-color: rgba(75, 116, 230, 0.16);
-  box-shadow: inset 0 0 0 1px rgba(75, 116, 230, 0.04);
-}
-
 .graph-svg {
   width: 100%;
   max-width: var(--graph-render-max-width);
@@ -1881,11 +1875,6 @@ img.graph-svg {
   max-width: min(100%, var(--graph-render-max-width));
   max-height: min(62vh, var(--graph-render-max-height));
   object-fit: contain;
-}
-
-.interactive-plot-svg {
-  cursor: crosshair;
-  touch-action: none;
 }
 
 .graph-bg {
@@ -1911,11 +1900,13 @@ img.graph-svg {
 }
 
 .graph-normal {
+  fill: none;
   stroke: #1d4ed8;
   stroke-width: 2.25;
 }
 
 .question-normal {
+  fill: none;
   stroke: #111827;
   stroke-width: 1.35;
 }
@@ -1930,13 +1921,6 @@ img.graph-svg {
   fill: #0f766e;
   stroke: white;
   stroke-width: 2;
-}
-
-.graph-point-draggable {
-  fill: #ef4444;
-  stroke: white;
-  stroke-width: 2.5;
-  filter: drop-shadow(0 6px 12px rgba(239, 68, 68, 0.22));
 }
 
 .graph-label {
@@ -1956,7 +1940,6 @@ img.graph-svg {
 .question-normal,
 .graph-point,
 .graph-point-secondary,
-.graph-point-draggable,
 .graph-curve-secondary,
 .question-curve,
 .question-origin,
@@ -1970,10 +1953,6 @@ img.graph-svg {
 .graph-legend-line-primary,
 .graph-legend-line-secondary {
   vector-effect: non-scaling-stroke;
-}
-
-.graph-draggable-label {
-  fill: #b91c1c;
 }
 
 .graph-equation-label {
@@ -2058,18 +2037,21 @@ img.graph-svg {
 }
 
 .graph-guide {
+  fill: none;
   stroke: #94a3b8;
   stroke-width: 1.15;
   stroke-dasharray: 6 6;
 }
 
 .graph-measure {
+  fill: none;
   stroke: #111827;
   stroke-width: 1.4;
   stroke-linecap: round;
 }
 
 .graph-measure-soft {
+  fill: none;
   stroke: #64748b;
   stroke-width: 1.2;
   stroke-linecap: round;

@@ -409,7 +409,7 @@
       questionHtml: raw`
         <p class="step-text">The graph of the function \(y=f(x)\) below is symmetrical about the \(y\)-axis. The shaded areas are given.</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-1b-int-2022" class="graph-svg" viewBox="0 0 460 320" aria-label="Symmetrical graph of y equals f of x with shaded areas 4.4 and 1.2"></svg>
+          <svg id="question-graph-1b-int-2022" class="graph-svg" viewBox="0 0 460 320" aria-label="Symmetrical graph of y equals f of x with shaded areas 4.4 and 1.2" role="img"></svg>
         </div>
         <div class="question-math">
           \[
@@ -536,7 +536,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows part of the function \(y=\frac{4}{\sqrt{3x-2}}\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-1d-int-2022" class="graph-svg" viewBox="0 0 460 300" aria-label="Area under y equals four over square root of three x minus two from x equals 1 to x equals k"></svg>
+          <svg id="question-graph-1d-int-2022" class="graph-svg" viewBox="0 0 460 300" aria-label="Area under y equals four over square root of three x minus two from x equals 1 to x equals k" role="img"></svg>
         </div>
         <p class="step-text">Find the value of \(k\) such that the shaded region has an area of \(8\).</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
@@ -625,7 +625,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows the functions \(y=(e^x)^2\) and \(y=3e^x+10\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-1e-int-2022" class="graph-svg" viewBox="0 0 500 320" aria-label="Shaded region between y equals e to the two x and y equals three e to the x plus ten from x equals 0 to their intersection"></svg>
+          <svg id="question-graph-1e-int-2022" class="graph-svg" viewBox="0 0 500 320" aria-label="Shaded region between y equals e to the two x and y equals three e to the x plus ten from x equals 0 to their intersection" role="img"></svg>
         </div>
         <p class="step-text">Find the exact value of the shaded area.</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
@@ -1381,7 +1381,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows part of the curve \(y=x+\cos x\) and the line \(y=x\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3d-int-2022" class="graph-svg" viewBox="0 0 470 320" aria-label="Shaded region between y equals x plus cosine x and y equals x"></svg>
+          <svg id="question-graph-3d-int-2022" class="graph-svg" viewBox="0 0 470 320" aria-label="Shaded region between y equals x plus cosine x and y equals x" role="img"></svg>
         </div>
         <p class="step-text">Find the shaded area.</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
@@ -1455,7 +1455,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows part of the curve \(y=\frac{2}{x}\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3e-int-2022" class="graph-svg" viewBox="0 0 460 320" aria-label="Rectangle and shaded region above y equals two over x between x equals k and x equals 3k"></svg>
+          <svg id="question-graph-3e-int-2022" class="graph-svg" viewBox="0 0 460 320" aria-label="Rectangle and shaded region above y equals two over x between x equals k and x equals 3k" role="img"></svg>
         </div>
         <p class="step-text">Points \(P\) and \(Q\) lie on the curve with \(x\)-coordinates \(k\) and \(3k\) respectively, where \(k&gt;0\). Point \(R\) is such that \(PR\) is parallel to the \(x\)-axis and \(QR\) is parallel to the \(y\)-axis.</p>
         <p class="step-text">The shaded area can be written in the form \(a+b\ln c\), where \(a\), \(b\), and \(c\) are integers. Find the values of \(a\), \(b\), and \(c\).</p>

@@ -6,6 +6,11 @@
     "2a", "2b", "2c", "2d", "2e",
     "3a", "3b", "3c", "3d", "3e"
   ];
+  const questionImageDimensions = {
+    "1a": [2688, 469], "1b": [2750, 388], "1c": [2750, 575], "1d": [2750, 450], "1e": [2750, 475],
+    "2a": [2750, 438], "2b": [2750, 513], "2c": [2750, 550], "2d": [2750, 563], "2e": [2750, 550],
+    "3a": [2750, 594], "3b": [2750, 488], "3c": [2750, 625], "3d": [2750, 638], "3e": [2750, 532]
+  };
   const metadata = {
     topic: "Complex Numbers",
     year: 2020,
@@ -21,6 +26,19 @@
 
   function questionLabel(id) {
     return "Question " + id.charAt(0) + "(" + id.charAt(1) + ")";
+  }
+
+  function questionImageAlt(id, focus) {
+    const plainFocus = String(focus)
+      .replace(/\\\([\s\S]*?\\\)/g, "the mathematical expression shown")
+      .replace(/<[^>]*>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+    return questionLabel(id) + " scanned exam prompt. Walkthrough focus: " + plainFocus;
   }
 
   function pageHref(id) {
@@ -78,6 +96,7 @@
 
   function createConfig(id, focus, finalHtml, steps, details) {
     const next = adjacentId(id, 1);
+    const imageDimensions = questionImageDimensions[id];
     const finalAnswer = answerHighlight(finalHtml, details && details.finalLabel);
     const guidedSteps = steps.map(function (step) {
       return Object.assign({}, step);
@@ -102,7 +121,7 @@
       metadata: metadata,
       tags: tags,
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/complex-2020/${id}-question.png" alt="${questionLabel(id)} prompt from the 2020 Complex Numbers paper" />
+        <img class="question-screenshot" src="assets/complex-2020/${id}-question.png" width="${imageDimensions[0]}" height="${imageDimensions[1]}" alt="${questionImageAlt(id, focus)}" />
       `,
       answerHtml: finalAnswer,
       guidedSteps: guidedSteps

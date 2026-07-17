@@ -320,6 +320,7 @@
       ${lineMarkup(scale, -0.05, 0, 2.35, 0, "graph-axis")}
       ${lineMarkup(scale, 0, -0.4, 0, 7.8, "graph-axis")}
       ${lineMarkup(scale, 1, 0, 1, fn(1), "graph-guide")}
+      ${lineMarkup(scale, 2, 0, 2, fn(2), "graph-guide")}
       <path class="question-shade" d="${areaPath}"></path>
       <path class="question-curve" d="${curvePath}"></path>
       ${circleMarkup(scale, 0, 0, 4.2, "question-origin")}
@@ -665,7 +666,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows part of the graph of the function \(y=4\sin(5x)\cos(3x)\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-1d-int" class="graph-svg" viewBox="0 0 460 300" aria-label="Shaded region under y equals 4 sine 5x cosine 3x from x equals 0 to pi over 6"></svg>
+          <svg id="question-graph-1d-int" class="graph-svg" viewBox="0 0 460 300" aria-label="Shaded region under y equals 4 sine 5x cosine 3x from x equals 0 to pi over 6" role="img"></svg>
         </div>
         <p class="step-text">Find the shaded area under the curve between \(x=0\) and \(x=\frac{\pi}{6}\).</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
@@ -1207,7 +1208,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows the function \(y=\sin^3x\cos^3x\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-2e-int" class="graph-svg" viewBox="0 0 460 300" aria-label="Shaded region under y equals sine cubed x cosine cubed x from x equals 0 to pi over 2"></svg>
+          <svg id="question-graph-2e-int" class="graph-svg" viewBox="0 0 460 300" aria-label="Shaded region under y equals sine cubed x cosine cubed x from x equals 0 to pi over 2" role="img"></svg>
         </div>
         <p class="step-text">Find the shaded area under the curve between \(x=0\) and \(x=\frac{\pi}{2}\).</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
@@ -1316,7 +1317,7 @@
         <p class="step-text">The diagram below shows the cross-section of a hole dug in the ground.</p>
         <p class="step-text">The depth of the hole is measured every \(5\) metres across the top of the hole.</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3a-int" class="graph-svg" viewBox="0 0 520 280" aria-label="Hole cross-section with depths measured every five metres"></svg>
+          <svg id="question-graph-3a-int" class="graph-svg" viewBox="0 0 520 280" aria-label="Hole cross-section with depths measured every five metres" role="img"></svg>
         </div>
         <p class="step-text">Using the trapezium rule, find an estimate for the area of the cross-section of the hole.</p>
       `,
@@ -1623,7 +1624,7 @@
           \]
         </div>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3d-int" class="graph-svg" viewBox="0 0 450 280" aria-label="Shaded region under y equals x squared plus 6 over x to the fourth from p to 2p"></svg>
+          <svg id="question-graph-3d-int" class="graph-svg" viewBox="0 0 450 280" aria-label="Shaded region under y equals x squared plus 6 over x to the fourth from p to 2p" role="img"></svg>
         </div>
         <p class="step-text">The area of the shaded region is \(\frac{9}{4}\) units\(^2\).</p>
         <p class="step-text">Prove that \(9p^3-2p^2-7=0\).</p>
@@ -1737,7 +1738,7 @@
       questionHtml: raw`
         <p class="step-text">Murray is planning to hang a piece of his art on a wall. This is shown in the diagram below.</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3e-int" class="graph-svg" viewBox="0 0 470 300" aria-label="Curved art edge under f of x equals one third times x squared plus three all squared from x equals 0 to x equals 3"></svg>
+          <svg id="question-graph-3e-int" class="graph-svg" viewBox="0 0 470 300" aria-label="Curved art edge under f of x equals one third times x squared plus three all squared from x equals 0 to x equals 3" role="img"></svg>
         </div>
         <p class="step-text">
           The equation of the curved edge of the piece of art is

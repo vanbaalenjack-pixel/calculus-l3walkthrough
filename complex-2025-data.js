@@ -806,9 +806,9 @@
         {
           type: "plot",
           title: raw`Plot \(z\)`,
-          text: raw`Drag the point to where \(z=2-5i\) should be on the Argand diagram.`,
+          text: raw`The answer point \(z=2-5i\) is shown on the Argand diagram.`,
           plot: {
-            ariaLabel: "Interactive Argand diagram showing u and w with a draggable point for z",
+            ariaLabel: "Argand diagram showing u, w, and z at two, negative five",
             targetX: 2,
             targetY: -5,
             draggableLabel: "z",

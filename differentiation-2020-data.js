@@ -92,7 +92,7 @@
   window.Differentiation2020Walkthroughs = {
     "1a": createConfig("1a", raw`Chain rule differentiation of a fifth power.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/1a-question.png" alt="Question One part a prompt from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/1a-question.png" width="3125" height="563" alt="Scanned exam prompt asking for the derivative of a fifth power using the chain rule." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -162,7 +162,7 @@
     }),
     "1b": createConfig("1b", raw`Trig derivatives and evaluating a tangent gradient.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/1b-question.png" alt="Question One part b prompt from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/1b-question.png" width="3125" height="594" alt="Scanned exam prompt asking for the tangent gradient of a trigonometric function at a specified point." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -225,7 +225,7 @@
     }),
     "1c": createConfig("1c", raw`Quotient rule and a stationary point on a logarithmic function.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/1c-question.png" alt="Question One part c prompt from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/1c-question.png" width="3125" height="557" alt="Scanned exam prompt asking for the stationary point of a logarithmic quotient." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -285,7 +285,7 @@
     }),
     "1d": createConfig("1d", raw`Product rule and proving a tangent equation.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/1d-question.png" alt="Question One part d prompt from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/1d-question.png" width="3125" height="788" alt="Scanned exam prompt asking for a tangent equation to a polynomial-times-cosine curve using the product rule." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -362,7 +362,7 @@
     }),
     "1e": createConfig("1e", raw`Maximising a cylinder volume inside a sphere.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/1e-question.png" alt="Question One part e prompt and sphere diagram from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/1e-question.png" width="3125" height="938" alt="Scanned exam prompt asking for the maximum volume of a cylinder inscribed in a sphere of radius 20 centimetres; includes a diagram." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -457,7 +457,7 @@
     }),
     "2a": createConfig("2a", raw`Quotient rule differentiation of a trigonometric fraction.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/2a-question.png" alt="Question Two part a prompt from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/2a-question.png" width="3125" height="632" alt="Scanned exam prompt asking for the derivative of a trigonometric quotient." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -498,7 +498,7 @@
     }),
     "2b": createConfig("2b", raw`Differentiating an exponential depreciation model.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/2b-question.png" alt="Question Two part b prompt from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/2b-question.png" width="3125" height="888" alt="Scanned exam prompt asking for the rate of change of an exponential car-depreciation model at 8 years." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -559,7 +559,7 @@
     }),
     "2c": createConfig("2c", raw`Product and chain rules for stationary points.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/2c-question.png" alt="Question Two part c prompt from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/2c-question.png" width="3125" height="563" alt="Scanned exam prompt asking for the stationary points of a function using product and chain rules." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -621,7 +621,7 @@
     }),
     "2d": createConfig("2d", raw`Related rates for an angle of elevation.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/2d-question.png" alt="Question Two part d rocket prompt and angle diagram from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/2d-question.png" width="3125" height="2100" alt="Scanned exam prompt asking for the changing angle of elevation of a rocket from an observer 500 metres away; includes a diagram." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -719,7 +719,7 @@
     }),
     "2e": createConfig("2e", raw`Parametric first and second derivatives.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/2e-question.png" alt="Question Two part e prompt from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/2e-question.png" width="3125" height="863" alt="Scanned exam prompt asking for exact coordinates on a parametrically defined curve using first and second derivatives." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -804,7 +804,7 @@
     }),
     "3a": createConfig("3a", raw`Chain rule differentiation of a logarithm.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/3a-question.png" alt="Question Three part a prompt from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/3a-question.png" width="3125" height="550" alt="Scanned exam prompt asking for the derivative of a logarithmic function using the chain rule." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -846,7 +846,7 @@
     }),
     "3b": createConfig("3b", raw`Finding where a tangent has a given gradient.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/3b-question.png" alt="Question Three part b prompt from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/3b-question.png" width="3125" height="607" alt="Scanned exam prompt asking where the tangent to a square-root function has gradient 1." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -905,7 +905,7 @@
     }),
     "3c": createConfig("3c", raw`Normal gradient and an x-intercept.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/3c-question.png" alt="Question Three part c prompt and graph from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/3c-question.png" width="3125" height="2125" alt="Scanned exam prompt asking where a normal to a square-root curve meets the x axis; includes a graph." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -983,7 +983,7 @@
     }),
     "3d": createConfig("3d", raw`Stationary points and second derivative classification.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/3d-question.png" alt="Question Three part d prompt from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/3d-question.png" width="3125" height="763" alt="Scanned exam prompt asking for stationary points and their classification as local maxima or minima." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">
@@ -1068,7 +1068,7 @@
     }),
     "3e": createConfig("3e", raw`Proving a differential equation using first and second derivatives.`, {
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/3e-question.png" alt="Question Three part e prompt from the 2020 Differentiation paper" />
+        <img class="question-screenshot" src="assets/differentiation-2020/3e-question.png" width="3125" height="763" alt="Scanned exam prompt asking for proof that a polynomial-times-exponential curve satisfies a stated differential equation." />
       `,
       answerHtml: raw`
         <div class="answer-highlight">

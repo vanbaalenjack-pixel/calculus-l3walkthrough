@@ -618,7 +618,7 @@
     questionHtml: raw`
       <p class="step-text">The graph below shows the functions \(y=\sqrt{x}\) and \(8y=x^2\).</p>
       <div class="graph-frame question-graph-frame">
-        <svg id="question-graph-1c-int-2023" class="graph-svg" viewBox="0 0 460 300" aria-label="Shaded region between y equals square root x and 8y equals x squared"></svg>
+        <svg id="question-graph-1c-int-2023" class="graph-svg" viewBox="0 0 460 300" aria-label="Shaded region between y equals square root x and 8y equals x squared" role="img"></svg>
       </div>
       <p class="step-text">Find the shaded area.</p>
     `,
@@ -848,7 +848,7 @@
         \]
       </div>
       <div class="graph-frame question-graph-frame">
-        <svg id="question-graph-1e-int-2023" class="graph-svg" viewBox="0 0 520 320" aria-label="Shaded region bounded by y squared equals 10 minus x, y equals 3x, and y equals negative sine of pi x over 10"></svg>
+        <svg id="question-graph-1e-int-2023" class="graph-svg" viewBox="0 0 520 320" aria-label="Shaded region bounded by y squared equals 10 minus x, y equals 3x, and y equals negative sine of pi x over 10" role="img"></svg>
       </div>
       <p class="step-text">Find the area of the shaded region.</p>
     `,
@@ -1562,7 +1562,7 @@
     questionHtml: raw`
       <p class="step-text">A garden designer wants an approximation of the area of the shaded garden section below.</p>
       <div class="graph-frame question-graph-frame">
-        <svg id="question-graph-3a-int-2023" class="graph-svg" viewBox="0 0 560 330" aria-label="Garden section measured every 3 metres with ordinates 10, 13, 16, 15, and 14"></svg>
+        <svg id="question-graph-3a-int-2023" class="graph-svg" viewBox="0 0 560 330" aria-label="Garden section measured every 3 metres with ordinates 10, 13, 16, 15, and 14" role="img"></svg>
       </div>
       <p class="step-text">Using these measurements, and Simpson’s Rule, find an approximation of the area of the garden section.</p>
     `,
@@ -1719,7 +1719,7 @@
     questionHtml: raw`
       <p class="step-text">The graph below shows the function \(y=5\sin(3x)\sin(x)\).</p>
       <div class="graph-frame question-graph-frame">
-        <svg id="question-graph-3c-int-2023" class="graph-svg" viewBox="0 0 470 300" aria-label="Shaded region under y equals 5 sine 3x times sine x from x equals 0 to pi over 3"></svg>
+        <svg id="question-graph-3c-int-2023" class="graph-svg" viewBox="0 0 470 300" aria-label="Shaded region under y equals 5 sine 3x times sine x from x equals 0 to pi over 3" role="img"></svg>
       </div>
       <p class="step-text">Find the shaded area.</p>
     `,

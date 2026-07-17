@@ -406,7 +406,7 @@
       questionHtml: raw`
         <p class="step-text">A rectangle is inscribed in a circle of radius \(r\), as shown below. The length of the rectangle is twice its width.</p>
         <div class="graph-frame question-graph-frame">
-          <svg class="graph-svg" viewBox="0 0 360 280" aria-label="Rectangle inscribed in a circle of radius r">
+          <svg class="graph-svg" viewBox="0 0 360 280" aria-label="Rectangle inscribed in a circle of radius r" role="img">
             <circle cx="180" cy="140" r="108" class="question-curve" />
 
             <line x1="16" y1="140" x2="344" y2="140" class="graph-axis" />

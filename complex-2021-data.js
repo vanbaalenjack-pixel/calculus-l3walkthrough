@@ -198,7 +198,6 @@
     const scale = createScale(width, height, padding, -4, 8, -5, 7);
     const screenRadius = Math.abs(scale.x(centerX + radius) - scale.x(centerX));
     const extras = [
-      `<circle class="question-shade" cx="${scale.x(centerX)}" cy="${scale.y(centerY)}" r="${screenRadius}"></circle>`,
       `<circle class="graph-curve-secondary" cx="${scale.x(centerX)}" cy="${scale.y(centerY)}" r="${screenRadius}"></circle>`,
       circleMarkup(scale, centerX, centerY, 4.5, "graph-point-secondary"),
       textMarkup(scale, centerX + 0.25, centerY + 0.35, label, "graph-label")
@@ -239,7 +238,6 @@
       yMax: 5,
       ariaLabel: "Circle locus centered at the origin with radius four",
       extraMarkup: [
-        `<circle class="question-shade" cx="${scale.x(0)}" cy="${scale.y(0)}" r="${radius}"></circle>`,
         `<circle class="graph-curve-secondary" cx="${scale.x(0)}" cy="${scale.y(0)}" r="${radius}"></circle>`,
         lineMarkup(scale, 0, 0, 4, 0, "graph-measure"),
         textMarkup(scale, 2, 0.35, "4", "graph-label", ' text-anchor="middle"'),

@@ -218,7 +218,8 @@
           </defs>
           <rect class="graph-bg" x="0" y="0" width="560" height="420"></rect>
           <ellipse class="question-curve" cx="260" cy="332" rx="170" ry="42"></ellipse>
-          <path class="graph-guide" d="M 90 332 L 260 46 L 430 332"></path>
+          <path class="question-curve" fill="none" d="M 90 332 L 260 46 L 430 332"></path>
+          <path class="graph-bg" d="M 156 214 H 364 V 332 C 315 360 205 360 156 332 Z"></path>
           <ellipse class="question-curve" cx="260" cy="214" rx="104" ry="24"></ellipse>
           <path class="question-curve" d="M 156 214 L 156 332"></path>
           <path class="question-curve" d="M 364 214 L 364 332"></path>
@@ -277,12 +278,12 @@
           <line class="graph-measure" x1="330" y1="92" x2="330" y2="305"></line>
           <line class="graph-measure" x1="95" y1="305" x2="330" y2="305"></line>
           <line class="graph-measure" x1="95" y1="305" x2="330" y2="92"></line>
-          <path class="graph-guide" d="M 300 305 L 300 275 L 330 275"></path>
+          <path class="question-normal" d="M 300 305 L 300 275 L 330 275"></path>
           <circle class="question-origin" cx="330" cy="92" r="34"></circle>
           <rect class="question-dot" x="318" y="42" width="24" height="28"></rect>
           <rect class="question-dot" x="314" y="66" width="32" height="18"></rect>
           <circle class="question-dot" cx="95" cy="305" r="5"></circle>
-          <path class="graph-guide" d="M 330 126 A 38 38 0 0 1 303 110"></path>
+          <path class="question-normal" d="M 330 126 A 38 38 0 0 1 303 110"></path>
           <text class="graph-equation-label" x="376" y="83">light</text>
           <text class="graph-equation-label" x="376" y="111">source</text>
           <text class="graph-equation-label" x="343" y="202">h</text>

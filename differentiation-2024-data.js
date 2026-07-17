@@ -1422,7 +1422,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows the function \(y=f(x)\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3b-2024" class="graph-svg" viewBox="0 0 560 360" aria-label="Graph of a piecewise function with open and closed points"></svg>
+          <svg id="question-graph-3b-2024" class="graph-svg" viewBox="0 0 560 360" aria-label="Graph of a piecewise function with open and closed points" role="img"></svg>
         </div>
         <p class="step-text">(i) Find the value(s) of \(x\) where \(f(x)\) is continuous but not differentiable.</p>
         <p class="step-text">(ii) Find the value(s) of \(x\) where \(f'(x)=0\).</p>
@@ -1798,7 +1798,7 @@
           \]
         </p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3e-2024" class="graph-svg" viewBox="0 0 520 320" aria-label="Graph of y equals e to the power negative x squared with a triangle OPQ"></svg>
+          <svg id="question-graph-3e-2024" class="graph-svg" viewBox="0 0 520 320" aria-label="Graph of y equals e to the power negative x squared with a triangle OPQ" role="img"></svg>
         </div>
         <p class="step-text">The point \(P\) lies on the curve and the point \(Q\) lies on the \(x\)-axis so that \(OP=PQ\), where \(O\) is the origin.</p>
         <p class="step-text">Prove that the largest possible area of the triangle \(OPQ\) is \(\frac{1}{\sqrt{2e}}\).</p>

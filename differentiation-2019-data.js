@@ -6,6 +6,28 @@
     "2a", "2b", "2c", "2d", "2e",
     "3a", "3b", "3c", "3d", "3e"
   ];
+  const questionImageDimensions = {
+    "1a": [2438, 750], "1b": [2938, 563], "1c": [2938, 657], "1d": [2938, 563], "1e": [2938, 1094],
+    "2a": [2625, 813], "2b": [2938, 688], "2c": [2938, 813], "2d": [2938, 2375], "2e": [2938, 750],
+    "3a": [2625, 938], "3b": [2938, 2375], "3c": [2938, 2125], "3d": [2938, 938], "3e": [2938, 2375]
+  };
+  const questionImageDescriptions = {
+    "1a": "Scanned exam prompt asking for the derivative of a square-root function using the chain rule.",
+    "1b": "Scanned exam prompt asking for the rate of change of a logarithmic function when t equals 4.",
+    "1c": "Scanned exam prompt asking for the tangent gradient of a quotient at x equals 2.",
+    "1d": "Scanned exam prompt asking for the x-values where a polynomial-times-exponential function is decreasing.",
+    "1e": "Scanned exam prompt asking for the rate of increase of a sphere's volume from its radius and surface-area rate.",
+    "2a": "Scanned exam prompt asking for the derivative of a fourth power using the chain rule.",
+    "2b": "Scanned exam prompt asking for the tangent gradient of y equals tan of 2x at a specified point.",
+    "2c": "Scanned exam prompt asking for the tangent gradient of a parametric curve when t equals 2.",
+    "2d": "Scanned exam prompt asking for the rising speed of a 22-metre bridge arm; includes a labelled bridge diagram.",
+    "2e": "Scanned exam prompt asking for a second-derivative chain-rule identity where y equals e to the u and u equals sin of 2x.",
+    "3a": "Scanned exam prompt asking for the derivative of 4 divided by sin x.",
+    "3b": "Scanned exam prompt with a function graph asking about stationary points, non-differentiability, and a two-sided limit.",
+    "3c": "Scanned exam prompt asking for the maximum area of a rectangle under y equals 4 minus the square root of x; includes a graph.",
+    "3d": "Scanned exam prompt asking when acceleration is zero for an object with an exponential velocity model.",
+    "3e": "Scanned exam prompt asking for point P on y equals 2 times the square root of 36 minus x squared; includes the curve and its tangent."
+  };
   const metadata = {
     topic: "Differentiation",
     year: 2019,
@@ -89,9 +111,10 @@
     };
   }
 
-  function questionImage(id, alt) {
+  function questionImage(id) {
+    const imageDimensions = questionImageDimensions[id];
     return raw`
-      <img class="question-screenshot" src="assets/differentiation-2019/${id}-question.png" alt="${alt}" />
+      <img class="question-screenshot" src="assets/differentiation-2019/${id}-question.png" width="${imageDimensions[0]}" height="${imageDimensions[1]}" alt="${questionImageDescriptions[id]}" />
     `;
   }
 
@@ -106,7 +129,7 @@
 
   window.Differentiation2019Walkthroughs = {
     "1a": createConfig("1a", raw`Chain rule differentiation of a square root.`, {
-      questionHtml: questionImage("1a", "Question One part a prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("1a"),
       guidedSteps: [
         guidedStep("Rewrite the root", raw`
           <p class="step-text">Write the square root as a power before differentiating.</p>
@@ -153,7 +176,7 @@
     }),
 
     "1b": createConfig("1b", raw`Differentiate a logarithmic function and evaluate the rate at \(t=4\).`, {
-      questionHtml: questionImage("1b", "Question One part b prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("1b"),
       guidedSteps: [
         guidedStep("Differentiate the logarithm", raw`
           <p class="step-text">Use \(\frac{d}{dt}\ln(u)=\frac{u'}{u}\).</p>
@@ -187,7 +210,7 @@
     }),
 
     "1c": createConfig("1c", raw`Use the quotient rule, then evaluate the tangent gradient at \(x=2\).`, {
-      questionHtml: questionImage("1c", "Question One part c prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("1c"),
       guidedSteps: [
         guidedStep("Set up the quotient rule", raw`
           <p class="step-text">Differentiate the numerator \(e^{2x}\) and the denominator \(1+x^2\).</p>
@@ -238,7 +261,7 @@
     }),
 
     "1d": createConfig("1d", raw`Use the product rule and solve where the derivative is negative.`, {
-      questionHtml: questionImage("1d", "Question One part d prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("1d"),
       guidedSteps: [
         guidedStep("Differentiate the product", raw`
           <p class="step-text">Apply the product rule to \(x^3e^x\).</p>
@@ -287,7 +310,7 @@
     }),
 
     "1e": createConfig("1e", raw`Related rates connecting surface area, radius, and volume of a sphere.`, {
-      questionHtml: questionImage("1e", "Question One part e prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("1e"),
       guidedSteps: [
         guidedStep("Connect the rates", raw`
           <p class="step-text">Use the chain rule to connect volume to surface area through the radius.</p>
@@ -351,7 +374,7 @@
     }),
 
     "2a": createConfig("2a", raw`Chain rule differentiation of a fourth power.`, {
-      questionHtml: questionImage("2a", "Question Two part a prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("2a"),
       guidedSteps: [
         guidedStep("Differentiate the outside and inside", raw`
           <p class="step-text">Differentiate the fourth power, then multiply by the derivative of \(2x-5\).</p>
@@ -376,7 +399,7 @@
     }),
 
     "2b": createConfig("2b", raw`Differentiate \(y=\tan(2x)\) and evaluate the tangent gradient.`, {
-      questionHtml: questionImage("2b", "Question Two part b prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("2b"),
       guidedSteps: [
         guidedStep("Differentiate the tangent function", raw`
           <p class="step-text">Use \(\frac{d}{dx}\tan(u)=u'\sec^2(u)\).</p>
@@ -410,7 +433,7 @@
     }),
 
     "2c": createConfig("2c", raw`Parametric differentiation and evaluating the gradient when \(t=2\).`, {
-      questionHtml: questionImage("2c", "Question Two part c prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("2c"),
       guidedSteps: [
         guidedStep("Rewrite and differentiate x", raw`
           <p class="step-text">Write \(x\) as a power of \(5-t\), then differentiate with respect to \(t\).</p>
@@ -464,7 +487,7 @@
     }),
 
     "2d": createConfig("2d", raw`Related rates for the height of a rising bridge arm.`, {
-      questionHtml: questionImage("2d", "Question Two part d prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("2d"),
       guidedSteps: [
         guidedStep("Relate height and angle", raw`
           <p class="step-text">Use the right triangle formed by the bridge arm and the height.</p>
@@ -522,7 +545,7 @@
     }),
 
     "2e": createConfig("2e", raw`Show the second-derivative chain rule identity for \(y=e^u\), \(u=\sin 2x\).`, {
-      questionHtml: questionImage("2e", "Question Two part e prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("2e"),
       guidedSteps: [
         guidedStep("Differentiate directly with respect to x", raw`
           <p class="step-text">First find the first and second derivatives of \(y=e^{\sin 2x}\).</p>
@@ -614,7 +637,7 @@
     }),
 
     "3a": createConfig("3a", raw`Rewrite the reciprocal as cosecant and differentiate.`, {
-      questionHtml: questionImage("3a", "Question Three part a prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("3a"),
       guidedSteps: [
         guidedStep("Rewrite using cosecant", raw`
           <p class="step-text">The PDF rewrites \(\frac{4}{\sin x}\) as \(4\csc x\).</p>
@@ -647,7 +670,7 @@
     }),
 
     "3b": createConfig("3b", raw`Read stationary points, non-differentiability, and a two-sided limit from a graph.`, {
-      questionHtml: questionImage("3b", "Question Three part b prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("3b"),
       guidedSteps: [
         guidedStep("Find where f prime is zero", raw`
           <p class="step-text">Look for horizontal tangents and horizontal pieces of the graph.</p>
@@ -699,7 +722,7 @@
     }),
 
     "3c": createConfig("3c", raw`Optimise the area of a rectangle under \(y=4-\sqrt{x}\).`, {
-      questionHtml: questionImage("3c", "Question Three part c prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("3c"),
       guidedSteps: [
         guidedStep("Write the area function", raw`
           <p class="step-text">The rectangle has width \(x\) and height \(y\).</p>
@@ -762,7 +785,7 @@
     }),
 
     "3d": createConfig("3d", raw`Differentiate velocity to find when acceleration is zero.`, {
-      questionHtml: questionImage("3d", "Question Three part d prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("3d"),
       guidedSteps: [
         guidedStep("Set acceleration to zero", raw`
           <p class="step-text">Acceleration is the derivative of velocity.</p>
@@ -799,7 +822,7 @@
     }),
 
     "3e": createConfig("3e", raw`Use the tangent gradient on \(y=2\sqrt{36-x^2}\) to find point \(P\).`, {
-      questionHtml: questionImage("3e", "Question Three part e prompt from the 2019 Differentiation paper"),
+      questionHtml: questionImage("3e"),
       guidedSteps: [
         guidedStep("Differentiate the curve", raw`
           <p class="step-text">Use the chain rule on \(y=2(36-x^2)^{1/2}\).</p>

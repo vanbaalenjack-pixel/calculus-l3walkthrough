@@ -6,6 +6,11 @@
     "2a", "2b", "2c", "2d", "2e",
     "3a", "3b", "3c", "3d", "3e"
   ];
+  const questionImageDimensions = {
+    "1a": [2813, 657], "1b": [2844, 907], "1c": [2844, 513], "1d": [2875, 2157], "1e": [2844, 719],
+    "2a": [2188, 782], "2b": [2844, 688], "2c": [2844, 488], "2d": [2844, 575], "2e": [2844, 1907],
+    "3a": [2125, 500], "3b": [2844, 575], "3c": [2844, 1219], "3d": [2844, 1500], "3e": [2844, 1938]
+  };
   const metadata = {
     topic: "Integration",
     year: 2020,
@@ -21,6 +26,19 @@
 
   function questionLabel(id) {
     return "Question " + id.charAt(0) + "(" + id.charAt(1) + ")";
+  }
+
+  function questionImageAlt(id, focus) {
+    const plainFocus = String(focus)
+      .replace(/\\\([\s\S]*?\\\)/g, "the mathematical expression shown")
+      .replace(/<[^>]*>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+    return questionLabel(id) + " scanned exam prompt. Walkthrough focus: " + plainFocus;
   }
 
   function pageHref(id) {
@@ -78,6 +96,7 @@
 
   function createConfig(id, focus, finalHtml, steps, details) {
     const next = adjacentId(id, 1);
+    const imageDimensions = questionImageDimensions[id];
     const finalAnswer = answerHighlight(finalHtml, details && details.finalLabel);
     const guidedSteps = steps.map(function (step) {
       return Object.assign({}, step);
@@ -102,7 +121,7 @@
       metadata: metadata,
       tags: tags,
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/integration-2020/${id}-question.png" alt="${questionLabel(id)} prompt from the 2020 Integration paper" />
+        <img class="question-screenshot" src="assets/integration-2020/${id}-question.png" width="${imageDimensions[0]}" height="${imageDimensions[1]}" alt="${questionImageAlt(id, focus)}" />
       `,
       answerHtml: finalAnswer,
       guidedSteps: guidedSteps

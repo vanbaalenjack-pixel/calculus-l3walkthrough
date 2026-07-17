@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2022 Differentiation Paper - Question 2(c)</title>
 
-  <link rel="stylesheet" href="style.css?v=20260707-2" />
+  <link rel="stylesheet" href="style.css?v=20260717-1" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
   <script defer src="walkthrough-gate.js?v=20260717-1"></script>
-  <script defer src="typed-math.js?v=20260328-1"></script>
+  <script defer src="typed-math.js?v=20260717-1"></script>
 </head>
 <body>
   <main class="app">
@@ -202,7 +202,7 @@
           </div>
 
           <div class="graph-frame">
-            <svg id="stationary-time-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of displacement against time with stationary point marked"></svg>
+            <svg id="stationary-time-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of displacement against time with stationary point marked" role="img"></svg>
           </div>
         </div>
 
@@ -394,6 +394,11 @@
       const stationaryY = scaleY(displacement(stationaryT));
 
       svg.innerHTML = `
+        <defs>
+          <clipPath id="diff-2022-2c-plot-clip" clipPathUnits="userSpaceOnUse">
+            <rect x="${padding}" y="${padding}" width="${width - padding * 2}" height="${height - padding * 2}"></rect>
+          </clipPath>
+        </defs>
         <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
         <line class="graph-grid-line" x1="${scaleX(2)}" y1="${padding}" x2="${scaleX(2)}" y2="${height - padding}"></line>
         <line class="graph-grid-line" x1="${scaleX(4)}" y1="${padding}" x2="${scaleX(4)}" y2="${height - padding}"></line>
@@ -401,8 +406,10 @@
         <line class="graph-grid-line" x1="${padding}" y1="${scaleY(0)}" x2="${width - padding}" y2="${scaleY(0)}"></line>
         <line class="graph-axis" x1="${padding}" y1="${scaleY(0)}" x2="${width - padding}" y2="${scaleY(0)}"></line>
         <line class="graph-axis" x1="${padding}" y1="${padding}" x2="${padding}" y2="${height - padding}"></line>
-        <path class="graph-curve" d="${path.trim()}"></path>
-        <line class="graph-normal" x1="${stationaryX - 48}" y1="${stationaryY}" x2="${stationaryX + 48}" y2="${stationaryY}"></line>
+        <g clip-path="url(#diff-2022-2c-plot-clip)">
+          <path class="graph-curve" d="${path.trim()}"></path>
+          <line class="graph-normal" x1="${stationaryX - 48}" y1="${stationaryY}" x2="${stationaryX + 48}" y2="${stationaryY}"></line>
+        </g>
         <circle class="graph-point" cx="${stationaryX}" cy="${stationaryY}" r="5"></circle>
         <text class="graph-label" x="${stationaryX + 8}" y="${stationaryY - 10}">t = 3√2</text>
         <text class="graph-label" x="${width - 20}" y="${scaleY(0) - 8}">t</text>

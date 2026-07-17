@@ -218,13 +218,20 @@
     };
 
     svg.innerHTML = `
+      <defs>
+        <clipPath id="int-2021-2d-plot-clip" clipPathUnits="userSpaceOnUse">
+          <rect x="${padding}" y="${padding}" width="${width - padding * 2}" height="${height - padding * 2}"></rect>
+        </clipPath>
+      </defs>
       <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
       ${lineMarkup(scale, -2.7, 0, 7.2, 0, "graph-axis")}
       ${lineMarkup(scale, 0, -4.2, 0, 7.2, "graph-axis")}
       ${lineMarkup(scale, 4 / 3, -4.2, 4 / 3, 7.2, "graph-guide")}
-      <path class="question-shade" d="${areaUnderCurvePath(fn, 2, k, 0, 0.025, scale)}"></path>
-      <path class="question-curve" d="${functionPath(fn, -2.6, 1.08, 0.025, scale)}"></path>
-      <path class="question-curve" d="${functionPath(fn, 1.58, 7.05, 0.025, scale)}"></path>
+      <g clip-path="url(#int-2021-2d-plot-clip)">
+        <path class="question-shade" d="${areaUnderCurvePath(fn, 2, k, 0, 0.025, scale)}"></path>
+        <path class="question-curve" d="${functionPath(fn, -2.6, 1.08, 0.025, scale)}"></path>
+        <path class="question-curve" d="${functionPath(fn, 1.58, 7.05, 0.025, scale)}"></path>
+      </g>
       ${lineMarkup(scale, 2, 0, 2, fn(2), "graph-guide")}
       ${lineMarkup(scale, k, 0, k, fn(k), "graph-guide")}
       ${circleMarkup(scale, 0, 0, 6, "question-origin")}
@@ -851,7 +858,7 @@
           \]
         </div>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-2d-int-2021" class="graph-svg" viewBox="0 0 500 320" aria-label="Shaded area under g of x from x equals 2 to x equals k"></svg>
+          <svg id="question-graph-2d-int-2021" class="graph-svg" viewBox="0 0 500 320" aria-label="Shaded area under g of x from x equals 2 to x equals k" role="img"></svg>
         </div>
         <p class="step-text">The area of the shaded region is \(4\). Find the value of \(k\).</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
@@ -925,7 +932,7 @@
           \]
         </div>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-2e-int-2021" class="graph-svg" viewBox="0 0 520 360" aria-label="Curve with points P and Q at x equals 3"></svg>
+          <svg id="question-graph-2e-int-2021" class="graph-svg" viewBox="0 0 520 360" aria-label="Curve with points P and Q at x equals 3" role="img"></svg>
         </div>
         <p class="step-text">Points P and Q are the points on the graph of the curve that have \(x\)-coordinates of \(3\). What is the vertical distance between points P and Q?</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
@@ -1222,7 +1229,7 @@
           \]
         </div>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3d-int-2021" class="graph-svg" viewBox="0 0 540 330" aria-label="Shaded area under y equals three x minus two over x plus two from x equals two to x equals six"></svg>
+          <svg id="question-graph-3d-int-2021" class="graph-svg" viewBox="0 0 540 330" aria-label="Shaded area under y equals three x minus two over x plus two from x equals two to x equals six" role="img"></svg>
         </div>
         <p class="step-text">Find the shaded area.</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
@@ -1313,7 +1320,7 @@
         </div>
         <p class="step-text">where \(k\) is a constant greater than \(1\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3e-int-2021" class="graph-svg" viewBox="0 0 500 360" aria-label="Shaded area between y equals k squared e to the two x and y equals k"></svg>
+          <svg id="question-graph-3e-int-2021" class="graph-svg" viewBox="0 0 500 360" aria-label="Shaded area between y equals k squared e to the two x and y equals k" role="img"></svg>
         </div>
         <p class="step-text">Show that the shaded area is \(\frac{k}{2}\left(k-1+\ln\frac{1}{k}\right)\).</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem. Clearly show each step of your working.</p>

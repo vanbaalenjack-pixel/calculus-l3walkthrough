@@ -362,7 +362,7 @@
       questionHtml: raw`
         <p class="step-text">The graph shows the curve \(y=\frac{2}{(x+1)^3}\), along with the tangent to the curve drawn at \(x=1\).</p>
         <div class="graph-frame question-graph-frame">
-          <img class="graph-svg" src="assets/differentiation-2023/1c-graph.png" alt="Graph of y equals 2 over open bracket x plus 1 close bracket cubed with a tangent at x equals 1" />
+          <img class="graph-svg" src="assets/differentiation-2023/1c-graph.png" width="1100" height="780" alt="Graph of y equals 2 over open bracket x plus 1 close bracket cubed with a tangent at x equals 1" />
         </div>
         <p class="step-text">A second tangent to this curve is drawn which is parallel to the first tangent shown.</p>
         <p class="step-text">Find the \(x\)-coordinate of the point where this second tangent touches the curve.</p>
@@ -1661,7 +1661,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows the function \(y=f(x)\).</p>
         <div class="graph-frame question-graph-frame">
-          <img class="graph-svg" src="assets/differentiation-2023/3b-graph.png" alt="Graph of a piecewise function with open circles, turning points, and a V shape on the right" />
+          <img class="graph-svg" src="assets/differentiation-2023/3b-graph.png" width="1060" height="620" alt="Graph of a piecewise function with open circles, turning points, and a V shape on the right" />
         </div>
         <div class="question-math">
           \[

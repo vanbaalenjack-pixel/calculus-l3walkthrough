@@ -125,7 +125,7 @@
           <line class="graph-axis" x1="38" y1="267" x2="684" y2="267"></line>
           <path class="question-shade" d="M 70 236 L 92 199 Q 113 180 157 178 L 205 137 Q 238 112 300 121 L 350 177 Q 389 179 414 204 L 425 236 Z"></path>
           <path class="question-curve" d="M 70 236 L 92 199 Q 113 180 157 178 L 205 137 Q 238 112 300 121 L 350 177 Q 389 179 414 204 L 425 236"></path>
-          <path class="graph-guide" d="M 185 176 L 218 139 L 266 139 L 270 176 Z M 280 139 L 316 145 L 342 176 L 286 176 Z"></path>
+          <path class="question-normal" d="M 185 176 L 218 139 L 266 139 L 270 176 Z M 280 139 L 316 145 L 342 176 L 286 176 Z"></path>
           <circle class="question-origin" cx="137" cy="238" r="29"></circle>
           <circle class="question-dot" cx="137" cy="238" r="10"></circle>
           <circle class="question-origin" cx="359" cy="238" r="29"></circle>
@@ -134,7 +134,7 @@
           <circle class="question-origin" cx="621" cy="77" r="15"></circle>
           <line class="graph-guide" x1="621" y1="92" x2="621" y2="248" stroke-dasharray="7 7"></line>
           <line class="graph-guide" x1="425" y1="230" x2="621" y2="230" stroke-dasharray="7 7"></line>
-          <path class="graph-guide" d="M 601 230 L 601 210 L 621 210"></path>
+          <path class="question-normal" d="M 601 230 L 601 210 L 621 210"></path>
           <line class="graph-measure" x1="435" y1="254" x2="612" y2="254" marker-start="url(#diff-2018-car-arrow)" marker-end="url(#diff-2018-car-arrow)"></line>
           <line class="graph-measure" x1="662" y1="84" x2="662" y2="224" marker-start="url(#diff-2018-car-arrow)" marker-end="url(#diff-2018-car-arrow)"></line>
           <text class="graph-equation-label" x="519" y="136">L</text>

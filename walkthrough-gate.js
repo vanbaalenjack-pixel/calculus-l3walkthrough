@@ -2678,10 +2678,13 @@ function buildLegacyPlotHtml(step) {
   const targetLabel = plot.draggableLabel || "z";
   const targetLabelX = plot.targetLabelX == null ? Number(plot.targetX) + 0.22 : plot.targetLabelX;
   const targetLabelY = plot.targetLabelY == null ? Number(plot.targetY) - 0.18 : plot.targetLabelY;
+  const accessibleLabel = (plot.ariaLabel || "Argand diagram")
+    .replace(/^Interactive /, "")
+    .replace(/ with a draggable point for /, " with the answer point for ");
 
   return `
-    <div class="graph-frame question-graph-frame interactive-plot-frame walkthrough-plot-frame">
-      <svg class="graph-svg interactive-plot-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="${plot.ariaLabel || "Argand diagram"}">
+    <div class="graph-frame question-graph-frame walkthrough-plot-frame">
+      <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="${accessibleLabel}">
         <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
         ${gridLines.join("")}
         ${plotLineMarkup(scale, xMin + 0.5, 0, xMax - 0.5, 0, "graph-axis")}
@@ -2690,10 +2693,10 @@ function buildLegacyPlotHtml(step) {
         ${plotTextMarkup(scale, xMax - 0.55, -0.22, plot.xAxisLabel || "Real", "graph-label")}
         ${plotTextMarkup(scale, -0.18, yMax - 0.2, plot.yAxisLabel || "Imaginary", "graph-label", ' text-anchor="middle"')}
         ${fixedPoints}
-        ${plotCircleMarkup(scale, plot.targetX, plot.targetY, 6, "graph-point-draggable")}
-        ${plotTextMarkup(scale, targetLabelX, targetLabelY, targetLabel, "graph-label graph-draggable-label")}
+        ${plotCircleMarkup(scale, plot.targetX, plot.targetY, 6, "graph-point-secondary")}
+        ${plotTextMarkup(scale, targetLabelX, targetLabelY, targetLabel, "graph-label")}
       </svg>
-      <p class="plot-status">Plotted point: (${plot.targetX}, ${plot.targetY}).</p>
+      <p class="plot-status">${targetLabel} is shown at (${plot.targetX}, ${plot.targetY}).</p>
     </div>
   `;
 }

@@ -202,15 +202,22 @@
     }
 
     svg.innerHTML = `
+      <defs>
+        <clipPath id="diff-2025-2c-plot-clip" clipPathUnits="userSpaceOnUse">
+          <rect x="${padding}" y="${padding}" width="${width - padding * 2}" height="${height - padding * 2}"></rect>
+        </clipPath>
+      </defs>
       <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
       ${gridLines.join("")}
       ${lineMarkup(scale, -10, 0, 10, 0, "graph-axis")}
       ${lineMarkup(scale, 0, -40, 0, 10, "graph-axis")}
       ${lineMarkup(scale, -4, -40, -4, 10, "graph-normal", ' stroke-dasharray="6 6"')}
-      <path class="question-curve" d="${leftCurve}"></path>
-      <path class="question-curve" d="${rightCurve}"></path>
-      <path class="graph-normal" d="${tangentOne}" stroke-dasharray="8 6"></path>
-      <path class="graph-normal" d="${tangentTwo}" stroke-dasharray="8 6"></path>
+      <g clip-path="url(#diff-2025-2c-plot-clip)">
+        <path class="question-curve" d="${leftCurve}"></path>
+        <path class="question-curve" d="${rightCurve}"></path>
+        <path class="graph-normal" d="${tangentOne}" stroke-dasharray="8 6"></path>
+        <path class="graph-normal" d="${tangentTwo}" stroke-dasharray="8 6"></path>
+      </g>
       ${circleMarkup(scale, -6, -18, 4, "question-dot")}
       ${circleMarkup(scale, -2, 2, 4, "question-dot")}
       ${textMarkup(scale, -9.7, -33.5, "y = f(x)", "graph-equation-label")}
@@ -626,7 +633,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows the function \(f(x)=x^2+e^{2x}\) and the tangent to the curve when \(x=1\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-1d" class="graph-svg" viewBox="0 0 420 300" aria-label="Graph of y equals x squared plus e to the power 2x with a tangent at x equals 1"></svg>
+          <svg id="question-graph-1d" class="graph-svg" viewBox="0 0 420 300" aria-label="Graph of y equals x squared plus e to the power 2x with a tangent at x equals 1" role="img"></svg>
         </div>
         <p class="step-text">Find the point \(P\), the \(x\)-intercept of this tangent.</p>
         <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
@@ -1128,7 +1135,7 @@
           that have the equation tangents of the form \(y=-3x+c\).
         </p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-2c" class="graph-svg" viewBox="0 0 420 280" aria-label="Graph of y equals x squared over x plus 4 with two tangents of gradient negative 3"></svg>
+          <svg id="question-graph-2c" class="graph-svg" viewBox="0 0 420 280" aria-label="Graph of y equals x squared over x plus 4 with two tangents of gradient negative 3" role="img"></svg>
         </div>
         <p class="step-text">Find the coordinates of the two points of contact of these tangents with the curve \(y=f(x)\).</p>
         <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
@@ -1470,7 +1477,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows the function \(y=f(x)\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3a" class="graph-svg" viewBox="0 0 460 320" aria-label="Graph of a piecewise function with a horizontal ray, two holes, and turning points"></svg>
+          <svg id="question-graph-3a" class="graph-svg" viewBox="0 0 460 320" aria-label="Graph of a piecewise function with a horizontal ray, two holes, and turning points" role="img"></svg>
         </div>
         <div class="question-math">
           \[
@@ -1951,7 +1958,7 @@
       questionHtml: raw`
         <p class="step-text">The diagram below shows part of the symmetrical graph \(y^2=16x-x^2\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3e" class="graph-svg" viewBox="0 0 420 270" aria-label="Upper half of the curve y squared equals 16x minus x squared with a rectangle inside"></svg>
+          <svg id="question-graph-3e" class="graph-svg" viewBox="0 0 420 270" aria-label="Upper half of the curve y squared equals 16x minus x squared with a rectangle inside" role="img"></svg>
         </div>
         <p class="step-text">A rectangle \(ABCD\) is drawn inside the curve with its vertices \(B\) and \(C\) lying on the curve.</p>
         <p class="step-text">Find the length \(AD\) so that the rectangle has its maximum area.</p>

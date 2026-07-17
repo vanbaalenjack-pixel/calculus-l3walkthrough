@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2022 Differentiation Paper - Question 2(a)</title>
 
-  <link rel="stylesheet" href="style.css?v=20260707-2" />
+  <link rel="stylesheet" href="style.css?v=20260717-1" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
   <script defer src="walkthrough-gate.js?v=20260717-1"></script>
-  <script defer src="typed-math.js?v=20260328-1"></script>
+  <script defer src="typed-math.js?v=20260717-1"></script>
 </head>
 <body>
   <main class="app">
@@ -169,7 +169,7 @@
           </div>
 
           <div class="graph-frame">
-            <svg id="product-rule-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of the function and its derivative"></svg>
+            <svg id="product-rule-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of the function and its derivative" role="img"></svg>
           </div>
         </div>
 
@@ -371,13 +371,20 @@
       `).join("");
 
       svg.innerHTML = `
+        <defs>
+          <clipPath id="diff-2022-2a-plot-clip" clipPathUnits="userSpaceOnUse">
+            <rect x="${padding}" y="${padding}" width="${width - padding * 2}" height="${height - padding * 2}"></rect>
+          </clipPath>
+        </defs>
         <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
         ${verticalGrid}
         ${horizontalGrid}
         <line class="graph-axis" x1="${padding}" y1="${xAxisY}" x2="${width - padding}" y2="${xAxisY}"></line>
         <line class="graph-axis" x1="${yAxisX}" y1="${padding}" x2="${yAxisX}" y2="${height - padding}"></line>
-        <path class="graph-curve" d="${fnPath}"></path>
-        ${showDerivative ? `<path class="graph-curve-secondary" d="${derivativePath}"></path>` : ""}
+        <g clip-path="url(#diff-2022-2a-plot-clip)">
+          <path class="graph-curve" d="${fnPath}"></path>
+          ${showDerivative ? `<path class="graph-curve-secondary" d="${derivativePath}"></path>` : ""}
+        </g>
         <rect class="graph-legend-chip" x="${width - 140}" y="${padding - 4}" width="120" height="${showDerivative ? 48 : 28}" rx="12"></rect>
         <line class="graph-legend-line-primary" x1="${width - 128}" y1="${padding + 10}" x2="${width - 106}" y2="${padding + 10}"></line>
         <text class="graph-label" x="${width - 98}" y="${padding + 14}">Function</text>
