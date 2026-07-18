@@ -20,8 +20,9 @@ import xml.etree.ElementTree as ET
 
 
 ORIGIN = "https://calc.nz"
-EXPECTED_SITEMAP_COUNT = 468
+EXPECTED_SITEMAP_COUNT = 469
 EXPECTED_QUESTION_COUNT = 432
+STANDARDS_INDEX_FILE = "standards.html"
 LEGACY_REDIRECTS = {
     "differentiation-2020.html",
     "integration-2017.html",
@@ -65,7 +66,7 @@ def build_expected_question_routes() -> Set[str]:
 
 
 QUESTION_URLS = build_expected_question_routes()
-LANDING_URLS = {ORIGIN + "/", absolute("about.html")}
+LANDING_URLS = {ORIGIN + "/", absolute(STANDARDS_INDEX_FILE), absolute("about.html")}
 LANDING_URLS.update(absolute(name) for name in STANDARD_FILES)
 LANDING_URLS.update(absolute(name) for name in YEAR_FILES)
 EXPECTED_SITEMAP_URLS = LANDING_URLS | QUESTION_URLS
@@ -77,7 +78,11 @@ def local_file_for_url(url: str) -> str:
 
 
 QUESTION_FILES = {local_file_for_url(url) for url in QUESTION_URLS}
-PUBLIC_FILES = QUESTION_FILES | STANDARD_FILES | YEAR_FILES | {"index.html", "about.html"}
+PUBLIC_FILES = QUESTION_FILES | STANDARD_FILES | YEAR_FILES | {
+    "index.html",
+    STANDARDS_INDEX_FILE,
+    "about.html",
+}
 
 
 @dataclass
@@ -379,6 +384,9 @@ def validate_references(root: Path, pages: Dict[str, PageParser], failures: Fail
     for filename, parser in pages.items():
         source = root / filename
         for tag, attribute, value, line in parser.references:
+            if attribute == "href" and value.strip() == "#":
+                failures.add(f"{filename}:{line}: placeholder fragment href={value!r}")
+                continue
             target, detail = resolve_local_target(root, source, value)
             if target is None:
                 if detail:
@@ -391,6 +399,37 @@ def validate_references(root: Path, pages: Dict[str, PageParser], failures: Fail
                 target_parser = pages.get(target.name)
                 if target_parser is not None and detail not in target_parser.ids:
                     failures.add(f"{filename}:{line}: missing fragment #{detail} in {target.name}")
+
+
+def validate_standards_index(pages: Dict[str, PageParser], failures: Failures) -> None:
+    homepage = pages.get("index.html")
+    standards_page = pages.get(STANDARDS_INDEX_FILE)
+
+    if homepage:
+        if "standards" in homepage.ids:
+            failures.add("index.html: obsolete #standards anchor is still present")
+        if "NCEA maths standards on Calc.nz" in homepage.visible_text:
+            failures.add("index.html: standards directory is still duplicated on the homepage")
+
+    if not standards_page:
+        failures.add(f"{STANDARDS_INDEX_FILE}: missing standards directory page")
+        return
+
+    expected_targets = STANDARD_FILES
+    linked_targets = {
+        urlsplit(value).path.lstrip("/")
+        for _tag, attribute, value, _line in standards_page.references
+        if attribute == "href"
+    }
+    missing_targets = sorted(expected_targets - linked_targets)
+    if missing_targets:
+        failures.add(
+            f"{STANDARDS_INDEX_FILE}: missing standard card links: "
+            + ", ".join(missing_targets)
+        )
+
+    if "NCEA maths standards on Calc.nz" not in standards_page.visible_text:
+        failures.add(f"{STANDARDS_INDEX_FILE}: missing standards directory heading")
 
 
 def validate_nzqa_content(filename: str, parser: PageParser, failures: Failures) -> None:
@@ -596,6 +635,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 failures.add(f"duplicate {field_name}: {', '.join(sorted(files)[:5])}")
 
     validate_references(root, pages, failures)
+    validate_standards_index(pages, failures)
     sitemap_urls = parse_sitemap(root, failures)
     validate_sitemap(root, sitemap_urls, failures)
     validate_robots(root, failures)

@@ -238,9 +238,21 @@ private final class Runner: NSObject, WKNavigationDelegate {
 
             if (mode === "exam-integration") {
               const content = document.getElementById("walkthrough-content");
+              const offButton = document.getElementById("exam-mode-off-btn");
               checks.examStillActive = document.getElementById("exam-mode-setting").checked && content.classList.contains("exam-mode-hidden");
-              document.getElementById("exam-mode-off-btn").click();
+              const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+              document.documentElement.style.scrollBehavior = "auto";
+              window.scrollTo(0, Math.max(0, offButton.getBoundingClientRect().top + window.scrollY - 180));
+              document.documentElement.style.scrollBehavior = previousScrollBehavior;
+              const scrollBeforeTurningOff = window.scrollY;
+              offButton.click();
+              const focusedElement = document.activeElement;
+              const focusedRect = focusedElement.getBoundingClientRect();
               checks.examTurnsOff = localStorage.getItem("calc.nz.examMode") === "false" && !content.classList.contains("exam-mode-hidden");
+              checks.examOffKeepsViewport = Math.abs(window.scrollY - scrollBeforeTurningOff) <= 2;
+              checks.examOffFocusVisible = focusedElement.classList.contains("in-page-focus-target")
+                && focusedRect.top >= 0
+                && focusedRect.bottom <= window.innerHeight;
               checks.noConsoleErrors = (window.__uxSmokeErrors || []).length === 0;
             }
 

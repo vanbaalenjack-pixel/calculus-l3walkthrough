@@ -33,7 +33,7 @@ from xml.sax.saxutils import escape as xml_escape
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://calc.nz/"
-CACHE_TOKEN = "20260718-4"
+CACHE_TOKEN = "20260719-2"
 EXPECTED_ROUTE_COUNT = 432
 EXPECTED_YEAR_COUNT = 29
 
@@ -902,7 +902,7 @@ def website_schema() -> dict[str, object]:
     }
 
 
-def homepage_directory(
+def standards_directory(
     by_standard: Mapping[str, Sequence[QuestionRoute]],
 ) -> str:
     cards: list[str] = []
@@ -918,9 +918,9 @@ def homepage_directory(
 </a>""".strip()
         )
     return f"""
-<section id="standards" class="question-card standard-directory" aria-labelledby="standard-directory-heading">
+<section class="question-card standard-directory" aria-labelledby="standard-directory-heading">
   <p class="question-label">Browse all worked answers</p>
-  <h2 id="standard-directory-heading">NCEA maths standards on Calc.nz</h2>
+  <h1 id="standard-directory-heading">NCEA maths standards on Calc.nz</h1>
   <p class="step-text">These crawlable standard pages organise every interactive walkthrough by topic and examination year.</p>
   <div class="nav-row index-nav">
     {' '.join(cards)}
@@ -931,7 +931,6 @@ def homepage_directory(
 
 def update_homepage(
     original: str,
-    by_standard: Mapping[str, Sequence[QuestionRoute]],
 ) -> str:
     for name in ("HEAD", "DIRECTORY", "FOOTER"):
         original = remove_marker(original, name)
@@ -952,15 +951,6 @@ def update_homepage(
         ),
     )
     original = replace_first_h1(original, "Free NCEA maths worked answers and walkthroughs")
-
-    original, count = re.subn(
-        r"(?is)(</header>)\s*",
-        lambda match: f"{match.group(1)}\n\n{marker('DIRECTORY', homepage_directory(by_standard), '  ')}\n\n",
-        original,
-        count=1,
-    )
-    if count != 1:
-        raise ValueError("Could not add the homepage standard directory")
 
     footer = f"""
 <p class="site-footer-text site-footer-disclaimer">Calc.nz is an independent learning resource and is not affiliated with or endorsed by NZQA. Check questions and assessment information against the <a class="site-footer-link" href="https://www2.nzqa.govt.nz/ncea/subjects/select-subject/mathematics-and-statistics/">official NZQA Mathematics and Statistics material</a>.</p>
@@ -1047,12 +1037,41 @@ def site_footer() -> str:
   <p class="site-footer-text">Created by Jack van Baalen as part of a Year 13 extended learning project. Mathematical explanations and walkthrough design by Jack van Baalen. AI tools assisted with parts of the website implementation.</p>
   <nav class="site-footer-nav" aria-label="Footer">
     <a class="site-footer-link" href="/">Home</a>
-    <a class="site-footer-link" href="/#standards">Standards</a>
+    <a class="site-footer-link" href="/standards.html">Standards</a>
     <a class="site-footer-link" href="about.html">About</a>
   </nav>
   <p class="site-footer-text site-footer-disclaimer">Calc.nz is independent and is not affiliated with or endorsed by NZQA.</p>
   <p class="site-footer-text report-issue-text"><a class="report-issue-link" href="{h(ERROR_REPORT_URL)}" target="_blank" rel="noopener noreferrer">Report an error or issue</a></p>
 </footer>""".strip()
+
+
+def standards_page(
+    by_standard: Mapping[str, Sequence[QuestionRoute]],
+) -> str:
+    filename = "standards.html"
+    canonical = absolute_url(filename)
+    title = "NCEA Maths Standards & Worked Answers | Calc.nz"
+    description = (
+        "Browse every NCEA Level 2 and Level 3 maths standard available on Calc.nz, "
+        "with free interactive worked answers organised by topic and examination year."
+    )
+    structured = collection_schema(
+        canonical=canonical,
+        title=title,
+        description=description,
+        crumbs=(("Calc.nz", BASE_URL), ("Standards", canonical)),
+    )
+    breadcrumb = breadcrumb_nav((("Calc.nz", "index.html"), ("Standards", None)))
+    return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
+<body class="home-page standards-page">
+<main class="app home-app standards-app">
+{marker('BREADCRUMBS', breadcrumb, '  ')}
+  {standards_directory(by_standard)}
+</main>
+{site_footer()}
+</body>
+</html>
+"""
 
 
 def grade_reasoning_html() -> str:
@@ -1126,7 +1145,7 @@ def standard_page(
       <h1>NCEA Level {standard.level} {h(standard.topic)} — {h(standard.code)}</h1>
       <p class="subtitle">{h(standard.official_name)}</p>
     </div>
-    <a class="ghost-link" href="/#standards">← Browse all standards</a>
+    <a class="ghost-link" href="/standards.html">← Browse all standards</a>
   </header>
 
   <section class="question-card" aria-labelledby="standard-overview-heading">
@@ -1398,6 +1417,7 @@ def rewrite_data_back_links(original: str, filename: str) -> str:
 
 def sitemap_xml(routes: Sequence[QuestionRoute]) -> str:
     urls = [BASE_URL]
+    urls.append(absolute_url("standards.html"))
     urls.extend(STANDARDS[key].landing_url for key in STANDARD_ORDER)
     for key in STANDARD_ORDER:
         years = sorted({route.year for route in routes if route.standard_key == key}, reverse=True)
@@ -1405,7 +1425,7 @@ def sitemap_xml(routes: Sequence[QuestionRoute]) -> str:
     urls.append(absolute_url("about.html"))
     urls.extend(route.canonical for route in routes)
 
-    if len(urls) != 1 + len(STANDARDS) + EXPECTED_YEAR_COUNT + 1 + EXPECTED_ROUTE_COUNT:
+    if len(urls) != 1 + 1 + len(STANDARDS) + EXPECTED_YEAR_COUNT + 1 + EXPECTED_ROUTE_COUNT:
         raise ValueError("Unexpected sitemap URL count")
     if len(urls) != len(set(urls)):
         raise ValueError("Sitemap contains duplicate canonical URLs")
@@ -1485,7 +1505,8 @@ def build_outputs() -> dict[Path, str]:
     for path in sorted(ROOT.glob("*-data.js")):
         outputs[path] = rewrite_data_back_links(path.read_text(encoding="utf-8"), path.name)
 
-    outputs[index_path] = update_homepage(index_original, by_standard)
+    outputs[index_path] = update_homepage(index_original)
+    outputs[ROOT / "standards.html"] = standards_page(by_standard)
 
     for key in STANDARD_ORDER:
         standard = STANDARDS[key]

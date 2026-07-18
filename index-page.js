@@ -53,10 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
       : "calc.nz.lastWalkthrough"
   };
 
-  if (window.history && "scrollRestoration" in window.history) {
-    window.history.scrollRestoration = "manual";
-  }
-
   if (!levelChooser || !levelButtons.length || !levelPanels.length) {
     ensureHomepageReportFooter();
     return;
@@ -294,7 +290,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return normaliseSelection({ paper: "level-2-calculus-2025" });
     }
 
-    return makeSelection();
+    return null;
   }
 
   function setButtonState(button, isActive) {
@@ -678,10 +674,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     window.setTimeout(function () {
+      if (typeof focusWithoutPageScroll === "function") {
+        focusWithoutPageScroll(heading);
+        return;
+      }
+
+      const scrollX = window.scrollX;
+      const scrollY = window.scrollY;
       try {
         heading.focus({ preventScroll: true });
       } catch (error) {
         heading.focus();
+        window.scrollTo(scrollX, scrollY);
       }
     }, 0);
   }
@@ -863,23 +867,86 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function createHistoryState(selection, cameFromHash) {
+  function createHistoryState(selection, cameFromHash, scrollY) {
     return {
       selectionFlow: true,
       selectionHash: getSelectionHash(selection),
-      cameFromHash: cameFromHash || null
+      cameFromHash: cameFromHash || null,
+      scrollY: Number.isFinite(scrollY) ? scrollY : window.scrollY
     };
   }
 
-  function navigateToSelection(selection, historyMode) {
+  function restoreHistoryScrollPosition(scrollY) {
+    if (!Number.isFinite(scrollY)) {
+      return;
+    }
+
+    const root = document.documentElement;
+    const previousInlineBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    window.scrollTo(0, scrollY);
+    window.setTimeout(function () {
+      root.style.scrollBehavior = previousInlineBehavior;
+    }, 0);
+  }
+
+  let historyScrollUpdateTimer = null;
+
+  function rememberCurrentHistoryScrollPosition() {
+    if (historyScrollUpdateTimer !== null) {
+      window.clearTimeout(historyScrollUpdateTimer);
+    }
+
+    historyScrollUpdateTimer = window.setTimeout(function () {
+      historyScrollUpdateTimer = null;
+      const historyState = window.history ? window.history.state : null;
+      if (!historyState
+        || !historyState.selectionFlow
+        || typeof window.history.replaceState !== "function") {
+        return;
+      }
+
+      const scrollY = window.scrollY;
+      if (Math.abs(Number(historyState.scrollY) - scrollY) <= 0.5) {
+        return;
+      }
+
+      try {
+        window.history.replaceState(
+          Object.assign({}, historyState, { scrollY: scrollY }),
+          "",
+          window.location.href
+        );
+      } catch (error) {
+        // Native restoration remains available if a browser rate-limits History API writes.
+      }
+    }, 500);
+  }
+
+  window.addEventListener("scroll", rememberCurrentHistoryScrollPosition, { passive: true });
+
+  function navigateToSelection(selection, historyMode, options) {
     const nextSelection = normaliseSelection(selection);
     const nextHash = getSelectionHash(nextSelection);
     const currentHash = getSelectionHash(activeSelection);
     const method = historyMode === "replace" ? "replaceState" : "pushState";
+    const settings = options || {};
 
     if (window.history && typeof window.history[method] === "function") {
+      if (method === "pushState" && typeof window.history.replaceState === "function") {
+        const currentState = window.history.state || createHistoryState(activeSelection, null);
+        window.history.replaceState(
+          Object.assign({}, currentState, { scrollY: window.scrollY }),
+          "",
+          window.location.href
+        );
+      }
       window.history[method](createHistoryState(nextSelection, currentHash), "", "#" + nextHash);
-      renderSelection(nextSelection, { scroll: true, focus: true });
+      renderSelection(nextSelection, {
+        scroll: Boolean(settings.scroll),
+        scrollBehavior: settings.scrollBehavior,
+        focus: true
+      });
       return;
     }
 
@@ -934,28 +1001,37 @@ document.addEventListener("DOMContentLoaded", function () {
   if (revealLevelPickerButton) {
     revealLevelPickerButton.addEventListener("click", function (event) {
       event.preventDefault();
-      navigateToSelection(makeSelection());
+      navigateToSelection(makeSelection(), "push", { scroll: true });
     });
   }
 
-  function handleHistoryNavigation() {
+  function handleHistoryNavigation(event) {
     const hash = window.location.hash.slice(1);
-    const historySelection = getSelectionForHash(hash);
-    renderSelection(historySelection, {
-      scroll: true,
-      scrollBehavior: "auto",
-      focus: true
-    });
-    window.setTimeout(function () {
-      moveToSelection(historySelection, "auto");
-    }, 100);
+    const historyState = event && event.state && event.state.selectionFlow
+      ? event.state
+      : null;
+    const historySelection = getSelectionForHash(hash)
+      || (historyState ? getSelectionForHash(historyState.selectionHash || "") : null);
+    if (!historySelection) {
+      return;
+    }
+
+    renderSelection(historySelection, { focus: false });
+    const savedScrollY = historyState
+      ? Number(historyState.scrollY)
+      : NaN;
+    if (Number.isFinite(savedScrollY)) {
+      window.setTimeout(function () {
+        restoreHistoryScrollPosition(savedScrollY);
+      }, 0);
+    }
   }
 
   window.addEventListener("popstate", handleHistoryNavigation);
   window.addEventListener("hashchange", function () {
     const hashSelection = getSelectionForHash(window.location.hash.slice(1));
-    if (!selectionsMatch(hashSelection, activeSelection)) {
-      handleHistoryNavigation();
+    if (hashSelection && !selectionsMatch(hashSelection, activeSelection)) {
+      handleHistoryNavigation(null);
     }
   });
   window.addEventListener("pageshow", function () {
@@ -964,26 +1040,23 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const initialHash = window.location.hash.slice(1);
-  const initialSelection = getSelectionForHash(initialHash);
+  const hashSelection = getSelectionForHash(initialHash);
+  const initialSelection = hashSelection || makeSelection();
   renderSelection(initialSelection, {
     animate: true,
-    scroll: Boolean(initialHash),
+    scroll: Boolean(initialHash && hashSelection),
     scrollBehavior: "auto"
   });
 
-  if (window.history && typeof window.history.replaceState === "function") {
+  if ((!initialHash || hashSelection)
+    && window.history
+    && typeof window.history.replaceState === "function") {
     window.history.replaceState(createHistoryState(initialSelection, null), "", window.location.href);
   }
 
-  if (initialHash) {
+  if (initialHash && hashSelection) {
     window.addEventListener("load", function () {
       moveToSelection(initialSelection, "auto");
-      window.setTimeout(function () {
-        moveToSelection(initialSelection, "auto");
-      }, 150);
-      window.setTimeout(function () {
-        moveToSelection(initialSelection, "auto");
-      }, 600);
     }, { once: true });
   }
 

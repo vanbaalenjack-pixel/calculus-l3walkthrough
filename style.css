@@ -102,6 +102,12 @@ select {
   transform: translateY(0);
 }
 
+.in-page-focus-target:focus-visible {
+  outline: 3px solid rgba(70, 111, 216, 0.28);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
 .home-page {
   --primary: #466fd8;
   --primary-dark: #3158c1;
@@ -216,6 +222,16 @@ body.has-site-header .home-app {
   background: var(--primary-softer);
 }
 
+.site-header-link[aria-current="page"] {
+  color: var(--primary-dark);
+  background: var(--primary-soft);
+  box-shadow: inset 0 0 0 1px rgba(70, 111, 216, 0.08);
+}
+
+.site-header-link[aria-current="page"]:hover {
+  background: rgba(70, 111, 216, 0.15);
+}
+
 .site-header-link:focus-visible,
 .site-footer-link:focus-visible {
   outline: 2px solid rgba(70, 111, 216, 0.3);
@@ -257,6 +273,12 @@ body.has-site-header .home-app {
 
 .site-footer-link:hover {
   text-decoration: underline;
+}
+
+.site-footer-link[aria-current="page"] {
+  color: var(--primary-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .topbar {
@@ -1459,6 +1481,10 @@ body.walkthrough-nav-hidden .walkthrough-sidebar {
   margin-bottom: 20px;
 }
 
+.answer-next-link {
+  margin-top: 16px;
+}
+
 .question-controls {
   margin-bottom: 26px;
 }
@@ -2471,8 +2497,11 @@ img.graph-svg {
   margin-top: 12px;
 }
 
-.standard-directory {
-  scroll-margin-top: var(--site-scroll-offset);
+.standards-page .standard-directory h1 {
+  margin: 0 0 14px;
+  font-size: clamp(1.55rem, 3vw, 2.05rem);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
 }
 
 .standard-directory-header {
@@ -2970,6 +2999,7 @@ body.question-image-lightbox-open {
 
 .nav-row {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 14px;
   margin-top: 26px;

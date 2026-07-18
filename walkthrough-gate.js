@@ -2,6 +2,73 @@ function getSiteHeader() {
   return document.querySelector(".site-header");
 }
 
+function getSitePageName(url) {
+  try {
+    const pathname = new URL(url, window.location.href).pathname.replace(/\/+$/, "");
+    return pathname.split("/").pop() || "index.html";
+  } catch (error) {
+    return "";
+  }
+}
+
+function syncSiteNavigationCurrentState(root) {
+  const scope = root || document;
+  const currentPage = getSitePageName(window.location.href);
+
+  scope.querySelectorAll(".site-brand, .site-header-link, .site-footer-link").forEach(function (link) {
+    const linkedPage = getSitePageName(link.href);
+    const isSitePage = linkedPage === "index.html"
+      || linkedPage === "standards.html"
+      || linkedPage === "about.html";
+
+    if (isSitePage && linkedPage === currentPage) {
+      link.setAttribute("aria-current", "page");
+    } else if (link.getAttribute("aria-current") === "page") {
+      link.removeAttribute("aria-current");
+    }
+  });
+}
+
+function focusWithoutPageScroll(element) {
+  if (!element || typeof element.focus !== "function") {
+    return;
+  }
+
+  const scrollX = window.scrollX;
+  const scrollY = window.scrollY;
+
+  try {
+    element.focus({ preventScroll: true });
+  } catch (error) {
+    element.focus();
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    window.scrollTo(scrollX, scrollY);
+    root.style.scrollBehavior = previousScrollBehavior;
+  }
+}
+
+function focusRevealedContent(container) {
+  if (!container) {
+    return;
+  }
+
+  const target = container.matches("h1, h2, h3, .question-label, .step-number, .step-text")
+    ? container
+    : container.querySelector("h1, h2, h3, .question-label, .step-number, .step-text");
+
+  if (!target) {
+    return;
+  }
+
+  if (!target.hasAttribute("tabindex")) {
+    target.setAttribute("tabindex", "-1");
+  }
+  target.classList.add("in-page-focus-target");
+  focusWithoutPageScroll(target);
+}
+
 const WALKTHROUGH_KATEX_DELIMITERS = [
   { left: "$$", right: "$$", display: true },
   { left: "\\[", right: "\\]", display: true },
@@ -208,6 +275,9 @@ function ensureSiteHeader() {
   if (mainContent && !mainContent.id) {
     mainContent.id = "main-content";
   }
+  if (mainContent && !mainContent.hasAttribute("tabindex")) {
+    mainContent.setAttribute("tabindex", "-1");
+  }
 
   let skipLink = document.querySelector(".skip-link");
   if (!skipLink && mainContent) {
@@ -236,7 +306,7 @@ function ensureSiteHeader() {
     const headerLinks = document.createElement("div");
     headerLinks.className = "site-header-links";
     headerLinks.innerHTML = `
-      <a class="site-header-link" href="/#standards">Standards</a>
+      <a class="site-header-link" href="/standards.html">Standards</a>
       <a class="site-header-link" href="about.html">About</a>
     `;
 
@@ -254,6 +324,7 @@ function ensureSiteHeader() {
   }
 
   body.classList.add("has-site-header");
+  syncSiteNavigationCurrentState(siteHeader);
   syncSiteHeaderMetrics(siteHeader);
 
   if (siteHeader.dataset.metricsSetup === "true") {
@@ -1519,7 +1590,7 @@ function setWalkthroughSidebarVisible(isVisible, options) {
   }
 
   if (isVisible && !wasVisible && settings.focus !== false) {
-    (closeToggle || sidebar).focus();
+    focusWithoutPageScroll(closeToggle || sidebar);
   }
 
   if (wasVisible && !isVisible) {
@@ -1532,12 +1603,12 @@ function setWalkthroughSidebarVisible(isVisible, options) {
         : openToggle;
 
       if (focusTarget && typeof focusTarget.focus === "function") {
-        focusTarget.focus();
+        focusWithoutPageScroll(focusTarget);
       }
     } else if (sidebar.contains(document.activeElement)
       && openToggle
       && typeof openToggle.focus === "function") {
-      openToggle.focus();
+      focusWithoutPageScroll(openToggle);
     }
   }
 }
@@ -1548,72 +1619,6 @@ function syncWalkthroughSidebarState() {
     focus: false,
     restoreFocus: false
   });
-}
-
-function isWalkthroughShortcutSuppressed(event) {
-  const target = event && event.target;
-
-  if (!event || event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) {
-    return true;
-  }
-
-  if (!target || typeof target.closest !== "function") {
-    return false;
-  }
-
-  return Boolean(target.closest("input, textarea, select, button, a, [contenteditable='true'], [role='button'], [role='link']"));
-}
-
-function getCurrentWalkthroughContext() {
-  return window.__walkthroughCurrentContext || findCurrentWalkthroughContext(window.__walkthroughCurrentConfig);
-}
-
-function getAdjacentWalkthroughPartHref(offset) {
-  const context = getCurrentWalkthroughContext();
-
-  if (!context || !context.paper || !Array.isArray(context.paper.parts)) {
-    return "";
-  }
-
-  const currentIndex = context.paper.parts.indexOf(context.partId);
-  if (currentIndex < 0) {
-    return "";
-  }
-
-  const targetPart = context.paper.parts[currentIndex + offset];
-
-  return targetPart ? getGuidedWalkthroughHref(getWalkthroughPartHref(context.paper, targetPart)) : "";
-}
-
-function navigateAdjacentWalkthroughPart(offset) {
-  const href = getAdjacentWalkthroughPartHref(offset);
-
-  if (!href) {
-    return false;
-  }
-
-  window.location.href = href;
-  return true;
-}
-
-function toggleCurrentWalkthroughWorking() {
-  const currentProgressiveStep = document.querySelector(".walkthrough-step-card:not(.hidden)");
-  const progressiveButton = currentProgressiveStep && currentProgressiveStep.querySelector(".step-working-btn");
-
-  if (progressiveButton) {
-    progressiveButton.click();
-    return true;
-  }
-
-  const currentLegacyStep = document.querySelector(".legacy-managed-step:not(.hidden)");
-  const legacyButton = currentLegacyStep && currentLegacyStep.querySelector(".legacy-working-toggle");
-
-  if (legacyButton) {
-    legacyButton.click();
-    return true;
-  }
-
-  return false;
 }
 
 function ensureWalkthroughLayout(app) {
@@ -1893,23 +1898,6 @@ function ensureWalkthroughSidebar(config) {
         return;
       }
 
-      if (isWalkthroughShortcutSuppressed(event)) {
-        return;
-      }
-
-      if (event.key === "ArrowLeft" && navigateAdjacentWalkthroughPart(-1)) {
-        event.preventDefault();
-        return;
-      }
-
-      if (event.key === "ArrowRight" && navigateAdjacentWalkthroughPart(1)) {
-        event.preventDefault();
-        return;
-      }
-
-      if ((event.key === " " || event.key === "Spacebar" || event.code === "Space") && toggleCurrentWalkthroughWorking()) {
-        event.preventDefault();
-      }
     });
   }
 
@@ -2150,7 +2138,13 @@ function setupExamModeControls(options) {
       revealedForThisQuestion = true;
       setWalkthroughExamModePreference(false);
       applyExamModeState();
-      checkbox.focus();
+      const revealedContainer = hiddenElements.find(function (element) {
+        return !element.hidden
+          && !element.classList.contains("hidden")
+          && !element.classList.contains("exam-mode-hidden")
+          && window.getComputedStyle(element).display !== "none";
+      });
+      focusRevealedContent(revealedContainer || questionCard);
     });
   }
 
@@ -2265,7 +2259,7 @@ function ensureQuestionImageLightbox() {
 
       lightbox._previousQuestionFocus = null;
       if (previousFocus && previousFocus.isConnected && typeof previousFocus.focus === "function") {
-        previousFocus.focus();
+        focusWithoutPageScroll(previousFocus);
       }
     }
 
@@ -2573,10 +2567,6 @@ function attachLegacySingleStepNavigation(walkthroughContent, options) {
       stepCard.dataset.workingVisible = shouldShow ? "true" : "false";
       workingButton.textContent = shouldShow ? "Hide working" : "Show working";
       workingButton.setAttribute("aria-expanded", shouldShow ? "true" : "false");
-
-      if (shouldShow) {
-        moveToStep(stepCard, false);
-      }
     });
     workingActions.appendChild(workingButton);
 
@@ -2809,30 +2799,38 @@ function initializeWalkthroughGate(config) {
     showHintsButton.classList.add("hidden");
   }
 
-  function revealHints() {
+  function revealHints(shouldFocus) {
     ensureHintsVisible();
-    window.scrollTo({ top: getWalkthroughPageScrollTop(hintsCard), behavior: "smooth" });
+    if (shouldFocus !== false) {
+      focusRevealedContent(hintsCard);
+    }
   }
 
-  function revealWalkthrough() {
+  function revealWalkthrough(shouldFocus) {
     ensureHintsVisible();
     addWalkthroughSkipButtons();
     attachLegacySingleStepNavigation(walkthroughContent, { onComplete: revealAnswer });
     walkthroughContent.classList.remove("hidden");
     showWalkthroughButton.classList.add("hidden");
-    window.scrollTo({ top: getWalkthroughPageScrollTop(walkthroughContent), behavior: "smooth" });
+    if (shouldFocus !== false) {
+      focusRevealedContent(walkthroughContent);
+    }
   }
 
   function revealAnswer() {
     ensureHintsVisible();
     answerCard.classList.remove("hidden");
     showAnswerButton.classList.add("hidden");
+    if (nextQuestionLink.parentNode !== answerCard) {
+      nextQuestionLink.classList.add("answer-next-link");
+      answerCard.appendChild(nextQuestionLink);
+    }
     nextQuestionLink.classList.remove("hidden");
     markCurrentWalkthroughPartComplete();
     if (typeof renderMath === "function") {
       renderMath(answerCard);
     }
-    window.scrollTo({ top: getWalkthroughPageScrollTop(answerCard), behavior: "smooth" });
+    focusRevealedContent(answerCard);
   }
 
   addEntryActions();
@@ -2887,8 +2885,7 @@ function initializeWalkthroughGate(config) {
       if (nextButton) {
         nextButton.classList.remove("hidden");
       }
-
-      window.scrollTo({ top: getWalkthroughPageScrollTop(button), behavior: "smooth" });
+      focusRevealedContent(hintBody);
     });
   });
 
@@ -2905,7 +2902,7 @@ function initializeWalkthroughGate(config) {
   });
 
   if (isGuidedWalkthroughMode()) {
-    revealWalkthrough();
+    revealWalkthrough(false);
   }
 }
 
@@ -3608,7 +3605,7 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
     }
   }
 
-  function setWorkingVisibility(stepIndex, isVisible, shouldScroll) {
+  function setWorkingVisibility(stepIndex, isVisible) {
     const stepCard = stepCards[stepIndex];
     const button = walkthroughContent.querySelector('[data-working-step="' + stepIndex + '"]');
     const workingPanel = document.getElementById("walkthrough-step-" + (stepIndex + 1) + "-working");
@@ -3625,10 +3622,6 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
       : (button.dataset.hiddenLabel || "Show working");
     button.setAttribute("aria-expanded", isVisible ? "true" : "false");
     updateProgressUi();
-
-    if (isVisible && shouldScroll !== false) {
-      moveToCurrentStep(false);
-    }
   }
 
   if (previousButton) {
@@ -3645,11 +3638,10 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
       }
 
       if (!walkthroughComplete && stepCards[currentStepIndex]) {
-        setWorkingVisibility(currentStepIndex, true, false);
+        setWorkingVisibility(currentStepIndex, true);
         walkthroughComplete = true;
         markCurrentWalkthroughPartComplete();
         updateProgressUi();
-        moveToCurrentStep(false);
       }
     });
   }
@@ -3728,11 +3720,7 @@ function initializeProgressiveWalkthrough(config, options) {
   attachProgressiveWalkthroughHandlers(normalisedConfig, walkthroughContent);
   setupExamModeControls({
     questionCard: questionCard,
-    hiddenElements: [tipsCard, walkthroughContent],
-    onReveal: function () {
-      const target = tipsCard && !tipsCard.classList.contains("hidden") ? tipsCard : walkthroughContent;
-      window.scrollTo({ top: getWalkthroughPageScrollTop(target), behavior: "smooth" });
-    }
+    hiddenElements: [tipsCard, walkthroughContent]
   });
 }
 
@@ -3765,57 +3753,12 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
 
 (function () {
   const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">here</a>.';
-  const INTERACTION_SELECTOR = ".option-btn, .check-btn, .next-step-btn, .walkthrough-next-btn, .walkthrough-previous-btn, .step-working-btn, .legacy-working-toggle, .legacy-previous-btn";
 
   function normaliseButtonTypes(root) {
     const scope = root || document;
     scope.querySelectorAll("button:not([type])").forEach(function (button) {
       button.type = "button";
     });
-  }
-
-  function stabiliseInteractiveScroll(root) {
-    const scope = root || document;
-
-    scope.addEventListener("click", function (event) {
-      const button = event.target.closest(INTERACTION_SELECTOR);
-      if (!button) {
-        return;
-      }
-
-      const initialScrollY = window.scrollY;
-      const initialStep = button.closest(".step-card");
-
-      window.setTimeout(function () {
-        button.blur();
-      }, 0);
-
-      window.requestAnimationFrame(function () {
-        window.requestAnimationFrame(function () {
-          const currentScrollY = window.scrollY;
-          const jumpedUpALot = initialScrollY - currentScrollY > 180;
-          const jumpedNearTop = initialScrollY > 140 && currentScrollY < 60;
-
-          if (!jumpedUpALot && !jumpedNearTop) {
-            return;
-          }
-
-          const visibleStep = document.querySelector(".step-card:not(.hidden)");
-          const target = button.classList.contains("next-step-btn")
-            ? (visibleStep || initialStep)
-            : (initialStep || visibleStep);
-
-          if (!target) {
-            return;
-          }
-
-          window.scrollTo({
-            top: getWalkthroughPageScrollTop(target),
-            behavior: "smooth"
-          });
-        });
-      });
-    }, true);
   }
 
   function ensureReportIssueFooter() {
@@ -3837,7 +3780,7 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
       footerNavigation.setAttribute("aria-label", "Footer");
       footerNavigation.innerHTML = `
         <a class="site-footer-link" href="/">Home</a>
-        <a class="site-footer-link" href="/#standards">Standards</a>
+        <a class="site-footer-link" href="/standards.html">Standards</a>
         <a class="site-footer-link" href="about.html">About</a>
       `;
       footer.appendChild(footerNavigation);
@@ -3849,6 +3792,8 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
       disclaimer.textContent = "Calc.nz is an independent learning project and is not affiliated with or endorsed by NZQA.";
       footer.appendChild(disclaimer);
     }
+
+    syncSiteNavigationCurrentState(footer);
 
     if (footer.querySelector(".report-issue-text")) {
       return;
@@ -3873,7 +3818,6 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
       normaliseButtonTypes(document);
       normaliseLegacyStandalonePrompts(document);
       installLegacyFeedbackNormaliser(document);
-      stabiliseInteractiveScroll(document);
       ensureReportIssueFooter();
     });
   } else {
@@ -3888,7 +3832,6 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
     normaliseButtonTypes(document);
     normaliseLegacyStandalonePrompts(document);
     installLegacyFeedbackNormaliser(document);
-    stabiliseInteractiveScroll(document);
     ensureReportIssueFooter();
   }
 }());

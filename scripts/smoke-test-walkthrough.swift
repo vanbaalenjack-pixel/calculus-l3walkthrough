@@ -30,6 +30,11 @@ private let tests = [
     TestCase(name: "guided sequential walkthrough", path: "1a2020.html?mode=guided#question-1a", width: 1280, height: 900, expectedPart: "1a", expectedSteps: 4, revealAll: true, preferenceAction: "guided", legacyRedirect: false, snapshotName: "guided-walkthrough-desktop.png"),
     TestCase(name: "legacy guided single-step walkthrough", path: "1a2022.html?mode=guided", width: 1280, height: 900, expectedPart: nil, expectedSteps: 6, revealAll: false, preferenceAction: "legacy-guided", legacyRedirect: false, snapshotName: nil),
     TestCase(name: "homepage drill-down flow", path: "index.html?smoke=flow", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-flow", legacyRedirect: false, snapshotName: "home-flow-desktop.png"),
+    TestCase(name: "homepage genuine fragment history", path: "index.html?smoke=fragment-history#main-content", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-fragment-history", legacyRedirect: false, snapshotName: nil),
+    TestCase(name: "header Standards navigation and Back", path: "index.html?smoke=standards-navigation", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "site-standards-navigation", legacyRedirect: false, snapshotName: nil),
+    TestCase(name: "standards directory desktop", path: "standards.html?smoke=desktop", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "standards-desktop", legacyRedirect: false, snapshotName: "standards-desktop.png"),
+    TestCase(name: "standards directory mobile", path: "standards.html?smoke=mobile", width: 390, height: 844, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "standards-mobile", legacyRedirect: false, snapshotName: "standards-mobile.png"),
+    TestCase(name: "year landing navigation wraps", path: "level-3-integration-2023.html?smoke=year-navigation", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "year-navigation", legacyRedirect: false, snapshotName: nil),
     TestCase(name: "Level 2 direct paper flow", path: "index.html?smoke=level-2#level-2-algebra-2025", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-level-2", legacyRedirect: false, snapshotName: nil),
     TestCase(name: "Level 3 Integration direct paper flow", path: "index.html?smoke=integration#level-3-integration-2020", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-integration", legacyRedirect: false, snapshotName: nil),
     TestCase(name: "Level 3 Complex Numbers mobile flow", path: "index.html?smoke=complex-mobile#level-3-complex", width: 390, height: 844, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-mobile", legacyRedirect: false, snapshotName: "home-flow-mobile.png"),
@@ -52,6 +57,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
     private var index = 0
     private var failures: [String] = []
     private var isEvaluating = false
+    private var standardsNavigationPhase = 0
 
     init(baseURL: URL) {
         self.baseURL = baseURL
@@ -105,6 +111,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
         }
 
         isEvaluating = false
+        standardsNavigationPhase = 0
         consoleCollector.messages.removeAll()
         let test = tests[index]
         webView.frame = CGRect(x: 0, y: 0, width: test.width, height: test.height)
@@ -113,8 +120,26 @@ private final class Runner: NSObject, WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        guard !isEvaluating else { return }
         let test = tests[index]
+
+        if test.preferenceAction == "site-standards-navigation" {
+            if standardsNavigationPhase == 1 && webView.url?.lastPathComponent == "standards.html" {
+                isEvaluating = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                    self?.verifyStandardsNavigationDestination(test)
+                }
+                return
+            }
+            if standardsNavigationPhase == 2 && webView.url?.lastPathComponent == "index.html" {
+                isEvaluating = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                    self?.verifyStandardsNavigationBack(test)
+                }
+                return
+            }
+        }
+
+        guard !isEvaluating else { return }
 
         if test.legacyRedirect && !(webView.url?.lastPathComponent == "2d2020.html") {
             return
@@ -152,6 +177,27 @@ private final class Runner: NSObject, WKNavigationDelegate {
             const preferenceAction = "\#(test.preferenceAction)";
             const checks = {};
 
+            if (preferenceAction === "site-standards-navigation") {
+              const standardsLink = document.querySelector('.site-header-link[href="/standards.html"]');
+              const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+              document.documentElement.style.scrollBehavior = "auto";
+              window.scrollTo(0, 640);
+              document.documentElement.style.scrollBehavior = previousScrollBehavior;
+
+              checks.homepageDirectoryRemoved = document.querySelector(".standard-directory") === null;
+              checks.headerStandardsLink = Boolean(standardsLink && standardsLink.textContent.trim() === "Standards");
+              checks.sourcePageScrolled = Math.abs(window.scrollY - 640) <= 2;
+              checks.noConsoleErrors = (window.__walkthroughTestErrors || []).length === 0;
+
+              const failedChecks = Object.keys(checks).filter(function (key) { return !checks[key]; });
+              return JSON.stringify({
+                url: window.location.href,
+                checks: checks,
+                failedChecks: failedChecks,
+                errors: window.__walkthroughTestErrors || []
+              });
+            }
+
             if (preferenceAction.indexOf("index-") === 0) {
               const isVisible = function (element) {
                 return Boolean(element && !element.hidden && !element.classList.contains("hidden") && getComputedStyle(element).display !== "none");
@@ -159,7 +205,21 @@ private final class Runner: NSObject, WKNavigationDelegate {
               const levelChooser = document.getElementById("choose-level");
               const flowNavigation = document.getElementById("selection-flow-nav");
 
-              if (preferenceAction === "index-flow") {
+              if (preferenceAction === "index-fragment-history") {
+                window.__genuineFragmentScrollY = window.scrollY;
+                checks.genuineFragmentStartsIntact = window.location.hash === "#main-content";
+                checks.levelChooserStartsVisible = isVisible(levelChooser);
+                document.querySelector('[data-level="level-3"]').click();
+                const maxScrollY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+                const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+                document.documentElement.style.scrollBehavior = "auto";
+                window.scrollTo(0, Math.min(maxScrollY, window.__genuineFragmentScrollY + 320));
+                document.documentElement.style.scrollBehavior = previousScrollBehavior;
+                window.__selectionFragmentScrollY = window.scrollY;
+                checks.selectionRenders = isVisible(document.querySelector('[data-level-panel="level-3"]'));
+                checks.selectionHash = window.location.hash === "#level-3";
+                checks.selectionScrollIsDistinct = Math.abs(window.__selectionFragmentScrollY - window.__genuineFragmentScrollY) >= 100;
+              } else if (preferenceAction === "index-flow") {
                 checks.levelChooserStartsAlone = isVisible(levelChooser) && !isVisible(flowNavigation);
 
                 document.querySelector('[data-level="level-3"]').click();
@@ -204,6 +264,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 checks.oneVisibleLevel = document.querySelectorAll('[data-level-panel]:not(.hidden)').length === 1;
                 checks.oneVisibleStandard = document.querySelectorAll('[data-standard-panel]:not(.hidden)').length === 1;
                 checks.oneVisiblePaper = document.querySelectorAll('[data-paper-panel]:not(.hidden)').length === 1;
+                window.__homeFlowPaperScrollY = window.scrollY;
                 window.history.back();
               } else if (preferenceAction === "index-level-2") {
                 const algebraPaper = document.querySelector('[data-paper-panel="level-2-algebra-2025"]');
@@ -237,7 +298,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 });
                 checks.mobileNavigationFits = flowNavigation.getBoundingClientRect().right <= window.innerWidth + 1;
                 const mobileNavigationOffset = flowNavigation.getBoundingClientRect().top - document.querySelector(".site-header").getBoundingClientRect().bottom;
-                checks.mobileNavigationAligned = mobileNavigationOffset >= 10 && mobileNavigationOffset <= 48;
+                checks["mobileNavigationAligned(offset=" + Math.round(mobileNavigationOffset) + ")"] = mobileNavigationOffset >= 10 && mobileNavigationOffset <= 48;
               } else if (preferenceAction === "index-picker") {
                 const panel = document.getElementById("level-3-differentiation-2020");
                 const links = panel ? Array.from(panel.querySelectorAll("a.index-link-card")) : [];
@@ -250,6 +311,73 @@ private final class Runner: NSObject, WKNavigationDelegate {
 
               checks.keyboardControls = Boolean(document.querySelector("[data-selection-back]") && document.querySelector("[data-selection-back]").tagName === "BUTTON");
               checks.noHorizontalOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
+              const failedChecks = Object.keys(checks).filter(function (key) { return !checks[key]; });
+              return JSON.stringify({
+                url: window.location.href,
+                checks: checks,
+                failedChecks: failedChecks,
+                errors: window.__walkthroughTestErrors || []
+              });
+            }
+
+            if (preferenceAction.indexOf("standards-") === 0) {
+              const isStandardsElementVisible = function (element) {
+                return Boolean(element && !element.hidden && !element.classList.contains("hidden") && getComputedStyle(element).display !== "none");
+              };
+              const expectedHrefs = [
+                "level-2-calculus.html",
+                "level-2-algebra.html",
+                "level-3-complex-numbers.html",
+                "level-3-differentiation.html",
+                "level-3-integration.html"
+              ];
+              const cards = Array.from(document.querySelectorAll(".standard-directory a.index-link-card"));
+              const activeHeaderLink = document.querySelector('.site-header-link[aria-current="page"]');
+              const activeFooterLink = document.querySelector('.site-footer-link[aria-current="page"]');
+              const directory = document.querySelector(".standard-directory");
+              const cardRects = cards.map(function (card) { return card.getBoundingClientRect(); });
+
+              checks.startsAtTop = window.scrollY <= 1;
+              checks.directoryVisible = isStandardsElementVisible(directory);
+              checks.directoryHeading = document.querySelector("#standard-directory-heading").textContent.trim() === "NCEA maths standards on Calc.nz";
+              checks.fiveStandardCards = cards.length === expectedHrefs.length;
+              checks.cardDestinations = cards.map(function (card) { return card.getAttribute("href"); }).join("|") === expectedHrefs.join("|");
+              checks.headerStandardsDestination = document.querySelector('.site-header-link[href="/standards.html"]') !== null;
+              checks.footerStandardsDestination = document.querySelector('.site-footer-link[href="/standards.html"]') !== null;
+              checks.activeHeaderState = Boolean(activeHeaderLink && activeHeaderLink.textContent.trim() === "Standards" && getComputedStyle(activeHeaderLink).backgroundColor !== "rgba(0, 0, 0, 0)");
+              checks.activeFooterState = Boolean(activeFooterLink && activeFooterLink.textContent.trim() === "Standards");
+              checks.noHorizontalOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
+              checks.responsiveCardLayout = preferenceAction === "standards-mobile"
+                ? cardRects.every(function (rect, index) { return index === 0 || rect.top > cardRects[index - 1].top; })
+                : Math.abs(cardRects[0].top - cardRects[1].top) <= 1 && cardRects[2].top > cardRects[0].top;
+
+              if (cards[0]) {
+                cards[0].focus();
+              }
+              checks.cardKeyboardFocus = Boolean(cards[0] && document.activeElement === cards[0] && cards[0].tabIndex === 0);
+              checks.noConsoleErrors = (window.__walkthroughTestErrors || []).length === 0;
+
+              const failedChecks = Object.keys(checks).filter(function (key) { return !checks[key]; });
+              return JSON.stringify({
+                url: window.location.href,
+                checks: checks,
+                failedChecks: failedChecks,
+                errors: window.__walkthroughTestErrors || []
+              });
+            }
+
+            if (preferenceAction === "year-navigation") {
+              const relatedLinks = Array.from(document.querySelectorAll('#related-years-heading + .nav-row .nav-btn'));
+              const linkRects = relatedLinks.map(function (link) { return link.getBoundingClientRect(); });
+
+              checks.eightRelatedYears = relatedLinks.length === 8;
+              checks.relatedYearsWrap = new Set(linkRects.map(function (rect) { return Math.round(rect.top); })).size > 1;
+              checks.relatedLinksStayInViewport = linkRects.every(function (rect) {
+                return rect.left >= -1 && rect.right <= window.innerWidth + 1;
+              });
+              checks.noHorizontalOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
+              checks.noConsoleErrors = (window.__walkthroughTestErrors || []).length === 0;
+
               const failedChecks = Object.keys(checks).filter(function (key) { return !checks[key]; });
               return JSON.stringify({
                 url: window.location.href,
@@ -288,9 +416,12 @@ private final class Runner: NSObject, WKNavigationDelegate {
               if (legacyCompleteButton) {
                 legacyCompleteButton.click();
               }
-              checks.legacyAnswerVisible = !document.getElementById("answer-card").classList.contains("hidden");
+              const legacyAnswerCard = document.getElementById("answer-card");
+              checks.legacyAnswerVisible = !legacyAnswerCard.classList.contains("hidden");
               const guidedNextQuestion = document.getElementById("next-question-link");
               checks.guidedModeContinues = Boolean(guidedNextQuestion && /mode=guided/.test(guidedNextQuestion.href));
+              checks.answerFocusVisible = Boolean(legacyAnswerCard.contains(document.activeElement) && document.activeElement.classList.contains("in-page-focus-target"));
+              checks.nextQuestionFollowsAnswer = Boolean(guidedNextQuestion && legacyAnswerCard.contains(guidedNextQuestion));
               checks.legacyStickySetting = Boolean(document.getElementById("sticky-question-setting"));
               checks.noHorizontalOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
 
@@ -433,9 +564,21 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 self.failures.append("\(test.name): \(reasons.joined(separator: "; "))")
             }
 
+            if test.preferenceAction == "site-standards-navigation" {
+                startStandardsNavigation(test)
+                return
+            }
+
             if test.preferenceAction == "index-flow" {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
                     self?.verifyHomepageHistory(test)
+                }
+                return
+            }
+
+            if test.preferenceAction == "index-fragment-history" {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) { [weak self] in
+                    self?.beginGenuineFragmentHistoryBack(test)
                 }
                 return
             }
@@ -461,8 +604,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
               entryChoiceVisible: Boolean(paperPanel && getComputedStyle(paperPanel.querySelector(".paper-entry-choice")).display !== "none"),
               questionPickerHidden: Boolean(paperPanel && getComputedStyle(paperPanel.querySelector(".paper-question-picker")).display === "none")
             };
-            const navigationOffset = document.getElementById("selection-flow-nav").getBoundingClientRect().top - document.querySelector(".site-header").getBoundingClientRect().bottom;
-            checks.navigationAligned = navigationOffset >= 10 && navigationOffset <= 48;
+            checks.scrollPositionRestored = Math.abs(window.scrollY - Number(window.__homeFlowPaperScrollY || 0)) <= 2;
             return JSON.stringify(checks);
           }());
         """#
@@ -496,6 +638,227 @@ private final class Runner: NSObject, WKNavigationDelegate {
             }
             self.finishCase(test)
         }
+    }
+
+    private func startStandardsNavigation(_ test: TestCase) {
+        standardsNavigationPhase = 1
+        isEvaluating = false
+        let script = #"""
+          (function () {
+            const link = document.querySelector('.site-header-link[href="/standards.html"]');
+            if (!link) {
+              return false;
+            }
+            link.click();
+            return true;
+          }());
+        """#
+
+        webView.evaluateJavaScript(script) { [weak self] result, error in
+            guard let self else { return }
+            if let error {
+                self.failures.append("\(test.name): Standards link activation failed: \(error.localizedDescription)")
+                self.finishStandardsNavigationCase(test)
+            } else if (result as? Bool) != true {
+                self.failures.append("\(test.name): Standards link was unavailable")
+                self.finishStandardsNavigationCase(test)
+            }
+        }
+    }
+
+    private func verifyStandardsNavigationDestination(_ test: TestCase) {
+        let script = #"""
+          (function () {
+            const headerCurrent = document.querySelector('.site-header-link[aria-current="page"]');
+            const footerCurrent = document.querySelector('.site-footer-link[aria-current="page"]');
+            const checks = {
+              standardsRoute: window.location.pathname === "/standards.html",
+              destinationStartsAtTop: window.scrollY <= 1,
+              directoryVisible: Boolean(document.querySelector(".standard-directory")),
+              fiveCards: document.querySelectorAll(".standard-directory a.index-link-card").length === 5,
+              activeHeader: Boolean(headerCurrent && headerCurrent.textContent.trim() === "Standards"),
+              activeFooter: Boolean(footerCurrent && footerCurrent.textContent.trim() === "Standards"),
+              noConsoleErrors: (window.__walkthroughTestErrors || []).length === 0
+            };
+            return JSON.stringify({
+              failedChecks: Object.keys(checks).filter(function (key) { return !checks[key]; }),
+              errors: window.__walkthroughTestErrors || []
+            });
+          }());
+        """#
+
+        webView.evaluateJavaScript(script) { [weak self] result, error in
+            guard let self else { return }
+            self.recordStandardsNavigationResult(result, error: error, stage: "destination", test: test)
+
+            guard self.webView.canGoBack else {
+                self.failures.append("\(test.name): browser Back was unavailable from Standards")
+                self.finishStandardsNavigationCase(test)
+                return
+            }
+
+            self.standardsNavigationPhase = 2
+            self.isEvaluating = false
+            self.webView.goBack()
+        }
+    }
+
+    private func verifyStandardsNavigationBack(_ test: TestCase) {
+        let script = #"""
+          (function () {
+            const checks = {
+              homepageRouteRestored: window.location.pathname === "/index.html",
+              homepageScrollRestored: Math.abs(window.scrollY - 640) <= 2,
+              homepageDirectoryStillRemoved: document.querySelector(".standard-directory") === null,
+              standardsLinkPreserved: Boolean(document.querySelector('.site-header-link[href="/standards.html"]')),
+              noConsoleErrors: (window.__walkthroughTestErrors || []).length === 0
+            };
+            return JSON.stringify({
+              failedChecks: Object.keys(checks).filter(function (key) { return !checks[key]; }),
+              errors: window.__walkthroughTestErrors || []
+            });
+          }());
+        """#
+
+        webView.evaluateJavaScript(script) { [weak self] result, error in
+            guard let self else { return }
+            self.recordStandardsNavigationResult(result, error: error, stage: "Back", test: test)
+            self.finishStandardsNavigationCase(test)
+        }
+    }
+
+    private func recordStandardsNavigationResult(_ result: Any?, error: Error?, stage: String, test: TestCase) {
+        if let error {
+            failures.append("\(test.name): \(stage) check failed: \(error.localizedDescription)")
+            return
+        }
+        guard let json = result as? String,
+              let data = json.data(using: .utf8),
+              let payload = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let failedChecks = payload["failedChecks"] as? [String],
+              let errors = payload["errors"] as? [String] else {
+            failures.append("\(test.name): \(stage) result could not be decoded")
+            return
+        }
+
+        if !failedChecks.isEmpty {
+            failures.append("\(test.name): \(stage) failed checks: \(failedChecks.joined(separator: ", "))")
+        }
+        if !errors.isEmpty {
+            failures.append("\(test.name): \(stage) page errors: \(errors.joined(separator: " | "))")
+        }
+    }
+
+    private func finishStandardsNavigationCase(_ test: TestCase) {
+        let caseFailures = failures.filter { $0.hasPrefix(test.name + ":") }
+        if caseFailures.isEmpty {
+            print("PASS \(test.name)")
+        } else {
+            print("FAIL \(test.name): \(caseFailures.joined(separator: "; "))")
+        }
+        finishCase(test)
+    }
+
+    private func beginGenuineFragmentHistoryBack(_ test: TestCase) {
+        webView.evaluateJavaScript("window.history.back();") { [weak self] _, error in
+            guard let self else { return }
+            if let error {
+                self.failures.append("\(test.name): browser Back failed: \(error.localizedDescription)")
+                self.finishGenuineFragmentHistoryCase(test)
+                return
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
+                self?.verifyGenuineFragmentHistoryBack(test)
+            }
+        }
+    }
+
+    private func verifyGenuineFragmentHistoryBack(_ test: TestCase) {
+        let script = #"""
+          (function () {
+            const levelChooser = document.getElementById("choose-level");
+            const levelPanel = document.querySelector('[data-level-panel="level-3"]');
+            return JSON.stringify({
+              genuineFragmentRestored: window.location.hash === "#main-content",
+              chooserRestored: Boolean(levelChooser && !levelChooser.hidden && !levelChooser.classList.contains("hidden")),
+              newerSelectionHidden: Boolean(levelPanel && (levelPanel.hidden || levelPanel.classList.contains("hidden"))),
+              scrollPositionRestored: Math.abs(window.scrollY - Number(window.__genuineFragmentScrollY || 0)) <= 2
+            });
+          }());
+        """#
+
+        webView.evaluateJavaScript(script) { [weak self] result, error in
+            guard let self else { return }
+
+            if let error {
+                self.failures.append("\(test.name): genuine fragment Back check failed: \(error.localizedDescription)")
+            } else if let json = result as? String,
+                      let data = json.data(using: .utf8),
+                      let checks = try? JSONSerialization.jsonObject(with: data) as? [String: Bool] {
+                let failedChecks = checks.filter { !$0.value }.map(\.key).sorted()
+                if !failedChecks.isEmpty {
+                    self.failures.append("\(test.name): genuine fragment Back failed checks: \(failedChecks.joined(separator: ", "))")
+                }
+            } else {
+                self.failures.append("\(test.name): genuine fragment Back result could not be decoded")
+            }
+
+            self.webView.evaluateJavaScript("window.history.forward();") { [weak self] _, forwardError in
+                guard let self else { return }
+                if let forwardError {
+                    self.failures.append("\(test.name): browser Forward failed: \(forwardError.localizedDescription)")
+                    self.finishGenuineFragmentHistoryCase(test)
+                    return
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
+                    self?.verifyGenuineFragmentHistoryForward(test)
+                }
+            }
+        }
+    }
+
+    private func verifyGenuineFragmentHistoryForward(_ test: TestCase) {
+        let script = #"""
+          (function () {
+            const levelChooser = document.getElementById("choose-level");
+            const levelPanel = document.querySelector('[data-level-panel="level-3"]');
+            return JSON.stringify({
+              selectionFragmentRestored: window.location.hash === "#level-3",
+              selectionRestored: Boolean(levelPanel && !levelPanel.hidden && !levelPanel.classList.contains("hidden")),
+              chooserHidden: Boolean(levelChooser && (levelChooser.hidden || levelChooser.classList.contains("hidden"))),
+              scrollPositionRestored: Math.abs(window.scrollY - Number(window.__selectionFragmentScrollY || 0)) <= 2
+            });
+          }());
+        """#
+
+        webView.evaluateJavaScript(script) { [weak self] result, error in
+            guard let self else { return }
+
+            if let error {
+                self.failures.append("\(test.name): selection Forward check failed: \(error.localizedDescription)")
+            } else if let json = result as? String,
+                      let data = json.data(using: .utf8),
+                      let checks = try? JSONSerialization.jsonObject(with: data) as? [String: Bool] {
+                let failedChecks = checks.filter { !$0.value }.map(\.key).sorted()
+                if !failedChecks.isEmpty {
+                    self.failures.append("\(test.name): selection Forward failed checks: \(failedChecks.joined(separator: ", "))")
+                }
+            } else {
+                self.failures.append("\(test.name): selection Forward result could not be decoded")
+            }
+
+            self.finishGenuineFragmentHistoryCase(test)
+        }
+    }
+
+    private func finishGenuineFragmentHistoryCase(_ test: TestCase) {
+        let caseFailures = failures.filter { $0.hasPrefix(test.name + ":") }
+        if caseFailures.isEmpty {
+            print("PASS \(test.name)")
+        } else {
+            print("FAIL \(test.name): \(caseFailures.joined(separator: "; "))")
+        }
+        finishCase(test)
     }
 
     private func finishCase(_ test: TestCase) {
