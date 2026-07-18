@@ -3,32 +3,147 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2017 Integration Paper - Question 3(b)</title>
+  <title>2017 NCEA Level 3 Integration AS91579 Question 3(b) — Worked Solution</title>
+<!-- SEO:HEAD:START -->
+<meta name="description" content="2017 NCEA Level 3 Integration AS91579 Question 3(b) worked solution: applying the Trapezium Rule to courtyard measurements. Use guided hints and…">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://calc.nz/int-3b2017.html">
+<meta property="og:locale" content="en_NZ">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Calc.nz">
+<meta property="og:title" content="2017 NCEA Level 3 Integration AS91579 Question 3(b) — Worked Solution">
+<meta property="og:description" content="2017 NCEA Level 3 Integration AS91579 Question 3(b) worked solution: applying the Trapezium Rule to courtyard measurements. Use guided hints and…">
+<meta property="og:url" content="https://calc.nz/int-3b2017.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2017 NCEA Level 3 Integration AS91579 Question 3(b) — Worked Solution">
+<meta name="twitter:description" content="2017 NCEA Level 3 Integration AS91579 Question 3(b) worked solution: applying the Trapezium Rule to courtyard measurements. Use guided hints and…">
+<script id="seo-structured-data" type="application/ld+json" data-seo-generated="true">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LearningResource",
+      "@id": "https://calc.nz/int-3b2017.html#learning-resource",
+      "url": "https://calc.nz/int-3b2017.html",
+      "name": "2017 NCEA Level 3 Integration AS91579 Question 3(b) — Worked Solution",
+      "description": "2017 NCEA Level 3 Integration AS91579 Question 3(b) worked solution: applying the Trapezium Rule to courtyard measurements. Use guided hints and…",
+      "inLanguage": "en-NZ",
+      "isAccessibleForFree": true,
+      "learningResourceType": "Interactive worked-solution walkthrough",
+      "educationalUse": "Practice",
+      "educationalLevel": "NCEA Level 3",
+      "teaches": "applying the Trapezium Rule to courtyard measurements",
+      "about": {
+        "@type": "Thing",
+        "name": "AS91579 — Apply integration methods in solving problems"
+      },
+      "creator": {
+        "@type": "Person",
+        "name": "Jack van Baalen"
+      },
+      "isPartOf": {
+        "@id": "https://calc.nz/level-3-integration.html#webpage"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Calc.nz",
+          "item": "https://calc.nz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "NCEA Level 3 Integration — AS91579",
+          "item": "https://calc.nz/level-3-integration.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "2017 paper",
+          "item": "https://calc.nz/level-3-integration-2017.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Question 3(b)",
+          "item": "https://calc.nz/int-3b2017.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- SEO:HEAD:END -->
 
-  <link rel="stylesheet" href="style.css?v=20260717-1" />
+<link rel="stylesheet" href="style.css?v=20260718-4" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260717-1"></script>
-  <script defer src="typed-math.js?v=20260717-1"></script>
-  <script defer src="differentiation-walkthrough.js?v=20260717-1"></script>
-  <script defer src="integration-2017-data.js?v=20260717-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260718-4"></script>
+  <script defer src="typed-math.js?v=20260718-4"></script>
+  <script defer src="differentiation-walkthrough.js?v=20260718-4"></script>
+  <script defer src="integration-2017-data.js?v=20260718-4"></script>
 </head>
 <body>
   <main id="question-3b" class="app">
-    <header class="topbar">
+  <!-- SEO:BREADCRUMBS:START -->
+  <nav class="home-flow-nav seo-breadcrumbs" aria-label="Breadcrumb">
+   <ol class="home-breadcrumb">
+    <li><a class="home-breadcrumb-button" href="/">Calc.nz</a></li>
+    <li><a class="home-breadcrumb-button" href="level-3-integration.html" data-seo-breadcrumb-standard>NCEA Level 3 Integration — AS91579</a></li>
+    <li><a class="home-breadcrumb-button" href="level-3-integration-2017.html" data-seo-breadcrumb-year>2017 paper</a></li>
+    <li><span class="home-breadcrumb-current" aria-current="page" data-seo-breadcrumb-question>Question 3(b)</span></li>
+   </ol>
+  </nav>
+  <!-- SEO:BREADCRUMBS:END -->
+
+<header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 3 Integration Walkthrough</p>
-        <h1 id="page-title">Question 3(b)</h1>
+        <h1 id="page-title">2017 NCEA Level 3 Integration Question 3(b)</h1>
         <p id="page-subtitle" class="subtitle">2017 Paper</p>
       </div>
-      <a id="back-link" class="ghost-link" href="index.html#level-3-integration-2017">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-3-integration-2017.html">← Back to paper</a>
     </header>
 
-    <section id="question-card" class="question-card"></section>
+    <!-- SEO:OVERVIEW:START -->
+    <section class="standard-section seo-question-overview" aria-labelledby="walkthrough-overview-heading">
+      <p class="question-label">Walkthrough overview</p>
+      <h2 id="walkthrough-overview-heading">What this question practises</h2>
+      <p class="step-text" data-seo-overview-lead>This 2017 walkthrough is part of AS91579 — Apply integration methods in solving problems.</p>
+      <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Applying the Trapezium Rule to courtyard measurements.</span></p>
+      <p class="step-text">This is Question 3(b) from the <a href="level-3-integration-2017.html" data-seo-year-link>2017 NCEA Level 3 Integration paper</a> for <a href="level-3-integration.html" data-seo-standard-link>AS91579 — Apply integration methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
+      <p class="question-note">Walkthrough and mathematical explanations by Jack van Baalen. Compare the wording, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91579">official NZQA resources for AS91579</a>.</p>
+    </section>
+    <!-- SEO:OVERVIEW:END -->
+
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
     <div id="walkthrough-content" class="hidden"></div>
+
+    <!-- SEO:SUMMARY:START -->
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
+      <p class="question-label">Learning summary</p>
+      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
+      <p class="step-text" data-seo-summary>This walkthrough focuses on applying the Trapezium Rule to courtyard measurements. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+      <h3>Common mistake to avoid</h3>
+      <p class="step-text" data-seo-mistake>Forgetting the constant of integration or failing to use an initial condition.</p>
+      <h3>Continue practising</h3>
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="int-3a2017.html#question-3a" data-seo-related="previous">← Question 3(a)</a>
+        <a class="nav-btn secondary" href="int-3c2017.html#question-3c" data-seo-related="next">Question 3(c) →</a>
+      </div>
+      <ul class="step-text">
+        <li><a href="level-3-integration-2017.html" data-seo-related-year>All 2017 Integration walkthroughs</a></li>
+        <li><a href="level-3-integration.html" data-seo-standard-link>All AS91579 Integration years</a></li>
+      </ul>
+    </section>
+    <!-- SEO:SUMMARY:END -->
   </main>
 
   <script>

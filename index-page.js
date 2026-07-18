@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noreferrer">here</a>.';
+  const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">here</a>.';
 
   if (typeof ensureSiteHeader === "function") {
     ensureSiteHeader();
@@ -658,8 +658,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const root = document.documentElement;
         const previousInlineBehavior = root.style.scrollBehavior;
         root.style.scrollBehavior = "auto";
+        void root.offsetHeight;
         window.scrollTo(0, scrollTop);
-        root.style.scrollBehavior = previousInlineBehavior;
+        window.setTimeout(function () {
+          root.style.scrollBehavior = previousInlineBehavior;
+        }, 0);
         return;
       }
 
@@ -975,6 +978,12 @@ document.addEventListener("DOMContentLoaded", function () {
   if (initialHash) {
     window.addEventListener("load", function () {
       moveToSelection(initialSelection, "auto");
+      window.setTimeout(function () {
+        moveToSelection(initialSelection, "auto");
+      }, 150);
+      window.setTimeout(function () {
+        moveToSelection(initialSelection, "auto");
+      }, 600);
     }, { once: true });
   }
 

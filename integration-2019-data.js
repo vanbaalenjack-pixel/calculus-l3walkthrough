@@ -1,6 +1,6 @@
 (function () {
   const raw = String.raw;
-  const paperHref = "index.html#level-3-integration-2019";
+  const paperHref = "level-3-integration-2019.html";
   const questionOrder = [
     "1a", "1b", "1c", "1d", "1e",
     "2a", "2b", "2c", "2d", "2e",

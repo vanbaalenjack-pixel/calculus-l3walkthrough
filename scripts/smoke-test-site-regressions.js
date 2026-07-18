@@ -133,7 +133,7 @@
     const progressText = document.querySelector("[data-walkthrough-paper-progress-text]");
 
     checks.headerCustomLabel = Boolean(
-      header && header.textContent.trim() === "2021 Integration · Question 1(b)(i)"
+      header && header.textContent.trim() === "2021 NCEA Level 3 Integration — Question 1(b)(i)"
     );
     checks.sidebarHasAllParts = sidebarLinks.length === 15;
     checks.sidebarCustomLabels = Object.keys(expectedLabels).every(function (part) {
@@ -265,7 +265,7 @@
     const legacyNav = Array.from(document.querySelectorAll("#walkthrough-content .nav-row a"));
     const configuredNext = window.__walkthroughCurrentConfig
       && window.__walkthroughCurrentConfig.nextHref;
-    checks.paperBackLink = relativeHref(topbarBack) === "index.html#level-3-differentiation-2022";
+    checks.paperBackLink = relativeHref(topbarBack) === "level-3-differentiation-2022.html";
     checks.previousBoundary = !expected.previous || legacyNav.some(function (link) {
       return relativeHref(link) === expected.previous;
     });
@@ -369,6 +369,103 @@
     debug.mathHeadings = renderedHeadings.map(function (heading) {
       return heading.textContent.trim();
     }).slice(0, 8);
+
+    if (/^complex-(?:201[7-9]|202[0-4])\.html$/.test(window.location.pathname.split("/").pop())) {
+      const part = new URLSearchParams(window.location.search).get("q");
+      const questionLabel = part && part.length === 2
+        ? "Question " + part.charAt(0) + "(" + part.charAt(1) + ")"
+        : "";
+      const expectedCanonical = "https://calc.nz" + window.location.pathname + "?q=" + part;
+      const canonical = document.querySelector('link[rel="canonical"]');
+      const ogUrl = document.querySelector('meta[property="og:url"]');
+      const currentBreadcrumb = document.querySelector("[data-seo-breadcrumb-question]");
+      const overview = document.querySelector(".seo-question-overview");
+      const summary = document.querySelector("[data-seo-summary]");
+      let learningResource = null;
+
+      try {
+        const structuredData = JSON.parse(document.getElementById("seo-structured-data").textContent);
+        learningResource = (structuredData["@graph"] || []).find(function (item) {
+          return item["@type"] === "LearningResource";
+        }) || null;
+      } catch (error) {
+        debug.dynamicSeoJsonError = String(error);
+      }
+
+      checks.dynamicSeoCanonical = Boolean(canonical && canonical.href === expectedCanonical);
+      checks.dynamicSeoOpenGraphUrl = Boolean(ogUrl && ogUrl.content === expectedCanonical);
+      checks.dynamicSeoTitle = document.title.indexOf(questionLabel) >= 0;
+      checks.dynamicSeoHeading = Boolean(document.getElementById("page-title") && document.getElementById("page-title").textContent.indexOf(questionLabel) >= 0);
+      checks.dynamicSeoBreadcrumb = Boolean(currentBreadcrumb && currentBreadcrumb.textContent.trim() === questionLabel);
+      checks.dynamicSeoVisibleOverview = Boolean(overview && isVisible(overview) && overview.textContent.trim().length > 80);
+      checks.dynamicSeoVisibleSummary = Boolean(summary && isVisible(summary) && summary.textContent.trim().length > 40);
+      checks.dynamicSeoStructuredData = Boolean(learningResource && learningResource.url === expectedCanonical);
+      debug.dynamicSeo = {
+        expectedCanonical: expectedCanonical,
+        canonical: canonical && canonical.href,
+        title: document.title,
+        heading: document.getElementById("page-title") && document.getElementById("page-title").textContent.trim()
+      };
+    }
+  }
+
+  function checkSeoLanding(checks, debug, kind) {
+    const expectedCanonical = "https://calc.nz" + window.location.pathname;
+    const canonical = document.querySelector('link[rel="canonical"]');
+    const description = document.querySelector('meta[name="description"]');
+    const breadcrumb = document.querySelector(".seo-breadcrumbs");
+    const h1 = document.querySelector("main h1");
+    const structuredDataScript = document.getElementById("seo-structured-data");
+    let structuredNodes = [];
+
+    try {
+      const structuredData = JSON.parse(structuredDataScript.textContent);
+      structuredNodes = structuredData["@graph"] || [structuredData];
+    } catch (error) {
+      debug.seoLandingJsonError = String(error);
+    }
+
+    checks.landingCanonical = Boolean(canonical && canonical.href === expectedCanonical);
+    checks.landingDescription = Boolean(description && description.content.trim().length >= 100);
+    checks.landingTitle = document.title.trim().length >= 40;
+    checks.landingHeading = Boolean(h1 && isVisible(h1) && /AS91577/.test(h1.textContent));
+    checks.landingBreadcrumb = Boolean(breadcrumb && isVisible(breadcrumb) && breadcrumb.querySelector("a[href]"));
+    checks.landingWebPageSchema = structuredNodes.some(function (node) {
+      return node["@type"] === "WebPage" && node.url === expectedCanonical;
+    });
+    checks.landingBreadcrumbSchema = structuredNodes.some(function (node) {
+      return node["@type"] === "BreadcrumbList";
+    });
+    checks.landingDisclaimer = /independent/i.test(document.body.textContent) && /not affiliated|independent of NZQA/i.test(document.body.textContent);
+
+    if (kind === "standard") {
+      const yearLinks = Array.from(document.querySelectorAll('a[href^="level-3-complex-numbers-20"]'));
+      const questionLinks = Array.from(document.querySelectorAll('a[href^="complex-"]')).filter(function (link) {
+        return /(?:\.html\?q=|complex-[123][a-e]2025\.html)/.test(link.getAttribute("href"));
+      });
+      checks.standardAllYearsLinked = new Set(yearLinks.map(function (link) {
+        return link.getAttribute("href");
+      })).size === 9;
+      checks.standardEveryQuestionLinked = new Set(questionLinks.map(function (link) {
+        return link.getAttribute("href");
+      })).size === 135;
+      checks.standardReasoningVisible = /Achieved/.test(document.body.textContent) && /Merit/.test(document.body.textContent) && /Excellence/.test(document.body.textContent);
+    } else {
+      const questionLinks = Array.from(document.querySelectorAll('a[href^="complex-2022.html?q="]'));
+      const officialLinks = Array.from(document.querySelectorAll('a[href*="nzqa.govt.nz"]'));
+      checks.yearEveryQuestionLinked = new Set(questionLinks.map(function (link) {
+        return link.getAttribute("href");
+      })).size === 15;
+      checks.yearOfficialSources = officialLinks.length >= 5;
+      checks.yearPriorityCopy = /2022 NCEA complex numbers worked answers/i.test(document.body.textContent);
+    }
+
+    debug.seoLanding = {
+      kind: kind,
+      canonical: canonical && canonical.href,
+      title: document.title,
+      heading: h1 && h1.textContent.trim()
+    };
   }
 
   function checkHintMath(checks, debug) {
@@ -415,7 +512,11 @@
     const checks = {};
     const debug = { mode: mode, url: window.location.href };
 
-    if (mode === "integration-2021-labels") {
+    if (mode === "seo-standard-landing") {
+      checkSeoLanding(checks, debug, "standard");
+    } else if (mode === "seo-year-landing") {
+      checkSeoLanding(checks, debug, "year");
+    } else if (mode === "integration-2021-labels") {
       checkIntegration2021Labels(checks, debug);
     } else if (mode === "mobile-sidebar") {
       checkMobileSidebar(checks, debug);

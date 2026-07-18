@@ -1,6 +1,6 @@
 (function () {
   const raw = String.raw;
-  const paperHref = "index.html#level-2-algebra-2025";
+  const paperHref = "level-2-algebra-2025.html";
 
   function finalNav(nextHref, nextLabel) {
     return {

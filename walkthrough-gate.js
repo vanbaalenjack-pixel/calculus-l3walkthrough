@@ -204,6 +204,20 @@ function ensureSiteHeader() {
     return null;
   }
 
+  const mainContent = document.querySelector("main");
+  if (mainContent && !mainContent.id) {
+    mainContent.id = "main-content";
+  }
+
+  let skipLink = document.querySelector(".skip-link");
+  if (!skipLink && mainContent) {
+    skipLink = document.createElement("a");
+    skipLink.className = "skip-link";
+    skipLink.href = "#" + mainContent.id;
+    skipLink.textContent = "Skip to main content";
+    body.insertBefore(skipLink, body.firstChild);
+  }
+
   let siteHeader = getSiteHeader();
 
   if (!siteHeader) {
@@ -216,10 +230,18 @@ function ensureSiteHeader() {
 
     const brandLink = document.createElement("a");
     brandLink.className = "site-brand";
-    brandLink.href = "index.html";
-    brandLink.textContent = "calc.nz";
+    brandLink.href = "/";
+    brandLink.textContent = "Calc.nz";
+
+    const headerLinks = document.createElement("div");
+    headerLinks.className = "site-header-links";
+    headerLinks.innerHTML = `
+      <a class="site-header-link" href="/#standards">Standards</a>
+      <a class="site-header-link" href="about.html">About</a>
+    `;
 
     headerInner.appendChild(brandLink);
+    headerInner.appendChild(headerLinks);
     siteHeader.appendChild(headerInner);
 
     const main = document.querySelector("main");
@@ -479,11 +501,13 @@ let walkthroughLastVisitedFallback = null;
 let walkthroughExamModeFallback = false;
 
 function createWalkthroughPaper(id, year, routeTemplate, parts, partLabels) {
+  const landingId = id.replace("level-3-complex-", "level-3-complex-numbers-");
+
   return {
     id: id,
     year: year,
     label: year + " Paper",
-    indexHref: "index.html#" + id,
+    indexHref: landingId + ".html",
     routeTemplate: routeTemplate,
     parts: parts || WALKTHROUGH_NAV_PARTS,
     partLabels: partLabels || null
@@ -511,7 +535,10 @@ const WALKTHROUGH_NAV_CATALOG = [
       {
         id: "level-2-calculus",
         label: "Calculus",
-        indexHref: "index.html#level-2-calculus",
+        standardNumber: "AS91262",
+        officialName: "Apply calculus methods in solving problems",
+        officialUrl: "https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91262",
+        indexHref: "level-2-calculus.html",
         papers: [
           createWalkthroughPaper(
             "level-2-calculus-2025",
@@ -524,7 +551,10 @@ const WALKTHROUGH_NAV_CATALOG = [
       {
         id: "level-2-algebra",
         label: "Algebra",
-        indexHref: "index.html#level-2-algebra",
+        standardNumber: "AS91261",
+        officialName: "Apply algebraic methods in solving problems",
+        officialUrl: "https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91261",
+        indexHref: "level-2-algebra.html",
         papers: [
           createWalkthroughPaper("level-2-algebra-2025", 2025, "alg-{part}2025-l2.html")
         ]
@@ -539,13 +569,19 @@ const WALKTHROUGH_NAV_CATALOG = [
       {
         id: "level-3-differentiation",
         label: "Differentiation",
-        indexHref: "index.html#level-3-differentiation",
+        standardNumber: "AS91578",
+        officialName: "Apply differentiation methods in solving problems",
+        officialUrl: "https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91578",
+        indexHref: "level-3-differentiation.html",
         papers: createWalkthroughYearPapers("level-3-differentiation", "{part}{year}.html", WALKTHROUGH_NAV_DIFFERENTIATION_YEARS)
       },
       {
         id: "level-3-integration",
         label: "Integration",
-        indexHref: "index.html#level-3-integration",
+        standardNumber: "AS91579",
+        officialName: "Apply integration methods in solving problems",
+        officialUrl: "https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91579",
+        indexHref: "level-3-integration.html",
         papers: createWalkthroughYearPapers(
           "level-3-integration",
           "int-{part}{year}.html",
@@ -556,7 +592,10 @@ const WALKTHROUGH_NAV_CATALOG = [
       {
         id: "level-3-complex",
         label: "Complex Numbers",
-        indexHref: "index.html#level-3-complex",
+        standardNumber: "AS91577",
+        officialName: "Apply the algebra of complex numbers in solving problems",
+        officialUrl: "https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91577",
+        indexHref: "level-3-complex-numbers.html",
         papers: [
           createWalkthroughPaper("level-3-complex-2025", 2025, "complex-{part}2025.html")
         ].concat(createWalkthroughYearPapers("level-3-complex", "complex-{year}.html?q={part}", [2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017]))
@@ -988,7 +1027,13 @@ function getWalkthroughHeaderTitle(context) {
     return "";
   }
 
-  return context.paper.year + " " + context.standard.label + " \u00b7 " + walkthroughQuestionLabel(context.partId, context.paper);
+  return context.paper.year
+    + " NCEA "
+    + context.level.label
+    + " "
+    + context.standard.label
+    + " \u2014 "
+    + walkthroughQuestionLabel(context.partId, context.paper);
 }
 
 function getWalkthroughHeaderSubtitle(context, sourceSubtitle) {
@@ -1011,6 +1056,318 @@ function getWalkthroughHeaderSubtitle(context, sourceSubtitle) {
   }
 
   return base + " \u00b7 " + detail;
+}
+
+const WALKTHROUGH_SEO_ORIGIN = "https://calc.nz";
+
+function getWalkthroughSeoCanonicalUrl(context) {
+  if (!context || !context.paper || !context.partId) {
+    return WALKTHROUGH_SEO_ORIGIN + "/";
+  }
+
+  const target = new URL(getWalkthroughPartHref(context.paper, context.partId), WALKTHROUGH_SEO_ORIGIN + "/");
+  target.searchParams.delete("mode");
+  target.hash = "";
+  return target.href;
+}
+
+function getWalkthroughSeoTitle(context) {
+  return context.paper.year
+    + " NCEA "
+    + context.level.label
+    + " "
+    + context.standard.label
+    + " "
+    + context.standard.standardNumber
+    + " "
+    + walkthroughQuestionLabel(context.partId, context.paper)
+    + " \u2014 Worked Solution";
+}
+
+function getWalkthroughSeoDescription(context) {
+  return "Work through "
+    + context.paper.year
+    + " NCEA "
+    + context.level.label
+    + " "
+    + context.standard.label
+    + " "
+    + context.standard.standardNumber
+    + " "
+    + walkthroughQuestionLabel(context.partId, context.paper)
+    + " with guided hints, method-focused feedback, and a step-by-step solution.";
+}
+
+function ensureWalkthroughSeoMeta(attribute, key, value) {
+  let element = document.head.querySelector('meta[' + attribute + '="' + key + '"]');
+
+  if (!element) {
+    element = document.createElement("meta");
+    element.setAttribute(attribute, key);
+    document.head.appendChild(element);
+  }
+
+  element.setAttribute("content", value);
+  return element;
+}
+
+function ensureWalkthroughSeoCanonical(canonicalUrl) {
+  let canonical = document.head.querySelector('link[rel="canonical"]');
+
+  if (!canonical) {
+    canonical = document.createElement("link");
+    canonical.rel = "canonical";
+    document.head.appendChild(canonical);
+  }
+
+  canonical.href = canonicalUrl;
+}
+
+function getWalkthroughSeoPlainText(value) {
+  const container = document.createElement("div");
+  container.innerHTML = String(value || "");
+
+  return String(container.textContent || "")
+    .replace(/\\[()[\]]/g, "")
+    .replace(/\\(?:text|mathrm|mathbf|operatorname)\s*\{([^{}]*)\}/g, "$1")
+    .replace(/\\(?:,|;|!|quad|qquad)/g, " ")
+    .replace(/\\([a-zA-Z]+)/g, "$1")
+    .replace(/[{}]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getWalkthroughSeoMistake(context, focus) {
+  const plainFocus = getWalkthroughSeoPlainText(focus).toLowerCase();
+
+  if (/chain rule|inner function|inside function/.test(plainFocus)) {
+    return "A common slip is differentiating the outside expression but forgetting to multiply by the derivative of the inside function.";
+  }
+
+  if (/tangent|normal/.test(plainFocus)) {
+    return "Keep the curve gradient, tangent or normal gradient, and the point on the curve separate before writing the line equation.";
+  }
+
+  if (/stationary|turning point|maximum|minimum|optimis/.test(plainFocus)) {
+    return "Finding a critical value is only part of the reasoning: also justify its nature and answer in the context of the question.";
+  }
+
+  if (/area|volume|numerical integration/.test(plainFocus)) {
+    return "Check limits, signs, and units carefully; a correct antiderivative can still produce the wrong contextual area or volume.";
+  }
+
+  if (/rate|kinematic|velocity|acceleration|displacement/.test(plainFocus)) {
+    return "Track which quantity is being differentiated or integrated, then include the requested units and contextual conclusion.";
+  }
+
+  if (/conjugate|rationalis/.test(plainFocus)) {
+    return "Use the correct conjugate sign and expand the whole product before simplifying the real and imaginary parts.";
+  }
+
+  if (/argument|polar|de moivre|root/.test(plainFocus) && context.standard.id === "level-3-complex") {
+    return "Check the modulus and starting angle, including the quadrant, before applying polar-form or De Moivre reasoning.";
+  }
+
+  if (context.standard.id === "level-3-integration") {
+    return "Differentiate your result as a quick check, and include the constant of integration whenever the question requires an indefinite integral.";
+  }
+
+  if (context.standard.id === "level-3-differentiation" || context.standard.id === "level-2-calculus") {
+    return "State the rule you are using, keep each algebraic step equivalent, and connect the derivative result back to the question.";
+  }
+
+  if (context.standard.id === "level-3-complex") {
+    return "Keep modulus, argument, conjugate, and real or imaginary parts distinct, and finish in the form the question requests.";
+  }
+
+  return "Keep each algebraic transformation equivalent, preserve signs and exponents, and check that the final expression is in the requested form.";
+}
+
+function updateWalkthroughSeoRelatedLink(context, relation, offset) {
+  const link = document.querySelector('[data-seo-related="' + relation + '"]');
+
+  if (!link) {
+    return;
+  }
+
+  const currentIndex = context.paper.parts.indexOf(context.partId);
+  const targetPart = context.paper.parts[currentIndex + offset];
+
+  if (!targetPart) {
+    link.hidden = true;
+    link.removeAttribute("href");
+    return;
+  }
+
+  link.hidden = false;
+  link.href = getWalkthroughPartHref(context.paper, targetPart);
+  link.textContent = (offset < 0 ? "\u2190 " : "")
+    + walkthroughQuestionLabel(targetPart, context.paper)
+    + (offset > 0 ? " \u2192" : "");
+}
+
+function buildWalkthroughSeoStructuredData(context, title, description, canonicalUrl) {
+  const standardUrl = new URL(context.standard.indexHref, WALKTHROUGH_SEO_ORIGIN + "/").href;
+  const yearUrl = new URL(context.paper.indexHref, WALKTHROUGH_SEO_ORIGIN + "/").href;
+  const questionLabel = walkthroughQuestionLabel(context.partId, context.paper);
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "@id": canonicalUrl + "#breadcrumb",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: WALKTHROUGH_SEO_ORIGIN + "/" },
+          { "@type": "ListItem", position: 2, name: "NCEA " + context.level.label + " " + context.standard.label, item: standardUrl },
+          { "@type": "ListItem", position: 3, name: context.paper.year + " paper", item: yearUrl },
+          { "@type": "ListItem", position: 4, name: questionLabel, item: canonicalUrl }
+        ]
+      },
+      {
+        "@type": "LearningResource",
+        "@id": canonicalUrl + "#learning-resource",
+        url: canonicalUrl,
+        name: title,
+        description: description,
+        inLanguage: "en-NZ",
+        learningResourceType: "Interactive worked solution",
+        educationalLevel: "NCEA " + context.level.label,
+        mainEntityOfPage: canonicalUrl,
+        author: {
+          "@type": "Person",
+          name: "Jack van Baalen",
+          url: WALKTHROUGH_SEO_ORIGIN + "/about.html"
+        },
+        about: {
+          "@type": "DefinedTerm",
+          name: context.standard.officialName,
+          termCode: context.standard.standardNumber,
+          url: context.standard.officialUrl || standardUrl
+        },
+        isPartOf: {
+          "@type": "WebPage",
+          "@id": yearUrl
+        }
+      }
+    ]
+  };
+}
+
+function syncWalkthroughSeo(context, config) {
+  if (!context || !context.standard.standardNumber) {
+    return;
+  }
+
+  const title = getWalkthroughSeoTitle(context);
+  const description = getWalkthroughSeoDescription(context);
+  const canonicalUrl = getWalkthroughSeoCanonicalUrl(context);
+  const standardUrl = context.standard.indexHref;
+  const yearUrl = context.paper.indexHref;
+  const questionLabel = walkthroughQuestionLabel(context.partId, context.paper);
+  const pageTitle = document.getElementById("page-title") || document.querySelector("main.app .topbar h1");
+  const backLink = document.getElementById("back-link") || document.querySelector("main.app .topbar .ghost-link");
+  const focusElement = document.querySelector("[data-seo-focus]");
+  const sourceFocus = config && config.focus
+    ? String(config.focus)
+    : focusElement
+      ? focusElement.innerHTML
+      : "using a clear method and checking each stage of the working";
+
+  document.title = title;
+  ensureWalkthroughSeoCanonical(canonicalUrl);
+  ensureWalkthroughSeoMeta("name", "description", description);
+  ensureWalkthroughSeoMeta("name", "robots", "index,follow,max-image-preview:large");
+  ensureWalkthroughSeoMeta("property", "og:type", "article");
+  ensureWalkthroughSeoMeta("property", "og:locale", "en_NZ");
+  ensureWalkthroughSeoMeta("property", "og:site_name", "Calc.nz");
+  ensureWalkthroughSeoMeta("property", "og:title", title);
+  ensureWalkthroughSeoMeta("property", "og:description", description);
+  ensureWalkthroughSeoMeta("property", "og:url", canonicalUrl);
+  ensureWalkthroughSeoMeta("name", "twitter:card", "summary");
+  ensureWalkthroughSeoMeta("name", "twitter:title", title);
+  ensureWalkthroughSeoMeta("name", "twitter:description", description);
+
+  if (pageTitle) {
+    pageTitle.textContent = getWalkthroughHeaderTitle(context);
+  }
+
+  if (backLink) {
+    backLink.href = yearUrl;
+  }
+
+  document.querySelectorAll("[data-seo-standard-link]").forEach(function (link) {
+    link.href = standardUrl;
+  });
+  document.querySelectorAll("[data-seo-year-link]").forEach(function (link) {
+    link.href = yearUrl;
+  });
+
+  const breadcrumbStandard = document.querySelector("[data-seo-breadcrumb-standard]");
+  const breadcrumbYear = document.querySelector("[data-seo-breadcrumb-year]");
+  const breadcrumbQuestion = document.querySelector("[data-seo-breadcrumb-question]");
+
+  if (breadcrumbStandard) {
+    breadcrumbStandard.href = standardUrl;
+    breadcrumbStandard.textContent = "NCEA " + context.level.label + " " + context.standard.label;
+  }
+  if (breadcrumbYear) {
+    breadcrumbYear.href = yearUrl;
+    breadcrumbYear.textContent = context.paper.year + " paper";
+  }
+  if (breadcrumbQuestion) {
+    breadcrumbQuestion.textContent = questionLabel;
+  }
+
+  if (focusElement && config && config.focus) {
+    focusElement.innerHTML = String(config.focus);
+    if (typeof window.renderMath === "function") {
+      window.renderMath(focusElement);
+    }
+  }
+
+  const overviewLead = document.querySelector("[data-seo-overview-lead]");
+  if (overviewLead) {
+    overviewLead.textContent = "This "
+      + context.paper.year
+      + " walkthrough is part of "
+      + context.standard.standardNumber
+      + " \u2014 "
+      + context.standard.officialName
+      + ".";
+  }
+
+  const summary = document.querySelector("[data-seo-summary]");
+  if (summary) {
+    const plainFocus = getWalkthroughSeoPlainText(sourceFocus).replace(/[.\s]+$/, "");
+    summary.textContent = "This walkthrough helps you practise "
+      + plainFocus.charAt(0).toLowerCase()
+      + plainFocus.slice(1)
+      + ". Use the hints to plan the method before opening the full worked solution.";
+  }
+
+  const mistake = document.querySelector("[data-seo-mistake]");
+  if (mistake) {
+    mistake.textContent = getWalkthroughSeoMistake(context, sourceFocus);
+  }
+
+  const yearRelatedLink = document.querySelector("[data-seo-related-year]");
+  if (yearRelatedLink) {
+    yearRelatedLink.href = yearUrl;
+    yearRelatedLink.textContent = "All " + context.paper.year + " questions";
+  }
+
+  updateWalkthroughSeoRelatedLink(context, "previous", -1);
+  updateWalkthroughSeoRelatedLink(context, "next", 1);
+
+  let structuredData = document.getElementById("seo-structured-data");
+  if (!structuredData) {
+    structuredData = document.createElement("script");
+    structuredData.id = "seo-structured-data";
+    structuredData.type = "application/ld+json";
+    document.head.appendChild(structuredData);
+  }
+  structuredData.textContent = JSON.stringify(buildWalkthroughSeoStructuredData(context, title, description, canonicalUrl));
 }
 
 function syncWalkthroughPageHeaderContext(context, config) {
@@ -1403,7 +1760,7 @@ function buildWalkthroughSidebarHtml(context) {
   }).join("");
   const paperLinks = context.standard.papers.map(function (paper) {
     return renderWalkthroughSidebarLink({
-      href: getWalkthroughPaperStartHref(paper, context.partId),
+      href: paper.indexHref,
       label: String(paper.year),
       current: paper.id === context.paper.id,
       ariaLabel: paper.year + " " + context.standard.label + " paper"
@@ -1466,6 +1823,7 @@ function ensureWalkthroughSidebar(config) {
   window.__walkthroughCurrentContext = context;
   markWalkthroughPartProgress(context, context.partId, { visited: true });
   syncWalkthroughPageHeaderContext(context, config);
+  syncWalkthroughSeo(context, config);
 
   const layout = ensureWalkthroughLayout(app);
   let sidebar = document.getElementById("walkthrough-sidebar");
@@ -3406,7 +3764,7 @@ window.CalcNzWalkthrough = Object.assign(window.CalcNzWalkthrough || {}, {
 window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
 
 (function () {
-  const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noreferrer">here</a>.';
+  const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">here</a>.';
   const INTERACTION_SELECTOR = ".option-btn, .check-btn, .next-step-btn, .walkthrough-next-btn, .walkthrough-previous-btn, .step-working-btn, .legacy-working-toggle, .legacy-previous-btn";
 
   function normaliseButtonTypes(root) {
@@ -3471,6 +3829,25 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
       footer = document.createElement("footer");
       footer.className = "site-footer";
       body.appendChild(footer);
+    }
+
+    if (!footer.querySelector(".site-footer-nav")) {
+      const footerNavigation = document.createElement("nav");
+      footerNavigation.className = "site-footer-nav";
+      footerNavigation.setAttribute("aria-label", "Footer");
+      footerNavigation.innerHTML = `
+        <a class="site-footer-link" href="/">Home</a>
+        <a class="site-footer-link" href="/#standards">Standards</a>
+        <a class="site-footer-link" href="about.html">About</a>
+      `;
+      footer.appendChild(footerNavigation);
+    }
+
+    if (!footer.querySelector(".site-footer-disclaimer")) {
+      const disclaimer = document.createElement("p");
+      disclaimer.className = "site-footer-text site-footer-disclaimer";
+      disclaimer.textContent = "Calc.nz is an independent learning project and is not affiliated with or endorsed by NZQA.";
+      footer.appendChild(disclaimer);
     }
 
     if (footer.querySelector(".report-issue-text")) {
