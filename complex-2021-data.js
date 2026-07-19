@@ -908,7 +908,7 @@
         </div>
       `),
       guidedSteps: [
-        guidedStep("Choose the conjugate", raw`The conjugate of \(4-2\sqrt{3}\) is \(4+2\sqrt{3}\).`, raw`
+        guidedStep("Use the conjugate", raw`The conjugate of \(4-2\sqrt{3}\) is \(4+2\sqrt{3}\).`, raw`
           <div class="math-block">
             \[
             \frac{18}{4-2\sqrt{3}}

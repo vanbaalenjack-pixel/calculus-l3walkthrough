@@ -27,58 +27,65 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
   <script>
     (function () {
       const routes = {
-      "1a": "1a2020.html#question-1a",
-      "question-1a": "1a2020.html#question-1a",
-      "question-one-a": "1a2020.html#question-1a",
-      "1b": "1b2020.html#question-1b",
-      "question-1b": "1b2020.html#question-1b",
-      "question-one-b": "1b2020.html#question-1b",
-      "1c": "1c2020.html#question-1c",
-      "question-1c": "1c2020.html#question-1c",
-      "question-one-c": "1c2020.html#question-1c",
-      "1d": "1d2020.html#question-1d",
-      "question-1d": "1d2020.html#question-1d",
-      "question-one-d": "1d2020.html#question-1d",
-      "1e": "1e2020.html#question-1e",
-      "question-1e": "1e2020.html#question-1e",
-      "question-one-e": "1e2020.html#question-1e",
-      "2a": "2a2020.html#question-2a",
-      "question-2a": "2a2020.html#question-2a",
-      "question-two-a": "2a2020.html#question-2a",
-      "2b": "2b2020.html#question-2b",
-      "question-2b": "2b2020.html#question-2b",
-      "question-two-b": "2b2020.html#question-2b",
-      "2c": "2c2020.html#question-2c",
-      "question-2c": "2c2020.html#question-2c",
-      "question-two-c": "2c2020.html#question-2c",
-      "2d": "2d2020.html#question-2d",
-      "question-2d": "2d2020.html#question-2d",
-      "question-two-d": "2d2020.html#question-2d",
-      "2e": "2e2020.html#question-2e",
-      "question-2e": "2e2020.html#question-2e",
-      "question-two-e": "2e2020.html#question-2e",
-      "3a": "3a2020.html#question-3a",
-      "question-3a": "3a2020.html#question-3a",
-      "question-three-a": "3a2020.html#question-3a",
-      "3b": "3b2020.html#question-3b",
-      "question-3b": "3b2020.html#question-3b",
-      "question-three-b": "3b2020.html#question-3b",
-      "3c": "3c2020.html#question-3c",
-      "question-3c": "3c2020.html#question-3c",
-      "question-three-c": "3c2020.html#question-3c",
-      "3d": "3d2020.html#question-3d",
-      "question-3d": "3d2020.html#question-3d",
-      "question-three-d": "3d2020.html#question-3d",
-      "3e": "3e2020.html#question-3e",
-      "question-3e": "3e2020.html#question-3e",
-      "question-three-e": "3e2020.html#question-3e"
+      "1a": "1a2020.html",
+      "question-1a": "1a2020.html",
+      "question-one-a": "1a2020.html",
+      "1b": "1b2020.html",
+      "question-1b": "1b2020.html",
+      "question-one-b": "1b2020.html",
+      "1c": "1c2020.html",
+      "question-1c": "1c2020.html",
+      "question-one-c": "1c2020.html",
+      "1d": "1d2020.html",
+      "question-1d": "1d2020.html",
+      "question-one-d": "1d2020.html",
+      "1e": "1e2020.html",
+      "question-1e": "1e2020.html",
+      "question-one-e": "1e2020.html",
+      "2a": "2a2020.html",
+      "question-2a": "2a2020.html",
+      "question-two-a": "2a2020.html",
+      "2b": "2b2020.html",
+      "question-2b": "2b2020.html",
+      "question-two-b": "2b2020.html",
+      "2c": "2c2020.html",
+      "question-2c": "2c2020.html",
+      "question-two-c": "2c2020.html",
+      "2d": "2d2020.html",
+      "question-2d": "2d2020.html",
+      "question-two-d": "2d2020.html",
+      "2e": "2e2020.html",
+      "question-2e": "2e2020.html",
+      "question-two-e": "2e2020.html",
+      "3a": "3a2020.html",
+      "question-3a": "3a2020.html",
+      "question-three-a": "3a2020.html",
+      "3b": "3b2020.html",
+      "question-3b": "3b2020.html",
+      "question-three-b": "3b2020.html",
+      "3c": "3c2020.html",
+      "question-3c": "3c2020.html",
+      "question-three-c": "3c2020.html",
+      "3d": "3d2020.html",
+      "question-3d": "3d2020.html",
+      "question-three-d": "3d2020.html",
+      "3e": "3e2020.html",
+      "question-3e": "3e2020.html",
+      "question-three-e": "3e2020.html"
       };
       const hash = window.location.hash.slice(1).toLowerCase();
-      window.location.replace(routes[hash] || "1a2020.html#question-1a");
+      const target = new URL(routes[hash] || "1a2020.html", window.location.href);
+      const sourceParams = new URLSearchParams(window.location.search);
+
+      sourceParams.forEach(function (value, key) {
+        target.searchParams.set(key, value);
+      });
+
+      window.location.replace(target.href);
     }());
   </script>
 </head>
@@ -91,7 +98,7 @@
         <p class="subtitle">Opening Question 1(a)…</p>
       </div>
     </header>
-    <p><a class="nav-btn" href="1a2020.html#question-1a">Open the 2020 walkthrough</a></p>
+    <p><a class="nav-btn" href="1a2020.html">Open the 2020 walkthrough</a></p>
   </main>
 </body>
 </html>

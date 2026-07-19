@@ -29,7 +29,7 @@
       "description": "2025 NCEA Level 2 Calculus AS91262 Question 3(a) worked solution: differentiating, solving for the given gradient, and finding the coordinate on the curve.…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 2",
       "teaches": "differentiating, solving for the given gradient, and finding the coordinate on the curve",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
-        <h1>2025 NCEA Level 2 Calculus Question 3(a)</h1>
-        <p class="subtitle">2025 Paper — Find the point where the gradient is 3</p>
+        <p id="page-eyebrow" class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1 id="page-title">2025 NCEA Level 2 Calculus Question 3(a)</h1>
+        <p id="page-subtitle" class="subtitle">2025 Paper — Find the point where the gradient is 3</p>
       </div>
-      <a class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,116 +119,119 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <div class="question-math">
-        \[
-        f(x)=2x^2-7x-20
-        \]
-      </div>
-      <p class="step-text">
-        Find the coordinate of the point on the curve where the gradient of \(f(x)\) is equal to \(3\).
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <p class="step-text question-note">
-        Differentiate first, solve \(4x-7=3\), then substitute that x-value back into the original function to get the full coordinate.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
+    <div id="walkthrough-content" class="hidden"></div>
 
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card active">
-        <p class="step-number">Step 1</p>
-        <h2>Differentiate the function</h2>
-        <p class="step-text">What is \(f'(x)\) for \(f(x)=2x^2-7x-20\)?</p>
+    <!-- SEO:SUMMARY:START -->
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
+      <p class="question-label">Learning summary</p>
+      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
+      <p class="step-text" data-seo-summary>This walkthrough focuses on differentiating, solving for the given gradient, and finding the coordinate on the curve. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+      <h3>Common mistake to avoid</h3>
+      <p class="step-text" data-seo-mistake>Substituting into the original function when the question asks for a gradient or rate.</p>
+      <h3>Continue practising</h3>
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="2d2025-l2.html" data-seo-related="previous">← Question 2(d)</a>
+        <a class="nav-btn secondary" href="3b2025-l2.html" data-seo-related="next">Question 3(b) →</a>
+      </div>
+      <ul class="step-text">
+        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
+        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
+      </ul>
+    </section>
+    <!-- SEO:SUMMARY:END -->
+  </main>
 
-        <div class="math-input-group">
-          <input
-            id="step-1-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the derivative of f of x"
-            placeholder="Type your answer here"
-          />
-          <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
-            Check
-          </button>
+  <script>
+    const hintContent = [
+      "Differentiate the quadratic first so you can write the gradient function.",
+      "Set the derivative equal to 3, because the question tells you the gradient at the point is 3.",
+      "Once you find the x-value, substitute it into the original function to get the y-value and therefore the coordinate."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const raw = String.raw;
+      const answerHtml = `
+          <p class="step-text">Differentiate and solve for the x-value:</p>
+          <div class="math-block">
+            \\[
+            f'(x)=4x-7
+            \\]
+            \\[
+            4x-7=3 \\Rightarrow x=\\frac{5}{2}
+            \\]
+          </div>
+          <p class="step-text">Then substitute back into the original function:</p>
+          <div class="math-block">
+            \\[
+            f\\left(\\frac{5}{2}\\right)=-25
+            \\]
+            \\[
+            \\left(\\frac{5}{2},-25\\right)
+            \\]
+          </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Differentiate the function`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Differentiate \(f(x)=2x^2-7x-20\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            4 x - 7
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">The derivative of \(2x^2\) is \(4x\), the derivative of \(-7x\) is \(-7\), and the constant disappears.</p></div>
         </div>
+          `
+        },
+        {
+          title: raw`Use the given gradient`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Set the derivative equal to the given gradient and solve \(4x-7=3\).</p>
 
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
 
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Use the given gradient</h2>
-        <p class="step-text">The gradient is 3, so solve \(4x-7=3\). What is \(x\)?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-2-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the x value"
-            placeholder="Type your answer here"
-          />
-          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkXValue()">
-            Check
-          </button>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \frac{5}{2}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">From \(4x-7=3\), add 7 to get \(4x=10\), then divide by 4.</p></div>
         </div>
+          `
+        },
+        {
+          title: raw`Find the y-coordinate`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Substitute \(x=\frac{5}{2}\) into the original function to find the y-value.</p>
 
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
 
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Find the y-coordinate</h2>
-        <p class="step-text">Substitute \(x=\frac{5}{2}\) into the original function. What is the y-value?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-3-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the y value"
-            placeholder="Type your answer here"
-          />
-          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkYValue()">
-            Check
-          </button>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            -25
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Substituting \(x=\frac{5}{2}\) into \(f(x)=2x^2-7x-20\) gives \(-25\).</p></div>
         </div>
-
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Final answer</h2>
-        <p class="step-text">Now write the coordinate clearly.</p>
+          `
+        },
+        {
+          title: raw`Final result`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Now write the coordinate clearly.</p>
 
         <div class="math-block">
           \[
@@ -258,169 +260,41 @@
           \]
         </div>
 
-        <div id="feedback-4" class="feedback success">
-          Great work. The point on the curve where the gradient is \(3\) is \(\left(\frac{5}{2},-25\right)\).
-        </div>
+        <p class="step-text">The point on the curve where the gradient is \(3\) is \(\left(\frac{5}{2},-25\right)\).</p>
+          `
+        }
+      ];
 
-        <div class="nav-row">
-          <a class="nav-btn secondary" href="2d2025-l2.html">← Back to Question 2(d)</a>
-          <a class="nav-btn" href="3b2025-l2.html">Next question →</a>
-        </div>
-      </section>
-    </div>
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
 
-    <!-- SEO:SUMMARY:START -->
-    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-      <p class="question-label">Learning summary</p>
-      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough focuses on differentiating, solving for the given gradient, and finding the coordinate on the curve. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Substituting into the original function when the question asks for a gradient or rate.</p>
-      <h3>Continue practising</h3>
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="2d2025-l2.html" data-seo-related="previous">← Question 2(d)</a>
-        <a class="nav-btn secondary" href="3b2025-l2.html" data-seo-related="next">Question 3(b) →</a>
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<div class="question-math">
+        \[
+        f(x)=2x^2-7x-20
+        \]
       </div>
-      <ul class="step-text">
-        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
-        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
-      </ul>
-    </section>
-    <!-- SEO:SUMMARY:END -->
-  </main>
-
-  <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
-    const hintContent = [
-      "Differentiate the quadratic first so you can write the gradient function.",
-      "Set the derivative equal to 3, because the question tells you the gradient at the point is 3.",
-      "Once you find the x-value, substitute it into the original function to get the y-value and therefore the coordinate."
-    ];
-
-    document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
-          <p class="step-text">Differentiate and solve for the x-value:</p>
-          <div class="math-block">
-            \\[
-            f'(x)=4x-7
-            \\]
-            \\[
-            4x-7=3 \\Rightarrow x=\\frac{5}{2}
-            \\]
-          </div>
-          <p class="step-text">Then substitute back into the original function:</p>
-          <div class="math-block">
-            \\[
-            f\\left(\\frac{5}{2}\\right)=-25
-            \\]
-            \\[
-            \\left(\\frac{5}{2},-25\\right)
-            \\]
-          </div>
+      <p class="step-text">
+        Find the coordinate of the point on the curve where the gradient of \(f(x)\) is equal to \(3\).
+      </p>
+      <p class="step-text question-note">
+        Differentiate first, solve \(4x-7=3\), then substitute that x-value back into the original function to get the full coordinate.
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-2-calculus-2025.html",
         nextHref: "3b2025-l2.html",
-        nextLabel: "Next question →"
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "2d2025-l2.html", label: "← Back to Question 2(d)" },
+          primary: { href: "3b2025-l2.html", label: "Next question →" }
+        },
+        guidedSteps: guidedSteps
+      }, {
+        defaultEyebrow: "Level 2 Calculus Walkthrough"
       });
-      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
-      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
-      TypedMath.bindMathInputCheck("step-1-answer", checkDerivative);
-      TypedMath.bindMathInputCheck("step-2-answer", checkXValue);
-      TypedMath.bindMathInputCheck("step-3-answer", checkYValue);
     });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(function (step) {
-        step.classList.add("hidden");
-      });
-      document.getElementById(stepId).classList.remove("hidden");
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) {
-        return;
-      }
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkDerivative() {
-      TypedMath.checkTypedStep({
-        inputId: "step-1-answer",
-        feedbackId: "feedback-1",
-        nextButtonId: "next-step-1",
-        acceptedAnswers: ["4x-7"],
-        samples: [
-          { x: -2 },
-          { x: -1 },
-          { x: 1 },
-          { x: 3 }
-        ],
-        successMessage: "Correct. The derivative of \\(2x^2\\) is \\(4x\\), the derivative of \\(-7x\\) is \\(-7\\), and the constant disappears.",
-        targetedFeedback: [
-          {
-            answers: ["2x-7"],
-            message: "Not quite. For \\(2x^2\\), bring the 2 down and reduce the power by 1 to get \\(4x\\)."
-          }
-        ],
-        genericMessage: "Differentiate each term carefully and simplify."
-      });
-    }
-
-    function checkXValue() {
-      TypedMath.checkTypedStep({
-        inputId: "step-2-answer",
-        feedbackId: "feedback-2",
-        nextButtonId: "next-step-2",
-        acceptedAnswers: ["5/2"],
-        successMessage: "Correct. From \\(4x-7=3\\), add 7 to get \\(4x=10\\), then divide by 4.",
-        targetedFeedback: [
-          {
-            answers: ["3/4"],
-            message: "Try again. Solve \\(4x-7=3\\) carefully by isolating \\(x\\)."
-          }
-        ],
-        genericMessage: "Try again. Solve \\(4x-7=3\\) carefully by isolating \\(x\\)."
-      });
-    }
-
-    function checkYValue() {
-      TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        acceptedAnswers: ["-25"],
-        successMessage: "Correct. Substituting \\(x=\\frac{5}{2}\\) into \\(f(x)=2x^2-7x-20\\) gives \\(-25\\).",
-        targetedFeedback: [
-          {
-            answers: ["25"],
-            message: "Not quite. The y-value is negative here, so make sure you include the \\(-7x\\) and \\(-20\\) terms correctly."
-          }
-        ],
-        genericMessage: "Substitute \\(x=\\frac{5}{2}\\) carefully into the original function."
-      });
-    }
   </script>
 </body>
 </html>

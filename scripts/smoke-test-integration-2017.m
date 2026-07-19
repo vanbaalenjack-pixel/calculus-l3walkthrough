@@ -63,7 +63,7 @@
           && [part isEqualToString:@"1a"] ? @"?mode=guided" : @"";
       [tests addObject:@{
         @"name": [NSString stringWithFormat:@"%@ %@", part, viewport[@"label"]],
-        @"path": [NSString stringWithFormat:@"int-%@2017.html%@#question-%@", part, guided, part],
+        @"path": [NSString stringWithFormat:@"int-%@2017.html%@", part, guided],
         @"width": viewport[@"width"],
         @"height": viewport[@"height"],
         @"part": part,

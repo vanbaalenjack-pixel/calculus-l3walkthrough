@@ -18,7 +18,7 @@
   }
 
   function pageHref(id) {
-    return "int-" + id + "2018.html#question-" + id;
+    return "int-" + id + "2018.html";
   }
 
   function buildPartNavigation(id) {
@@ -717,7 +717,7 @@
             \]
           </div>
         `),
-        guidedStep("Choose the first positive value", raw`The pictured region ends at the first positive point where the curves meet.`, raw`
+        guidedStep("Use the first positive intersection", raw`The pictured region ends at the first positive point where the curves meet.`, raw`
           <div class="math-block">
             \[
             2k=\frac{\pi}{2}
@@ -1062,7 +1062,7 @@
             \]
           </div>
         `),
-        guidedStep("Choose the relevant limits", raw`The pictured first-quadrant region is enclosed by the two non-negative intersections.`, raw`
+        guidedStep("Use the enclosed-region limits", raw`The pictured first-quadrant region is enclosed by the two non-negative intersections.`, raw`
           <div class="math-block">
             \[
             x=0\quad\text{and}\quad x=1.

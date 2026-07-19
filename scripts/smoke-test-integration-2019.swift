@@ -41,7 +41,7 @@ private var tests: [TestCase] = [
 for part in parts {
     tests.append(TestCase(
         name: "\(part) desktop",
-        path: "int-\(part)2019.html#question-\(part)",
+        path: "int-\(part)2019.html",
         width: 1280,
         height: 900,
         part: part,
@@ -52,7 +52,7 @@ for part in parts {
 for part in parts {
     tests.append(TestCase(
         name: "\(part) mobile",
-        path: "int-\(part)2019.html#question-\(part)",
+        path: "int-\(part)2019.html",
         width: 390,
         height: 844,
         part: part,
@@ -172,10 +172,10 @@ private final class Runner: NSObject, WKNavigationDelegate {
               checks.panelVisible = isVisible(panel) && panel.getAttribute("aria-hidden") === "false";
               checks.entryChoiceVisible = isVisible(panel.querySelector(".paper-entry-choice"));
               checks.entryHeading = panel.querySelector(".paper-entry-choice h2").textContent.trim() === "Where would you like to start?";
-              checks.guidedStartRoute = /\/int-1a2019\.html\?mode=guided#question-1a$/.test(panel.querySelector("[data-paper-start-guided]").href);
+              checks.guidedStartRoute = /\/int-1a2019\.html\?mode=guided$/.test(panel.querySelector("[data-paper-start-guided]").href);
               checks.fifteenLinks = links.length === 15;
               checks.directRoutes = links.every(function (link) {
-                return /\/int-[123][a-e]2019\.html#question-[123][a-e]$/.test(link.href);
+                return /\/int-[123][a-e]2019\.html$/.test(link.href);
               });
               panel.querySelector("[data-paper-start-specific]").click();
               checks.specificQuestionHash = window.location.hash === "#level-3-integration-2019-questions";
@@ -196,11 +196,11 @@ private final class Runner: NSObject, WKNavigationDelegate {
               });
               const sidebarParts = Array.from(document.querySelectorAll("[data-walkthrough-sidebar-part]"));
 
-              checks.route = window.location.pathname.endsWith("/int-" + part + "2019.html") && window.location.hash === "#question-" + part;
+              checks.route = window.location.pathname.endsWith("/int-" + part + "2019.html") && window.location.hash === "";
               checks.questionImage = Boolean(image && image.complete && image.naturalWidth > 1500 && image.naturalHeight > 250);
               checks.imageWhiteCard = Boolean(imageStyle && imageStyle.backgroundColor === "rgb(255, 255, 255)" && imageStyle.colorScheme.indexOf("light") >= 0);
               checks.partNavigation = chips.length === 15 && chips.every(function (link) {
-                return /\/int-[123][a-e]2019\.html#question-[123][a-e]$/.test(link.href);
+                return /\/int-[123][a-e]2019\.html$/.test(link.href);
               });
               checks.activePart = Boolean(activeChip && activeChip.textContent.trim() === part.charAt(0) + "(" + part.charAt(1) + ")");
               checks.sidebarYear = sidebarYears.indexOf("2019") >= 0;

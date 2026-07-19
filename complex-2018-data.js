@@ -1040,7 +1040,7 @@
           </div>
           <p class="step-text">This is a nonnegative real number, so \(|w\overline w|=2x^2\).</p>
         `),
-        guidedStep("Solve with the quadrant condition", raw`Use the modulus equation, then choose the sign allowed by \(\arg(w)=\pi/4\).`, raw`
+        guidedStep("Solve with the quadrant condition", raw`The modulus equation gives two possible signs, and \(\arg(w)=\pi/4\) determines the first-quadrant value.`, raw`
           <div class="math-block">
             \[
             2x^2=20

@@ -29,7 +29,7 @@
       "description": "2022 NCEA Level 3 Differentiation AS91578 Question 1(e) worked solution: proving there are no points of inflection. Use guided hints and step-by-step…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 3",
       "teaches": "proving there are no points of inflection",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1>2022 NCEA Level 3 Differentiation Question 1(e)</h1>
-        <p class="subtitle">2022 Paper - Proving no points of inflection</p>
+        <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
+        <h1 id="page-title">2022 NCEA Level 3 Differentiation Question 1(e)</h1>
+        <p id="page-subtitle" class="subtitle">2022 Paper - Proving no points of inflection</p>
       </div>
-      <a class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,151 +119,140 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <p class="step-text">
-        If \(p\) is a positive real constant, prove that \(y=e^{px^2}\) does not have any points of inflection.
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <p class="step-text question-note">
-        You must use calculus and show any derivatives that you need.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
+    <div id="walkthrough-content" class="hidden"></div>
 
-    <div id="walkthrough-content" class="hidden">
-    <section id="step-1" class="step-card">
-      <p class="step-number">Step 1</p>
-      <h2>Find the first derivative</h2>
-      <p class="step-text">Use the chain rule on \(y=e^{px^2}\).</p>
-
-      <div class="math-input-group">
-        <input
-          id="step-1-answer"
-          class="math-answer-input"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Type the first derivative"
-          placeholder="Type your answer here"
-        />
-        <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-        <button class="nav-btn check-btn" type="button" onclick="checkFirstDerivative()">
-          Check
-        </button>
+    <!-- SEO:SUMMARY:START -->
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
+      <p class="question-label">Learning summary</p>
+      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
+      <p class="step-text" data-seo-summary>This walkthrough focuses on proving there are no points of inflection. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+      <h3>Common mistake to avoid</h3>
+      <p class="step-text" data-seo-mistake>Applying a differentiation rule but omitting an inner derivative or one product term.</p>
+      <h3>Continue practising</h3>
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="1d2022.html" data-seo-related="previous">← Question 1(d)</a>
+        <a class="nav-btn secondary" href="2a2022.html" data-seo-related="next">Question 2(a) →</a>
       </div>
-
-      <div id="feedback-1" class="feedback"></div>
-      <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-        Next step →
-      </button>
+      <ul class="step-text">
+        <li><a href="level-3-differentiation-2022.html" data-seo-related-year>All 2022 Differentiation walkthroughs</a></li>
+        <li><a href="level-3-differentiation.html" data-seo-standard-link>All AS91578 Differentiation years</a></li>
+      </ul>
     </section>
+    <!-- SEO:SUMMARY:END -->
+  </main>
 
-    <section id="step-2" class="step-card hidden">
-      <p class="step-number">Step 2</p>
-      <h2>Find the second derivative</h2>
-      <p class="step-text">Differentiate \(2pxe^{px^2}\) using the product rule.</p>
+  <script>
+    const hintContent = [
+      "A point of inflection would need the concavity to change, so start by looking at the second derivative.",
+      "Differentiate \\(y=e^{px^2}\\) twice and factor the result so you can inspect its sign.",
+      "Use the facts that \\(p>0\\), \\(e^{px^2}>0\\), and \\(1+2px^2>0\\) for all real \\(x\\)."
+    ];
 
-      <div class="math-input-group">
-        <input
-          id="step-2-answer"
-          class="math-answer-input"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Type the second derivative"
-          placeholder="Type your answer here"
-        />
-        <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-        <button class="nav-btn check-btn" type="button" onclick="checkSecondDerivative()">
-          Check
-        </button>
-      </div>
+    document.addEventListener("DOMContentLoaded", function () {
+      const raw = String.raw;
+      const answerHtml = `
+          <p class="step-text">The conclusion is:</p>
+          <div class="math-block">
+            \\[
+            \\frac{d^2y}{dx^2}=2pe^{px^2}(1+2px^2)>0 \\text{ for all } x
+            \\]
+            \\[
+            \\text{So } y=e^{px^2} \\text{ has no points of inflection.}
+            \\]
+          </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Find the first derivative`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use the chain rule on \(y=e^{px^2}\).</p>
 
-      <div id="feedback-2" class="feedback"></div>
-      <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-        Next step →
-      </button>
-    </section>
 
-    <section id="step-3" class="step-card hidden">
-      <p class="step-number">Step 3</p>
-      <h2>Factorise the second derivative</h2>
-      <p class="step-text">Take out the common factors.</p>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            2 p x e^{\left(p x^{2}\right)}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Differentiate \(e^{px^2}\) using the chain rule, multiplying by the derivative of \(px^2\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Find the second derivative`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Differentiate \(2pxe^{px^2}\) using the product rule.</p>
 
-      <div class="math-input-group">
-        <input
-          id="step-3-answer"
-          class="math-answer-input"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Type the factorised second derivative"
-          placeholder="Type your answer here"
-        />
-        <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-        <button class="nav-btn check-btn" type="button" onclick="checkFactorised()">
-          Check
-        </button>
-      </div>
 
-      <div id="feedback-3" class="feedback"></div>
-      <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-        Next step →
-      </button>
-    </section>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            2 p e^{\left(p x^{2}\right)} + 4 p^{2} x^{2} e^{\left(p x^{2}\right)}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Use the product rule on \(2pxe^{px^2}\): differentiate \(2px\), then differentiate \(e^{px^2}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Factorise the second derivative`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Take out the common factors.</p>
 
-    <section id="step-4" class="step-card hidden">
-      <p class="step-number">Step 4</p>
-      <h2>Can the second derivative ever be zero?</h2>
-      <p class="step-text">Think about each factor in \(2pe^{px^2}(1+2px^2)\).</p>
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkZeroReason('correct')">
-          None of the factors can be zero, so \(\frac{d^2y}{dx^2}\neq 0\)
-        </button>
-        <button class="option-btn" onclick="checkZeroReason('wrong1')">
-          The exponential can become negative, so there may be inflection points
-        </button>
-      </div>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            2 p e^{\left(p x^{2}\right)} \left(1 + 2 p x^{2}\right)
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Both terms contain \(2pe^{px^2}\), leaving \((1+2px^2)\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Analyse when the second derivative is zero`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Think about each factor in \(2pe^{px^2}(1+2px^2)\).</p>
 
-      <div id="feedback-4" class="feedback"></div>
-      <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-        Next step →
-      </button>
-    </section>
 
-    <section id="step-5" class="step-card hidden">
-      <p class="step-number">Step 5</p>
-      <h2>State the conclusion</h2>
-      <p class="step-text">What does this tell us about points of inflection?</p>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">None of the factors can be zero, so \(\frac{d^2y}{dx^2}\neq 0\)</div>
+        </div>
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkConclusion('correct')">
-          There are no points of inflection
-        </button>
-        <button class="option-btn" onclick="checkConclusion('wrong1')">
-          There is always one point of inflection at \(x=0\)
-        </button>
-      </div>
+      <p class="step-text">Since \(p>0\), \(e^{px^2}>0\), and \(1+2px^2>0\), the second derivative is always positive.</p>
+          `
+        },
+        {
+          title: raw`State the conclusion`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use the sign of the second derivative to determine whether points of inflection can occur.</p>
 
-      <div id="feedback-5" class="feedback"></div>
-      <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
-        Next step →
-      </button>
-    </section>
 
-    <section id="step-6" class="step-card hidden">
-      <p class="step-number">Step 6</p>
-      <h2>Final proof and graph</h2>
-      <p class="step-text">A clean proof is:</p>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">There are no points of inflection</div>
+        </div>
+
+      <p class="step-text">If \(\frac{d^2y}{dx^2}\) never equals zero and never changes sign, there are no points of inflection.</p>
+          `
+        },
+        {
+          title: raw`Final proof and graph`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">A clean proof is:</p>
 
       <div class="math-block">
         \[
@@ -304,175 +292,39 @@
           <svg id="inflection-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of e to the power of p x squared" role="img"></svg>
         </div>
       </div>
+          `
+        }
+      ];
 
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="1d2022.html">← Back to Question 1(d)</a>
-        <a class="nav-btn" href="2a2022.html">Next question →</a>
-      </div>
-    </section>
-    </div>
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
 
-    <!-- SEO:SUMMARY:START -->
-    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-      <p class="question-label">Learning summary</p>
-      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough focuses on proving there are no points of inflection. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Applying a differentiation rule but omitting an inner derivative or one product term.</p>
-      <h3>Continue practising</h3>
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="1d2022.html" data-seo-related="previous">← Question 1(d)</a>
-        <a class="nav-btn secondary" href="2a2022.html" data-seo-related="next">Question 2(a) →</a>
-      </div>
-      <ul class="step-text">
-        <li><a href="level-3-differentiation-2022.html" data-seo-related-year>All 2022 Differentiation walkthroughs</a></li>
-        <li><a href="level-3-differentiation.html" data-seo-standard-link>All AS91578 Differentiation years</a></li>
-      </ul>
-    </section>
-    <!-- SEO:SUMMARY:END -->
-  </main>
-
-  <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
-    const hintContent = [
-      "A point of inflection would need the concavity to change, so start by looking at the second derivative.",
-      "Differentiate \\(y=e^{px^2}\\) twice and factor the result so you can inspect its sign.",
-      "Use the facts that \\(p>0\\), \\(e^{px^2}>0\\), and \\(1+2px^2>0\\) for all real \\(x\\)."
-    ];
-
-    document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
-          <p class="step-text">The conclusion is:</p>
-          <div class="math-block">
-            \\[
-            \\frac{d^2y}{dx^2}=2pe^{px^2}(1+2px^2)>0 \\text{ for all } x
-            \\]
-            \\[
-            \\text{So } y=e^{px^2} \\text{ has no points of inflection.}
-            \\]
-          </div>
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<p class="step-text">
+        If \(p\) is a positive real constant, prove that \(y=e^{px^2}\) does not have any points of inflection.
+      </p>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need.
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-3-differentiation-2022.html",
         nextHref: "2a2022.html",
-        nextLabel: "Next question →"
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "1d2022.html", label: "← Back to Question 1(d)" },
+          primary: { href: "2a2022.html", label: "Next question →" }
+        },
+        guidedSteps: guidedSteps,
+        afterRender: function () {
+          setupGraphControls();
+          drawGraph();
+        }
+      }, {
+        defaultEyebrow: "Level 3 Differentiation Walkthrough"
       });
-      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
-      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
-      TypedMath.bindMathInputCheck("step-1-answer", checkFirstDerivative);
-      TypedMath.bindMathInputCheck("step-2-answer", checkSecondDerivative);
-      TypedMath.bindMathInputCheck("step-3-answer", checkFactorised);
-      setupGraphControls();
-      drawGraph();
     });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(step => step.classList.add("hidden"));
-      document.getElementById(stepId).classList.remove("hidden");
-      if (stepId === "step-6") {
-        drawGraph();
-      }
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) return;
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkFirstDerivative() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-1-answer",
-        feedbackId: "feedback-1",
-        nextButtonId: "next-step-1",
-        acceptedAnswers: ["2pxe^(px^2)"],
-        samples: [{ p: 1, x: 2 }, { p: 0.5, x: -1 }],
-        successMessage: "Correct. Differentiate \\(e^{px^2}\\) using the chain rule, multiplying by the derivative of \\(px^2\\).",
-        genericMessage: "Not quite. The chain rule means you also need the derivative of \\(px^2\\), which is \\(2px\\).",
-        targetedFeedback: [
-          {
-            answers: ["e^(px^2)"],
-            message: "That keeps the exponential but misses the derivative of \\(px^2\\). Apply the chain rule fully."
-          }
-        ]
-      });
-    }
-
-    function checkSecondDerivative() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-2-answer",
-        feedbackId: "feedback-2",
-        nextButtonId: "next-step-2",
-        acceptedAnswers: ["2pe^(px^2)+4p^2x^2e^(px^2)"],
-        samples: [{ p: 1, x: 2 }, { p: 0.5, x: -1 }],
-        successMessage: "Yes. Use the product rule on \\(2pxe^{px^2}\\): differentiate \\(2px\\), then differentiate \\(e^{px^2}\\).",
-        genericMessage: "Try again. The second derivative comes from the product rule, not just differentiating one factor.",
-        targetedFeedback: [
-          {
-            answers: ["4pxe^(px^2)"],
-            message: "That only captures part of the product rule. You need one term from differentiating \\(2px\\) and another from differentiating the exponential."
-          }
-        ]
-      });
-    }
-
-    function checkFactorised() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        acceptedAnswers: ["2pe^(px^2)(1+2px^2)"],
-        samples: [{ p: 1, x: 2 }, { p: 0.5, x: -1 }],
-        successMessage: "Correct. Both terms contain \\(2pe^{px^2}\\), leaving \\((1+2px^2)\\).",
-        genericMessage: "Not quite. Factor out the common pieces carefully from both terms.",
-        targetedFeedback: [
-          {
-            answers: ["2pe^(px^2)(1+2x)"],
-            message: "Not quite. After factoring out \\(2pe^{px^2}\\), the remaining term is \\(1+2px^2\\), not \\(1+2x\\)."
-          }
-        ]
-      });
-    }
-
-    function checkZeroReason(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Exactly. Since \\(p>0\\), \\(e^{px^2}>0\\), and \\(1+2px^2>0\\), the second derivative is always positive.", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Not quite. Exponential expressions like \\(e^{px^2}\\) are always positive, never negative or zero.");
-        toggleNextStepButton("next-step-4", false);
-      }
-    }
-
-    function checkConclusion(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Great work. If \\(\\frac{d^2y}{dx^2}\\) never equals zero and never changes sign, there are no points of inflection.", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Try again. At \\(x=0\\), the second derivative is still positive, so there is no inflection point there.");
-        toggleNextStepButton("next-step-5", false);
-      }
-    }
 
     function setupGraphControls() {
       const pSlider = document.getElementById("p-slider");

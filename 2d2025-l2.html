@@ -29,7 +29,7 @@
       "description": "2025 NCEA Level 2 Calculus AS91262 Question 2(d) worked solution: using a stationary point and an x-intercept to find constants, then classifying the other…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 2",
       "teaches": "using a stationary point and an x-intercept to find constants, then classifying the other stationary point",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
-        <h1>2025 NCEA Level 2 Calculus Question 2(d)</h1>
-        <p class="subtitle">2025 Paper — Find constants from calculus conditions</p>
+        <p id="page-eyebrow" class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1 id="page-title">2025 NCEA Level 2 Calculus Question 2(d)</h1>
+        <p id="page-subtitle" class="subtitle">2025 Paper — Find constants from calculus conditions</p>
       </div>
-      <a class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,198 +119,161 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <div class="question-math">
-        \[
-        f(x)=ax^3+bx^2+ax+2
-        \]
-      </div>
-      <p class="step-text">
-        The graph intersects the x-axis at \(x=1\) and has a stationary point at \(x=-1\).
-      </p>
-      <p class="step-text">
-        (i) Find the x-coordinate of the other stationary point.
-      </p>
-      <p class="step-text">
-        (ii) Determine what type of stationary point this is.
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <p class="step-text question-note">
-        Differentiate first, use \(f'(-1)=0\) to link \(a\) and \(b\), then use \(f(1)=0\) to solve for the constants before classifying the other stationary point with the second derivative.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
+    <div id="walkthrough-content" class="hidden"></div>
 
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card active">
-        <p class="step-number">Step 1</p>
-        <h2>Differentiate the function</h2>
-        <p class="step-text">What is \(f'(x)\)?</p>
+    <!-- SEO:SUMMARY:START -->
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
+      <p class="question-label">Learning summary</p>
+      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
+      <p class="step-text" data-seo-summary>This walkthrough focuses on using a stationary point and an x-intercept to find constants, then classifying the other stationary point. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+      <h3>Common mistake to avoid</h3>
+      <p class="step-text" data-seo-mistake>After solving the derivative condition, check the point&#x27;s nature and answer the conclusion the question actually asks for.</p>
+      <h3>Continue practising</h3>
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="2c2025-l2.html" data-seo-related="previous">← Question 2(c)</a>
+        <a class="nav-btn secondary" href="3a2025-l2.html" data-seo-related="next">Question 3(a) →</a>
+      </div>
+      <ul class="step-text">
+        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
+        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
+      </ul>
+    </section>
+    <!-- SEO:SUMMARY:END -->
+  </main>
 
-        <div class="math-input-group">
-          <input
-            id="step-1-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the derivative of f of x"
-            placeholder="Type your answer here"
-          />
-          <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
-            Check
-          </button>
+  <script>
+    const hintContent = [
+      "Differentiate first, then use the fact that a stationary point means the derivative is zero.",
+      "Use \\(f'(-1)=0\\) to connect \\(a\\) and \\(b\\), then use \\(f(1)=0\\) because the graph crosses the x-axis at \\(x=1\\).",
+      "Once you know \\(a\\) and \\(b\\), solve \\(f'(x)=0\\) again and use the second derivative to classify the other stationary point."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const raw = String.raw;
+      const answerHtml = `
+          <p class="step-text">The answers are:</p>
+          <div class="math-block">
+            \\[
+            \\text{Other stationary point: }x=-\\frac{1}{3}
+            \\]
+            \\[
+            \\text{Nature: local maximum}
+            \\]
+          </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Differentiate the function`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Differentiate the function to obtain \(f'(x)\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            3 a x^{2} + 2 b x + a
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Differentiate each term to get \(f'(x)=3ax^2+2bx+a\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Use the stationary point at \(x=-1\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use the stationary-point condition \(f'(-1)=0\) to relate \(a\) and \(b\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            4 a - 2 b = 0
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Substituting \(x=-1\) into \(f'(x)\) gives \(3a-2b+a=0\), so \(4a-2b=0\) and therefore \(a=\frac{b}{2}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Use the x-intercept at \(x=1\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use the x-intercept condition \(f(1)=0\) to form a second equation.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            2 a + b + 2 = 0
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Since the graph intersects the x-axis at \(x=1\), we know \(f(1)=0\), which gives \(a+b+a+2=0\) or \(2a+b+2=0\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Solve for \(a\) and \(b\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Substitute \(a=\frac{b}{2}\) into \(2a+b+2=0\) and solve for \((a,b)\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \frac{-1}{2},\ -1
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Using \(a=\frac{b}{2}\) in \(2a+b+2=0\) gives \(b+b+2=0\), so \(b=-1\) and \(a=-\frac{1}{2}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Find the other stationary point`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Substitute the values of \(a\) and \(b\) into \(f'(x)\) and solve \(f'(x)=0\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \frac{-1}{3}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">With \(a=-\frac{1}{2}\) and \(b=-1\), the derivative becomes \(-\frac{1}{2}(3x+1)(x+1)\), so the two stationary points are \(x=-1\) and \(x=-\frac{1}{3}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Use the second derivative test`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use the second derivative to classify the stationary point at \(x=-\frac{1}{3}\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">Local maximum</div>
         </div>
 
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Use the stationary point at \(x=-1\)</h2>
-        <p class="step-text">Since \(x=-1\) is a stationary point, \(f'(-1)=0\). What relation does that give?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-2-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the relation between a and b"
-            placeholder="Type your answer here"
-          />
-          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkRelation()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Use the x-intercept at \(x=1\)</h2>
-        <p class="step-text">Since the graph crosses the x-axis at \(x=1\), we know \(f(1)=0\). Which equation does that give?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-3-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the intercept equation"
-            placeholder="Type your answer here"
-          />
-          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkInterceptEquation()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Solve for \(a\) and \(b\)</h2>
-        <p class="step-text">Substitute \(a=\frac{b}{2}\) into \(2a+b+2=0\). Enter your answer as \((a,b)\).</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-4-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the values of a and b as an ordered pair"
-            placeholder="Type your answer here"
-          />
-          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkConstants()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-4" class="feedback"></div>
-        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-5" class="step-card hidden">
-        <p class="step-number">Step 5</p>
-        <h2>Find the other stationary point</h2>
-        <p class="step-text">Substitute the values of \(a\) and \(b\) into \(f'(x)\) and solve \(f'(x)=0\).</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-5-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the x coordinate of the other stationary point"
-            placeholder="Type your answer here"
-          />
-          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkOtherStationary()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-5" class="feedback"></div>
-        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-6" class="step-card hidden">
-        <p class="step-number">Step 6</p>
-        <h2>Use the second derivative test</h2>
-        <p class="step-text">What is the nature of the stationary point at \(x=-\frac{1}{3}\)?</p>
-
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkNature('correct')">
-            Local maximum
-          </button>
-          <button class="option-btn" onclick="checkNature('wrong1')">
-            Local minimum
-          </button>
-        </div>
-
-        <div id="feedback-6" class="feedback"></div>
-        <button id="next-step-6" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-7')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-7" class="step-card hidden">
-        <p class="step-number">Step 7</p>
-        <h2>Final answers</h2>
-        <p class="step-text">Now write both parts clearly.</p>
+      <p class="step-text">Since \(f''\left(-\frac{1}{3}\right)=-1\), which is negative, the stationary point is a local maximum.</p>
+          `
+        },
+        {
+          title: raw`Final results`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Now write both parts clearly.</p>
 
         <div class="math-block">
           \[
@@ -361,239 +323,47 @@
           \]
         </div>
 
-        <div id="feedback-7" class="feedback success">
-          Great work. The other stationary point is at \(x=-\frac{1}{3}\), and it is a local maximum.
-        </div>
+        <p class="step-text">The other stationary point is at \(x=-\frac{1}{3}\), and it is a local maximum.</p>
+          `
+        }
+      ];
 
-        <div class="nav-row">
-          <a class="nav-btn secondary" href="2c2025-l2.html">← Back to Question 2(c)</a>
-          <a class="nav-btn" href="3a2025-l2.html">Next question →</a>
-        </div>
-      </section>
-    </div>
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
 
-    <!-- SEO:SUMMARY:START -->
-    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-      <p class="question-label">Learning summary</p>
-      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough focuses on using a stationary point and an x-intercept to find constants, then classifying the other stationary point. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>After solving the derivative condition, check the point&#x27;s nature and answer the conclusion the question actually asks for.</p>
-      <h3>Continue practising</h3>
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="2c2025-l2.html" data-seo-related="previous">← Question 2(c)</a>
-        <a class="nav-btn secondary" href="3a2025-l2.html" data-seo-related="next">Question 3(a) →</a>
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<div class="question-math">
+        \[
+        f(x)=ax^3+bx^2+ax+2
+        \]
       </div>
-      <ul class="step-text">
-        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
-        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
-      </ul>
-    </section>
-    <!-- SEO:SUMMARY:END -->
-  </main>
-
-  <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
-    const hintContent = [
-      "Differentiate first, then use the fact that a stationary point means the derivative is zero.",
-      "Use \\(f'(-1)=0\\) to connect \\(a\\) and \\(b\\), then use \\(f(1)=0\\) because the graph crosses the x-axis at \\(x=1\\).",
-      "Once you know \\(a\\) and \\(b\\), solve \\(f'(x)=0\\) again and use the second derivative to classify the other stationary point."
-    ];
-
-    document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
-          <p class="step-text">The answers are:</p>
-          <div class="math-block">
-            \\[
-            \\text{Other stationary point: }x=-\\frac{1}{3}
-            \\]
-            \\[
-            \\text{Nature: local maximum}
-            \\]
-          </div>
+      <p class="step-text">
+        The graph intersects the x-axis at \(x=1\) and has a stationary point at \(x=-1\).
+      </p>
+      <p class="step-text">
+        (i) Find the x-coordinate of the other stationary point.
+      </p>
+      <p class="step-text">
+        (ii) Determine what type of stationary point this is.
+      </p>
+      <p class="step-text question-note">
+        Differentiate first, use \(f'(-1)=0\) to link \(a\) and \(b\), then use \(f(1)=0\) to solve for the constants before classifying the other stationary point with the second derivative.
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-2-calculus-2025.html",
         nextHref: "3a2025-l2.html",
-        nextLabel: "Next question →"
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "2c2025-l2.html", label: "← Back to Question 2(c)" },
+          primary: { href: "3a2025-l2.html", label: "Next question →" }
+        },
+        guidedSteps: guidedSteps
+      }, {
+        defaultEyebrow: "Level 2 Calculus Walkthrough"
       });
-      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
-      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview", {
-        mode: "equation",
-        equationRhs: "0",
-        allowBareExpression: true
-      });
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview", {
-        mode: "equation",
-        equationRhs: "0",
-        allowBareExpression: true
-      });
-      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview", {
-        mode: "list",
-        stripOuterParens: true,
-        wrapWithParens: true
-      });
-      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
-      TypedMath.bindMathInputCheck("step-1-answer", checkDerivative);
-      TypedMath.bindMathInputCheck("step-2-answer", checkRelation);
-      TypedMath.bindMathInputCheck("step-3-answer", checkInterceptEquation);
-      TypedMath.bindMathInputCheck("step-4-answer", checkConstants);
-      TypedMath.bindMathInputCheck("step-5-answer", checkOtherStationary);
     });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(function (step) {
-        step.classList.add("hidden");
-      });
-      document.getElementById(stepId).classList.remove("hidden");
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) {
-        return;
-      }
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkDerivative() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-1-answer",
-        feedbackId: "feedback-1",
-        nextButtonId: "next-step-1",
-        acceptedAnswers: ["3ax^2+2bx+a"],
-        samples: [{ a: 1, b: 2, x: 2 }, { a: -0.5, b: 3, x: -1 }],
-        successMessage: "Correct. Differentiate each term to get \\(f'(x)=3ax^2+2bx+a\\).",
-        genericMessage: "Not quite. Differentiate each term carefully before you combine them.",
-        targetedFeedback: [
-          {
-            answers: ["ax^2+2bx+a"],
-            message: "Not quite. The derivative of \\(ax^3\\) is \\(3ax^2\\), not \\(ax^2\\)."
-          }
-        ]
-      });
-    }
-
-    function checkRelation() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-2-answer",
-        feedbackId: "feedback-2",
-        nextButtonId: "next-step-2",
-        mode: "equation",
-        options: {
-          equationRhs: "0",
-          allowBareExpression: true
-        },
-        acceptedAnswers: ["4a-2b=0", "a=b/2", "b=2a"],
-        samples: [{ a: 1, b: 0 }, { a: 2, b: 5 }, { a: -1, b: 4 }],
-        successMessage: "Correct. Substituting \\(x=-1\\) into \\(f'(x)\\) gives \\(3a-2b+a=0\\), so \\(4a-2b=0\\) and therefore \\(a=\\frac{b}{2}\\).",
-        genericMessage: "Try again. Remember there are two \\(a\\)-terms when you substitute \\(x=-1\\) into \\(3ax^2+2bx+a\\).",
-        targetedFeedback: [
-          {
-            mode: "equation",
-            answers: ["3a-2b=0"],
-            message: "Close, but substituting \\(x=-1\\) leaves both \\(3ax^2\\) and the final \\(+a\\) term, so there are two \\(a\\)-terms to combine."
-          }
-        ]
-      });
-    }
-
-    function checkInterceptEquation() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        mode: "equation",
-        options: {
-          equationRhs: "0",
-          allowBareExpression: true
-        },
-        acceptedAnswers: ["2a+b+2=0"],
-        samples: [{ a: 1, b: 0 }, { a: -1, b: 4 }, { a: 2, b: -3 }],
-        successMessage: "Correct. Since the graph intersects the x-axis at \\(x=1\\), we know \\(f(1)=0\\), which gives \\(a+b+a+2=0\\) or \\(2a+b+2=0\\).",
-        genericMessage: "Not quite. Substitute \\(x=1\\) into every term of \\(f(x)=ax^3+bx^2+ax+2\\).",
-        targetedFeedback: [
-          {
-            mode: "equation",
-            answers: ["a+b+2=0"],
-            message: "Close, but when \\(x=1\\), both the \\(ax^3\\) term and the \\(ax\\) term contribute an \\(a\\)."
-          }
-        ]
-      });
-    }
-
-    function checkConstants() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-4-answer",
-        feedbackId: "feedback-4",
-        nextButtonId: "next-step-4",
-        mode: "list",
-        options: {
-          ordered: true,
-          stripOuterParens: true
-        },
-        acceptedAnswers: ["-1/2,-1"],
-        successMessage: "Correct. Using \\(a=\\frac{b}{2}\\) in \\(2a+b+2=0\\) gives \\(b+b+2=0\\), so \\(b=-1\\) and \\(a=-\\frac{1}{2}\\).",
-        genericMessage: "Not quite. Solve the two conditions together, and keep the order \\((a,b)\\).",
-        targetedFeedback: [
-          {
-            mode: "list",
-            options: {
-              ordered: true,
-              stripOuterParens: true
-            },
-            answers: ["1/2,1"],
-            message: "Not quite. The two conditions force both constants to be negative here."
-          }
-        ]
-      });
-    }
-
-    function checkOtherStationary() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-5-answer",
-        feedbackId: "feedback-5",
-        nextButtonId: "next-step-5",
-        acceptedAnswers: ["-1/3"],
-        successMessage: "Correct. With \\(a=-\\frac{1}{2}\\) and \\(b=-1\\), the derivative becomes \\(-\\frac{1}{2}(3x+1)(x+1)\\), so the two stationary points are \\(x=-1\\) and \\(x=-\\frac{1}{3}\\).",
-        genericMessage: "Try again. Solve \\((3x+1)(x+1)=0\\) and ignore the stationary point we already knew about at \\(x=-1\\).",
-        targetedFeedback: [
-          {
-            answers: ["1/3"],
-            message: "Close, but solving \\(3x+1=0\\) gives \\(x=-\\frac{1}{3}\\), not \\(\\frac{1}{3}\\)."
-          }
-        ]
-      });
-    }
-
-    function checkNature(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-6", "Correct. Since \\(f''\\left(-\\frac{1}{3}\\right)=-1\\), which is negative, the stationary point is a local maximum.", true);
-        toggleNextStepButton("next-step-6", true);
-      } else {
-        setFeedback("feedback-6", "Not quite. A negative second derivative means the curve is concave down there, so the stationary point is a local maximum.");
-        toggleNextStepButton("next-step-6", false);
-      }
-    }
   </script>
 </body>
 </html>

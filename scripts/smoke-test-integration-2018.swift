@@ -34,7 +34,7 @@ for part in parts {
     let guided = part == "1a" ? "?mode=guided" : ""
     tests.append(TestCase(
         name: "\(part) desktop",
-        path: "int-\(part)2018.html\(guided)#question-\(part)",
+        path: "int-\(part)2018.html\(guided)",
         width: 1280,
         height: 900,
         part: part,
@@ -46,7 +46,7 @@ for part in parts {
 for part in ["1e", "2c", "3b", "3d", "3e"] {
     tests.append(TestCase(
         name: "\(part) narrow mobile",
-        path: "int-\(part)2018.html#question-\(part)",
+        path: "int-\(part)2018.html",
         width: 390,
         height: 844,
         part: part,
@@ -169,10 +169,10 @@ private final class Runner: NSObject, WKNavigationDelegate {
               checks.pickerButton = Boolean(button && button.getAttribute("aria-pressed") === "true");
               checks.panelVisible = isVisible(panel) && panel.getAttribute("aria-hidden") === "false";
               checks.entryChoiceVisible = isVisible(panel.querySelector(".paper-entry-choice"));
-              checks.guidedStartRoute = /\/int-1a2018\.html\?mode=guided#question-1a$/.test(guidedLink.href);
+              checks.guidedStartRoute = /\/int-1a2018\.html\?mode=guided$/.test(guidedLink.href);
               checks.fifteenLinks = links.length === 15;
               checks.directRoutes = links.every(function (link) {
-                return /\/int-[123][a-e]2018\.html#question-[123][a-e]$/.test(link.href);
+                return /\/int-[123][a-e]2018\.html$/.test(link.href);
               });
 
               panel.querySelector("[data-paper-start-specific]").click();
@@ -213,7 +213,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
               const stickySetting = document.getElementById("sticky-question-setting");
               const examSetting = document.getElementById("exam-mode-setting");
 
-              checks.route = window.location.pathname.endsWith("/int-" + part + "2018.html") && window.location.hash === "#question-" + part;
+              checks.route = window.location.pathname.endsWith("/int-" + part + "2018.html") && window.location.hash === "";
               checks.dataLoaded = Boolean(window.Integration2018Walkthroughs && window.Integration2018Walkthroughs[part]);
               checks.questionVisible = isVisible(questionCard) && questionCard.textContent.trim().length > 0;
               checks.mathRendered = document.querySelectorAll(".katex").length > 0;
@@ -227,7 +227,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 return /\/int-[123][a-e]2018\.html/.test(link.href);
               });
               checks.sidebarNavigation = sidebarParts.length === 15 && sidebarYears.indexOf("2018") >= 0;
-              checks.backToPaper = Boolean(backLink && backLink.getAttribute("href") === "index.html#level-3-integration-2018");
+              checks.backToPaper = Boolean(backLink && backLink.getAttribute("href") === "level-3-integration-2018.html");
               checks.stickyControl = Boolean(stickySetting);
               checks.examControl = Boolean(examSetting);
               checks.oneStepVisible = stepCards.filter(function (card) { return isVisible(card); }).length === 1;
@@ -360,7 +360,7 @@ guard arguments.count >= 2, let baseURL = URL(string: arguments[1]) else {
 }
 
 if arguments.count >= 3 && arguments[2] == "3b-mobile" {
-    tests = [TestCase(name: "3b narrow mobile", path: "int-3b2018.html#question-3b", width: 390, height: 844, part: "3b", expectedSteps: stepCounts["3b"], mode: "mobile")]
+    tests = [TestCase(name: "3b narrow mobile", path: "int-3b2018.html", width: 390, height: 844, part: "3b", expectedSteps: stepCounts["3b"], mode: "mobile")]
 }
 
 private let app = NSApplication.shared

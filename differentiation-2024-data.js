@@ -242,51 +242,65 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Rewrite the square root first",
-          text: raw`What is the index-form rewrite of \(\sqrt{4-9x^4}\)?`,
-          ariaLabel: "Type the index form rewrite",
-          acceptedAnswers: ["(4-9x^4)^(1/2)"],
-          samples: [{ x: 0 }, { x: 0.4 }, { x: 0.7 }],
-          successMessage: raw`Yes. Writing the square root as a power of \(\frac{1}{2}\) makes the chain rule much easier to see.`,
-          genericMessage: raw`Rewrite the square root as a power of one half, with the whole bracket kept together.`
+          title: raw`Rewrite the square root first`,
+          previewHtml: raw`Writing the square root as a power of \(\frac{1}{2}\) makes the chain rule much easier to see.`,
+          workingHtml: raw`<p class="step-text">Writing the square root as a power of \(\frac{1}{2}\) makes the chain rule much easier to see.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \left(4 - 9 x^{4}\right)^{\left(\frac{1}{2}\right)}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Differentiate the inside",
-          text: raw`What is the derivative of the inside bracket \(4-9x^4\)?`,
-          ariaLabel: "Type the derivative of the inside bracket",
-          acceptedAnswers: ["-36x^3"],
-          samples: [{ x: 0 }, { x: 1 }, { x: 2 }],
-          successMessage: raw`Correct. The constant disappears, and \(-9x^4\) becomes \(-36x^3\).`,
-          targetedFeedback: [
-            {
-              answers: ["-36x^4"],
-              message: raw`Close, but the power drops by one when you differentiate.`
-            }
-          ],
-          genericMessage: raw`Differentiate the inside term by term before putting it into the chain rule.`
+          title: raw`Differentiate the inside`,
+          previewHtml: raw`The constant disappears, and \(-9x^4\) becomes \(-36x^3\).`,
+          workingHtml: raw`<p class="step-text">The constant disappears, and \(-9x^4\) becomes \(-36x^3\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  -36 x^{3}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Build the derivative",
-          text: raw`Now put the outside and inside together. What is \(f'(x)\)?`,
-          ariaLabel: "Type the derivative of f",
-          acceptedAnswers: [
-            "-18x^3(4-9x^4)^(-1/2)",
-            "(-18x^3)/sqrt(4-9x^4)"
-          ],
-          samples: [{ x: 0.1 }, { x: 0.4 }, { x: 0.7 }],
-          successMessage: raw`Nice. That is exactly right, and the simplified denominator form is fine too.`,
-          targetedFeedback: [
-            {
-              answers: ["(1/2)(4-9x^4)^(-1/2)"],
-              message: raw`That is only the derivative of the outside. You still need to multiply by the derivative of the inside.`
-            }
-          ],
-          genericMessage: raw`Use chain rule structure: derivative of the outside, then multiply by the derivative of the inside.`
+          title: raw`Build the derivative`,
+          previewHtml: raw`That is exactly right, and the simplified denominator form is fine too.`,
+          workingHtml: raw`<p class="step-text">That is exactly right, and the simplified denominator form is fine too.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  -18 x^{3} \left(4 - 9 x^{4}\right)^{\left(\frac{-1}{2}\right)}
+  \]
+</div>
+</div>
+
+        <p class="step-text">A clean way to set this up is:</p>
+        <div class="math-block">
+          \[
+          f(x)=(4-9x^4)^{1/2}
+          \]
+          \[
+          f'(x)=\frac{1}{2}(4-9x^4)^{-1/2}(-36x^3)
+          \]
+          \[
+          f'(x)=-18x^3(4-9x^4)^{-1/2}
+          \]
+        </div>
+        <p class="step-text">You can leave it like that. If you fully simplify it, you get</p>
+        <div class="math-block">
+          \[
+          f'(x)=-\frac{18x^3}{\sqrt{4-9x^4}}.
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -321,80 +335,54 @@
         </div>
         <p class="step-text">So the gradient of the tangent is \(2\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Choose the main rule",
-          text: raw`What is the main differentiation rule here?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`Product rule`,
-              correct: true,
-              successMessage: raw`Exactly. The function is one factor times another, so the product rule is the obvious starting point.`
-            },
-            {
-              html: raw`Chain rule only`,
-              failureMessage: raw`There is trig inside the question, but the overall structure is a product of two functions.`
-            },
-            {
-              html: raw`Quotient rule`,
-              failureMessage: raw`Not this one. Nothing is being divided.`
-            },
-            {
-              html: raw`Implicit differentiation`,
-              failureMessage: raw`No need. \(y\) is already given explicitly in terms of \(x\).`
-            }
-          ]
+          title: raw`Identify the main rule`,
+          previewHtml: raw`The function is one factor times another, so the product rule is the obvious starting point.`,
+          workingHtml: raw`<p class="step-text">The function is one factor times another, so the product rule is the obvious starting point.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  Product rule
+</div>`
         },
         {
-          type: "typed",
-          title: "Differentiate before substituting",
-          text: raw`What is \(\frac{dy}{dx}\) before you put \(x=0\) in?`,
-          ariaLabel: "Type the derivative",
-          acceptedAnswers: ["(2x+3)sin(x)+(x^2+3x+2)cos(x)"],
-          samples: [{ x: 0 }, { x: 1 }, { x: 2 }],
-          successMessage: raw`Correct. That is the product rule result we want before evaluating.`,
-          targetedFeedback: [
-            {
-              answers: ["(2x+3)sin(x)+(x^2+3x+2)(-sin(x))"],
-              message: raw`Watch the trig derivative. The derivative of \(\sin x\) is \(\cos x\), not \(-\sin x\).`
-            }
-          ],
-          genericMessage: raw`Use \(u'v+uv'\), with \(u=x^2+3x+2\) and \(v=\sin x\).`
+          title: raw`Differentiate before substituting`,
+          previewHtml: raw`That is the product rule result we want before evaluating.`,
+          workingHtml: raw`<p class="step-text">That is the product rule result we want before evaluating.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \left(2 x + 3\right) \sin\left(x\right) + \left(x^{2} + 3 x + 2\right) \cos\left(x\right)
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Evaluate the gradient",
-          text: raw`Now evaluate at \(x=0\). What gradient do you get?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Evaluate the gradient`,
+          previewHtml: raw`Since \(\sin 0=0\) and \(\cos 0=1\), the gradient comes out to \(2\).`,
+          workingHtml: raw`<p class="step-text">Since \(\sin 0=0\) and \(\cos 0=1\), the gradient comes out to \(2\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 2
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. Since \(\sin 0=0\) and \(\cos 0=1\), the gradient comes out to \(2\).`
-            },
-            {
-              html: raw`\[
-                -2
-              \]`,
-              failureMessage: raw`Check the trig derivative sign. The \(\cos 0\) term is positive here.`
-            },
-            {
-              html: raw`\[
-                0
-              \]`,
-              failureMessage: raw`The \(\sin 0\) term vanishes, but the \((x^2+3x+2)\cos x\) term does not.`
-            },
-            {
-              html: raw`\[
-                3
-              \]`,
-              failureMessage: raw`That comes from part of the derivative, but you still need to evaluate the full expression at \(x=0\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Using the product rule:</p>
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}=(2x+3)\sin x+(x^2+3x+2)\cos x
+          \]
+        </div>
+        <p class="step-text">Now evaluate at \(x=0\):</p>
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}\bigg|_{x=0}=3\sin 0+2\cos 0=0+2=2
+          \]
+        </div>
+        <p class="step-text">So the gradient of the tangent is \(2\).</p>
+      `
         }
       ]
     }),
@@ -443,87 +431,70 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Find the derivative",
-          text: raw`What is \(\frac{dy}{dx}\)?`,
-          ariaLabel: "Type the derivative",
-          acceptedAnswers: ["24x-84+60/x"],
-          samples: [{ x: 1 }, { x: 2 }, { x: 4 }],
-          successMessage: raw`Correct. That matches the term-by-term derivative.`,
-          targetedFeedback: [
-            {
-              answers: ["12(2x-7)+60/x"],
-              message: raw`That is also correct. You can expand it to \(24x-84+\frac{60}{x}\) if you want the next step to look cleaner.`
-            }
-          ],
-          genericMessage: raw`Differentiate the squared bracket with the chain rule, then add the derivative of \(60\ln x\).`
+          title: raw`Find the derivative`,
+          previewHtml: raw`That matches the term-by-term derivative.`,
+          workingHtml: raw`<p class="step-text">That matches the term-by-term derivative.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  24 x - 84 + \frac{60}{x}
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the critical values",
-          text: raw`When you solve \(\frac{dy}{dx}=0\), which two \(x\)-values do you get?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Find the critical values`,
+          previewHtml: raw`The derivative is zero at \(x=1\) and \(x=\frac{5}{2}\).`,
+          workingHtml: raw`<p class="step-text">The derivative is zero at \(x=1\) and \(x=\frac{5}{2}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 x=1,\ \frac{5}{2}
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. The derivative is zero at \(x=1\) and \(x=\frac{5}{2}\).`
-            },
-            {
-              html: raw`\[
-                x=-1,\ \frac{5}{2}
-              \]`,
-              failureMessage: raw`One root is right, but the smaller critical value should be positive.`
-            },
-            {
-              html: raw`\[
-                x=1,\ -\frac{5}{2}
-              \]`,
-              failureMessage: raw`The second root has the wrong sign.`
-            },
-            {
-              html: raw`\[
-                x=0,\ \frac{7}{2}
-              \]`,
-              failureMessage: raw`Those do not come from factorising the quadratic after clearing the fraction.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Pick the decreasing interval",
-          text: raw`Using those critical values, where is the derivative negative?`,
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Identify the decreasing interval`,
+          previewHtml: raw`That is exactly the interval you get after testing a value like \(x=2\).`,
+          workingHtml: raw`<p class="step-text">That is exactly the interval you get after testing a value like \(x=2\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 1&lt;x&lt;\frac{5}{2}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. That is exactly the interval you get after testing a value like \(x=2\).`
-            },
-            {
-              html: raw`\[
-                0&lt;x&lt;1
-              \]`,
-              failureMessage: raw`Try testing a value there. The derivative is not negative on that whole interval.`
-            },
-            {
-              html: raw`\[
-                x>\frac{5}{2}
-              \]`,
-              failureMessage: raw`For large positive \(x\), the \(24x\) term makes the derivative positive.`
-            },
-            {
-              html: raw`\[
-                x&lt;1 \text{ or } x>\frac{5}{2}
-              \]`,
-              failureMessage: raw`That is the opposite sign pattern. We want where the derivative is negative, not positive.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Differentiate term by term:</p>
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}=24x-84+\frac{60}{x}
+          \]
+        </div>
+        <p class="step-text">Set the derivative equal to \(0\):</p>
+        <div class="math-block">
+          \[
+          24x-84+\frac{60}{x}=0
+          \]
+          \[
+          24x^2-84x+60=0
+          \]
+          \[
+          2x^2-7x+5=0
+          \]
+          \[
+          (2x-5)(x-1)=0
+          \]
+        </div>
+        <p class="step-text">So the critical values are \(x=1\) and \(x=\frac{5}{2}\). Testing \(x=2\) gives a negative derivative, so the function is decreasing for</p>
+        <div class="math-block">
+          \[
+          1&lt;x&lt;\frac{5}{2}.
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -569,79 +540,66 @@
         </div>
         <p class="step-text">So there is a stationary point at \(x=1\), and it is a maximum.</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Differentiate the product",
-          text: raw`What is the first derivative?`,
-          ariaLabel: "Type the first derivative",
-          acceptedAnswers: ["e^(-2x)(4-4x)"],
-          samples: [{ x: 0 }, { x: 1 }, { x: 2 }],
-          successMessage: raw`Correct. The product rule simplifies nicely to \(e^{-2x}(4-4x)\).`,
-          targetedFeedback: [
-            {
-              answers: ["e^(-2x)(2-4x)"],
-              message: raw`You are close, but the derivative of \(2x-1\) is \(2\), and the product rule gives another \(2\) coming through the simplification.`
-            }
-          ],
-          genericMessage: raw`Use the product rule, and remember the derivative of \(e^{-2x}\) brings in a factor of \(-2\).`
+          title: raw`Differentiate the product`,
+          previewHtml: raw`The product rule simplifies nicely to \(e^{-2x}(4-4x)\).`,
+          workingHtml: raw`<p class="step-text">The product rule simplifies nicely to \(e^{-2x}(4-4x)\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  e^{\left(-2 x\right)} \left(4 - 4 x\right)
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Solve for the stationary point",
-          text: raw`When you set the first derivative equal to zero, what \(x\)-value do you get?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Solve for the stationary point`,
+          previewHtml: raw`The exponential factor is never zero, so the stationary point comes from \(4-4x=0\).`,
+          workingHtml: raw`<p class="step-text">The exponential factor is never zero, so the stationary point comes from \(4-4x=0\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 1
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. The exponential factor is never zero, so the stationary point comes from \(4-4x=0\).`
-            },
-            {
-              html: raw`\[
-                -1
-              \]`,
-              failureMessage: raw`Check the sign when solving \(4-4x=0\).`
-            },
-            {
-              html: raw`\[
-                0
-              \]`,
-              failureMessage: raw`The exponential factor does not become zero, so \(x=0\) is not the stationary value.`
-            },
-            {
-              html: raw`\[
-                \frac{1}{2}
-              \]`,
-              failureMessage: raw`Rearranging \(4-4x=0\) gives \(x=1\), not \(\frac{1}{2}\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Use the second derivative test",
-          text: raw`At \(x=1\), the second derivative is negative. What does that tell you?`,
-          choices: [
-            {
-              html: raw`The stationary point is a maximum`,
-              correct: true,
-              successMessage: raw`Exactly. A negative second derivative means the curve is concave down there, so the stationary point is a maximum.`
-            },
-            {
-              html: raw`The stationary point is a minimum`,
-              failureMessage: raw`A minimum would need a positive second derivative, not a negative one.`
-            },
-            {
-              html: raw`It is a point of inflection`,
-              failureMessage: raw`A point of inflection would need the concavity to change, not just a negative second derivative at the point.`
-            },
-            {
-              html: raw`There is not enough information`,
-              failureMessage: raw`For this question, the second derivative sign is enough to classify the stationary point.`
-            }
-          ]
+          title: raw`Use the second derivative test`,
+          previewHtml: raw`A negative second derivative means the curve is concave down there, so the stationary point is a maximum.`,
+          workingHtml: raw`<p class="step-text">A negative second derivative means the curve is concave down there, so the stationary point is a maximum.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  The stationary point is a maximum
+</div>
+
+        <p class="step-text">First derivative:</p>
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}=e^{-2x}(4-4x)
+          \]
+        </div>
+        <p class="step-text">Solve \(\frac{dy}{dx}=0\):</p>
+        <div class="math-block">
+          \[
+          e^{-2x}(4-4x)=0
+          \]
+          \[
+          x=1
+          \]
+        </div>
+        <p class="step-text">Second derivative:</p>
+        <div class="math-block">
+          \[
+          \frac{d^2y}{dx^2}=e^{-2x}(8x-12)
+          \]
+          \[
+          \frac{d^2y}{dx^2}\bigg|_{x=1}=-4e^{-2}&lt;0
+          \]
+        </div>
+        <p class="step-text">So there is a stationary point at \(x=1\), and it is a maximum.</p>
+      `
         }
       ]
     }),
@@ -697,92 +655,89 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Find the first derivative",
-          text: raw`After simplifying the function, what is \(\frac{dy}{dx}\)?`,
-          ariaLabel: "Type the first derivative",
-          acceptedAnswers: ["2+1/x^2-2/x"],
-          samples: [{ x: 1 }, { x: 2 }, { x: 4 }],
-          successMessage: raw`Correct. That is the first derivative we need before going on to the second derivative.`,
-          genericMessage: raw`Differentiate \(2x\), \(-x^{-1}\), and \(-2\ln x\) carefully.`
+          title: raw`Find the first derivative`,
+          previewHtml: raw`That is the first derivative we need before going on to the second derivative.`,
+          workingHtml: raw`<p class="step-text">That is the first derivative we need before going on to the second derivative.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  2 + \frac{1}{x^{2}} - \frac{2}{x}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Find the second derivative",
-          text: raw`Now differentiate again. What is \(\frac{d^2y}{dx^2}\)?`,
-          ariaLabel: "Type the second derivative",
-          acceptedAnswers: ["-2/x^3+2/x^2"],
-          samples: [{ x: 1 }, { x: 2 }, { x: 5 }],
-          successMessage: raw`Yes. And this is the one we set equal to zero to find the inflection point.`,
-          genericMessage: raw`Watch the signs here. Differentiate each term one more time.`
+          title: raw`Find the second derivative`,
+          previewHtml: raw`And this is the one we set equal to zero to find the inflection point.`,
+          workingHtml: raw`<p class="step-text">And this is the one we set equal to zero to find the inflection point.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{-2}{x^{3}} + \frac{2}{x^{2}}
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
           title: raw`Find point \(P\)`,
-          text: raw`Solving \(\frac{d^2y}{dx^2}=0\) gives the \(x\)-coordinate of \(P\). What is it?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          previewHtml: raw`Point \(P\) happens at \(x=1\).`,
+          workingHtml: raw`<p class="step-text">Point \(P\) happens at \(x=1\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 1
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Point \(P\) happens at \(x=1\).`
-            },
-            {
-              html: raw`\[
-                -1
-              \]`,
-              failureMessage: raw`The equation is solved in the positive domain \(x>0\), and the algebra gives \(x=1\).`
-            },
-            {
-              html: raw`\[
-                \frac{1}{2}
-              \]`,
-              failureMessage: raw`There is a simplification slip here. Recheck the second-derivative equation.`
-            },
-            {
-              html: raw`\[
-                2
-              \]`,
-              failureMessage: raw`That does not satisfy the equation obtained from \(\frac{d^2y}{dx^2}=0\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Write the tangent equation",
-          text: raw`At \(x=1\), the point is \((1,1)\) and the gradient is \(1\). What is the tangent equation?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Write the tangent equation`,
+          previewHtml: raw`A rare anticlimax: the tangent equation is just \(y=x\).`,
+          workingHtml: raw`<p class="step-text">A rare anticlimax: the tangent equation is just \(y=x\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 y=x
-              \]`,
-              correct: true,
-              successMessage: raw`Exactly. A rare anticlimax: the tangent equation is just \(y=x\).`
-            },
-            {
-              html: raw`\[
-                y=-x
-              \]`,
-              failureMessage: raw`The gradient is \(+1\), not \(-1\).`
-            },
-            {
-              html: raw`\[
-                y=x+1
-              \]`,
-              failureMessage: raw`A line of gradient \(1\) through \((1,1)\) has intercept \(0\), not \(1\).`
-            },
-            {
-              html: raw`\[
-                y=1
-              \]`,
-              failureMessage: raw`That would have gradient \(0\), not \(1\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Rewrite first:</p>
+        <div class="math-block">
+          \[
+          y=2x-\frac{1}{x}-2\ln x
+          \]
+        </div>
+        <p class="step-text">Differentiate:</p>
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}=2+\frac{1}{x^2}-\frac{2}{x}
+          \]
+          \[
+          \frac{d^2y}{dx^2}=-\frac{2}{x^3}+\frac{2}{x^2}
+          \]
+        </div>
+        <p class="step-text">Set the second derivative equal to zero:</p>
+        <div class="math-block">
+          \[
+          -\frac{2}{x^3}+\frac{2}{x^2}=0
+          \]
+          \[
+          x=1
+          \]
+        </div>
+        <p class="step-text">Then \(y(1)=1\) and \(\frac{dy}{dx}\big|_{x=1}=1\), so the tangent is</p>
+        <div class="math-block">
+          \[
+          y-1=1(x-1)
+          \]
+          \[
+          y=x.
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -815,36 +770,59 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
           title: raw`Differentiate \(x\) with respect to \(t\)`,
-          text: raw`What is \(\frac{dx}{dt}\)?`,
-          ariaLabel: "Type dx by dt",
-          acceptedAnswers: ["6t"],
-          samples: [{ t: 1 }, { t: 2 }, { t: 3 }],
-          successMessage: raw`Correct. \(3t^2+1\) differentiates to \(6t\).`,
-          genericMessage: raw`Differentiate the parametric \(x\)-equation with respect to \(t\).`
+          previewHtml: raw`\(3t^2+1\) differentiates to \(6t\).`,
+          workingHtml: raw`<p class="step-text">\(3t^2+1\) differentiates to \(6t\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  6 t
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
           title: raw`Differentiate \(y\) with respect to \(t\)`,
-          text: raw`What is \(\frac{dy}{dt}\)?`,
-          ariaLabel: "Type dy by dt",
-          acceptedAnswers: ["-sin(t)"],
-          samples: [{ t: 0.5 }, { t: 1 }, { t: 2 }],
-          successMessage: raw`Yes. The derivative of \(\cos t\) is \(-\sin t\).`,
-          genericMessage: raw`Differentiate the parametric \(y\)-equation with respect to \(t\).`
+          previewHtml: raw`The derivative of \(\cos t\) is \(-\sin t\).`,
+          workingHtml: raw`<p class="step-text">The derivative of \(\cos t\) is \(-\sin t\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  -\sin\left(t\right)
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
           title: raw`Combine them into \(\frac{dy}{dx}\)`,
-          text: raw`Now find \(\frac{dy}{dx}\).`,
-          ariaLabel: "Type dy by dx",
-          acceptedAnswers: ["-sin(t)/(6t)"],
-          samples: [{ t: 0.5 }, { t: 1 }, { t: 2 }],
-          successMessage: raw`Correct. That is the parametric derivative.`,
-          genericMessage: raw`Use \(\frac{dy}{dx}=\frac{dy/dt}{dx/dt}\).`
+          previewHtml: raw`That is the parametric derivative.`,
+          workingHtml: raw`<p class="step-text">That is the parametric derivative.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{-\sin\left(t\right)}{\left(6 t\right)}
+  \]
+</div>
+</div>
+
+        <p class="step-text">Differentiate each parametric equation:</p>
+        <div class="math-block">
+          \[
+          \frac{dx}{dt}=6t,\qquad \frac{dy}{dt}=-\sin t
+          \]
+        </div>
+        <p class="step-text">So</p>
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}=\frac{dy/dt}{dx/dt}=-\frac{\sin t}{6t}.
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -880,80 +858,54 @@
         </div>
         <p class="step-text">So the velocity at \(t=1\) second is \(\frac{11}{10}\text{ m s}^{-1}\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Spot the method",
-          text: raw`Why do we need the chain rule here?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`Because the logarithm has a quadratic inside it`,
-              correct: true,
-              successMessage: raw`Exactly. The logarithm is the outside function, and \(3t^2+5t+2\) is the inside.`
-            },
-            {
-              html: raw`Because it is a product`,
-              failureMessage: raw`Not here. The whole thing is a logarithm of one inside expression.`
-            },
-            {
-              html: raw`Because it is a quotient`,
-              failureMessage: raw`The final derivative will involve a fraction, but the original function is not a quotient-rule question.`
-            },
-            {
-              html: raw`Because the displacement is constant`,
-              failureMessage: raw`The displacement is not constant, and that is not why the chain rule appears here.`
-            }
-          ]
+          title: raw`Spot the method`,
+          previewHtml: raw`The logarithm is the outside function, and \(3t^2+5t+2\) is the inside.`,
+          workingHtml: raw`<p class="step-text">The logarithm is the outside function, and \(3t^2+5t+2\) is the inside.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  Because the logarithm has a quadratic inside it
+</div>`
         },
         {
-          type: "typed",
-          title: "Find the velocity function",
-          text: raw`What is \(v(t)=\frac{ds}{dt}\)?`,
-          ariaLabel: "Type the velocity function",
-          acceptedAnswers: ["(6t+5)/(3t^2+5t+2)"],
-          samples: [{ t: 1 }, { t: 2 }, { t: 4 }],
-          successMessage: raw`Correct. The derivative of \(\ln(\text{inside})\) is \(\frac{\text{inside}'}{\text{inside}}\).`,
-          targetedFeedback: [
-            {
-              answers: ["6t+5"],
-              message: raw`That is only the derivative of the inside. You still need to divide by the original inside bracket.`
-            }
-          ],
-          genericMessage: raw`Differentiate the inside, then divide by the original inside expression.`
+          title: raw`Find the velocity function`,
+          previewHtml: raw`The derivative of \(\ln(\text{inside})\) is \(\frac{\text{inside}'}{\text{inside}}\).`,
+          workingHtml: raw`<p class="step-text">The derivative of \(\ln(\text{inside})\) is \(\frac{\text{inside}'}{\text{inside}}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{\left(6 t + 5\right)}{\left(3 t^{2} + 5 t + 2\right)}
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
           title: raw`Evaluate at \(t=1\)`,
-          text: raw`What is the velocity when \(t=1\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          previewHtml: raw`And that is the value you get after the substitution.`,
+          workingHtml: raw`<p class="step-text">And that is the value you get after the substitution.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{11}{10}
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. And that is the value you get after the substitution.`
-            },
-            {
-              html: raw`\[
-                \frac{11}{5}
-              \]`,
-              failureMessage: raw`The numerator is right, but the denominator at \(t=1\) is \(10\), not \(5\).`
-            },
-            {
-              html: raw`\[
-                \frac{1}{10}
-              \]`,
-              failureMessage: raw`That loses most of the numerator. Re-evaluate \(6(1)+5\).`
-            },
-            {
-              html: raw`\[
-                -\frac{11}{10}
-              \]`,
-              failureMessage: raw`The velocity is positive here because both numerator and denominator are positive at \(t=1\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Differentiate using the chain rule:</p>
+        <div class="math-block">
+          \[
+          v(t)=\frac{ds}{dt}=\frac{6t+5}{3t^2+5t+2}
+          \]
+        </div>
+        <p class="step-text">Now evaluate at \(t=1\):</p>
+        <div class="math-block">
+          \[
+          v(1)=\frac{11}{10}=1.1
+          \]
+        </div>
+        <p class="step-text">So the velocity at \(t=1\) second is \(\frac{11}{10}\text{ m s}^{-1}\).</p>
+      `
         }
       ]
     }),
@@ -1003,36 +955,72 @@
         </div>
         <p class="step-text">Shown.</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Differentiate once",
-          text: raw`What is \(\frac{dy}{dx}\)?`,
-          ariaLabel: "Type the first derivative",
-          acceptedAnswers: ["2x*cos(x^2)+sin(x)"],
-          samples: [{ x: 0 }, { x: 1 }, { x: 2 }],
-          successMessage: raw`Correct. The first term needs the chain rule, and the second term differentiates to \(+\sin x\).`,
-          genericMessage: raw`Differentiate \(\sin(x^2)\) with the chain rule, and watch the sign on \(-\cos x\).`
+          title: raw`Differentiate once`,
+          previewHtml: raw`The first term needs the chain rule, and the second term differentiates to \(+\sin x\).`,
+          workingHtml: raw`<p class="step-text">The first term needs the chain rule, and the second term differentiates to \(+\sin x\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  2 x \cdot \cos\left(x^{2}\right) + \sin\left(x\right)
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Differentiate again",
-          text: raw`Now find \(\frac{d^2y}{dx^2}\).`,
-          ariaLabel: "Type the second derivative",
-          acceptedAnswers: ["2cos(x^2)-4x^2sin(x^2)+cos(x)"],
-          samples: [{ x: 0 }, { x: 1 }, { x: 2 }],
-          successMessage: raw`Yes. This is the part where the product rule and chain rule both show up together.`,
-          genericMessage: raw`Go term by term, and use the product rule on \(2x\cos(x^2)\).`
+          title: raw`Differentiate again`,
+          previewHtml: raw`This is the part where the product rule and chain rule both show up together.`,
+          workingHtml: raw`<p class="step-text">This is the part where the product rule and chain rule both show up together.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  2 \cos\left(x^{2}\right) - 4 x^{2} \sin\left(x^{2}\right) + \cos\left(x\right)
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Show the left-hand side matches",
-          text: raw`After substituting \(y\) and \(y''\) into the left-hand side, what does it simplify to?`,
-          ariaLabel: "Type the simplified left hand side",
-          acceptedAnswers: ["2cos(x^2)+(1-4x^2)cos(x)"],
-          samples: [{ x: 0 }, { x: 1 }, { x: 2 }],
-          successMessage: raw`Exactly. The sine terms cancel, and you are left with the required right-hand side.`,
-          genericMessage: raw`Substitute into \(\frac{d^2y}{dx^2}+4x^2y\) and simplify carefully.`
+          title: raw`Show the left-hand side matches`,
+          previewHtml: raw`The sine terms cancel, and you are left with the required right-hand side.`,
+          workingHtml: raw`<p class="step-text">The sine terms cancel, and you are left with the required right-hand side.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  2 \cos\left(x^{2}\right) + \left(1 - 4 x^{2}\right) \cos\left(x\right)
+  \]
+</div>
+</div>
+
+        <p class="step-text">First derivative:</p>
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}=2x\cos(x^2)+\sin x
+          \]
+        </div>
+        <p class="step-text">Second derivative:</p>
+        <div class="math-block">
+          \[
+          \frac{d^2y}{dx^2}=2\cos(x^2)-4x^2\sin(x^2)+\cos x
+          \]
+        </div>
+        <p class="step-text">Substitute into the left-hand side:</p>
+        <div class="math-block">
+          \[
+          \frac{d^2y}{dx^2}+4x^2y
+          \]
+          \[
+          =2\cos(x^2)-4x^2\sin(x^2)+\cos x+4x^2\big(\sin(x^2)-\cos x\big)
+          \]
+          \[
+          =2\cos(x^2)+(1-4x^2)\cos x
+          \]
+        </div>
+        <p class="step-text">Shown.</p>
+      `
         }
       ]
     }),
@@ -1086,92 +1074,87 @@
         </div>
         <p class="step-text">So the point of inflection is \(\left(e^{3/2},\frac{3}{2e^{3/2}}\right)\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Find the first derivative",
-          text: raw`What is \(f'(x)\)?`,
-          ariaLabel: "Type the first derivative",
-          acceptedAnswers: ["(1-ln(x))/x^2"],
-          samples: [{ x: 1 }, { x: 2 }, { x: 5 }],
-          successMessage: raw`Correct. That is the simplified quotient-rule result.`,
-          genericMessage: raw`Use the quotient rule, or rewrite as \((\ln x)x^{-1}\) and differentiate carefully.`
+          title: raw`Find the first derivative`,
+          previewHtml: raw`That is the simplified quotient-rule result.`,
+          workingHtml: raw`<p class="step-text">That is the simplified quotient-rule result.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{\left(1 - \ln\left(x\right)\right)}{x^{2}}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Find the second derivative",
-          text: raw`What is \(f''(x)\)?`,
-          ariaLabel: "Type the second derivative",
-          acceptedAnswers: ["(-3+2ln(x))/x^3"],
-          samples: [{ x: 1 }, { x: 2 }, { x: 5 }],
-          successMessage: raw`Yes. That gives the equation we need for the inflection point.`,
-          genericMessage: raw`Differentiate \(f'(x)\) once more and simplify the result over a common denominator.`
+          title: raw`Find the second derivative`,
+          previewHtml: raw`That gives the equation we need for the inflection point.`,
+          workingHtml: raw`<p class="step-text">That gives the equation we need for the inflection point.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{\left(-3 + 2 \ln\left(x\right)\right)}{x^{3}}
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
           title: raw`Solve for the \(x\)-coordinate`,
-          text: raw`When you set the second derivative equal to zero, what \(x\)-value do you get?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          previewHtml: raw`The logarithm step gives \(x=e^{3/2}\).`,
+          workingHtml: raw`<p class="step-text">The logarithm step gives \(x=e^{3/2}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 e^{3/2}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The logarithm step gives \(x=e^{3/2}\).`
-            },
-            {
-              html: raw`\[
-                e^{-3/2}
-              \]`,
-              failureMessage: raw`That would come from \(\ln x=-\frac{3}{2}\), but the equation gives \(\ln x=\frac{3}{2}\).`
-            },
-            {
-              html: raw`\[
-                \frac{3}{2}
-              \]`,
-              failureMessage: raw`That is the value of \(\ln x\), not of \(x\) itself.`
-            },
-            {
-              html: raw`\[
-                \ln\left(\frac{3}{2}\right)
-              \]`,
-              failureMessage: raw`We solve for \(x\) by undoing the logarithm, so the answer should be exponential, not logarithmic.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the coordinates",
-          text: raw`What are the coordinates of the point of inflection?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Find the coordinates`,
+          previewHtml: raw`That is the exact-coordinate version of the point.`,
+          workingHtml: raw`<p class="step-text">That is the exact-coordinate version of the point.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \left(e^{3/2},\frac{3}{2e^{3/2}}\right)
-              \]`,
-              correct: true,
-              successMessage: raw`Exactly. That is the exact-coordinate version of the point.`
-            },
-            {
-              html: raw`\[
-                \left(\frac{3}{2e^{3/2}},e^{3/2}\right)
-              \]`,
-              failureMessage: raw`Watch the order. The point should be written as \((x,y)\), not \((y,x)\).`
-            },
-            {
-              html: raw`\[
-                \left(e^{3/2},\frac{3e^{3/2}}{2}\right)
-              \]`,
-              failureMessage: raw`The denominator should still contain \(e^{3/2}\) because \(y=\frac{\ln x}{x}\).`
-            },
-            {
-              html: raw`\[
-                \left(\frac{3}{2},e^{3/2}\right)
-              \]`,
-              failureMessage: raw`The \(x\)-coordinate is \(e^{3/2}\), not \(\frac{3}{2}\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Differentiate:</p>
+        <div class="math-block">
+          \[
+          f'(x)=\frac{1-\ln x}{x^2}
+          \]
+          \[
+          f''(x)=\frac{-3+2\ln x}{x^3}
+          \]
+        </div>
+        <p class="step-text">For a point of inflection, set the second derivative equal to zero:</p>
+        <div class="math-block">
+          \[
+          \frac{-3+2\ln x}{x^3}=0
+          \]
+          \[
+          -3+2\ln x=0
+          \]
+          \[
+          \ln x=\frac{3}{2}
+          \]
+          \[
+          x=e^{3/2}
+          \]
+        </div>
+        <p class="step-text">Now find the \(y\)-coordinate:</p>
+        <div class="math-block">
+          \[
+          y=\frac{\ln(e^{3/2})}{e^{3/2}}=\frac{3}{2e^{3/2}}
+          \]
+        </div>
+        <p class="step-text">So the point of inflection is \(\left(e^{3/2},\frac{3}{2e^{3/2}}\right)\).</p>
+      `
         }
       ]
     }),
@@ -1232,106 +1215,89 @@
         </div>
         <p class="step-text">So the \(x\)-coordinate of \(Q\) is \(-\frac{2}{3}\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Differentiate the function",
-          text: raw`What is \(\frac{dy}{dx}\)?`,
-          ariaLabel: "Type the derivative",
-          acceptedAnswers: ["e^(3x)(6x^2+3kx+k)/(2x+k)^2"],
-          samples: [{ x: 0, k: 1 }, { x: 1, k: 2 }, { x: -0.5, k: 3 }],
-          successMessage: raw`Correct. The derivative tidies up to a nice quadratic factor on top.`,
-          genericMessage: raw`Use the quotient rule carefully, and do not forget the chain rule from \(e^{3x}\).`
+          title: raw`Differentiate the function`,
+          previewHtml: raw`The derivative tidies up to a nice quadratic factor on top.`,
+          workingHtml: raw`<p class="step-text">The derivative tidies up to a nice quadratic factor on top.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{e^{\left(3 x\right)} \left(6 x^{2} + 3 k x + k\right)}{\left(2 x + k\right)^{2}}
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Use the single-turning-point idea",
-          text: raw`Why do we set the discriminant equal to zero?`,
-          choices: [
-            {
-              html: raw`Because the quadratic for the turning points must have one repeated root`,
-              correct: true,
-              successMessage: raw`Exactly. One turning point means one repeated solution when you solve the derivative equation.`
-            },
-            {
-              html: raw`Because the derivative must be positive`,
-              failureMessage: raw`The sign of the derivative is not the key idea here. We need one solution, not necessarily a positive one.`
-            },
-            {
-              html: raw`Because the denominator must be zero`,
-              failureMessage: raw`Turning points come from the derivative being zero, and here that comes from the numerator.`
-            },
-            {
-              html: raw`Because \(e^{3x}=0\)`,
-              failureMessage: raw`The exponential factor never equals zero.`
-            }
-          ]
+          title: raw`Use the single-turning-point idea`,
+          previewHtml: raw`One turning point means one repeated solution when you solve the derivative equation.`,
+          workingHtml: raw`<p class="step-text">One turning point means one repeated solution when you solve the derivative equation.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  Because the quadratic for the turning points must have one repeated root
+</div>`
         },
         {
-          type: "choice",
           title: raw`Find \(k\)`,
-          text: raw`What value of \(k\) makes the discriminant zero?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          previewHtml: raw`The valid non-zero constant is \(k=\frac{8}{3}\).`,
+          workingHtml: raw`<p class="step-text">The valid non-zero constant is \(k=\frac{8}{3}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{8}{3}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The valid non-zero constant is \(k=\frac{8}{3}\).`
-            },
-            {
-              html: raw`\[
-                0
-              \]`,
-              failureMessage: raw`\(\,0\) comes out of the factorisation too, but the question says \(k\) is non-zero, so we ignore it.`
-            },
-            {
-              html: raw`\[
-                -\frac{8}{3}
-              \]`,
-              failureMessage: raw`The non-zero root from \(9k^2-24k=0\) is positive, not negative.`
-            },
-            {
-              html: raw`\[
-                \frac{3}{8}
-              \]`,
-              failureMessage: raw`That inverts the fraction. Recheck the factorisation and division.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
           title: raw`Find the turning-point \(x\)-coordinate`,
-          text: raw`Now substitute your \(k\)-value back into the derivative equation. What is the \(x\)-coordinate of \(Q\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          previewHtml: raw`That repeated root gives the single turning point at \(x=-\frac{2}{3}\).`,
+          workingHtml: raw`<p class="step-text">That repeated root gives the single turning point at \(x=-\frac{2}{3}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 -\frac{2}{3}
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. That repeated root gives the single turning point at \(x=-\frac{2}{3}\).`
-            },
-            {
-              html: raw`\[
-                \frac{2}{3}
-              \]`,
-              failureMessage: raw`The sign is wrong. Solve the repeated-root quadratic carefully.`
-            },
-            {
-              html: raw`\[
-                -\frac{4}{3}
-              \]`,
-              failureMessage: raw`There is a factor slip when you simplify the quadratic.`
-            },
-            {
-              html: raw`\[
-                0
-              \]`,
-              failureMessage: raw`The repeated root does not occur at \(x=0\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Differentiate:</p>
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}=\frac{e^{3x}(6x^2+3kx+k)}{(2x+k)^2}
+          \]
+        </div>
+        <p class="step-text">Turning points happen when the derivative is zero, so</p>
+        <div class="math-block">
+          \[
+          6x^2+3kx+k=0
+          \]
+        </div>
+        <p class="step-text">For a single turning point, this quadratic must have one repeated root, so</p>
+        <div class="math-block">
+          \[
+          (3k)^2-4(6)(k)=0
+          \]
+          \[
+          9k^2-24k=0
+          \]
+          \[
+          k=\frac{8}{3}
+          \]
+        </div>
+        <p class="step-text">Substitute back into the quadratic:</p>
+        <div class="math-block">
+          \[
+          6x^2+8x+\frac{8}{3}=0
+          \]
+          \[
+          (3x+2)^2=0
+          \]
+          \[
+          x=-\frac{2}{3}
+          \]
+        </div>
+        <p class="step-text">So the \(x\)-coordinate of \(Q\) is \(-\frac{2}{3}\).</p>
+      `
         }
       ]
     }),
@@ -1361,60 +1327,53 @@
         </div>
         <p class="step-text">You do not need to simplify any further.</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Choose the overall rule",
-          text: raw`What is the main rule holding this derivative together?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`Product rule`,
-              correct: true,
-              successMessage: raw`Correct. There is a square-root factor multiplied by a secant factor.`
-            },
-            {
-              html: raw`Quotient rule`,
-              failureMessage: raw`Not this time. Nothing is written as a fraction.`
-            },
-            {
-              html: raw`Chain rule only`,
-              failureMessage: raw`The chain rule does appear inside \(\sec(6x)\), but the overall structure is still a product.`
-            },
-            {
-              html: raw`Implicit differentiation`,
-              failureMessage: raw`No need. The function is already given explicitly.`
-            }
-          ]
+          title: raw`Identify the overall rule`,
+          previewHtml: raw`There is a square-root factor multiplied by a secant factor.`,
+          workingHtml: raw`<p class="step-text">There is a square-root factor multiplied by a secant factor.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  Product rule
+</div>`
         },
         {
-          type: "typed",
           title: raw`Differentiate the \(\sqrt{x}\) factor`,
-          text: raw`After rewriting \(\sqrt{x}\) as \(x^{1/2}\), what is its derivative?`,
-          ariaLabel: "Type the derivative of square root x",
-          acceptedAnswers: ["1/(2sqrt(x))", "(1/2)x^(-1/2)"],
-          samples: [{ x: 1 }, { x: 4 }, { x: 9 }],
-          successMessage: raw`Yes. That is the outside factor's derivative in the product rule.`,
-          genericMessage: raw`Use the power rule on \(x^{1/2}\).`
+          previewHtml: raw`That is the outside factor's derivative in the product rule.`,
+          workingHtml: raw`<p class="step-text">That is the outside factor's derivative in the product rule.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{1}{\left(2 \sqrt{x}\right)}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Build the full derivative",
-          text: raw`Now write the derivative of the whole product.`,
-          ariaLabel: "Type the derivative of y",
-          acceptedAnswers: [
-            "(1/(2sqrt(x)))*sec(6x)+6sqrt(x)sec(6x)tan(6x)",
-            "(1/2)x^(-1/2)sec(6x)+6x^(1/2)sec(6x)tan(6x)"
-          ],
-          samples: [{ x: 0.2 }, { x: 0.35 }, { x: 0.6 }],
-          successMessage: raw`Great. Product rule on the outside, chain rule inside the secant, and no extra simplification needed.`,
-          targetedFeedback: [
-            {
-              answers: ["(1/(2sqrt(x)))*sec(6x)+sqrt(x)sec(6x)tan(6x)"],
-              message: raw`Close, but the derivative of \(\sec(6x)\) needs the chain-rule factor of \(6\).`
-            }
-          ],
-          genericMessage: raw`Use \(u'v+uv'\), and remember \( \frac{d}{dx}[\sec(6x)]=6\sec(6x)\tan(6x)\).`
+          title: raw`Build the full derivative`,
+          previewHtml: raw`Product rule on the outside, chain rule inside the secant, and no extra simplification needed.`,
+          workingHtml: raw`<p class="step-text">Product rule on the outside, chain rule inside the secant, and no extra simplification needed.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \left(\frac{1}{\left(2 \sqrt{x}\right)}\right) \cdot \sec\left(6 x\right) + 6 \sqrt{x} \sec\left(6 x\right) \tan\left(6 x\right)
+  \]
+</div>
+</div>
+
+        <p class="step-text">Rewrite and differentiate:</p>
+        <div class="math-block">
+          \[
+          y=x^{1/2}\sec(6x)
+          \]
+          \[
+          \frac{dy}{dx}=\frac{1}{2}x^{-1/2}\sec(6x)+x^{1/2}\big(6\sec(6x)\tan(6x)\big)
+          \]
+        </div>
+        <p class="step-text">You do not need to simplify any further.</p>
+      `
         }
       ]
     }),
@@ -1449,103 +1408,54 @@
         <p class="step-text">At \(x=5\), the graph is still joined up, but the gradient changes abruptly, so it is continuous but not differentiable there.</p>
       `,
       afterRender: draw3bGraph,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Find where the graph is joined but has a sharp change",
-          text: raw`Where is \(f(x)\) continuous but not differentiable?`,
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Find where the graph is joined but has a sharp change`,
+          previewHtml: raw`The graph is connected at \(x=5\), but the gradient changes suddenly there.`,
+          workingHtml: raw`<p class="step-text">The graph is connected at \(x=5\), but the gradient changes suddenly there.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 x=5
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The graph is connected at \(x=5\), but the gradient changes suddenly there.`
-            },
-            {
-              html: raw`\[
-                x=-1
-              \]`,
-              failureMessage: raw`At \(x=-1\), the graph has a hole, so it is not continuous there.`
-            },
-            {
-              html: raw`\[
-                x=3
-              \]`,
-              failureMessage: raw`At \(x=3\), the graph jumps, so it is not continuous there either.`
-            },
-            {
-              html: raw`\[
-                x=0
-              \]`,
-              failureMessage: raw`The graph is not even defined there, so this is not the continuous-but-not-differentiable point.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find where the graph is horizontal",
-          text: raw`Which answer matches all the \(x\)-values where \(f'(x)=0\)?`,
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Find where the graph is horizontal`,
+          previewHtml: raw`There is a turning point at \(x=1\), and the graph is flat all the way across the horizontal segment for \(3&lt;x&lt;5\).`,
+          workingHtml: raw`<p class="step-text">There is a turning point at \(x=1\), and the graph is flat all the way across the horizontal segment for \(3&lt;x&lt;5\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 x=1 \text{ and } 3&lt;x&lt;5
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. There is a turning point at \(x=1\), and the graph is flat all the way across the horizontal segment for \(3&lt;x&lt;5\).`
-            },
-            {
-              html: raw`\[
-                x=1,3,5
-              \]`,
-              failureMessage: raw`At \(x=3\) and \(x=5\), the derivative does not exist because of the discontinuity and corner.`
-            },
-            {
-              html: raw`\[
-                3&lt;x\le 5
-              \]`,
-              failureMessage: raw`You have missed the stationary turning point at \(x=1\), and the derivative does not exist right at \(x=5\).`
-            },
-            {
-              html: raw`\[
-                x=1 \text{ only}
-              \]`,
-              failureMessage: raw`Do not forget the flat horizontal section. Every point there has gradient \(0\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Read the limit",
-          text: raw`What is \(\lim\limits_{x\to -1}f(x)\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Read the limit`,
+          previewHtml: raw`Both sides of the graph are heading towards the open point at \((-1,1)\), so the limit is \(1\).`,
+          workingHtml: raw`<p class="step-text">Both sides of the graph are heading towards the open point at \((-1,1)\), so the limit is \(1\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 1
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Both sides of the graph are heading towards the open point at \((-1,1)\), so the limit is \(1\).`
-            },
-            {
-              html: raw`\[
-                0
-              \]`,
-              failureMessage: raw`Check the open point the graph is approaching near \(x=-1\).`
-            },
-            {
-              html: raw`\[
-                -1
-              \]`,
-              failureMessage: raw`That is the \(x\)-value being approached, not the limit of \(f(x)\).`
-            },
-            {
-              html: raw`\[
-                \text{Does not exist}
-              \]`,
-              failureMessage: raw`The graph has a hole there, but both sides still approach the same \(y\)-value.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Reading from the graph:</p>
+        <div class="math-block">
+          \[
+          \text{(i) } x=5
+          \]
+          \[
+          \text{(ii) } x=1 \text{ and } 3&lt;x&lt;5
+          \]
+          \[
+          \text{(iii) } \lim_{x\to -1}f(x)=1
+          \]
+        </div>
+        <p class="step-text">At \(x=5\), the graph is still joined up, but the gradient changes abruptly, so it is continuous but not differentiable there.</p>
+      `
         }
       ]
     }),
@@ -1586,29 +1496,31 @@
         </div>
         <p class="step-text">So the stationary points are at \(x=-2\) and \(x=2\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Differentiate the quotient",
-          text: raw`What is \(f'(x)\)?`,
-          beforeHtml: raw`
+          title: raw`Differentiate the quotient`,
+          previewHtml: raw`After the quotient rule, the numerator simplifies a lot more nicely than it first looks.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               f'(x)=\frac{(x^2+5x+4)(2x-5)-(x^2-5x+4)(2x+5)}{(x^2+5x+4)^2}
               \]
             </div>
-          `,
-          ariaLabel: "Type the derivative",
-          acceptedAnswers: ["(10x^2-40)/(x^2+5x+4)^2", "10(x^2-4)/(x^2+5x+4)^2"],
-          samples: [{ x: -2 }, { x: 0 }, { x: 2 }],
-          successMessage: raw`Correct. After the quotient rule, the numerator simplifies a lot more nicely than it first looks.`,
-          genericMessage: raw`Use the quotient rule carefully, then expand and simplify the top.`
+
+<p class="step-text">After the quotient rule, the numerator simplifies a lot more nicely than it first looks.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{\left(10 x^{2} - 40\right)}{\left(x^{2} + 5 x + 4\right)^{2}}
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
           title: raw`Solve for the stationary \(x\)-values`,
-          text: raw`What \(x\)-values make the derivative zero?`,
-          beforeHtml: raw`
+          previewHtml: raw`Those are the two stationary \(x\)-values.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \frac{10x^2-40}{(x^2+5x+4)^2}=0
@@ -1620,35 +1532,35 @@
               x^2=4
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Those are the two stationary \(x\)-values.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 x=-2,\ 2
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. Those are the two stationary \(x\)-values.`
-            },
-            {
-              html: raw`\[
-                x=-2
-              \]`,
-              failureMessage: raw`That is only one solution. The numerator is a quadratic in \(x^2\), so it gives two values.`
-            },
-            {
-              html: raw`\[
-                x=2
-              \]`,
-              failureMessage: raw`There is also the negative solution because the equation is \(x^2=4\).`
-            },
-            {
-              html: raw`\[
-                x=-4,\ 4
-              \]`,
-              failureMessage: raw`Check the constant term in the derivative numerator. It gives \(x^2=4\), not \(16\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Differentiate with the quotient rule:</p>
+        <div class="math-block">
+          \[
+          f'(x)=\frac{10x^2-40}{(x^2+5x+4)^2}
+          \]
+        </div>
+        <p class="step-text">For stationary points, set the derivative equal to zero:</p>
+        <div class="math-block">
+          \[
+          10x^2-40=0
+          \]
+          \[
+          x^2=4
+          \]
+          \[
+          x=\pm 2
+          \]
+        </div>
+        <p class="step-text">So the stationary points are at \(x=-2\) and \(x=2\).</p>
+      `
         }
       ]
     }),
@@ -1700,92 +1612,89 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Relate the radius and the height",
-          text: raw`If the height equals the diameter, what is \(r\) in terms of \(h\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Relate the radius and the height`,
+          previewHtml: raw`That substitution is the key step that makes the related-rates algebra manageable.`,
+          workingHtml: raw`<p class="step-text">That substitution is the key step that makes the related-rates algebra manageable.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 r=\frac{h}{2}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. That substitution is the key step that makes the related-rates algebra manageable.`
-            },
-            {
-              html: raw`\[
-                r=2h
-              \]`,
-              failureMessage: raw`The radius is half the diameter, not twice the height.`
-            },
-            {
-              html: raw`\[
-                r=h
-              \]`,
-              failureMessage: raw`If height equals diameter, then the radius is only half of that.`
-            },
-            {
-              html: raw`\[
-                r=\frac{h^2}{2}
-              \]`,
-              failureMessage: raw`This relation is linear, not quadratic.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "typed",
           title: raw`Write the volume in terms of \(h\)`,
-          text: raw`After substituting for \(r\), what is \(V\) in terms of \(h\)?`,
-          ariaLabel: "Type V in terms of h",
-          acceptedAnswers: ["pi*h^3/12"],
-          samples: [{ h: 2 }, { h: 4 }, { h: 6 }],
-          successMessage: raw`Yes. That is the simplified volume expression we differentiate next.`,
-          genericMessage: raw`Substitute \(r=\frac{h}{2}\) into \(V=\frac{1}{3}\pi r^2h\) and simplify.`
+          previewHtml: raw`That is the simplified volume expression we differentiate next.`,
+          workingHtml: raw`<p class="step-text">That is the simplified volume expression we differentiate next.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{\pi \cdot h^{3}}{12}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
           title: raw`Differentiate with respect to \(h\)`,
-          text: raw`What is \(\frac{dV}{dh}\)?`,
-          ariaLabel: "Type dV by dh",
-          acceptedAnswers: ["pi*h^2/4"],
-          samples: [{ h: 2 }, { h: 4 }, { h: 6 }],
-          successMessage: raw`Correct. Now we can turn that into \(\frac{dh}{dt}\).`,
-          genericMessage: raw`Differentiate \(\frac{\pi h^3}{12}\) with respect to \(h\).`
+          previewHtml: raw`Now we can turn that into \(\frac{dh}{dt}\).`,
+          workingHtml: raw`<p class="step-text">Now we can turn that into \(\frac{dh}{dt}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{\pi \cdot h^{2}}{4}
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
           title: raw`Find the rate when \(h=4\)`,
-          text: raw`What is \(\frac{dh}{dt}\) when the pile is \(4\) cm high?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          previewHtml: raw`The height is increasing at \(\frac{3}{4\pi}\text{ cm s}^{-1}\) when \(h=4\).`,
+          workingHtml: raw`<p class="step-text">The height is increasing at \(\frac{3}{4\pi}\text{ cm s}^{-1}\) when \(h=4\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{3}{4\pi}
-              \]`,
-              correct: true,
-              successMessage: raw`Exactly. The height is increasing at \(\frac{3}{4\pi}\text{ cm s}^{-1}\) when \(h=4\).`
-            },
-            {
-              html: raw`\[
-                \frac{3}{\pi}
-              \]`,
-              failureMessage: raw`That forgets to substitute \(h=4\) into the \(h^2\) term in the denominator.`
-            },
-            {
-              html: raw`\[
-                \frac{4}{3\pi}
-              \]`,
-              failureMessage: raw`The factors have been inverted. Use \(\frac{dV}{dt}=3\) with \(\frac{dV}{dh}=\frac{\pi h^2}{4}\).`
-            },
-            {
-              html: raw`\[
-                \frac{3}{16\pi}
-              \]`,
-              failureMessage: raw`That keeps the \(16\) but misses the factor of \(4\) in \(\frac{dh}{dt}=\frac{4}{\pi h^2}\cdot 3\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Because the height equals the diameter,</p>
+        <div class="math-block">
+          \[
+          r=\frac{h}{2}
+          \]
+        </div>
+        <p class="step-text">Substitute into the volume formula:</p>
+        <div class="math-block">
+          \[
+          V=\frac{1}{3}\pi\left(\frac{h}{2}\right)^2 h=\frac{\pi h^3}{12}
+          \]
+        </div>
+        <p class="step-text">Differentiate with respect to \(h\):</p>
+        <div class="math-block">
+          \[
+          \frac{dV}{dh}=\frac{\pi h^2}{4}
+          \]
+        </div>
+        <p class="step-text">Now use related rates:</p>
+        <div class="math-block">
+          \[
+          \frac{dh}{dt}=\frac{dh}{dV}\cdot\frac{dV}{dt}
+          \]
+          \[
+          \frac{dh}{dt}=\frac{4}{\pi h^2}\cdot 3
+          \]
+        </div>
+        <p class="step-text">At \(h=4\):</p>
+        <div class="math-block">
+          \[
+          \frac{dh}{dt}=\frac{12}{16\pi}=\frac{3}{4\pi}\text{ cm s}^{-1}
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -1845,92 +1754,88 @@
         <p class="step-text">And that is the required largest possible area. We do not even have to prove it is a maximum.</p>
       `,
       afterRender: draw3eGraph,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Write the area function",
-          text: raw`If \(P=(x,e^{-x^2})\), what is the area \(A(x)\) of triangle \(OPQ\)?`,
-          ariaLabel: "Type the area function",
-          acceptedAnswers: ["x*e^(-x^2)"],
-          samples: [{ x: 0.3 }, { x: 0.7 }, { x: 1.1 }],
-          successMessage: raw`Correct. The symmetry means the base is \(2x\), so the half-base-times-height calculation collapses to \(xe^{-x^2}\).`,
-          genericMessage: raw`Use area \(=\frac{1}{2}\times\text{base}\times\text{height}\), with base \(2x\) and height \(e^{-x^2}\).`
+          title: raw`Write the area function`,
+          previewHtml: raw`The symmetry means the base is \(2x\), so the half-base-times-height calculation collapses to \(xe^{-x^2}\).`,
+          workingHtml: raw`<p class="step-text">The symmetry means the base is \(2x\), so the half-base-times-height calculation collapses to \(xe^{-x^2}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  x \cdot e^{\left(-x^{2}\right)}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Differentiate the area",
-          text: raw`What is \(A'(x)\)?`,
-          ariaLabel: "Type the derivative of the area function",
-          acceptedAnswers: ["e^(-x^2)(1-2x^2)"],
-          samples: [{ x: 0.3 }, { x: 0.7 }, { x: 1.1 }],
-          successMessage: raw`Yes. Product rule and chain rule together give that derivative.`,
-          genericMessage: raw`Differentiate \(xe^{-x^2}\) with the product rule, then factor out the common exponential.`
+          title: raw`Differentiate the area`,
+          previewHtml: raw`Product rule and chain rule together give that derivative.`,
+          workingHtml: raw`<p class="step-text">Product rule and chain rule together give that derivative.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  e^{\left(-x^{2}\right)} \left(1 - 2 x^{2}\right)
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the positive critical value",
-          text: raw`Solve \(A'(x)=0\). Since \(x\ge 0\), which value of \(x\) do we keep?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Find the positive critical value`,
+          previewHtml: raw`The negative root is ignored because the question says \(x\ge 0\).`,
+          workingHtml: raw`<p class="step-text">The negative root is ignored because the question says \(x\ge 0\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{1}{\sqrt{2}}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The negative root is ignored because the question says \(x\ge 0\).`
-            },
-            {
-              html: raw`\[
-                -\frac{1}{\sqrt{2}}
-              \]`,
-              failureMessage: raw`That root is excluded by the condition \(x\ge 0\).`
-            },
-            {
-              html: raw`\[
-                \frac{1}{2}
-              \]`,
-              failureMessage: raw`You still need the square root when solving \(1-2x^2=0\).`
-            },
-            {
-              html: raw`\[
-                \sqrt{2}
-              \]`,
-              failureMessage: raw`The solution is the reciprocal of this value.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "State the largest area",
-          text: raw`What is the largest possible area of triangle \(OPQ\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`State the largest area`,
+          previewHtml: raw`That is the value the question asks you to prove.`,
+          workingHtml: raw`<p class="step-text">That is the value the question asks you to prove.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{1}{\sqrt{2e}}
-              \]`,
-              correct: true,
-              successMessage: raw`Exactly. That is the value the question asks you to prove.`
-            },
-            {
-              html: raw`\[
-                \frac{e}{\sqrt{2}}
-              \]`,
-              failureMessage: raw`The exponential should be \(e^{-1/2}\), not \(e\).`
-            },
-            {
-              html: raw`\[
-                \frac{1}{2e}
-              \]`,
-              failureMessage: raw`That misses the square root in the simplification.`
-            },
-            {
-              html: raw`\[
-                \frac{1}{\sqrt{2}}
-              \]`,
-              failureMessage: raw`You still need the \(e^{-1/2}\) factor from substituting into the area function.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Let \(P=(x,e^{-x^2})\). Because \(OP=PQ\), point \(P\) is above the midpoint of the base, so \(OQ=2x\).</p>
+        <p class="step-text">That makes the area</p>
+        <div class="math-block">
+          \[
+          A=\frac{1}{2}(2x)\left(e^{-x^2}\right)=xe^{-x^2}
+          \]
+        </div>
+        <p class="step-text">Differentiate:</p>
+        <div class="math-block">
+          \[
+          \frac{dA}{dx}=e^{-x^2}(1-2x^2)
+          \]
+        </div>
+        <p class="step-text">Set the derivative equal to zero:</p>
+        <div class="math-block">
+          \[
+          e^{-x^2}(1-2x^2)=0
+          \]
+          \[
+          1-2x^2=0
+          \]
+          \[
+          x=\frac{1}{\sqrt{2}}
+          \]
+        </div>
+        <p class="step-text">Now substitute back into the area function:</p>
+        <div class="math-block">
+          \[
+          A=\frac{1}{\sqrt{2}}e^{-1/2}=\frac{1}{\sqrt{2e}}
+          \]
+        </div>
+        <p class="step-text">And that is the required largest possible area. We do not even have to prove it is a maximum.</p>
+      `
         }
       ]
     })

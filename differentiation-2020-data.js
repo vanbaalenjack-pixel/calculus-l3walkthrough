@@ -24,7 +24,7 @@
   }
 
   function pageHref(id) {
-    return id + "2020.html#question-" + id;
+    return id + "2020.html";
   }
 
   function previousId(id) {
@@ -105,8 +105,8 @@
           </div>
       `,
       guidedSteps: [
-        guidedStep("Choose the method", raw`
-          
+        guidedStep("Apply the chain rule", raw`
+          <p class="step-text">The fifth power is applied to a function of \(x\), so the chain rule connects the outer and inner derivatives.</p>
         `, raw`
           <p class="step-text">Use the chain rule because the fifth power is applied to a function of \(x\).</p>
         `),
@@ -175,7 +175,7 @@
           </div>
       `,
       guidedSteps: [
-        guidedStep("Choose the method", raw`
+        guidedStep("Differentiate the trigonometric terms", raw`
           <p class="step-text">Differentiate the function using trig derivatives and the chain rule.</p>
         `, raw`
           <div class="math-block">
@@ -238,7 +238,7 @@
           </div>
       `,
       guidedSteps: [
-        guidedStep("Choose the method", raw`
+        guidedStep("Apply the quotient rule", raw`
           <p class="step-text">Differentiate using the quotient rule.</p>
         `, raw`
           <div class="math-block">
@@ -298,7 +298,7 @@
           </div>
       `,
       guidedSteps: [
-        guidedStep("Choose the method", raw`
+        guidedStep("Apply the product rule", raw`
           <p class="step-text">Differentiate using the product rule.</p>
         `, raw`
           <div class="math-block">
@@ -375,7 +375,7 @@
           </div>
       `,
       guidedSteps: [
-        guidedStep("Choose the method", raw`
+        guidedStep("Relate the cylinder dimensions", raw`
           <p class="step-text">Relate the cylinder radius \(r\) and height \(h\) using the right triangle inside the sphere.</p>
         `, raw`
           <div class="math-block">
@@ -512,7 +512,7 @@
           </div>
       `,
       guidedSteps: [
-        guidedStep("Choose the method", raw`
+        guidedStep("Differentiate the value function", raw`
           <p class="step-text">Differentiate the value function with respect to time.</p>
         `, raw`
           <div class="math-block">
@@ -572,7 +572,7 @@
           </div>
       `,
       guidedSteps: [
-        guidedStep("Choose the method", raw`
+        guidedStep("Apply the product rule", raw`
           <p class="step-text">Differentiate with the product rule.</p>
         `, raw`
           <div class="math-block">
@@ -634,7 +634,7 @@
           </div>
       `,
       guidedSteps: [
-        guidedStep("Choose the method", raw`
+        guidedStep("Relate height and elevation angle", raw`
           <p class="step-text">Relate the height \(h\) and angle of elevation \(A\).</p>
         `, raw`
           <div class="math-block">
@@ -732,7 +732,7 @@
           </div>
       `,
       guidedSteps: [
-        guidedStep("Choose the method", raw`
+        guidedStep("Use parametric differentiation", raw`
           <p class="step-text">Find \(\frac{dy}{dx}\) using parametric differentiation.</p>
         `, raw`
           <div class="math-block">
@@ -859,7 +859,7 @@
           </div>
       `,
       guidedSteps: [
-        guidedStep("Choose the method", raw`
+        guidedStep("Rewrite the square root as a power", raw`
           <p class="step-text">Rewrite the square root as a power and differentiate.</p>
         `, raw`
           <div class="math-block">
@@ -918,7 +918,7 @@
           </div>
       `,
       guidedSteps: [
-        guidedStep("Choose the method", raw`
+        guidedStep("Find the tangent gradient", raw`
           <p class="step-text">Differentiate to find the tangent gradient at \((4,3)\).</p>
         `, raw`
           <div class="math-block">
@@ -996,7 +996,7 @@
           </div>
       `,
       guidedSteps: [
-        guidedStep("Choose the method", raw`
+        guidedStep("Rewrite before differentiating", raw`
           <p class="step-text">Rewrite the first term and differentiate.</p>
         `, raw`
           <div class="math-block">
@@ -1082,7 +1082,7 @@
           </div>
       `,
       guidedSteps: [
-        guidedStep("Choose the method", raw`
+        guidedStep("Differentiate with the product rule", raw`
           <p class="step-text">Find the first derivative using the product rule.</p>
         `, raw`
           <div class="math-block">

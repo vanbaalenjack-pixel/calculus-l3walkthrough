@@ -29,7 +29,7 @@
       "description": "2022 NCEA Level 3 Differentiation AS91578 Question 1(c) worked solution: the normal line and its x-intercept. Use guided hints and step-by-step reasoning.",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 3",
       "teaches": "the normal line and its x-intercept",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1>2022 NCEA Level 3 Differentiation Question 1(c)</h1>
-        <p class="subtitle">2022 Paper - Normal line and x-intercept</p>
+        <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
+        <h1 id="page-title">2022 NCEA Level 3 Differentiation Question 1(c)</h1>
+        <p id="page-subtitle" class="subtitle">2022 Paper - Normal line and x-intercept</p>
       </div>
-      <a class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,159 +119,139 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <p class="step-text">
-        The graph below shows the function \(y=\sqrt{x+2}\), and the normal to the function at the point where the function intersects the \(y\)-axis.
-      </p>
-      <div class="graph-frame question-graph-frame">
-        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Question graph of square root of x plus 2 and its normal line" role="img"></svg>
-      </div>
-      <p class="step-text">
-        Find the coordinates of point \(P\), the \(x\)-intercept of the normal.
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <p class="step-text question-note">
-        You must use calculus and show any derivatives that you need.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
+    <div id="walkthrough-content" class="hidden"></div>
 
-    <div id="walkthrough-content" class="hidden">
-    <section id="step-1" class="step-card">
-      <p class="step-number">Step 1</p>
-      <h2>Find the point on the curve when \(x=0\)</h2>
-      <p class="step-text">The function meets the \(y\)-axis where \(x=0\).</p>
-
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkYAxisPoint('correct')">
-          \((0,\sqrt{2})\)
-        </button>
-        <button class="option-btn" onclick="checkYAxisPoint('wrong1')">
-          \((0,2)\)
-        </button>
+    <!-- SEO:SUMMARY:START -->
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
+      <p class="question-label">Learning summary</p>
+      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
+      <p class="step-text" data-seo-summary>This walkthrough focuses on the normal line and its x-intercept. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+      <h3>Common mistake to avoid</h3>
+      <p class="step-text" data-seo-mistake>A normal gradient is the negative reciprocal of the tangent gradient, not simply its negative.</p>
+      <h3>Continue practising</h3>
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="1b2022.html" data-seo-related="previous">← Question 1(b)</a>
+        <a class="nav-btn secondary" href="1d2022.html" data-seo-related="next">Question 1(d) →</a>
       </div>
-
-      <div id="feedback-1" class="feedback"></div>
-      <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-        Next step →
-      </button>
+      <ul class="step-text">
+        <li><a href="level-3-differentiation-2022.html" data-seo-related-year>All 2022 Differentiation walkthroughs</a></li>
+        <li><a href="level-3-differentiation.html" data-seo-standard-link>All AS91578 Differentiation years</a></li>
+      </ul>
     </section>
+    <!-- SEO:SUMMARY:END -->
+  </main>
 
-    <section id="step-2" class="step-card hidden">
-      <p class="step-number">Step 2</p>
-      <h2>Rewrite the square root as a power</h2>
-      <p class="step-text">This makes differentiation easier.</p>
+  <script>
+    const hintContent = [
+      "Start at the point where the curve meets the \\(y\\)-axis, since the normal is taken there.",
+      "Find the derivative of \\(y=\\sqrt{x+2}\\), work out the tangent gradient at \\(x=0\\), then use the negative reciprocal for the normal.",
+      "Use the point \\((0,\\sqrt{2})\\) and the normal gradient to form the line equation, then set \\(y=0\\) to find the \\(x\\)-intercept."
+    ];
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkRewrite('correct')">
-          \(y=(x+2)^{1/2}\)
-        </button>
-        <button class="option-btn" onclick="checkRewrite('wrong1')">
-          \(y=x+\frac{2}{1/2}\)
-        </button>
-      </div>
+    document.addEventListener("DOMContentLoaded", function () {
+      const raw = String.raw;
+      const answerHtml = `
+          <p class="step-text">The intercept point is:</p>
+          <div class="math-block">
+            \\[
+            P=\\left(\\frac{1}{2},0\\right)
+            \\]
+          </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Find the point on the curve when \(x=0\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">The function meets the \(y\)-axis where \(x=0\).</p>
 
-      <div id="feedback-2" class="feedback"></div>
-      <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-        Next step →
-      </button>
-    </section>
 
-    <section id="step-3" class="step-card hidden">
-      <p class="step-number">Step 3</p>
-      <h2>Differentiate using the chain rule</h2>
-      <p class="step-text">What is the derivative of \(y=\sqrt{x+2}\)?</p>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\((0,\sqrt{2})\)</div>
+        </div>
 
-      <div class="math-input-group">
-        <input
-          id="step-3-answer"
-          class="math-answer-input"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Type the derivative"
-          placeholder="Type your answer here"
-        />
-        <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-        <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
-          Check
-        </button>
-      </div>
+      <p class="step-text">When \(x=0\), \(y=\sqrt{0+2}=\sqrt{2}\), so the point is \((0,\sqrt{2})\).</p>
+          `
+        },
+        {
+          title: raw`Rewrite the square root as a power`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">This makes differentiation easier.</p>
 
-      <div id="feedback-3" class="feedback"></div>
-      <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-        Next step →
-      </button>
-    </section>
 
-    <section id="step-4" class="step-card hidden">
-      <p class="step-number">Step 4</p>
-      <h2>Find the tangent gradient at \(x=0\)</h2>
-      <p class="step-text">Substitute \(x=0\) into the derivative.</p>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\(y=(x+2)^{1/2}\)</div>
+        </div>
 
-      <div class="math-input-group">
-        <input
-          id="step-4-answer"
-          class="math-answer-input"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Type the tangent gradient"
-          placeholder="Type your answer here"
-        />
-        <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-        <button class="nav-btn check-btn" type="button" onclick="checkTangentGradient()">
-          Check
-        </button>
-      </div>
+      <p class="step-text">\(\sqrt{x+2}\) can be written as \((x+2)^{1/2}\).</p>
+          `
+        },
+        {
+          title: raw`Differentiate using the chain rule`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Differentiate \(y=\sqrt{x+2}\) using the power and chain rules.</p>
 
-      <div id="feedback-4" class="feedback"></div>
-      <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-        Next step →
-      </button>
-    </section>
 
-    <section id="step-5" class="step-card hidden">
-      <p class="step-number">Step 5</p>
-      <h2>Find the normal gradient</h2>
-      <p class="step-text">
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \frac{1}{\left(2 \sqrt{x + 2}\right)}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Differentiate \((x+2)^{1/2}\) using the power rule and chain rule to get \(\frac{1}{2\sqrt{x+2}}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Find the tangent gradient at \(x=0\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Substitute \(x=0\) into the derivative.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \frac{1}{\left(2 \sqrt{2}\right)}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Substituting \(x=0\) gives \(\frac{1}{2\sqrt{2}}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Find the normal gradient`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">
         The gradient of the normal is the negative reciprocal of the tangent gradient.
       </p>
 
-      <div class="math-input-group">
-        <input
-          id="step-5-answer"
-          class="math-answer-input"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Type the normal gradient"
-          placeholder="Type your answer here"
-        />
-        <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-        <button class="nav-btn check-btn" type="button" onclick="checkNormalGradient()">
-          Check
-        </button>
-      </div>
 
-      <div id="feedback-5" class="feedback"></div>
-      <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
-        Next step →
-      </button>
-    </section>
-
-    <section id="step-6" class="step-card hidden">
-      <p class="step-number">Step 6</p>
-      <h2>Find the x-intercept of the normal</h2>
-      <p class="step-text">
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            -2 \sqrt{2}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">The normal gradient is the negative reciprocal of \(\frac{1}{2\sqrt{2}}\), which is \(-2\sqrt{2}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Find the x-intercept of the normal`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">
         Use the point \((0,\sqrt{2})\) and gradient \(-2\sqrt{2}\) in the line equation.
       </p>
 
@@ -285,35 +264,25 @@
         \]
       </div>
 
-      <p class="step-text">When the line crosses the \(x\)-axis, \(y=0\). What is \(x\)?</p>
+      <p class="step-text">Set \(y=0\) and solve for the x-intercept.</p>
 
-      <div class="math-input-group">
-        <input
-          id="step-6-answer"
-          class="math-answer-input"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Type the x intercept"
-          placeholder="Type your answer here"
-        />
-        <div id="step-6-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-        <button class="nav-btn check-btn" type="button" onclick="checkIntercept()">
-          Check
-        </button>
-      </div>
 
-      <div id="feedback-6" class="feedback"></div>
-      <button id="next-step-6" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-7')">
-        Next step →
-      </button>
-    </section>
-
-    <section id="step-7" class="step-card hidden">
-      <p class="step-number">Step 7</p>
-      <h2>Final answer and graph</h2>
-      <p class="step-text">
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \frac{1}{2}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Setting \(y=0\) in \(y=-2\sqrt{2}x+\sqrt{2}\) gives \(x=\frac{1}{2}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Final result and graph`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">
         Point \(P\), the \(x\)-intercept of the normal, is
       </p>
 
@@ -347,190 +316,46 @@
           <svg id="normal-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of square root of x plus 2 and its normal line" role="img"></svg>
         </div>
       </div>
+          `
+        }
+      ];
 
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="1b2022.html">← Back to Question 1(b)</a>
-        <a class="nav-btn" href="1d2022.html">Next question →</a>
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
+
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<p class="step-text">
+        The graph below shows the function \(y=\sqrt{x+2}\), and the normal to the function at the point where the function intersects the \(y\)-axis.
+      </p>
+      <div class="graph-frame question-graph-frame">
+        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Question graph of square root of x plus 2 and its normal line" role="img"></svg>
       </div>
-    </section>
-    </div>
-
-    <!-- SEO:SUMMARY:START -->
-    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-      <p class="question-label">Learning summary</p>
-      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough focuses on the normal line and its x-intercept. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>A normal gradient is the negative reciprocal of the tangent gradient, not simply its negative.</p>
-      <h3>Continue practising</h3>
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="1b2022.html" data-seo-related="previous">← Question 1(b)</a>
-        <a class="nav-btn secondary" href="1d2022.html" data-seo-related="next">Question 1(d) →</a>
-      </div>
-      <ul class="step-text">
-        <li><a href="level-3-differentiation-2022.html" data-seo-related-year>All 2022 Differentiation walkthroughs</a></li>
-        <li><a href="level-3-differentiation.html" data-seo-standard-link>All AS91578 Differentiation years</a></li>
-      </ul>
-    </section>
-    <!-- SEO:SUMMARY:END -->
-  </main>
-
-  <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
-    const hintContent = [
-      "Start at the point where the curve meets the \\(y\\)-axis, since the normal is taken there.",
-      "Find the derivative of \\(y=\\sqrt{x+2}\\), work out the tangent gradient at \\(x=0\\), then use the negative reciprocal for the normal.",
-      "Use the point \\((0,\\sqrt{2})\\) and the normal gradient to form the line equation, then set \\(y=0\\) to find the \\(x\\)-intercept."
-    ];
-
-    document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
-          <p class="step-text">The intercept point is:</p>
-          <div class="math-block">
-            \\[
-            P=\\left(\\frac{1}{2},0\\right)
-            \\]
-          </div>
+      <p class="step-text">
+        Find the coordinates of point \(P\), the \(x\)-intercept of the normal.
+      </p>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need.
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-3-differentiation-2022.html",
         nextHref: "1d2022.html",
-        nextLabel: "Next question →"
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "1b2022.html", label: "← Back to Question 1(b)" },
+          primary: { href: "1d2022.html", label: "Next question →" }
+        },
+        guidedSteps: guidedSteps,
+        afterRender: function () {
+          setupGraphControls();
+          drawQuestionGraph();
+          drawGraph();
+        }
+      }, {
+        defaultEyebrow: "Level 3 Differentiation Walkthrough"
       });
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
-      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
-      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
-      TypedMath.setupMathInputPreview("step-6-answer", "step-6-preview");
-      TypedMath.bindMathInputCheck("step-3-answer", checkDerivative);
-      TypedMath.bindMathInputCheck("step-4-answer", checkTangentGradient);
-      TypedMath.bindMathInputCheck("step-5-answer", checkNormalGradient);
-      TypedMath.bindMathInputCheck("step-6-answer", checkIntercept);
-      setupGraphControls();
-      drawQuestionGraph();
-      drawGraph();
     });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(step => step.classList.add("hidden"));
-      document.getElementById(stepId).classList.remove("hidden");
-      if (stepId === "step-7") {
-        drawGraph();
-      }
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) return;
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkYAxisPoint(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. When \\(x=0\\), \\(y=\\sqrt{0+2}=\\sqrt{2}\\), so the point is \\((0,\\sqrt{2})\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. Substitute \\(x=0\\) into \\(y=\\sqrt{x+2}\\).");
-        toggleNextStepButton("next-step-1", false);
-      }
-    }
-
-    function checkRewrite(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Yes. \\(\\sqrt{x+2}\\) can be written as \\((x+2)^{1/2}\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. A square root is the same as a power of \\(\\frac{1}{2}\\).");
-        toggleNextStepButton("next-step-2", false);
-      }
-    }
-
-    function checkDerivative() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        acceptedAnswers: ["1/(2sqrt(x+2))"],
-        samples: [{ x: 0 }, { x: 2 }],
-        successMessage: "Correct. Differentiate \\((x+2)^{1/2}\\) using the power rule and chain rule to get \\(\\frac{1}{2\\sqrt{x+2}}\\).",
-        genericMessage: "Not quite. Bring down the power \\(\\frac{1}{2}\\), reduce the power by 1, then multiply by the derivative of \\(x+2\\).",
-        targetedFeedback: [
-          {
-            answers: ["sqrt(x+2)"],
-            message: "That is the original function, not its derivative. Apply the power rule and chain rule."
-          }
-        ]
-      });
-    }
-
-    function checkTangentGradient() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-4-answer",
-        feedbackId: "feedback-4",
-        nextButtonId: "next-step-4",
-        acceptedAnswers: ["1/(2sqrt(2))"],
-        successMessage: "Exactly. Substituting \\(x=0\\) gives \\(\\frac{1}{2\\sqrt{2}}\\).",
-        genericMessage: "Try again. Substitute into the derivative carefully: \\(\\frac{1}{2\\sqrt{0+2}}\\).",
-        targetedFeedback: [
-          {
-            answers: ["2sqrt(2)"],
-            message: "Not quite. \\(\\sqrt{2}\\) stays in the denominator when you substitute \\(x=0\\)."
-          }
-        ]
-      });
-    }
-
-    function checkNormalGradient() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-5-answer",
-        feedbackId: "feedback-5",
-        nextButtonId: "next-step-5",
-        acceptedAnswers: ["-2sqrt(2)"],
-        successMessage: "Correct. The normal gradient is the negative reciprocal of \\(\\frac{1}{2\\sqrt{2}}\\), which is \\(-2\\sqrt{2}\\).",
-        genericMessage: "Not quite. For a normal line, multiply the tangent and normal gradients to get \\(-1\\).",
-        targetedFeedback: [
-          {
-            answers: ["-1/(2sqrt(2))"],
-            message: "Not quite. The normal gradient is the negative reciprocal, so the fraction flips."
-          }
-        ]
-      });
-    }
-
-    function checkIntercept() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-6-answer",
-        feedbackId: "feedback-6",
-        nextButtonId: "next-step-6",
-        acceptedAnswers: ["1/2"],
-        successMessage: "Great work. Setting \\(y=0\\) in \\(y=-2\\sqrt{2}x+\\sqrt{2}\\) gives \\(x=\\frac{1}{2}\\).",
-        genericMessage: "Not quite. Replace \\(y\\) with 0, then solve \\(0=-2\\sqrt{2}x+\\sqrt{2}\\).",
-        targetedFeedback: [
-          {
-            answers: ["2"],
-            message: "Not quite. Recheck the algebra after setting \\(y=0\\)."
-          }
-        ]
-      });
-    }
 
     function setupGraphControls() {
       const zoomSlider = document.getElementById("zoom-slider");

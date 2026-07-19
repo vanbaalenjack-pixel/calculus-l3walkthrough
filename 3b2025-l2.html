@@ -29,7 +29,7 @@
       "description": "2025 NCEA Level 2 Calculus AS91262 Question 3(b) worked solution: forming an area expression, finding the height from the given area, and evaluating the…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 2",
       "teaches": "forming an area expression, finding the height from the given area, and evaluating the rate of change",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
-        <h1>2025 NCEA Level 2 Calculus Question 3(b)</h1>
-        <p class="subtitle">2025 Paper — Rate of change of triangle area with respect to height</p>
+        <p id="page-eyebrow" class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1 id="page-title">2025 NCEA Level 2 Calculus Question 3(b)</h1>
+        <p id="page-subtitle" class="subtitle">2025 Paper — Rate of change of triangle area with respect to height</p>
       </div>
-      <a class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,170 +119,158 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <p class="step-text">
-        The base is always \(4\) times the perpendicular height.
-      </p>
-      <p class="step-text">
-        Find the rate of change of the area of the triangle with respect to its vertical height when the area of the triangle is \(98\text{ cm}^2\).
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <p class="step-text question-note">
-        Start by writing the area in terms of height, use the area \(98\) to find the height, then differentiate and evaluate the rate when the height is \(7\).
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
+    <div id="walkthrough-content" class="hidden"></div>
 
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card active">
-        <p class="step-number">Step 1</p>
-        <h2>Write the base in terms of height</h2>
-        <p class="step-text">If the height is \(h\), what is the base?</p>
+    <!-- SEO:SUMMARY:START -->
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
+      <p class="question-label">Learning summary</p>
+      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
+      <p class="step-text" data-seo-summary>This walkthrough focuses on forming an area expression, finding the height from the given area, and evaluating the rate of change. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+      <h3>Common mistake to avoid</h3>
+      <p class="step-text" data-seo-mistake>Check intersections, signs, and whether the question asks for signed area or total geometric area.</p>
+      <h3>Continue practising</h3>
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="3a2025-l2.html" data-seo-related="previous">← Question 3(a)</a>
+        <a class="nav-btn secondary" href="3c2025-l2.html" data-seo-related="next">Question 3(c) →</a>
+      </div>
+      <ul class="step-text">
+        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
+        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
+      </ul>
+    </section>
+    <!-- SEO:SUMMARY:END -->
+  </main>
 
-        <div class="math-input-group">
-          <input
-            id="step-1-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the base in terms of h"
-            placeholder="Type your answer here"
-          />
-          <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkBase()">
-            Check
-          </button>
+  <script>
+    const hintContent = [
+      "Use the relationship between base and height first so the area can be written using only one variable.",
+      "Once you have an area formula, substitute \\(A=98\\) to find the corresponding height.",
+      "Differentiate the area formula with respect to height, then substitute the height value you found."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const raw = String.raw;
+      const answerHtml = `
+          <p class="step-text">Write the area in terms of height:</p>
+          <div class="math-block">
+            \\[
+            b=4h
+            \\]
+            \\[
+            A=\\frac{1}{2}(4h)(h)=2h^2
+            \\]
+          </div>
+          <p class="step-text">Then find the height and evaluate the rate:</p>
+          <div class="math-block">
+            \\[
+            98=2h^2 \\Rightarrow h=7
+            \\]
+            \\[
+            \\frac{dA}{dh}=4h
+            \\]
+            \\[
+            \\frac{dA}{dh}=28
+            \\]
+          </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Write the base in terms of height`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Express the base in terms of the height \(h\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            4 h
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">The base is always four times the height, so \(b=4h\).</p></div>
         </div>
+          `
+        },
+        {
+          title: raw`Form the area expression`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Substitute the base relation into \(A=\frac{1}{2}bh\) to express area in terms of \(h\).</p>
 
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
 
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Form the area expression</h2>
-        <p class="step-text">Using \(A=\frac{1}{2}bh\), which expression gives the area in terms of \(h\)?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-2-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the area expression in terms of h"
-            placeholder="Type your answer here"
-          />
-          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkAreaExpression()">
-            Check
-          </button>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            2 h^{2}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Using \(A=\frac{1}{2}bh\) with \(b=4h\) gives \(A=\frac{1}{2}(4h)(h)=2h^2\).</p></div>
         </div>
+          `
+        },
+        {
+          title: raw`Find the height when the area is 98`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Substitute \(A=98\) into the area formula and solve for the positive height.</p>
 
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
 
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Find the height when the area is 98</h2>
-        <p class="step-text">Substitute \(A=98\) into the area formula. What is the height?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-3-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the height"
-            placeholder="Type your answer here"
-          />
-          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkHeight()">
-            Check
-          </button>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            7
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">From \(98=2h^2\), we get \(h^2=49\), so the positive height is \(7\).</p></div>
         </div>
+          `
+        },
+        {
+          title: raw`Differentiate the area function`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Differentiate \(A=2h^2\) with respect to \(h\).</p>
 
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
 
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Differentiate the area function</h2>
-        <p class="step-text">What is \(\frac{dA}{dh}\) if \(A=2h^2\)?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-4-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the derivative with respect to h"
-            placeholder="Type your answer here"
-          />
-          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
-            Check
-          </button>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            4 h
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Differentiate \(2h^2\) using the power rule to get \(4h\).</p></div>
         </div>
+          `
+        },
+        {
+          title: raw`Evaluate the rate at \(h=7\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Substitute \(h=7\) into the derivative to evaluate the rate of change.</p>
 
-        <div id="feedback-4" class="feedback"></div>
-        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-          Next step →
-        </button>
-      </section>
 
-      <section id="step-5" class="step-card hidden">
-        <p class="step-number">Step 5</p>
-        <h2>Evaluate the rate at \(h=7\)</h2>
-        <p class="step-text">Substitute \(h=7\) into the derivative. What is the rate of change?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-5-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the rate of change"
-            placeholder="Type your answer here"
-          />
-          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkRate()">
-            Check
-          </button>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            28
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Substituting \(h=7\) into \(\frac{dA}{dh}=4h\) gives \(28\).</p></div>
         </div>
-
-        <div id="feedback-5" class="feedback"></div>
-        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-6" class="step-card hidden">
-        <p class="step-number">Step 6</p>
-        <h2>Final answer</h2>
-        <p class="step-text">Now write the method and answer clearly.</p>
+          `
+        },
+        {
+          title: raw`Final result`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Now write the method and answer clearly.</p>
 
         <div class="math-block">
           \[
@@ -315,207 +302,39 @@
           \]
         </div>
 
-        <div id="feedback-6" class="feedback success">
-          Great work. When the area is \(98\text{ cm}^2\), the height is \(7\) cm and the rate of change is \(28\text{ cm}^2\) per cm.
-        </div>
+        <p class="step-text">When the area is \(98\text{ cm}^2\), the height is \(7\) cm and the rate of change is \(28\text{ cm}^2\) per cm.</p>
+          `
+        }
+      ];
 
-        <div class="nav-row">
-          <a class="nav-btn secondary" href="3a2025-l2.html">← Back to Question 3(a)</a>
-          <a class="nav-btn" href="3c2025-l2.html">Next question →</a>
-        </div>
-      </section>
-    </div>
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
 
-    <!-- SEO:SUMMARY:START -->
-    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-      <p class="question-label">Learning summary</p>
-      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough focuses on forming an area expression, finding the height from the given area, and evaluating the rate of change. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Check intersections, signs, and whether the question asks for signed area or total geometric area.</p>
-      <h3>Continue practising</h3>
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="3a2025-l2.html" data-seo-related="previous">← Question 3(a)</a>
-        <a class="nav-btn secondary" href="3c2025-l2.html" data-seo-related="next">Question 3(c) →</a>
-      </div>
-      <ul class="step-text">
-        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
-        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
-      </ul>
-    </section>
-    <!-- SEO:SUMMARY:END -->
-  </main>
-
-  <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
-    const hintContent = [
-      "Use the relationship between base and height first so the area can be written using only one variable.",
-      "Once you have an area formula, substitute \\(A=98\\) to find the corresponding height.",
-      "Differentiate the area formula with respect to height, then substitute the height value you found."
-    ];
-
-    document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
-          <p class="step-text">Write the area in terms of height:</p>
-          <div class="math-block">
-            \\[
-            b=4h
-            \\]
-            \\[
-            A=\\frac{1}{2}(4h)(h)=2h^2
-            \\]
-          </div>
-          <p class="step-text">Then find the height and evaluate the rate:</p>
-          <div class="math-block">
-            \\[
-            98=2h^2 \\Rightarrow h=7
-            \\]
-            \\[
-            \\frac{dA}{dh}=4h
-            \\]
-            \\[
-            \\frac{dA}{dh}=28
-            \\]
-          </div>
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<p class="step-text">
+        The base is always \(4\) times the perpendicular height.
+      </p>
+      <p class="step-text">
+        Find the rate of change of the area of the triangle with respect to its vertical height when the area of the triangle is \(98\text{ cm}^2\).
+      </p>
+      <p class="step-text question-note">
+        Start by writing the area in terms of height, use the area \(98\) to find the height, then differentiate and evaluate the rate when the height is \(7\).
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-2-calculus-2025.html",
         nextHref: "3c2025-l2.html",
-        nextLabel: "Next question →"
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "3a2025-l2.html", label: "← Back to Question 3(a)" },
+          primary: { href: "3c2025-l2.html", label: "Next question →" }
+        },
+        guidedSteps: guidedSteps
+      }, {
+        defaultEyebrow: "Level 2 Calculus Walkthrough"
       });
-      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
-      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
-      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
-      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
-      TypedMath.bindMathInputCheck("step-1-answer", checkBase);
-      TypedMath.bindMathInputCheck("step-2-answer", checkAreaExpression);
-      TypedMath.bindMathInputCheck("step-3-answer", checkHeight);
-      TypedMath.bindMathInputCheck("step-4-answer", checkDerivative);
-      TypedMath.bindMathInputCheck("step-5-answer", checkRate);
     });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(function (step) {
-        step.classList.add("hidden");
-      });
-      document.getElementById(stepId).classList.remove("hidden");
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) {
-        return;
-      }
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkBase() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-1-answer",
-        feedbackId: "feedback-1",
-        nextButtonId: "next-step-1",
-        acceptedAnswers: ["4h"],
-        samples: [{ h: 1.5 }, { h: 4 }],
-        successMessage: "Correct. The base is always four times the height, so \\(b=4h\\).",
-        genericMessage: "Not quite. 'Four times the height' means multiply the height by 4.",
-        targetedFeedback: [
-          {
-            answers: ["h+4"],
-            message: "Not quite. 'Four times the height' means multiply the height by 4, not add 4."
-          }
-        ]
-      });
-    }
-
-    function checkAreaExpression() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-2-answer",
-        feedbackId: "feedback-2",
-        nextButtonId: "next-step-2",
-        acceptedAnswers: ["2h^2"],
-        samples: [{ h: 1 }, { h: 3 }],
-        successMessage: "Correct. Using \\(A=\\frac{1}{2}bh\\) with \\(b=4h\\) gives \\(A=\\frac{1}{2}(4h)(h)=2h^2\\).",
-        genericMessage: "Try again. Remember the \\(\\frac{1}{2}\\) in the area formula for a triangle.",
-        targetedFeedback: [
-          {
-            answers: ["4h^2"],
-            message: "Close, but the triangle area formula includes \\(\\frac{1}{2}\\), so the result should be half of that."
-          }
-        ]
-      });
-    }
-
-    function checkHeight() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        acceptedAnswers: ["7"],
-        successMessage: "Correct. From \\(98=2h^2\\), we get \\(h^2=49\\), so the positive height is \\(7\\).",
-        genericMessage: "Not quite. First divide by 2 to get \\(h^2=49\\), then take the positive square root because height must be positive.",
-        targetedFeedback: [
-          {
-            answers: ["49"],
-            message: "Close, but \\(49\\) is \\(h^2\\). You still need the positive square root to get the height."
-          }
-        ]
-      });
-    }
-
-    function checkDerivative() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-4-answer",
-        feedbackId: "feedback-4",
-        nextButtonId: "next-step-4",
-        acceptedAnswers: ["4h"],
-        samples: [{ h: 1 }, { h: 5 }],
-        successMessage: "Correct. Differentiate \\(2h^2\\) using the power rule to get \\(4h\\).",
-        genericMessage: "Try again. Bring the power down and multiply it by the coefficient.",
-        targetedFeedback: [
-          {
-            answers: ["2h"],
-            message: "Not quite. Differentiate \\(h^2\\) to get \\(2h\\), then multiply by the coefficient 2."
-          }
-        ]
-      });
-    }
-
-    function checkRate() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-5-answer",
-        feedbackId: "feedback-5",
-        nextButtonId: "next-step-5",
-        acceptedAnswers: ["28"],
-        successMessage: "Correct. Substituting \\(h=7\\) into \\(\\frac{dA}{dh}=4h\\) gives \\(28\\).",
-        genericMessage: "Not quite. Evaluate \\(4h\\) at \\(h=7\\).",
-        targetedFeedback: [
-          {
-            answers: ["14"],
-            message: "Close, but \\(4\\times 7=28\\), not 14."
-          }
-        ]
-      });
-    }
   </script>
 </body>
 </html>

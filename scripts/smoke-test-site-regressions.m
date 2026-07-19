@@ -29,28 +29,28 @@
     @{
       @"name": @"Complex Numbers standard landing page",
       @"path": @"level-3-complex-numbers.html",
-      @"width": @1280,
+      @"width": @1440,
       @"height": @900,
       @"mode": @"seo-standard-landing"
     },
     @{
       @"name": @"2022 Complex Numbers year landing page mobile",
       @"path": @"level-3-complex-numbers-2022.html",
-      @"width": @390,
+      @"width": @375,
       @"height": @844,
       @"mode": @"seo-year-landing"
     },
     @{
       @"name": @"2021 Integration custom labels and progress",
       @"path": @"int-1b2021.html?mode=guided",
-      @"width": @1280,
+      @"width": @1024,
       @"height": @900,
       @"mode": @"integration-2021-labels"
     },
     @{
       @"name": @"mobile walkthrough sidebar focus containment",
       @"path": @"int-1b2021.html",
-      @"width": @360,
+      @"width": @320,
       @"height": @800,
       @"mode": @"mobile-sidebar"
     },
@@ -167,11 +167,11 @@
       @"mode": @"hint-math"
     },
     @{
-      @"name": @"2022 Differentiation feedback math",
+      @"name": @"2022 Differentiation guided math",
       @"path": @"2c2022.html",
       @"width": @768,
       @"height": @1024,
-      @"mode": @"feedback-math"
+      @"mode": @"guided-math"
     },
     @{
       @"name": @"Level 2 parameter hint math",

@@ -29,7 +29,7 @@
       "description": "2025 NCEA Level 2 Calculus AS91262 Question 1(b) worked solution: finding the point of tangency, the gradient, and the tangent equation. Use guided hints…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 2",
       "teaches": "finding the point of tangency, the gradient, and the tangent equation",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
-        <h1>2025 NCEA Level 2 Calculus Question 1(b)</h1>
-        <p class="subtitle">2025 Paper — Tangent equation for a cubic</p>
+        <p id="page-eyebrow" class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1 id="page-title">2025 NCEA Level 2 Calculus Question 1(b)</h1>
+        <p id="page-subtitle" class="subtitle">2025 Paper — Tangent equation for a cubic</p>
       </div>
-      <a class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,164 +119,147 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <div class="question-math">
-        \[
-        f(x)=-\frac{x^3}{3}+2x^2-3x+6
-        \]
-      </div>
-      <p class="step-text">
-        Find the equation of the tangent to the curve at \(x=2\).
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <p class="step-text question-note">
-        Start by finding the point of tangency, then differentiate to get the gradient, and finally use point-slope form.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
+    <div id="walkthrough-content" class="hidden"></div>
 
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card active">
-        <p class="step-number">Step 1</p>
-        <h2>Find the point of tangency</h2>
-        <p class="step-text">At \(x=2\), what point on the curve does the tangent touch?</p>
+    <!-- SEO:SUMMARY:START -->
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
+      <p class="question-label">Learning summary</p>
+      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
+      <p class="step-text" data-seo-summary>This walkthrough focuses on finding the point of tangency, the gradient, and the tangent equation. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+      <h3>Common mistake to avoid</h3>
+      <p class="step-text" data-seo-mistake>Use the derivative for the gradient and the original curve for the point before forming the tangent equation.</p>
+      <h3>Continue practising</h3>
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="1a2025-l2.html" data-seo-related="previous">← Question 1(a)</a>
+        <a class="nav-btn secondary" href="1c2025-l2.html" data-seo-related="next">Question 1(c) →</a>
+      </div>
+      <ul class="step-text">
+        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
+        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
+      </ul>
+    </section>
+    <!-- SEO:SUMMARY:END -->
+  </main>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkPoint('correct')">
-            \[
+  <script>
+    const hintContent = [
+      "Substitute \\(x=2\\) into the original function first so you know the point where the tangent touches the curve.",
+      "Differentiate term by term to get \\(f'(x)\\), then use \\(x=2\\) to find the tangent gradient.",
+      "Use point-slope form \\(y-y_1=m(x-x_1)\\) with the point \\(\\left(2,\\frac{16}{3}\\right)\\) and gradient \\(1\\)."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const raw = String.raw;
+      const answerHtml = `
+          <p class="step-text">The point of tangency is:</p>
+          <div class="math-block">
+            \\[
+            \\left(2,\\frac{16}{3}\\right)
+            \\]
+          </div>
+          <p class="step-text">The tangent equation is:</p>
+          <div class="math-block">
+            \\[
+            y=x+\\frac{10}{3}
+            \\]
+          </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Find the point of tangency`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Evaluate the function at \(x=2\) to locate the point of tangency.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
             \left(2,\frac{16}{3}\right)
-            \]
-          </button>
-          <button class="option-btn" onclick="checkPoint('wrong1')">
+            \]</div>
+        </div>
+
+      <p class="step-text">\(f(2)=-\frac{8}{3}+8-6+6=\frac{16}{3}\), so the point of tangency is \(\left(2,\frac{16}{3}\right)\).</p>
+          `
+        },
+        {
+          title: raw`Differentiate the function`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Differentiate the function term by term.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
             \[
-            \left(2,\frac{10}{3}\right)
+            -x^{2} + 4 x - 3
             \]
-          </button>
+          </div>
+          <div class="step-text"><p class="step-text">Differentiate term by term: \(-\frac{x^3}{3}\) becomes \(-x^2\), \(2x^2\) becomes \(4x\), and \(-3x\) becomes \(-3\).</p></div>
         </div>
+          `
+        },
+        {
+          title: raw`Find the gradient at \(x=2\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Substitute \(x=2\) into the derivative.</p>
 
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
 
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Differentiate the function</h2>
-        <p class="step-text">Which derivative is correct?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-2-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the derivative"
-            placeholder="Type your answer here"
-          />
-          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Find the gradient at \(x=2\)</h2>
-        <p class="step-text">Substitute \(x=2\) into the derivative.</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-3-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the gradient at x equals 2"
-            placeholder="Type your answer here"
-          />
-          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkGradient()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Use point-slope form</h2>
-        <p class="step-text">Which point-slope equation uses the correct point and gradient?</p>
-
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkPointSlope('correct')">
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
             \[
+            1
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">\(f'(2)=-(2)^2+4(2)-3=-4+8-3=1\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Use point-slope form`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Substitute the point and gradient into point-slope form.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
             y-\frac{16}{3}=1(x-2)
-            \]
-          </button>
-          <button class="option-btn" onclick="checkPointSlope('wrong1')">
+            \]</div>
+        </div>
+
+      <p class="step-text">Point-slope form uses \(y-y_1=m(x-x_1)\) with \(m=1\) and \(\left(x_1,y_1\right)=\left(2,\frac{16}{3}\right)\).</p>
+          `
+        },
+        {
+          title: raw`Simplify the line equation`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Rearrange the point-slope form into \(y=mx+c\) and simplify.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
             \[
-            y-2=\frac{16}{3}(x-1)
+            y = x + \frac{10}{3}
             \]
-          </button>
+          </div>
+          <div class="step-text"><p class="step-text">From \(y-\frac{16}{3}=x-2\), add \(\frac{16}{3}\) and simplify to get \(y=x+\frac{10}{3}\).</p></div>
         </div>
-
-        <div id="feedback-4" class="feedback"></div>
-        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-5" class="step-card hidden">
-        <p class="step-number">Step 5</p>
-        <h2>Simplify the line equation</h2>
-        <p class="step-text">Rearrange the point-slope form into \(y=mx+c\), then type the equation.</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-5-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the tangent equation"
-            placeholder="Type your equation here"
-          />
-          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkFinalEquation()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-5" class="feedback"></div>
-        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-6" class="step-card hidden">
-        <p class="step-number">Step 6</p>
-        <h2>Final answer and graph</h2>
-        <p class="step-text">The tangent has gradient \(1\) and passes through \(\left(2,\frac{16}{3}\right)\).</p>
+          `
+        },
+        {
+          title: raw`Final result and graph`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">The tangent has gradient \(1\) and passes through \(\left(2,\frac{16}{3}\right)\).</p>
 
         <div class="math-block">
           \[
@@ -288,9 +270,7 @@
           \]
         </div>
 
-        <div id="feedback-6" class="feedback success">
-          Great work. The tangent equation is \(y=x+\frac{10}{3}\).
-        </div>
+        <p class="step-text">The tangent equation is \(y=x+\frac{10}{3}\).</p>
 
         <div class="graph-card">
           <div class="graph-copy">
@@ -316,208 +296,44 @@
             <svg id="tangent-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of the cubic function and its tangent at x equals 2" role="img"></svg>
           </div>
         </div>
+          `
+        }
+      ];
 
-        <div class="nav-row">
-          <a class="nav-btn secondary" href="1a2025-l2.html">← Back to Question 1(a)</a>
-          <a class="nav-btn" href="1c2025-l2.html">Next question →</a>
-        </div>
-      </section>
-    </div>
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
 
-    <!-- SEO:SUMMARY:START -->
-    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-      <p class="question-label">Learning summary</p>
-      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough focuses on finding the point of tangency, the gradient, and the tangent equation. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Use the derivative for the gradient and the original curve for the point before forming the tangent equation.</p>
-      <h3>Continue practising</h3>
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="1a2025-l2.html" data-seo-related="previous">← Question 1(a)</a>
-        <a class="nav-btn secondary" href="1c2025-l2.html" data-seo-related="next">Question 1(c) →</a>
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<div class="question-math">
+        \[
+        f(x)=-\frac{x^3}{3}+2x^2-3x+6
+        \]
       </div>
-      <ul class="step-text">
-        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
-        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
-      </ul>
-    </section>
-    <!-- SEO:SUMMARY:END -->
-  </main>
-
-  <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
-    const hintContent = [
-      "Substitute \\(x=2\\) into the original function first so you know the point where the tangent touches the curve.",
-      "Differentiate term by term to get \\(f'(x)\\), then use \\(x=2\\) to find the tangent gradient.",
-      "Use point-slope form \\(y-y_1=m(x-x_1)\\) with the point \\(\\left(2,\\frac{16}{3}\\right)\\) and gradient \\(1\\)."
-    ];
-
-    document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
-          <p class="step-text">The point of tangency is:</p>
-          <div class="math-block">
-            \\[
-            \\left(2,\\frac{16}{3}\\right)
-            \\]
-          </div>
-          <p class="step-text">The tangent equation is:</p>
-          <div class="math-block">
-            \\[
-            y=x+\\frac{10}{3}
-            \\]
-          </div>
+      <p class="step-text">
+        Find the equation of the tangent to the curve at \(x=2\).
+      </p>
+      <p class="step-text question-note">
+        Start by finding the point of tangency, then differentiate to get the gradient, and finally use point-slope form.
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-2-calculus-2025.html",
         nextHref: "1c2025-l2.html",
-        nextLabel: "Next question →"
-      });
-      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
-      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview", {
-        mode: "equation",
-        equationLhs: "y",
-        allowBareExpression: true
-      });
-      TypedMath.bindMathInputCheck("step-2-answer", checkDerivative);
-      TypedMath.bindMathInputCheck("step-3-answer", checkGradient);
-      TypedMath.bindMathInputCheck("step-5-answer", checkFinalEquation);
-      setupGraphControls();
-      drawGraph();
-    });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(function (step) {
-        step.classList.add("hidden");
-      });
-      document.getElementById(stepId).classList.remove("hidden");
-      if (stepId === "step-6") {
-        drawGraph();
-      }
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) {
-        return;
-      }
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkPoint(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. \\(f(2)=-\\frac{8}{3}+8-6+6=\\frac{16}{3}\\), so the point of tangency is \\(\\left(2,\\frac{16}{3}\\right)\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. Substitute \\(x=2\\) into the original function to get the \\(y\\)-value on the curve.");
-        toggleNextStepButton("next-step-1", false);
-      }
-    }
-
-    function checkDerivative() {
-      TypedMath.checkTypedStep({
-        inputId: "step-2-answer",
-        feedbackId: "feedback-2",
-        nextButtonId: "next-step-2",
-        acceptedAnswers: ["-x^2+4x-3"],
-        samples: [
-          { x: -2 },
-          { x: -1 },
-          { x: 1 },
-          { x: 3 }
-        ],
-        successMessage: "Correct. Differentiate term by term: \\(-\\frac{x^3}{3}\\) becomes \\(-x^2\\), \\(2x^2\\) becomes \\(4x\\), and \\(-3x\\) becomes \\(-3\\).",
-        targetedFeedback: [
-          {
-            answers: ["-x^2+2x-3"],
-            message: "Close, but the derivative of \\(2x^2\\) is \\(4x\\), not \\(2x\\)."
-          },
-          {
-            answers: ["-x^3+4x-3"],
-            message: "Not quite. \\(-\\frac{x^3}{3}\\) differentiates to \\(-x^2\\), not \\(-x^3\\)."
-          },
-          {
-            answers: ["-x^2/3+4x-3"],
-            message: "Try again. Be careful with \\(-\\frac{x^3}{3}\\): its derivative is \\(-x^2\\), not \\(-\\frac{x^2}{3}\\)."
-          }
-        ],
-        genericMessage: "Try again. Differentiate each term carefully and simplify."
-      });
-    }
-
-    function checkGradient() {
-      TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        acceptedAnswers: ["1"],
-        successMessage: "Correct. \\(f'(2)=-(2)^2+4(2)-3=-4+8-3=1\\).",
-        targetedFeedback: [
-          {
-            answers: ["16/3"],
-            message: "That is the \\(y\\)-value of the point on the curve, not the gradient of the tangent."
-          }
-        ],
-        genericMessage: "Not quite. Substitute \\(x=2\\) into \\(f'(x)=-x^2+4x-3\\) and simplify carefully."
-      });
-    }
-
-    function checkPointSlope(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. Point-slope form uses \\(y-y_1=m(x-x_1)\\) with \\(m=1\\) and \\(\\left(x_1,y_1\\right)=\\left(2,\\frac{16}{3}\\right)\\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Close, but the gradient should be 1 and the point should be \\(\\left(2,\\frac{16}{3}\\right)\\).");
-        toggleNextStepButton("next-step-4", false);
-      }
-    }
-
-    function checkFinalEquation() {
-      TypedMath.checkTypedStep({
-        inputId: "step-5-answer",
-        feedbackId: "feedback-5",
-        nextButtonId: "next-step-5",
-        mode: "equation",
-        options: {
-          equationLhs: "y",
-          allowBareExpression: true
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "1a2025-l2.html", label: "← Back to Question 1(a)" },
+          primary: { href: "1c2025-l2.html", label: "Next question →" }
         },
-        acceptedAnswers: ["y=x+10/3"],
-        samples: [
-          { x: -2, y: 1 },
-          { x: 0, y: -4 },
-          { x: 3, y: 2 }
-        ],
-        successMessage: "Correct. From \\(y-\\frac{16}{3}=x-2\\), add \\(\\frac{16}{3}\\) and simplify to get \\(y=x+\\frac{10}{3}\\).",
-        targetedFeedback: [
-          {
-            mode: "equation",
-            answers: ["y=x+16/3"],
-            message: "Not quite. When you move \\(-2\\) to the other side, you add 2, so the constant becomes \\(-2+\\frac{16}{3}=\\frac{10}{3}\\)."
-          }
-        ],
-        genericMessage: "Not quite. Rearrange \\(y-\\frac{16}{3}=x-2\\) into \\(y=mx+c\\) carefully."
+        guidedSteps: guidedSteps,
+        afterRender: function () {
+          setupGraphControls();
+          drawGraph();
+        }
+      }, {
+        defaultEyebrow: "Level 2 Calculus Walkthrough"
       });
-    }
+    });
 
     function setupGraphControls() {
       const zoomSlider = document.getElementById("zoom-slider");

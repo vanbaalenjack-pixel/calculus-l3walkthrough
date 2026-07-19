@@ -51,61 +51,53 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Simplify the square root",
-          text: raw`What does \(\sqrt{\frac{y^6}{64}}\) simplify to?`,
-          beforeHtml: raw`
+          title: raw`Simplify the square root`,
+          previewHtml: raw`The square root halves the power on \(y^6\) and turns \(64\) into \(8\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \sqrt{\frac{y^6}{64}}=\frac{\sqrt{y^6}}{\sqrt{64}}
               \]
             </div>
-          `,
-          ariaLabel: "Type the simplified radical",
-          acceptedAnswers: ["y^3/8"],
-          samples: [
-            { y: 2 },
-            { y: 3 },
-            { y: 5 }
-          ],
-          successMessage: raw`Correct. The square root halves the power on \(y^6\) and turns \(64\) into \(8\).`,
-          targetedFeedback: [
-            {
-              answers: ["y^6/8"],
-              message: raw`Close, but the square root halves the power: \(\sqrt{y^6}=y^3\), not \(y^6\).`
-            },
-            {
-              answers: ["y^3/64"],
-              message: raw`The denominator also goes under the square root, so \(\sqrt{64}=8\), not \(64\).`
-            }
-          ],
-          genericMessage: raw`Try again. Divide the power on \(y\) by \(2\), and take the square root of \(64\).`
+
+<p class="step-text">The square root halves the power on \(y^6\) and turns \(64\) into \(8\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{y^{3}}{8}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Multiply through",
-          text: raw`Now multiply by \(5y\). What is the fully simplified answer?`,
-          ariaLabel: "Type the final simplified expression",
-          acceptedAnswers: ["5y^4/8"],
-          samples: [
-            { y: 2 },
-            { y: 3 },
-            { y: 5 }
-          ],
-          successMessage: raw`Correct. \(5y\times\frac{y^3}{8}=\frac{5y^4}{8}\).`,
-          targetedFeedback: [
-            {
-              answers: ["5y^3/8"],
-              message: raw`One factor of \(y\) is missing. \(y\times y^3=y^4\).`
-            },
-            {
-              answers: ["5y^4"],
-              message: raw`You still need to keep the denominator \(8\).`
-            }
-          ],
-          genericMessage: raw`Multiply the coefficients and add the powers of \(y\) carefully.`
+          title: raw`Multiply through`,
+          previewHtml: raw`\(5y\times\frac{y^3}{8}=\frac{5y^4}{8}\).`,
+          workingHtml: raw`<p class="step-text">\(5y\times\frac{y^3}{8}=\frac{5y^4}{8}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{5 y^{4}}{8}
+  \]
+</div>
+</div>
+
+        <p class="step-text">Simplify the radical first:</p>
+        <div class="math-block">
+          \[
+          \sqrt{\frac{y^6}{64}}=\frac{y^3}{8}
+          \]
+        </div>
+        <p class="step-text">Then multiply by \(5y\):</p>
+        <div class="math-block">
+          \[
+          5y\times\frac{y^3}{8}=\frac{5y^4}{8}
+          \]
+        </div>
+      `
         }
       ]
     },
@@ -151,70 +143,31 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Choose the first operation",
-          text: raw`What should you do first to remove the cube root?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`Cube both sides`,
-              correct: true,
-              successMessage: raw`Correct. Cubing is the inverse of taking a cube root.`
-            },
-            {
-              html: raw`Square both sides`,
-              failureMessage: raw`Not quite. Squaring removes a square root, not a cube root.`
-            },
-            {
-              html: raw`Divide both sides by \(2\)`,
-              failureMessage: raw`That changes the left side, but it does not remove the cube root on the right.`
-            },
-            {
-              html: raw`Subtract \(5\) first`,
-              failureMessage: raw`The \(5\) is inside the cube root, so it is not the first thing to undo.`
-            }
-          ]
+          title: raw`Identify the first operation`,
+          previewHtml: raw`Cubing is the inverse of taking a cube root.`,
+          workingHtml: raw`<p class="step-text">Cubing is the inverse of taking a cube root.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  Cube both sides
+</div>`
         },
         {
-          type: "choice",
-          title: "Write the equation after cubing",
-          text: raw`After cubing both sides, which equation do you get?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Write the equation after cubing`,
+          previewHtml: raw`\((2y)^3=8y^3\), so the equation becomes \(8y^3=7x-5\).`,
+          workingHtml: raw`<p class="step-text">\((2y)^3=8y^3\), so the equation becomes \(8y^3=7x-5\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 8y^3=7x-5
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. \((2y)^3=8y^3\), so the equation becomes \(8y^3=7x-5\).`
-            },
-            {
-              html: raw`\[
-                4y^3=7x-5
-              \]`,
-              failureMessage: raw`Close, but \((2y)^3=8y^3\), not \(4y^3\).`
-            },
-            {
-              html: raw`\[
-                8y^2=7x-5
-              \]`,
-              failureMessage: raw`The whole factor \(2y\) is cubed, so the power on \(y\) should be \(3\).`
-            },
-            {
-              html: raw`\[
-                8y^3=7x+5
-              \]`,
-              failureMessage: raw`Watch the sign. Cubing removes the cube root, but it does not change the \(-5\) inside it.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "typed",
-          title: "Make x the subject",
-          text: raw`Now rearrange the equation and type \(x\) in terms of \(y\).`,
-          beforeHtml: raw`
+          title: raw`Make x the subject`,
+          previewHtml: raw`Adding \(5\) and dividing by \(7\) gives \(x=\frac{8y^3+5}{7}\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               8y^3=7x-5
@@ -223,26 +176,36 @@
               8y^3+5=7x
               \]
             </div>
-          `,
-          ariaLabel: "Type x in terms of y",
-          acceptedAnswers: ["(8y^3+5)/7"],
-          samples: [
-            { y: 1 },
-            { y: -2 },
-            { y: 3 }
-          ],
-          successMessage: raw`Correct. Adding \(5\) and dividing by \(7\) gives \(x=\frac{8y^3+5}{7}\).`,
-          targetedFeedback: [
-            {
-              answers: ["(8y^3-5)/7"],
-              message: raw`Watch the sign. When you move \(-5\) to the other side, it becomes \(+5\).`
-            },
-            {
-              answers: ["8y^3+5"],
-              message: raw`You still need to divide the whole expression by \(7\).`
-            }
-          ],
-          genericMessage: raw`Add \(5\) to both sides first, then divide everything by \(7\).`
+
+<p class="step-text">Adding \(5\) and dividing by \(7\) gives \(x=\frac{8y^3+5}{7}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{\left(8 y^{3} + 5\right)}{7}
+  \]
+</div>
+</div>
+
+        <p class="step-text">Cube both sides:</p>
+        <div class="math-block">
+          \[
+          (2y)^3=7x-5
+          \]
+          \[
+          8y^3=7x-5
+          \]
+        </div>
+        <p class="step-text">Rearrange for \(x\):</p>
+        <div class="math-block">
+          \[
+          8y^3+5=7x
+          \]
+          \[
+          x=\frac{8y^3+5}{7}
+          \]
+        </div>
+      `
         }
       ]
     },
@@ -299,98 +262,82 @@
         </div>
         <p class="step-text">So \(a=1\) and \(b=-6\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Build the factorised form",
-          text: raw`Which factorised form matches the leading coefficient \(2\) and the root \(x=1.5\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Build the factorised form`,
+          previewHtml: raw`That gives a factor of \((x-1.5)\) and still expands to a quadratic with leading term \(2x^2\).`,
+          workingHtml: raw`<p class="step-text">That gives a factor of \((x-1.5)\) and still expands to a quadratic with leading term \(2x^2\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 (2x-c)(x-1.5)
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. That gives a factor of \((x-1.5)\) and still expands to a quadratic with leading term \(2x^2\).`
-            },
-            {
-              html: raw`\[
-                (x-c)(x-1.5)
-              \]`,
-              failureMessage: raw`That would give a leading coefficient of \(1\), not \(2\).`
-            },
-            {
-              html: raw`\[
-                (2x-c)(x+1.5)
-              \]`,
-              failureMessage: raw`The known root is \(x=1.5\), so the factor must be \((x-1.5)\).`
-            },
-            {
-              html: raw`\[
-                (x-c)(2x-1.5)
-              \]`,
-              failureMessage: raw`That does not use the root in the correct factor form.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "typed",
-          title: "Find c",
-          text: raw`Substitute the point \((-1,-5)\). What value of \(c\) do you get?`,
-          ariaLabel: "Type the value of c",
-          acceptedAnswers: ["-4"],
-          successMessage: raw`Correct. Using \((-1,-5)\) gives \((-2-c)(-2.5)=-5\), so \(c=-4\).`,
-          genericMessage: raw`Substitute \(x=-1\) and \(y=-5\) into \((2x-c)(x-1.5)\), then solve the resulting equation.`
+          title: raw`Find c`,
+          previewHtml: raw`Using \((-1,-5)\) gives \((-2-c)(-2.5)=-5\), so \(c=-4\).`,
+          workingHtml: raw`<p class="step-text">Using \((-1,-5)\) gives \((-2-c)(-2.5)=-5\), so \(c=-4\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  -4
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Expand the quadratic",
-          text: raw`Substitute your value of \(c\) and expand. What is the quadratic?`,
-          ariaLabel: "Type the expanded quadratic",
-          acceptedAnswers: ["2x^2+x-6"],
-          samples: [
-            { x: -2 },
-            { x: -1 },
-            { x: 1 },
-            { x: 3 }
-          ],
-          successMessage: raw`Correct. \((2x+4)(x-1.5)\) expands to \(2x^2+x-6\).`,
-          targetedFeedback: [
-            {
-              answers: ["2x^2+x+6"],
-              message: raw`Check the constant term. One factor is negative, so the constant should be \(-6\).`
-            },
-            {
-              answers: ["2x^2- x-6"],
-              message: raw`Recheck the middle terms when you expand.`
-            }
-          ],
-          genericMessage: raw`Expand \((2x+4)(x-1.5)\) carefully and then collect like terms.`
+          title: raw`Expand the quadratic`,
+          previewHtml: raw`\((2x+4)(x-1.5)\) expands to \(2x^2+x-6\).`,
+          workingHtml: raw`<p class="step-text">\((2x+4)(x-1.5)\) expands to \(2x^2+x-6\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  2 x^{2} + x - 6
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Read off a and b",
-          text: raw`Which pair of values matches \(a\) and \(b\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\(a=1,\ b=-6\)`,
-              correct: true,
-              successMessage: raw`Correct. Comparing \(2x^2+x-6\) with \(2x^2+ax+b\) gives \(a=1\) and \(b=-6\).`
-            },
-            {
-              html: raw`\(a=-1,\ b=-6\)`,
-              failureMessage: raw`The constant is right, but the coefficient of \(x\) is \(+1\), not \(-1\).`
-            },
-            {
-              html: raw`\(a=1,\ b=6\)`,
-              failureMessage: raw`Check the constant term. It should be \(-6\), not \(+6\).`
-            },
-            {
-              html: raw`\(a=-1,\ b=6\)`,
-              failureMessage: raw`Both signs are off compared with \(2x^2+x-6\).`
-            }
-          ]
+          title: raw`Read off a and b`,
+          previewHtml: raw`Comparing \(2x^2+x-6\) with \(2x^2+ax+b\) gives \(a=1\) and \(b=-6\).`,
+          workingHtml: raw`<p class="step-text">Comparing \(2x^2+x-6\) with \(2x^2+ax+b\) gives \(a=1\) and \(b=-6\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \(a=1,\ b=-6\)
+</div>
+
+        <p class="step-text">Start with a factorised form that uses the known root and leading coefficient:</p>
+        <div class="math-block">
+          \[
+          y=(2x-c)(x-1.5)
+          \]
+        </div>
+        <p class="step-text">Use \((-1,-5)\):</p>
+        <div class="math-block">
+          \[
+          -5=(2(-1)-c)(-1-1.5)
+          \]
+          \[
+          -5=(-2-c)(-2.5)
+          \]
+          \[
+          c=-4
+          \]
+        </div>
+        <p class="step-text">Substitute and expand:</p>
+        <div class="math-block">
+          \[
+          y=(2x+4)(x-1.5)
+          \]
+          \[
+          y=2x^2+x-6
+          \]
+        </div>
+        <p class="step-text">So \(a=1\) and \(b=-6\).</p>
+      `
         }
       ]
     },
@@ -465,78 +412,84 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Write the area in terms of x",
-          text: raw`If the width is \(x\) and the length is \(2x\), what is the area \(A\)?`,
-          ariaLabel: "Type the area in terms of x",
-          acceptedAnswers: ["2x^2"],
-          samples: [
-            { x: 1 },
-            { x: 4 },
-            { x: -3 }
-          ],
-          successMessage: raw`Correct. Width times length gives \(A=x(2x)=2x^2\).`,
-          genericMessage: raw`Multiply the width \(x\) by the length \(2x\).`
+          title: raw`Write the area in terms of x`,
+          previewHtml: raw`Width times length gives \(A=x(2x)=2x^2\).`,
+          workingHtml: raw`<p class="step-text">Width times length gives \(A=x(2x)=2x^2\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  2 x^{2}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Use Pythagoras",
-          text: raw`What equation does Pythagoras give for the radius triangle?`,
-          ariaLabel: "Type the Pythagoras equation",
-          mode: "equation",
-          options: {
-            equationLhs: "r^2",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["r^2=x^2+(x/2)^2", "r^2=5x^2/4"],
-          samples: [
-            { r: 2, x: 1 },
-            { r: 5, x: -3 },
-            { r: 7, x: 4 }
-          ],
-          successMessage: raw`Correct. The triangle uses legs \(x\) and \(\frac{x}{2}\), with hypotenuse \(r\).`,
-          genericMessage: raw`Use half the length \((x)\) and half the width \((\frac{x}{2})\) as the legs of the right triangle.`
+          title: raw`Use Pythagoras`,
+          previewHtml: raw`The triangle uses legs \(x\) and \(\frac{x}{2}\), with hypotenuse \(r\).`,
+          workingHtml: raw`<p class="step-text">The triangle uses legs \(x\) and \(\frac{x}{2}\), with hypotenuse \(r\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  r^{2} = x^{2} + \left(\frac{x}{2}\right)^{2}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Rearrange for x squared",
-          text: raw`Rearrange your equation to make \(x^2\) the subject.`,
-          ariaLabel: "Type x squared in terms of r squared",
-          mode: "equation",
-          options: {
-            equationLhs: "x^2",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["x^2=4r^2/5", "x^2=0.8r^2"],
-          samples: [
-            { r: 2, x: 1 },
-            { r: 5, x: -3 },
-            { r: 7, x: 4 }
-          ],
-          successMessage: raw`Correct. From \(r^2=\frac{5x^2}{4}\), multiplying by \(\frac{4}{5}\) gives \(x^2=\frac{4r^2}{5}\).`,
-          genericMessage: raw`Start from \(r^2=\frac{5x^2}{4}\) and isolate \(x^2\).`
+          title: raw`Rearrange for x squared`,
+          previewHtml: raw`From \(r^2=\frac{5x^2}{4}\), multiplying by \(\frac{4}{5}\) gives \(x^2=\frac{4r^2}{5}\).`,
+          workingHtml: raw`<p class="step-text">From \(r^2=\frac{5x^2}{4}\), multiplying by \(\frac{4}{5}\) gives \(x^2=\frac{4r^2}{5}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  x^{2} = \frac{4 r^{2}}{5}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Write the final area",
-          text: raw`Substitute into \(A=2x^2\). What is the area in terms of \(r\)?`,
-          ariaLabel: "Type the final area in terms of r",
-          acceptedAnswers: ["8r^2/5", "1.6r^2"],
-          samples: [
-            { r: 2 },
-            { r: 5 },
-            { r: 7 }
-          ],
-          successMessage: raw`Correct. The area simplifies to \(A=\frac{8r^2}{5}=1.6r^2\).`,
-          targetedFeedback: [
-            {
-              answers: ["4r^2/5"],
-              message: raw`You found \(x^2\). The area is \(2x^2\), so you still need to multiply by \(2\).`
-            }
-          ],
-          genericMessage: raw`Substitute your expression for \(x^2\) into \(A=2x^2\).`
+          title: raw`Write the final area`,
+          previewHtml: raw`The area simplifies to \(A=\frac{8r^2}{5}=1.6r^2\).`,
+          workingHtml: raw`<p class="step-text">The area simplifies to \(A=\frac{8r^2}{5}=1.6r^2\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{8 r^{2}}{5}
+  \]
+</div>
+</div>
+
+        <p class="step-text">Let the width be \(x\), so the length is \(2x\):</p>
+        <div class="math-block">
+          \[
+          A=2x^2
+          \]
+        </div>
+        <p class="step-text">Use half the rectangle to form a right triangle:</p>
+        <div class="math-block">
+          \[
+          r^2=x^2+\left(\frac{x}{2}\right)^2
+          \]
+          \[
+          r^2=\frac{5x^2}{4}
+          \]
+          \[
+          x^2=\frac{4r^2}{5}
+          \]
+        </div>
+        <p class="step-text">Substitute into the area:</p>
+        <div class="math-block">
+          \[
+          A=2\left(\frac{4r^2}{5}\right)=\frac{8r^2}{5}=1.6r^2
+          \]
+        </div>
+      `
         }
       ]
     },
@@ -595,107 +548,86 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Rewrite using 5 to the x",
-          text: raw`Which rewrite is the most useful before substituting \(u=5^x\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Rewrite using 5 to the x`,
+          previewHtml: raw`That makes the substitution \(u=5^x\) straightforward.`,
+          workingHtml: raw`<p class="step-text">That makes the substitution \(u=5^x\) straightforward.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 5(5^x)^2-120=25(5^x)
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. That makes the substitution \(u=5^x\) straightforward.`
-            },
-            {
-              html: raw`\[
-                25(5^x)-120=5(5^x)^2
-              \]`,
-              failureMessage: raw`The powers have been swapped around. Recheck \(5^{2x+1}\) and \(5^{x+2}\).`
-            },
-            {
-              html: raw`\[
-                5^{2x}-120=5^x+2
-              \]`,
-              failureMessage: raw`That does not rewrite the exponents correctly.`
-            },
-            {
-              html: raw`\[
-                5^{x+1}-120=5^{2x+2}
-              \]`,
-              failureMessage: raw`The exponents have changed incorrectly.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "typed",
-          title: "Form the quadratic",
-          text: raw`After dividing by \(5\) and letting \(u=5^x\), what quadratic equation do you get?`,
-          ariaLabel: "Type the quadratic in u",
-          mode: "equation",
-          options: {
-            equationRhs: "0",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["u^2-5u-24=0"],
-          samples: [
-            { u: -3 },
-            { u: 1 },
-            { u: 8 }
-          ],
-          successMessage: raw`Correct. The substitution gives \(u^2-5u-24=0\).`,
-          genericMessage: raw`Rewrite everything in terms of \(u\) after dividing the equation by \(5\).`
+          title: raw`Form the quadratic`,
+          previewHtml: raw`The substitution gives \(u^2-5u-24=0\).`,
+          workingHtml: raw`<p class="step-text">The substitution gives \(u^2-5u-24=0\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  u^{2} - 5 u - 24 = 0
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Choose the valid value of u",
-          text: raw`Solve the quadratic. Which value of \(u\) can you actually use?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Identify the valid value of u`,
+          previewHtml: raw`The quadratic roots are \(8\) and \(-3\), but \(u=5^x\) must be positive, so \(u=8\).`,
+          workingHtml: raw`<p class="step-text">The quadratic roots are \(8\) and \(-3\), but \(u=5^x\) must be positive, so \(u=8\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 u=8
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The quadratic roots are \(8\) and \(-3\), but \(u=5^x\) must be positive, so \(u=8\).`
-            },
-            {
-              html: raw`\[
-                u=-3
-              \]`,
-              failureMessage: raw`The quadratic has that root too, but \(u=5^x\) cannot be negative.`
-            },
-            {
-              html: raw`\[
-                u=3
-              \]`,
-              failureMessage: raw`Check the factorisation again. The roots are \(8\) and \(-3\), not \(3\).`
-            },
-            {
-              html: raw`\[
-                u=-8
-              \]`,
-              failureMessage: raw`That is not a root of the quadratic, and it would not be valid for \(u=5^x\) anyway.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "typed",
-          title: "Solve for x",
-          text: raw`Now solve \(5^x=8\). Type the value of \(x\).`,
-          ariaLabel: "Type the value of x",
-          acceptedAnswers: ["ln(8)/ln(5)", "1.292029674220179"],
-          tolerance: 0.001,
-          successMessage: raw`Correct. \(x=\log_5 8\approx 1.292\).`,
-          targetedFeedback: [
-            {
-              answers: ["8"],
-              message: raw`That is the value of \(u\), not the value of \(x\). You still need to solve \(5^x=8\).`
-            }
-          ],
-          genericMessage: raw`Use logarithms, or write the decimal approximation for \(\log_5 8\).`
+          title: raw`Solve for x`,
+          previewHtml: raw`\(x=\log_5 8\approx 1.292\).`,
+          workingHtml: raw`<p class="step-text">\(x=\log_5 8\approx 1.292\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{\ln\left(8\right)}{\ln\left(5\right)}
+  \]
+</div>
+</div>
+
+        <p class="step-text">Rewrite the powers of \(5\):</p>
+        <div class="math-block">
+          \[
+          5(5^x)^2-120=25(5^x)
+          \]
+          \[
+          (5^x)^2-5(5^x)-24=0
+          \]
+        </div>
+        <p class="step-text">Let \(u=5^x\):</p>
+        <div class="math-block">
+          \[
+          u^2-5u-24=0
+          \]
+          \[
+          (u-8)(u+3)=0
+          \]
+          \[
+          u=8
+          \]
+        </div>
+        <p class="step-text">Now solve for \(x\):</p>
+        <div class="math-block">
+          \[
+          5^x=8
+          \]
+          \[
+          x=\log_5 8\approx 1.292
+          \]
+        </div>
+      `
         }
       ]
     },
@@ -733,79 +665,47 @@
         </div>
         <p class="step-text">So \(k=25\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Identify the perfect square",
-          text: raw`Which perfect square matches \(9x^2-30x+k\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Identify the perfect square`,
+          previewHtml: raw`Expanding gives the required middle term \(-30x\).`,
+          workingHtml: raw`<p class="step-text">Expanding gives the required middle term \(-30x\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 (3x-5)^2
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Expanding gives the required middle term \(-30x\).`
-            },
-            {
-              html: raw`\[
-                (3x+5)^2
-              \]`,
-              failureMessage: raw`That would give a middle term of \(+30x\), not \(-30x\).`
-            },
-            {
-              html: raw`\[
-                (9x-5)^2
-              \]`,
-              failureMessage: raw`That would give a leading term of \(81x^2\), not \(9x^2\).`
-            },
-            {
-              html: raw`\[
-                (x-5)^2
-              \]`,
-              failureMessage: raw`That would give a leading term of \(x^2\), not \(9x^2\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Read off k",
-          text: raw`What value of \(k\) is needed?`,
-          beforeHtml: raw`
+          title: raw`Read off k`,
+          previewHtml: raw`Since \(9x^2-30x+k=(3x-5)^2\), the constant term must be \(25\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               (3x-5)^2=9x^2-30x+25
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Since \(9x^2-30x+k=(3x-5)^2\), the constant term must be \(25\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 25
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Since \(9x^2-30x+k=(3x-5)^2\), the constant term must be \(25\).`
-            },
-            {
-              html: raw`\[
-                10
-              \]`,
-              failureMessage: raw`That comes from the numbers inside the bracket, but the constant term of \((3x-5)^2\) is \(5^2\).`
-            },
-            {
-              html: raw`\[
-                -25
-              \]`,
-              failureMessage: raw`Squaring makes the constant positive, so it should be \(+25\).`
-            },
-            {
-              html: raw`\[
-                30
-              \]`,
-              failureMessage: raw`That is related to the middle term, not the constant term.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">The perfect square must be:</p>
+        <div class="math-block">
+          \[
+          (3x-5)^2
+          \]
+          \[
+          =9x^2-30x+25
+          \]
+        </div>
+        <p class="step-text">So \(k=25\).</p>
+      `
         }
       ]
     },
@@ -850,84 +750,75 @@
         </div>
         <p class="step-text">Because \((x+5)\) was cancelled, state \(x\neq -5\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Factorise the numerator",
-          text: raw`What is the fully factorised numerator?`,
-          ariaLabel: "Type the factorised numerator",
-          acceptedAnswers: ["2x(3x-2)(x+5)"],
-          samples: [
-            { x: -3 },
-            { x: -1 },
-            { x: 2 },
-            { x: 4 }
-          ],
-          successMessage: raw`Correct. Taking out \(2x\) leaves a quadratic that factorises as \((3x-2)(x+5)\).`,
-          genericMessage: raw`Factor out the common factor \(2x\) first, then factorise the remaining quadratic.`
+          title: raw`Factorise the numerator`,
+          previewHtml: raw`Taking out \(2x\) leaves a quadratic that factorises as \((3x-2)(x+5)\).`,
+          workingHtml: raw`<p class="step-text">Taking out \(2x\) leaves a quadratic that factorises as \((3x-2)(x+5)\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  2 x \left(3 x - 2\right) \left(x + 5\right)
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Factorise the denominator",
-          text: raw`What is the fully factorised denominator?`,
-          ariaLabel: "Type the factorised denominator",
-          acceptedAnswers: ["(5x-2)(x+5)"],
-          samples: [
-            { x: -3 },
-            { x: -1 },
-            { x: 2 },
-            { x: 4 }
-          ],
-          successMessage: raw`Correct. The denominator factorises to \((5x-2)(x+5)\).`,
-          genericMessage: raw`Find two numbers that multiply to \(-50\) and add to \(23\).`
+          title: raw`Factorise the denominator`,
+          previewHtml: raw`The denominator factorises to \((5x-2)(x+5)\).`,
+          workingHtml: raw`<p class="step-text">The denominator factorises to \((5x-2)(x+5)\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \left(5 x - 2\right) \left(x + 5\right)
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Cancel the common factor",
-          text: raw`After cancelling the common factor, what simplified fraction do you get?`,
-          ariaLabel: "Type the simplified fraction",
-          acceptedAnswers: ["2x(3x-2)/(5x-2)"],
-          samples: [
-            { x: -3 },
-            { x: -1 },
-            { x: 2 },
-            { x: 4 }
-          ],
-          successMessage: raw`Correct. Cancelling the common factor \((x+5)\) leaves \(\frac{2x(3x-2)}{5x-2}\).`,
-          genericMessage: raw`Cancel the common factor \((x+5)\) and leave the remaining factors unchanged.`
+          title: raw`Cancel the common factor`,
+          previewHtml: raw`Cancelling the common factor \((x+5)\) leaves \(\frac{2x(3x-2)}{5x-2}\).`,
+          workingHtml: raw`<p class="step-text">Cancelling the common factor \((x+5)\) leaves \(\frac{2x(3x-2)}{5x-2}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{2 x \left(3 x - 2\right)}{\left(5 x - 2\right)}
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "State the restriction",
-          text: raw`Which extra restriction still needs to be stated after cancellation?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`State the restriction`,
+          previewHtml: raw`The cancelled factor \((x+5)\) means the original expression was undefined at \(x=-5\).`,
+          workingHtml: raw`<p class="step-text">The cancelled factor \((x+5)\) means the original expression was undefined at \(x=-5\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 x\neq -5
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The cancelled factor \((x+5)\) means the original expression was undefined at \(x=-5\).`
-            },
-            {
-              html: raw`\[
-                x\neq \frac{2}{5}
-              \]`,
-              failureMessage: raw`That value is still excluded by the denominator you can already see. The extra restriction from the cancelled factor is \(x=-5\).`
-            },
-            {
-              html: raw`\[
-                x\neq 0
-              \]`,
-              failureMessage: raw`There is no zero denominator issue at \(x=0\) here.`
-            },
-            {
-              html: raw`\[
-                \text{No restriction is needed}
-              \]`,
-              failureMessage: raw`A cancelled factor can still create a hole in the original expression, so a restriction is needed.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Factorise the numerator and denominator:</p>
+        <div class="math-block">
+          \[
+          6x^3+26x^2-20x=2x(3x-2)(x+5)
+          \]
+          \[
+          5x^2+23x-10=(5x-2)(x+5)
+          \]
+        </div>
+        <p class="step-text">Cancel the common factor:</p>
+        <div class="math-block">
+          \[
+          \frac{6x^3+26x^2-20x}{5x^2+23x-10}
+          =\frac{2x(3x-2)}{5x-2}
+          \]
+        </div>
+        <p class="step-text">Because \((x+5)\) was cancelled, state \(x\neq -5\).</p>
+      `
         }
       ]
     },
@@ -980,32 +871,24 @@
         </div>
         <p class="step-text">So \(a=5\) and \(b=3\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Form the quadratic equation",
-          text: raw`After removing the denominator and rearranging, what quadratic equation do you get?`,
-          ariaLabel: "Type the quadratic equation",
-          mode: "equation",
-          options: {
-            equationRhs: "0",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["9x^2-6x-4=0", "18x^2-12x-8=0"],
-          samples: [
-            { x: -2 },
-            { x: -1 },
-            { x: 1 },
-            { x: 3 }
-          ],
-          successMessage: raw`Correct. Rearranging gives the quadratic \(9x^2-6x-4=0\).`,
-          genericMessage: raw`Multiply both sides by \((3x-1)^2\), expand, and then move everything to one side.`
+          title: raw`Form the quadratic equation`,
+          previewHtml: raw`Rearranging gives the quadratic \(9x^2-6x-4=0\).`,
+          workingHtml: raw`<p class="step-text">Rearranging gives the quadratic \(9x^2-6x-4=0\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  9 x^{2} - 6 x - 4 = 0
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Solve for x",
-          text: raw`Which pair of solutions is correct?`,
-          beforeHtml: raw`
+          title: raw`Solve for x`,
+          previewHtml: raw`Those are the two solutions after simplifying the quadratic-formula result.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               9x^2-6x-4=0
@@ -1014,60 +897,49 @@
               x=\frac{6\pm\sqrt{(-6)^2-4(9)(-4)}}{18}
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Those are the two solutions after simplifying the quadratic-formula result.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 x=\frac{1+\sqrt{5}}{3}\quad\text{or}\quad x=\frac{1-\sqrt{5}}{3}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Those are the two solutions after simplifying the quadratic-formula result.`
-            },
-            {
-              html: raw`\[
-                x=\frac{1+\sqrt{5}}{6}\quad\text{or}\quad x=\frac{1-\sqrt{5}}{6}
-              \]`,
-              failureMessage: raw`The denominator has been halved too far. Simplifying \(\frac{6\pm6\sqrt{5}}{18}\) gives denominator \(3\), not \(6\).`
-            },
-            {
-              html: raw`\[
-                x=\frac{3+\sqrt{5}}{3}\quad\text{or}\quad x=\frac{3-\sqrt{5}}{3}
-              \]`,
-              failureMessage: raw`Check the numerator. The quadratic formula gives \(6\pm6\sqrt{5}\), which simplifies to \(1\pm\sqrt{5}\), not \(3\pm\sqrt{5}\).`
-            },
-            {
-              html: raw`\[
-                x=\frac{1+\sqrt{20}}{3}\quad\text{or}\quad x=\frac{1-\sqrt{20}}{3}
-              \]`,
-              failureMessage: raw`You still need to simplify the surd. \(\sqrt{20}=2\sqrt{5}\), so this is not in the correct final form.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Read off a and b",
-          text: raw`Comparing with \(\frac{1\pm\sqrt{a}}{b}\), which values match \(a\) and \(b\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\(a=5,\ b=3\)`,
-              correct: true,
-              successMessage: raw`Correct. Comparing \(\frac{1\pm\sqrt{5}}{3}\) with \(\frac{1\pm\sqrt{a}}{b}\) gives \(a=5\) and \(b=3\).`
-            },
-            {
-              html: raw`\(a=5,\ b=18\)`,
-              failureMessage: raw`That denominator appears before simplifying. The final denominator is \(3\).`
-            },
-            {
-              html: raw`\(a=20,\ b=18\)`,
-              failureMessage: raw`Those come from the unsimplified discriminant step. We need the simplified final form.`
-            },
-            {
-              html: raw`\(a=20,\ b=3\)`,
-              failureMessage: raw`The denominator is right, but the surd simplifies to \(\sqrt{5}\), not \(\sqrt{20}\).`
-            }
-          ]
+          title: raw`Read off a and b`,
+          previewHtml: raw`Comparing \(\frac{1\pm\sqrt{5}}{3}\) with \(\frac{1\pm\sqrt{a}}{b}\) gives \(a=5\) and \(b=3\).`,
+          workingHtml: raw`<p class="step-text">Comparing \(\frac{1\pm\sqrt{5}}{3}\) with \(\frac{1\pm\sqrt{a}}{b}\) gives \(a=5\) and \(b=3\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \(a=5,\ b=3\)
+</div>
+
+        <p class="step-text">Clear the denominator and rearrange:</p>
+        <div class="math-block">
+          \[
+          10=2(3x-1)^2
+          \]
+          \[
+          10=18x^2-12x+2
+          \]
+          \[
+          18x^2-12x-8=0
+          \]
+          \[
+          9x^2-6x-4=0
+          \]
+        </div>
+        <p class="step-text">Solve the quadratic:</p>
+        <div class="math-block">
+          \[
+          x=\frac{6\pm\sqrt{36+144}}{18}
+          =\frac{6\pm 6\sqrt{5}}{18}
+          =\frac{1\pm\sqrt{5}}{3}
+          \]
+        </div>
+        <p class="step-text">So \(a=5\) and \(b=3\).</p>
+      `
         }
       ]
     },
@@ -1117,12 +989,11 @@
         </div>
         <p class="step-text">So the solutions are \(x=4\) and \(x=9\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Combine into one logarithm",
-          text: raw`After combining the left side into a single logarithm, what should go inside the log?`,
-          beforeHtml: raw`
+          title: raw`Combine into one logarithm`,
+          previewHtml: raw`\(2\log_5(x+6)=\log_5((x+6)^2)\), so the argument becomes \(\frac{(x+6)^2}{x}\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               2\log_5(x+6)-\log_5 x=2
@@ -1131,108 +1002,67 @@
               \log_5(\square)=2
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">\(2\log_5(x+6)=\log_5((x+6)^2)\), so the argument becomes \(\frac{(x+6)^2}{x}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{(x+6)^2}{x}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. \(2\log_5(x+6)=\log_5((x+6)^2)\), so the argument becomes \(\frac{(x+6)^2}{x}\).`
-            },
-            {
-              html: raw`\[
-                \frac{x}{(x+6)^2}
-              \]`,
-              failureMessage: raw`The quotient is upside down. Subtracting \(\log_5 x\) puts \(x\) in the denominator.`
-            },
-            {
-              html: raw`\[
-                (x+6)^2-x
-              \]`,
-              failureMessage: raw`Logarithms combine by multiplying, dividing, and powers here, not by subtraction inside the bracket.`
-            },
-            {
-              html: raw`\[
-                \frac{x+6}{x^2}
-              \]`,
-              failureMessage: raw`The power rule applies to \(x+6\), so the whole bracket should be squared.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Take it out of log form",
-          text: raw`What equation do you get after removing the logarithm?`,
-          beforeHtml: raw`
+          title: raw`Take it out of log form`,
+          previewHtml: raw`If \(\log_5(\text{expression})=2\), then the expression must equal \(5^2=25\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \log_5\left(\frac{(x+6)^2}{x}\right)=2
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">If \(\log_5(\text{expression})=2\), then the expression must equal \(5^2=25\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{(x+6)^2}{x}=25
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. If \(\log_5(\text{expression})=2\), then the expression must equal \(5^2=25\).`
-            },
-            {
-              html: raw`\[
-                \frac{(x+6)^2}{x}=2
-              \]`,
-              failureMessage: raw`The right-hand side is the exponent, so the expression should equal \(5^2\), not \(2\).`
-            },
-            {
-              html: raw`\[
-                (x+6)^2=5x
-              \]`,
-              failureMessage: raw`Check the base power carefully. Removing the log gives \(25\), not \(5\).`
-            },
-            {
-              html: raw`\[
-                2(x+6)-x=25
-              \]`,
-              failureMessage: raw`That treats the logarithms like ordinary brackets. We first combined them into one log before removing it.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Solve the equation",
-          text: raw`Which pair of solutions is correct?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Solve the equation`,
+          previewHtml: raw`Solving the quadratic gives \(x=4\) and \(x=9\).`,
+          workingHtml: raw`<p class="step-text">Solving the quadratic gives \(x=4\) and \(x=9\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 x=4,\ 9
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Solving the quadratic gives \(x=4\) and \(x=9\).`
-            },
-            {
-              html: raw`\[
-                x=-4,\ -9
-              \]`,
-              failureMessage: raw`Those signs do not match the factorisation \((x-4)(x-9)=0\).`
-            },
-            {
-              html: raw`\[
-                x=4,\ -9
-              \]`,
-              failureMessage: raw`One sign is still wrong. Both roots are positive here.`
-            },
-            {
-              html: raw`\[
-                x=9,\ 25
-              \]`,
-              failureMessage: raw`Check the quadratic again. \(25\) comes from the log step, not from the factorised solutions.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Combine the logs:</p>
+        <div class="math-block">
+          \[
+          2\log_5(x+6)-\log_5 x=2
+          \]
+          \[
+          \log_5\left(\frac{(x+6)^2}{x}\right)=2
+          \]
+        </div>
+        <p class="step-text">Take the equation out of log form:</p>
+        <div class="math-block">
+          \[
+          \frac{(x+6)^2}{x}=25
+          \]
+          \[
+          x^2-13x+36=0
+          \]
+          \[
+          (x-4)(x-9)=0
+          \]
+        </div>
+        <p class="step-text">So the solutions are \(x=4\) and \(x=9\).</p>
+      `
         }
       ]
     },
@@ -1306,110 +1136,98 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Make y the subject",
-          text: raw`Rearrange the first equation. What is \(y\) in terms of \(x\)?`,
-          ariaLabel: "Type y in terms of x",
-          mode: "equation",
-          options: {
-            equationLhs: "y",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["y=2x+13"],
-          samples: [
-            { x: -2, y: 1 },
-            { x: 3, y: -4 },
-            { x: 5, y: 2 }
-          ],
-          successMessage: raw`Correct. Adding \(2x\) to both sides gives \(y=2x+13\).`,
-          genericMessage: raw`Add \(2x\) to both sides to isolate \(y\).`
+          title: raw`Make y the subject`,
+          previewHtml: raw`Adding \(2x\) to both sides gives \(y=2x+13\).`,
+          workingHtml: raw`<p class="step-text">Adding \(2x\) to both sides gives \(y=2x+13\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  y = 2 x + 13
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Substitute into the second equation",
-          text: raw`After substituting for \(y\), what quadratic equation in \(x\) do you get?`,
-          ariaLabel: "Type the quadratic in x",
-          mode: "equation",
-          options: {
-            equationRhs: "0",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["x^2+4kx+20k=0"],
-          samples: [
-            { x: -2, k: 1 },
-            { x: 3, k: 5 },
-            { x: 4, k: 2 }
-          ],
-          successMessage: raw`Correct. Substituting \(y=2x+13\) gives \(x^2+4kx+20k=0\).`,
-          genericMessage: raw`Substitute \(y=2x+13\) into \(x^2+2ky=6k\), then collect all terms on one side.`
+          title: raw`Substitute into the second equation`,
+          previewHtml: raw`Substituting \(y=2x+13\) gives \(x^2+4kx+20k=0\).`,
+          workingHtml: raw`<p class="step-text">Substituting \(y=2x+13\) gives \(x^2+4kx+20k=0\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  x^{2} + 4 k x + 20 k = 0
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Use the repeated-root condition",
-          text: raw`Because there is only one solution, what is the value of \(k\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Use the repeated-root condition`,
+          previewHtml: raw`Setting the discriminant to \(0\) gives \(16k^2-80k=0\), so \(k=5\) because \(k\neq 0\).`,
+          workingHtml: raw`<p class="step-text">Setting the discriminant to \(0\) gives \(16k^2-80k=0\), so \(k=5\) because \(k\neq 0\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 5
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Setting the discriminant to \(0\) gives \(16k^2-80k=0\), so \(k=5\) because \(k\neq 0\).`
-            },
-            {
-              html: raw`\[
-                0
-              \]`,
-              failureMessage: raw`That comes out of the factorisation too, but the question says \(k\) is non-zero.`
-            },
-            {
-              html: raw`\[
-                -5
-              \]`,
-              failureMessage: raw`Check the factorisation carefully. The valid non-zero root is positive.`
-            },
-            {
-              html: raw`\[
-                20
-              \]`,
-              failureMessage: raw`That number appears during the discriminant setup, but it is not the solution for \(k\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the simultaneous solution",
-          text: raw`Which ordered pair is the solution?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Find the simultaneous solution`,
+          previewHtml: raw`With \(k=5\), the equations meet at \((-10,-7)\).`,
+          workingHtml: raw`<p class="step-text">With \(k=5\), the equations meet at \((-10,-7)\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 (-10,-7)
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. With \(k=5\), the equations meet at \((-10,-7)\).`
-            },
-            {
-              html: raw`\[
-                (-10,7)
-              \]`,
-              failureMessage: raw`The \(x\)-value is right, but substituting into \(y=2x+13\) gives \(y=-7\), not \(7\).`
-            },
-            {
-              html: raw`\[
-                (10,-7)
-              \]`,
-              failureMessage: raw`Check the repeated root carefully. The \(x\)-value is \(-10\), not \(10\).`
-            },
-            {
-              html: raw`\[
-                (-7,-10)
-              \]`,
-              failureMessage: raw`Watch the order. The solution should be written as \((x,y)\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Rearrange the linear equation:</p>
+        <div class="math-block">
+          \[
+          y=2x+13
+          \]
+        </div>
+        <p class="step-text">Substitute into the second equation:</p>
+        <div class="math-block">
+          \[
+          x^2+2k(2x+13)=6k
+          \]
+          \[
+          x^2+4kx+20k=0
+          \]
+        </div>
+        <p class="step-text">Use the discriminant:</p>
+        <div class="math-block">
+          \[
+          (4k)^2-4(1)(20k)=0
+          \]
+          \[
+          16k^2-80k=0
+          \]
+          \[
+          16k(k-5)=0
+          \]
+          \[
+          k=5
+          \]
+        </div>
+        <p class="step-text">Now solve:</p>
+        <div class="math-block">
+          \[
+          x^2+20x+100=0
+          \]
+          \[
+          (x+10)^2=0
+          \]
+          \[
+          x=-10,\qquad y=-7
+          \]
+        </div>
+      `
         }
       ]
     },
@@ -1450,53 +1268,60 @@
         </div>
         <p class="step-text">So \(x=2\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Remove the logarithm",
-          text: raw`What equation do you get after taking it out of log form?`,
-          ariaLabel: "Type the equation after removing the logarithm",
-          mode: "equation",
-          options: {
-            equationRhs: "8",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["(sqrt(x))^6=8", "x^3=8"],
-          samples: [
-            { x: 1 },
-            { x: 2 },
-            { x: 5 }
-          ],
-          successMessage: raw`Correct. The logarithm says \((\sqrt{x})^6=8\), which simplifies to \(x^3=8\).`,
-          genericMessage: raw`If \(\log_b a=c\), then \(b^c=a\).`
+          title: raw`Remove the logarithm`,
+          previewHtml: raw`Follow the working to remove the logarithm.`,
+          workingHtml: raw`<p class="step-text">The logarithm says \((\sqrt{x})^6=8\), which simplifies to \(x^3=8\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \left(\sqrt{x}\right)^{6} = 8
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Simplify the power",
-          text: raw`Simplify \((\sqrt{x})^6\). What equation do you have now?`,
-          ariaLabel: "Type the simplified equation",
-          mode: "equation",
-          options: {
-            equationRhs: "8",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["x^3=8"],
-          samples: [
-            { x: 1 },
-            { x: 2 },
-            { x: 5 }
-          ],
-          successMessage: raw`Correct. \((x^{1/2})^6=x^3\), so the equation is \(x^3=8\).`,
-          genericMessage: raw`Rewrite \(\sqrt{x}\) as \(x^{1/2}\), then multiply the powers.`
+          title: raw`Simplify the power`,
+          previewHtml: raw`\((x^{1/2})^6=x^3\), so the equation is \(x^3=8\).`,
+          workingHtml: raw`<p class="step-text">\((x^{1/2})^6=x^3\), so the equation is \(x^3=8\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  x^{3} = 8
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Solve for x",
-          text: raw`What is the value of \(x\)?`,
-          ariaLabel: "Type the value of x",
-          acceptedAnswers: ["2"],
-          successMessage: raw`Correct. The solution is \(x=2\).`,
-          genericMessage: raw`Find the cube root of \(8\).`
+          title: raw`Solve for x`,
+          previewHtml: raw`The solution is \(x=2\).`,
+          workingHtml: raw`<p class="step-text">The solution is \(x=2\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  2
+  \]
+</div>
+</div>
+
+        <p class="step-text">Take the equation out of log form:</p>
+        <div class="math-block">
+          \[
+          (\sqrt{x})^6=8
+          \]
+          \[
+          (x^{1/2})^6=x^3
+          \]
+          \[
+          x^3=8
+          \]
+        </div>
+        <p class="step-text">So \(x=2\).</p>
+      `
         }
       ]
     },
@@ -1538,78 +1363,63 @@
         </div>
         <p class="step-text">So \(a=15\), \(b=7\), and \(c=-2\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Write the factorised equation",
-          text: raw`What factorised equation has roots \(\frac{1}{5}\) and \(-\frac{2}{3}\)?`,
-          ariaLabel: "Type the factorised equation",
-          mode: "equation",
-          options: {
-            equationRhs: "0",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["(5x-1)(3x+2)=0"],
-          samples: [
-            { x: -2 },
-            { x: -1 },
-            { x: 1 },
-            { x: 3 }
-          ],
-          successMessage: raw`Correct. Those factors give roots \(x=\frac{1}{5}\) and \(x=-\frac{2}{3}\).`,
-          genericMessage: raw`A root of \(\frac{1}{5}\) gives the factor \((5x-1)\), and a root of \(-\frac{2}{3}\) gives \((3x+2)\).`
+          title: raw`Write the factorised equation`,
+          previewHtml: raw`Those factors give roots \(x=\frac{1}{5}\) and \(x=-\frac{2}{3}\).`,
+          workingHtml: raw`<p class="step-text">Those factors give roots \(x=\frac{1}{5}\) and \(x=-\frac{2}{3}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \left(5 x - 1\right) \left(3 x + 2\right) = 0
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Expand the equation",
-          text: raw`Expand the brackets. What quadratic equation do you get?`,
-          beforeHtml: raw`
+          title: raw`Expand the equation`,
+          previewHtml: raw`Expanding gives \(15x^2+7x-2=0\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               (5x-1)(3x+2)=0
               \]
             </div>
-          `,
-          ariaLabel: "Type the expanded quadratic equation",
-          mode: "equation",
-          options: {
-            equationRhs: "0",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["15x^2+7x-2=0"],
-          samples: [
-            { x: -2 },
-            { x: -1 },
-            { x: 1 },
-            { x: 3 }
-          ],
-          successMessage: raw`Correct. Expanding gives \(15x^2+7x-2=0\).`,
-          genericMessage: raw`Multiply the brackets carefully and collect like terms.`
+
+<p class="step-text">Expanding gives \(15x^2+7x-2=0\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  15 x^{2} + 7 x - 2 = 0
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Read off a, b, and c",
-          text: raw`Which set of coefficients matches \(ax^2+bx+c=0\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\(a=15,\ b=7,\ c=-2\)`,
-              correct: true,
-              successMessage: raw`Correct. Comparing with \(ax^2+bx+c=0\) gives \(a=15\), \(b=7\), and \(c=-2\).`
-            },
-            {
-              html: raw`\(a=15,\ b=-7,\ c=-2\)`,
-              failureMessage: raw`The leading and constant terms are right, but the coefficient of \(x\) is \(+7\), not \(-7\).`
-            },
-            {
-              html: raw`\(a=15,\ b=7,\ c=2\)`,
-              failureMessage: raw`The constant term should be negative because the expanded equation ends with \(-2\).`
-            },
-            {
-              html: raw`\(a=5,\ b=3,\ c=2\)`,
-              failureMessage: raw`Those look like pieces from the factors, not the coefficients of the expanded quadratic.`
-            }
-          ]
+          title: raw`Read off a, b, and c`,
+          previewHtml: raw`Comparing with \(ax^2+bx+c=0\) gives \(a=15\), \(b=7\), and \(c=-2\).`,
+          workingHtml: raw`<p class="step-text">Comparing with \(ax^2+bx+c=0\) gives \(a=15\), \(b=7\), and \(c=-2\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \(a=15,\ b=7,\ c=-2\)
+</div>
+
+        <p class="step-text">Write the factorised equation:</p>
+        <div class="math-block">
+          \[
+          (5x-1)(3x+2)=0
+          \]
+        </div>
+        <p class="step-text">Expand:</p>
+        <div class="math-block">
+          \[
+          15x^2+7x-2=0
+          \]
+        </div>
+        <p class="step-text">So \(a=15\), \(b=7\), and \(c=-2\).</p>
+      `
         }
       ]
     },
@@ -1650,45 +1460,22 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Rewrite 75 in a useful way",
-          text: raw`Which factorisation of \(75\) is the most useful for this logarithm question?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Rewrite 75 in a useful way`,
+          previewHtml: raw`That matches the given values \(p=\log_a 3\) and \(q=\log_a 5\).`,
+          workingHtml: raw`<p class="step-text">That matches the given values \(p=\log_a 3\) and \(q=\log_a 5\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 75=3\times 5^2
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. That matches the given values \(p=\log_a 3\) and \(q=\log_a 5\).`
-            },
-            {
-              html: raw`\[
-                75=15\times 5
-              \]`,
-              failureMessage: raw`That is true, but it does not use the given logs as neatly as \(3\times 5^2\).`
-            },
-            {
-              html: raw`\[
-                75=25\times 3^2
-              \]`,
-              failureMessage: raw`That factorisation is not correct.`
-            },
-            {
-              html: raw`\[
-                75=5\times 7\times 3
-              \]`,
-              failureMessage: raw`That is not a correct factorisation of \(75\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Substitute p and q",
-          text: raw`Now write \(\log_a 75\) in terms of \(p\) and \(q\).`,
-          beforeHtml: raw`
+          title: raw`Substitute p and q`,
+          previewHtml: raw`\(\log_a 75=\log_a 3+2\log_a 5=p+2q\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \log_a 75=\log_a(3\times 5^2)
@@ -1697,35 +1484,34 @@
               \log_a 75=\log_a 3+2\log_a 5
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">\(\log_a 75=\log_a 3+2\log_a 5=p+2q\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 p+2q
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. \(\log_a 75=\log_a 3+2\log_a 5=p+2q\).`
-            },
-            {
-              html: raw`\[
-                p+q
-              \]`,
-              failureMessage: raw`You are missing the extra factor of \(5\). Remember \(75=3\times 5^2\).`
-            },
-            {
-              html: raw`\[
-                2p+q
-              \]`,
-              failureMessage: raw`The square applies to \(5\), not to \(3\).`
-            },
-            {
-              html: raw`\[
-                pq
-              \]`,
-              failureMessage: raw`Logarithms of products add here; they do not multiply together.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Factorise \(75\):</p>
+        <div class="math-block">
+          \[
+          75=3\times 5^2
+          \]
+        </div>
+        <p class="step-text">Use log laws:</p>
+        <div class="math-block">
+          \[
+          \log_a 75=\log_a 3+\log_a 5^2
+          \]
+          \[
+          \log_a 75=\log_a 3+2\log_a 5
+          \]
+          \[
+          \log_a 75=p+2q
+          \]
+        </div>
+      `
         }
       ]
     },
@@ -1767,45 +1553,22 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Use the root relationships",
-          text: raw`If \(a\) and \(b\) are the roots of \(x^2-mx+n=0\), which statement is correct?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Use the root relationships`,
+          previewHtml: raw`Those are the standard relationships between roots and coefficients for a monic quadratic.`,
+          workingHtml: raw`<p class="step-text">Those are the standard relationships between roots and coefficients for a monic quadratic.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 a+b=m \quad\text{and}\quad ab=n
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Those are the standard relationships between roots and coefficients for a monic quadratic.`
-            },
-            {
-              html: raw`\[
-                a+b=n \quad\text{and}\quad ab=m
-              \]`,
-              failureMessage: raw`Those relationships are swapped.`
-            },
-            {
-              html: raw`\[
-                a+b=-m \quad\text{and}\quad ab=n
-              \]`,
-              failureMessage: raw`The coefficient of \(x\) is \(-m\), so the sum of the roots is \(m\), not \(-m\).`
-            },
-            {
-              html: raw`\[
-                a+b=m \quad\text{and}\quad ab=-n
-              \]`,
-              failureMessage: raw`The constant term is \(+n\), so the product of the roots is \(n\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Substitute into the identity",
-          text: raw`What does the identity simplify to in terms of \(m\) and \(n\)?`,
-          beforeHtml: raw`
+          title: raw`Substitute into the identity`,
+          previewHtml: raw`Substituting \(a+b=m\) and \(ab=n\) gives \(a^2+b^2=m^2-2n\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               a^2+b^2=(a+b)^2-2ab
@@ -1814,35 +1577,34 @@
               a+b=m,\qquad ab=n
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Substituting \(a+b=m\) and \(ab=n\) gives \(a^2+b^2=m^2-2n\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 m^2-2n
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Substituting \(a+b=m\) and \(ab=n\) gives \(a^2+b^2=m^2-2n\).`
-            },
-            {
-              html: raw`\[
-                m^2+2n
-              \]`,
-              failureMessage: raw`Watch the identity carefully: \(a^2+b^2=(a+b)^2-2ab\), so the \(2n\) term is subtracted.`
-            },
-            {
-              html: raw`\[
-                2m^2-n
-              \]`,
-              failureMessage: raw`That does not match the structure of the identity. Square the sum once, then subtract twice the product.`
-            },
-            {
-              html: raw`\[
-                m^2-n^2
-              \]`,
-              failureMessage: raw`The product enters linearly as \(ab=n\), not as \(n^2\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">For the quadratic \(x^2-mx+n=0\), the root relationships are:</p>
+        <div class="math-block">
+          \[
+          a+b=m
+          \]
+          \[
+          ab=n
+          \]
+        </div>
+        <p class="step-text">Substitute into the identity:</p>
+        <div class="math-block">
+          \[
+          a^2+b^2=(a+b)^2-2ab
+          \]
+          \[
+          a^2+b^2=m^2-2n
+          \]
+        </div>
+      `
         }
       ]
     },
@@ -1910,69 +1672,84 @@
         </div>
         <p class="step-text">Since \(7.95>7.5\), the ball clears the tree.</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Write the quadratic in vertex form",
-          text: raw`Using the maximum point, what equation in vertex form should you start with?`,
-          ariaLabel: "Type the quadratic in vertex form",
-          mode: "equation",
-          options: {
-            equationLhs: "y",
-            allowBareExpression: true
-          },
-          acceptedAnswers: ["y=a(x-110)^2+20"],
-          samples: [
-            { x: 0, y: 2, a: -1 },
-            { x: 110, y: 20, a: 2 },
-            { x: 200, y: 8, a: 3 }
-          ],
-          successMessage: raw`Correct. The turning point is \((110,20)\), so vertex form is the best start.`,
-          genericMessage: raw`A quadratic with vertex \((h,k)\) can be written as \(y=a(x-h)^2+k\).`
+          title: raw`Write the quadratic in vertex form`,
+          previewHtml: raw`The turning point is \((110,20)\), so vertex form is the best start.`,
+          workingHtml: raw`<p class="step-text">The turning point is \((110,20)\), so vertex form is the best start.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  y = a \left(x - 110\right)^{2} + 20
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Find the scale factor",
-          text: raw`Use the starting point \((0,2)\). What is the value of \(a\)?`,
-          ariaLabel: "Type the value of a",
-          acceptedAnswers: ["-18/12100", "-9/6050"],
-          successMessage: raw`Correct. Substituting \((0,2)\) gives \(a=-\frac{18}{12100}\).`,
-          genericMessage: raw`Substitute \(x=0\) and \(y=2\) into \(y=a(x-110)^2+20\), then solve for \(a\).`
+          title: raw`Find the scale factor`,
+          previewHtml: raw`Substituting \((0,2)\) gives \(a=-\frac{18}{12100}\).`,
+          workingHtml: raw`<p class="step-text">Substituting \((0,2)\) gives \(a=-\frac{18}{12100}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{-18}{12100}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Check the height at the tree",
-          text: raw`What height does the model give when \(x=200\)?`,
-          ariaLabel: "Type the height of the ball at x equals 200",
-          acceptedAnswers: ["7.950413223140496"],
-          tolerance: 0.001,
-          successMessage: raw`Correct. The ball is about \(7.95\) m high when it reaches the tree.`,
-          genericMessage: raw`Substitute \(x=200\) into your quadratic model and round sensibly.`
+          title: raw`Check the height at the tree`,
+          previewHtml: raw`The ball is about \(7.95\) m high when it reaches the tree.`,
+          workingHtml: raw`<p class="step-text">The ball is about \(7.95\) m high when it reaches the tree.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  7.950413223140496
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Interpret the result",
-          text: raw`Will the ball clear the \(7.5\) m tree?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`Yes, because \(7.95>7.5\).`,
-              correct: true,
-              successMessage: raw`Correct. The model gives a height of about \(7.95\) m, so the ball clears the tree by about \(0.45\) m.`
-            },
-            {
-              html: raw`No, because \(7.95&lt;7.5\).`,
-              failureMessage: raw`Check the comparison again. \(7.95\) is greater than \(7.5\).`
-            },
-            {
-              html: raw`No, because the ball is only \(2\) m above the ground at the start.`,
-              failureMessage: raw`The height that matters is the height at the tree, not the starting height.`
-            },
-            {
-              html: raw`There is not enough information to decide.`,
-              failureMessage: raw`There is enough information. The quadratic model lets you calculate the height at \(x=200\).`
-            }
-          ]
+          title: raw`Interpret the result`,
+          previewHtml: raw`The model gives a height of about \(7.95\) m, so the ball clears the tree by about \(0.45\) m.`,
+          workingHtml: raw`<p class="step-text">The model gives a height of about \(7.95\) m, so the ball clears the tree by about \(0.45\) m.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  Yes, because \(7.95>7.5\).
+</div>
+
+        <p class="step-text">Use vertex form:</p>
+        <div class="math-block">
+          \[
+          y=a(x-110)^2+20
+          \]
+        </div>
+        <p class="step-text">Use the starting point \((0,2)\):</p>
+        <div class="math-block">
+          \[
+          2=a(0-110)^2+20
+          \]
+          \[
+          2=12100a+20
+          \]
+          \[
+          a=-\frac{18}{12100}
+          \]
+        </div>
+        <p class="step-text">Check the height at the tree:</p>
+        <div class="math-block">
+          \[
+          y(200)=-\frac{18}{12100}(200-110)^2+20
+          \]
+          \[
+          y(200)\approx 7.95
+          \]
+        </div>
+        <p class="step-text">Since \(7.95>7.5\), the ball clears the tree.</p>
+      `
         }
       ]
     }

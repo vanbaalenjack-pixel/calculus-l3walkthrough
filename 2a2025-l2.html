@@ -29,7 +29,7 @@
       "description": "2025 NCEA Level 2 Calculus AS91262 Question 2(a) worked solution: sketching the derivative from stationary points, signs, and changes in concavity. Use…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 2",
       "teaches": "sketching the derivative from stationary points, signs, and changes in concavity",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
-        <h1>2025 NCEA Level 2 Calculus Question 2(a)</h1>
-        <p class="subtitle">2025 Paper — Sketching \(f'(x)\) from the graph of \(f(x)\)</p>
+        <p id="page-eyebrow" class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1 id="page-title">2025 NCEA Level 2 Calculus Question 2(a)</h1>
+        <p id="page-subtitle" class="subtitle">2025 Paper — Sketching \(f'(x)\) from the graph of \(f(x)\)</p>
       </div>
-      <a class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,144 +119,135 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <p class="step-text">
-        The graph below shows \(y=f(x)\). Use it to sketch a possible graph of \(y=f'(x)\).
-      </p>
-      <div class="graph-frame question-graph-frame">
-        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of f of x with two local minima and one local maximum" role="img"></svg>
-      </div>
-      <p class="step-text">
-        Sketch \(f'(x)\) here:
-      </p>
-      <div class="graph-frame question-graph-frame">
-        <svg id="blank-derivative-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Blank axes for sketching the derivative of f of x" role="img"></svg>
-      </div>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <p class="step-text question-note">
-        The key idea is that stationary points of \(f\) become x-intercepts of \(f'\). Then use where \(f\) is increasing, decreasing, and changing concavity to shape the derivative.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
+    <div id="walkthrough-content" class="hidden"></div>
 
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card active">
-        <p class="step-number">Step 1</p>
-        <h2>Find the stationary points of \(f\)</h2>
-        <p class="step-text">Look for the places where the tangent to \(f\) is horizontal.</p>
+    <!-- SEO:SUMMARY:START -->
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
+      <p class="question-label">Learning summary</p>
+      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
+      <p class="step-text" data-seo-summary>This walkthrough focuses on sketching the derivative from stationary points, signs, and changes in concavity. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+      <h3>Common mistake to avoid</h3>
+      <p class="step-text" data-seo-mistake>After solving the derivative condition, check the point&#x27;s nature and answer the conclusion the question actually asks for.</p>
+      <h3>Continue practising</h3>
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="1d2025-l2.html" data-seo-related="previous">← Question 1(d)</a>
+        <a class="nav-btn secondary" href="2b2025-l2.html" data-seo-related="next">Question 2(b) →</a>
+      </div>
+      <ul class="step-text">
+        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
+        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
+      </ul>
+    </section>
+    <!-- SEO:SUMMARY:END -->
+  </main>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkStationaryPoints('correct')">
-            \[
+  <script>
+    const hintContent = [
+      "Start with the stationary points of \\(f\\). Those are the places where the tangent is horizontal, so they become the zeros of \\(f'(x)\\).",
+      "Then decide where \\(f'(x)\\) should be positive or negative by checking whether \\(f\\) is increasing or decreasing in each interval.",
+      "Finally, use the changes in concavity of \\(f\\) to place the turning points of the derivative between the stationary points."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const raw = String.raw;
+      const answerHtml = `
+          <p class="step-text">A strong sketch of the derivative should:</p>
+          <div class="math-block">
+            \\[
+            \\text{cross the x-axis at about }x=-3,\\ 0,\\ \\text{and }4
+            \\]
+            \\[
+            \\text{be negative, then positive, then negative, then positive}
+            \\]
+          </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Find the stationary points of \(f\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Look for the places where the tangent to \(f\) is horizontal.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
             x\approx -3,\ 0,\ 4
-            \]
-          </button>
-          <button class="option-btn" onclick="checkStationaryPoints('wrong1')">
-            \[
-            x\approx -4,\ 1,\ 5
-            \]
-          </button>
+            \]</div>
         </div>
 
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
+      <p class="step-text">The graph of \(f\) has two local minima and one local maximum, at about \(x=-3\), \(x=0\), and \(x=4\).</p>
+          `
+        },
+        {
+          title: raw`Turn those into x-intercepts of \(f'(x)\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">The derivative crosses the x-axis at each stationary x-value of \(f\).</p>
 
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Turn those into x-intercepts of \(f'(x)\)</h2>
-        <p class="step-text">If \(f\) has a horizontal tangent, then \(f'(x)=0\) there. Where should the derivative cross the x-axis?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivativeRoots('correct')">
-            \[
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
             x\approx -3,\ 0,\ 4
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivativeRoots('wrong1')">
-            \[
-            x\approx -1.5,\ 2
-            \]
-          </button>
+            \]</div>
         </div>
 
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
+      <p class="step-text">Stationary points of \(f\) are exactly where \(f'(x)=0\), so they become x-intercepts of the derivative.</p>
+          `
+        },
+        {
+          title: raw`Work out the sign of \(f'(x)\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use whether \(f\) is increasing or decreasing on each interval.</p>
 
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Work out the sign of \(f'(x)\)</h2>
-        <p class="step-text">Use whether \(f\) is increasing or decreasing on each interval.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivativeSigns('correct')">
-            Negative, positive, negative, positive
-          </button>
-          <button class="option-btn" onclick="checkDerivativeSigns('wrong1')">
-            Positive, negative, positive, negative
-          </button>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">Negative, positive, negative, positive</div>
         </div>
 
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
+      <p class="step-text">\(f\) is decreasing, then increasing, then decreasing, then increasing again, so \(f'\) is negative, positive, negative, positive.</p>
+          `
+        },
+        {
+          title: raw`Place the turning points of \(f'(x)\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">The turning points of the derivative happen where \(f\) changes concavity.</p>
 
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Place the turning points of \(f'(x)\)</h2>
-        <p class="step-text">The turning points of the derivative happen where \(f\) changes concavity.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivativeTurningPoints('correct')">
-            One turning point between the first minimum and the maximum of \(f\), and one between the maximum and the second minimum
-          </button>
-          <button class="option-btn" onclick="checkDerivativeTurningPoints('wrong1')">
-            Turning points of \(f'(x)\) happen at the same x-values as the stationary points of \(f\)
-          </button>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">One turning point between the first minimum and the maximum of \(f\), and one between the maximum and the second minimum</div>
         </div>
 
-        <div id="feedback-4" class="feedback"></div>
-        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-          Next step →
-        </button>
-      </section>
+      <p class="step-text">The derivative turns where the original graph changes concavity, so those turning points sit between the stationary points of \(f\).</p>
+          `
+        },
+        {
+          title: raw`Determine the end behaviour`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use the derivative’s sign pattern to determine its end behaviour.</p>
 
-      <section id="step-5" class="step-card hidden">
-        <p class="step-number">Step 5</p>
-        <h2>Decide the end behaviour</h2>
-        <p class="step-text">How should the ends of the derivative graph look?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkEndBehaviour('correct')">
-            Below the axis on the far left, above the axis on the far right
-          </button>
-          <button class="option-btn" onclick="checkEndBehaviour('wrong1')">
-            Above the axis on the far left, below the axis on the far right
-          </button>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">Below the axis on the far left, above the axis on the far right</div>
         </div>
 
-        <div id="feedback-5" class="feedback"></div>
-        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-6" class="step-card hidden">
-        <p class="step-number">Step 6</p>
-        <h2>Final sketch</h2>
-        <p class="step-text">
+      <p class="step-text">On the far left the original graph is falling steeply, so \(f'\) is negative there. On the far right the original graph rises steeply, so \(f'\) is positive there.</p>
+          `
+        },
+        {
+          title: raw`Final sketch`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">
           A good sketch of \(f'(x)\) is a cubic-like curve crossing the x-axis at the stationary points of \(f\), with signs matching the increasing/decreasing intervals.
         </p>
 
@@ -303,40 +293,50 @@
             <svg id="derivative-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Sketch of the derivative of f of x" role="img"></svg>
           </div>
         </div>
+          `
+        }
+      ];
 
-        <div class="nav-row">
-          <a class="nav-btn secondary" href="1d2025-l2.html">← Back to Question 1(d)</a>
-          <a class="nav-btn" href="2b2025-l2.html">Next question →</a>
-        </div>
-      </section>
-    </div>
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
 
-    <!-- SEO:SUMMARY:START -->
-    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-      <p class="question-label">Learning summary</p>
-      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough focuses on sketching the derivative from stationary points, signs, and changes in concavity. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>After solving the derivative condition, check the point&#x27;s nature and answer the conclusion the question actually asks for.</p>
-      <h3>Continue practising</h3>
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="1d2025-l2.html" data-seo-related="previous">← Question 1(d)</a>
-        <a class="nav-btn secondary" href="2b2025-l2.html" data-seo-related="next">Question 2(b) →</a>
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<p class="step-text">
+        The graph below shows \(y=f(x)\). Use it to sketch a possible graph of \(y=f'(x)\).
+      </p>
+      <div class="graph-frame question-graph-frame">
+        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of f of x with two local minima and one local maximum" role="img"></svg>
       </div>
-      <ul class="step-text">
-        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
-        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
-      </ul>
-    </section>
-    <!-- SEO:SUMMARY:END -->
-  </main>
-
-  <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
+      <p class="step-text">
+        Sketch \(f'(x)\) here:
+      </p>
+      <div class="graph-frame question-graph-frame">
+        <svg id="blank-derivative-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Blank axes for sketching the derivative of f of x" role="img"></svg>
+      </div>
+      <p class="step-text question-note">
+        The key idea is that stationary points of \(f\) become x-intercepts of \(f'\). Then use where \(f\) is increasing, decreasing, and changing concavity to shape the derivative.
+      </p>
+        `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-2-calculus-2025.html",
+        nextHref: "2b2025-l2.html",
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "1d2025-l2.html", label: "← Back to Question 1(d)" },
+          primary: { href: "2b2025-l2.html", label: "Next question →" }
+        },
+        guidedSteps: guidedSteps,
+        afterRender: function () {
+          drawQuestionGraph();
+          drawBlankDerivativeGraph();
+          setupGraphControls();
+          drawDerivativeGraph();
+        }
+      }, {
+        defaultEyebrow: "Level 2 Calculus Walkthrough"
+      });
+    });
 
     const stationaryXs = [-3, 0, 4];
     const turnXs = [
@@ -344,123 +344,12 @@
       (1 + Math.sqrt(37)) / 3
     ];
 
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
     function originalFunction(x) {
       return 0.15 * ((x * x * x * x) / 4 - (x * x * x) / 3 - 6 * x * x) - 6;
     }
 
     function derivativeFunction(x) {
       return 0.15 * (x + 3) * x * (x - 4);
-    }
-
-    const hintContent = [
-      "Start with the stationary points of \\(f\\). Those are the places where the tangent is horizontal, so they become the zeros of \\(f'(x)\\).",
-      "Then decide where \\(f'(x)\\) should be positive or negative by checking whether \\(f\\) is increasing or decreasing in each interval.",
-      "Finally, use the changes in concavity of \\(f\\) to place the turning points of the derivative between the stationary points."
-    ];
-
-    document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
-          <p class="step-text">A strong sketch of the derivative should:</p>
-          <div class="math-block">
-            \\[
-            \\text{cross the x-axis at about }x=-3,\\ 0,\\ \\text{and }4
-            \\]
-            \\[
-            \\text{be negative, then positive, then negative, then positive}
-            \\]
-          </div>
-        `,
-        nextHref: "2b2025-l2.html",
-        nextLabel: "Next question →"
-      });
-      drawQuestionGraph();
-      drawBlankDerivativeGraph();
-      setupGraphControls();
-      drawDerivativeGraph();
-    });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(function (step) {
-        step.classList.add("hidden");
-      });
-      document.getElementById(stepId).classList.remove("hidden");
-      if (stepId === "step-6") {
-        drawDerivativeGraph();
-      }
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) {
-        return;
-      }
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkStationaryPoints(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. The graph of \\(f\\) has two local minima and one local maximum, at about \\(x=-3\\), \\(x=0\\), and \\(x=4\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. Look for the places where the curve flattens out before changing direction.");
-        toggleNextStepButton("next-step-1", false);
-      }
-    }
-
-    function checkDerivativeRoots(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Correct. Stationary points of \\(f\\) are exactly where \\(f'(x)=0\\), so they become x-intercepts of the derivative.", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. The zeros of \\(f'\\) go at the x-values of the stationary points of \\(f\\), not at the inflection points.");
-        toggleNextStepButton("next-step-2", false);
-      }
-    }
-
-    function checkDerivativeSigns(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. \\(f\\) is decreasing, then increasing, then decreasing, then increasing again, so \\(f'\\) is negative, positive, negative, positive.", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Read the original graph from left to right and decide where it is moving down or up.");
-        toggleNextStepButton("next-step-3", false);
-      }
-    }
-
-    function checkDerivativeTurningPoints(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. The derivative turns where the original graph changes concavity, so those turning points sit between the stationary points of \\(f\\).", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Not quite. The stationary points of \\(f\\) give zeros of \\(f'\\), but the turning points of \\(f'\\) come from inflection points of \\(f\\).");
-        toggleNextStepButton("next-step-4", false);
-      }
-    }
-
-    function checkEndBehaviour(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Correct. On the far left the original graph is falling steeply, so \\(f'\\) is negative there. On the far right the original graph rises steeply, so \\(f'\\) is positive there.", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Try again. Think about the sign of the slope of \\(f\\) at the far left and far right of the graph.");
-        toggleNextStepButton("next-step-5", false);
-      }
     }
 
     function setupGraphControls() {

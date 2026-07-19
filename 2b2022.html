@@ -29,7 +29,7 @@
       "description": "2022 NCEA Level 3 Differentiation AS91578 Question 2(b) worked solution: chain rule and finding a tangent gradient. Use guided hints and step-by-step…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 3",
       "teaches": "chain rule and finding a tangent gradient",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1>2022 NCEA Level 3 Differentiation Question 2(b)</h1>
-        <p class="subtitle">2022 Paper - Tangent gradient using the chain rule</p>
+        <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
+        <h1 id="page-title">2022 NCEA Level 3 Differentiation Question 2(b)</h1>
+        <p id="page-subtitle" class="subtitle">2022 Paper - Tangent gradient using the chain rule</p>
       </div>
-      <a class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,164 +119,9 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <p class="step-text">
-        Find the gradient of the tangent to the curve \(y=(3x^2-2)^3\) when \(x=2\).
-      </p>
-      <p class="step-text question-note">
-        You must use calculus and show any derivatives that you need when solving this problem.
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
-
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card">
-        <p class="step-number">Step 1</p>
-        <h2>Choose the rule</h2>
-        <p class="step-text">This is a function raised to a power, so which differentiation rule is the best starting point?</p>
-
-        <div class="button-grid">
-          <button class="option-btn" onclick="checkRule('chain')">Chain rule</button>
-          <button class="option-btn" onclick="checkRule('product')">Product rule</button>
-          <button class="option-btn" onclick="checkRule('quotient')">Quotient rule</button>
-          <button class="option-btn" onclick="checkRule('implicit')">Implicit differentiation</button>
-        </div>
-
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Differentiate the outside first</h2>
-        <p class="step-text">If \(u=3x^2-2\), then \(y=u^3\). What is \(\frac{dy}{du}\)?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-2-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type dy by du"
-            placeholder="Type your answer here"
-          />
-          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkOutside()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Differentiate the inside function</h2>
-        <p class="step-text">Now find \(\frac{du}{dx}\) for \(u=3x^2-2\).</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-3-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type du by dx"
-            placeholder="Type your answer here"
-          />
-          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkInside()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Combine with the chain rule</h2>
-        <p class="step-text">Multiply the outside derivative by the inside derivative.</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-4-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type dy by dx"
-            placeholder="Type your answer here"
-          />
-          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-4" class="feedback"></div>
-        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-5" class="step-card hidden">
-        <p class="step-number">Step 5</p>
-        <h2>Substitute \(x=2\)</h2>
-        <p class="step-text">Now evaluate the derivative to find the tangent gradient.</p>
-
-        <div class="math-block">
-          \[
-          \frac{dy}{dx}=18x(3x^2-2)^2
-          \]
-          \[
-          \frac{dy}{dx}\bigg|_{x=2}=18(2)\bigl(3(2)^2-2\bigr)^2
-          \]
-        </div>
-
-        <div class="math-input-group">
-          <input
-            id="step-5-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the tangent gradient"
-            placeholder="Type your answer here"
-          />
-          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkTangentGradient()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-5" class="feedback"></div>
-
-        <div id="step-5-nav" class="nav-row hidden">
-          <a class="nav-btn secondary" href="2a2022.html">← Back to Question 2(a)</a>
-          <a class="nav-btn" href="2c2022.html">Next question →</a>
-        </div>
-      </section>
-    </div>
+    <div id="walkthrough-content" class="hidden"></div>
 
     <!-- SEO:SUMMARY:START -->
     <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
@@ -300,16 +144,6 @@
   </main>
 
   <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
     const hintContent = [
       "Treat the expression as a power on the outside and a quadratic on the inside.",
       "Differentiate \\((3x^2-2)^3\\) with the chain rule: derivative of the outside times derivative of the inside.",
@@ -317,10 +151,8 @@
     ];
 
     document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
+      const raw = String.raw;
+      const answerHtml = `
           <p class="step-text">The tangent gradient is:</p>
           <div class="math-block">
             \\[
@@ -330,128 +162,131 @@
             m=3600 \\text{ when } x=2
             \\]
           </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Identify the differentiation rule`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use the chain rule because the expression is a function raised to a power.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">Chain rule</div>
+        </div>
+
+      <p class="step-text">This is a composition of functions, so the chain rule is the right starting point.</p>
+          `
+        },
+        {
+          title: raw`Differentiate the outside first`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">With \(u=3x^2-2\) and \(y=u^3\), differentiate the outer function with respect to \(u\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            3 u^{2}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">If \(y=u^3\), then \(\frac{dy}{du}=3u^2\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Differentiate the inside function`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Now find \(\frac{du}{dx}\) for \(u=3x^2-2\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            6 x
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">The derivative of \(3x^2-2\) is \(6x\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Combine with the chain rule`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Multiply the outside derivative by the inside derivative.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            18 x \left(3 x^{2} - 2\right)^{2}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Chain rule gives \(3(3x^2-2)^2\cdot 6x=18x(3x^2-2)^2\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Substitute \(x=2\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Now evaluate the derivative to find the tangent gradient.</p>
+
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}=18x(3x^2-2)^2
+          \]
+          \[
+          \frac{dy}{dx}\bigg|_{x=2}=18(2)\bigl(3(2)^2-2\bigr)^2
+          \]
+        </div>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            3600
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">The gradient of the tangent when \(x=2\) is \(3600\).</p></div>
+        </div>
+          `
+        }
+      ];
+
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
+
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<p class="step-text">
+        Find the gradient of the tangent to the curve \(y=(3x^2-2)^3\) when \(x=2\).
+      </p>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need when solving this problem.
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-3-differentiation-2022.html",
         nextHref: "2c2022.html",
-        nextLabel: "Next question →"
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "2a2022.html", label: "← Back to Question 2(a)" },
+          primary: { href: "2c2022.html", label: "Next question →" }
+        },
+        guidedSteps: guidedSteps
+      }, {
+        defaultEyebrow: "Level 3 Differentiation Walkthrough"
       });
-      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
-      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
-      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
-      TypedMath.bindMathInputCheck("step-2-answer", checkOutside);
-      TypedMath.bindMathInputCheck("step-3-answer", checkInside);
-      TypedMath.bindMathInputCheck("step-4-answer", checkDerivative);
-      TypedMath.bindMathInputCheck("step-5-answer", checkTangentGradient);
     });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(step => step.classList.add("hidden"));
-      document.getElementById(stepId).classList.remove("hidden");
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) return;
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkRule(answer) {
-      if (answer === "chain") {
-        setFeedback("feedback-1", "Correct. This is a composition of functions, so the chain rule is the right starting point.", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. The expression has an inside function \\((3x^2-2)\\) raised to a power, which points to the chain rule.");
-        toggleNextStepButton("next-step-1", false);
-      }
-    }
-
-    function checkOutside() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-2-answer",
-        feedbackId: "feedback-2",
-        nextButtonId: "next-step-2",
-        acceptedAnswers: ["3u^2"],
-        samples: [{ u: 2 }, { u: -1 }],
-        successMessage: "Correct. If \\(y=u^3\\), then \\(\\frac{dy}{du}=3u^2\\).",
-        genericMessage: "Try again. Differentiate \\(u^3\\) with the power rule.",
-        targetedFeedback: [
-          {
-            answers: ["u^3"],
-            message: "That is the original expression. Differentiate \\(u^3\\) with the power rule."
-          },
-          {
-            answers: ["2u", "3u"],
-            message: "Close, but the derivative of \\(u^3\\) is quadratic, not linear."
-          }
-        ]
-      });
-    }
-
-    function checkInside() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        acceptedAnswers: ["6x"],
-        samples: [{ x: 2 }, { x: -1 }],
-        successMessage: "Yes. The derivative of \\(3x^2-2\\) is \\(6x\\).",
-        genericMessage: "Not quite. Differentiate each term: \\(\\frac{d}{dx}(3x^2)=6x\\) and \\(\\frac{d}{dx}(-2)=0\\).",
-        targetedFeedback: [
-          {
-            answers: ["3x"],
-            message: "Close, but differentiating \\(3x^2\\) gives \\(6x\\), not \\(3x\\)."
-          },
-          {
-            answers: ["6x^2"],
-            message: "Not quite. Differentiating lowers the power by 1, so the result should be linear in \\(x\\)."
-          }
-        ]
-      });
-    }
-
-    function checkDerivative() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-4-answer",
-        feedbackId: "feedback-4",
-        nextButtonId: "next-step-4",
-        acceptedAnswers: ["18x(3x^2-2)^2"],
-        samples: [{ x: 1 }, { x: 3 }],
-        successMessage: "Great. Chain rule gives \\(3(3x^2-2)^2\\cdot 6x=18x(3x^2-2)^2\\).",
-        genericMessage: "Close, but the derivative of the inside function is missing. Chain rule means multiplying by \\(6x\\) as well.",
-        targetedFeedback: [
-          {
-            answers: ["3(3x^2-2)^2"],
-            message: "Close, but the derivative of the inside function is missing. Chain rule means multiplying by \\(6x\\) as well."
-          }
-        ]
-      });
-    }
-
-    function checkTangentGradient() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-5-answer",
-        feedbackId: "feedback-5",
-        acceptedAnswers: ["3600"],
-        successMessage: "Great work. The gradient of the tangent when \\(x=2\\) is \\(3600\\).",
-        genericMessage: "Try again. Evaluate \\(18(2)\\bigl(3(2)^2-2\\bigr)^2\\) carefully.",
-        targetedFeedback: [
-          {
-            answers: ["360"],
-            message: "Close, but \\(36\\times 10^2=36\\times 100=3600\\), not 360."
-          }
-        ],
-        successRevealId: "step-5-nav"
-      });
-    }
   </script>
 </body>
 </html>

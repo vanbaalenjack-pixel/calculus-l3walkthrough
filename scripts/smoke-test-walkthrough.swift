@@ -18,17 +18,17 @@ private struct TestCase {
 }
 
 private let tests = [
-    TestCase(name: "1(a) desktop reveals and disables sticky", path: "1a2020.html#question-1a", width: 1280, height: 900, expectedPart: "1a", expectedSteps: 4, revealAll: true, preferenceAction: "disable", legacyRedirect: false, snapshotName: nil),
-    TestCase(name: "sticky preference survives refresh", path: "1a2020.html#question-1a", width: 1280, height: 900, expectedPart: "1a", expectedSteps: 4, revealAll: false, preferenceAction: "verify-disabled-then-enable", legacyRedirect: false, snapshotName: "calc-walkthrough-desktop.png"),
-    TestCase(name: "1(e) desktop", path: "1e2020.html#question-1e", width: 1280, height: 900, expectedPart: "1e", expectedSteps: 4, revealAll: true, preferenceAction: "none", legacyRedirect: false, snapshotName: nil),
-    TestCase(name: "2(d) desktop tall question", path: "2d2020.html#question-2d", width: 1280, height: 900, expectedPart: "2d", expectedSteps: 4, revealAll: true, preferenceAction: "none", legacyRedirect: false, snapshotName: nil),
-    TestCase(name: "2(e) desktop", path: "2e2020.html#question-2e", width: 1280, height: 900, expectedPart: "2e", expectedSteps: 3, revealAll: true, preferenceAction: "none", legacyRedirect: false, snapshotName: nil),
-    TestCase(name: "3(e) desktop", path: "3e2020.html#question-3e", width: 1280, height: 900, expectedPart: "3e", expectedSteps: 3, revealAll: true, preferenceAction: "none", legacyRedirect: false, snapshotName: nil),
-    TestCase(name: "1(a) mobile", path: "1a2020.html#question-1a", width: 390, height: 844, expectedPart: "1a", expectedSteps: 4, revealAll: true, preferenceAction: "mobile-toggle", legacyRedirect: false, snapshotName: nil),
-    TestCase(name: "2(d) mobile tall question", path: "2d2020.html#question-2d", width: 390, height: 844, expectedPart: "2d", expectedSteps: 4, revealAll: false, preferenceAction: "none", legacyRedirect: false, snapshotName: "calc-walkthrough-mobile.png"),
+    TestCase(name: "1(a) desktop reveals and disables sticky", path: "1a2020.html", width: 1280, height: 900, expectedPart: "1a", expectedSteps: 4, revealAll: true, preferenceAction: "disable", legacyRedirect: false, snapshotName: nil),
+    TestCase(name: "sticky preference survives refresh", path: "1a2020.html", width: 1280, height: 900, expectedPart: "1a", expectedSteps: 4, revealAll: false, preferenceAction: "verify-disabled-then-enable", legacyRedirect: false, snapshotName: "calc-walkthrough-desktop.png"),
+    TestCase(name: "1(e) desktop", path: "1e2020.html", width: 1280, height: 900, expectedPart: "1e", expectedSteps: 4, revealAll: true, preferenceAction: "none", legacyRedirect: false, snapshotName: nil),
+    TestCase(name: "2(d) desktop tall question", path: "2d2020.html", width: 1280, height: 900, expectedPart: "2d", expectedSteps: 4, revealAll: true, preferenceAction: "none", legacyRedirect: false, snapshotName: nil),
+    TestCase(name: "2(e) desktop", path: "2e2020.html", width: 1280, height: 900, expectedPart: "2e", expectedSteps: 3, revealAll: true, preferenceAction: "none", legacyRedirect: false, snapshotName: nil),
+    TestCase(name: "3(e) desktop", path: "3e2020.html", width: 1280, height: 900, expectedPart: "3e", expectedSteps: 3, revealAll: true, preferenceAction: "none", legacyRedirect: false, snapshotName: nil),
+    TestCase(name: "1(a) mobile", path: "1a2020.html", width: 390, height: 844, expectedPart: "1a", expectedSteps: 4, revealAll: true, preferenceAction: "mobile-toggle", legacyRedirect: false, snapshotName: nil),
+    TestCase(name: "2(d) mobile tall question", path: "2d2020.html", width: 390, height: 844, expectedPart: "2d", expectedSteps: 4, revealAll: false, preferenceAction: "none", legacyRedirect: false, snapshotName: "calc-walkthrough-mobile.png"),
     TestCase(name: "sitewide setting on 2021 walkthrough", path: "1a2021.html", width: 1280, height: 900, expectedPart: nil, expectedSteps: 3, revealAll: false, preferenceAction: "none", legacyRedirect: false, snapshotName: nil),
-    TestCase(name: "guided sequential walkthrough", path: "1a2020.html?mode=guided#question-1a", width: 1280, height: 900, expectedPart: "1a", expectedSteps: 4, revealAll: true, preferenceAction: "guided", legacyRedirect: false, snapshotName: "guided-walkthrough-desktop.png"),
-    TestCase(name: "legacy guided single-step walkthrough", path: "1a2022.html?mode=guided", width: 1280, height: 900, expectedPart: nil, expectedSteps: 6, revealAll: false, preferenceAction: "legacy-guided", legacyRedirect: false, snapshotName: nil),
+    TestCase(name: "guided sequential walkthrough", path: "1a2020.html?mode=guided", width: 1280, height: 900, expectedPart: "1a", expectedSteps: 4, revealAll: true, preferenceAction: "guided", legacyRedirect: false, snapshotName: "guided-walkthrough-desktop.png"),
+    TestCase(name: "modernized 2022 guided walkthrough", path: "1a2022.html?mode=guided", width: 1280, height: 900, expectedPart: nil, expectedSteps: 6, revealAll: true, preferenceAction: "guided", legacyRedirect: false, snapshotName: nil),
     TestCase(name: "homepage drill-down flow", path: "index.html?smoke=flow", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-flow", legacyRedirect: false, snapshotName: "home-flow-desktop.png"),
     TestCase(name: "homepage genuine fragment history", path: "index.html?smoke=fragment-history#main-content", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "index-fragment-history", legacyRedirect: false, snapshotName: nil),
     TestCase(name: "header Standards navigation and Back", path: "index.html?smoke=standards-navigation", width: 1280, height: 900, expectedPart: nil, expectedSteps: nil, revealAll: false, preferenceAction: "site-standards-navigation", legacyRedirect: false, snapshotName: nil),
@@ -283,10 +283,10 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 const integrationLinks = Array.from(integrationPaper.querySelectorAll("a.index-link-card"));
                 checks.integrationPaperVisible = isVisible(integrationPaper);
                 checks.integrationEntryChoice = isVisible(integrationPaper.querySelector(".paper-entry-choice"));
-                checks.integrationGuidedRoute = /\/int-1a2020\.html\?mode=guided#question-1a$/.test(integrationPaper.querySelector("[data-paper-start-guided]").href);
+                checks.integrationGuidedRoute = /\/int-1a2020\.html\?mode=guided$/.test(integrationPaper.querySelector("[data-paper-start-guided]").href);
                 checks.integrationHasAllParts = integrationLinks.length === 15;
                 checks.integrationUsesDirectPartRoutes = integrationLinks.every(function (link) {
-                  return /\/int-[123][a-e]2020\.html#question-[123][a-e]$/.test(link.href);
+                  return /\/int-[123][a-e]2020\.html$/.test(link.href);
                 });
               } else if (preferenceAction === "index-mobile") {
                 const complexPanel = document.querySelector('[data-standard-panel="level-3-complex"]');
@@ -305,7 +305,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 checks.paperPanelVisible = isVisible(panel) && panel.getAttribute("aria-hidden") === "false";
                 checks.paperHasAllParts = links.length === 15;
                 checks.paperUsesDirectPartRoutes = links.every(function (link) {
-                  return /\/[123][a-e]2020\.html#question-[123][a-e]$/.test(link.href);
+                  return /\/[123][a-e]2020\.html$/.test(link.href);
                 });
               }
 
@@ -387,53 +387,6 @@ private final class Runner: NSObject, WKNavigationDelegate {
               });
             }
 
-            if (preferenceAction === "legacy-guided") {
-              const walkthroughContent = document.getElementById("walkthrough-content");
-              const legacySteps = Array.from(walkthroughContent.querySelectorAll(":scope > .step-card"));
-              const firstStep = legacySteps[0];
-              const workingToggle = firstStep.querySelector(".legacy-working-toggle");
-              const workingPanel = firstStep.querySelector(".legacy-step-working");
-
-              checks.guidedMode = new URLSearchParams(window.location.search).get("mode") === "guided";
-              checks.walkthroughStartsOpen = !walkthroughContent.classList.contains("hidden");
-              checks.legacyStepCount = legacySteps.length === expectedSteps;
-              checks.oneLegacyStepVisible = legacySteps.filter(function (step) { return !step.classList.contains("hidden"); }).length === 1;
-              checks.legacyStartsAtStepOne = !firstStep.classList.contains("hidden") && firstStep.querySelector(".legacy-step-progress").textContent.trim() === "Step 1 of 6";
-              checks.previousInitiallyDisabled = firstStep.querySelector(".legacy-previous-btn").disabled;
-              workingToggle.click();
-              checks.legacyWorkingShows = !workingPanel.classList.contains("hidden") && workingToggle.textContent.trim() === "Hide working";
-              workingToggle.click();
-              checks.legacyWorkingHides = workingPanel.classList.contains("hidden") && workingToggle.textContent.trim() === "Show working";
-              workingToggle.click();
-              window.showOnlyStep("step-2");
-              checks.legacyAdvancesOneAtATime = !legacySteps[1].classList.contains("hidden") && firstStep.classList.contains("hidden");
-              legacySteps[1].querySelector(".legacy-previous-btn").click();
-              checks.legacyPreviousWorks = !firstStep.classList.contains("hidden") && legacySteps[1].classList.contains("hidden");
-              checks.legacyWorkingPreserved = !workingPanel.classList.contains("hidden");
-              window.showOnlyStep("step-6");
-              const legacyCompleteButton = legacySteps[legacySteps.length - 1].querySelector(".legacy-complete-btn");
-              checks.legacyFinalAction = Boolean(legacyCompleteButton && legacyCompleteButton.textContent.trim() === "Show final answer");
-              if (legacyCompleteButton) {
-                legacyCompleteButton.click();
-              }
-              const legacyAnswerCard = document.getElementById("answer-card");
-              checks.legacyAnswerVisible = !legacyAnswerCard.classList.contains("hidden");
-              const guidedNextQuestion = document.getElementById("next-question-link");
-              checks.guidedModeContinues = Boolean(guidedNextQuestion && /mode=guided/.test(guidedNextQuestion.href));
-              checks.answerFocusVisible = Boolean(legacyAnswerCard.contains(document.activeElement) && document.activeElement.classList.contains("in-page-focus-target"));
-              checks.nextQuestionFollowsAnswer = Boolean(guidedNextQuestion && legacyAnswerCard.contains(guidedNextQuestion));
-              checks.legacyStickySetting = Boolean(document.getElementById("sticky-question-setting"));
-              checks.noHorizontalOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
-
-              const failedChecks = Object.keys(checks).filter(function (key) { return !checks[key]; });
-              return JSON.stringify({
-                url: window.location.href,
-                checks: checks,
-                failedChecks: failedChecks,
-                errors: window.__walkthroughTestErrors || []
-              });
-            }
-
             const questionCard = document.getElementById("question-card");
             const image = questionCard && questionCard.querySelector("img.question-screenshot");
             const setting = document.getElementById("sticky-question-setting");
@@ -457,10 +410,10 @@ private final class Runner: NSObject, WKNavigationDelegate {
               const activeChip = document.querySelector("#walkthrough-part-navigation [aria-current='page']");
               checks.partChips = chips.length === 15;
               checks.partLinks = chips.every(function (link) {
-                return /\/[123][a-e]2020\.html(?:\?mode=guided)?#question-[123][a-e]$/.test(link.href);
+                return /\/[123][a-e]2020\.html(?:\?mode=guided)?$/.test(link.href);
               });
               checks.activePart = Boolean(activeChip && activeChip.textContent.trim() === expectedPart.charAt(0) + "(" + expectedPart.charAt(1) + ")");
-              checks.directHash = window.location.hash === "#question-" + expectedPart;
+              checks.noRedundantFragment = window.location.hash === "";
               checks.sharpQuestionImage = Boolean(image && image.complete && image.naturalWidth === 3125 && image.clientWidth <= image.naturalWidth);
             }
 

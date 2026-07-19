@@ -29,7 +29,7 @@
       "description": "2025 NCEA Level 2 Calculus AS91262 Question 3(d) worked solution: differentiating, factorising, classifying critical points, and finding where the function…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 2",
       "teaches": "differentiating, factorising, classifying critical points, and finding where the function is decreasing",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
-        <h1>2025 NCEA Level 2 Calculus Question 3(d)</h1>
-        <p class="subtitle">2025 Paper — Find where the function is decreasing</p>
+        <p id="page-eyebrow" class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1 id="page-title">2025 NCEA Level 2 Calculus Question 3(d)</h1>
+        <p id="page-subtitle" class="subtitle">2025 Paper — Find where the function is decreasing</p>
       </div>
-      <a class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,201 +119,172 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <div class="question-math">
-        \[
-        f(x)=\frac{x^4}{4}+\frac{(k-3)x^3}{3}-\frac{3kx^2}{2}+k
-        \]
-        \[
-        \text{where }k\text{ is a positive constant.}
-        \]
-      </div>
-      <p class="step-text">
-        Determine the regions where \(f(x)\) is decreasing.
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <p class="step-text question-note">
-        Differentiate first, factorise the derivative, find the critical points, use the second derivative test to classify them, then use the sign of the factorised derivative to decide where \(f(x)\) is decreasing.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
+    <div id="walkthrough-content" class="hidden"></div>
 
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card active">
-        <p class="step-number">Step 1</p>
-        <h2>Differentiate the function</h2>
-        <p class="step-text">Differentiate term by term. Which derivative is correct?</p>
+    <!-- SEO:SUMMARY:START -->
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
+      <p class="question-label">Learning summary</p>
+      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
+      <p class="step-text" data-seo-summary>This walkthrough focuses on differentiating, factorising, classifying critical points, and finding where the function is decreasing. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+      <h3>Common mistake to avoid</h3>
+      <p class="step-text" data-seo-mistake>Substituting into the original function when the question asks for a gradient or rate.</p>
+      <h3>Continue practising</h3>
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="3c2025-l2.html" data-seo-related="previous">← Question 3(c)</a>
+        <a class="nav-btn secondary" href="3d2025-l2.html" data-seo-related="next" hidden>Next question</a>
+      </div>
+      <ul class="step-text">
+        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
+        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
+      </ul>
+    </section>
+    <!-- SEO:SUMMARY:END -->
+  </main>
 
-        <div class="math-input-group">
-          <input
-            id="step-1-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the derivative of f of x"
-            placeholder="Type your answer here"
-          />
-          <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
-            Check
-          </button>
-        </div>
+  <script>
+    const hintContent = [
+      "Differentiate term by term first, then look for a common factor in the derivative.",
+      "The quadratic factor should split neatly into two brackets involving \\(3\\) and \\(k\\).",
+      "Once the derivative is factorised, the critical points come from setting each factor equal to zero.",
+      "Use the second derivative to classify the critical points, then use the sign of the factorised derivative to find where the function is decreasing."
+    ];
 
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
+    document.addEventListener("DOMContentLoaded", function () {
+      const raw = String.raw;
+      const answerHtml = `
+          <p class="step-text">The derivative factorises as:</p>
+          <div class="math-block">
+            \\[
+            f'(x)=x(x-3)(x+k)
+            \\]
+          </div>
+          <p class="step-text">So the critical points are \\(x=-k,0,3\\), and the function is decreasing where the derivative is negative:</p>
+          <div class="math-block">
+            \\[
+            x&lt;-k
+            \\]
+            \\[
+            0&lt;x&lt;3
+            \\]
+          </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Differentiate the function`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Differentiate the function term by term and collect like powers of \(x\).</p>
 
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Factorise the derivative</h2>
-        <p class="step-text">Factor out the common factor, then factorise the quadratic. Which factorised form is correct?</p>
 
-        <div class="math-input-group">
-          <input
-            id="step-2-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the factorised derivative"
-            placeholder="Type your answer here"
-          />
-          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkFactorisedForm()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Find the critical points</h2>
-        <p class="step-text">Set \(f'(x)=0\). What are the critical x-values?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-3-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the critical x values"
-            placeholder="Type your answer here"
-          />
-          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkCriticalPoints()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Differentiate again</h2>
-        <p class="step-text">We need the second derivative for the second derivative test. Which expression is correct?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-4-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the second derivative"
-            placeholder="Type your answer here"
-          />
-          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkSecondDerivativeFormula()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-4" class="feedback"></div>
-        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-5" class="step-card hidden">
-        <p class="step-number">Step 5</p>
-        <h2>Apply the second derivative test</h2>
-        <p class="step-text">Use \(k&gt;0\) when evaluating \(f''(x)\) at the critical points. Which classification is correct?</p>
-
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkNature('correct')">
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
             \[
+            x^{3} + \left(k - 3\right) x^{2} - 3 k x
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">The derivative of \(-\frac{3kx^2}{2}\) is \(-3kx\), so \(f'(x)=x^3+(k-3)x^2-3kx\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Factorise the derivative`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Factor out the common factor, then factorise the remaining quadratic.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            x \left(x - 3\right) \left(x + k\right)
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">First factor out \(x\), then \(x^2+(k-3)x-3k\) factorises as \((x-3)(x+k)\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Find the critical points`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Set \(f'(x)=0\) and solve each factor for the critical x-values.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            -k,\ 0,\ 3
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Each factor can be zero, so the critical points are \(x=-k\), \(x=0\), and \(x=3\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Differentiate again`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Differentiate again to obtain the expression needed for the second derivative test.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            3 x^{2} + 2 \left(k - 3\right) x - 3 k
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Differentiate \(x^3+(k-3)x^2-3kx\) term by term to get \(3x^2+2(k-3)x-3k\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Apply the second derivative test`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use \(k&gt;0\) when evaluating \(f''(x)\) to classify the critical points.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
             x=-k \text{ and } x=3 \text{ are local minima,}
             \]
             \[
             x=0 \text{ is a local maximum}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkNature('wrong1')">
-            \[
-            x=-k \text{ and } x=3 \text{ are local maxima,}
-            \]
-            \[
-            x=0 \text{ is a local minimum}
-            \]
-          </button>
+            \]</div>
         </div>
 
-        <div id="feedback-5" class="feedback"></div>
-        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
-          Next step →
-        </button>
-      </section>
+      <p class="step-text">Because \(f''(-k)=k(k+3)&gt;0\), \(f''(0)=-3k&lt;0\), and \(f''(3)=3(k+3)&gt;0\), the points at \(-k\) and \(3\) are minima, while \(0\) is a maximum.</p>
+          `
+        },
+        {
+          title: raw`Find where the derivative is negative`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Order the critical points as \(-k&lt;0&lt;3\), then use the factor signs to locate the intervals where \(f'(x)&lt;0\).</p>
 
-      <section id="step-6" class="step-card hidden">
-        <p class="step-number">Step 6</p>
-        <h2>Find where the derivative is negative</h2>
-        <p class="step-text">Since \(k&gt;0\), the critical points are ordered \(-k&lt;0&lt;3\). On which intervals is \(f'(x)&lt;0\)?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDecreasingIntervals('correct')">
-            \[
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
             x&lt;-k \quad \text{and} \quad 0&lt;x&lt;3
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDecreasingIntervals('wrong1')">
-            \[
-            -k&lt;x&lt;0 \quad \text{and} \quad x&gt;3
-            \]
-          </button>
+            \]</div>
         </div>
 
-        <div id="feedback-6" class="feedback"></div>
-        <button id="next-step-6" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-7')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-7" class="step-card hidden">
-        <p class="step-number">Step 7</p>
-        <h2>Final answer</h2>
-        <p class="step-text">Now put the whole argument together clearly.</p>
+      <p class="step-text">Using the ordered roots \(-k&lt;0&lt;3\), the factorised derivative \(x(x-3)(x+k)\) is negative on \(( -\infty,-k )\) and \((0,3)\).</p>
+          `
+        },
+        {
+          title: raw`Final result`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Now put the whole argument together clearly.</p>
 
         <div class="math-block">
           \[
@@ -355,212 +325,44 @@
           \]
         </div>
 
-        <div id="feedback-7" class="feedback success">
-          Great work. The function is decreasing for \(x&lt;-k\) and for \(0&lt;x&lt;3\).
-        </div>
+        <p class="step-text">The function is decreasing for \(x&lt;-k\) and for \(0&lt;x&lt;3\).</p>
+          `
+        }
+      ];
 
-        <div class="nav-row">
-          <a class="nav-btn secondary" href="level-2-calculus-2025.html">← Back to Question 3(c)</a>
-          <a class="nav-btn" href="level-2-calculus-2025.html">Back to paper</a>
-        </div>
-      </section>
-    </div>
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
 
-    <!-- SEO:SUMMARY:START -->
-    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-      <p class="question-label">Learning summary</p>
-      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough focuses on differentiating, factorising, classifying critical points, and finding where the function is decreasing. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Substituting into the original function when the question asks for a gradient or rate.</p>
-      <h3>Continue practising</h3>
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="3c2025-l2.html" data-seo-related="previous">← Question 3(c)</a>
-        <a class="nav-btn secondary" href="3d2025-l2.html" data-seo-related="next" hidden>Next question</a>
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<div class="question-math">
+        \[
+        f(x)=\frac{x^4}{4}+\frac{(k-3)x^3}{3}-\frac{3kx^2}{2}+k
+        \]
+        \[
+        \text{where }k\text{ is a positive constant.}
+        \]
       </div>
-      <ul class="step-text">
-        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
-        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
-      </ul>
-    </section>
-    <!-- SEO:SUMMARY:END -->
-  </main>
-
-  <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
-    const hintContent = [
-      "Differentiate term by term first, then look for a common factor in the derivative.",
-      "The quadratic factor should split neatly into two brackets involving \\(3\\) and \\(k\\).",
-      "Once the derivative is factorised, the critical points come from setting each factor equal to zero.",
-      "Use the second derivative to classify the critical points, then use the sign of the factorised derivative to find where the function is decreasing."
-    ];
-
-    document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
-          <p class="step-text">The derivative factorises as:</p>
-          <div class="math-block">
-            \\[
-            f'(x)=x(x-3)(x+k)
-            \\]
-          </div>
-          <p class="step-text">So the critical points are \\(x=-k,0,3\\), and the function is decreasing where the derivative is negative:</p>
-          <div class="math-block">
-            \\[
-            x&lt;-k
-            \\]
-            \\[
-            0&lt;x&lt;3
-            \\]
-          </div>
+      <p class="step-text">
+        Determine the regions where \(f(x)\) is decreasing.
+      </p>
+      <p class="step-text question-note">
+        Differentiate first, factorise the derivative, find the critical points, use the second derivative test to classify them, then use the sign of the factorised derivative to decide where \(f(x)\) is decreasing.
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-2-calculus-2025.html",
         nextHref: "level-2-calculus-2025.html",
-        nextLabel: "Back to paper"
-      });
-      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
-      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview", { mode: "list" });
-      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
-      TypedMath.bindMathInputCheck("step-1-answer", checkDerivative);
-      TypedMath.bindMathInputCheck("step-2-answer", checkFactorisedForm);
-      TypedMath.bindMathInputCheck("step-3-answer", checkCriticalPoints);
-      TypedMath.bindMathInputCheck("step-4-answer", checkSecondDerivativeFormula);
-    });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(function (step) {
-        step.classList.add("hidden");
-      });
-      document.getElementById(stepId).classList.remove("hidden");
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) {
-        return;
-      }
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkDerivative() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-1-answer",
-        feedbackId: "feedback-1",
-        nextButtonId: "next-step-1",
-        acceptedAnswers: ["x^3+(k-3)x^2-3kx"],
-        samples: [{ x: 2, k: 4 }, { x: -1, k: 1.5 }],
-        successMessage: "Correct. The derivative of \\(-\\frac{3kx^2}{2}\\) is \\(-3kx\\), so \\(f'(x)=x^3+(k-3)x^2-3kx\\).",
-        genericMessage: "Not quite. Differentiate each term carefully before you combine them.",
-        targetedFeedback: [
-          {
-            answers: ["x^3+(k-3)x^2-(3kx)/2"],
-            message: "Not quite. The derivative of \\(-\\frac{3kx^2}{2}\\) is \\(-3kx\\), not \\(-\\frac{3kx}{2}\\)."
-          }
-        ]
-      });
-    }
-
-    function checkFactorisedForm() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-2-answer",
-        feedbackId: "feedback-2",
-        nextButtonId: "next-step-2",
-        acceptedAnswers: ["x(x-3)(x+k)"],
-        samples: [{ x: 2, k: 4 }, { x: -1, k: 1.5 }],
-        successMessage: "Correct. First factor out \\(x\\), then \\(x^2+(k-3)x-3k\\) factorises as \\((x-3)(x+k)\\).",
-        genericMessage: "Try again. First factor out \\(x\\), then check the signs in the quadratic factor carefully.",
-        targetedFeedback: [
-          {
-            answers: ["x(x+3)(x-k)"],
-            message: "Not quite. The middle term should be \\((k-3)x\\) and the constant term should be \\(-3k\\), so the signs need to work with \\((x-3)(x+k)\\)."
-          }
-        ]
-      });
-    }
-
-    function checkCriticalPoints() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        mode: "list",
-        options: {
-          ordered: false
+        nextLabel: "Back to paper",
+        finalNav: {
+          secondary: { href: "3c2025-l2.html", label: "← Back to Question 3(c)" },
+          primary: { href: "level-2-calculus-2025.html", label: "Back to paper" }
         },
-        acceptedAnswers: ["-k,0,3"],
-        samples: [{ k: 2 }, { k: 5 }],
-        successMessage: "Correct. Each factor can be zero, so the critical points are \\(x=-k\\), \\(x=0\\), and \\(x=3\\).",
-        genericMessage: "Not quite. Set each factor of \\(x(x-3)(x+k)\\) equal to zero.",
-        targetedFeedback: [
-          {
-            mode: "list",
-            options: {
-              ordered: false
-            },
-            answers: ["k,0,3"],
-            message: "Close, but from \\(x+k=0\\), we get \\(x=-k\\), not \\(x=k\\)."
-          }
-        ]
+        guidedSteps: guidedSteps
+      }, {
+        defaultEyebrow: "Level 2 Calculus Walkthrough"
       });
-    }
-
-    function checkSecondDerivativeFormula() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-4-answer",
-        feedbackId: "feedback-4",
-        nextButtonId: "next-step-4",
-        acceptedAnswers: ["3x^2+2(k-3)x-3k"],
-        samples: [{ x: 2, k: 4 }, { x: -1, k: 1.5 }],
-        successMessage: "Correct. Differentiate \\(x^3+(k-3)x^2-3kx\\) term by term to get \\(3x^2+2(k-3)x-3k\\).",
-        genericMessage: "Not quite. Differentiate each term carefully, especially the quadratic term.",
-        targetedFeedback: [
-          {
-            answers: ["3x^2+(k-3)x-3k"],
-            message: "Not quite. The derivative of \\((k-3)x^2\\) is \\(2(k-3)x\\)."
-          }
-        ]
-      });
-    }
-
-    function checkNature(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Correct. Because \\(f''(-k)=k(k+3)&gt;0\\), \\(f''(0)=-3k&lt;0\\), and \\(f''(3)=3(k+3)&gt;0\\), the points at \\(-k\\) and \\(3\\) are minima, while \\(0\\) is a maximum.", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Try again. Positive second derivative means a local minimum, while negative second derivative means a local maximum.");
-        toggleNextStepButton("next-step-5", false);
-      }
-    }
-
-    function checkDecreasingIntervals(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-6", "Correct. Using the ordered roots \\(-k&lt;0&lt;3\\), the factorised derivative \\(x(x-3)(x+k)\\) is negative on \\(( -\\infty,-k )\\) and \\((0,3)\\).", true);
-        toggleNextStepButton("next-step-6", true);
-      } else {
-        setFeedback("feedback-6", "Not quite. Those intervals are where the derivative is positive, so the function is increasing there.");
-        toggleNextStepButton("next-step-6", false);
-      }
-    }
+    });
   </script>
 </body>
 </html>

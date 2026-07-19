@@ -29,7 +29,7 @@
       "description": "2025 NCEA Level 2 Calculus AS91262 Question 1(d) worked solution: writing displacement equations, solving when they are equal, and answering in context. Use…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 2",
       "teaches": "writing displacement equations, solving when they are equal, and answering in context",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
-        <h1>2025 NCEA Level 2 Calculus Question 1(d)</h1>
-        <p class="subtitle">2025 Paper — Catch-up distance using displacement equations</p>
+        <p id="page-eyebrow" class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1 id="page-title">2025 NCEA Level 2 Calculus Question 1(d)</h1>
+        <p id="page-subtitle" class="subtitle">2025 Paper — Catch-up distance using displacement equations</p>
       </div>
-      <a class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,185 +119,163 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <p class="step-text">
-        The Helena moves at \(5\text{ m s}^{-1}\) and is already \(200\text{ m}\) from the dock.
-      </p>
-      <p class="step-text">
-        A smaller boat leaves the dock from rest and accelerates at \(0.5\text{ m s}^{-2}\).
-      </p>
-      <p class="step-text">
-        Find the distance from the dock at which the smaller boat catches the Helena.
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <p class="step-text question-note">
-        Find a displacement equation for each boat, set them equal, solve for the time, then substitute back to find the distance from the dock.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
+    <div id="walkthrough-content" class="hidden"></div>
 
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card active">
-        <p class="step-number">Step 1</p>
-        <h2>Write the Helena's displacement equation</h2>
-        <p class="step-text">Let \(t\) be the number of seconds after the smaller boat leaves the dock. Which displacement model matches the Helena?</p>
+    <!-- SEO:SUMMARY:START -->
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
+      <p class="question-label">Learning summary</p>
+      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
+      <p class="step-text" data-seo-summary>This walkthrough focuses on writing displacement equations, solving when they are equal, and answering in context. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+      <h3>Common mistake to avoid</h3>
+      <p class="step-text" data-seo-mistake>Substituting into the original function when the question asks for a gradient or rate.</p>
+      <h3>Continue practising</h3>
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="1c2025-l2.html" data-seo-related="previous">← Question 1(c)</a>
+        <a class="nav-btn secondary" href="2a2025-l2.html" data-seo-related="next">Question 2(a) →</a>
+      </div>
+      <ul class="step-text">
+        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
+        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
+      </ul>
+    </section>
+    <!-- SEO:SUMMARY:END -->
+  </main>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkHelenaEquation('correct')">
-            \[
+  <script>
+    const hintContent = [
+      "Use the Helena's 200 m head start when you write its displacement equation.",
+      "For the smaller boat, start with \\(s=ut+\\frac{1}{2}at^2\\), and remember it starts from rest at the dock.",
+      "Set the two displacement equations equal, solve for time, ignore the negative time, then substitute back to find the distance from the dock."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const raw = String.raw;
+      const answerHtml = `
+          <p class="step-text">The boats meet when:</p>
+          <div class="math-block">
+            \\[
+            t=40\\text{ s}
+            \\]
+          </div>
+          <p class="step-text">So the smaller boat catches the Helena at:</p>
+          <div class="math-block">
+            \\[
+            400\\text{ m from the dock}
+            \\]
+          </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Write the Helena's displacement equation`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Let \(t\) be the number of seconds after the smaller boat leaves the dock, then write the Helena's displacement model.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
             s_H=200+5t
-            \]
-          </button>
-          <button class="option-btn" onclick="checkHelenaEquation('wrong1')">
-            \[
-            s_H=5t
-            \]
-          </button>
+            \]</div>
         </div>
 
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
+      <p class="step-text">The Helena is already 200 m from the dock when \(t=0\), and then it keeps moving at a constant 5 m/s.</p>
+          `
+        },
+        {
+          title: raw`Write the smaller boat's displacement equation`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use the smaller boat’s initial conditions and acceleration to write its displacement equation.</p>
 
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Write the smaller boat's displacement equation</h2>
-        <p class="step-text">The smaller boat starts from the dock at rest and accelerates at \(0.5\text{ m s}^{-2}\). Which displacement equation is correct?</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkSmallBoatEquation('correct')">
-            \[
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
             s_B=\frac{1}{2}(0.5)t^2=0.25t^2
-            \]
-          </button>
-          <button class="option-btn" onclick="checkSmallBoatEquation('wrong1')">
-            \[
-            s_B=0.5t^2
-            \]
-          </button>
+            \]</div>
         </div>
 
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
+      <p class="step-text">Since the smaller boat starts from rest at the dock, \(u=0\), so \(s=\frac{1}{2}at^2=\frac{1}{2}(0.5)t^2=0.25t^2\).</p>
+          `
+        },
+        {
+          title: raw`Set the displacements equal`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">At the moment the smaller boat catches the Helena, both boats are at the same displacement.</p>
 
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Set the displacements equal</h2>
-        <p class="step-text">At the moment the smaller boat catches the Helena, both boats are at the same displacement.</p>
 
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkEqualEquation('correct')">
-            \[
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
             0.25t^2=200+5t
-            \]
-          </button>
-          <button class="option-btn" onclick="checkEqualEquation('wrong1')">
-            \[
-            0.25t^2+200=5t
-            \]
-          </button>
+            \]</div>
         </div>
 
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
+      <p class="step-text">The boats meet when their displacements from the dock are equal.</p>
+          `
+        },
+        {
+          title: raw`Solve the quadratic for time`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Solve the catch-up equation for both algebraic time values.</p>
 
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Solve the quadratic for time</h2>
-        <p class="step-text">Type the two times that solve the catch-up equation, separated by a comma.</p>
 
-        <div class="math-input-group">
-          <input
-            id="step-4-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the two times"
-            placeholder="Type your answers here"
-          />
-          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkTimes()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-4" class="feedback"></div>
-        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-5" class="step-card hidden">
-        <p class="step-number">Step 5</p>
-        <h2>Choose the physical solution</h2>
-        <p class="step-text">Which time should we use in the context of the question?</p>
-
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkPhysicalTime('correct')">
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
             \[
+            40,\ -20
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Multiplying by 4 gives \(t^2=800+20t\), so \(t^2-20t-800=0\), which factors to \((t-40)(t+20)=0\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Use the physically valid solution`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Discard the negative time and retain the physically valid solution.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
             t=40
-            \]
-          </button>
-          <button class="option-btn" onclick="checkPhysicalTime('wrong1')">
+            \]</div>
+        </div>
+
+      <p class="step-text">A negative time does not make sense here, so the valid solution is \(t=40\) seconds.</p>
+          `
+        },
+        {
+          title: raw`Find the distance from the dock`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Substitute \(t=40\) into either displacement equation.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
             \[
-            t=-20
+            400
             \]
-          </button>
+          </div>
+          <div class="step-text"><p class="step-text">Using either equation gives \(s=400\), so the catch-up point is 400 m from the dock.</p></div>
         </div>
-
-        <div id="feedback-5" class="feedback"></div>
-        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-6" class="step-card hidden">
-        <p class="step-number">Step 6</p>
-        <h2>Find the distance from the dock</h2>
-        <p class="step-text">Substitute \(t=40\) into either displacement equation.</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-6-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the distance from the dock"
-            placeholder="Type your answer here"
-          />
-          <div id="step-6-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkDistance()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-6" class="feedback"></div>
-        <button id="next-step-6" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-7')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-7" class="step-card hidden">
-        <p class="step-number">Step 7</p>
-        <h2>Final answer</h2>
-        <p class="step-text">Now answer the question in context.</p>
+          `
+        },
+        {
+          title: raw`Final result`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Now answer the question in context.</p>
 
         <div class="math-block">
           \[
@@ -323,203 +300,42 @@
           \]
         </div>
 
-        <div id="feedback-7" class="feedback success">
-          Great work. The smaller boat catches the Helena 400 m from the dock.
-        </div>
+        <p class="step-text">The smaller boat catches the Helena 400 m from the dock.</p>
+          `
+        }
+      ];
 
-        <div class="nav-row">
-          <a class="nav-btn secondary" href="1c2025-l2.html">← Back to Question 1(c)</a>
-          <a class="nav-btn" href="2a2025-l2.html">Next question →</a>
-        </div>
-      </section>
-    </div>
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
 
-    <!-- SEO:SUMMARY:START -->
-    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-      <p class="question-label">Learning summary</p>
-      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough focuses on writing displacement equations, solving when they are equal, and answering in context. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Substituting into the original function when the question asks for a gradient or rate.</p>
-      <h3>Continue practising</h3>
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="1c2025-l2.html" data-seo-related="previous">← Question 1(c)</a>
-        <a class="nav-btn secondary" href="2a2025-l2.html" data-seo-related="next">Question 2(a) →</a>
-      </div>
-      <ul class="step-text">
-        <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
-        <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
-      </ul>
-    </section>
-    <!-- SEO:SUMMARY:END -->
-  </main>
-
-  <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
-    const hintContent = [
-      "Use the Helena's 200 m head start when you write its displacement equation.",
-      "For the smaller boat, start with \\(s=ut+\\frac{1}{2}at^2\\), and remember it starts from rest at the dock.",
-      "Set the two displacement equations equal, solve for time, ignore the negative time, then substitute back to find the distance from the dock."
-    ];
-
-    document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
-          <p class="step-text">The boats meet when:</p>
-          <div class="math-block">
-            \\[
-            t=40\\text{ s}
-            \\]
-          </div>
-          <p class="step-text">So the smaller boat catches the Helena at:</p>
-          <div class="math-block">
-            \\[
-            400\\text{ m from the dock}
-            \\]
-          </div>
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<p class="step-text">
+        The Helena moves at \(5\text{ m s}^{-1}\) and is already \(200\text{ m}\) from the dock.
+      </p>
+      <p class="step-text">
+        A smaller boat leaves the dock from rest and accelerates at \(0.5\text{ m s}^{-2}\).
+      </p>
+      <p class="step-text">
+        Find the distance from the dock at which the smaller boat catches the Helena.
+      </p>
+      <p class="step-text question-note">
+        Find a displacement equation for each boat, set them equal, solve for the time, then substitute back to find the distance from the dock.
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-2-calculus-2025.html",
         nextHref: "2a2025-l2.html",
-        nextLabel: "Next question →"
-      });
-      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview", {
-        mode: "list",
-        stripOuterParens: true
-      });
-      TypedMath.setupMathInputPreview("step-6-answer", "step-6-preview");
-      TypedMath.bindMathInputCheck("step-4-answer", checkTimes);
-      TypedMath.bindMathInputCheck("step-6-answer", checkDistance);
-    });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(function (step) {
-        step.classList.add("hidden");
-      });
-      document.getElementById(stepId).classList.remove("hidden");
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) {
-        return;
-      }
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkHelenaEquation(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. The Helena is already 200 m from the dock when \\(t=0\\), and then it keeps moving at a constant 5 m/s.", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. The Helena already has a 200 m head start, so its displacement needs an initial value of 200.");
-        toggleNextStepButton("next-step-1", false);
-      }
-    }
-
-    function checkSmallBoatEquation(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Correct. Since the smaller boat starts from rest at the dock, \\(u=0\\), so \\(s=\\frac{1}{2}at^2=\\frac{1}{2}(0.5)t^2=0.25t^2\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Close, but you still need the extra \\(\\frac{1}{2}\\) from the displacement formula \\(s=ut+\\frac{1}{2}at^2\\).");
-        toggleNextStepButton("next-step-2", false);
-      }
-    }
-
-    function checkEqualEquation(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. The boats meet when their displacements from the dock are equal.", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. Set the full displacement of the smaller boat equal to the full displacement of the Helena.");
-        toggleNextStepButton("next-step-3", false);
-      }
-    }
-
-    function checkTimes() {
-      TypedMath.checkTypedStep({
-        inputId: "step-4-answer",
-        feedbackId: "feedback-4",
-        nextButtonId: "next-step-4",
-        mode: "list",
-        options: {
-          ordered: false,
-          stripOuterParens: true
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "1c2025-l2.html", label: "← Back to Question 1(c)" },
+          primary: { href: "2a2025-l2.html", label: "Next question →" }
         },
-        acceptedAnswers: ["40,-20"],
-        successMessage: "Correct. Multiplying by 4 gives \\(t^2=800+20t\\), so \\(t^2-20t-800=0\\), which factors to \\((t-40)(t+20)=0\\).",
-        targetedFeedback: [
-          {
-            mode: "list",
-            options: {
-              ordered: false,
-              stripOuterParens: true
-            },
-            answers: ["20,-40"],
-            message: "Not quite. Rearrange the quadratic carefully before factoring."
-          }
-        ],
-        genericMessage: "Try again. Rearrange the quadratic carefully before factoring."
+        guidedSteps: guidedSteps
+      }, {
+        defaultEyebrow: "Level 2 Calculus Walkthrough"
       });
-    }
-
-    function checkPhysicalTime(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Correct. A negative time does not make sense here, so the valid solution is \\(t=40\\) seconds.", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Not quite. \\(t=-20\\) is a mathematical solution, but it is not physically possible in this context.");
-        toggleNextStepButton("next-step-5", false);
-      }
-    }
-
-    function normaliseDistanceAnswer(value) {
-      return value.replace(/\s*(m|metres?|meters?)\s*$/i, "").trim();
-    }
-
-    function checkDistance() {
-      const input = document.getElementById("step-6-answer");
-      const originalValue = input.value;
-
-      input.value = normaliseDistanceAnswer(originalValue);
-
-      const isCorrect = TypedMath.checkTypedStep({
-        inputId: "step-6-answer",
-        feedbackId: "feedback-6",
-        nextButtonId: "next-step-6",
-        acceptedAnswers: ["400"],
-        successMessage: "Correct. Using either equation gives \\(s=400\\), so the catch-up point is 400 m from the dock.",
-        targetedFeedback: [
-          {
-            answers: ["200"],
-            message: "Close, but \\(200\\) is only the Helena's head start. You still need the extra distance travelled in 40 seconds."
-          }
-        ],
-        genericMessage: "Not quite. Substitute \\(t=40\\) into either displacement equation and simplify."
-      });
-
-      input.value = originalValue;
-      return isCorrect;
-    }
+    });
   </script>
 </body>
 </html>

@@ -18,7 +18,7 @@
   }
 
   function pageHref(id) {
-    return "int-" + id + "2017.html#question-" + id;
+    return "int-" + id + "2017.html";
   }
 
   function buildPartNavigation(id) {
@@ -931,7 +931,7 @@
         </div>
       `),
       guidedSteps: [
-        guidedStep("Choose a substitution", raw`The derivative of \(\ln t\) supplies the remaining factor \(1/t\).`, raw`
+        guidedStep("Use the logarithmic substitution", raw`The derivative of \(\ln t\) supplies the remaining factor \(1/t\).`, raw`
           <div class="math-block">
             \[
             u=\ln t,
@@ -1198,7 +1198,7 @@
             \]
           </div>
         `),
-        guidedStep("Exponentiate and choose the branch", raw`The condition \(y=1\) selects the positive solution.`, raw`
+        guidedStep("Exponentiate and apply the condition", raw`The condition \(y=1\) identifies the positive solution.`, raw`
           <div class="math-block">
             \[
             |y|=e^{2\sqrt{x}-4}

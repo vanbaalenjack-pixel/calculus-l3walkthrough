@@ -29,7 +29,7 @@
       "description": "2022 NCEA Level 3 Differentiation AS91578 Question 3(e) worked solution: building a time function and minimising it. Use guided hints and step-by-step…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 3",
       "teaches": "building a time function and minimising it",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1>2022 NCEA Level 3 Differentiation Question 3(e)</h1>
-        <p class="subtitle">2022 Paper - Minimising travel time</p>
+        <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
+        <h1 id="page-title">2022 NCEA Level 3 Differentiation Question 3(e)</h1>
+        <p id="page-subtitle" class="subtitle">2022 Paper - Minimising travel time</p>
       </div>
-      <a class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,236 +119,9 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <div class="graph-frame question-graph-frame">
-        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 280" aria-label="Diagram of Megan cycling from home to school with a park shortcut" role="img"></svg>
-      </div>
-      <p class="step-text">
-        Megan cycles from her home, \(H\), to school, \(S\), each day.
-      </p>
-      <p class="step-text">
-        She rides along a path from her home to point \(P\) at a constant speed of \(10\) kilometres per hour. At point \(P\), Megan cuts across a park, heading directly to school. When cycling across the park, Megan can only cycle at \(6\) kilometres per hour.
-      </p>
-      <p class="step-text">
-        The path distance \(HQ\) is \(4\) km, and the vertical distance \(QS\) is \(2\) km.
-      </p>
-      <p class="question-prompt">
-        At what distance from her home should she choose to cut across the park in order to make her travelling time a minimum?
-      </p>
-      <p class="step-text question-note">
-        You must use calculus and show any derivatives that you need when solving this problem.
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
-
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card">
-        <p class="step-number">Step 1</p>
-        <h2>Choose a variable</h2>
-        <p class="step-text">Let \(x\) be the distance from \(H\) to \(P\) along the road. What is the remaining horizontal distance from \(P\) to \(Q\)?</p>
-
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkVariable('correct')">
-            \[
-            4-x
-            \]
-          </button>
-          <button class="option-btn" onclick="checkVariable('wrong1')">
-            \[
-            4+x
-            \]
-          </button>
-        </div>
-
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Find the shortcut distance</h2>
-        <p class="step-text">Use Pythagoras on the triangle \(PQS\).</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-2-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the shortcut distance"
-            placeholder="Type your answer here"
-          />
-          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkShortcut()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Write the total time function</h2>
-        <p class="step-text">Add the time on the road and the time across the park. Time is distance divided by speed.</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-3-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the total time function"
-            placeholder="Type your answer here"
-          />
-          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkTimeFunction()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Differentiate carefully</h2>
-        <p class="step-text">The square-root term needs the chain rule, so it helps to rewrite it as a power first. Choose the correct simplified derivative.</p>
-
-        <div class="math-block">
-          \[
-          T(x)=\frac{x}{10}+\frac{1}{6}\left((4-x)^2+4\right)^{1/2}
-          \]
-          \[
-          \frac{d}{dx}\left((4-x)^2+4\right)=-2(4-x)
-          \]
-          \[
-          \frac{d}{dx}\left(\frac{1}{6}\left((4-x)^2+4\right)^{1/2}\right)
-          =
-          \frac{1}{6}\cdot\frac{1}{2}\left((4-x)^2+4\right)^{-1/2}\cdot\left(-2(4-x)\right)
-          \]
-        </div>
-
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivative('correct')">
-            \[
-            T'(x)=\frac{1}{10}-\frac{4-x}{6\sqrt{(4-x)^2+4}}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivative('wrong1')">
-            \[
-            T'(x)=\frac{1}{10}+\frac{4-x}{6\sqrt{(4-x)^2+4}}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivative('wrong2')">
-            \[
-            T'(x)=-\frac{4-x}{6\sqrt{(4-x)^2+4}}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivative('wrong3')">
-            \[
-            T'(x)=\frac{1}{10}+\frac{1}{12\sqrt{(4-x)^2+4}}
-            \]
-          </button>
-        </div>
-
-        <div id="feedback-4" class="feedback"></div>
-        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-5" class="step-card hidden">
-        <p class="step-number">Step 5</p>
-        <h2>Set the derivative equal to zero</h2>
-        <p class="step-text">To minimise the travel time, solve \(T'(x)=0\).</p>
-
-        <div class="math-block">
-          \[
-          0=\frac{1}{10}-\frac{4-x}{6\sqrt{(4-x)^2+4}}
-          \]
-          \[
-          6\sqrt{(4-x)^2+4}=10(4-x)
-          \]
-          \[
-          9\left((4-x)^2+4\right)=25(4-x)^2
-          \]
-          \[
-          36=16(4-x)^2
-          \]
-          \[
-          4-x=\pm\frac{3}{2}
-          \]
-        </div>
-
-        <div class="math-input-group">
-          <input
-            id="step-5-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the distance x"
-            placeholder="Type your answer here"
-          />
-          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkMinimum()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-5" class="feedback"></div>
-        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-6" class="step-card hidden">
-        <p class="step-number">Step 6</p>
-        <h2>Final answer</h2>
-        <p class="step-text">Use the valid solution in the interval \(0\le x\le 4\).</p>
-
-        <div class="math-block">
-          \[
-          4-x=\pm\frac{3}{2}
-          \]
-          \[
-          0\le x\le 4 \Rightarrow 4-x\ge 0,\text{ so } 4-x=\frac{3}{2}
-          \]
-          \[
-          x=\frac{5}{2}
-          \]
-        </div>
-
-        <div id="feedback-6" class="feedback success">
-          Great. Megan should leave the road \(2.5\) km from home.
-        </div>
-
-        <div class="nav-row">
-          <a class="nav-btn secondary" href="level-3-differentiation-2022.html">← Back to Question 3(d)</a>
-          <a class="nav-btn" href="level-3-differentiation-2022.html">Back to paper</a>
-        </div>
-      </section>
-    </div>
+    <div id="walkthrough-content" class="hidden"></div>
 
     <!-- SEO:SUMMARY:START -->
     <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
@@ -372,16 +144,6 @@
   </main>
 
   <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
     const hintContent = [
       "Let \\(x\\) be the distance Megan rides along the road before cutting across the park.",
       "The shortcut distance from \\(P\\) to \\(S\\) comes from Pythagoras using horizontal distance \\(4-x\\) and vertical distance \\(2\\).",
@@ -390,10 +152,8 @@
     ];
 
     document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
+      const raw = String.raw;
+      const answerHtml = `
           <p class="step-text">The minimum-time route happens when:</p>
           <div class="math-block">
             \\[
@@ -416,125 +176,191 @@
             \\]
           </div>
           <p class="step-text">So Megan should cut across the park <strong>2.5 km from home</strong>.</p>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Define the variable`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">With \(x\) measured from \(H\) to \(P\), write the remaining horizontal distance from \(P\) to \(Q\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
+            4-x
+            \]</div>
+        </div>
+
+      <p class="step-text">The whole horizontal distance is 4 km, so the remaining part is \(4-x\).</p>
+          `
+        },
+        {
+          title: raw`Find the shortcut distance`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use Pythagoras on the triangle \(PQS\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \sqrt{\left(4 - x\right)^{2} + 4}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">The direct path across the park is the hypotenuse of a right triangle.</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Write the total time function`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Add the time on the road and the time across the park. Time is distance divided by speed.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \frac{x}{10} + \frac{\sqrt{\left(4 - x\right)^{2} + 4}}{6}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Time along the road is \(\frac{x}{10}\), and time across the park is \(\frac{PS}{6}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Differentiate carefully`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Rewrite the square-root term as a power, apply the chain rule, and simplify the derivative.</p>
+
+        <div class="math-block">
+          \[
+          T(x)=\frac{x}{10}+\frac{1}{6}\left((4-x)^2+4\right)^{1/2}
+          \]
+          \[
+          \frac{d}{dx}\left((4-x)^2+4\right)=-2(4-x)
+          \]
+          \[
+          \frac{d}{dx}\left(\frac{1}{6}\left((4-x)^2+4\right)^{1/2}\right)
+          =
+          \frac{1}{6}\cdot\frac{1}{2}\left((4-x)^2+4\right)^{-1/2}\cdot\left(-2(4-x)\right)
+          \]
+        </div>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
+            T'(x)=\frac{1}{10}-\frac{4-x}{6\sqrt{(4-x)^2+4}}
+            \]</div>
+        </div>
+
+      <p class="step-text">The derivative of \(\frac{x}{10}\) is \(\frac{1}{10}\), and the chain rule makes the square-root term negative.</p>
+          `
+        },
+        {
+          title: raw`Set the derivative equal to zero`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">To minimise the travel time, solve \(T'(x)=0\).</p>
+
+        <div class="math-block">
+          \[
+          0=\frac{1}{10}-\frac{4-x}{6\sqrt{(4-x)^2+4}}
+          \]
+          \[
+          6\sqrt{(4-x)^2+4}=10(4-x)
+          \]
+          \[
+          9\left((4-x)^2+4\right)=25(4-x)^2
+          \]
+          \[
+          36=16(4-x)^2
+          \]
+          \[
+          4-x=\pm\frac{3}{2}
+          \]
+        </div>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \frac{5}{2}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Since \(0\le x\le 4\), we need \(4-x\ge 0\), so the valid solution is \(x=\frac{5}{2}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Final result`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use the valid solution in the interval \(0\le x\le 4\).</p>
+
+        <div class="math-block">
+          \[
+          4-x=\pm\frac{3}{2}
+          \]
+          \[
+          0\le x\le 4 \Rightarrow 4-x\ge 0,\text{ so } 4-x=\frac{3}{2}
+          \]
+          \[
+          x=\frac{5}{2}
+          \]
+        </div>
+
+        <p class="step-text">Megan should leave the road \(2.5\) km from home.</p>
+          `
+        }
+      ];
+
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
+
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<div class="graph-frame question-graph-frame">
+        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 280" aria-label="Diagram of Megan cycling from home to school with a park shortcut" role="img"></svg>
+      </div>
+      <p class="step-text">
+        Megan cycles from her home, \(H\), to school, \(S\), each day.
+      </p>
+      <p class="step-text">
+        She rides along a path from her home to point \(P\) at a constant speed of \(10\) kilometres per hour. At point \(P\), Megan cuts across a park, heading directly to school. When cycling across the park, Megan can only cycle at \(6\) kilometres per hour.
+      </p>
+      <p class="step-text">
+        The path distance \(HQ\) is \(4\) km, and the vertical distance \(QS\) is \(2\) km.
+      </p>
+      <p class="question-prompt">
+        At what distance from her home should she choose to cut across the park in order to make her travelling time a minimum?
+      </p>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need when solving this problem.
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-3-differentiation-2022.html",
         nextHref: "level-3-differentiation-2022.html",
-        nextLabel: "Back to paper"
+        nextLabel: "Back to paper",
+        finalNav: {
+          secondary: { href: "3d2022.html", label: "← Back to Question 3(d)" },
+          primary: { href: "level-3-differentiation-2022.html", label: "Back to paper" }
+        },
+        guidedSteps: guidedSteps,
+        afterRender: function () {
+          drawQuestionGraph();
+        }
+      }, {
+        defaultEyebrow: "Level 3 Differentiation Walkthrough"
       });
-      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
-      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
-      TypedMath.bindMathInputCheck("step-2-answer", checkShortcut);
-      TypedMath.bindMathInputCheck("step-3-answer", checkTimeFunction);
-      TypedMath.bindMathInputCheck("step-5-answer", checkMinimum);
-      drawQuestionGraph();
     });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(step => step.classList.add("hidden"));
-      document.getElementById(stepId).classList.remove("hidden");
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) return;
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkVariable(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. The whole horizontal distance is 4 km, so the remaining part is \\(4-x\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. If Megan has already ridden \\(x\\) km from home, the remaining horizontal distance must get smaller, not larger.");
-        toggleNextStepButton("next-step-1", false);
-      }
-    }
-
-    function checkShortcut() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-2-answer",
-        feedbackId: "feedback-2",
-        nextButtonId: "next-step-2",
-        acceptedAnswers: ["sqrt((4-x)^2+4)"],
-        samples: [{ x: 1 }, { x: 2.5 }],
-        successMessage: "Yes. The direct path across the park is the hypotenuse of a right triangle.",
-        genericMessage: "Try again. The diagonal distance needs Pythagoras, not simple addition.",
-        targetedFeedback: [
-          {
-            answers: ["(4-x)+2"],
-            message: "Try again. The diagonal distance needs Pythagoras, not simple addition."
-          }
-        ]
-      });
-    }
-
-    function checkTimeFunction() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        acceptedAnswers: ["x/10+sqrt((4-x)^2+4)/6"],
-        samples: [{ x: 1 }, { x: 2.5 }],
-        successMessage: "Correct. Time along the road is \\(\\frac{x}{10}\\), and time across the park is \\(\\frac{PS}{6}\\).",
-        genericMessage: "Not quite. The total time needs both parts of the trip: \\(\\frac{x}{10}\\) on the road and \\(\\frac{\\sqrt{(4-x)^2+4}}{6}\\) across the park.",
-        targetedFeedback: [
-          {
-            answers: ["sqrt((4-x)^2+4)/6"],
-            message: "That is only the time across the park. Include the road time \\(\\frac{x}{10}\\) as well."
-          },
-          {
-            answers: ["x/10"],
-            message: "That is only the time on the road. Include the park time \\(\\frac{PS}{6}\\) as well."
-          },
-          {
-            answers: ["10x+6sqrt((4-x)^2+4)"],
-            message: "Not quite. You have used the speeds as multipliers. Time is distance divided by speed, so use \\(\\frac{x}{10}+\\frac{PS}{6}\\)."
-          }
-        ]
-      });
-    }
-
-    function checkDerivative(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Correct. The derivative of \\(\\frac{x}{10}\\) is \\(\\frac{1}{10}\\), and the chain rule makes the square-root term negative.", true);
-        toggleNextStepButton("next-step-4", true);
-      } else if (answer === "wrong1") {
-        setFeedback("feedback-4", "Not quite. Differentiating \\(4-x\\) gives a negative sign, so the second term should be subtracted.");
-        toggleNextStepButton("next-step-4", false);
-      } else if (answer === "wrong2") {
-        setFeedback("feedback-4", "Not quite. You still need the derivative of the road-time term \\(\\frac{x}{10}\\), which is \\(\\frac{1}{10}\\).");
-        toggleNextStepButton("next-step-4", false);
-      } else {
-        setFeedback("feedback-4", "Not quite. The square-root term needs the chain rule, so the derivative must include the factor \\(4-x\\) as well as the negative sign.");
-        toggleNextStepButton("next-step-4", false);
-      }
-    }
-
-    function checkMinimum() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-5-answer",
-        feedbackId: "feedback-5",
-        nextButtonId: "next-step-5",
-        acceptedAnswers: ["5/2"],
-        successMessage: "Yes. Since \\(0\\le x\\le 4\\), we need \\(4-x\\ge 0\\), so the valid solution is \\(x=\\frac{5}{2}\\).",
-        genericMessage: "Close, but keep the solution that lies on the road segment and makes \\(4-x\\) non-negative.",
-        targetedFeedback: [
-          {
-            answers: ["11/2"],
-            message: "Close, but \\(x=\\frac{11}{2}\\) would make \\(4-x\\) negative and it also lies outside the road segment."
-          }
-        ]
-      });
-    }
 
     function drawQuestionGraph() {
       const svg = document.getElementById("question-graph");

@@ -29,7 +29,7 @@
       "description": "2022 NCEA Level 3 Differentiation AS91578 Question 3(d) worked solution: finding stationary points and classifying them. Use guided hints and step-by-step…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 3",
       "teaches": "finding stationary points and classifying them",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1>2022 NCEA Level 3 Differentiation Question 3(d)</h1>
-        <p class="subtitle">2022 Paper - Stationary points and their nature</p>
+        <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
+        <h1 id="page-title">2022 NCEA Level 3 Differentiation Question 3(d)</h1>
+        <p id="page-subtitle" class="subtitle">2022 Paper - Stationary points and their nature</p>
       </div>
-      <a class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,60 +119,74 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <div class="question-math">
-        \[
-        y=9x-2+\frac{3}{3x-1}
-        \]
-      </div>
-      <p class="step-text">
-        Find the \(x\)-value(s) of any stationary point(s) on the graph and determine their nature.
-      </p>
-      <p class="step-text question-note">
-        You must use calculus and show any derivatives that you need when solving this problem.
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
+    <div id="walkthrough-content" class="hidden"></div>
 
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card">
-        <p class="step-number">Step 1</p>
-        <h2>Differentiate the function</h2>
-        <p class="step-text">Differentiate each term, using the chain rule on the fraction term.</p>
+    <!-- SEO:SUMMARY:START -->
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
+      <p class="question-label">Learning summary</p>
+      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
+      <p class="step-text" data-seo-summary>This walkthrough focuses on finding stationary points and classifying them. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+      <h3>Common mistake to avoid</h3>
+      <p class="step-text" data-seo-mistake>After solving the derivative condition, check the point&#x27;s nature and answer the conclusion the question actually asks for.</p>
+      <h3>Continue practising</h3>
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="3c2022.html" data-seo-related="previous">← Question 3(c)</a>
+        <a class="nav-btn secondary" href="3e2022.html" data-seo-related="next">Question 3(e) →</a>
+      </div>
+      <ul class="step-text">
+        <li><a href="level-3-differentiation-2022.html" data-seo-related-year>All 2022 Differentiation walkthroughs</a></li>
+        <li><a href="level-3-differentiation.html" data-seo-standard-link>All AS91578 Differentiation years</a></li>
+      </ul>
+    </section>
+    <!-- SEO:SUMMARY:END -->
+  </main>
 
-        <div class="math-input-group">
-          <input
-            id="step-1-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the first derivative"
-            placeholder="Type your answer here"
-          />
-          <div id="step-1-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
-            Check
-          </button>
+  <script>
+    const hintContent = [
+      "Differentiate first, then set \\(y'=0\\) to find stationary points.",
+      "When solving \\((3x-1)^2=1\\), remember there are two possibilities: \\(3x-1=1\\) or \\(3x-1=-1\\).",
+      "Use the second derivative to classify the stationary points: negative means local maximum, positive means local minimum."
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const raw = String.raw;
+      const answerHtml = `
+          <p class="step-text">The stationary points are:</p>
+          <div class="math-block">
+            \\[
+            (0,-5) \\text{ local maximum}
+            \\]
+            \\[
+            \\left(\\frac{2}{3},7\\right) \\text{ local minimum}
+            \\]
+          </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Differentiate the function`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Differentiate each term, using the chain rule on the fraction term.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            9 - \frac{9}{\left(3 x - 1\right)^{2}}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">The derivative of \(\frac{3}{3x-1}\) is \(-\frac{9}{(3x-1)^2}\).</p></div>
         </div>
-
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Find where the derivative is zero</h2>
-        <p class="step-text">Stationary points happen when \(y'=0\).</p>
+          `
+        },
+        {
+          title: raw`Find where the derivative is zero`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Stationary points happen when \(y'=0\).</p>
 
         <div class="math-block">
           \[
@@ -187,85 +200,58 @@
           \]
         </div>
 
-        <div class="math-input-group">
-          <input
-            id="step-2-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the x values of the stationary points"
-            placeholder="Type your answer here"
-          />
-          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkStationaryX()">
-            Check
-          </button>
-        </div>
 
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Use the second derivative</h2>
-        <p class="step-text">Differentiate again so we can classify each stationary point.</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-3-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the second derivative"
-            placeholder="Type your answer here"
-          />
-          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkSecondDerivative()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Determine the nature</h2>
-        <p class="step-text">Substitute the \(x\)-values into \(y''\).</p>
-
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkNature('correct')">
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
             \[
+            0,\ \frac{2}{3}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Solving \((3x-1)^2=1\) gives \(3x-1=\pm 1\), so \(x=0\) and \(x=\frac{2}{3}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Use the second derivative`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Differentiate again so we can classify each stationary point.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \frac{54}{\left(3 x - 1\right)^{3}}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Differentiating \(-9(3x-1)^{-2}\) gives \(54(3x-1)^{-3}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Determine the nature`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Substitute the \(x\)-values into \(y''\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
             x=0 \text{ is a local maximum, and } x=\frac{2}{3} \text{ is a local minimum}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkNature('wrong1')">
-            \[
-            x=0 \text{ is a local minimum, and } x=\frac{2}{3} \text{ is a local maximum}
-            \]
-          </button>
+            \]</div>
         </div>
 
-        <div id="feedback-4" class="feedback"></div>
-        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-5" class="step-card hidden">
-        <p class="step-number">Step 5</p>
-        <h2>Final answer</h2>
-        <div class="math-block">
+      <p class="step-text">Since \(y''(0)<0\), that point is a local maximum, and since \(y''(\frac{2}{3})>0\), that point is a local minimum.</p>
+          `
+        },
+        {
+          title: raw`Final result`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<div class="math-block">
           \[
           y'=9-\frac{9}{(3x-1)^2}
           \]
@@ -292,167 +278,40 @@
         <p class="step-text">
           So the graph has a local maximum at \((0,-5)\) and a local minimum at \(\left(\frac{2}{3},7\right)\).
         </p>
+          `
+        }
+      ];
 
-        <div class="nav-row">
-          <a class="nav-btn secondary" href="3c2022.html">← Back to Question 3(c)</a>
-          <a class="nav-btn" href="3e2022.html">Next question →</a>
-        </div>
-      </section>
-    </div>
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
 
-    <!-- SEO:SUMMARY:START -->
-    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-      <p class="question-label">Learning summary</p>
-      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough focuses on finding stationary points and classifying them. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>After solving the derivative condition, check the point&#x27;s nature and answer the conclusion the question actually asks for.</p>
-      <h3>Continue practising</h3>
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="3c2022.html" data-seo-related="previous">← Question 3(c)</a>
-        <a class="nav-btn secondary" href="3e2022.html" data-seo-related="next">Question 3(e) →</a>
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<div class="question-math">
+        \[
+        y=9x-2+\frac{3}{3x-1}
+        \]
       </div>
-      <ul class="step-text">
-        <li><a href="level-3-differentiation-2022.html" data-seo-related-year>All 2022 Differentiation walkthroughs</a></li>
-        <li><a href="level-3-differentiation.html" data-seo-standard-link>All AS91578 Differentiation years</a></li>
-      </ul>
-    </section>
-    <!-- SEO:SUMMARY:END -->
-  </main>
-
-  <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
-    const hintContent = [
-      "Differentiate first, then set \\(y'=0\\) to find stationary points.",
-      "When solving \\((3x-1)^2=1\\), remember there are two possibilities: \\(3x-1=1\\) or \\(3x-1=-1\\).",
-      "Use the second derivative to classify the stationary points: negative means local maximum, positive means local minimum."
-    ];
-
-    document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
-          <p class="step-text">The stationary points are:</p>
-          <div class="math-block">
-            \\[
-            (0,-5) \\text{ local maximum}
-            \\]
-            \\[
-            \\left(\\frac{2}{3},7\\right) \\text{ local minimum}
-            \\]
-          </div>
+      <p class="step-text">
+        Find the \(x\)-value(s) of any stationary point(s) on the graph and determine their nature.
+      </p>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need when solving this problem.
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-3-differentiation-2022.html",
         nextHref: "3e2022.html",
-        nextLabel: "Next question →"
-      });
-      TypedMath.setupMathInputPreview("step-1-answer", "step-1-preview");
-      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview", { mode: "list" });
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
-      TypedMath.bindMathInputCheck("step-1-answer", checkDerivative);
-      TypedMath.bindMathInputCheck("step-2-answer", checkStationaryX);
-      TypedMath.bindMathInputCheck("step-3-answer", checkSecondDerivative);
-    });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(step => step.classList.add("hidden"));
-      document.getElementById(stepId).classList.remove("hidden");
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) return;
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkDerivative() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-1-answer",
-        feedbackId: "feedback-1",
-        nextButtonId: "next-step-1",
-        acceptedAnswers: ["9-9/(3x-1)^2"],
-        samples: [{ x: 0 }, { x: 2 }],
-        successMessage: "Correct. The derivative of \\(\\frac{3}{3x-1}\\) is \\(-\\frac{9}{(3x-1)^2}\\).",
-        genericMessage: "Not quite. The fraction term needs the chain rule, and its derivative is negative.",
-        targetedFeedback: [
-          {
-            answers: ["9+3/(3x-1)^2"],
-            message: "Not quite. The fraction term needs the chain rule, and its derivative is negative."
-          }
-        ]
-      });
-    }
-
-    function checkStationaryX() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-2-answer",
-        feedbackId: "feedback-2",
-        nextButtonId: "next-step-2",
-        mode: "list",
-        options: {
-          ordered: false
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "3c2022.html", label: "← Back to Question 3(c)" },
+          primary: { href: "3e2022.html", label: "Next question →" }
         },
-        acceptedAnswers: ["0,2/3"],
-        successMessage: "Yes. Solving \\((3x-1)^2=1\\) gives \\(3x-1=\\pm 1\\), so \\(x=0\\) and \\(x=\\frac{2}{3}\\).",
-        genericMessage: "Try again. Solve for \\(3x-1\\) first, then turn those into \\(x\\)-values.",
-        targetedFeedback: [
-          {
-            mode: "list",
-            options: {
-              ordered: false
-            },
-            answers: ["1,-1"],
-            message: "Those are the values of \\(3x-1\\), not the values of \\(x\\). Solve each one for \\(x\\)."
-          }
-        ]
+        guidedSteps: guidedSteps
+      }, {
+        defaultEyebrow: "Level 3 Differentiation Walkthrough"
       });
-    }
-
-    function checkSecondDerivative() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        acceptedAnswers: ["54/(3x-1)^3"],
-        samples: [{ x: 0 }, { x: 2 }],
-        successMessage: "Correct. Differentiating \\(-9(3x-1)^{-2}\\) gives \\(54(3x-1)^{-3}\\).",
-        genericMessage: "Not quite. Differentiate carefully using the chain rule one more time.",
-        targetedFeedback: [
-          {
-            answers: ["18/(3x-1)^2"],
-            message: "Not quite. The power should decrease to \\(-3\\), and the chain rule contributes another factor of 3."
-          }
-        ]
-      });
-    }
-
-    function checkNature(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-4", "Great. Since \\(y''(0)<0\\), that point is a local maximum, and since \\(y''(\\frac{2}{3})>0\\), that point is a local minimum.", true);
-        toggleNextStepButton("next-step-4", true);
-      } else {
-        setFeedback("feedback-4", "Try again. A negative second derivative means the curve is concave down there, while a positive second derivative means concave up.");
-        toggleNextStepButton("next-step-4", false);
-      }
-    }
+    });
   </script>
 </body>
 </html>

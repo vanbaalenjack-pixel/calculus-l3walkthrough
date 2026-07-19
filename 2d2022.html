@@ -29,7 +29,7 @@
       "description": "2022 NCEA Level 3 Differentiation AS91578 Question 2(d) worked solution: forming an area function and maximising it. Use guided hints and step-by-step…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 3",
       "teaches": "forming an area function and maximising it",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1>2022 NCEA Level 3 Differentiation Question 2(d)</h1>
-        <p class="subtitle">2022 Paper - Maximising area with product rule</p>
+        <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
+        <h1 id="page-title">2022 NCEA Level 3 Differentiation Question 2(d)</h1>
+        <p id="page-subtitle" class="subtitle">2022 Paper - Maximising area with product rule</p>
       </div>
-      <a class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,206 +119,9 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <p class="step-text">
-        A rectangle has one vertex at \((0,0)\) and the opposite vertex on the curve \(y=6e^{1-0.5x}\), where \(x&gt;0\), as shown below.
-      </p>
-      <div class="graph-frame question-graph-frame">
-        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Question graph of y equals 6 e to the power of 1 minus 0.5 x with a rectangle under the curve" role="img"></svg>
-      </div>
-      <p class="step-text">
-        Find the maximum possible area of the rectangle.
-      </p>
-      <p class="step-text question-note">
-        You must use calculus and show any derivatives that you need when solving this problem.
-      </p>
-      <p class="step-text question-note">
-        You do not have to prove that the area you have found is a maximum.
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
-
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card">
-        <p class="step-number">Step 1</p>
-        <h2>Write an area expression</h2>
-        <p class="step-text">The rectangle has width \(x\) and height \(y\). Which expression gives its area?</p>
-
-        <div class="button-grid">
-          <button class="option-btn" onclick="checkArea('correct')">\(A=xy\)</button>
-          <button class="option-btn" onclick="checkArea('wrong1')">\(A=x+y\)</button>
-          <button class="option-btn" onclick="checkArea('wrong2')">\(A=2x+2y\)</button>
-          <button class="option-btn" onclick="checkArea('wrong3')">\(A=\frac{x}{y}\)</button>
-        </div>
-
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Substitute the curve equation</h2>
-        <p class="step-text">Because the top-right vertex lies on the curve, we can replace \(y\) with \(6e^{1-0.5x}\).</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-2-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the area function"
-            placeholder="Type your answer here"
-          />
-          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkSubstitution()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Differentiate the area function</h2>
-        <p class="step-text">This is a product of \(6x\) and \(e^{1-0.5x}\), so use the product rule.</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-3-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the derivative of A"
-            placeholder="Type your answer here"
-          />
-          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Find the critical value</h2>
-        <p class="step-text">Set the derivative equal to zero and solve for \(x\).</p>
-
-        <div class="math-block">
-          \[
-          A'(x)=e^{1-0.5x}(6-3x)
-          \]
-          \[
-          0=e^{1-0.5x}(6-3x)
-          \]
-        </div>
-
-        <div class="math-input-group">
-          <input
-            id="step-4-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the critical x value"
-            placeholder="Type your answer here"
-          />
-          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkXValue()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-4" class="feedback"></div>
-        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-5" class="step-card hidden">
-        <p class="step-number">Step 5</p>
-        <h2>Calculate the maximum area</h2>
-        <p class="step-text">Substitute \(x=2\) into the area function.</p>
-
-        <div class="math-block">
-          \[
-          A(x)=6xe^{1-0.5x}
-          \]
-          \[
-          A(2)=6(2)e^{1-0.5(2)}
-          \]
-          \[
-          A(2)=12e^0
-          \]
-          \[
-          A(2)=12
-          \]
-        </div>
-
-        <div class="math-input-group">
-          <input
-            id="step-5-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the maximum area"
-            placeholder="Type your answer here"
-          />
-          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkMaximumArea()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-5" class="feedback"></div>
-
-        <div class="graph-card">
-          <div class="graph-copy">
-            <h3>Interactive sketch</h3>
-            <p class="step-text">
-              This graph shows the curve and a rectangle whose top-right corner lies on it. The highlighted rectangle is the maximum-area case at \(x=2\).
-            </p>
-            <label class="graph-control">
-              <span>\(x\)</span>
-              <input id="rectangle-slider" type="range" min="10" max="60" value="20" />
-            </label>
-            <p id="area-readout" class="step-text graph-readout">\(A=12\)</p>
-          </div>
-
-          <div class="graph-frame">
-            <svg id="area-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of y equals 6 e to the power of 1 minus 0.5 x with a rectangle under the curve" role="img"></svg>
-          </div>
-        </div>
-
-        <div id="step-5-nav" class="nav-row hidden">
-          <a class="nav-btn secondary" href="2c2022.html">← Back to Question 2(c)</a>
-          <a class="nav-btn" href="2e2022.html">Next question →</a>
-        </div>
-      </section>
-    </div>
+    <div id="walkthrough-content" class="hidden"></div>
 
     <!-- SEO:SUMMARY:START -->
     <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
@@ -342,16 +144,6 @@
   </main>
 
   <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
     const hintContent = [
       "Start with the rectangle area formula \\(A=xy\\).",
       "Because the top-right corner lies on the curve, replace \\(y\\) using \\(y=6e^{1-0.5x}\\).",
@@ -359,10 +151,8 @@
     ];
 
     document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
+      const raw = String.raw;
+      const answerHtml = `
           <p class="step-text">The maximum area occurs when \\(x=2\\):</p>
           <div class="math-block">
             \\[
@@ -372,125 +162,179 @@
             \\text{Maximum area }=12\\text{ square units}
             \\]
           </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Write an area expression`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use width times height to write the rectangle area as \(A=xy\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\(A=xy\)</div>
+        </div>
+
+      <p class="step-text">The area of a rectangle is width times height, so \(A=xy\).</p>
+          `
+        },
+        {
+          title: raw`Substitute the curve equation`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Because the top-right vertex lies on the curve, we can replace \(y\) with \(6e^{1-0.5x}\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            6 x e^{\left(1 - 0.5 x\right)}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Substitute \(y=6e^{1-0.5x}\) into \(A=xy\) to get \(A(x)=6xe^{1-0.5x}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Differentiate the area function`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">This is a product of \(6x\) and \(e^{1-0.5x}\), so use the product rule.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            6 e^{\left(1 - 0.5 x\right)} - 3 x e^{\left(1 - 0.5 x\right)}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Product rule gives \(6e^{1-0.5x}+6x\cdot(-0.5)e^{1-0.5x}\), which simplifies to \(6e^{1-0.5x}-3xe^{1-0.5x}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Find the critical value`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Set the derivative equal to zero and solve for \(x\).</p>
+
+        <div class="math-block">
+          \[
+          A'(x)=e^{1-0.5x}(6-3x)
+          \]
+          \[
+          0=e^{1-0.5x}(6-3x)
+          \]
+        </div>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            2
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">The exponential factor is never zero, so solve \(6-3x=0\), which gives \(x=2\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Calculate the maximum area`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Substitute \(x=2\) into the area function.</p>
+
+        <div class="math-block">
+          \[
+          A(x)=6xe^{1-0.5x}
+          \]
+          \[
+          A(2)=6(2)e^{1-0.5(2)}
+          \]
+          \[
+          A(2)=12e^0
+          \]
+          \[
+          A(2)=12
+          \]
+        </div>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            12
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">The maximum possible area is \(12\) square units.</p></div>
+        </div>
+
+
+        <div class="graph-card">
+          <div class="graph-copy">
+            <h3>Interactive sketch</h3>
+            <p class="step-text">
+              This graph shows the curve and a rectangle whose top-right corner lies on it. The highlighted rectangle is the maximum-area case at \(x=2\).
+            </p>
+            <label class="graph-control">
+              <span>\(x\)</span>
+              <input id="rectangle-slider" type="range" min="10" max="60" value="20" />
+            </label>
+            <p id="area-readout" class="step-text graph-readout">\(A=12\)</p>
+          </div>
+
+          <div class="graph-frame">
+            <svg id="area-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of y equals 6 e to the power of 1 minus 0.5 x with a rectangle under the curve" role="img"></svg>
+          </div>
+        </div>
+          `
+        }
+      ];
+
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
+
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<p class="step-text">
+        A rectangle has one vertex at \((0,0)\) and the opposite vertex on the curve \(y=6e^{1-0.5x}\), where \(x&gt;0\), as shown below.
+      </p>
+      <div class="graph-frame question-graph-frame">
+        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Question graph of y equals 6 e to the power of 1 minus 0.5 x with a rectangle under the curve" role="img"></svg>
+      </div>
+      <p class="step-text">
+        Find the maximum possible area of the rectangle.
+      </p>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need when solving this problem.
+      </p>
+      <p class="step-text question-note">
+        You do not have to prove that the area you have found is a maximum.
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-3-differentiation-2022.html",
         nextHref: "2e2022.html",
-        nextLabel: "Next question →"
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "2c2022.html", label: "← Back to Question 2(c)" },
+          primary: { href: "2e2022.html", label: "Next question →" }
+        },
+        guidedSteps: guidedSteps,
+        afterRender: function () {
+          setupGraphControls();
+          drawQuestionGraph();
+          drawAreaGraph();
+        }
+      }, {
+        defaultEyebrow: "Level 3 Differentiation Walkthrough"
       });
-      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
-      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
-      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
-      TypedMath.bindMathInputCheck("step-2-answer", checkSubstitution);
-      TypedMath.bindMathInputCheck("step-3-answer", checkDerivative);
-      TypedMath.bindMathInputCheck("step-4-answer", checkXValue);
-      TypedMath.bindMathInputCheck("step-5-answer", checkMaximumArea);
-      setupGraphControls();
-      drawQuestionGraph();
-      drawAreaGraph();
     });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(step => step.classList.add("hidden"));
-      document.getElementById(stepId).classList.remove("hidden");
-      if (stepId === "step-5") {
-        drawAreaGraph();
-      }
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) return;
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkArea(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. The area of a rectangle is width times height, so \\(A=xy\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Try again. For a rectangle, area is found by multiplying the side lengths.");
-        toggleNextStepButton("next-step-1", false);
-      }
-    }
-
-    function checkSubstitution() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-2-answer",
-        feedbackId: "feedback-2",
-        nextButtonId: "next-step-2",
-        acceptedAnswers: ["6xe^(1-0.5x)"],
-        samples: [{ x: 1 }, { x: 3 }],
-        successMessage: "Yes. Substitute \\(y=6e^{1-0.5x}\\) into \\(A=xy\\) to get \\(A(x)=6xe^{1-0.5x}\\).",
-        genericMessage: "Not quite. Since the formula is for area, you still need to multiply width by height.",
-        targetedFeedback: [
-          {
-            answers: ["x+6e^(1-0.5x)"],
-            message: "Not quite. Since the formula is for area, you still need to multiply width by height."
-          }
-        ]
-      });
-    }
-
-    function checkDerivative() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        acceptedAnswers: ["6e^(1-0.5x)-3xe^(1-0.5x)"],
-        samples: [{ x: 1 }, { x: 3 }],
-        successMessage: "Great. Product rule gives \\(6e^{1-0.5x}+6x\\cdot(-0.5)e^{1-0.5x}\\), which simplifies to \\(6e^{1-0.5x}-3xe^{1-0.5x}\\).",
-        genericMessage: "Close, but you need both terms from the product rule and the chain rule factor from the exponential.",
-        targetedFeedback: [
-          {
-            answers: ["6e^(1-0.5x)"],
-            message: "Close, but you need both terms from the product rule and the chain rule factor from the exponential."
-          }
-        ]
-      });
-    }
-
-    function checkXValue() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-4-answer",
-        feedbackId: "feedback-4",
-        nextButtonId: "next-step-4",
-        acceptedAnswers: ["2"],
-        successMessage: "Correct. The exponential factor is never zero, so solve \\(6-3x=0\\), which gives \\(x=2\\).",
-        genericMessage: "Try again. Since \\(e^{1-0.5x}\\neq 0\\), the bracket \\(6-3x\\) must equal zero.",
-        targetedFeedback: [
-          {
-            answers: ["6", "3", "1"],
-            message: "Not quite. Since \\(e^{1-0.5x}\\neq 0\\), solve the bracket equation \\(6-3x=0\\)."
-          }
-        ]
-      });
-    }
-
-    function checkMaximumArea() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-5-answer",
-        feedbackId: "feedback-5",
-        acceptedAnswers: ["12"],
-        successMessage: "Great work. The maximum possible area is \\(12\\) square units.",
-        genericMessage: "Try again. Substitute \\(x=2\\) into \\(A(x)=6xe^{1-0.5x}\\) and simplify carefully.",
-        targetedFeedback: [
-          {
-            answers: ["12e", "6"],
-            message: "Close, but evaluate the exponent first: when \\(x=2\\), the exponential becomes \\(e^0=1\\)."
-          }
-        ],
-        successRevealId: "step-5-nav"
-      });
-    }
 
     function setupGraphControls() {
       const slider = document.getElementById("rectangle-slider");

@@ -101,105 +101,59 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Rewrite the square root",
-          text: raw`Which index-form rewrite is correct?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Rewrite the square root`,
+          previewHtml: raw`Writing the square root as a power makes the chain rule much clearer.`,
+          workingHtml: raw`<p class="step-text">Writing the square root as a power makes the chain rule much clearer.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 (3x-2)^{1/2}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Writing the square root as a power makes the chain rule much clearer.`
-            },
-            {
-              html: raw`\[
-                3x-2^{1/2}
-              \]`,
-              failureMessage: raw`Keep the whole bracket under the square root.`
-            },
-            {
-              html: raw`\[
-                (3x-2)^2
-              \]`,
-              failureMessage: raw`A square root means a power of \(\frac{1}{2}\), not \(2\).`
-            },
-            {
-              html: raw`\[
-                \frac{1}{2}(3x-2)
-              \]`,
-              failureMessage: raw`The square root changes the power, not the coefficient.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Differentiate with the chain rule",
-          text: raw`Which derivative line is correct?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Differentiate with the chain rule`,
+          previewHtml: raw`Differentiate the outside power, then multiply by the derivative of \(3x-2\).`,
+          workingHtml: raw`<p class="step-text">Differentiate the outside power, then multiply by the derivative of \(3x-2\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{dy}{dx}=\frac{1}{2}(3x-2)^{-1/2}\cdot 3
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. Differentiate the outside power, then multiply by the derivative of \(3x-2\).`
-            },
-            {
-              html: raw`\[
-                \frac{dy}{dx}=\frac{1}{2}(3x-2)^{-1/2}
-              \]`,
-              failureMessage: raw`You still need to multiply by the derivative of the inside bracket, which is \(3\).`
-            },
-            {
-              html: raw`\[
-                \frac{dy}{dx}=3(3x-2)^{1/2}
-              \]`,
-              failureMessage: raw`The power should drop by \(1\), so it becomes \(-\frac{1}{2}\), not \(\frac{1}{2}\).`
-            },
-            {
-              html: raw`\[
-                \frac{dy}{dx}=\frac{3}{2}(3x-2)^{1/2}
-              \]`,
-              failureMessage: raw`Close, but the exponent should be \(-\frac{1}{2}\) after differentiating.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Simplify if you want to",
-          text: raw`Which fully simplified form matches the derivative?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Simplify if you want to`,
+          previewHtml: raw`That is the fully simplified version, although the unsimplified chain-rule form was already acceptable.`,
+          workingHtml: raw`<p class="step-text">That is the fully simplified version, although the unsimplified chain-rule form was already acceptable.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{3}{2\sqrt{3x-2}}
-              \]`,
-              correct: true,
-              successMessage: raw`Great. That is the fully simplified version, although the unsimplified chain-rule form was already acceptable.`
-            },
-            {
-              html: raw`\[
-                \frac{3}{\sqrt{3x-2}}
-              \]`,
-              failureMessage: raw`The factor of \(\frac{1}{2}\) is still needed.`
-            },
-            {
-              html: raw`\[
-                \frac{3}{2}\sqrt{3x-2}
-              \]`,
-              failureMessage: raw`The square root belongs in the denominator because the power is negative.`
-            },
-            {
-              html: raw`\[
-                \frac{1}{2\sqrt{3x-2}}
-              \]`,
-              failureMessage: raw`You have lost the inside derivative of \(3\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Rewrite first:</p>
+        <div class="math-block">
+          \[
+          y=(3x-2)^{1/2}
+          \]
+        </div>
+        <p class="step-text">Now differentiate with the chain rule:</p>
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}=\frac{1}{2}(3x-2)^{-1/2}\cdot 3
+          \]
+          \[
+          \frac{dy}{dx}=\frac{3}{2}(3x-2)^{-1/2}
+          \]
+          \[
+          \frac{dy}{dx}=\frac{3}{2\sqrt{3x-2}}
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -241,37 +195,20 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Choose the main rule",
-          text: raw`Which rule do you need first?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`Product rule`,
-              correct: true,
-              successMessage: raw`Correct. The function is a product of \(t^2\) and \(e^{2t}\).`
-            },
-            {
-              html: raw`Quotient rule`,
-              failureMessage: raw`Nothing here is written as a quotient.`
-            },
-            {
-              html: raw`Chain rule only`,
-              failureMessage: raw`The chain rule appears inside \(e^{2t}\), but the overall structure is still a product.`
-            },
-            {
-              html: raw`Implicit differentiation`,
-              failureMessage: raw`No need. The function is already given explicitly.`
-            }
-          ]
+          title: raw`Identify the main rule`,
+          previewHtml: raw`The function is a product of \(t^2\) and \(e^{2t}\).`,
+          workingHtml: raw`<p class="step-text">The function is a product of \(t^2\) and \(e^{2t}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  Product rule
+</div>`
         },
         {
-          type: "choice",
-          title: "Differentiate the product",
-          text: raw`Which derivative is correct?`,
-          beforeHtml: raw`
+          title: raw`Differentiate the product`,
+          previewHtml: raw`Product rule on the outside, chain rule inside the exponential, and the factorised form is easiest to evaluate.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               f(x)=x^2\sec x
@@ -280,41 +217,19 @@
               \frac{df}{dx}=(x^2)'\sec x+x^2(\sec x)'
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Product rule on the outside, chain rule inside the exponential, and the factorised form is easiest to evaluate.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 f'(t)=2te^{2t}+2t^2e^{2t}=2te^{2t}(1+t)
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. Product rule on the outside, chain rule inside the exponential, and the factorised form is easiest to evaluate.`
-            },
-            {
-              html: raw`\[
-                f'(t)=2te^{2t}+t^2e^{2t}
-              \]`,
-              failureMessage: raw`The derivative of \(e^{2t}\) is \(2e^{2t}\), not just \(e^{2t}\).`
-            },
-            {
-              html: raw`\[
-                f'(t)=2te^{2t}
-              \]`,
-              failureMessage: raw`That only differentiates the \(t^2\) part. You still need the second product-rule term.`
-            },
-            {
-              html: raw`\[
-                f'(t)=t^2e^{2t}(2+t)
-              \]`,
-              failureMessage: raw`Try writing out both product-rule terms first, then factor carefully.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
           title: raw`Evaluate at \(t=1.5\)`,
-          text: raw`What is the rate of change when \(t=1.5\)?`,
-          beforeHtml: raw`
+          previewHtml: raw`Follow the working to evaluate at \(t=1.5\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               f'(t)=2te^{2t}(1+t)
@@ -326,35 +241,37 @@
               f'(1.5)=3e^3(2.5)
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">After substituting \(t=1.5\), the derivative becomes \(3e^3(2.5)\), which evaluates to approximately \(150.642\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 150.642
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. After substituting \(t=1.5\), the derivative becomes \(3e^3(2.5)\), which evaluates to approximately \(150.642\).`
-            },
-            {
-              html: raw`\[
-                60.257
-              \]`,
-              failureMessage: raw`Check the substitution into the factorised derivative and make sure both factors of \(t\) are included.`
-            },
-            {
-              html: raw`\[
-                40.171
-              \]`,
-              failureMessage: raw`That is too small. Re-evaluate \(2(1.5)e^3(2.5)\).`
-            },
-            {
-              html: raw`\[
-                224.042
-              \]`,
-              failureMessage: raw`Close in scale, but not correct. Double-check the arithmetic once you substitute \(t=1.5\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Differentiate first:</p>
+        <div class="math-block">
+          \[
+          f'(t)=2te^{2t}+t^2e^{2t}\cdot 2
+          \]
+          \[
+          f'(t)=2te^{2t}+2t^2e^{2t}
+          \]
+          \[
+          f'(t)=2te^{2t}(1+t)
+          \]
+        </div>
+        <p class="step-text">Now substitute \(t=1.5\):</p>
+        <div class="math-block">
+          \[
+          f'(1.5)=2(1.5)e^{3}(1+1.5)
+          \]
+          \[
+          f'(1.5)=3e^3(2.5)\approx 150.642
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -406,45 +323,22 @@
         </div>
         <p class="step-text">The second tangent touches the curve at \(x=-3\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Differentiate the curve",
-          text: raw`Which derivative is correct?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Differentiate the curve`,
+          previewHtml: raw`You can get that from the chain rule or by using the quotient rule and simplifying.`,
+          workingHtml: raw`<p class="step-text">You can get that from the chain rule or by using the quotient rule and simplifying.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 y'=-\frac{6}{(x+1)^4}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. You can get that from the chain rule or by using the quotient rule and simplifying.`
-            },
-            {
-              html: raw`\[
-                y'=\frac{6}{(x+1)^4}
-              \]`,
-              failureMessage: raw`The derivative should be negative because differentiating \((x+1)^{-3}\) brings down a \(-3\).`
-            },
-            {
-              html: raw`\[
-                y'=-\frac{6}{(x+1)^3}
-              \]`,
-              failureMessage: raw`The power should increase in magnitude by \(1\) in the denominator, giving \(4\), not \(3\).`
-            },
-            {
-              html: raw`\[
-                y'=-\frac{2}{(x+1)^4}
-              \]`,
-              failureMessage: raw`You have missed the factor from differentiating the power \(-3\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the first tangent's gradient",
-          text: raw`What is the gradient of the tangent when \(x=1\)?`,
-          beforeHtml: raw`
+          title: raw`Find the first tangent's gradient`,
+          previewHtml: raw`Follow the working to find the first tangent's gradient.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               y'=-\frac{6}{(x+1)^4}
@@ -453,41 +347,19 @@
               y'(1)=-\frac{6}{(1+1)^4}=-\frac{6}{16}
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">The substitution gives \(-\frac{6}{16}\), which simplifies to \(-\frac{3}{8}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 -\frac{3}{8}
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. The substitution gives \(-\frac{6}{16}\), which simplifies to \(-\frac{3}{8}\).`
-            },
-            {
-              html: raw`\[
-                -\frac{3}{4}
-              \]`,
-              failureMessage: raw`You need \((1+1)^4=16\), not \(8\).`
-            },
-            {
-              html: raw`\[
-                \frac{3}{8}
-              \]`,
-              failureMessage: raw`Keep the negative sign from the derivative.`
-            },
-            {
-              html: raw`\[
-                -\frac{1}{8}
-              \]`,
-              failureMessage: raw`Check the numerator after substituting \(x=1\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the second tangent point",
-          text: raw`Which \(x\)-value gives the other point with the same gradient?`,
-          beforeHtml: raw`
+          title: raw`Find the second tangent point`,
+          previewHtml: raw`The equation gives \(x=1\) and \(x=-3\); since \(x=1\) is the original tangent point, the second tangent touches at \(x=-3\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               -\frac{6}{(x+1)^4}=-\frac{3}{8}
@@ -499,35 +371,47 @@
               x+1=\pm 2
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">The equation gives \(x=1\) and \(x=-3\); since \(x=1\) is the original tangent point, the second tangent touches at \(x=-3\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 -3
-              \]`,
-              correct: true,
-              successMessage: raw`Great. The equation gives \(x=1\) and \(x=-3\); since \(x=1\) is the original tangent point, the second tangent touches at \(x=-3\).`
-            },
-            {
-              html: raw`\[
-                -1
-              \]`,
-              failureMessage: raw`\((x+1)^4\) would be zero there, so the derivative is not even defined.`
-            },
-            {
-              html: raw`\[
-                3
-              \]`,
-              failureMessage: raw`That does not satisfy \((x+1)^4=16\).`
-            },
-            {
-              html: raw`\[
-                -2
-              \]`,
-              failureMessage: raw`Check the values of \(x+1\) that give \(\pm 2\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Differentiate the curve:</p>
+        <div class="math-block">
+          \[
+          y=2(x+1)^{-3}
+          \]
+          \[
+          y'=-6(x+1)^{-4}=-\frac{6}{(x+1)^4}
+          \]
+        </div>
+        <p class="step-text">Find the gradient at \(x=1\):</p>
+        <div class="math-block">
+          \[
+          y'(1)=-\frac{6}{(1+1)^4}=-\frac{6}{16}=-\frac{3}{8}
+          \]
+        </div>
+        <p class="step-text">Set the derivative equal to that gradient:</p>
+        <div class="math-block">
+          \[
+          -\frac{6}{(x+1)^4}=-\frac{3}{8}
+          \]
+          \[
+          (x+1)^4=16
+          \]
+          \[
+          x+1=\pm 2
+          \]
+          \[
+          x=1,-3
+          \]
+        </div>
+        <p class="step-text">The second tangent touches the curve at \(x=-3\).</p>
+      `
         }
       ]
     }),
@@ -581,12 +465,11 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Find the parametric gradient",
-          text: raw`Using \(\frac{dy}{dx}=\frac{dy/d\theta}{dx/d\theta}\), what does the gradient simplify to?`,
-          beforeHtml: raw`
+          title: raw`Find the parametric gradient`,
+          previewHtml: raw`Since \(x=4\cos\theta\) and \(y=4\sin\theta\), the gradient simplifies neatly to \(-\frac{x}{y}\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \frac{dx}{d\theta}=-4\sin\theta
@@ -594,101 +477,62 @@
               \frac{dy}{d\theta}=4\cos\theta
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Since \(x=4\cos\theta\) and \(y=4\sin\theta\), the gradient simplifies neatly to \(-\frac{x}{y}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{dy}{dx}=-\frac{x}{y}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Since \(x=4\cos\theta\) and \(y=4\sin\theta\), the gradient simplifies neatly to \(-\frac{x}{y}\).`
-            },
-            {
-              html: raw`\[
-                \frac{dy}{dx}=\frac{x}{y}
-              \]`,
-              failureMessage: raw`The negative sign comes from \(\frac{dx}{d\theta}=-4\sin\theta\).`
-            },
-            {
-              html: raw`\[
-                \frac{dy}{dx}=-\frac{y}{x}
-              \]`,
-              failureMessage: raw`That would be the negative reciprocal. Here we are finding the tangent gradient itself.`
-            },
-            {
-              html: raw`\[
-                \frac{dy}{dx}=\frac{p}{q}
-              \]`,
-              failureMessage: raw`That is not the general gradient. Only after substituting the point \(P(p,q)\) do we replace \(x\) and \(y\) by \(p\) and \(q\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Write the tangent in point-gradient form",
-          text: raw`What is the tangent line through \(P(p,q)\) before rearranging?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Write the tangent in point-gradient form`,
+          previewHtml: raw`The gradient at \(P(p,q)\) is \(-\frac{p}{q}\), so point-gradient form works immediately.`,
+          workingHtml: raw`<p class="step-text">The gradient at \(P(p,q)\) is \(-\frac{p}{q}\), so point-gradient form works immediately.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 y-q=-\frac{p}{q}(x-p)
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. The gradient at \(P(p,q)\) is \(-\frac{p}{q}\), so point-gradient form works immediately.`
-            },
-            {
-              html: raw`\[
-                y-p=-\frac{p}{q}(x-q)
-              \]`,
-              failureMessage: raw`Use the point \((p,q)\) in the usual order: \(x-p\) and \(y-q\).`
-            },
-            {
-              html: raw`\[
-                y-q=\frac{p}{q}(x-p)
-              \]`,
-              failureMessage: raw`The tangent gradient is negative, not positive.`
-            },
-            {
-              html: raw`\[
-                y-q=-\frac{q}{p}(x-p)
-              \]`,
-              failureMessage: raw`That is the negative reciprocal, which would be the normal gradient instead.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Rearrange to the required form",
-          text: raw`Which rearrangement gives the exact statement to be shown?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Rearrange to the required form`,
+          previewHtml: raw`Expanding and collecting terms gives exactly the required tangent equation.`,
+          workingHtml: raw`<p class="step-text">Expanding and collecting terms gives exactly the required tangent equation.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 px+qy=p^2+q^2
-              \]`,
-              correct: true,
-              successMessage: raw`Great. Expanding and collecting terms gives exactly the required tangent equation.`
-            },
-            {
-              html: raw`\[
-                px-qy=p^2+q^2
-              \]`,
-              failureMessage: raw`The \(qy\) term should be positive after rearranging.`
-            },
-            {
-              html: raw`\[
-                px+qy=p+q
-              \]`,
-              failureMessage: raw`The right-hand side must come from squaring the point coordinates after rearranging, not just adding them.`
-            },
-            {
-              html: raw`\[
-                qx+py=p^2+q^2
-              \]`,
-              failureMessage: raw`The coefficients should stay matched with their original variables.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Differentiate with respect to \(\theta\):</p>
+        <div class="math-block">
+          \[
+          \frac{dx}{d\theta}=-4\sin\theta
+          \]
+          \[
+          \frac{dy}{d\theta}=4\cos\theta
+          \]
+          \[
+          \frac{dy}{dx}=\frac{4\cos\theta}{-4\sin\theta}=-\frac{x}{y}
+          \]
+        </div>
+        <p class="step-text">At the point \(P(p,q)\), the gradient is \(-\frac{p}{q}\), so</p>
+        <div class="math-block">
+          \[
+          y-q=-\frac{p}{q}(x-p)
+          \]
+          \[
+          qy-q^2=-px+p^2
+          \]
+          \[
+          px+qy=p^2+q^2
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -745,85 +589,40 @@
         </div>
         <p class="step-text">So the maximum triangle area is \(\frac{3}{8}\) of the total shaded area.</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
           title: raw`Write the triangle area in terms of \(x\)`,
-          text: raw`Which area function is correct?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          previewHtml: raw`Start from \(\frac{1}{2}xy\), then substitute \(y=x(x-2m)^2\).`,
+          workingHtml: raw`<p class="step-text">Start from \(\frac{1}{2}xy\), then substitute \(y=x(x-2m)^2\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 A=\frac{x^2}{2}(x-2m)^2
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Start from \(\frac{1}{2}xy\), then substitute \(y=x(x-2m)^2\).`
-            },
-            {
-              html: raw`\[
-                A=\frac{x}{2}(x-2m)^2
-              \]`,
-              failureMessage: raw`You need the extra factor of \(x\) from the curve equation for \(y\).`
-            },
-            {
-              html: raw`\[
-                A=x^2(x-2m)^2
-              \]`,
-              failureMessage: raw`Do not forget the factor of \(\frac{1}{2}\) in the triangle area formula.`
-            },
-            {
-              html: raw`\[
-                A=\frac{x^2}{2}(x-2m)
-              \]`,
-              failureMessage: raw`The area function should still include the full square \((x-2m)^2\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the useful critical point",
-          text: raw`After differentiating, which \(x\)-value gives the non-zero maximum area inside \(0\le x\le 2m\)?`,
-          beforeHtml: raw`
+          title: raw`Find the useful critical point`,
+          previewHtml: raw`The endpoints \(x=0\) and \(x=2m\) give zero area, so the non-zero maximum occurs at \(x=m\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               A'=2x(x-m)(x-2m)
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">The endpoints \(x=0\) and \(x=2m\) give zero area, so the non-zero maximum occurs at \(x=m\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 x=m
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. The endpoints \(x=0\) and \(x=2m\) give zero area, so the non-zero maximum occurs at \(x=m\).`
-            },
-            {
-              html: raw`\[
-                x=0
-              \]`,
-              failureMessage: raw`That gives zero area, so it cannot be the maximum.`
-            },
-            {
-              html: raw`\[
-                x=2m
-              \]`,
-              failureMessage: raw`That also gives zero area.`
-            },
-            {
-              html: raw`\[
-                x=\frac{m}{2}
-              \]`,
-              failureMessage: raw`Factor the derivative carefully: the critical values are \(0\), \(m\), and \(2m\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Compare with the total shaded area",
-          text: raw`Which statement is correct for the maximum triangle area?`,
-          beforeHtml: raw`
+          title: raw`Compare with the total shaded area`,
+          previewHtml: raw`Substituting \(x=m\) gives \(A_{\max}=\frac{m^4}{2}\), and that is exactly \(\frac{3}{8}\) of the total shaded area.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               A(x)=\frac{x^2}{2}(x-2m)^2
@@ -835,35 +634,44 @@
               \frac{3}{8}\left(\frac{4m^4}{3}\right)=\frac{m^4}{2}
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Substituting \(x=m\) gives \(A_{\max}=\frac{m^4}{2}\), and that is exactly \(\frac{3}{8}\) of the total shaded area.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 A_{\max}=\frac{m^4}{2}=\frac{3}{8}\left(\frac{4m^4}{3}\right)
-              \]`,
-              correct: true,
-              successMessage: raw`Great. Substituting \(x=m\) gives \(A_{\max}=\frac{m^4}{2}\), and that is exactly \(\frac{3}{8}\) of the total shaded area.`
-            },
-            {
-              html: raw`\[
-                A_{\max}=\frac{m^4}{3}
-              \]`,
-              failureMessage: raw`Substitute \(x=m\) into \(\frac{x^2}{2}(x-2m)^2\) again.`
-            },
-            {
-              html: raw`\[
-                A_{\max}=\frac{4m^4}{3}
-              \]`,
-              failureMessage: raw`That is the total shaded area, not the triangle area.`
-            },
-            {
-              html: raw`\[
-                A_{\max}=\frac{3m^4}{8}
-              \]`,
-              failureMessage: raw`You are mixing the comparison ratio with the actual area value.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">The triangle area is</p>
+        <div class="math-block">
+          \[
+          A=\frac{1}{2}xy=\frac{1}{2}x\big(x(x-2m)^2\big)=\frac{x^2}{2}(x-2m)^2
+          \]
+        </div>
+        <p class="step-text">Differentiate and factor:</p>
+        <div class="math-block">
+          \[
+          A'=x(x-2m)^2+x^2(x-2m)
+          \]
+          \[
+          A'=2x(x-m)(x-2m)
+          \]
+        </div>
+        <p class="step-text">Inside the interval \(0\le x\le 2m\), the non-zero maximum occurs at \(x=m\), so</p>
+        <div class="math-block">
+          \[
+          A_{\max}=\frac{m^2}{2}(m-2m)^2=\frac{m^4}{2}
+          \]
+        </div>
+        <p class="step-text">Now compare with the total shaded area:</p>
+        <div class="math-block">
+          \[
+          \frac{3}{8}\cdot \frac{4m^4}{3}=\frac{m^4}{2}=A_{\max}
+          \]
+        </div>
+        <p class="step-text">So the maximum triangle area is \(\frac{3}{8}\) of the total shaded area.</p>
+      `
         }
       ]
     }),
@@ -896,72 +704,42 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Rewrite the function",
-          text: raw`What is the most useful rewrite before differentiating?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Rewrite the function`,
+          previewHtml: raw`That rewrite makes the derivative a straightforward product-rule question.`,
+          workingHtml: raw`<p class="step-text">That rewrite makes the derivative a straightforward product-rule question.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 f(x)=x^2\sec x
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. That rewrite makes the derivative a straightforward product-rule question.`
-            },
-            {
-              html: raw`\[
-                f(x)=x^2\cos x
-              \]`,
-              failureMessage: raw`Dividing by \(\cos x\) is the same as multiplying by \(\sec x\), not by \(\cos x\).`
-            },
-            {
-              html: raw`\[
-                f(x)=x^2\tan x
-              \]`,
-              failureMessage: raw`\(\tan x\) is \(\frac{\sin x}{\cos x}\), which is not the same thing here.`
-            },
-            {
-              html: raw`\[
-                f(x)=\frac{x^2}{\sec x}
-              \]`,
-              failureMessage: raw`That rewrite just makes the expression less convenient.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Differentiate the product",
-          text: raw`Which derivative is correct?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Differentiate the product`,
+          previewHtml: raw`Product rule on \(x^2\sec x\) gives exactly that.`,
+          workingHtml: raw`<p class="step-text">Product rule on \(x^2\sec x\) gives exactly that.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{df}{dx}=2x\sec x+x^2\sec x\tan x
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. Product rule on \(x^2\sec x\) gives exactly that.`
-            },
-            {
-              html: raw`\[
-                \frac{df}{dx}=2x\sec x+x^2\tan x
-              \]`,
-              failureMessage: raw`The derivative of \(\sec x\) is \(\sec x\tan x\), not just \(\tan x\).`
-            },
-            {
-              html: raw`\[
-                \frac{df}{dx}=2x\sec x\tan x
-              \]`,
-              failureMessage: raw`That only uses one of the product-rule terms.`
-            },
-            {
-              html: raw`\[
-                \frac{df}{dx}=2x\cos x-x^2\sin x
-              \]`,
-              failureMessage: raw`That would come from differentiating \(x^2\cos x\), which is not the rewritten function.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Rewrite first:</p>
+        <div class="math-block">
+          \[
+          f(x)=x^2\sec x
+          \]
+        </div>
+        <p class="step-text">Now use the product rule:</p>
+        <div class="math-block">
+          \[
+          \frac{df}{dx}=2x\sec x+x^2\sec x\tan x
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -997,45 +775,22 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Differentiate the curve",
-          text: raw`Which derivative is correct?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Differentiate the curve`,
+          previewHtml: raw`The chain rule adds the factor of \(2\) from differentiating \(2x\).`,
+          workingHtml: raw`<p class="step-text">The chain rule adds the factor of \(2\) from differentiating \(2x\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 y'=-2\csc^2(2x)
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The chain rule adds the factor of \(2\) from differentiating \(2x\).`
-            },
-            {
-              html: raw`\[
-                y'=-\csc^2(2x)
-              \]`,
-              failureMessage: raw`You still need the chain-rule factor from the inside angle \(2x\).`
-            },
-            {
-              html: raw`\[
-                y'=2\csc^2(2x)
-              \]`,
-              failureMessage: raw`The sign should stay negative because \(\frac{d}{dx}[\cot x]=-\csc^2 x\).`
-            },
-            {
-              html: raw`\[
-                y'=-2\cot(2x)
-              \]`,
-              failureMessage: raw`That is not the derivative formula for \(\cot\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Evaluate the gradient",
-          text: raw`What is the gradient when \(x=\frac{\pi}{12}\)?`,
-          beforeHtml: raw`
+          title: raw`Evaluate the gradient`,
+          previewHtml: raw`Since \(\csc\left(\frac{\pi}{6}\right)=2\), the substitution gives \(-2(2^2)=-8\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               y'=-2\csc^2(2x)
@@ -1047,35 +802,31 @@
               y'\left(\frac{\pi}{12}\right)=-2\csc^2\left(\frac{\pi}{6}\right)
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Since \(\csc\left(\frac{\pi}{6}\right)=2\), the substitution gives \(-2(2^2)=-8\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 -8
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. Since \(\csc\left(\frac{\pi}{6}\right)=2\), the substitution gives \(-2(2^2)=-8\).`
-            },
-            {
-              html: raw`\[
-                -4
-              \]`,
-              failureMessage: raw`Remember that \(\csc\left(\frac{\pi}{6}\right)=2\), and then you need to square it.`
-            },
-            {
-              html: raw`\[
-                8
-              \]`,
-              failureMessage: raw`The sign should still be negative.`
-            },
-            {
-              html: raw`\[
-                -2
-              \]`,
-              failureMessage: raw`Check the value of \(\csc^2\left(\frac{\pi}{6}\right)\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Differentiate using the chain rule:</p>
+        <div class="math-block">
+          \[
+          y'=-\csc^2(2x)\cdot 2=-2\csc^2(2x)
+          \]
+        </div>
+        <p class="step-text">Now evaluate at \(x=\frac{\pi}{12}\):</p>
+        <div class="math-block">
+          \[
+          y'\left(\frac{\pi}{12}\right)=-2\csc^2\left(\frac{\pi}{6}\right)
+          \]
+          \[
+          y'\left(\frac{\pi}{12}\right)=-2(2^2)=-8
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -1117,12 +868,11 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Simplify the derivative",
-          text: raw`Which simplified derivative is correct?`,
-          beforeHtml: raw`
+          title: raw`Simplify the derivative`,
+          previewHtml: raw`After using the quotient rule, the numerator simplifies to \(e^x(x^2-2)\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               f'(x)=\frac{(x^2+2x)e^x-(2x+2)e^x}{(x^2+2x)^2}
@@ -1131,41 +881,19 @@
               f'(x)=\frac{e^x\big((x^2+2x)-(2x+2)\big)}{(x^2+2x)^2}
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">After using the quotient rule, the numerator simplifies to \(e^x(x^2-2)\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 f'(x)=\frac{e^x(x^2-2)}{(x^2+2x)^2}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. After using the quotient rule, the numerator simplifies to \(e^x(x^2-2)\).`
-            },
-            {
-              html: raw`\[
-                f'(x)=\frac{e^x(x^2+2)}{(x^2+2x)^2}
-              \]`,
-              failureMessage: raw`Check the sign when simplifying the numerator.`
-            },
-            {
-              html: raw`\[
-                f'(x)=\frac{x^2-2}{(x^2+2x)^2}
-              \]`,
-              failureMessage: raw`You have dropped the factor of \(e^x\).`
-            },
-            {
-              html: raw`\[
-                f'(x)=\frac{e^x(x^2-2)}{x^2+2x}
-              \]`,
-              failureMessage: raw`The whole denominator is squared in the quotient rule.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Solve for the horizontal tangents",
-          text: raw`Which \(x\)-values make the tangent parallel to the \(x\)-axis?`,
-          beforeHtml: raw`
+          title: raw`Solve for the horizontal tangents`,
+          previewHtml: raw`Because \(e^x\) is never zero, the equation reduces to \(x^2-2=0\), so \(x=\pm\sqrt{2}\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               0=\frac{e^x(x^2-2)}{(x^2+2x)^2}
@@ -1177,35 +905,37 @@
               x^2-2=0
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Because \(e^x\) is never zero, the equation reduces to \(x^2-2=0\), so \(x=\pm\sqrt{2}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 x=\pm \sqrt{2}
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. Because \(e^x\) is never zero, the equation reduces to \(x^2-2=0\), so \(x=\pm\sqrt{2}\).`
-            },
-            {
-              html: raw`\[
-                x=\pm 2
-              \]`,
-              failureMessage: raw`Solve \(x^2=2\), not \(x^2=4\).`
-            },
-            {
-              html: raw`\[
-                x=0,-2
-              \]`,
-              failureMessage: raw`Those values make the original denominator zero, so the function is undefined there.`
-            },
-            {
-              html: raw`\[
-                x=\sqrt{2}
-              \]`,
-              failureMessage: raw`Do not forget that squaring gives two solutions here.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Differentiate with the quotient rule:</p>
+        <div class="math-block">
+          \[
+          f'(x)=\frac{e^x(x^2+2x)-(2x+2)e^x}{(x^2+2x)^2}
+          \]
+          \[
+          f'(x)=\frac{e^x(x^2-2)}{(x^2+2x)^2}
+          \]
+        </div>
+        <p class="step-text">For a horizontal tangent, set the derivative equal to zero:</p>
+        <div class="math-block">
+          \[
+          e^x(x^2-2)=0
+          \]
+          \[
+          x^2-2=0
+          \]
+          \[
+          x=\pm \sqrt{2}
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -1259,45 +989,22 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Differentiate once",
-          text: raw`Which first derivative is correct?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Differentiate once`,
+          previewHtml: raw`Product rule on \(3x^2\ln x\) gives a factorable first derivative.`,
+          workingHtml: raw`<p class="step-text">Product rule on \(3x^2\ln x\) gives a factorable first derivative.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 f'(x)=6x\ln x+3x=3x(1+2\ln x)
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Product rule on \(3x^2\ln x\) gives a factorable first derivative.`
-            },
-            {
-              html: raw`\[
-                f'(x)=6x\ln x+\frac{3}{x}
-              \]`,
-              failureMessage: raw`Differentiating \(3x^2\) gives \(6x\), and the second term should still contain a factor of \(x\).`
-            },
-            {
-              html: raw`\[
-                f'(x)=3x(2+\ln x)
-              \]`,
-              failureMessage: raw`Check the product-rule expansion more carefully.`
-            },
-            {
-              html: raw`\[
-                f'(x)=6x\ln x+6x
-              \]`,
-              failureMessage: raw`The logarithm term contributes \(3x\), not \(6x\), in the second part.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the second derivative",
-          text: raw`Which second derivative should you set equal to zero?`,
-          beforeHtml: raw`
+          title: raw`Find the second derivative`,
+          previewHtml: raw`Follow the working to find the second derivative.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               f'(x)=3x(1+2\ln x)
@@ -1309,41 +1016,19 @@
               f''(x)=3+6\ln x+6=9+6\ln x
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Product rule gives \(3(1+2\ln x)+3x\left(\frac{2}{x}\right)\), which simplifies to \(9+6\ln x\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 f''(x)=9+6\ln x
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. Product rule gives \(3(1+2\ln x)+3x\left(\frac{2}{x}\right)\), which simplifies to \(9+6\ln x\).`
-            },
-            {
-              html: raw`\[
-                f''(x)=6+6\ln x
-              \]`,
-              failureMessage: raw`There should be an extra \(3\) from differentiating the outside \(3x\) as well.`
-            },
-            {
-              html: raw`\[
-                f''(x)=3+2\ln x
-              \]`,
-              failureMessage: raw`The coefficients are too small after differentiating.`
-            },
-            {
-              html: raw`\[
-                f''(x)=\frac{6}{x}
-              \]`,
-              failureMessage: raw`That only differentiates the logarithm piece and misses the rest.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Solve for the inflection point",
-          text: raw`What is the \(x\)-value of the point of inflection?`,
-          beforeHtml: raw`
+          title: raw`Solve for the inflection point`,
+          previewHtml: raw`Once \(\ln x=-\frac{3}{2}\), exponentiating both sides gives \(x=e^{-3/2}\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               9+6\ln x=0
@@ -1355,35 +1040,49 @@
               \ln x=-\frac{3}{2}
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Once \(\ln x=-\frac{3}{2}\), exponentiating both sides gives \(x=e^{-3/2}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 e^{-3/2}
-              \]`,
-              correct: true,
-              successMessage: raw`Great. Once \(\ln x=-\frac{3}{2}\), exponentiating both sides gives \(x=e^{-3/2}\).`
-            },
-            {
-              html: raw`\[
-                e^{3/2}
-              \]`,
-              failureMessage: raw`The logarithm equation gives a negative exponent here.`
-            },
-            {
-              html: raw`\[
-                -\frac{3}{2}
-              \]`,
-              failureMessage: raw`That is the value of \(\ln x\), not \(x\) itself.`
-            },
-            {
-              html: raw`\[
-                \frac{3}{2}
-              \]`,
-              failureMessage: raw`You need to solve the logarithmic equation all the way to \(x\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">First derivative:</p>
+        <div class="math-block">
+          \[
+          f'(x)=6x\ln x+3x=3x(1+2\ln x)
+          \]
+        </div>
+        <p class="step-text">Second derivative:</p>
+        <div class="math-block">
+          \[
+          f''(x)=3(1+2\ln x)+3x\left(\frac{2}{x}\right)
+          \]
+          \[
+          f''(x)=9+6\ln x=6\left(\frac{3}{2}+\ln x\right)
+          \]
+        </div>
+        <p class="step-text">Set the second derivative equal to zero:</p>
+        <div class="math-block">
+          \[
+          9+6\ln x=0
+          \]
+          \[
+          6\ln x=-9
+          \]
+          \[
+          \frac{3}{2}+\ln x=0
+          \]
+          \[
+          \ln x=-\frac{3}{2}
+          \]
+          \[
+          x=e^{-3/2}
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -1438,45 +1137,22 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Link the angle and the horizontal distance",
-          text: raw`If \(x\) is the horizontal distance from the helicopter to the car, which relationship is correct?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Link the angle and the horizontal distance`,
+          previewHtml: raw`The opposite side is the constant height \(400\), and the adjacent side is the horizontal distance \(x\).`,
+          workingHtml: raw`<p class="step-text">The opposite side is the constant height \(400\), and the adjacent side is the horizontal distance \(x\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \tan\theta=\frac{400}{x}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The opposite side is the constant height \(400\), and the adjacent side is the horizontal distance \(x\).`
-            },
-            {
-              html: raw`\[
-                \sin\theta=\frac{400}{x}
-              \]`,
-              failureMessage: raw`That would use \(x\) as the hypotenuse, but here \(x\) is the horizontal distance.`
-            },
-            {
-              html: raw`\[
-                \tan\theta=\frac{x}{400}
-              \]`,
-              failureMessage: raw`That inverts the ratio.`
-            },
-            {
-              html: raw`\[
-                \cos\theta=\frac{400}{x}
-              \]`,
-              failureMessage: raw`Cosine uses adjacent over hypotenuse, not opposite over adjacent.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the horizontal closing speed",
-          text: raw`After differentiating and substituting the given instant, what is \(\frac{dx}{dt}\)?`,
-          beforeHtml: raw`
+          title: raw`Find the horizontal closing speed`,
+          previewHtml: raw`Solving the substituted equation gives \(\frac{dx}{dt}=-31.25\text{ m s}^{-1}\), and the negative sign shows the horizontal distance is shrinking.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \sec^2\theta\frac{d\theta}{dt}=-\frac{400}{x^2}\frac{dx}{dt}
@@ -1488,68 +1164,63 @@
               0.002\sec^2(0.1607)=-\frac{400}{2500^2-400^2}\frac{dx}{dt}
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Solving the substituted equation gives \(\frac{dx}{dt}=-31.25\text{ m s}^{-1}\), and the negative sign shows the horizontal distance is shrinking.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 -31.25\text{ m s}^{-1}
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. Solving the substituted equation gives \(\frac{dx}{dt}=-31.25\text{ m s}^{-1}\), and the negative sign shows the horizontal distance is shrinking.`
-            },
-            {
-              html: raw`\[
-                31.25\text{ m s}^{-1}
-              \]`,
-              failureMessage: raw`The sign should be negative because the helicopter is closing the gap.`
-            },
-            {
-              html: raw`\[
-                -72\text{ m s}^{-1}
-              \]`,
-              failureMessage: raw`That is the helicopter's speed, not the horizontal separation rate from the related-rates calculation.`
-            },
-            {
-              html: raw`\[
-                40.75\text{ m s}^{-1}
-              \]`,
-              failureMessage: raw`That is the car's speed after the final comparison, not \(\frac{dx}{dt}\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Convert to the car's speed",
-          text: raw`What is the speed of the car?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Convert to the car's speed`,
+          previewHtml: raw`The helicopter travels at \(72\text{ m s}^{-1}\), and the gap closes at \(31.25\text{ m s}^{-1}\), so the car must be travelling at \(40.75\text{ m s}^{-1}\).`,
+          workingHtml: raw`<p class="step-text">The helicopter travels at \(72\text{ m s}^{-1}\), and the gap closes at \(31.25\text{ m s}^{-1}\), so the car must be travelling at \(40.75\text{ m s}^{-1}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 40.75\text{ m s}^{-1}
-              \]`,
-              correct: true,
-              successMessage: raw`Great. The helicopter travels at \(72\text{ m s}^{-1}\), and the gap closes at \(31.25\text{ m s}^{-1}\), so the car must be travelling at \(40.75\text{ m s}^{-1}\).`
-            },
-            {
-              html: raw`\[
-                31.25\text{ m s}^{-1}
-              \]`,
-              failureMessage: raw`That is the closing rate in the horizontal distance, not the car's own speed.`
-            },
-            {
-              html: raw`\[
-                72\text{ m s}^{-1}
-              \]`,
-              failureMessage: raw`That is the helicopter's speed.`
-            },
-            {
-              html: raw`\[
-                103.25\text{ m s}^{-1}
-              \]`,
-              failureMessage: raw`The car is slower than the helicopter here, so the speeds should not be added.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Let \(x\) be the horizontal distance between the helicopter and the car. Then</p>
+        <div class="math-block">
+          \[
+          \tan\theta=\frac{400}{x}
+          \]
+        </div>
+        <p class="step-text">Differentiate with respect to time:</p>
+        <div class="math-block">
+          \[
+          \sec^2\theta\frac{d\theta}{dt}=-\frac{400}{x^2}\frac{dx}{dt}
+          \]
+        </div>
+        <p class="step-text">At the given instant, the direct distance is \(2500\), so</p>
+        <div class="math-block">
+          \[
+          x^2=2500^2-400^2
+          \]
+          \[
+          \theta=\sin^{-1}\left(\frac{400}{2500}\right)\approx 0.1607
+          \]
+        </div>
+        <p class="step-text">Substitute into the related-rates equation:</p>
+        <div class="math-block">
+          \[
+          \sec^2(0.1607)(0.002)=-\frac{400}{x^2}\frac{dx}{dt}
+          \]
+          \[
+          \frac{dx}{dt}=-31.25\text{ m s}^{-1}
+          \]
+        </div>
+        <p class="step-text">That is the horizontal closing rate, so the car's speed is</p>
+        <div class="math-block">
+          \[
+          72-31.25=40.75\text{ m s}^{-1}.
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -1578,45 +1249,22 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Differentiate the inside first",
-          text: raw`What is the derivative of the bracket \(x^2-x^4+1\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Differentiate the inside first`,
+          previewHtml: raw`Differentiate term by term before using the logarithm rule.`,
+          workingHtml: raw`<p class="step-text">Differentiate term by term before using the logarithm rule.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 2x-4x^3
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Differentiate term by term before using the logarithm rule.`
-            },
-            {
-              html: raw`\[
-                2x-3x^4
-              \]`,
-              failureMessage: raw`The derivative of \(-x^4\) is \(-4x^3\), not \(-3x^4\).`
-            },
-            {
-              html: raw`\[
-                2-4x^3
-              \]`,
-              failureMessage: raw`The derivative of \(x^2\) is \(2x\), not \(2\).`
-            },
-            {
-              html: raw`\[
-                2x+4x^3
-              \]`,
-              failureMessage: raw`Keep the negative sign from \(-x^4\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Build the logarithmic derivative",
-          text: raw`Which final derivative is correct?`,
-          beforeHtml: raw`
+          title: raw`Build the logarithmic derivative`,
+          previewHtml: raw`For \(\ln(u)\), the derivative is \(\frac{u'}{u}\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               u=x^2-x^4+1
@@ -1625,35 +1273,25 @@
               \frac{dy}{dx}=\frac{u'}{u}
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">For \(\ln(u)\), the derivative is \(\frac{u'}{u}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{dy}{dx}=\frac{2x-4x^3}{x^2-x^4+1}
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. For \(\ln(u)\), the derivative is \(\frac{u'}{u}\).`
-            },
-            {
-              html: raw`\[
-                \frac{dy}{dx}=\ln(2x-4x^3)
-              \]`,
-              failureMessage: raw`The derivative of \(\ln(u)\) is not another logarithm.`
-            },
-            {
-              html: raw`\[
-                \frac{dy}{dx}=\frac{x^2-x^4+1}{2x-4x^3}
-              \]`,
-              failureMessage: raw`That has the fraction the wrong way around.`
-            },
-            {
-              html: raw`\[
-                \frac{dy}{dx}=(x^2-x^4+1)(2x-4x^3)
-              \]`,
-              failureMessage: raw`For a logarithm, you divide by the inside, not multiply by it.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Use the chain rule for logarithms:</p>
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}=\frac{1}{x^2-x^4+1}\cdot (2x-4x^3)
+          \]
+          \[
+          \frac{dy}{dx}=\frac{2x-4x^3}{x^2-x^4+1}
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -1695,105 +1333,54 @@
         </div>
         <p class="step-text">At \(x=8\) the graph is continuous but has a sharp corner, so it is not differentiable there. At \(x=-4\) there is a smooth local maximum, so \(f'(x)=0\) and \(f''(x)&lt;0\). The left- and right-hand values near \(x=6\) approach different numbers, so the limit does not exist.</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Find the continuous corner",
-          text: raw`Where is \(f(x)\) continuous but not differentiable?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Find the continuous corner`,
+          previewHtml: raw`The graph meets at \(x=8\), but it does so with a sharp corner.`,
+          workingHtml: raw`<p class="step-text">The graph meets at \(x=8\), but it does so with a sharp corner.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 x=8
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The graph meets at \(x=8\), but it does so with a sharp corner.`
-            },
-            {
-              html: raw`\[
-                x=2
-              \]`,
-              failureMessage: raw`At \(x=2\), there is a break between open and closed points, so the function is not continuous there.`
-            },
-            {
-              html: raw`\[
-                x=6
-              \]`,
-              failureMessage: raw`At \(x=6\), the left and right pieces do not meet, so the function is not continuous there.`
-            },
-            {
-              html: raw`\[
-                x=-2
-              \]`,
-              failureMessage: raw`There is a hole there, so the function is not continuous.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the local maximum",
-          text: raw`Which \(x\)-value makes both \(f'(x)=0\) and \(f''(x)&lt;0\) true?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Find the local maximum`,
+          previewHtml: raw`The graph has a smooth turning point there, and it is a local maximum, so the second derivative is negative.`,
+          workingHtml: raw`<p class="step-text">The graph has a smooth turning point there, and it is a local maximum, so the second derivative is negative.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 x=-4
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. The graph has a smooth turning point there, and it is a local maximum, so the second derivative is negative.`
-            },
-            {
-              html: raw`\[
-                x=4
-              \]`,
-              failureMessage: raw`That point is a local minimum, so \(f''(x)\) would be positive instead.`
-            },
-            {
-              html: raw`\[
-                x=8
-              \]`,
-              failureMessage: raw`The derivative does not exist at the sharp corner there.`
-            },
-            {
-              html: raw`\[
-                x=0
-              \]`,
-              failureMessage: raw`The graph is flat near \(x=0\), but there is no turning point with \(f''(x)&lt;0\) there.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
           title: raw`Read the limit at \(x=6\)`,
-          text: raw`What is \(\lim_{x\to 6}f(x)\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          previewHtml: raw`The left-hand side approaches \(2\), while the right-hand side approaches \(5\), so the two-sided limit does not exist.`,
+          workingHtml: raw`<p class="step-text">The left-hand side approaches \(2\), while the right-hand side approaches \(5\), so the two-sided limit does not exist.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \text{Does not exist}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The left-hand side approaches \(2\), while the right-hand side approaches \(5\), so the two-sided limit does not exist.`
-            },
-            {
-              html: raw`\[
-                2
-              \]`,
-              failureMessage: raw`That is only the value approached from the left-hand side.`
-            },
-            {
-              html: raw`\[
-                5
-              \]`,
-              failureMessage: raw`That is only the value approached from the right-hand side.`
-            },
-            {
-              html: raw`\[
-                3
-              \]`,
-              failureMessage: raw`The graph does not approach \(3\) from either side of \(x=6\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Reading directly from the graph:</p>
+        <div class="math-block">
+          \[
+          \text{(i) }x=8
+          \]
+          \[
+          \text{(ii) }x=-4
+          \]
+          \[
+          \text{(iii) }\lim_{x\to 6}f(x)\text{ does not exist}
+          \]
+        </div>
+        <p class="step-text">At \(x=8\) the graph is continuous but has a sharp corner, so it is not differentiable there. At \(x=-4\) there is a smooth local maximum, so \(f'(x)=0\) and \(f''(x)&lt;0\). The left- and right-hand values near \(x=6\) approach different numbers, so the limit does not exist.</p>
+      `
         }
       ]
     }),
@@ -1846,12 +1433,11 @@
           \]
         </div>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Find the tangent gradient",
-          text: raw`Which simplified expression for \(\frac{dy}{dx}\) is correct?`,
-          beforeHtml: raw`
+          title: raw`Find the tangent gradient`,
+          previewHtml: raw`The common factor of \(\pi\sqrt{2}\) cancels out.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \frac{dx}{dt}=\pi\sqrt{2}\cos\left(\frac{\pi t}{5}\right)
@@ -1859,41 +1445,19 @@
               \frac{dy}{dt}=\pi\sqrt{2}\sin\left(\frac{\pi t}{5}\right)
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">The common factor of \(\pi\sqrt{2}\) cancels out.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{dy}{dx}=\tan\left(\frac{\pi t}{5}\right)
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The common factor of \(\pi\sqrt{2}\) cancels out.`
-            },
-            {
-              html: raw`\[
-                \frac{dy}{dx}=\cot\left(\frac{\pi t}{5}\right)
-              \]`,
-              failureMessage: raw`That would happen if the fraction were inverted.`
-            },
-            {
-              html: raw`\[
-                \frac{dy}{dx}=\sin\left(\frac{\pi t}{5}\right)
-              \]`,
-              failureMessage: raw`You still need to divide by \(\cos\left(\frac{\pi t}{5}\right)\).`
-            },
-            {
-              html: raw`\[
-                \frac{dy}{dx}=-\tan\left(\frac{\pi t}{5}\right)
-              \]`,
-              failureMessage: raw`Both derivatives are positive here, so no extra negative sign appears in \(\frac{dy}{dx}\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
           title: raw`Evaluate the tangent gradient at \(t=6.25\)`,
-          text: raw`What is the tangent gradient at that instant?`,
-          beforeHtml: raw`
+          previewHtml: raw`Substituting \(t=6.25\) gives the angle \(\frac{5\pi}{4}\), and \(\tan\left(\frac{5\pi}{4}\right)=1\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \frac{dy}{dx}=\tan\left(\frac{\pi t}{5}\right)
@@ -1905,41 +1469,19 @@
               \frac{dy}{dx}\Bigg|_{t=6.25}=\tan\left(\frac{5\pi}{4}\right)
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Substituting \(t=6.25\) gives the angle \(\frac{5\pi}{4}\), and \(\tan\left(\frac{5\pi}{4}\right)=1\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 1
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. Substituting \(t=6.25\) gives the angle \(\frac{5\pi}{4}\), and \(\tan\left(\frac{5\pi}{4}\right)=1\).`
-            },
-            {
-              html: raw`\[
-                -1
-              \]`,
-              failureMessage: raw`That will be the normal gradient, not the tangent gradient.`
-            },
-            {
-              html: raw`\[
-                0
-              \]`,
-              failureMessage: raw`The tangent is not horizontal at \(t=6.25\).`
-            },
-            {
-              html: raw`\[
-                \sqrt{2}
-              \]`,
-              failureMessage: raw`The \(\sqrt{2}\) factor cancels when you divide \(\frac{dy}{dt}\) by \(\frac{dx}{dt}\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the normal gradient",
-          text: raw`What is the gradient of the normal?`,
-          beforeHtml: raw`
+          title: raw`Find the normal gradient`,
+          previewHtml: raw`The normal gradient is the negative reciprocal of the tangent gradient, so it is \(-1\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               m_{\text{tangent}}=1
@@ -1948,35 +1490,43 @@
               m_{\text{normal}}=-\frac{1}{m_{\text{tangent}}}=-\frac{1}{1}
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">The normal gradient is the negative reciprocal of the tangent gradient, so it is \(-1\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 -1
-              \]`,
-              correct: true,
-              successMessage: raw`Great. The normal gradient is the negative reciprocal of the tangent gradient, so it is \(-1\).`
-            },
-            {
-              html: raw`\[
-                1
-              \]`,
-              failureMessage: raw`That is the tangent gradient, not the normal gradient.`
-            },
-            {
-              html: raw`\[
-                0
-              \]`,
-              failureMessage: raw`A zero gradient would make the normal horizontal, which is not the case here.`
-            },
-            {
-              html: raw`\[
-                \text{Undefined}
-              \]`,
-              failureMessage: raw`The tangent gradient is \(1\), so the normal slope is perfectly defined.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Differentiate with respect to \(t\):</p>
+        <div class="math-block">
+          \[
+          \frac{dx}{dt}=5\sqrt{2}\cos\left(\frac{\pi t}{5}\right)\cdot \frac{\pi}{5}=\pi\sqrt{2}\cos\left(\frac{\pi t}{5}\right)
+          \]
+          \[
+          \frac{dy}{dt}=5\sqrt{2}\sin\left(\frac{\pi t}{5}\right)\cdot \frac{\pi}{5}=\pi\sqrt{2}\sin\left(\frac{\pi t}{5}\right)
+          \]
+        </div>
+        <p class="step-text">So the tangent gradient is</p>
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}=\frac{\pi\sqrt{2}\sin\left(\frac{\pi t}{5}\right)}{\pi\sqrt{2}\cos\left(\frac{\pi t}{5}\right)}=\tan\left(\frac{\pi t}{5}\right)
+          \]
+        </div>
+        <p class="step-text">At \(t=6.25\),</p>
+        <div class="math-block">
+          \[
+          \tan\left(\frac{\pi(6.25)}{5}\right)=\tan\left(\frac{5\pi}{4}\right)=1
+          \]
+        </div>
+        <p class="step-text">So the normal gradient is the negative reciprocal:</p>
+        <div class="math-block">
+          \[
+          m_{\text{normal}}=-1
+          \]
+        </div>
+      `
         }
       ]
     }),
@@ -2046,45 +1596,22 @@
         </div>
         <p class="step-text">So the graph has a local maximum at \(\left(\sqrt{6},\frac{\sqrt{6}}{9}\right)\) and a local minimum at \(\left(-\sqrt{6},-\frac{\sqrt{6}}{9}\right)\).</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
           title: raw`Find the stationary \(x\)-values`,
-          text: raw`Which \(x\)-values make \(f'(x)=0\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          previewHtml: raw`Solving \(1-\frac{6}{x^2}=0\) gives \(x^2=6\).`,
+          workingHtml: raw`<p class="step-text">Solving \(1-\frac{6}{x^2}=0\) gives \(x^2=6\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 x=\pm\sqrt{6}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Solving \(1-\frac{6}{x^2}=0\) gives \(x^2=6\).`
-            },
-            {
-              html: raw`\[
-                x=\pm 6
-              \]`,
-              failureMessage: raw`You need \(x^2=6\), not \(x=6\).`
-            },
-            {
-              html: raw`\[
-                x=\pm\sqrt{3}
-              \]`,
-              failureMessage: raw`Check the equation after multiplying through by \(x^4\).`
-            },
-            {
-              html: raw`\[
-                x=0
-              \]`,
-              failureMessage: raw`The function is not even defined at \(x=0\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Classify the stationary points",
-          text: raw`What does the second derivative test tell you?`,
-          beforeHtml: raw`
+          title: raw`Classify the stationary points`,
+          previewHtml: raw`A negative second derivative at \(x=\sqrt{6}\) means local maximum, while a positive second derivative at \(x=-\sqrt{6}\) means local minimum.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               f''(x)=2x^{-3}-24x^{-5}
@@ -2093,41 +1620,19 @@
               f''(\sqrt{6})&lt;0,\qquad f''(-\sqrt{6})&gt;0
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">A negative second derivative at \(x=\sqrt{6}\) means local maximum, while a positive second derivative at \(x=-\sqrt{6}\) means local minimum.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 x=\sqrt{6}\text{ is a local maximum, and }x=-\sqrt{6}\text{ is a local minimum}
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. A negative second derivative at \(x=\sqrt{6}\) means local maximum, while a positive second derivative at \(x=-\sqrt{6}\) means local minimum.`
-            },
-            {
-              html: raw`\[
-                x=\sqrt{6}\text{ is a local minimum, and }x=-\sqrt{6}\text{ is a local maximum}
-              \]`,
-              failureMessage: raw`That reverses the signs from the second derivative test.`
-            },
-            {
-              html: raw`\[
-                \text{Both are local maxima}
-              \]`,
-              failureMessage: raw`The second derivative has opposite signs at the two stationary points.`
-            },
-            {
-              html: raw`\[
-                \text{Both are local minima}
-              \]`,
-              failureMessage: raw`Again, the second derivative changes sign between the two points.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "State the coordinates",
-          text: raw`Which final answer is correct?`,
-          beforeHtml: raw`
+          title: raw`State the coordinates`,
+          previewHtml: raw`The substitutions give the \(y\)-values \(\pm\frac{\sqrt{6}}{9}\), so those are the correct coordinates and classifications.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               f(\sqrt{6})=\frac{1}{\sqrt{6}}-\frac{2}{(\sqrt{6})^3}=\frac{\sqrt{6}}{9}
@@ -2136,35 +1641,65 @@
               f(-\sqrt{6})=\frac{1}{-\sqrt{6}}-\frac{2}{(-\sqrt{6})^3}=-\frac{\sqrt{6}}{9}
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">The substitutions give the \(y\)-values \(\pm\frac{\sqrt{6}}{9}\), so those are the correct coordinates and classifications.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \left(\sqrt{6},\frac{\sqrt{6}}{9}\right)\text{ max, and }\left(-\sqrt{6},-\frac{\sqrt{6}}{9}\right)\text{ min}
-              \]`,
-              correct: true,
-              successMessage: raw`Great. The substitutions give the \(y\)-values \(\pm\frac{\sqrt{6}}{9}\), so those are the correct coordinates and classifications.`
-            },
-            {
-              html: raw`\[
-                \left(\sqrt{6},\frac{1}{\sqrt{6}}\right)\text{ max, and }\left(-\sqrt{6},-\frac{1}{\sqrt{6}}\right)\text{ min}
-              \]`,
-              failureMessage: raw`Check the substitution into \(f(x)=\frac{1}{x}-\frac{2}{x^3}\) more carefully.`
-            },
-            {
-              html: raw`\[
-                \left(\sqrt{6},-\frac{\sqrt{6}}{9}\right)\text{ max, and }\left(-\sqrt{6},\frac{\sqrt{6}}{9}\right)\text{ min}
-              \]`,
-              failureMessage: raw`The \(y\)-values should keep the same sign pattern as the \(x\)-values here.`
-            },
-            {
-              html: raw`\[
-                \left(\sqrt{6},\frac{\sqrt{6}}{9}\right)\text{ and }\left(-\sqrt{6},-\frac{\sqrt{6}}{9}\right)\text{ are both inflection points}
-              \]`,
-              failureMessage: raw`These are stationary points classified by the second derivative test, not inflection points.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Differentiate:</p>
+        <div class="math-block">
+          \[
+          f(x)=x^{-1}-2x^{-3}
+          \]
+          \[
+          f'(x)=-x^{-2}+6x^{-4}
+          \]
+        </div>
+        <p class="step-text">Set the derivative equal to zero:</p>
+        <div class="math-block">
+          \[
+          -x^{-2}+6x^{-4}=0
+          \]
+          \[
+          1-\frac{6}{x^2}=0
+          \]
+          \[
+          x=\pm\sqrt{6}
+          \]
+        </div>
+        <p class="step-text">Use the second derivative:</p>
+        <div class="math-block">
+          \[
+          f''(x)=2x^{-3}-24x^{-5}
+          \]
+          \[
+          f''(\sqrt{6})&lt;0 \Rightarrow \text{local maximum}
+          \]
+          \[
+          f''(-\sqrt{6})&gt;0 \Rightarrow \text{local minimum}
+          \]
+        </div>
+        <p class="step-text">Find the coordinates:</p>
+        <div class="math-block">
+          \[
+          f(\sqrt{6})=\frac{1}{\sqrt{6}}-\frac{2}{(\sqrt{6})^3}
+          \]
+          \[
+          f(\sqrt{6})=\frac{1}{\sqrt{6}}-\frac{1}{3\sqrt{6}}=\frac{2}{3\sqrt{6}}=\frac{\sqrt{6}}{9}
+          \]
+          \[
+          f(-\sqrt{6})=\frac{1}{-\sqrt{6}}-\frac{2}{(-\sqrt{6})^3}
+          \]
+          \[
+          f(-\sqrt{6})=-\frac{1}{\sqrt{6}}+\frac{1}{3\sqrt{6}}=-\frac{2}{3\sqrt{6}}=-\frac{\sqrt{6}}{9}
+          \]
+        </div>
+        <p class="step-text">So the graph has a local maximum at \(\left(\sqrt{6},\frac{\sqrt{6}}{9}\right)\) and a local minimum at \(\left(-\sqrt{6},-\frac{\sqrt{6}}{9}\right)\).</p>
+      `
         }
       ]
     }),
@@ -2228,78 +1763,36 @@
         </div>
         <p class="step-text">So \((ay'')^2=1+(y')^2\), which verifies the required differential equation.</p>
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Differentiate once",
-          text: raw`Which first derivative is correct?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Differentiate once`,
+          previewHtml: raw`The factors of \(a\) cancel when differentiating each exponential term.`,
+          workingHtml: raw`<p class="step-text">The factors of \(a\) cancel when differentiating each exponential term.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 y'=\frac{e^{x/a}}{2}-\frac{e^{-x/a}}{2}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The factors of \(a\) cancel when differentiating each exponential term.`
-            },
-            {
-              html: raw`\[
-                y'=\frac{ae^{x/a}}{2}-\frac{ae^{-x/a}}{2}
-              \]`,
-              failureMessage: raw`The chain-rule factors cancel the outside \(a\), so no \(a\) remains in front.`
-            },
-            {
-              html: raw`\[
-                y'=\frac{e^{x/a}}{2}+\frac{e^{-x/a}}{2}
-              \]`,
-              failureMessage: raw`The derivative of \(e^{-x/a}\) introduces a negative sign.`
-            },
-            {
-              html: raw`\[
-                y'=\frac{1}{2a}\left(e^{x/a}-e^{-x/a}\right)
-              \]`,
-              failureMessage: raw`The outside factor of \(a\) has already cancelled that denominator.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Differentiate a second time",
-          text: raw`Which second derivative is correct?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Differentiate a second time`,
+          previewHtml: raw`Differentiating the negative exponential again makes the second term positive.`,
+          workingHtml: raw`<p class="step-text">Differentiating the negative exponential again makes the second term positive.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 y''=\frac{e^{x/a}}{2a}+\frac{e^{-x/a}}{2a}
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. Differentiating the negative exponential again makes the second term positive.`
-            },
-            {
-              html: raw`\[
-                y''=\frac{e^{x/a}}{2a}-\frac{e^{-x/a}}{2a}
-              \]`,
-              failureMessage: raw`The second derivative should make both terms positive.`
-            },
-            {
-              html: raw`\[
-                y''=\frac{e^{x/a}+e^{-x/a}}{2}
-              \]`,
-              failureMessage: raw`You still need the factor of \(\frac{1}{a}\) from differentiating the exponents.`
-            },
-            {
-              html: raw`\[
-                y''=\frac{e^{2x/a}+e^{-2x/a}}{2a}
-              \]`,
-              failureMessage: raw`Differentiating does not double the exponents in that way.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Substitute and expand both sides",
-          text: raw`After substituting \(y'\) and \(ay''\), what do both squared sides simplify to?`,
-          beforeHtml: raw`
+          title: raw`Substitute and expand both sides`,
+          previewHtml: raw`Expanding both squares and using \(e^{x/a}e^{-x/a}=1\) gives the same expression on both sides:
+                \[
+                \frac{e^{2x/a}}{4}+\frac{e^{-2x/a}}{4}+\frac{1}{2}.
+                \]`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               ay''=\frac{e^{x/a}+e^{-x/a}}{2}
@@ -2312,71 +1805,67 @@
               1+(y')^2=1+\left(\frac{e^{x/a}-e^{-x/a}}{2}\right)^2
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
-                \frac{e^{2x/a}}{4}+\frac{e^{-2x/a}}{4}+\frac{1}{2}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Expanding both squares and using \(e^{x/a}e^{-x/a}=1\) gives the same expression on both sides:
+
+<p class="step-text">Expanding both squares and using \(e^{x/a}e^{-x/a}=1\) gives the same expression on both sides:
                 \[
                 \frac{e^{2x/a}}{4}+\frac{e^{-2x/a}}{4}+\frac{1}{2}.
-                \]`
-            },
-            {
-              html: raw`\[
-                \frac{e^{2x/a}}{4}-\frac{e^{-2x/a}}{4}+\frac{1}{2}
-              \]`,
-              failureMessage: raw`The exponential terms should both be positive after expanding and simplifying.`
-            },
-            {
-              html: raw`\[
-                \frac{e^{2x/a}}{2}+\frac{e^{-2x/a}}{2}
-              \]`,
-              failureMessage: raw`Check the coefficients after squaring the fractions.`
-            },
-            {
-              html: raw`\[
-                \frac{e^{2x/a}}{4}+\frac{e^{-2x/a}}{4}-\frac{1}{2}
-              \]`,
-              failureMessage: raw`The middle term becomes \(+\frac{1}{2}\), not negative, once the full expressions are simplified.`
-            }
-          ]
+                \]</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
+                \frac{e^{2x/a}}{4}+\frac{e^{-2x/a}}{4}+\frac{1}{2}
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Finish the verification",
-          text: raw`What can you conclude once both sides simplify to the same expression?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Finish the verification`,
+          previewHtml: raw`Since the left-hand side and right-hand side simplify to the same expression, the function really does satisfy the given differential equation.`,
+          workingHtml: raw`<p class="step-text">Since the left-hand side and right-hand side simplify to the same expression, the function really does satisfy the given differential equation.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \text{The function satisfies the differential equation}
-              \]`,
-              correct: true,
-              successMessage: raw`Great. Since the left-hand side and right-hand side simplify to the same expression, the function really does satisfy the given differential equation.`
-            },
-            {
-              html: raw`\[
-                \text{The function only works when }x=0
-              \]`,
-              failureMessage: raw`The matching expansions hold for general \(x\), not just at one point.`
-            },
-            {
-              html: raw`\[
-                \text{The derivatives are close, but not equal}
-              \]`,
-              failureMessage: raw`They are not just close; they simplify to exactly the same expression.`
-            },
-            {
-              html: raw`\[
-                \text{The equation fails because of the square root}
-              \]`,
-              failureMessage: raw`Squaring both sides is exactly what lets us compare the two expressions cleanly.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Differentiate once:</p>
+        <div class="math-block">
+          \[
+          y'=\frac{1}{2}e^{x/a}-\frac{1}{2}e^{-x/a}
+          \]
+        </div>
+        <p class="step-text">Differentiate again:</p>
+        <div class="math-block">
+          \[
+          y''=\frac{1}{2a}e^{x/a}+\frac{1}{2a}e^{-x/a}
+          \]
+          \[
+          ay''=\frac{1}{2}\left(e^{x/a}+e^{-x/a}\right)
+          \]
+        </div>
+        <p class="step-text">Now compare with the right-hand side by squaring:</p>
+        <div class="math-block">
+          \[
+          (ay'')^2=\left(\frac{e^{x/a}+e^{-x/a}}{2}\right)^2
+          \]
+          \[
+          (ay'')^2=\frac{e^{2x/a}}{4}+\frac{2e^{x/a}e^{-x/a}}{4}+\frac{e^{-2x/a}}{4}
+          \]
+          \[
+          (ay'')^2=\frac{e^{2x/a}}{4}+\frac{1}{2}+\frac{e^{-2x/a}}{4}
+          \]
+          \[
+          1+(y')^2=1+\left(\frac{e^{x/a}-e^{-x/a}}{2}\right)^2
+          \]
+          \[
+          1+(y')^2=1+\frac{e^{2x/a}}{4}-\frac{2e^{x/a}e^{-x/a}}{4}+\frac{e^{-2x/a}}{4}
+          \]
+          \[
+          1+(y')^2=\frac{e^{2x/a}}{4}+\frac{1}{2}+\frac{e^{-2x/a}}{4}
+          \]
+        </div>
+        <p class="step-text">So \((ay'')^2=1+(y')^2\), which verifies the required differential equation.</p>
+      `
         }
       ]
     })

@@ -29,7 +29,7 @@
       "description": "2022 NCEA Level 3 Differentiation AS91578 Question 1(a) worked solution: differentiation of the function. Use guided hints and step-by-step reasoning.",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 3",
       "teaches": "differentiation of the function",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1>2022 NCEA Level 3 Differentiation Question 1(a)</h1>
-        <p class="subtitle">2022 Paper — Differentiation</p>
+        <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
+        <h1 id="page-title">2022 NCEA Level 3 Differentiation Question 1(a)</h1>
+        <p id="page-subtitle" class="subtitle">2022 Paper — Differentiation</p>
       </div>
-      <a class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,191 +119,9 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <div class="question-math">
-        \[
-        \text{Differentiate } y=(\ln x)^2
-        \]
-      </div>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
-
-    <div id="walkthrough-content" class="hidden">
-    <section id="step-1" class="step-card active">
-      <p class="step-number">Step 1</p>
-      <h2>What rule do we use here?</h2>
-      <p class="step-text">Choose the best differentiation rule.</p>
-
-      <div class="button-grid">
-        <button class="option-btn" onclick="checkRule('chain')">Chain rule</button>
-        <button class="option-btn" onclick="checkRule('power')">Power rule</button>
-        <button class="option-btn" onclick="checkRule('quotient')">Quotient rule</button>
-        <button class="option-btn" onclick="checkRule('product')">Product rule</button>
-      </div>
-
-      <div id="feedback-1" class="feedback"></div>
-      <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-        Next step →
-      </button>
-    </section>
-
-    <section id="step-2" class="step-card hidden">
-      <p class="step-number">Step 2</p>
-      <h2>Identify the inner and outer functions</h2>
-      <p class="step-text">For \( y=(\ln x)^2 \), what are the two functions?</p>
-
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkFunctions('correct')">
-          Outer: square, Inner: \( \ln x \)
-        </button>
-        <button class="option-btn" onclick="checkFunctions('wrong1')">
-          Outer: \( \ln x \), Inner: square
-        </button>
-      </div>
-
-      <div id="feedback-2" class="feedback"></div>
-      <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-        Next step →
-      </button>
-    </section>
-
-    <section id="step-3" class="step-card hidden">
-      <p class="step-number">Step 3</p>
-      <h2>Use a substitution</h2>
-      <p class="step-text">To make the chain rule easier, let</p>
-
-      <div class="math-block">
-        \[
-        u=\ln x \qquad \text{so} \qquad y=u^2
-        \]
-      </div>
-
-      <p class="step-text">What is \( \frac{dy}{du} \)?</p>
-
-      <div class="math-input-group">
-        <input
-          id="step-3-answer"
-          class="math-answer-input"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Type your answer for dy over du"
-          placeholder="Type your answer here"
-        />
-        <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-        <button class="nav-btn check-btn" type="button" onclick="checkOuterDerivative()">
-          Check
-        </button>
-      </div>
-
-      <div id="feedback-3" class="feedback"></div>
-      <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-        Next step →
-      </button>
-    </section>
-
-    <section id="step-4" class="step-card hidden">
-      <p class="step-number">Step 4</p>
-      <h2>Differentiate the inside function</h2>
-      <p class="step-text">Now find the derivative of \( \ln x \).</p>
-
-      <div class="math-input-group">
-        <input
-          id="step-4-answer"
-          class="math-answer-input"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Type your answer for the derivative of natural log x"
-          placeholder="Type your answer here"
-        />
-        <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-        <button class="nav-btn check-btn" type="button" onclick="checkInsideDerivative()">
-          Check
-        </button>
-      </div>
-
-      <div id="feedback-4" class="feedback"></div>
-      <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-        Next step →
-      </button>
-    </section>
-
-    <section id="step-5" class="step-card hidden">
-      <p class="step-number">Step 5</p>
-      <h2>How do we combine them?</h2>
-      <p class="step-text">
-        In the chain rule, we take the derivative of the outside, then ______ by the derivative of the inside.
-      </p>
-
-      <div class="button-grid">
-        <button class="option-btn" onclick="checkCombine('correct')">Multiply</button>
-        <button class="option-btn" onclick="checkCombine('wrong1')">Add</button>
-        <button class="option-btn" onclick="checkCombine('wrong2')">Subtract</button>
-        <button class="option-btn" onclick="checkCombine('wrong3')">Square</button>
-      </div>
-
-      <div id="feedback-5" class="feedback"></div>
-      <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
-        Next step →
-      </button>
-    </section>
-
-    <section id="step-6" class="step-card hidden">
-      <p class="step-number">Step 6</p>
-      <h2>Build the final derivative</h2>
-      <p class="step-text">Use the chain rule structure, then substitute back in terms of \(x\).</p>
-
-      <div class="math-block">
-        \[
-        \frac{dy}{dx}=\frac{dy}{du}\cdot\frac{du}{dx}
-        \]
-        \[
-        \frac{dy}{du}=2u
-        \]
-        \[
-        \frac{du}{dx}=\frac{1}{x}
-        \]
-        \[
-        u=\ln x
-        \]
-      </div>
-
-      <p class="step-text">What is the final derivative \( \frac{dy}{dx} \)?</p>
-
-      <div class="math-input-group">
-        <input
-          id="step-6-answer"
-          class="math-answer-input"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Type the final derivative"
-          placeholder="Type the final derivative here"
-        />
-        <div id="step-6-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-        <button class="nav-btn check-btn" type="button" onclick="checkFinalDerivative()">
-          Check
-        </button>
-      </div>
-
-      <div id="feedback-6" class="feedback"></div>
-
-      <div id="step-6-nav" class="nav-row hidden">
-        <a class="nav-btn secondary" href="level-3-differentiation-2022.html">← Back to paper</a>
-        <a class="nav-btn" href="1b2022.html">Next question →</a>
-      </div>
-    </section>
-    </div>
+    <div id="walkthrough-content" class="hidden"></div>
 
     <!-- SEO:SUMMARY:START -->
     <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
@@ -327,16 +144,6 @@
   </main>
 
   <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
     const hintContent = [
       "Think about the outside function and the inside function in \\(y=(\\ln x)^2\\).",
       "You can treat this as \\(y=u^2\\) where \\(u=\\ln x\\), then use the chain rule.",
@@ -344,734 +151,166 @@
     ];
 
     document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
+      const raw = String.raw;
+      const answerHtml = `
           <p class="step-text">The derivative is:</p>
           <div class="math-block">
             \\[
             \\frac{dy}{dx}=\\frac{2\\ln x}{x}
             \\]
           </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Identify the differentiation rule`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Recognise the composite-function structure before applying the chain rule.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">Chain rule</div>
+        </div>
+
+      <p class="step-text">This is a function inside a function, so we use the chain rule.</p>
+          `
+        },
+        {
+          title: raw`Identify the inner and outer functions`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Treat squaring as the outer function and \(\ln x\) as the inner function.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">Outer: square, Inner: \( \ln x \)</div>
+        </div>
+
+      <p class="step-text">The outside function is squaring, and the inside function is \(\ln x\).</p>
+          `
+        },
+        {
+          title: raw`Use a substitution`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">To make the chain rule easier, let</p>
+
+      <div class="math-block">
+        \[
+        u=\ln x \qquad \text{so} \qquad y=u^2
+        \]
+      </div>
+
+      <p class="step-text">Differentiate \(y=u^2\) with respect to \(u\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            2 u
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Since \(y=u^2\), we get \(\frac{dy}{du}=2u\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Differentiate the inside function`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Now find the derivative of \( \ln x \).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \frac{1}{x}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">The derivative of \(\ln x\) is \(\frac{1}{x}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Combine the derivatives`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">The chain rule multiplies the derivative of the outside by the derivative of the inside.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">Multiply</div>
+        </div>
+
+      <p class="step-text">In the chain rule, we multiply the two derivatives.</p>
+          `
+        },
+        {
+          title: raw`Build the final derivative`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use the chain rule structure, then substitute back in terms of \(x\).</p>
+
+      <div class="math-block">
+        \[
+        \frac{dy}{dx}=\frac{dy}{du}\cdot\frac{du}{dx}
+        \]
+        \[
+        \frac{dy}{du}=2u
+        \]
+        \[
+        \frac{du}{dx}=\frac{1}{x}
+        \]
+        \[
+        u=\ln x
+        \]
+      </div>
+
+      <p class="step-text">Substitute both derivatives into the chain rule and simplify \(\frac{dy}{dx}\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \frac{2 \ln\left(x\right)}{x}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">The final derivative is \(\frac{2\ln x}{x}\).</p></div>
+        </div>
+          `
+        }
+      ];
+
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
+
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<div class="question-math">
+        \[
+        \text{Differentiate } y=(\ln x)^2
+        \]
+      </div>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-3-differentiation-2022.html",
         nextHref: "1b2022.html",
-        nextLabel: "Next question →"
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "level-3-differentiation-2022.html", label: "← Back to paper" },
+          primary: { href: "1b2022.html", label: "Next question →" }
+        },
+        guidedSteps: guidedSteps
+      }, {
+        defaultEyebrow: "Level 3 Differentiation Walkthrough"
       });
-      setupMathInputPreview("step-3-answer", "step-3-preview");
-      setupMathInputPreview("step-4-answer", "step-4-preview");
-      setupMathInputPreview("step-6-answer", "step-6-preview");
-      bindMathInputCheck("step-3-answer", checkOuterDerivative);
-      bindMathInputCheck("step-4-answer", checkInsideDerivative);
-      bindMathInputCheck("step-6-answer", checkFinalDerivative);
     });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(step => step.classList.add("hidden"));
-      document.getElementById(stepId).classList.remove("hidden");
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) return;
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function replaceSimpleLatexFractions(value) {
-      let result = value;
-      let previousResult = "";
-
-      while (result !== previousResult) {
-        previousResult = result;
-        result = result.replace(/\\frac\s*\{([^{}]+)\}\s*\{([^{}]+)\}/g, "(($1)/($2))");
-      }
-
-      return result;
-    }
-
-    function normaliseMathInput(value) {
-      if (!value) {
-        return "";
-      }
-
-      let normalised = value.toLowerCase();
-      normalised = normalised.replace(/\\left|\\right/g, "");
-      normalised = normalised.replace(/\\ln\s*\{([^{}]+)\}/g, "\\ln($1)");
-      normalised = normalised.replace(/ln\s*\{([^{}]+)\}/g, "ln($1)");
-      normalised = replaceSimpleLatexFractions(normalised);
-      normalised = normalised.replace(/[{}\[\]]/g, function (character) {
-        return character === "{" || character === "[" ? "(" : ")";
-      });
-      normalised = normalised.replace(/\\cdot|\\times/g, "*");
-      normalised = normalised.replace(/\\div/g, "/");
-      normalised = normalised.replace(/\\ln/g, "ln");
-      normalised = normalised.replace(/\s+/g, "");
-      normalised = normalised.replace(/lnx(?=[+\-*/^)]|$)/g, "ln(x)");
-
-      return normalised;
-    }
-
-    function tokenizeMathExpression(value) {
-      const tokens = [];
-      let index = 0;
-
-      while (index < value.length) {
-        const character = value[index];
-
-        if (/\d|\./.test(character)) {
-          let number = character;
-          index += 1;
-
-          while (index < value.length && /[\d.]/.test(value[index])) {
-            number += value[index];
-            index += 1;
-          }
-
-          if ((number.match(/\./g) || []).length > 1) {
-            return null;
-          }
-
-          tokens.push({ type: "number", value: number });
-          continue;
-        }
-
-        if (character === "x" || character === "u") {
-          tokens.push({ type: "variable", value: character });
-          index += 1;
-          continue;
-        }
-
-        if (value.slice(index, index + 2) === "ln") {
-          tokens.push({ type: "function", value: "ln" });
-          index += 2;
-          continue;
-        }
-
-        if ("+-*/^".includes(character)) {
-          tokens.push({ type: "operator", value: character });
-          index += 1;
-          continue;
-        }
-
-        if (character === "(") {
-          tokens.push({ type: "open", value: character });
-          index += 1;
-          continue;
-        }
-
-        if (character === ")") {
-          tokens.push({ type: "close", value: character });
-          index += 1;
-          continue;
-        }
-
-        return null;
-      }
-
-      return tokens;
-    }
-
-    function shouldInsertImplicitMultiplication(previousToken, currentToken) {
-      if (!previousToken || !currentToken) {
-        return false;
-      }
-
-      const leftCanMultiply = previousToken.type === "number" || previousToken.type === "variable" || previousToken.type === "close";
-      const rightCanMultiply = currentToken.type === "number" || currentToken.type === "variable" || currentToken.type === "function" || currentToken.type === "open";
-
-      return leftCanMultiply && rightCanMultiply;
-    }
-
-    function buildExpressionTokens(value) {
-      const rawTokens = tokenizeMathExpression(value);
-      if (!rawTokens) {
-        return null;
-      }
-
-      const expressionTokens = [];
-
-      rawTokens.forEach(function (token, index) {
-        const previousToken = index > 0 ? rawTokens[index - 1] : null;
-
-        if (shouldInsertImplicitMultiplication(previousToken, token)) {
-          expressionTokens.push({ type: "operator", value: "*", implicit: true });
-        }
-
-        expressionTokens.push({ ...token, implicit: false });
-      });
-
-      return expressionTokens;
-    }
-
-    function parseMathExpression(value) {
-      const normalised = normaliseMathInput(value);
-      if (!normalised) {
-        return null;
-      }
-
-      const tokens = buildExpressionTokens(normalised);
-      if (!tokens) {
-        return null;
-      }
-
-      let index = 0;
-
-      function peek() {
-        return tokens[index] || null;
-      }
-
-      function consume() {
-        const token = tokens[index] || null;
-        index += 1;
-        return token;
-      }
-
-      function parseExpression() {
-        return parseAddSubtract();
-      }
-
-      function parseAddSubtract() {
-        let node = parseMultiplyDivide();
-        if (!node) {
-          return null;
-        }
-
-        while (peek() && peek().type === "operator" && (peek().value === "+" || peek().value === "-")) {
-          const operatorToken = consume();
-          const rightNode = parseMultiplyDivide();
-
-          if (!rightNode) {
-            return null;
-          }
-
-          node = {
-            type: "binary",
-            operator: operatorToken.value,
-            implicit: false,
-            left: node,
-            right: rightNode
-          };
-        }
-
-        return node;
-      }
-
-      function parseMultiplyDivide() {
-        let node = parsePower();
-        if (!node) {
-          return null;
-        }
-
-        while (peek() && peek().type === "operator" && (peek().value === "*" || peek().value === "/")) {
-          const operatorToken = consume();
-          const rightNode = parsePower();
-
-          if (!rightNode) {
-            return null;
-          }
-
-          node = {
-            type: "binary",
-            operator: operatorToken.value,
-            implicit: Boolean(operatorToken.implicit),
-            left: node,
-            right: rightNode
-          };
-        }
-
-        return node;
-      }
-
-      function parsePower() {
-        const leftNode = parseUnary();
-        if (!leftNode) {
-          return null;
-        }
-
-        if (peek() && peek().type === "operator" && peek().value === "^") {
-          consume();
-          const rightNode = parsePower();
-
-          if (!rightNode) {
-            return null;
-          }
-
-          return {
-            type: "binary",
-            operator: "^",
-            implicit: false,
-            left: leftNode,
-            right: rightNode
-          };
-        }
-
-        return leftNode;
-      }
-
-      function parseUnary() {
-        if (peek() && peek().type === "operator" && (peek().value === "+" || peek().value === "-")) {
-          const operatorToken = consume();
-          const operand = parseUnary();
-
-          if (!operand) {
-            return null;
-          }
-
-          return {
-            type: "unary",
-            operator: operatorToken.value,
-            operand
-          };
-        }
-
-        return parsePrimary();
-      }
-
-      function parsePrimary() {
-        const token = peek();
-
-        if (!token) {
-          return null;
-        }
-
-        if (token.type === "number" || token.type === "variable") {
-          consume();
-          return token;
-        }
-
-        if (token.type === "function") {
-          consume();
-          const argument = parsePrimary();
-
-          if (!argument) {
-            return null;
-          }
-
-          return {
-            type: "function-call",
-            name: token.value,
-            argument
-          };
-        }
-
-        if (token.type === "open") {
-          consume();
-          const expression = parseExpression();
-
-          if (!expression || !peek() || peek().type !== "close") {
-            return null;
-          }
-
-          consume();
-          return {
-            type: "group",
-            expression
-          };
-        }
-
-        return null;
-      }
-
-      const ast = parseExpression();
-
-      if (!ast || index !== tokens.length) {
-        return null;
-      }
-
-      return ast;
-    }
-
-    function getNodePrecedence(node) {
-      if (!node) {
-        return 0;
-      }
-
-      if (node.type === "group" || node.type === "number" || node.type === "variable" || node.type === "function-call") {
-        return 5;
-      }
-
-      if (node.type === "unary") {
-        return 4;
-      }
-
-      if (node.type === "binary") {
-        if (node.operator === "^") {
-          return 3;
-        }
-
-        if (node.operator === "*" || node.operator === "/") {
-          return 2;
-        }
-
-        return 1;
-      }
-
-      return 0;
-    }
-
-    function wrapLatexIfNeeded(node, latex, shouldWrap) {
-      if (!shouldWrap) {
-        return latex;
-      }
-
-      return "\\left(" + latex + "\\right)";
-    }
-
-    function astToLatex(node) {
-      if (!node) {
-        return null;
-      }
-
-      if (node.type === "number" || node.type === "variable") {
-        return node.value;
-      }
-
-      if (node.type === "group") {
-        return "\\left(" + astToLatex(node.expression) + "\\right)";
-      }
-
-      if (node.type === "function-call") {
-        const argumentNode = node.argument.type === "group" ? node.argument.expression : node.argument;
-        return "\\ln\\left(" + astToLatex(argumentNode) + "\\right)";
-      }
-
-      if (node.type === "unary") {
-        const operandPrecedence = getNodePrecedence(node.operand);
-        const operandLatex = astToLatex(node.operand);
-        const wrappedOperand = wrapLatexIfNeeded(node.operand, operandLatex, operandPrecedence < getNodePrecedence(node));
-        return node.operator === "+" ? wrappedOperand : "-" + wrappedOperand;
-      }
-
-      if (node.type !== "binary") {
-        return null;
-      }
-
-      if (node.operator === "/") {
-        return "\\frac{" + astToLatex(node.left) + "}{" + astToLatex(node.right) + "}";
-      }
-
-      if (node.operator === "^") {
-        const baseLatex = astToLatex(node.left);
-        const exponentLatex = astToLatex(node.right);
-        const wrappedBase = wrapLatexIfNeeded(
-          node.left,
-          baseLatex,
-          getNodePrecedence(node.left) < getNodePrecedence(node) || node.left.type === "unary"
-        );
-
-        return wrappedBase + "^{" + exponentLatex + "}";
-      }
-
-      const leftLatex = astToLatex(node.left);
-      const rightLatex = astToLatex(node.right);
-      const leftNeedsWrap = getNodePrecedence(node.left) < getNodePrecedence(node);
-      const rightNeedsWrapForMultiply = getNodePrecedence(node.right) < getNodePrecedence(node);
-      const rightNeedsWrapForSubtract = node.operator === "-" && node.right.type === "binary" && (node.right.operator === "+" || node.right.operator === "-");
-      const operatorLatex = node.operator === "+" ? " + " : node.operator === "-" ? " - " : node.implicit ? " " : " \\cdot ";
-
-      return wrapLatexIfNeeded(node.left, leftLatex, leftNeedsWrap)
-        + operatorLatex
-        + wrapLatexIfNeeded(node.right, rightLatex, rightNeedsWrapForMultiply || rightNeedsWrapForSubtract);
-    }
-
-    function formatMathForPreview(value) {
-      if (!value) {
-        return "";
-      }
-
-      const ast = parseMathExpression(value);
-      if (!ast) {
-        return null;
-      }
-
-      return astToLatex(ast);
-    }
-
-    function setupMathInputPreview(inputId, previewId) {
-      const input = document.getElementById(inputId);
-      const preview = document.getElementById(previewId);
-
-      if (!input || !preview) {
-        return;
-      }
-
-      function updatePreview() {
-        const value = input.value.trim();
-
-        if (!value) {
-          preview.textContent = "Preview will appear here.";
-          preview.classList.add("is-placeholder");
-          preview.classList.remove("is-error");
-          return;
-        }
-
-        const previewLatex = formatMathForPreview(value);
-
-        if (!previewLatex) {
-          preview.textContent = "Check your maths formatting.";
-          preview.classList.add("is-error");
-          preview.classList.remove("is-placeholder");
-          return;
-        }
-
-        try {
-          katex.render(previewLatex, preview, {
-            throwOnError: true,
-            displayMode: true
-          });
-          preview.classList.remove("is-placeholder", "is-error");
-        } catch (error) {
-          preview.textContent = "Check your maths formatting.";
-          preview.classList.add("is-error");
-          preview.classList.remove("is-placeholder");
-        }
-      }
-
-      input.addEventListener("input", updatePreview);
-      updatePreview();
-    }
-
-    function bindMathInputCheck(inputId, checkHandler) {
-      const input = document.getElementById(inputId);
-      if (!input) {
-        return;
-      }
-
-      input.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-          event.preventDefault();
-          checkHandler();
-        }
-      });
-    }
-
-    function compileMathExpression(value) {
-      const normalised = normaliseMathInput(value);
-      if (!normalised) {
-        return null;
-      }
-
-      const tokens = buildExpressionTokens(normalised);
-      if (!tokens) {
-        return null;
-      }
-
-      const jsExpression = [];
-
-      tokens.forEach(function (token) {
-        if (token.type === "function") {
-          jsExpression.push("Math.log");
-        } else if (token.type === "operator" && token.value === "^") {
-          jsExpression.push("**");
-        } else {
-          jsExpression.push(token.value);
-        }
-      });
-
-      try {
-        return new Function("x", "u", "\"use strict\"; return (" + jsExpression.join("") + ");");
-      } catch (error) {
-        return null;
-      }
-    }
-
-    function checkEquivalentAnswer(value, acceptedAnswers, samples) {
-      const candidate = compileMathExpression(value);
-      if (!candidate) {
-        return false;
-      }
-
-      return acceptedAnswers.some(function (acceptedAnswer) {
-        const accepted = compileMathExpression(acceptedAnswer);
-        if (!accepted) {
-          return false;
-        }
-
-        return samples.every(function (sample) {
-          try {
-            const actualValue = candidate(sample.x, sample.u);
-            const expectedValue = accepted(sample.x, sample.u);
-            return Number.isFinite(actualValue) && Number.isFinite(expectedValue) && Math.abs(actualValue - expectedValue) < 1e-9;
-          } catch (error) {
-            return false;
-          }
-        });
-      });
-    }
-
-    function checkTypedAnswer(config) {
-      const input = document.getElementById(config.inputId);
-      if (!input) {
-        return false;
-      }
-
-      const value = input.value.trim();
-
-      if (!value) {
-        setFeedback(config.feedbackId, "Type an answer before checking.");
-        if (config.nextButtonId) {
-          toggleNextStepButton(config.nextButtonId, false);
-        }
-        if (config.successRevealId) {
-          document.getElementById(config.successRevealId).classList.add("hidden");
-        }
-        return false;
-      }
-
-      if (checkEquivalentAnswer(value, config.acceptedAnswers, config.samples)) {
-        setFeedback(config.feedbackId, config.successMessage, true);
-        if (config.nextButtonId) {
-          toggleNextStepButton(config.nextButtonId, true);
-        }
-        if (config.successRevealId) {
-          document.getElementById(config.successRevealId).classList.remove("hidden");
-        }
-        return true;
-      }
-
-      const targetedMatch = config.targetedFeedback.find(function (entry) {
-        return checkEquivalentAnswer(value, entry.answers, config.samples);
-      });
-
-      if (targetedMatch) {
-        setFeedback(config.feedbackId, targetedMatch.message);
-      } else {
-        setFeedback(config.feedbackId, config.genericMessage);
-      }
-
-      if (config.nextButtonId) {
-        toggleNextStepButton(config.nextButtonId, false);
-      }
-      if (config.successRevealId) {
-        document.getElementById(config.successRevealId).classList.add("hidden");
-      }
-
-      return false;
-    }
-
-    function checkRule(answer) {
-      if (answer === "chain") {
-        setFeedback("feedback-1", "Correct. This is a function inside a function, so we use the chain rule.", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. Think about what is <em>inside</em> the square. That inner function is \\(\\ln x\\).");
-        toggleNextStepButton("next-step-1", false);
-      }
-    }
-
-    function checkFunctions(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Correct. The outside function is squaring, and the inside function is \\(\\ln x\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. Ask: what happens last? The squaring happens to the result of \\(\\ln x\\).");
-        toggleNextStepButton("next-step-2", false);
-      }
-    }
-
-    function checkOuterDerivative() {
-      checkTypedAnswer({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        acceptedAnswers: ["2u"],
-        samples: [
-          { u: -2 },
-          { u: -0.5 },
-          { u: 1 },
-          { u: 3 }
-        ],
-        successMessage: "Correct. Since \\(y=u^2\\), we get \\(\\frac{dy}{du}=2u\\).",
-        targetedFeedback: [
-          {
-            answers: ["u^2"],
-            message: "Close, but \\(u^2\\) is the original expression for \\(y\\), not its derivative."
-          },
-          {
-            answers: ["u"],
-            message: "Almost there. Apply the power rule to \\(u^2\\): bring the 2 down, so the derivative is \\(2u\\)."
-          }
-        ],
-        genericMessage: "Not quite. Differentiate \\(u^2\\) with the power rule."
-      });
-    }
-
-    function checkInsideDerivative() {
-      checkTypedAnswer({
-        inputId: "step-4-answer",
-        feedbackId: "feedback-4",
-        nextButtonId: "next-step-4",
-        acceptedAnswers: ["1/x"],
-        samples: [
-          { x: 0.5 },
-          { x: 1 },
-          { x: 2 },
-          { x: 4 }
-        ],
-        successMessage: "Correct. The derivative of \\(\\ln x\\) is \\(\\frac{1}{x}\\).",
-        targetedFeedback: [
-          {
-            answers: ["ln(x)"],
-            message: "Close, but \\(\\ln x\\) is the original function, not its derivative."
-          },
-          {
-            answers: ["x"],
-            message: "Not quite. Recall the standard rule: \\(\\frac{d}{dx}(\\ln x)=\\frac{1}{x}\\)."
-          }
-        ],
-        genericMessage: "Try again. Recall the standard derivative rule for \\(\\ln x\\)."
-      });
-    }
-
-    function checkFinalDerivative() {
-      checkTypedAnswer({
-        inputId: "step-6-answer",
-        feedbackId: "feedback-6",
-        successRevealId: "step-6-nav",
-        acceptedAnswers: ["2ln(x)/x"],
-        samples: [
-          { x: 0.5 },
-          { x: 1.2 },
-          { x: 2 },
-          { x: 5 }
-        ],
-        successMessage: "Correct. The final derivative is \\(\\frac{2\\ln x}{x}\\).",
-        targetedFeedback: [
-          {
-            answers: ["2ln(x)"],
-            message: "Almost there. You differentiated the outside, but you still need to multiply by the derivative of the inside, \\(\\frac{1}{x}\\)."
-          },
-          {
-            answers: ["1/x"],
-            message: "That is only the derivative of the inside function. You still need the outside derivative \\(2u\\), then substitute \\(u=\\ln x\\)."
-          },
-          {
-            answers: ["2/x"],
-            message: "Close, but the \\(\\ln x\\) factor is missing from the final derivative."
-          }
-        ],
-        genericMessage: "Not quite. Use \\(\\frac{dy}{dx}=\\frac{dy}{du}\\cdot\\frac{du}{dx}\\), then substitute \\(u=\\ln x\\)."
-      });
-    }
-
-    function checkCombine(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Yes. In the chain rule, we multiply the two derivatives.", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Not quite. The chain rule says we multiply the derivative of the outside by the derivative of the inside.");
-        toggleNextStepButton("next-step-5", false);
-      }
-    }
   </script>
 </body>
 </html>

@@ -29,7 +29,7 @@
       "description": "2022 NCEA Level 3 Differentiation AS91578 Question 2(c) worked solution: quotient rule and finding when motion is stationary. Use guided hints and…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 3",
       "teaches": "quotient rule and finding when motion is stationary",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1>2022 NCEA Level 3 Differentiation Question 2(c)</h1>
-        <p class="subtitle">2022 Paper - Stationary time from a displacement function</p>
+        <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
+        <h1 id="page-title">2022 NCEA Level 3 Differentiation Question 2(c)</h1>
+        <p id="page-subtitle" class="subtitle">2022 Paper - Stationary time from a displacement function</p>
       </div>
-      <a class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,194 +119,9 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <div class="question-math">
-        \[
-        d(t)=\frac{t^2-6}{2t^3}, \qquad t>0
-        \]
-      </div>
-      <p class="step-text">
-        Find the time(s) when the object is stationary.
-      </p>
-      <p class="step-text question-note">
-        You must use calculus and show any derivatives that you need when solving this problem.
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
-
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card">
-        <p class="step-number">Step 1</p>
-        <h2>Choose the rule</h2>
-        <p class="step-text">The displacement function is a fraction, so which differentiation rule is the best starting point?</p>
-
-        <div class="button-grid">
-          <button class="option-btn" onclick="checkRule('quotient')">Quotient rule</button>
-          <button class="option-btn" onclick="checkRule('chain')">Chain rule</button>
-          <button class="option-btn" onclick="checkRule('product')">Product rule</button>
-          <button class="option-btn" onclick="checkRule('implicit')">Implicit differentiation</button>
-        </div>
-
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Choose \(u\) and \(v\)</h2>
-        <p class="step-text">Write \(d(t)\) as \(\frac{u}{v}\). Which choice matches the function?</p>
-
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkParts('correct')">
-            \(u=t^2-6,\; v=2t^3\)
-          </button>
-          <button class="option-btn" onclick="checkParts('wrong1')">
-            \(u=2t^3,\; v=t^2-6\)
-          </button>
-        </div>
-
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Differentiate the top and bottom</h2>
-        <p class="step-text">Find \(u'\) and \(v'\).</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-3-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type u prime and v prime"
-            placeholder="Type your answer here"
-          />
-          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkDerivatives()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Apply the quotient rule</h2>
-        <p class="step-text">Use \(\frac{d}{dt}\left(\frac{u}{v}\right)=\frac{vu'-uv'}{v^2}\).</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-4-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the quotient rule derivative"
-            placeholder="Type your answer here"
-          />
-          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkQuotient()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-4" class="feedback"></div>
-        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-5" class="step-card hidden">
-        <p class="step-number">Step 5</p>
-        <h2>Simplify and solve for stationary times</h2>
-        <p class="step-text">An object is stationary when its velocity is zero, so set \(d'(t)=0\).</p>
-
-        <div class="math-block">
-          \[
-          d'(t)=\frac{4t^4-6t^2(t^2-6)}{4t^6}
-          \]
-          \[
-          d'(t)=\frac{-2t^4+36t^2}{4t^6}
-          \]
-          \[
-          d'(t)=\frac{-2t^2(t^2-18)}{4t^6}
-          \]
-        </div>
-
-        <p class="step-text">Which time value is valid when \(t>0\)?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-5-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the stationary time"
-            placeholder="Type your answer here"
-          />
-          <div id="step-5-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkTime()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-5" class="feedback"></div>
-        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-6" class="step-card hidden">
-        <p class="step-number">Step 6</p>
-        <h2>Final answer and graph</h2>
-        <p class="step-text">The object is stationary at:</p>
-
-        <div class="math-block">
-          \[
-          t=\sqrt{18}=3\sqrt{2}\text{ seconds}
-          \]
-        </div>
-
-        <div class="graph-card">
-          <div class="graph-copy">
-            <h3>Interactive sketch</h3>
-            <p class="step-text">
-              This graph shows the displacement function for \(t&gt;0\), with the stationary time marked so you can see where the tangent becomes horizontal.
-            </p>
-          </div>
-
-          <div class="graph-frame">
-            <svg id="stationary-time-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of displacement against time with stationary point marked" role="img"></svg>
-          </div>
-        </div>
-
-        <div class="nav-row">
-          <a class="nav-btn secondary" href="2b2022.html">← Back to Question 2(b)</a>
-          <a class="nav-btn" href="2d2022.html">Next question →</a>
-        </div>
-      </section>
-    </div>
+    <div id="walkthrough-content" class="hidden"></div>
 
     <!-- SEO:SUMMARY:START -->
     <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
@@ -330,16 +144,6 @@
   </main>
 
   <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
     const hintContent = [
       "Because the displacement is written as a fraction, start with the quotient rule.",
       "Be careful to identify the numerator and denominator correctly before differentiating.",
@@ -347,132 +151,175 @@
     ];
 
     document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
+      const raw = String.raw;
+      const answerHtml = `
           <p class="step-text">The object is stationary when:</p>
           <div class="math-block">
             \\[
             t=\\sqrt{18}=3\\sqrt{2}\\text{ seconds}
             \\]
           </div>
-        `,
-        nextHref: "2d2022.html",
-        nextLabel: "Next question →"
-      });
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview", { mode: "list" });
-      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
-      TypedMath.setupMathInputPreview("step-5-answer", "step-5-preview");
-      TypedMath.bindMathInputCheck("step-3-answer", checkDerivatives);
-      TypedMath.bindMathInputCheck("step-4-answer", checkQuotient);
-      TypedMath.bindMathInputCheck("step-5-answer", checkTime);
-      drawGraph();
-    });
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Identify the differentiation rule`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use the quotient rule because the displacement function is a fraction.</p>
 
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(step => step.classList.add("hidden"));
-      document.getElementById(stepId).classList.remove("hidden");
-      if (stepId === "step-6") {
-        drawGraph();
-      }
-    }
 
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">Quotient rule</div>
+        </div>
 
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) return;
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkRule(answer) {
-      if (answer === "quotient") {
-        setFeedback("feedback-1", "Correct. The function is written as one expression divided by another, so the quotient rule is a good starting point.", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. Because \\(d(t)\\) is a fraction, the quotient rule is the most direct method here.");
-        toggleNextStepButton("next-step-1", false);
-      }
-    }
-
-    function checkParts(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Correct. Here the numerator is \\(t^2-6\\) and the denominator is \\(2t^3\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. Keep the top of the fraction as \\(u\\) and the bottom as \\(v\\).");
-        toggleNextStepButton("next-step-2", false);
-      }
-    }
-
-    function checkDerivatives() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        mode: "list",
-        options: {
-          ordered: true
+      <p class="step-text">The function is written as one expression divided by another, so the quotient rule is a good starting point.</p>
+          `
         },
-        acceptedAnswers: ["2t,6t^2"],
-        samples: [{ t: 2 }, { t: 4 }],
-        successMessage: "Yes. Differentiate carefully: \\(u'=2t\\) and \\(v'=6t^2\\).",
-        genericMessage: "Not quite. Differentiate \\(t^2-6\\) and \\(2t^3\\) term by term.",
-        targetedFeedback: [
-          {
-            mode: "list",
-            options: {
-              ordered: true
-            },
-            answers: ["t,3t^2"],
-            message: "Close, but each derivative is missing a factor from the power rule."
-          }
-        ]
-      });
-    }
+        {
+          title: raw`Define \(u\) and \(v\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Define the numerator as \(u=t^2-6\) and the denominator as \(v=2t^3\).</p>
 
-    function checkQuotient() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-4-answer",
-        feedbackId: "feedback-4",
-        nextButtonId: "next-step-4",
-        acceptedAnswers: ["((2t^3)(2t)-(t^2-6)(6t^2))/((2t^3)^2)"],
-        samples: [{ t: 2 }, { t: 4 }],
-        successMessage: "Great. That is the quotient rule set up correctly with \\(vu'-uv'\\) over \\(v^2\\).",
-        genericMessage: "Not quite. Use the full quotient rule expression rather than dividing the derivatives directly.",
-        targetedFeedback: [
-          {
-            answers: ["2t/(6t^2)"],
-            message: "Not quite. Use the full quotient rule expression rather than dividing the derivatives directly."
-          }
-        ]
-      });
-    }
 
-    function checkTime() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-5-answer",
-        feedbackId: "feedback-5",
-        nextButtonId: "next-step-5",
-        acceptedAnswers: ["sqrt(18)", "3sqrt(2)"],
-        successMessage: "Correct. Solving \\(t^2-18=0\\) gives \\(t=\\pm\\sqrt{18}\\), but the condition \\(t>0\\) means only \\(t=\\sqrt{18}\\) is valid.",
-        genericMessage: "Remember the domain restriction. Although \\(t^2\\) appears as a factor, \\(t=0\\) is not allowed because the question states \\(t>0\\).",
-        targetedFeedback: [
-          {
-            answers: ["0"],
-            message: "Remember the domain restriction. Although \\(t^2\\) appears as a factor, \\(t=0\\) is not allowed because the question states \\(t>0\\)."
-          }
-        ]
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\(u=t^2-6,\; v=2t^3\)</div>
+        </div>
+
+      <p class="step-text">Here the numerator is \(t^2-6\) and the denominator is \(2t^3\).</p>
+          `
+        },
+        {
+          title: raw`Differentiate the top and bottom`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Find \(u'\) and \(v'\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            2 t,\ 6 t^{2}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Differentiate carefully: \(u'=2t\) and \(v'=6t^2\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Apply the quotient rule`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Use \(\frac{d}{dt}\left(\frac{u}{v}\right)=\frac{vu'-uv'}{v^2}\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \frac{\left(\left(2 t^{3}\right) \left(2 t\right) - \left(t^{2} - 6\right) \left(6 t^{2}\right)\right)}{\left(\left(2 t^{3}\right)^{2}\right)}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">That is the quotient rule set up correctly with \(vu'-uv'\) over \(v^2\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Simplify and solve for stationary times`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">An object is stationary when its velocity is zero, so set \(d'(t)=0\).</p>
+
+        <div class="math-block">
+          \[
+          d'(t)=\frac{4t^4-6t^2(t^2-6)}{4t^6}
+          \]
+          \[
+          d'(t)=\frac{-2t^4+36t^2}{4t^6}
+          \]
+          \[
+          d'(t)=\frac{-2t^2(t^2-18)}{4t^6}
+          \]
+        </div>
+
+        <p class="step-text">Keep the positive solution because the question requires \(t>0\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \sqrt{18}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Solving \(t^2-18=0\) gives \(t=\pm\sqrt{18}\), but the condition \(t>0\) means only \(t=\sqrt{18}\) is valid.</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Final result and graph`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">The object is stationary at:</p>
+
+        <div class="math-block">
+          \[
+          t=\sqrt{18}=3\sqrt{2}\text{ seconds}
+          \]
+        </div>
+
+        <div class="graph-card">
+          <div class="graph-copy">
+            <h3>Interactive sketch</h3>
+            <p class="step-text">
+              This graph shows the displacement function for \(t&gt;0\), with the stationary time marked so you can see where the tangent becomes horizontal.
+            </p>
+          </div>
+
+          <div class="graph-frame">
+            <svg id="stationary-time-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of displacement against time with stationary point marked" role="img"></svg>
+          </div>
+        </div>
+          `
+        }
+      ];
+
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
+
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<div class="question-math">
+        \[
+        d(t)=\frac{t^2-6}{2t^3}, \qquad t>0
+        \]
+      </div>
+      <p class="step-text">
+        Find the time(s) when the object is stationary.
+      </p>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need when solving this problem.
+      </p>
+        `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-3-differentiation-2022.html",
+        nextHref: "2d2022.html",
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "2b2022.html", label: "← Back to Question 2(b)" },
+          primary: { href: "2d2022.html", label: "Next question →" }
+        },
+        guidedSteps: guidedSteps,
+        afterRender: function () {
+          drawGraph();
+        }
+      }, {
+        defaultEyebrow: "Level 3 Differentiation Walkthrough"
       });
-    }
+    });
 
     function drawGraph() {
       const svg = document.getElementById("stationary-time-graph");

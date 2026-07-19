@@ -33,7 +33,7 @@ from xml.sax.saxutils import escape as xml_escape
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://calc.nz/"
-CACHE_TOKEN = "20260719-2"
+CACHE_TOKEN = "20260719-3"
 EXPECTED_ROUTE_COUNT = 432
 EXPECTED_YEAR_COUNT = 29
 
@@ -657,7 +657,7 @@ def question_structured_data(route: QuestionRoute, title: str, description: str)
                 "description": description,
                 "inLanguage": "en-NZ",
                 "isAccessibleForFree": True,
-                "learningResourceType": "Interactive worked-solution walkthrough",
+                "learningResourceType": "Guided worked-solution walkthrough",
                 "educationalUse": "Practice",
                 "educationalLevel": f"NCEA Level {standard.level}",
                 "teaches": meta_plain(route.focus),
@@ -864,11 +864,22 @@ def update_question_page(
     if count != 1:
         raise ValueError(f"Could not insert learning summary into {route.source_file}")
 
+    # Answer entry is no longer part of any walkthrough. Keep generated pages
+    # from reintroducing the retired parser/validator bundle.
+    original = re.sub(
+        r'(?m)^\s*<script\s+defer\s+src=["\']typed-math\.js\?v=[^"\']+["\']></script>\s*\n?',
+        "",
+        original,
+    )
+
     return original
 
 
 def update_redirect_page(original: str, source: str, target: str) -> str:
     original = remove_marker(original, "HEAD")
+    # Legacy hash aliases still select the right part, but current question
+    # pages no longer need a redundant fragment that can cause a viewport jump.
+    original = re.sub(r"(?<=\.html)#question-[123][a-e]", "", original)
     title = f"Redirecting to {target} | Calc.nz"
     description = "This legacy walkthrough URL redirects to the current question page."
     original = replace_title(original, title)
@@ -897,7 +908,7 @@ def website_schema() -> dict[str, object]:
         "@id": f"{BASE_URL}#website",
         "url": BASE_URL,
         "name": "Calc.nz",
-        "description": "Free interactive NCEA Level 2 and Level 3 maths worked answers and walkthroughs.",
+        "description": "Free guided NCEA Level 2 and Level 3 maths worked answers and question walkthroughs.",
         "inLanguage": "en-NZ",
     }
 
@@ -921,7 +932,7 @@ def standards_directory(
 <section class="question-card standard-directory" aria-labelledby="standard-directory-heading">
   <p class="question-label">Browse all worked answers</p>
   <h1 id="standard-directory-heading">NCEA maths standards on Calc.nz</h1>
-  <p class="step-text">These crawlable standard pages organise every interactive walkthrough by topic and examination year.</p>
+  <p class="step-text">These standard pages organise every worked question walkthrough by topic and examination year.</p>
   <div class="nav-row index-nav">
     {' '.join(cards)}
   </div>
@@ -937,8 +948,8 @@ def update_homepage(
 
     title = "Free NCEA Maths Worked Answers & Walkthroughs | Calc.nz"
     description = (
-        "Free interactive NCEA Level 2 and Level 3 maths worked answers. "
-        "Practise Calculus, Algebra, Complex Numbers, Differentiation, and Integration step by step."
+        "Free guided NCEA Level 2 and Level 3 maths worked answers. "
+        "Study Calculus, Algebra, Complex Numbers, Differentiation, and Integration step by step."
     )
     original = replace_title(original, title)
     original = add_head_marker(
@@ -1053,7 +1064,7 @@ def standards_page(
     title = "NCEA Maths Standards & Worked Answers | Calc.nz"
     description = (
         "Browse every NCEA Level 2 and Level 3 maths standard available on Calc.nz, "
-        "with free interactive worked answers organised by topic and examination year."
+        "with free guided worked answers organised by topic and examination year."
     )
     structured = collection_schema(
         canonical=canonical,
@@ -1089,7 +1100,7 @@ def standard_page(
     canonical = standard.landing_url
     title = f"NCEA Level {standard.level} {standard.topic} {standard.code} Worked Answers | Calc.nz"
     description = truncate(
-        f"Free NCEA Level {standard.level} {standard.topic} {standard.code} worked answers and interactive walkthroughs, grouped by examination year with guided hints and reasoning."
+        f"Free NCEA Level {standard.level} {standard.topic} {standard.code} worked answers and guided question walkthroughs, grouped by examination year with hints and reasoning."
     )
     structured = collection_schema(
         canonical=canonical,
@@ -1104,7 +1115,6 @@ def standard_page(
     skill_items = "\n".join(f"<li>{h(skill)}</li>" for skill in standard.skills)
     mistake_items = "\n".join(f"<li>{h(item)}</li>" for item in standard.mistakes)
     year_cards: list[str] = []
-    year_walkthrough_groups: list[str] = []
     for year in years:
         year_routes = sorted(
             (route for route in routes if route.year == year),
@@ -1114,20 +1124,8 @@ def standard_page(
         year_cards.append(
             f"""<a class="nav-btn index-link-card" href="{h(year_file(standard.key, year))}">
   <span class="index-link-title">{year} {h(standard.topic)} worked answers</span>
-  <span class="index-link-copy">{count} interactive Question walkthroughs for {h(standard.code)}.</span>
+  <span class="index-link-copy">{count} worked question walkthroughs for {h(standard.code)}.</span>
 </a>"""
-        )
-        question_links = "\n".join(
-            f'<li><a href="{h(route.href)}">Question {h(route.display_number)} — {h(sentence(route.focus))}</a></li>'
-            for route in year_routes
-        )
-        year_walkthrough_groups.append(
-            f"""<section class="index-group" aria-labelledby="walkthroughs-{year}-heading">
-  <h3 id="walkthroughs-{year}-heading"><a href="{h(year_file(standard.key, year))}">{year} {h(standard.topic)} paper overview</a></h3>
-  <ul class="step-text">
-    {question_links}
-  </ul>
-</section>"""
         )
     breadcrumb = breadcrumb_nav(
         (
@@ -1167,13 +1165,6 @@ def standard_page(
     </div>
   </section>
 
-  <section class="question-card" aria-labelledby="all-walkthroughs-heading">
-    <p class="question-label">Complete walkthrough directory</p>
-    <h2 id="all-walkthroughs-heading">Every {h(standard.code)} walkthrough, grouped by year</h2>
-    <p class="step-text">Use a paper overview for the full year context, or open any question part directly.</p>
-    {' '.join(year_walkthrough_groups)}
-  </section>
-
   <section class="question-card" aria-labelledby="grade-reasoning-heading">
     <p class="question-label">Reasoning progression</p>
     <h2 id="grade-reasoning-heading">Achieved, Merit, and Excellence thinking</h2>
@@ -1209,7 +1200,7 @@ def year_page(
     canonical = absolute_url(filename)
     title = f"{year} NCEA Level {standard.level} {standard.topic} {standard.code} Worked Answers | Calc.nz"
     description = truncate(
-        f"Free {year} NCEA Level {standard.level} {standard.topic} {standard.code} worked answers. Practise {len(ordered)} questions with interactive hints and step-by-step reasoning."
+        f"Free {year} NCEA Level {standard.level} {standard.topic} {standard.code} worked answers. Study {len(ordered)} questions with optional hints and step-by-step reasoning."
     )
     structured = collection_schema(
         canonical=canonical,
@@ -1287,15 +1278,15 @@ def year_page(
     <div>
       <p class="eyebrow">{year} NCEA Level {standard.level} {h(standard.topic)}</p>
       <h1>{year} {h(standard.topic)} {h(standard.code)} worked answers</h1>
-      <p class="subtitle">Interactive, step-by-step walkthroughs for {h(standard.official_name)}.</p>
+      <p class="subtitle">Guided, step-by-step worked solutions for {h(standard.official_name)}.</p>
     </div>
     <a class="ghost-link" href="{h(standard.landing_file)}">← All {h(standard.topic)} years</a>
   </header>
 
   <section class="question-card" aria-labelledby="paper-overview-heading">
     <p class="question-label">Paper overview</p>
-    <h2 id="paper-overview-heading">Practise the {year} questions one step at a time</h2>
-    <p class="step-text">This page contains {len(ordered)} independent walkthroughs for NCEA Level {standard.level} {h(standard.topic)} ({h(standard.code)}). Each walkthrough keeps the interactive answer flow, gives hints before full working, and focuses on the method described below.</p>
+    <h2 id="paper-overview-heading">Work through the {year} questions one step at a time</h2>
+    <p class="step-text">This page contains {len(ordered)} independent worked question walkthroughs for NCEA Level {standard.level} {h(standard.topic)} ({h(standard.code)}). Each walkthrough offers hints, reveals the full working in a logical sequence, and focuses on the method described below.</p>
     {priority_note}
     <p class="question-note">Calc.nz is independent of NZQA. Use the <a href="{h(standard.official_url)}">official NZQA {h(standard.code)} assessment resources</a> for the original paper, diagrams, assessment schedule, and authoritative standard information.</p>
   </section>
@@ -1324,7 +1315,7 @@ def about_page() -> str:
     canonical = absolute_url(filename)
     title = "About Calc.nz | Independent NCEA Maths Walkthroughs"
     description = (
-        "Learn how Calc.nz creates independent, interactive NCEA maths walkthroughs, "
+        "Learn how Calc.nz creates independent, guided NCEA maths walkthroughs, "
         "uses official sources, handles privacy, and invites error reports."
     )
     structured = collection_schema(
@@ -1346,7 +1337,7 @@ def about_page() -> str:
     <div>
       <p class="eyebrow">Purpose, sources, and transparency</p>
       <h1>About Calc.nz</h1>
-      <p class="subtitle">An independent collection of interactive NCEA maths worked-answer walkthroughs.</p>
+      <p class="subtitle">An independent collection of guided NCEA maths worked-answer walkthroughs.</p>
     </div>
     <a class="ghost-link" href="/">← Home</a>
   </header>
@@ -1376,7 +1367,7 @@ def about_page() -> str:
   <section class="question-card" aria-labelledby="privacy-heading">
     <p class="question-label">Privacy</p>
     <h2 id="privacy-heading">A static learning website</h2>
-    <p class="step-text">Calc.nz does not add analytics, advertising, user accounts, mailing lists, or tracking cookies. Walkthrough progress may be stored by the browser on the student's own device so the interactive experience can work across visits.</p>
+    <p class="step-text">Calc.nz does not add analytics, advertising, user accounts, mailing lists, or tracking cookies. Walkthrough progress may be stored by the browser on the student's own device so the guided experience can work across visits.</p>
   </section>
 
   <section class="question-card" aria-labelledby="errors-heading">
@@ -1523,6 +1514,21 @@ def build_outputs() -> dict[Path, str]:
     outputs[ROOT / "about.html"] = about_page()
     outputs[ROOT / "robots.txt"] = robots_txt()
     outputs[ROOT / "sitemap.xml"] = sitemap_xml(routes)
+
+    # All HTML pages are generator-controlled. Use one cache token for local
+    # styles, scripts, and data so shared walkthrough changes cannot be served
+    # alongside an older asset bundle.
+    cache_pattern = re.compile(
+        r'(?P<prefix>\b(?:href|src)=["\'][^"\']+\?v=)[^"\']+(?P<suffix>["\'])'
+    )
+    for path, content in tuple(outputs.items()):
+        if path.suffix == ".html":
+            outputs[path] = cache_pattern.sub(
+                lambda match: (
+                    match.group("prefix") + CACHE_TOKEN + match.group("suffix")
+                ),
+                content,
+            )
 
     validate_local_links(outputs)
     return outputs

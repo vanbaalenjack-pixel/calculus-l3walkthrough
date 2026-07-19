@@ -66,39 +66,6 @@
     }, details);
   }
 
-  function correctChoice(html, successMessage) {
-    return {
-      html: html,
-      correct: true,
-      successMessage: successMessage
-    };
-  }
-
-  function wrongChoice(html, failureMessage) {
-    return {
-      html: html,
-      failureMessage: failureMessage
-    };
-  }
-
-  function choiceStep(title, text, choices, extra) {
-    return Object.assign({
-      type: "choice",
-      title: title,
-      text: text,
-      choices: choices
-    }, extra || {});
-  }
-
-  function typedStep(title, text, acceptedAnswers, extra) {
-    return Object.assign({
-      type: "typed",
-      title: title,
-      text: text,
-      acceptedAnswers: acceptedAnswers
-    }, extra || {});
-  }
-
   function fmt(value) {
     return Number(value.toFixed(2));
   }
@@ -397,55 +364,51 @@
           \]
         </div>
       `,
-      steps: [
-        choiceStep("Spot the pattern", raw`Which derivative pattern is the useful one here?`, [
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Spot the pattern`,
+          previewHtml: raw`The integrand already matches the derivative pattern for \(\sec(kx)\).`,
+          workingHtml: raw`<p class="step-text">The integrand already matches the derivative pattern for \(\sec(kx)\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \frac{d}{dx}\bigl(\sec(kx)\bigr)=k\sec(kx)\tan(kx)
-          \]`, raw`Correct. The integrand already matches the derivative pattern for \(\sec(kx)\).`),
-          wrongChoice(raw`\[
-            \frac{d}{dx}\bigl(\tan(kx)\bigr)=k\sec^2(kx)
-          \]`, raw`That derivative gives \(\sec^2(kx)\), not \(\sec(kx)\tan(kx)\).`),
-          wrongChoice(raw`\[
-            \frac{d}{dx}\bigl(\ln|\sec(kx)+\tan(kx)|\bigr)=k\sec(kx)
-          \]`, raw`That pattern is for \(\sec(kx)\), not for \(\sec(kx)\tan(kx)\).`),
-          wrongChoice(raw`\[
-            \frac{d}{dx}\bigl(\cos(kx)\bigr)=-k\sin(kx)
-          \]`, raw`This is a trigonometric derivative, but it does not match the sec-tan structure here.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Adjust for the inside coefficient", raw`If \(\frac{d}{dx}\bigl(\sec(3x)\bigr)=3\sec(3x)\tan(3x)\), what coefficient should sit in front of \(\sec(3x)\) after integrating \(6\sec(3x)\tan(3x)\)?`, [
-          wrongChoice(raw`\[
-            6
-          \]`, raw`That keeps the original coefficient, but we still need to divide by the inside factor \(3\).`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Adjust for the inside coefficient`,
+          previewHtml: raw`The \(6\) becomes \(6 \div 3 = 2\) when we reverse the chain rule.`,
+          workingHtml: raw`<p class="step-text">The \(6\) becomes \(6 \div 3 = 2\) when we reverse the chain rule.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             2
-          \]`, raw`Yes. The \(6\) becomes \(6 \div 3 = 2\) when we reverse the chain rule.`),
-          wrongChoice(raw`\[
-            3
-          \]`, raw`Close, but we divide the outside coefficient \(6\) by \(3\), not replace it with \(3\).`),
-          wrongChoice(raw`\[
-            \frac{1}{3}
-          \]`, raw`That would only account for the inside derivative, not the existing coefficient \(6\).`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Choose the antiderivative", raw`Which final antiderivative is correct?`, [
-          wrongChoice(raw`\[
-            6\sec(3x)+C
-          \]`, raw`The coefficient is too large because the inside derivative \(3\) has not been accounted for.`),
-          wrongChoice(raw`\[
-            2\tan(3x)+C
-          \]`, raw`The sec-tan pattern belongs to \(\sec(3x)\), not \(\tan(3x)\).`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Identify the antiderivative`,
+          previewHtml: raw`This is a clean reverse-chain-rule antiderivative.`,
+          workingHtml: raw`<p class="step-text">This is a clean reverse-chain-rule antiderivative.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             2\sec(3x)+C
-          \]`, raw`Correct. This is a clean reverse-chain-rule antiderivative.`),
-          wrongChoice(raw`\[
-            \sec(3x)+C
-          \]`, raw`You still need the coefficient \(2\) from dividing \(6\) by \(3\).`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        })
+          \]
+</div>
+
+        <p class="step-text">Use the reverse derivative of \(\sec(3x)\):</p>
+        <div class="math-block">
+          \[
+          \frac{d}{dx}\bigl(\sec(3x)\bigr)=3\sec(3x)\tan(3x)
+          \]
+          \[
+          \int 6\sec(3x)\tan(3x)\,dx=2\sec(3x)+C
+          \]
+        </div>
+      `
+        }
       ]
     }),
     "1b": createConfig("1b", raw`2025 Paper — Solving by integrating and fitting \(C\)`, {
@@ -484,25 +447,22 @@
           \]
         </div>
       `,
-      steps: [
-        choiceStep("Integrate to get the general solution", raw`Which antiderivative is correct?`, [
-          wrongChoice(raw`\[
-            y=2x^{3/2}+2x^{1/2}+C
-          \]`, raw`The second term is too small. Integrating \(2x^{-1/2}\) gives \(4x^{1/2}\), not \(2x^{1/2}\).`),
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Integrate to get the general solution`,
+          previewHtml: raw`Increase each power by \(1\), divide by the new power, and keep the constant of integration.`,
+          workingHtml: raw`<p class="step-text">Increase each power by \(1\), divide by the new power, and keep the constant of integration.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             y=2x^{3/2}+4x^{1/2}+C
-          \]`, raw`Correct. Increase each power by \(1\), divide by the new power, and keep the constant of integration.`),
-          wrongChoice(raw`\[
-            y=\frac{3}{2}x^{3/2}+4x^{1/2}+C
-          \]`, raw`The first term is off. Integrating \(3x^{1/2}\) gives \(2x^{3/2}\).`),
-          wrongChoice(raw`\[
-            y=2x^{3/2}+4x^{-1/2}+C
-          \]`, raw`After integrating, the power on the second term should increase to \(+\frac{1}{2}\), not stay negative.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        typedStep(raw`Find the constant`, raw`Use \(y=10\) when \(x=4\). What is the value of \(C\)?`, ["-14"], {
-          beforeHtml: raw`
+          \]
+</div>`
+        },
+        {
+          title: raw`Find the constant`,
+          previewHtml: raw`Substituting \(x=4\) gives \(10=16+8+C\), so \(C=-14\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               y=2x^{3/2}+4x^{1/2}+C
@@ -511,27 +471,48 @@
               10=2(4)^{3/2}+4(4)^{1/2}+C
               \]
             </div>
-          `,
-          ariaLabel: "Type the constant C",
-          successMessage: raw`Yes. Substituting \(x=4\) gives \(10=16+8+C\), so \(C=-14\).`,
-          genericMessage: raw`Substitute \(x=4\) into \(y=2x^{3/2}+4x^{1/2}+C\), then solve for \(C\).`
-        }),
-        choiceStep("Write the fitted solution", raw`Which function satisfies the differential equation and the condition?`, [
-          wrongChoice(raw`\[
-            y=2x^{3/2}+4x^{1/2}+14
-          \]`, raw`The sign of \(C\) is wrong. The condition gives \(C=-14\).`),
-          wrongChoice(raw`\[
-            y=2x^{3/2}+4x^{-1/2}-14
-          \]`, raw`The integrated second term should be \(4x^{1/2}\), not \(4x^{-1/2}\).`),
-          correctChoice(raw`\[
+
+<p class="step-text">Substituting \(x=4\) gives \(10=16+8+C\), so \(C=-14\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  -14
+  \]
+</div>
+</div>`
+        },
+        {
+          title: raw`Write the fitted solution`,
+          previewHtml: raw`That is the general antiderivative with the fitted constant included.`,
+          workingHtml: raw`<p class="step-text">That is the general antiderivative with the fitted constant included.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             y=2x^{3/2}+4x^{1/2}-14
-          \]`, raw`Correct. That is the general antiderivative with the fitted constant included.`),
-          wrongChoice(raw`\[
-            y=3x^{3/2}+2x^{1/2}-14
-          \]`, raw`Those coefficients come from the derivative, not from the antiderivative.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        })
+          \]
+</div>
+
+        <p class="step-text">Integrate term by term:</p>
+        <div class="math-block">
+          \[
+          \frac{dy}{dx}=3x^{1/2}+2x^{-1/2}
+          \]
+          \[
+          y=2x^{3/2}+4x^{1/2}+C
+          \]
+          \[
+          10=2(4)^{3/2}+4(4)^{1/2}+C
+          \]
+          \[
+          C=-14
+          \]
+          \[
+          y=2x^{3/2}+4x^{1/2}-14
+          \]
+        </div>
+      `
+        }
       ]
     }),
     "1c": createConfig("1c", "2025 Paper — Constants from linked definite integrals", {
@@ -588,38 +569,22 @@
           \]
         </div>
       `,
-      steps: [
-        choiceStep("Integrate the first expression", raw`Which antiderivative matches \(a-\frac{6k}{x^2}\)?`, [
-          wrongChoice(raw`\[
-            F(x)=ax-\frac{6k}{x}
-          \]`, raw`The sign on the second term should become positive, because integrating \(-6kx^{-2}\) gives \(+6kx^{-1}\).`),
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Integrate the first expression`,
+          previewHtml: raw`The constant term integrates to \(ax\), and the \(x^{-2}\) term becomes a positive \(x^{-1}\) term.`,
+          workingHtml: raw`<p class="step-text">The constant term integrates to \(ax\), and the \(x^{-2}\) term becomes a positive \(x^{-1}\) term.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             F(x)=ax+\frac{6k}{x}
-          \]`, raw`Correct. The constant term integrates to \(ax\), and the \(x^{-2}\) term becomes a positive \(x^{-1}\) term.`),
-          wrongChoice(raw`\[
-            F(x)=a+\frac{6k}{x}
-          \]`, raw`Do not forget that integrating \(a\) with respect to \(x\) gives \(ax\).`),
-          wrongChoice(raw`\[
-            F(x)=ax+\frac{6k}{x^2}
-          \]`, raw`The power on the second term should increase from \(-2\) to \(-1\), not stay the same.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep(raw`Use the first integral to link \(a\) and \(k\)`, raw`After evaluating from \(1\) to \(2\), what equation do you get for \(a\)?`, [
-          wrongChoice(raw`\[
-            a=3-3k
-          \]`, raw`Check the signs when you subtract \(F(1)\) from \(F(2)\).`),
-          wrongChoice(raw`\[
-            a=3k-3
-          \]`, raw`That comes from mixing the area value with the second integral too early.`),
-          correctChoice(raw`\[
-            a=3+3k
-          \]`, raw`Yes. Evaluating \(F(2)-F(1)\) gives \(a-3k=3\), so \(a=3+3k\).`),
-          wrongChoice(raw`\[
-            a=6+3k
-          \]`, raw`The constant on the right is \(3\), not \(6\).`)
-        ], {
-          beforeHtml: raw`
+          \]
+</div>`
+        },
+        {
+          title: raw`Use the first integral to link \(a\) and \(k\)`,
+          previewHtml: raw`Evaluating \(F(2)-F(1)\) gives \(a-3k=3\), so \(a=3+3k\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \left[ax+\frac{6k}{x}\right]_1^2=3
@@ -628,24 +593,19 @@
               \left(2a+3k\right)-\left(a+6k\right)=3
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep(raw`Solve for \(k\)`, raw`Once you substitute \(a=3+3k\) into \(\int_1^k 6x\,dx=a\), which values of \(k\) work?`, [
-          wrongChoice(raw`\[
-            k=1 \text{ or } k=2
-          \]`, raw`\(k=1\) does not satisfy the quadratic \(k^2-k-2=0\).`),
-          correctChoice(raw`\[
-            k=-1 \text{ or } k=2
-          \]`, raw`Correct. The quadratic factorises as \((k+1)(k-2)=0\).`),
-          wrongChoice(raw`\[
-            k=-2 \text{ or } k=1
-          \]`, raw`Those are not the roots of \(k^2-k-2\).`),
-          wrongChoice(raw`\[
-            k=2 \text{ only}
-          \]`, raw`There are two possible values because the quadratic has two real factors.`)
-        ], {
-          beforeHtml: raw`
+
+<p class="step-text">Evaluating \(F(2)-F(1)\) gives \(a-3k=3\), so \(a=3+3k\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
+            a=3+3k
+          \]
+</div>`
+        },
+        {
+          title: raw`Solve for \(k\)`,
+          previewHtml: raw`The quadratic factorises as \((k+1)(k-2)=0\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \int_1^k 6x\,dx=3k^2-3
@@ -657,9 +617,50 @@
               k^2-k-2=0
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col"
-        })
+
+<p class="step-text">The quadratic factorises as \((k+1)(k-2)=0\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
+            k=-1 \text{ or } k=2
+          \]
+</div>
+
+        <p class="step-text">Start with the first integral:</p>
+        <div class="math-block">
+          \[
+          F(x)=ax+\frac{6k}{x}
+          \]
+          \[
+          \left(2a+3k\right)-\left(a+6k\right)=3
+          \]
+          \[
+          a-3k=3
+          \]
+          \[
+          a=3+3k
+          \]
+        </div>
+        <p class="step-text">Now use the second integral:</p>
+        <div class="math-block">
+          \[
+          \int_1^k 6x\,dx=3k^2-3=a
+          \]
+          \[
+          3k^2-3=3+3k
+          \]
+          \[
+          k^2-k-2=0
+          \]
+          \[
+          (k+1)(k-2)=0
+          \]
+          \[
+          k=-1 \text{ or } k=2
+          \]
+        </div>
+      `
+        }
       ]
     }),
     "1d": createConfig("1d", "2025 Paper — Product-to-sum area under a trig curve", {
@@ -697,55 +698,60 @@
         <p class="step-text">So the shaded area is \(\frac{7}{8}\) square units.</p>
       `,
       afterRender: draw1dAreaGraph,
-      steps: [
-        choiceStep("Rewrite the integrand", raw`Using products to sums, what does \(4\sin(5x)\cos(3x)\) become?`, [
-          wrongChoice(raw`\[
-            2\sin(8x)+\sin(2x)
-          \]`, raw`The second term also keeps the outside factor \(2\).`),
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Rewrite the integrand`,
+          previewHtml: raw`Multiply the identity by the outside factor \(2\) to get both sine terms with coefficient \(2\).`,
+          workingHtml: raw`<p class="step-text">Multiply the identity by the outside factor \(2\) to get both sine terms with coefficient \(2\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             2\sin(8x)+2\sin(2x)
-          \]`, raw`Correct. Multiply the identity by the outside factor \(2\) to get both sine terms with coefficient \(2\).`),
-          wrongChoice(raw`\[
-            4\sin(8x)+4\sin(2x)
-          \]`, raw`That doubles the expression one time too many.`),
-          wrongChoice(raw`\[
-            2\cos(8x)+2\cos(2x)
-          \]`, raw`The product-to-sum identity here produces sines, not cosines.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Set up the definite integral", raw`Which evaluated antiderivative is correct?`, [
-          wrongChoice(raw`\[
-            \left[\frac{\cos(8x)}{4}+\cos(2x)\right]_{0}^{\pi/6}
-          \]`, raw`The signs should be negative because \(\int \sin(kx)\,dx=-\frac{\cos(kx)}{k}\).`),
-          wrongChoice(raw`\[
-            \left[-\frac{\cos(8x)}{8}-\frac{\cos(2x)}{2}\right]_{0}^{\pi/6}
-          \]`, raw`Those antiderivatives forget the outside coefficients \(2\) in the integrand.`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Set up the definite integral`,
+          previewHtml: raw`Each coefficient has been simplified correctly after integrating.`,
+          workingHtml: raw`<p class="step-text">Each coefficient has been simplified correctly after integrating.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \left[-\frac{\cos(8x)}{4}-\cos(2x)\right]_{0}^{\pi/6}
-          \]`, raw`Yes. Each coefficient has been simplified correctly after integrating.`),
-          wrongChoice(raw`\[
-            \left[-\frac{\sin(8x)}{4}-\sin(2x)\right]_{0}^{\pi/6}
-          \]`, raw`The antiderivative of sine involves cosine, not sine again.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Finish the area", raw`What is the value of the shaded area?`, [
-          wrongChoice(raw`\[
-            \frac{3}{8}
-          \]`, raw`That is only part of the evaluated expression. You still need to subtract the lower-bound value.`),
-          wrongChoice(raw`\[
-            \frac{5}{4}
-          \]`, raw`That matches the lower-bound contribution, not the final difference.`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Finish the area`,
+          previewHtml: raw`The evaluated difference is \(0.875=\frac{7}{8}\).`,
+          workingHtml: raw`<p class="step-text">The evaluated difference is \(0.875=\frac{7}{8}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \frac{7}{8}
-          \]`, raw`Correct. The evaluated difference is \(0.875=\frac{7}{8}\).`),
-          wrongChoice(raw`\[
-            \frac{9}{8}
-          \]`, raw`This is a little too large. Recheck the subtraction of the lower-bound value.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        })
+          \]
+</div>
+
+        <p class="step-text">First rewrite the product:</p>
+        <div class="math-block">
+          \[
+          4\sin(5x)\cos(3x)=2\bigl(2\sin(5x)\cos(3x)\bigr)=2\sin(8x)+2\sin(2x)
+          \]
+        </div>
+        <p class="step-text">Now integrate and evaluate:</p>
+        <div class="math-block">
+          \[
+          \int_{0}^{\pi/6}\left(2\sin(8x)+2\sin(2x)\right)\,dx
+          =
+          \left[-\frac{\cos(8x)}{4}-\cos(2x)\right]_{0}^{\pi/6}
+          \]
+          \[
+          =-\frac{3}{8}-(-1.25)=0.875
+          \]
+        </div>
+        <p class="step-text">So the shaded area is \(\frac{7}{8}\) square units.</p>
+      `
+        }
       ]
     }),
     "1e": createConfig("1e", "2025 Paper — Separable differential equation with a logarithm", {
@@ -790,55 +796,66 @@
           \]
         </div>
       `,
-      steps: [
-        choiceStep("Separate the variables", raw`Which rearranged equation is the most useful before integrating?`, [
-          wrongChoice(raw`\[
-            y\,dy=\frac{1-x}{1+x}\,dx
-          \]`, raw`There should be a \(\frac{1}{y}\) on the left after dividing by \(y\), not an extra \(y\).`),
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Separate the variables`,
+          previewHtml: raw`This is the separated form, and the right-hand side is ready to integrate.`,
+          workingHtml: raw`<p class="step-text">This is the separated form, and the right-hand side is ready to integrate.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \frac{1}{y}\,dy=\left(-1+\frac{2}{1+x}\right)dx
-          \]`, raw`Correct. This is the separated form, and the right-hand side is ready to integrate.`),
-          wrongChoice(raw`\[
-            \frac{dy}{dx}=y(1-x)(1+x)
-          \]`, raw`That multiplies by \(1+x\) instead of dividing by it.`),
-          wrongChoice(raw`\[
-            \frac{1}{y}\,dy=\frac{1+x}{1-x}\,dx
-          \]`, raw`The fraction has been inverted. The numerator should be \(1-x\).`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Integrate both sides", raw`After integrating, which equation do you get?`, [
-          wrongChoice(raw`\[
-            \ln|y|=x+2\ln|1+x|+C
-          \]`, raw`The constant term from the split fraction is \(-1\), so its integral should be \(-x\), not \(+x\).`),
-          wrongChoice(raw`\[
-            y=-x+2\ln|1+x|+C
-          \]`, raw`The left-hand side integrates to \(\ln|y|\), not just \(y\).`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Integrate both sides`,
+          previewHtml: raw`This is the natural logarithm result from integrating \(\frac{1}{y}\,dy\).`,
+          workingHtml: raw`<p class="step-text">This is the natural logarithm result from integrating \(\frac{1}{y}\,dy\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \ln|y|=-x+2\ln|1+x|+C
-          \]`, raw`Yes. This is the natural logarithm result from integrating \(\frac{1}{y}\,dy\).`),
-          wrongChoice(raw`\[
-            \ln|y|=-x+\frac{2}{1+x}+C
-          \]`, raw`The integral of \(\frac{2}{1+x}\) is logarithmic, not another fraction.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep(raw`Evaluate at \(x=2\)`, raw`What is the value of \(y\) when \(x=2\)?`, [
-          wrongChoice(raw`\[
-            y=\frac{9}{e^2}\approx 1.218
-          \]`, raw`That keeps only one factor of \(3\), but the logarithm term contributes \(3^3\) overall.`),
-          wrongChoice(raw`\[
-            y=27e^2
-          \]`, raw`The \(-2\) in the exponent gives a factor of \(e^{-2}\), not \(e^2\).`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Evaluate at \(x=2\)`,
+          previewHtml: raw`This matches the integrated model and the initial condition.`,
+          workingHtml: raw`<p class="step-text">This matches the integrated model and the initial condition.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             y=\frac{27}{e^2}\approx 3.654
-          \]`, raw`Correct. This matches the integrated model and the initial condition.`),
-          wrongChoice(raw`\[
-            y=\frac{27}{2e^2}
-          \]`, raw`There is no extra division by \(2\) after substituting \(x=2\).`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        })
+          \]
+</div>
+
+        <p class="step-text">Separate the variables:</p>
+        <div class="math-block">
+          \[
+          y(1-x)=(1+x)\frac{dy}{dx}
+          \]
+          \[
+          \frac{1}{y}\,dy=\frac{1-x}{1+x}\,dx=\left(-1+\frac{2}{1+x}\right)dx
+          \]
+        </div>
+        <p class="step-text">Integrate and use the condition:</p>
+        <div class="math-block">
+          \[
+          \ln|y|=-x+2\ln|1+x|+C
+          \]
+          \[
+          \ln 3=C
+          \]
+          \[
+          \ln|y|=-2+2\ln 3+\ln 3
+          \]
+          \[
+          y=\frac{27}{e^2}\approx 3.654
+          \]
+        </div>
+      `
+        }
       ]
     }),
     "2a": createConfig("2a", "2025 Paper — Reverse chain rule with a linear power", {
@@ -870,38 +887,22 @@
           \]
         </div>
       `,
-      steps: [
-        choiceStep("Rewrite in power form", raw`Which rewrite is the most helpful?`, [
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Rewrite in power form`,
+          previewHtml: raw`This exposes the reverse-chain-rule structure straight away.`,
+          workingHtml: raw`<p class="step-text">This exposes the reverse-chain-rule structure straight away.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             10(2x+1)^{-6}
-          \]`, raw`Correct. This exposes the reverse-chain-rule structure straight away.`),
-          wrongChoice(raw`\[
-            10(2x+1)^6
-          \]`, raw`The power should be negative because the bracket is in the denominator.`),
-          wrongChoice(raw`\[
-            \frac{10}{2x+1}
-          \]`, raw`Only the denominator has changed there; the power of \(6\) is missing.`),
-          wrongChoice(raw`\[
-            (2x+1)^{-5}
-          \]`, raw`That is close to the antiderivative stage, but it is not the original integrand.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Choose the antiderivative", raw`What is the correct integral?`, [
-          wrongChoice(raw`\[
-            \frac{1}{(2x+1)^5}+C
-          \]`, raw`The sign should be negative after dividing by the new power \(-5\).`),
-          wrongChoice(raw`\[
-            -\frac{1}{5(2x+1)^5}+C
-          \]`, raw`That only divides by the new power. You also need to divide by the inside derivative \(2\).`),
-          correctChoice(raw`\[
-            -\frac{1}{(2x+1)^5}+C
-          \]`, raw`Yes. The factor \(\frac{10}{-5\times 2}\) simplifies to \(-1\).`),
-          wrongChoice(raw`\[
-            -\frac{1}{(2x+1)^4}+C
-          \]`, raw`The power should increase from \(-6\) to \(-5\), not to \(-4\).`)
-        ], {
-          beforeHtml: raw`
+          \]
+</div>`
+        },
+        {
+          title: raw`Identify the antiderivative`,
+          previewHtml: raw`The factor \(\frac{10}{-5\times 2}\) simplifies to \(-1\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \int 10(2x+1)^{-6}\,dx
@@ -909,9 +910,31 @@
               \frac{10(2x+1)^{-5}}{-5\times 2}+C
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col"
-        })
+
+<p class="step-text">The factor \(\frac{10}{-5\times 2}\) simplifies to \(-1\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
+            -\frac{1}{(2x+1)^5}+C
+          \]
+</div>
+
+        <p class="step-text">Rewrite first:</p>
+        <div class="math-block">
+          \[
+          \frac{10}{(2x+1)^6}=10(2x+1)^{-6}
+          \]
+          \[
+          \int 10(2x+1)^{-6}\,dx
+          =
+          \frac{10(2x+1)^{-5}}{-5\times 2}+C
+          \]
+          \[
+          =-\frac{1}{(2x+1)^5}+C
+          \]
+        </div>
+      `
+        }
       ]
     }),
     "2b": createConfig("2b", "2025 Paper — Finding the function from its rate", {
@@ -950,25 +973,22 @@
           \]
         </div>
       `,
-      steps: [
-        choiceStep("Integrate the rate", raw`Which general function comes from \(\frac{dp}{dt}=5\cos(4t)\)?`, [
-          wrongChoice(raw`\[
-            p=5\sin(4t)+C
-          \]`, raw`That misses the divide-by-\(4\) adjustment from the inside derivative.`),
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Integrate the rate`,
+          previewHtml: raw`Reverse the chain rule by dividing by the inside coefficient \(4\).`,
+          workingHtml: raw`<p class="step-text">Reverse the chain rule by dividing by the inside coefficient \(4\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             p=\frac{5}{4}\sin(4t)+C
-          \]`, raw`Correct. Reverse the chain rule by dividing by the inside coefficient \(4\).`),
-          wrongChoice(raw`\[
-            p=-\frac{5}{4}\sin(4t)+C
-          \]`, raw`The antiderivative of cosine is positive sine, not negative sine.`),
-          wrongChoice(raw`\[
-            p=\frac{5}{4}\cos(4t)+C
-          \]`, raw`Cosine differentiates to negative sine, so this cannot be the antiderivative.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        typedStep(raw`Find the constant`, raw`Using \(p=8\) when \(t=\frac{\pi}{24}\), what is \(C\)?`, ["59/8", "7.375"], {
-          beforeHtml: raw`
+          \]
+</div>`
+        },
+        {
+          title: raw`Find the constant`,
+          previewHtml: raw`Since \(\sin\left(\frac{\pi}{6}\right)=\frac{1}{2}\), we get \(8=\frac{5}{8}+C\), so \(C=\frac{59}{8}=7.375\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               p=\frac{5}{4}\sin(4t)+C
@@ -977,27 +997,48 @@
               8=\frac{5}{4}\sin\left(4\cdot\frac{\pi}{24}\right)+C
               \]
             </div>
-          `,
-          ariaLabel: "Type the constant C for p",
-          successMessage: raw`Yes. Since \(\sin\left(\frac{\pi}{6}\right)=\frac{1}{2}\), we get \(8=\frac{5}{8}+C\), so \(C=\frac{59}{8}=7.375\).`,
-          genericMessage: raw`Substitute \(t=\frac{\pi}{24}\) into the sine expression first, then solve \(8=\frac{5}{4}\sin(4t)+C\).`
-        }),
-        choiceStep("Write the fitted function", raw`Which function is correct?`, [
-          wrongChoice(raw`\[
-            p=\frac{5}{4}\sin(4t)+\frac{5}{8}
-          \]`, raw`\(\frac{5}{8}\) is the value of the sine term at the given time, not the constant \(C\).`),
-          wrongChoice(raw`\[
-            p=5\sin(4t)+\frac{59}{8}
-          \]`, raw`The sine term still needs the factor \(\frac{5}{4}\), not \(5\).`),
-          correctChoice(raw`\[
+
+<p class="step-text">Since \(\sin\left(\frac{\pi}{6}\right)=\frac{1}{2}\), we get \(8=\frac{5}{8}+C\), so \(C=\frac{59}{8}=7.375\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{59}{8}
+  \]
+</div>
+</div>`
+        },
+        {
+          title: raw`Write the fitted function`,
+          previewHtml: raw`That is the general antiderivative with the fitted constant.`,
+          workingHtml: raw`<p class="step-text">That is the general antiderivative with the fitted constant.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             p=\frac{5}{4}\sin(4t)+\frac{59}{8}
-          \]`, raw`Correct. That is the general antiderivative with the fitted constant.`),
-          wrongChoice(raw`\[
-            p=\frac{5}{4}\cos(4t)+\frac{59}{8}
-          \]`, raw`The original derivative was cosine, so the antiderivative should involve sine.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        })
+          \]
+</div>
+
+        <p class="step-text">Integrate first:</p>
+        <div class="math-block">
+          \[
+          p=\frac{5}{4}\sin(4t)+C
+          \]
+        </div>
+        <p class="step-text">Use the condition \(p=8\) when \(t=\frac{\pi}{24}\):</p>
+        <div class="math-block">
+          \[
+          8=\frac{5}{4}\sin\left(\frac{\pi}{6}\right)+C
+          \]
+          \[
+          C=\frac{59}{8}=7.375
+          \]
+          \[
+          p=\frac{5}{4}\sin(4t)+\frac{59}{8}
+          \]
+        </div>
+      `
+        }
       ]
     }),
     "2c": createConfig("2c", "2025 Paper — Solving for a constant with bounds", {
@@ -1034,38 +1075,22 @@
           \]
         </div>
       `,
-      steps: [
-        choiceStep("Find the antiderivative", raw`Which antiderivative is correct?`, [
-          wrongChoice(raw`\[
-            \sqrt{4x+1}+C
-          \]`, raw`That forgets the divide-by-\(4\) adjustment from the inside derivative.`),
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Find the antiderivative`,
+          previewHtml: raw`The reverse chain rule introduces the factor of \(\frac{1}{2}\).`,
+          workingHtml: raw`<p class="step-text">The reverse chain rule introduces the factor of \(\frac{1}{2}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \frac{\sqrt{4x+1}}{2}+C
-          \]`, raw`Correct. The reverse chain rule introduces the factor of \(\frac{1}{2}\).`),
-          wrongChoice(raw`\[
-            2\sqrt{4x+1}+C
-          \]`, raw`The coefficient has gone in the wrong direction. We divide by the inside effect; we do not multiply.`),
-          wrongChoice(raw`\[
-            \frac{1}{2\sqrt{4x+1}}+C
-          \]`, raw`That is very close to the original integrand, not its antiderivative.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Evaluate the bounds", raw`After substituting the limits, which equation in \(k\) do you get?`, [
-          correctChoice(raw`\[
-            1=\frac{\sqrt{4k+1}-1}{2}
-          \]`, raw`Yes. The lower bound contributes \(\frac{1}{2}\), so it must be subtracted from the upper-bound value.`),
-          wrongChoice(raw`\[
-            1=\frac{\sqrt{4k+1}+1}{2}
-          \]`, raw`The lower-bound value should be subtracted, not added.`),
-          wrongChoice(raw`\[
-            1=\sqrt{4k+1}-1
-          \]`, raw`The factor of \(\frac{1}{2}\) from the antiderivative has been dropped.`),
-          wrongChoice(raw`\[
-            1=\frac{4k+1-1}{2}
-          \]`, raw`Do not lose the square root when evaluating the antiderivative.`)
-        ], {
-          beforeHtml: raw`
+          \]
+</div>`
+        },
+        {
+          title: raw`Evaluate the bounds`,
+          previewHtml: raw`The lower bound contributes \(\frac{1}{2}\), so it must be subtracted from the upper-bound value.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               1=\left[\frac{\sqrt{4x+1}}{2}\right]_0^k
@@ -1074,25 +1099,45 @@
               1=\frac{\sqrt{4k+1}}{2}-\frac{1}{2}
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep(raw`Solve for \(k\)`, raw`What is the value of \(k\)?`, [
-          wrongChoice(raw`\[
-            1
-          \]`, raw`If \(k=1\), the upper-bound value is too small to make the integral equal \(1\).`),
-          correctChoice(raw`\[
+
+<p class="step-text">The lower bound contributes \(\frac{1}{2}\), so it must be subtracted from the upper-bound value.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
+            1=\frac{\sqrt{4k+1}-1}{2}
+          \]
+</div>`
+        },
+        {
+          title: raw`Solve for \(k\)`,
+          previewHtml: raw`Rearranging gives \(\sqrt{4k+1}=3\), so \(4k+1=9\) and \(k=2\).`,
+          workingHtml: raw`<p class="step-text">Rearranging gives \(\sqrt{4k+1}=3\), so \(4k+1=9\) and \(k=2\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             2
-          \]`, raw`Correct. Rearranging gives \(\sqrt{4k+1}=3\), so \(4k+1=9\) and \(k=2\).`),
-          wrongChoice(raw`\[
-            \frac{3}{2}
-          \]`, raw`That would give \(4k+1=7\), not the required \(9\).`),
-          wrongChoice(raw`\[
-            4
-          \]`, raw`That makes the upper-bound term too large.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        })
+          \]
+</div>
+
+        <div class="math-block">
+          \[
+          \int (4x+1)^{-1/2}\,dx=\frac{\sqrt{4x+1}}{2}+C
+          \]
+          \[
+          1=\left[\frac{\sqrt{4x+1}}{2}\right]_0^k=\frac{\sqrt{4k+1}-1}{2}
+          \]
+          \[
+          2=\sqrt{4k+1}-1
+          \]
+          \[
+          3=\sqrt{4k+1}
+          \]
+          \[
+          k=2
+          \]
+        </div>
+      `
+        }
       ]
     }),
     "2d": createConfig("2d", "2025 Paper — Particle motion from acceleration to displacement", {
@@ -1148,60 +1193,88 @@
           \]
         </div>
       `,
-      steps: [
-        choiceStep("Integrate acceleration to get velocity", raw`Which velocity function is correct before using the initial condition?`, [
-          wrongChoice(raw`\[
-            v(t)=8e^{-0.3t}-t+C
-          \]`, raw`The exponential term should be negative, because integrating \(e^{-0.3t}\) introduces division by \(-0.3\).`),
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Integrate acceleration to get velocity`,
+          previewHtml: raw`Both terms integrate neatly, and the constant of integration must stay.`,
+          workingHtml: raw`<p class="step-text">Both terms integrate neatly, and the constant of integration must stay.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             v(t)=-8e^{-0.3t}-t+C
-          \]`, raw`Correct. Both terms integrate neatly, and the constant of integration must stay.`),
-          wrongChoice(raw`\[
-            v(t)=-0.8e^{-0.3t}-t+C
-          \]`, raw`The coefficient is too small. Dividing \(2.4\) by \(-0.3\) gives \(-8\).`),
-          wrongChoice(raw`\[
-            v(t)=-8e^{0.3t}-t+C
-          \]`, raw`The exponent keeps the negative sign from the original acceleration model.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        typedStep(raw`Use the initial velocity`, raw`Since \(v(0)=6\), what is the constant in the velocity function?`, ["14"], {
-          ariaLabel: "Type the velocity constant",
-          successMessage: raw`Yes. Substituting \(t=0\) gives \(6=-8+C\), so \(C=14\).`,
-          genericMessage: raw`Substitute \(t=0\) into \(v(t)=-8e^{-0.3t}-t+C\) and use \(v(0)=6\).`
-        }),
-        choiceStep("Build the displacement model", raw`After integrating velocity and using \(s(0)=0\), which displacement function is correct?`, [
-          wrongChoice(raw`\[
-            s(t)=\frac{80}{3}e^{-0.3t}-\frac{t^2}{2}+14t+\frac{80}{3}
-          \]`, raw`The constant should be negative, because \(s(0)=0\) forces it to cancel the \(\frac{80}{3}\) term.`),
-          wrongChoice(raw`\[
-            s(t)=-\frac{80}{3}e^{-0.3t}-\frac{t^2}{2}+14t-\frac{80}{3}
-          \]`, raw`The exponential term becomes positive when integrating \(-8e^{-0.3t}\).`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Use the initial velocity`,
+          previewHtml: raw`Substituting \(t=0\) gives \(6=-8+C\), so \(C=14\).`,
+          workingHtml: raw`<p class="step-text">Substituting \(t=0\) gives \(6=-8+C\), so \(C=14\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  14
+  \]
+</div>
+</div>`
+        },
+        {
+          title: raw`Build the displacement model`,
+          previewHtml: raw`This is the fitted displacement model with \(s(0)=0\).`,
+          workingHtml: raw`<p class="step-text">This is the fitted displacement model with \(s(0)=0\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             s(t)=\frac{80}{3}e^{-0.3t}-\frac{t^2}{2}+14t-\frac{80}{3}
-          \]`, raw`Correct. This is the fitted displacement model with \(s(0)=0\).`),
-          wrongChoice(raw`\[
-            s(t)=\frac{80}{3}e^{-0.3t}-t^2+14t-\frac{80}{3}
-          \]`, raw`The antiderivative of \(-t\) is \(-\frac{t^2}{2}\), not \(-t^2\).`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep(raw`Evaluate at \(t=3\)`, raw`How far from \(P\) is the particle after \(3\) seconds?`, [
-          wrongChoice(raw`\[
-            18.675\text{ m}
-          \]`, raw`That underestimates the positive contribution from the fitted velocity model.`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Evaluate at \(t=3\)`,
+          previewHtml: raw`Substituting \(t=3\) into the displacement model gives approximately \(21.675\text{ m}\).`,
+          workingHtml: raw`<p class="step-text">Substituting \(t=3\) into the displacement model gives approximately \(21.675\text{ m}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             21.675\text{ m}
-          \]`, raw`Correct. Substituting \(t=3\) into the displacement model gives approximately \(21.675\text{ m}\).`),
-          wrongChoice(raw`\[
-            26.675\text{ m}
-          \]`, raw`That is too large. Recheck the exponential term at \(t=3\).`),
-          wrongChoice(raw`\[
-            14\text{ m}
-          \]`, raw`That is the fitted velocity constant, not the displacement after \(3\) seconds.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        })
+          \]
+</div>
+
+        <p class="step-text">First integrate acceleration:</p>
+        <div class="math-block">
+          \[
+          v(t)=-8e^{-0.3t}-t+C
+          \]
+          \[
+          6=v(0)=-8+C
+          \]
+          \[
+          C=14
+          \]
+          \[
+          v(t)=-8e^{-0.3t}-t+14
+          \]
+        </div>
+        <p class="step-text">Now integrate velocity and use \(s(0)=0\):</p>
+        <div class="math-block">
+          \[
+          s(t)=\frac{80}{3}e^{-0.3t}-\frac{t^2}{2}+14t+C
+          \]
+          \[
+          0=s(0)=\frac{80}{3}+C
+          \]
+          \[
+          C=-\frac{80}{3}
+          \]
+          \[
+          s(t)=\frac{80}{3}e^{-0.3t}-\frac{t^2}{2}+14t-\frac{80}{3}
+          \]
+          \[
+          s(3)\approx 21.675\text{ m}
+          \]
+        </div>
+      `
+        }
       ]
     }),
     "2e": createConfig("2e", "2025 Paper — Trig area by substitution", {
@@ -1245,71 +1318,77 @@
         </div>
       `,
       afterRender: draw2eGraph,
-      steps: [
-        choiceStep("Rewrite the trig powers", raw`Which rewrite is the useful one before substituting?`, [
-          wrongChoice(raw`\[
-            \sin^3x\cos^3x=\sin^2x\cos^3x
-          \]`, raw`One factor of \(\sin x\) has disappeared there.`),
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Rewrite the trig powers`,
+          previewHtml: raw`This keeps a single \(\cos x\) ready for \(du\).`,
+          workingHtml: raw`<p class="step-text">This keeps a single \(\cos x\) ready for \(du\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \sin^3x\cos^3x=\sin^3x\cos x(1-\sin^2x)
-          \]`, raw`Correct. This keeps a single \(\cos x\) ready for \(du\).`),
-          wrongChoice(raw`\[
-            \sin^3x\cos^3x=\cos^3x(1-\cos^2x)
-          \]`, raw`That does not keep a clean factor for the substitution shown in the PDF.`),
-          wrongChoice(raw`\[
-            \sin^3x\cos^3x=(\sin x\cos x)^3
-          \]`, raw`That identity is true, but it does not lead to the substitution route we want here.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Make the substitution", raw`If \(u=\sin x\), what does the integral become?`, [
-          wrongChoice(raw`\[
-            \int_0^1 (u^2-u^4)\,du
-          \]`, raw`The original powers of \(\sin x\) are \(3\) and \(5\), so the powers of \(u\) should stay \(3\) and \(5\).`),
-          wrongChoice(raw`\[
-            \int_0^{\pi/2}(u^3-u^5)\,du
-          \]`, raw`After substituting, the bounds must change to match \(u=\sin x\).`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Make the substitution`,
+          previewHtml: raw`The bounds become \(u=0\) to \(u=1\), and \(du=\cos x\,dx\).`,
+          workingHtml: raw`<p class="step-text">The bounds become \(u=0\) to \(u=1\), and \(du=\cos x\,dx\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \int_0^1 (u^3-u^5)\,du
-          \]`, raw`Yes. The bounds become \(u=0\) to \(u=1\), and \(du=\cos x\,dx\).`),
-          wrongChoice(raw`\[
-            \int_0^1 (u^3+u^5)\,du
-          \]`, raw`The second term should be subtracted because of the \(1-\sin^2x\) rewrite.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep(raw`Integrate in \(u\)`, raw`Which antiderivative is correct?`, [
-          wrongChoice(raw`\[
-            \frac{u^4}{4}+\frac{u^6}{6}
-          \]`, raw`The second term should stay negative.`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Integrate in \(u\)`,
+          previewHtml: raw`Integrate term by term, keeping the minus sign.`,
+          workingHtml: raw`<p class="step-text">Integrate term by term, keeping the minus sign.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \frac{u^4}{4}-\frac{u^6}{6}
-          \]`, raw`Correct. Integrate term by term, keeping the minus sign.`),
-          wrongChoice(raw`\[
-            \frac{u^3}{3}-\frac{u^5}{5}
-          \]`, raw`Those powers have not been increased by \(1\) yet.`),
-          wrongChoice(raw`\[
-            \frac{u^5}{5}-\frac{u^7}{7}
-          \]`, raw`The new powers are \(4\) and \(6\), not \(5\) and \(7\).`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Evaluate the area", raw`What is the shaded area?`, [
-          wrongChoice(raw`\[
-            \frac{1}{6}
-          \]`, raw`That only keeps the second term. You need the difference \(\frac{1}{4}-\frac{1}{6}\).`),
-          wrongChoice(raw`\[
-            \frac{1}{8}
-          \]`, raw`That is not the result of simplifying \(\frac{1}{4}-\frac{1}{6}\).`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Evaluate the area`,
+          previewHtml: raw`The substitution gives a neat exact area of \(\frac{1}{12}\).`,
+          workingHtml: raw`<p class="step-text">The substitution gives a neat exact area of \(\frac{1}{12}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \frac{1}{12}
-          \]`, raw`Correct. The substitution gives a neat exact area of \(\frac{1}{12}\).`),
-          wrongChoice(raw`\[
-            \frac{5}{12}
-          \]`, raw`That is too large for the area under this small positive hump.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        })
+          \]
+</div>
+
+        <p class="step-text">Rewrite the integrand:</p>
+        <div class="math-block">
+          \[
+          \sin^3x\cos^3x=\sin^3x\cos x\cos^2x
+          \]
+          \[
+          =\sin^3x\cos x(1-\sin^2x)
+          \]
+          \[
+          =\sin^3x\cos x-\sin^5x\cos x
+          \]
+        </div>
+        <p class="step-text">Now substitute \(u=\sin x\):</p>
+        <div class="math-block">
+          \[
+          \int_0^{\pi/2}\sin^3x\cos^3x\,dx=\int_0^1(u^3-u^5)\,du
+          \]
+          \[
+          =\left[\frac{u^4}{4}-\frac{u^6}{6}\right]_0^1
+          \]
+          \[
+          =\frac{1}{4}-\frac{1}{6}=\frac{1}{12}
+          \]
+        </div>
+      `
+        }
       ]
     }),
     "3a": createConfig("3a", "2025 Paper — Trapezium rule estimate", {
@@ -1342,55 +1421,55 @@
         <p class="step-text">So the estimated cross-sectional area is \(47.55\text{ m}^2\).</p>
       `,
       afterRender: draw3aHoleGraph,
-      steps: [
-        choiceStep("Identify the trapezium width", raw`What is the value of \(h\) in the trapezium rule here?`, [
-          wrongChoice(raw`\[
-            2.5
-          \]`, raw`\(2.5\) is half the spacing. The measurements are taken every \(5\) metres.`),
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Identify the trapezium width`,
+          previewHtml: raw`Each trapezium is \(5\) metres wide.`,
+          workingHtml: raw`<p class="step-text">Each trapezium is \(5\) metres wide.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             5
-          \]`, raw`Correct. Each trapezium is \(5\) metres wide.`),
-          wrongChoice(raw`\[
-            10
-          \]`, raw`That would skip every second measurement point.`),
-          wrongChoice(raw`\[
-            20
-          \]`, raw`That is the total span across the top, not the width of each trapezium.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Substitute into the rule", raw`Which substitution is correct?`, [
-          wrongChoice(raw`\[
-            A\approx \frac{5}{2}\left(2.12+1.88+2(2.12+2.32+2.65+2.54+1.88)\right)
-          \]`, raw`The endpoints \(2.12\) and \(1.88\) should not be counted again inside the doubled sum.`),
-          wrongChoice(raw`\[
-            A\approx 5\left(2.12+1.88+2(2.32+2.65+2.54)\right)
-          \]`, raw`The trapezium rule uses \(\frac{h}{2}\), not just \(h\).`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Substitute into the rule`,
+          previewHtml: raw`That uses the endpoints once and the three interior depths twice.`,
+          workingHtml: raw`<p class="step-text">That uses the endpoints once and the three interior depths twice.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             A\approx \frac{5}{2}\left(2.12+1.88+2(2.32+2.65+2.54)\right)
-          \]`, raw`Yes. That uses the endpoints once and the three interior depths twice.`),
-          wrongChoice(raw`\[
-            A\approx \frac{5}{2}\left(2.12+1.88+(2.32+2.65+2.54)\right)
-          \]`, raw`The interior ordinates must be doubled in the trapezium rule.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Estimate the area", raw`What estimate does this give for the area?`, [
-          wrongChoice(raw`\[
-            38.04\text{ m}^2
-          \]`, raw`That comes from missing the \(\frac{5}{2}\) scaling after the bracket is evaluated.`),
-          wrongChoice(raw`\[
-            42.55\text{ m}^2
-          \]`, raw`That is a little low. Recheck the doubled interior terms.`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Estimate the area`,
+          previewHtml: raw`The trapezium rule estimate is \(47.55\text{ m}^2\).`,
+          workingHtml: raw`<p class="step-text">The trapezium rule estimate is \(47.55\text{ m}^2\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             47.55\text{ m}^2
-          \]`, raw`Correct. The trapezium rule estimate is \(47.55\text{ m}^2\).`),
-          wrongChoice(raw`\[
-            52.55\text{ m}^2
-          \]`, raw`That overestimates the area from this substitution.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        })
+          \]
+</div>
+
+        <p class="step-text">Use the trapezium rule formula:</p>
+        <div class="math-block">
+          \[
+          A\approx \frac{h}{2}\left(y_0+y_n+2(y_1+y_2+\cdots+y_{n-1})\right)
+          \]
+          \[
+          A\approx \frac{5}{2}\left(2.12+1.88+2(2.32+2.65+2.54)\right)
+          \]
+          \[
+          A\approx \frac{5}{2}(19.02)=47.55
+          \]
+        </div>
+        <p class="step-text">So the estimated cross-sectional area is \(47.55\text{ m}^2\).</p>
+      `
+        }
       ]
     }),
     "3b": createConfig("3b", raw`2025 Paper — Logarithmic antiderivative in terms of \(k\)`, {
@@ -1426,38 +1505,22 @@
           \]
         </div>
       `,
-      steps: [
-        choiceStep("Choose the antiderivative", raw`Which antiderivative is correct?`, [
-          wrongChoice(raw`\[
-            10\ln|2x-1|+C
-          \]`, raw`That forgets to divide by the inside derivative \(2\).`),
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Identify the antiderivative`,
+          previewHtml: raw`The reverse chain rule turns the coefficient \(10\) into \(5\).`,
+          workingHtml: raw`<p class="step-text">The reverse chain rule turns the coefficient \(10\) into \(5\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             5\ln|2x-1|+C
-          \]`, raw`Correct. The reverse chain rule turns the coefficient \(10\) into \(5\).`),
-          wrongChoice(raw`\[
-            5(2x-1)+C
-          \]`, raw`A linear denominator integrates to a logarithm, not another linear term.`),
-          wrongChoice(raw`\[
-            \frac{5}{2x-1}+C
-          \]`, raw`That expression differentiates to a reciprocal-square structure, not the original reciprocal form.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Evaluate the bounds", raw`What do you get after substituting the limits \(1\) and \(k\)?`, [
-          correctChoice(raw`\[
-            5\ln|2k-1|-5\ln 1
-          \]`, raw`Yes. The lower-bound value is \(5\ln|1|=5\ln 1\).`),
-          wrongChoice(raw`\[
-            5\ln|2k-1|+5\ln 1
-          \]`, raw`The lower-bound value should be subtracted, not added.`),
-          wrongChoice(raw`\[
-            5\ln|k-1|-5\ln 1
-          \]`, raw`The inside of the logarithm must stay \(2x-1\).`),
-          wrongChoice(raw`\[
-            \ln|2k-1|-\ln 1
-          \]`, raw`The factor of \(5\) from the antiderivative has disappeared.`)
-        ], {
-          beforeHtml: raw`
+          \]
+</div>`
+        },
+        {
+          title: raw`Evaluate the bounds`,
+          previewHtml: raw`The lower-bound value is \(5\ln|1|=5\ln 1\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \left[5\ln|2x-1|\right]_1^k
@@ -1466,24 +1529,19 @@
               =5\ln|2k-1|-5\ln 1
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep(raw`Simplify using \(k>1\)`, raw`What is the final answer in terms of \(k\)?`, [
-          wrongChoice(raw`\[
-            5\ln|k-1|
-          \]`, raw`The expression inside the logarithm should be \(2k-1\).`),
-          wrongChoice(raw`\[
-            \ln(2k-1)
-          \]`, raw`The coefficient \(5\) should stay in front.`),
-          correctChoice(raw`\[
-            5\ln(2k-1)
-          \]`, raw`Correct. Since \(k>1\), \(2k-1\) is positive, so the absolute value is not needed.`),
-          wrongChoice(raw`\[
-            10\ln(2k-1)
-          \]`, raw`That doubles the answer and ignores the divide-by-\(2\) step from the antiderivative.`)
-        ], {
-          beforeHtml: raw`
+
+<p class="step-text">The lower-bound value is \(5\ln|1|=5\ln 1\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
+            5\ln|2k-1|-5\ln 1
+          \]
+</div>`
+        },
+        {
+          title: raw`Simplify using \(k>1\)`,
+          previewHtml: raw`Since \(k>1\), \(2k-1\) is positive, so the absolute value is not needed.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               5\ln|2k-1|-5\ln 1
@@ -1492,9 +1550,33 @@
               5\ln|2k-1|
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col"
-        })
+
+<p class="step-text">Since \(k>1\), \(2k-1\) is positive, so the absolute value is not needed.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
+            5\ln(2k-1)
+          \]
+</div>
+
+        <div class="math-block">
+          \[
+          \int \frac{10}{2x-1}\,dx=5\ln|2x-1|+C
+          \]
+          \[
+          \int_1^k \frac{10}{2x-1}\,dx
+          =
+          \left[5\ln|2x-1|\right]_1^k
+          \]
+          \[
+          =5\ln|2k-1|-5\ln 1
+          \]
+          \[
+          =5\ln(2k-1)
+          \]
+        </div>
+      `
+        }
       ]
     }),
     "3c": createConfig("3c", "2025 Paper — Separable differential equation with a radical", {
@@ -1548,71 +1630,86 @@
           \]
         </div>
       `,
-      steps: [
-        choiceStep("Separate the variables", raw`Which separated equation is correct?`, [
-          wrongChoice(raw`\[
-            \sqrt{4y+1}\,dy=x^{-2}\,dx
-          \]`, raw`The radical needs to be moved to the denominator on the left, not kept in the numerator.`),
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Separate the variables`,
+          previewHtml: raw`This puts all the \(y\)-terms on one side and all the \(x\)-terms on the other.`,
+          workingHtml: raw`<p class="step-text">This puts all the \(y\)-terms on one side and all the \(x\)-terms on the other.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             (4y+1)^{-1/2}\,dy=x^{-2}\,dx
-          \]`, raw`Correct. This puts all the \(y\)-terms on one side and all the \(x\)-terms on the other.`),
-          wrongChoice(raw`\[
-            dy=(4y+1)^{-1/2}x^{-2}\,dx
-          \]`, raw`That still mixes the \(x\)- and \(y\)-terms on the same side.`),
-          wrongChoice(raw`\[
-            (4y+1)^{1/2}\,dy=x^2\,dx
-          \]`, raw`Both the radical and the power of \(x\) have been moved the wrong way.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Integrate carefully", raw`What is the integrated relationship?`, [
-          wrongChoice(raw`\[
-            \sqrt{4y+1}= -\frac{1}{x}+C
-          \]`, raw`The left side is missing the factor of \(\frac{1}{2}\) from the antiderivative.`),
-          wrongChoice(raw`\[
-            \frac{\sqrt{4y+1}}{2}= \frac{1}{x}+C
-          \]`, raw`The sign on the \(x\)-term is wrong because \(\int x^{-2}\,dx=-x^{-1}\).`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Integrate carefully`,
+          previewHtml: raw`Both sides have been integrated correctly.`,
+          workingHtml: raw`<p class="step-text">Both sides have been integrated correctly.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \frac{\sqrt{4y+1}}{2}= -\frac{1}{x}+C
-          \]`, raw`Yes. Both sides have been integrated correctly.`),
-          wrongChoice(raw`\[
-            \frac{4y+1}{2}= -\frac{1}{x}+C
-          \]`, raw`The square root must stay after integrating the left-hand side.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Find the constant", raw`Using \(y=2\) when \(x=\frac{2}{3}\), what is \(C\)?`, [
-          wrongChoice(raw`\[
-            \frac{3}{2}
-          \]`, raw`That is the value of \(\frac{\sqrt{4y+1}}{2}\), not the constant after solving.`),
-          wrongChoice(raw`\[
-            \frac{9}{2}
-          \]`, raw`That adds the two terms instead of solving the equation \(\frac{3}{2}=-\frac{3}{2}+C\).`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Find the constant`,
+          previewHtml: raw`The initial condition gives \(\frac{3}{2}=-\frac{3}{2}+C\), so \(C=3\).`,
+          workingHtml: raw`<p class="step-text">The initial condition gives \(\frac{3}{2}=-\frac{3}{2}+C\), so \(C=3\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             3
-          \]`, raw`Correct. The initial condition gives \(\frac{3}{2}=-\frac{3}{2}+C\), so \(C=3\).`),
-          wrongChoice(raw`\[
-            0
-          \]`, raw`The initial condition does not make the constant vanish.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep(raw`Solve for \(y\) at \(x=\frac{4}{5}\)`, raw`What value of \(y\) do you get?`, [
-          wrongChoice(raw`\[
-            \frac{25}{16}
-          \]`, raw`That is too small. Recheck the value of the left-hand side after substituting \(x=\frac{4}{5}\).`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Solve for \(y\) at \(x=\frac{4}{5}\)`,
+          previewHtml: raw`Follow the working to solve for \(y\) at \(x=\frac{4}{5}\).`,
+          workingHtml: raw`<p class="step-text">Substituting \(x=\frac{4}{5}\) gives \(\sqrt{4y+1}=3.5\), which leads to \(y=\frac{45}{16}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \frac{45}{16}=2.8125
-          \]`, raw`Correct. Substituting \(x=\frac{4}{5}\) gives \(\sqrt{4y+1}=3.5\), which leads to \(y=\frac{45}{16}\).`),
-          wrongChoice(raw`\[
-            \frac{49}{16}
-          \]`, raw`That would correspond to forgetting to subtract the \(1\) before dividing by \(4\).`),
-          wrongChoice(raw`\[
-            \frac{11}{4}
-          \]`, raw`This is close numerically, but it does not come from solving \(4y+1=12.25\) exactly.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        })
+          \]
+</div>
+
+        <p class="step-text">Separate the variables:</p>
+        <div class="math-block">
+          \[
+          (4y+1)^{-1/2}\,dy=x^{-2}\,dx
+          \]
+          \[
+          \int (4y+1)^{-1/2}\,dy=\int x^{-2}\,dx
+          \]
+          \[
+          \frac{\sqrt{4y+1}}{2}=-\frac{1}{x}+C
+          \]
+        </div>
+        <p class="step-text">Use \(y=2\) when \(x=\frac{2}{3}\):</p>
+        <div class="math-block">
+          \[
+          \frac{3}{2}=-\frac{3}{2}+C
+          \]
+          \[
+          C=3
+          \]
+        </div>
+        <p class="step-text">Now substitute \(x=\frac{4}{5}\):</p>
+        <div class="math-block">
+          \[
+          -\frac{1}{4/5}+3=\frac{\sqrt{4y+1}}{2}
+          \]
+          \[
+          \frac{\sqrt{4y+1}}{2}=\frac{7}{4}
+          \]
+          \[
+          y=\frac{45}{16}=2.8125
+          \]
+        </div>
+      `
+        }
       ]
     }),
     "3d": createConfig("3d", "2025 Paper — Area proof leading to a cubic equation", {
@@ -1667,71 +1764,82 @@
         </div>
       `,
       afterRender: draw3dAreaGraph,
-      steps: [
-        choiceStep("Rewrite in integrable form", raw`Which equivalent form is best before integrating?`, [
-          wrongChoice(raw`\[
-            x^{-2}+6x^{-2}
-          \]`, raw`Only the first term simplifies to \(x^{-2}\). The second becomes \(6x^{-4}\).`),
-          correctChoice(raw`\[
+      guidedSteps: [
+        {
+          title: raw`Rewrite in integrable form`,
+          previewHtml: raw`This makes the power rule straightforward to apply.`,
+          workingHtml: raw`<p class="step-text">This makes the power rule straightforward to apply.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             x^{-2}+6x^{-4}
-          \]`, raw`Correct. This makes the power rule straightforward to apply.`),
-          wrongChoice(raw`\[
-            x^{-4}+6x^{-2}
-          \]`, raw`The exponents have been swapped.`),
-          wrongChoice(raw`\[
-            \frac{1}{x^2+6x^4}
-          \]`, raw`That changes the algebra completely. The numerator and denominator have not been split correctly.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Integrate the rewritten function", raw`What is the antiderivative?`, [
-          wrongChoice(raw`\[
-            -\frac{1}{x}+\frac{2}{x^3}+C
-          \]`, raw`The second term should also be negative, because integrating \(6x^{-4}\) gives \(-2x^{-3}\).`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Integrate the rewritten function`,
+          previewHtml: raw`Both terms come straight from the power rule.`,
+          workingHtml: raw`<p class="step-text">Both terms come straight from the power rule.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             -\frac{1}{x}-\frac{2}{x^3}+C
-          \]`, raw`Yes. Both terms come straight from the power rule.`),
-          wrongChoice(raw`\[
-            \frac{1}{x}+\frac{2}{x^3}+C
-          \]`, raw`Both signs are wrong after integrating negative powers.`),
-          wrongChoice(raw`\[
-            -\frac{1}{2x}-\frac{2}{3x^3}+C
-          \]`, raw`The coefficients do not match the power-rule results.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Evaluate the shaded area", raw`After substituting \(2p\) and \(p\), what does the area equal?`, [
-          wrongChoice(raw`\[
-            \frac{1}{2p}+\frac{1}{4p^3}
-          \]`, raw`The cubic term is too small. It should include the full difference from the lower bound.`),
-          wrongChoice(raw`\[
-            \frac{1}{p}+\frac{2}{p^3}
-          \]`, raw`That is just the lower-bound value with the signs changed.`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Evaluate the shaded area`,
+          previewHtml: raw`Simplifying the subtraction gives this exact area expression.`,
+          workingHtml: raw`<p class="step-text">Simplifying the subtraction gives this exact area expression.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \frac{1}{2p}+\frac{7}{4p^3}
-          \]`, raw`Correct. Simplifying the subtraction gives this exact area expression.`),
-          wrongChoice(raw`\[
-            \frac{1}{4p}+\frac{7}{2p^3}
-          \]`, raw`Both denominators are off after simplifying the evaluated terms.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Finish the proof", raw`If the area is \(\frac{9}{4}\), which equation follows after clearing fractions?`, [
-          wrongChoice(raw`\[
-            9p^3+2p^2-7=0
-          \]`, raw`The middle term should be subtracted when everything is moved to one side.`),
-          correctChoice(raw`\[
+          \]
+</div>`
+        },
+        {
+          title: raw`Finish the proof`,
+          previewHtml: raw`Multiply \(\frac{1}{2p}+\frac{7}{4p^3}=\frac{9}{4}\) by \(4p^3\) and rearrange.`,
+          workingHtml: raw`<p class="step-text">Multiply \(\frac{1}{2p}+\frac{7}{4p^3}=\frac{9}{4}\) by \(4p^3\) and rearrange.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             9p^3-2p^2-7=0
-          \]`, raw`Exactly. Multiply \(\frac{1}{2p}+\frac{7}{4p^3}=\frac{9}{4}\) by \(4p^3\) and rearrange.`),
-          wrongChoice(raw`\[
-            9p^2-2p-7=0
-          \]`, raw`The powers of \(p\) should rise to \(p^3\) and \(p^2\) when the fractions are cleared.`),
-          wrongChoice(raw`\[
-            4p^3-2p^2-7=0
-          \]`, raw`The right-hand side area is \(\frac{9}{4}\), so the leading coefficient must become \(9\).`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        })
+          \]
+</div>
+
+        <p class="step-text">Rewrite the function and integrate:</p>
+        <div class="math-block">
+          \[
+          \frac{x^2+6}{x^4}=x^{-2}+6x^{-4}
+          \]
+          \[
+          \int \left(x^{-2}+6x^{-4}\right)\,dx=-\frac{1}{x}-\frac{2}{x^3}+C
+          \]
+        </div>
+        <p class="step-text">Evaluate from \(p\) to \(2p\):</p>
+        <div class="math-block">
+          \[
+          \left[-\frac{1}{x}-\frac{2}{x^3}\right]_{p}^{2p}
+          =
+          \frac{1}{2p}+\frac{7}{4p^3}
+          \]
+        </div>
+        <p class="step-text">Set this equal to \(\frac{9}{4}\) and clear fractions:</p>
+        <div class="math-block">
+          \[
+          \frac{1}{2p}+\frac{7}{4p^3}=\frac{9}{4}
+          \]
+          \[
+          2p^2+7=9p^3
+          \]
+          \[
+          9p^3-2p^2-7=0
+          \]
+        </div>
+      `
+        }
       ]
     }),
     "3e": createConfig("3e", "2025 Paper — Balance point from weighted integrals", {
@@ -1794,22 +1902,11 @@
         <p class="step-text">So the hanging point is at \(x=\frac{35}{16}\).</p>
       `,
       afterRender: draw3eArtGraph,
-      steps: [
-        choiceStep("Evaluate the numerator", raw`Which expression correctly evaluates \(\int_0^3 xf(x)\,dx\)?`, [
-          wrongChoice(raw`\[
-            \left[\frac{(x^2+3)^2}{6}\right]_0^3
-          \]`, raw`The power should increase to \(3\) after substitution, not stay at \(2\).`),
-          correctChoice(raw`\[
-            \left[\frac{(x^2+3)^3}{18}\right]_0^3=94.5
-          \]`, raw`Correct. With \(u=x^2+3\), the numerator becomes a straightforward power-rule integral.`),
-          wrongChoice(raw`\[
-            \left[\frac{x(x^2+3)^3}{9}\right]_0^3
-          \]`, raw`That keeps an extra \(x\) factor that the substitution should remove.`),
-          wrongChoice(raw`\[
-            \left[\frac{(x^2+3)^3}{9}\right]_0^3=189
-          \]`, raw`The denominator should be \(18\), not \(9\), because \(du=2x\,dx\).`)
-        ], {
-          beforeHtml: raw`
+      guidedSteps: [
+        {
+          title: raw`Evaluate the numerator`,
+          previewHtml: raw`With \(u=x^2+3\), the numerator becomes a straightforward power-rule integral.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \int_0^3 xf(x)\,dx=\int_0^3 \frac{x(x^2+3)^2}{3}\,dx
@@ -1818,24 +1915,19 @@
               u=x^2+3,\qquad du=2x\,dx
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Evaluate the denominator", raw`Which result matches \(\int_0^3 f(x)\,dx\)?`, [
-          wrongChoice(raw`\[
-            \left[\frac{x^5}{5}+2x^3+3x\right]_0^3=81
-          \]`, raw`The \(x^4\) term still needs the factor of \(\frac{1}{3}\), and the \(2x^2\) term integrates to \(\frac{2x^3}{3}\).`),
-          wrongChoice(raw`\[
-            \left[\frac{x^5}{15}+\frac{2x^3}{3}+3x\right]_0^3=34.2
-          \]`, raw`The antiderivative is right, but the arithmetic is too small.`),
-          correctChoice(raw`\[
-            \left[\frac{x^5}{15}+\frac{2x^3}{3}+3x\right]_0^3=43.2
-          \]`, raw`Yes. Expanding \(f(x)\) first makes the denominator integral clean and exact.`),
-          wrongChoice(raw`\[
-            \left[\frac{x^5}{12}+2x^3+3x\right]_0^3=43.2
-          \]`, raw`The coefficients in the antiderivative do not match the expanded function.`)
-        ], {
-          beforeHtml: raw`
+
+<p class="step-text">With \(u=x^2+3\), the numerator becomes a straightforward power-rule integral.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
+            \left[\frac{(x^2+3)^3}{18}\right]_0^3=94.5
+          \]
+</div>`
+        },
+        {
+          title: raw`Evaluate the denominator`,
+          previewHtml: raw`Expanding \(f(x)\) first makes the denominator integral clean and exact.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               f(x)=\frac{(x^2+3)^2}{3}
@@ -1844,25 +1936,59 @@
               f(x)=\frac{x^4}{3}+2x^2+3
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col"
-        }),
-        choiceStep("Find the hanging point", raw`What is the \(x\)-value of the hanging position?`, [
-          wrongChoice(raw`\[
-            \frac{16}{35}
-          \]`, raw`That is the reciprocal of the required ratio.`),
-          wrongChoice(raw`\[
-            \frac{189}{86.4}
-          \]`, raw`Those values are double the numerator and denominator, but the fraction still simplifies to the same point only if you continue simplifying.`),
-          correctChoice(raw`\[
+
+<p class="step-text">Expanding \(f(x)\) first makes the denominator integral clean and exact.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
+            \left[\frac{x^5}{15}+\frac{2x^3}{3}+3x\right]_0^3=43.2
+          \]
+</div>`
+        },
+        {
+          title: raw`Find the hanging point`,
+          previewHtml: raw`Dividing the weighted numerator by the area denominator gives \(x=\frac{35}{16}\).`,
+          workingHtml: raw`<p class="step-text">Dividing the weighted numerator by the area denominator gives \(x=\frac{35}{16}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
             \frac{35}{16}=2.1875
-          \]`, raw`Correct. Dividing the weighted numerator by the area denominator gives \(x=\frac{35}{16}\).`),
-          wrongChoice(raw`\[
-            \frac{43.2}{94.5}=0.457
-          \]`, raw`The formula places the numerator on top and the denominator underneath, not the other way around.`)
-        ], {
-          buttonGridClass: "button-grid two-col"
-        })
+          \]
+</div>
+
+        <p class="step-text">Evaluate the numerator:</p>
+        <div class="math-block">
+          \[
+          xf(x)=\frac{x(x^2+3)^2}{3}
+          \]
+          \[
+          \int_0^3 xf(x)\,dx
+          =
+          \left[\frac{(x^2+3)^3}{18}\right]_0^3
+          =94.5
+          \]
+        </div>
+        <p class="step-text">Now evaluate the denominator:</p>
+        <div class="math-block">
+          \[
+          f(x)=\frac{x^4}{3}+2x^2+3
+          \]
+          \[
+          \int_0^3 f(x)\,dx
+          =
+          \left[\frac{x^5}{15}+\frac{2x^3}{3}+3x\right]_0^3
+          =43.2
+          \]
+        </div>
+        <p class="step-text">Divide the two results:</p>
+        <div class="math-block">
+          \[
+          \frac{94.5}{43.2}=\frac{35}{16}=2.1875
+          \]
+        </div>
+        <p class="step-text">So the hanging point is at \(x=\frac{35}{16}\).</p>
+      `
+        }
       ]
     })
   };

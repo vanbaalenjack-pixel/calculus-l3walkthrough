@@ -29,7 +29,7 @@
       "description": "2022 NCEA Level 3 Differentiation AS91578 Question 3(b) worked solution: reading differentiability, derivatives, and limits from a graph. Use guided hints…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 3",
       "teaches": "reading differentiability, derivatives, and limits from a graph",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1>2022 NCEA Level 3 Differentiation Question 3(b)</h1>
-        <p class="subtitle">2022 Paper - Reading differentiability and limits from a graph</p>
+        <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
+        <h1 id="page-title">2022 NCEA Level 3 Differentiation Question 3(b)</h1>
+        <p id="page-subtitle" class="subtitle">2022 Paper - Reading differentiability and limits from a graph</p>
       </div>
-      <a class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,125 +119,9 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <p class="step-text">
-        The graph below shows the function \(y=f(x)\).
-      </p>
-      <div class="graph-frame question-graph-frame">
-        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 340" aria-label="Graph of a piecewise function with a hole at negative four, a corner at negative one, and a horizontal section for x greater than one" role="img"></svg>
-      </div>
-      <div class="question-math">
-        \[
-        \text{(i) Find the value(s) of } x \text{ where } f(x) \text{ is not differentiable.}
-        \]
-        \[
-        \text{(ii) Find the value(s) of } x \text{ for which } f'(x)=0.
-        \]
-        \[
-        \text{(iii) What is the value of } \lim_{x\to -4} f(x)\text{?}
-        \]
-      </div>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
-
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card">
-        <p class="step-number">Step 1</p>
-        <h2>Where is the graph not differentiable?</h2>
-        <p class="step-text">Look for holes, sharp corners, or jumps.</p>
-
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkNondiff('correct')">
-            \[
-            x=-4,\,-1,\text{ and }1
-            \]
-          </button>
-          <button class="option-btn" onclick="checkNondiff('wrong1')">
-            \[
-            x=-3,\,-1,\text{ and }1
-            \]
-          </button>
-        </div>
-
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Where is the derivative zero?</h2>
-        <p class="step-text">The derivative is zero where the graph has a horizontal tangent or is flat.</p>
-
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkDerivativeZero('correct')">
-            \[
-            x=-3 \text{ and all } x&gt;1
-            \]
-          </button>
-          <button class="option-btn" onclick="checkDerivativeZero('wrong1')">
-            \[
-            x=-3 \text{ and } x=1
-            \]
-          </button>
-        </div>
-
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Find the limit at \(x=-4\)</h2>
-        <p class="step-text">Even though the point is missing, follow the graph from both sides.</p>
-
-        <div class="button-grid">
-          <button class="option-btn" onclick="checkLimit('correct')">\(3\)</button>
-          <button class="option-btn" onclick="checkLimit('wrong1')">\(4\)</button>
-          <button class="option-btn" onclick="checkLimit('wrong2')">\(0\)</button>
-          <button class="option-btn" onclick="checkLimit('wrong3')">Does not exist</button>
-        </div>
-
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Final answers</h2>
-        <div class="math-block">
-          \[
-          \text{(i) } f(x)\text{ is not differentiable at } x=-4,\,-1,\text{ and }1
-          \]
-          \[
-          \text{(ii) } f'(x)=0 \text{ when } x=-3 \text{ and for all } x&gt;1
-          \]
-          \[
-          \text{(iii) } \lim_{x\to -4} f(x)=3
-          \]
-        </div>
-
-        <p class="step-text">
-          At \(x=-4\) there is a hole, so the function is not defined there. At \(x=-1\) and \(x=1\) there are sharp corners, so the derivative does not exist. The graph is flat at the turning point \(x=-3\) and on the horizontal ray for \(x&gt;1\).
-        </p>
-
-        <div class="nav-row">
-          <a class="nav-btn secondary" href="3a2022.html">← Back to Question 3(a)</a>
-          <a class="nav-btn" href="3c2022.html">Next question →</a>
-        </div>
-      </section>
-    </div>
+    <div id="walkthrough-content" class="hidden"></div>
 
     <!-- SEO:SUMMARY:START -->
     <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
@@ -261,16 +144,6 @@
   </main>
 
   <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
     const hintContent = [
       "Non-differentiable points often appear where the graph has a hole or a sharp corner.",
       "A derivative of zero means the graph is horizontal, either at a turning point or along a flat section.",
@@ -278,10 +151,8 @@
     ];
 
     document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
+      const raw = String.raw;
+      const answerHtml = `
           <p class="step-text">The answers are:</p>
           <div class="math-block">
             \\[
@@ -294,62 +165,119 @@
             \\text{(iii) } \\lim_{x\\to -4}f(x)=3
             \\]
           </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Locate the non-differentiable x-values`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Look for holes, sharp corners, or jumps.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
+            x=-4,\,-1,\text{ and }1
+            \]</div>
+        </div>
+
+      <p class="step-text">There is a hole at \(x=-4\), a corner at \(x=-1\), and another corner where the sloping segment meets the horizontal ray at \(x=1\).</p>
+          `
+        },
+        {
+          title: raw`Locate where the derivative is zero`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">The derivative is zero where the graph has a horizontal tangent or is flat.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
+            x=-3 \text{ and all } x&gt;1
+            \]</div>
+        </div>
+
+      <p class="step-text">The parabola has a horizontal tangent at \(x=-3\), and the function is flat for every \(x>1\).</p>
+          `
+        },
+        {
+          title: raw`Find the limit at \(x=-4\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Even though the point is missing, follow the graph from both sides.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\(3\)</div>
+        </div>
+
+      <p class="step-text">The graph approaches \(y=3\) from both sides of \(x=-4\), so the limit exists and equals 3.</p>
+          `
+        },
+        {
+          title: raw`Final results`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<div class="math-block">
+          \[
+          \text{(i) } f(x)\text{ is not differentiable at } x=-4,\,-1,\text{ and }1
+          \]
+          \[
+          \text{(ii) } f'(x)=0 \text{ when } x=-3 \text{ and for all } x&gt;1
+          \]
+          \[
+          \text{(iii) } \lim_{x\to -4} f(x)=3
+          \]
+        </div>
+
+        <p class="step-text">
+          At \(x=-4\) there is a hole, so the function is not defined there. At \(x=-1\) and \(x=1\) there are sharp corners, so the derivative does not exist. The graph is flat at the turning point \(x=-3\) and on the horizontal ray for \(x&gt;1\).
+        </p>
+          `
+        }
+      ];
+
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
+
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<p class="step-text">
+        The graph below shows the function \(y=f(x)\).
+      </p>
+      <div class="graph-frame question-graph-frame">
+        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 340" aria-label="Graph of a piecewise function with a hole at negative four, a corner at negative one, and a horizontal section for x greater than one" role="img"></svg>
+      </div>
+      <div class="question-math">
+        \[
+        \text{(i) Find the value(s) of } x \text{ where } f(x) \text{ is not differentiable.}
+        \]
+        \[
+        \text{(ii) Find the value(s) of } x \text{ for which } f'(x)=0.
+        \]
+        \[
+        \text{(iii) What is the value of } \lim_{x\to -4} f(x)\text{?}
+        \]
+      </div>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-3-differentiation-2022.html",
         nextHref: "3c2022.html",
-        nextLabel: "Next question →"
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "3a2022.html", label: "← Back to Question 3(a)" },
+          primary: { href: "3c2022.html", label: "Next question →" }
+        },
+        guidedSteps: guidedSteps,
+        afterRender: function () {
+          drawQuestionGraph();
+        }
+      }, {
+        defaultEyebrow: "Level 3 Differentiation Walkthrough"
       });
-      drawQuestionGraph();
     });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(step => step.classList.add("hidden"));
-      document.getElementById(stepId).classList.remove("hidden");
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) return;
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkNondiff(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. There is a hole at \\(x=-4\\), a corner at \\(x=-1\\), and another corner where the sloping segment meets the horizontal ray at \\(x=1\\).", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. The point \\(x=-3\\) is a smooth turning point, so it is differentiable there.");
-        toggleNextStepButton("next-step-1", false);
-      }
-    }
-
-    function checkDerivativeZero(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Yes. The parabola has a horizontal tangent at \\(x=-3\\), and the function is flat for every \\(x>1\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Close, but \\(x=1\\) is a corner, so the derivative does not exist there even though the graph becomes horizontal afterwards.");
-        toggleNextStepButton("next-step-2", false);
-      }
-    }
-
-    function checkLimit(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-3", "Correct. The graph approaches \\(y=3\\) from both sides of \\(x=-4\\), so the limit exists and equals 3.", true);
-        toggleNextStepButton("next-step-3", true);
-      } else {
-        setFeedback("feedback-3", "Not quite. A missing point does not stop the limit from existing if both sides approach the same \\(y\\)-value.");
-        toggleNextStepButton("next-step-3", false);
-      }
-    }
 
     function drawQuestionGraph() {
       const svg = document.getElementById("question-graph");

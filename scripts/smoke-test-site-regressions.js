@@ -446,9 +446,9 @@
       checks.standardAllYearsLinked = new Set(yearLinks.map(function (link) {
         return link.getAttribute("href");
       })).size === 9;
-      checks.standardEveryQuestionLinked = new Set(questionLinks.map(function (link) {
-        return link.getAttribute("href");
-      })).size === 135;
+      checks.standardHasNoDuplicateQuestionDirectory = questionLinks.length === 0
+        && !document.getElementById("all-walkthroughs-heading")
+        && !/Complete walkthrough directory/i.test(document.body.textContent);
       checks.standardReasoningVisible = /Achieved/.test(document.body.textContent) && /Merit/.test(document.body.textContent) && /Excellence/.test(document.body.textContent);
     } else {
       const questionLinks = Array.from(document.querySelectorAll('a[href^="complex-2022.html?q="]'));
@@ -469,10 +469,8 @@
   }
 
   function checkHintMath(checks, debug) {
-    const hintsButton = document.getElementById("show-hints-btn");
-    const hintsCard = document.getElementById("hints-card");
-    checks.hintsControlPresent = Boolean(hintsButton && hintsCard);
-    hintsButton.click();
+    const hintsCard = document.getElementById("tips-card") || document.getElementById("hints-card");
+    checks.hintsAvailable = Boolean(hintsCard);
     const unrenderedHints = findUnrenderedMathText(hintsCard);
     checks.hintsVisible = isVisible(hintsCard);
     checks.hintMathRendered = hintsCard.querySelectorAll(".katex").length > 0;
@@ -481,30 +479,33 @@
     debug.hintKatexCount = hintsCard.querySelectorAll(".katex").length;
   }
 
-  function checkFeedbackMath(checks, debug) {
-    const stepOneOptions = Array.from(document.querySelectorAll("#step-1 .option-btn"));
-    const stepTwoOptions = Array.from(document.querySelectorAll("#step-2 .option-btn"));
-    const feedbackOne = document.getElementById("feedback-1");
-    const feedbackTwo = document.getElementById("feedback-2");
-    checks.feedbackControlsPresent = stepOneOptions.length >= 2
-      && stepTwoOptions.length >= 1
-      && Boolean(feedbackOne)
-      && Boolean(feedbackTwo);
-    stepOneOptions[1].click();
-    const wrongKatex = feedbackOne.querySelectorAll(".katex").length;
-    const wrongUnrendered = findUnrenderedMathText(feedbackOne);
-    stepTwoOptions[0].click();
-    const correctKatex = feedbackTwo.querySelectorAll(".katex").length;
-    const correctUnrendered = findUnrenderedMathText(feedbackTwo);
-    checks.wrongFeedbackMathRendered = wrongKatex > 0 && wrongUnrendered.length === 0;
-    checks.correctFeedbackMathRendered = correctKatex >= 2 && correctUnrendered.length === 0;
-    debug.feedback = {
-      wrongKatex: wrongKatex,
-      wrongUnrendered: wrongUnrendered,
-      correctKatex: correctKatex,
-      correctUnrendered: correctUnrendered,
-      wrongText: feedbackOne.textContent.trim(),
-      correctText: feedbackTwo.textContent.trim()
+  function checkGuidedMath(checks, debug) {
+    const walkthrough = document.getElementById("walkthrough-content");
+    const steps = Array.from(document.querySelectorAll(".walkthrough-step-card"));
+    const firstWorkingButton = walkthrough && walkthrough.querySelector(".step-working-btn");
+    const assessmentControls = walkthrough
+      ? walkthrough.querySelectorAll("input[type='text'], input[type='radio'], textarea, select, .option-btn, .check-btn, .feedback")
+      : [];
+
+    checks.guidedStepsPresent = steps.length > 0;
+    checks.noAssessmentControls = assessmentControls.length === 0;
+    checks.noAssessmentCopy = !/Check answer|Try again|Choose (?:an answer|a method)|Submit answer/i.test(walkthrough ? walkthrough.textContent : "");
+    checks.workingTogglePresent = Boolean(firstWorkingButton);
+
+    if (firstWorkingButton) {
+      firstWorkingButton.click();
+    }
+
+    const currentWorking = walkthrough && walkthrough.querySelector(".walkthrough-step-card:not(.hidden) .walkthrough-step-working");
+    const unrenderedWorking = findUnrenderedMathText(walkthrough);
+    checks.workingRevealsWithoutAnswer = Boolean(currentWorking && isVisible(currentWorking));
+    checks.guidedMathRendered = walkthrough.querySelectorAll(".katex").length > 0;
+    checks.noUnrenderedGuidedMath = unrenderedWorking.length === 0;
+    debug.guided = {
+      stepCount: steps.length,
+      assessmentControlCount: assessmentControls.length,
+      katexCount: walkthrough.querySelectorAll(".katex").length,
+      unrenderedWorking: unrenderedWorking
     };
   }
 
@@ -548,8 +549,8 @@
       checks.renderedMathPage = document.querySelectorAll(".katex").length > 0;
     } else if (mode === "hint-math") {
       checkHintMath(checks, debug);
-    } else if (mode === "feedback-math") {
-      checkFeedbackMath(checks, debug);
+    } else if (mode === "guided-math") {
+      checkGuidedMath(checks, debug);
     } else {
       checks.knownMode = false;
     }

@@ -688,7 +688,7 @@
             \]
           </div>
         `),
-        guidedStep("Choose top minus bottom", raw`Area between curves is found by upper function minus lower function, and the left limit is the \(y\)-axis at \(x=0\).`, raw`
+        guidedStep("Subtract the lower curve from the upper curve", raw`Area between curves is found by upper function minus lower function, and the left limit is the \(y\)-axis at \(x=0\).`, raw`
           <p class="step-text">At \(x=0\), \(3e^x+10=13\) while \(e^{2x}=1\), so \(3e^x+10\) is above \(e^{2x}\) over the shaded region.</p>
           <div class="math-block">
             \[
@@ -1025,7 +1025,7 @@
             \]
           </div>
         `),
-        guidedStep("Choose the correct interval", raw`The 5th second runs from \(t=4\) to \(t=5\), so distance travelled is the integral of velocity over that interval.`, raw`
+        guidedStep("Use the fifth-second interval", raw`The 5th second runs from \(t=4\) to \(t=5\), so distance travelled is the integral of velocity over that interval.`, raw`
           <p class="step-text">The velocity is positive on this interval, so signed displacement and distance are the same here.</p>
           <div class="math-block">
             \[
@@ -1422,7 +1422,7 @@
             \]
           </div>
         `),
-        guidedStep("Choose top minus bottom", raw`On \(\left[-\frac{\pi}{2},\frac{\pi}{2}\right]\), \(\cos x \ge 0\), so \(x+\cos x\) lies above \(x\).`, raw`
+        guidedStep("Subtract the lower curve from the upper curve", raw`On \(\left[-\frac{\pi}{2},\frac{\pi}{2}\right]\), \(\cos x \ge 0\), so \(x+\cos x\) lies above \(x\).`, raw`
           <div class="math-block">
             \[
             A=\int_{-\pi/2}^{\pi/2}\bigl((x+\cos x)-x\bigr)\,dx

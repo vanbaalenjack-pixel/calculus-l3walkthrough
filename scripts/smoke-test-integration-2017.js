@@ -62,11 +62,11 @@
       checks.entryChoiceVisible = isVisible(panel && panel.querySelector(".paper-entry-choice"));
       checks.guidedStartRoute = Boolean(
         guidedLink
-        && /\/int-1a2017\.html\?mode=guided#question-1a$/.test(guidedLink.href)
+        && /\/int-1a2017\.html\?mode=guided$/.test(guidedLink.href)
       );
       checks.fifteenLinks = links.length === 15;
       checks.directRoutes = links.every(function (link) {
-        return /\/int-[123][a-e]2017\.html#question-[123][a-e]$/.test(link.href);
+        return /\/int-[123][a-e]2017\.html$/.test(link.href);
       });
 
       panel.querySelector("[data-paper-start-specific]").click();
@@ -109,7 +109,7 @@
       const graphSvgs = Array.from(document.querySelectorAll("svg.graph-svg"));
 
       checks.route = window.location.pathname.endsWith("/int-" + part + "2017.html")
-        && window.location.hash === "#question-" + part;
+        && window.location.hash === "";
       checks.redirectGuidedMode = mode !== "redirect"
         || new URLSearchParams(window.location.search).get("mode") === "guided";
       checks.dataLoaded = Boolean(
@@ -138,7 +138,7 @@
       );
       checks.sidebarNavigation = sidebarParts.length === 15 && sidebarYears.indexOf("2017") >= 0;
       checks.backToPaper = Boolean(
-        backLink && backLink.getAttribute("href") === "index.html#level-3-integration-2017"
+        backLink && backLink.getAttribute("href") === "level-3-integration-2017.html"
       );
       checks.settings = Boolean(
         document.getElementById("sticky-question-setting")
@@ -243,7 +243,7 @@
     const panel = document.getElementById("level-3-integration-2017");
     const specificQuestionButton = panel && panel.querySelector("[data-paper-start-specific]");
     const targetLink = panel && panel.querySelector(
-      'a[href="int-2c2017.html#question-2c"]'
+      'a[href="int-2c2017.html"]'
     );
 
     if (!specificQuestionButton || !targetLink) {
@@ -274,7 +274,7 @@
     const entryChoice = panel && panel.querySelector(".paper-entry-choice");
     const questionPicker = panel && panel.querySelector(".paper-question-picker");
     const targetLink = panel && panel.querySelector(
-      'a[href="int-2c2017.html#question-2c"]'
+      'a[href="int-2c2017.html"]'
     );
     const onQuestion = stage === "question-first"
       || stage === "question-reload"
@@ -288,7 +288,7 @@
       const graph = questionCard && questionCard.querySelector("svg.graph-svg");
 
       checks.questionRoute = window.location.pathname.endsWith("/int-2c2017.html")
-        && window.location.hash === "#question-2c";
+        && window.location.hash === "";
       checks.questionData = Boolean(
         window.Integration2017Walkthroughs
         && window.Integration2017Walkthroughs["2c"]

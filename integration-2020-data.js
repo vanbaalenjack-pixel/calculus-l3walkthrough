@@ -42,7 +42,7 @@
   }
 
   function pageHref(id) {
-    return "int-" + id + "2020.html#question-" + id;
+    return "int-" + id + "2020.html";
   }
 
   function adjacentId(id, offset) {

@@ -29,7 +29,7 @@
       "description": "2022 NCEA Level 3 Differentiation AS91578 Question 1(b) worked solution: finding and interpreting stationary points. Use guided hints and step-by-step…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 3",
       "teaches": "finding and interpreting stationary points",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1>2022 NCEA Level 3 Differentiation Question 1(b)</h1>
-        <p class="subtitle">2022 Paper - Stationary points</p>
+        <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
+        <h1 id="page-title">2022 NCEA Level 3 Differentiation Question 1(b)</h1>
+        <p id="page-subtitle" class="subtitle">2022 Paper - Stationary points</p>
       </div>
-      <a class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-3-differentiation-2022.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,123 +119,121 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <p class="step-text">
-        Find the \(x\)-value(s) of any stationary points on the graph of \(f(x)=\frac{x^2+1}{x}\).
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <p class="step-text question-note">
-        You must use calculus and show any derivatives that you need.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
+    <div id="walkthrough-content" class="hidden"></div>
 
-    <div id="walkthrough-content" class="hidden">
-    <section id="step-1" class="step-card">
-      <p class="step-number">Step 1</p>
-      <h2>What rule should we use?</h2>
-      <p class="step-text">This function is written as one expression divided by another.</p>
-
-      <div class="button-grid">
-        <button class="option-btn" onclick="checkRule('quotient')">Quotient rule</button>
-        <button class="option-btn" onclick="checkRule('product')">Product rule</button>
-        <button class="option-btn" onclick="checkRule('chain')">Chain rule</button>
-        <button class="option-btn" onclick="checkRule('implicit')">Implicit differentiation</button>
+    <!-- SEO:SUMMARY:START -->
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
+      <p class="question-label">Learning summary</p>
+      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
+      <p class="step-text" data-seo-summary>This walkthrough focuses on finding and interpreting stationary points. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+      <h3>Common mistake to avoid</h3>
+      <p class="step-text" data-seo-mistake>After solving the derivative condition, check the point&#x27;s nature and answer the conclusion the question actually asks for.</p>
+      <h3>Continue practising</h3>
+      <div class="nav-row">
+        <a class="nav-btn secondary" href="1a2022.html" data-seo-related="previous">← Question 1(a)</a>
+        <a class="nav-btn secondary" href="1c2022.html" data-seo-related="next">Question 1(c) →</a>
       </div>
-
-      <div id="feedback-1" class="feedback"></div>
-      <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-        Next step →
-      </button>
+      <ul class="step-text">
+        <li><a href="level-3-differentiation-2022.html" data-seo-related-year>All 2022 Differentiation walkthroughs</a></li>
+        <li><a href="level-3-differentiation.html" data-seo-standard-link>All AS91578 Differentiation years</a></li>
+      </ul>
     </section>
+    <!-- SEO:SUMMARY:END -->
+  </main>
 
-    <section id="step-2" class="step-card hidden">
-      <p class="step-number">Step 2</p>
-      <h2>Identify \(u\) and \(v\)</h2>
-      <p class="step-text">For the quotient rule, write the function as \(\frac{u}{v}\).</p>
+  <script>
+    const hintContent = [
+      "Stationary points happen where the gradient is zero, so you will need \\(f'(x)\\).",
+      "Because the function is a fraction, start by differentiating \\(\\frac{x^2+1}{x}\\) with the quotient rule.",
+      "After simplifying the derivative, set the numerator equal to zero and solve, while remembering \\(x\\neq 0\\)."
+    ];
 
-      <div class="button-grid two-col">
-        <button class="option-btn" onclick="checkParts('correct')">
-          \(u=x^2+1\), \(v=x\)
-        </button>
-        <button class="option-btn" onclick="checkParts('wrong1')">
-          \(u=x\), \(v=x^2+1\)
-        </button>
-      </div>
+    document.addEventListener("DOMContentLoaded", function () {
+      const raw = String.raw;
+      const answerHtml = `
+          <p class="step-text">The stationary points occur at these \\(x\\)-values:</p>
+          <div class="math-block">
+            \\[
+            x=-1 \\quad \\text{and} \\quad x=1
+            \\]
+          </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Identify the differentiation rule`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">This function is written as one expression divided by another.</p>
 
-      <div id="feedback-2" class="feedback"></div>
-      <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-        Next step →
-      </button>
-    </section>
 
-    <section id="step-3" class="step-card hidden">
-      <p class="step-number">Step 3</p>
-      <h2>Differentiate \(u\) and \(v\)</h2>
-      <p class="step-text">If \(u=x^2+1\) and \(v=x\), what are \(u'\) and \(v'\)?</p>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">Quotient rule</div>
+        </div>
 
-      <div class="math-input-group">
-        <input
-          id="step-3-answer"
-          class="math-answer-input"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Type u prime and v prime"
-          placeholder="Type your answer here"
-        />
-        <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-        <button class="nav-btn check-btn" type="button" onclick="checkDerivatives()">
-          Check
-        </button>
-      </div>
+      <p class="step-text">This is a quotient, so the quotient rule is the best method here.</p>
+          `
+        },
+        {
+          title: raw`Identify \(u\) and \(v\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">For the quotient rule, write the function as \(\frac{u}{v}\).</p>
 
-      <div id="feedback-3" class="feedback"></div>
-      <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-        Next step →
-      </button>
-    </section>
 
-    <section id="step-4" class="step-card hidden">
-      <p class="step-number">Step 4</p>
-      <h2>Apply the quotient rule</h2>
-      <p class="step-text">
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\(u=x^2+1\), \(v=x\)</div>
+        </div>
+
+      <p class="step-text">Here, \(u=x^2+1\) and \(v=x\).</p>
+          `
+        },
+        {
+          title: raw`Differentiate \(u\) and \(v\)`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Differentiate \(u=x^2+1\) and \(v=x\) separately.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            2 x,\ 1
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">\(u'=2x\) and \(v'=1\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Apply the quotient rule`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">
         Use \(\frac{d}{dx}\left(\frac{u}{v}\right)=\frac{vu'-uv'}{v^2}\).
       </p>
 
-      <div class="math-input-group">
-        <input
-          id="step-4-answer"
-          class="math-answer-input"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Type the derivative from the quotient rule"
-          placeholder="Type your answer here"
-        />
-        <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-        <button class="nav-btn check-btn" type="button" onclick="checkQuotient()">
-          Check
-        </button>
-      </div>
 
-      <div id="feedback-4" class="feedback"></div>
-      <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-        Next step →
-      </button>
-    </section>
-
-    <section id="step-5" class="step-card hidden">
-      <p class="step-number">Step 5</p>
-      <h2>Find where the derivative is zero</h2>
-      <p class="step-text">
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            \frac{\left(x \left(2 x\right) - \left(x^{2} + 1\right)\right)}{x^{2}}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Substitute \(u\), \(v\), \(u'\), and \(v'\) carefully into the quotient rule.</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Find where the derivative is zero`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">
         After simplifying, we get
       </p>
 
@@ -246,25 +243,22 @@
         \]
       </div>
 
-      <p class="step-text">For a stationary point, which part must equal zero?</p>
+      <p class="step-text">Set the numerator equal to zero, since the denominator is non-zero on the function domain.</p>
 
-      <div class="button-grid">
-        <button class="option-btn" onclick="checkStationary('correct')">The numerator</button>
-        <button class="option-btn" onclick="checkStationary('wrong1')">The denominator</button>
-        <button class="option-btn" onclick="checkStationary('wrong2')">Both parts</button>
-        <button class="option-btn" onclick="checkStationary('wrong3')">Neither part</button>
-      </div>
 
-      <div id="feedback-5" class="feedback"></div>
-      <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
-        Next step →
-      </button>
-    </section>
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">The numerator</div>
+        </div>
 
-    <section id="step-6" class="step-card hidden">
-      <p class="step-number">Step 6</p>
-      <h2>Solve for the stationary points</h2>
-      <p class="step-text">Set the numerator equal to zero and solve.</p>
+      <p class="step-text">A fraction is zero when its numerator is zero, as long as the denominator is not zero.</p>
+          `
+        },
+        {
+          title: raw`Solve for the stationary points`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Set the numerator equal to zero and solve.</p>
 
       <div class="math-block">
         \[
@@ -275,33 +269,23 @@
         \]
       </div>
 
-      <div class="math-input-group">
-        <input
-          id="step-6-answer"
-          class="math-answer-input"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Type the stationary x values"
-          placeholder="Type your answer here"
-        />
-        <div id="step-6-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-        <button class="nav-btn check-btn" type="button" onclick="checkSolutions()">
-          Check
-        </button>
-      </div>
 
-      <div id="feedback-6" class="feedback"></div>
-      <button id="next-step-6" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-7')">
-        Next step →
-      </button>
-    </section>
-
-    <section id="step-7" class="step-card hidden">
-      <p class="step-number">Step 7</p>
-      <h2>Final answer and graph</h2>
-      <p class="step-text">
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            -1,\ 1
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Solving \(x^2-1=0\) gives \(x=1\) and \(x=-1\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Final result and graph`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">
         So, the stationary points happen at the <strong>x-values</strong> \(\,x=-1\,\) and \(\,x=1\).
       </p>
 
@@ -331,193 +315,39 @@
           <svg id="stationary-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of (x squared plus 1) over x" role="img"></svg>
         </div>
       </div>
+          `
+        }
+      ];
 
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="1a2022.html">← Back to Question 1(a)</a>
-        <a class="nav-btn" href="1c2022.html">Next question →</a>
-      </div>
-    </section>
-    </div>
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
 
-    <!-- SEO:SUMMARY:START -->
-    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-      <p class="question-label">Learning summary</p>
-      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough focuses on finding and interpreting stationary points. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>After solving the derivative condition, check the point&#x27;s nature and answer the conclusion the question actually asks for.</p>
-      <h3>Continue practising</h3>
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="1a2022.html" data-seo-related="previous">← Question 1(a)</a>
-        <a class="nav-btn secondary" href="1c2022.html" data-seo-related="next">Question 1(c) →</a>
-      </div>
-      <ul class="step-text">
-        <li><a href="level-3-differentiation-2022.html" data-seo-related-year>All 2022 Differentiation walkthroughs</a></li>
-        <li><a href="level-3-differentiation.html" data-seo-standard-link>All AS91578 Differentiation years</a></li>
-      </ul>
-    </section>
-    <!-- SEO:SUMMARY:END -->
-  </main>
-
-  <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
-    const hintContent = [
-      "Stationary points happen where the gradient is zero, so you will need \\(f'(x)\\).",
-      "Because the function is a fraction, start by differentiating \\(\\frac{x^2+1}{x}\\) with the quotient rule.",
-      "After simplifying the derivative, set the numerator equal to zero and solve, while remembering \\(x\\neq 0\\)."
-    ];
-
-    document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
-          <p class="step-text">The stationary points occur at these \\(x\\)-values:</p>
-          <div class="math-block">
-            \\[
-            x=-1 \\quad \\text{and} \\quad x=1
-            \\]
-          </div>
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<p class="step-text">
+        Find the \(x\)-value(s) of any stationary points on the graph of \(f(x)=\frac{x^2+1}{x}\).
+      </p>
+      <p class="step-text question-note">
+        You must use calculus and show any derivatives that you need.
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-3-differentiation-2022.html",
         nextHref: "1c2022.html",
-        nextLabel: "Next question →"
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "1a2022.html", label: "← Back to Question 1(a)" },
+          primary: { href: "1c2022.html", label: "Next question →" }
+        },
+        guidedSteps: guidedSteps,
+        afterRender: function () {
+          setupGraphControls();
+          drawGraph();
+        }
+      }, {
+        defaultEyebrow: "Level 3 Differentiation Walkthrough"
       });
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview", { mode: "list" });
-      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
-      TypedMath.setupMathInputPreview("step-6-answer", "step-6-preview", { mode: "list" });
-      TypedMath.bindMathInputCheck("step-3-answer", checkDerivatives);
-      TypedMath.bindMathInputCheck("step-4-answer", checkQuotient);
-      TypedMath.bindMathInputCheck("step-6-answer", checkSolutions);
-      setupGraphControls();
-      drawGraph();
     });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(step => step.classList.add("hidden"));
-      document.getElementById(stepId).classList.remove("hidden");
-      if (stepId === "step-7") {
-        drawGraph();
-      }
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) return;
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkRule(answer) {
-      if (answer === "quotient") {
-        setFeedback("feedback-1", "Correct. This is a quotient, so the quotient rule is the best method here.", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. The function is one expression divided by another, so think about the quotient rule.");
-        toggleNextStepButton("next-step-1", false);
-      }
-    }
-
-    function checkParts(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-2", "Yes. Here, \\(u=x^2+1\\) and \\(v=x\\).", true);
-        toggleNextStepButton("next-step-2", true);
-      } else {
-        setFeedback("feedback-2", "Try again. The numerator is the top expression, and the denominator is the bottom expression.");
-        toggleNextStepButton("next-step-2", false);
-      }
-    }
-
-    function checkDerivatives() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        mode: "list",
-        options: {
-          ordered: true
-        },
-        acceptedAnswers: ["2x,1"],
-        samples: [{ x: 2 }, { x: -1 }],
-        successMessage: "Correct. \\(u'=2x\\) and \\(v'=1\\).",
-        genericMessage: "Not quite. Differentiate \\(x^2+1\\) and \\(x\\) separately using the power rule.",
-        targetedFeedback: [
-          {
-            mode: "list",
-            options: {
-              ordered: true
-            },
-            answers: ["x^2,x"],
-            message: "Those are the original expressions. Differentiate \\(x^2+1\\) and \\(x\\) separately using the power rule."
-          }
-        ]
-      });
-    }
-
-    function checkQuotient() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-4-answer",
-        feedbackId: "feedback-4",
-        nextButtonId: "next-step-4",
-        acceptedAnswers: ["(x(2x)-(x^2+1))/x^2"],
-        samples: [{ x: 2 }, { x: -1 }],
-        successMessage: "Correct. Substitute \\(u\\), \\(v\\), \\(u'\\), and \\(v'\\) carefully into the quotient rule.",
-        genericMessage: "Not quite. The quotient rule needs the full numerator \\(vu'-uv'\\), all over \\(v^2\\).",
-        targetedFeedback: [
-          {
-            answers: ["2x/x"],
-            message: "Not quite. The quotient rule needs the full numerator \\(vu'-uv'\\), all over \\(v^2\\)."
-          }
-        ]
-      });
-    }
-
-    function checkStationary(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Exactly. A fraction is zero when its numerator is zero, as long as the denominator is not zero.", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Try again. For \\(\\frac{x^2-1}{x^2}=0\\), the top line must equal zero.");
-        toggleNextStepButton("next-step-5", false);
-      }
-    }
-
-    function checkSolutions() {
-      return TypedMath.checkTypedStep({
-        inputId: "step-6-answer",
-        feedbackId: "feedback-6",
-        nextButtonId: "next-step-6",
-        mode: "list",
-        options: {
-          ordered: false
-        },
-        acceptedAnswers: ["-1,1"],
-        successMessage: "Great work. Solving \\(x^2-1=0\\) gives \\(x=1\\) and \\(x=-1\\).",
-        genericMessage: "Not quite. Factor \\(x^2-1\\) as \\((x-1)(x+1)\\) and solve each factor.",
-        targetedFeedback: [
-          {
-            answers: ["0"],
-            message: "Not quite. Factor \\(x^2-1\\) as \\((x-1)(x+1)\\) and solve each factor."
-          }
-        ]
-      });
-    }
 
     function setupGraphControls() {
       const zoomSlider = document.getElementById("zoom-slider");

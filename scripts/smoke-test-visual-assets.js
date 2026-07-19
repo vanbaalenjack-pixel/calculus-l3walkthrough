@@ -91,13 +91,7 @@
   }
 
   function exerciseWalkthroughControls() {
-    clickSafeButton("#show-hints-btn");
-    clickSafeButton("#show-walkthrough-btn");
-
     Array.from(document.querySelectorAll("[data-working-step]"))
-      .forEach(clickButtonElement);
-
-    Array.from(document.querySelectorAll(".next-step-btn"))
       .forEach(clickButtonElement);
 
     let guard = 0;
@@ -128,8 +122,6 @@
           tab.click();
         }
       });
-
-    clickSafeButton("#show-answer-btn");
   }
 
   function revealKnownWalkthroughContainers() {
@@ -141,8 +133,6 @@
       ".hint-body",
       ".walkthrough-step-card",
       ".walkthrough-step-working",
-      ".legacy-managed-step",
-      ".legacy-step-working",
       ".step-card",
       ".graph-card",
       "[role='tabpanel']"

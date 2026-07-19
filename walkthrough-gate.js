@@ -1166,7 +1166,7 @@ function getWalkthroughSeoDescription(context) {
     + context.standard.standardNumber
     + " "
     + walkthroughQuestionLabel(context.partId, context.paper)
-    + " with guided hints, method-focused feedback, and a step-by-step solution.";
+    + " with guided hints, method explanations, and a step-by-step solution.";
 }
 
 function ensureWalkthroughSeoMeta(attribute, key, value) {
@@ -1302,7 +1302,7 @@ function buildWalkthroughSeoStructuredData(context, title, description, canonica
         name: title,
         description: description,
         inLanguage: "en-NZ",
-        learningResourceType: "Interactive worked solution",
+        learningResourceType: "Guided worked solution",
         educationalLevel: "NCEA " + context.level.label,
         mainEntityOfPage: canonicalUrl,
         author: {
@@ -2466,446 +2466,6 @@ function moveQuestionSupportToTips(questionCard, tipsCard) {
   });
 }
 
-function attachLegacySingleStepNavigation(walkthroughContent, options) {
-  if (!walkthroughContent || walkthroughContent.dataset.singleStepSetup === "true") {
-    return;
-  }
-
-  const stepCards = Array.from(walkthroughContent.querySelectorAll(":scope > .step-card"));
-  if (!stepCards.length) {
-    return;
-  }
-
-  const settings = options || {};
-  walkthroughContent.dataset.singleStepSetup = "true";
-  let currentStepIndex = Math.max(stepCards.findIndex(function (stepCard) {
-    return !stepCard.classList.contains("hidden");
-  }), 0);
-
-  function moveToStep(stepCard, shouldFocus) {
-    if (!stepCard) {
-      return;
-    }
-
-    const heading = stepCard.querySelector(":scope > h2");
-    if (heading && !heading.hasAttribute("tabindex")) {
-      heading.setAttribute("tabindex", "-1");
-    }
-
-    window.setTimeout(function () {
-      window.scrollTo({
-        top: getWalkthroughPageScrollTop(stepCard),
-        behavior: window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "auto"
-          : "smooth"
-      });
-
-      if (shouldFocus && heading) {
-        try {
-          heading.focus({ preventScroll: true });
-        } catch (error) {
-          heading.focus();
-        }
-      }
-    }, 0);
-  }
-
-  function showStep(stepIndex, shouldMove) {
-    if (stepIndex < 0 || stepIndex >= stepCards.length) {
-      return;
-    }
-
-    currentStepIndex = stepIndex;
-    stepCards.forEach(function (stepCard, index) {
-      const isCurrent = index === currentStepIndex;
-      stepCard.classList.toggle("hidden", !isCurrent);
-      stepCard.setAttribute("aria-hidden", isCurrent ? "false" : "true");
-
-      const previousButton = stepCard.querySelector("[data-legacy-previous-step]");
-      if (previousButton) {
-        previousButton.disabled = index === 0;
-      }
-    });
-
-    if (shouldMove !== false) {
-      moveToStep(stepCards[currentStepIndex], true);
-    }
-  }
-
-  stepCards.forEach(function (stepCard, stepIndex) {
-    const stepLabel = stepCard.querySelector(":scope > .step-number");
-    const heading = stepCard.querySelector(":scope > h2");
-    const originalChildren = Array.from(stepCard.children);
-    const workingPanel = document.createElement("div");
-    const workingActions = document.createElement("div");
-    const workingButton = document.createElement("button");
-    const navigation = document.createElement("nav");
-    const previousButton = document.createElement("button");
-    const progress = document.createElement("span");
-
-    stepCard.classList.add("legacy-managed-step");
-    stepCard.setAttribute("aria-hidden", stepIndex === currentStepIndex ? "false" : "true");
-
-    workingPanel.className = "legacy-step-working hidden";
-    workingPanel.id = "legacy-step-working-" + (stepIndex + 1);
-    originalChildren.forEach(function (child) {
-      if (child !== stepLabel && child !== heading) {
-        workingPanel.appendChild(child);
-      }
-    });
-
-    workingActions.className = "walkthrough-step-actions legacy-working-actions";
-    workingButton.className = "nav-btn secondary legacy-working-toggle";
-    workingButton.type = "button";
-    workingButton.textContent = "Show working";
-    workingButton.setAttribute("aria-controls", workingPanel.id);
-    workingButton.setAttribute("aria-expanded", "false");
-    workingButton.addEventListener("click", function () {
-      const shouldShow = workingPanel.classList.contains("hidden");
-      workingPanel.classList.toggle("hidden", !shouldShow);
-      workingPanel.classList.toggle("is-visible", shouldShow);
-      stepCard.dataset.workingVisible = shouldShow ? "true" : "false";
-      workingButton.textContent = shouldShow ? "Hide working" : "Show working";
-      workingButton.setAttribute("aria-expanded", shouldShow ? "true" : "false");
-    });
-    workingActions.appendChild(workingButton);
-
-    navigation.className = "legacy-step-navigation";
-    navigation.setAttribute("aria-label", "Walkthrough step navigation");
-    previousButton.className = "nav-btn secondary legacy-previous-btn";
-    previousButton.type = "button";
-    previousButton.dataset.legacyPreviousStep = String(stepIndex - 1);
-    previousButton.textContent = "← Previous step";
-    previousButton.disabled = stepIndex === 0;
-    previousButton.addEventListener("click", function () {
-      showStep(stepIndex - 1);
-    });
-    progress.className = "legacy-step-progress";
-    progress.textContent = "Step " + (stepIndex + 1) + " of " + stepCards.length;
-
-    navigation.appendChild(previousButton);
-    navigation.appendChild(progress);
-
-    const originalNextButton = workingPanel.querySelector(".next-step-btn");
-    if (originalNextButton) {
-      originalNextButton.classList.remove("hidden");
-      originalNextButton.textContent = "Next step →";
-      originalNextButton.removeAttribute("onclick");
-      originalNextButton.addEventListener("click", function () {
-        showStep(stepIndex + 1);
-      });
-      navigation.appendChild(originalNextButton);
-    } else if (stepIndex === stepCards.length - 1 && typeof settings.onComplete === "function") {
-      const completeButton = document.createElement("button");
-      completeButton.className = "nav-btn legacy-complete-btn";
-      completeButton.type = "button";
-      completeButton.textContent = "Show final answer";
-      completeButton.addEventListener("click", settings.onComplete);
-      navigation.appendChild(completeButton);
-    }
-
-    stepCard.appendChild(workingActions);
-    stepCard.appendChild(workingPanel);
-    stepCard.appendChild(navigation);
-  });
-
-  window.showOnlyStep = function showManagedLegacyStep(stepId) {
-    const stepIndex = stepCards.findIndex(function (stepCard) {
-      return stepCard.id === stepId;
-    });
-    showStep(stepIndex);
-  };
-
-  carryGuidedModeToQuestionLinks(walkthroughContent);
-  showStep(currentStepIndex, false);
-}
-
-function initializeWalkthroughGate(config) {
-  ensureSiteHeader();
-  ensureWalkthroughSidebar(config);
-
-  const hintsCard = document.getElementById("hints-card");
-  const walkthroughContent = document.getElementById("walkthrough-content");
-  const initialQuestionCard = document.querySelector(".sticky-question-card")
-    || document.getElementById("question-card")
-    || document.querySelector(".question-card");
-  const tipsCard = ensureTipsCard(initialQuestionCard, walkthroughContent);
-  const controlsSection = ensureControlsSection(tipsCard, walkthroughContent);
-
-  moveQuestionSupportToTips(initialQuestionCard, tipsCard);
-  ensureStickyQuestionPreferenceControl(initialQuestionCard);
-  setupQuestionCardSticky(initialQuestionCard);
-  setupQuestionImageZoom(initialQuestionCard);
-
-  let showHintsButton = document.getElementById("show-hints-btn");
-  const pageBackLink = document.getElementById("back-link");
-
-  if (
-    !hintsCard ||
-    !walkthroughContent ||
-    !controlsSection ||
-    !config ||
-    !Array.isArray(config.hints) ||
-    !config.answerHtml ||
-    !config.nextHref ||
-    !config.nextLabel
-  ) {
-    return;
-  }
-
-  function placeHintsAfterWalkthrough() {
-    if (!hintsCard.parentNode || hintsCard.parentNode !== walkthroughContent.parentNode) {
-      return;
-    }
-
-    if (walkthroughContent.nextElementSibling !== hintsCard) {
-      walkthroughContent.parentNode.insertBefore(hintsCard, walkthroughContent.nextSibling);
-    }
-  }
-
-  placeHintsAfterWalkthrough();
-
-  // Force the initial closed state in case the browser restores prior page state.
-  hintsCard.classList.add("hidden");
-  walkthroughContent.classList.add("hidden");
-
-  if (!showHintsButton) {
-    showHintsButton = createShowHintsButton();
-  }
-
-  showHintsButton.classList.remove("hidden");
-
-  function normaliseActionLabel(value) {
-    return (value || "").replace(/[←→]/g, "").replace(/\s+/g, " ").trim();
-  }
-
-  const answerButtonLabel = config.answerButtonLabel || "Show answer";
-  const answerSectionLabel = config.answerSectionLabel || "Answer";
-  const walkthroughButtonLabel = config.walkthroughButtonLabel || "Show full walkthrough";
-
-  function getEntryNavigation() {
-    const secondary = config.backHref
-      ? {
-        href: config.backHref,
-        label: config.backLabel || "← Back to paper"
-      }
-      : null;
-    const nextLabel = normaliseActionLabel(config.nextLabel);
-    const primary = config.nextHref
-      && config.nextLabel
-      && (
-        /next question/i.test(nextLabel)
-        || config.nextHref !== config.backHref
-      )
-      ? {
-        href: getGuidedWalkthroughHref(config.nextHref),
-        label: config.nextLabel
-      }
-      : null;
-
-    return { secondary: secondary, primary: primary };
-  }
-
-  function createShowHintsButton() {
-    const button = document.createElement("button");
-    button.id = "show-hints-btn";
-    button.className = "nav-btn secondary";
-    button.type = "button";
-    button.textContent = "Show hints";
-    return button;
-  }
-
-  function addEntryActions() {
-    if (!controlsSection || controlsSection.querySelector(".question-entry-actions")) {
-      return;
-    }
-
-    if (!showHintsButton) {
-      showHintsButton = createShowHintsButton();
-    }
-
-    const entryNavigation = getEntryNavigation();
-    const actionRow = document.createElement("div");
-    actionRow.className = "gate-actions question-entry-actions";
-
-    showHintsButton.classList.add("secondary");
-    showHintsButton.classList.remove("hidden");
-    actionRow.appendChild(showHintsButton);
-
-    if (entryNavigation.secondary) {
-      const secondaryLink = document.createElement("a");
-      secondaryLink.className = "nav-btn secondary";
-      secondaryLink.href = entryNavigation.secondary.href;
-      secondaryLink.textContent = entryNavigation.secondary.label;
-      actionRow.appendChild(secondaryLink);
-    }
-
-    if (entryNavigation.primary) {
-      const primaryLink = document.createElement("a");
-      primaryLink.className = "nav-btn";
-      primaryLink.href = entryNavigation.primary.href;
-      primaryLink.textContent = entryNavigation.primary.label;
-      actionRow.appendChild(primaryLink);
-    }
-
-    controlsSection.appendChild(actionRow);
-
-    if (pageBackLink) {
-      pageBackLink.classList.remove("hidden");
-    }
-  }
-
-  hintsCard.innerHTML = `
-    <p class="question-label">Hints</p>
-    <p class="step-text hint-intro">Open these one step at a time if you want a nudge before using the full walkthrough.</p>
-    <div class="hint-list">
-      ${config.hints.map((hint, index) => `
-        <div class="hint-item">
-          <p class="step-number">Hint ${index + 1}</p>
-          <button class="nav-btn secondary hint-toggle-btn${index > 0 ? " hidden" : ""}" type="button" data-hint-index="${index}">
-            Show hint ${index + 1}
-          </button>
-          <div class="hint-body hidden" id="hint-body-${index}">
-            <p class="step-text">${hint}</p>
-          </div>
-        </div>
-      `).join("")}
-    </div>
-    <div class="gate-actions">
-      <button id="show-walkthrough-btn" class="nav-btn" type="button">${walkthroughButtonLabel}</button>
-      <button id="show-answer-btn" class="nav-btn secondary" type="button">${answerButtonLabel}</button>
-      <a id="next-question-link" class="nav-btn hidden" href="${getGuidedWalkthroughHref(config.nextHref)}">${config.nextLabel}</a>
-    </div>
-    <div id="answer-card" class="hint-item hidden">
-      <p class="step-number">${answerSectionLabel}</p>
-      <div class="hint-body">
-        ${config.answerHtml}
-      </div>
-    </div>
-  `;
-
-  if (typeof renderMath === "function") {
-    renderMath(hintsCard);
-  }
-
-  const showWalkthroughButton = document.getElementById("show-walkthrough-btn");
-  const showAnswerButton = document.getElementById("show-answer-btn");
-  const nextQuestionLink = document.getElementById("next-question-link");
-  const answerCard = document.getElementById("answer-card");
-  const hintToggleButtons = hintsCard.querySelectorAll(".hint-toggle-btn");
-
-  function ensureHintsVisible() {
-    hintsCard.classList.remove("hidden");
-    showHintsButton.classList.add("hidden");
-  }
-
-  function revealHints(shouldFocus) {
-    ensureHintsVisible();
-    if (shouldFocus !== false) {
-      focusRevealedContent(hintsCard);
-    }
-  }
-
-  function revealWalkthrough(shouldFocus) {
-    ensureHintsVisible();
-    addWalkthroughSkipButtons();
-    attachLegacySingleStepNavigation(walkthroughContent, { onComplete: revealAnswer });
-    walkthroughContent.classList.remove("hidden");
-    showWalkthroughButton.classList.add("hidden");
-    if (shouldFocus !== false) {
-      focusRevealedContent(walkthroughContent);
-    }
-  }
-
-  function revealAnswer() {
-    ensureHintsVisible();
-    answerCard.classList.remove("hidden");
-    showAnswerButton.classList.add("hidden");
-    if (nextQuestionLink.parentNode !== answerCard) {
-      nextQuestionLink.classList.add("answer-next-link");
-      answerCard.appendChild(nextQuestionLink);
-    }
-    nextQuestionLink.classList.remove("hidden");
-    markCurrentWalkthroughPartComplete();
-    if (typeof renderMath === "function") {
-      renderMath(answerCard);
-    }
-    focusRevealedContent(answerCard);
-  }
-
-  addEntryActions();
-  setupExamModeControls({
-    questionCard: initialQuestionCard,
-    hiddenElements: [tipsCard, hintsCard, controlsSection, walkthroughContent],
-    onReveal: function () {
-      revealWalkthrough();
-    }
-  });
-
-  function addWalkthroughSkipButtons() {
-    const stepCards = walkthroughContent.querySelectorAll(".step-card");
-
-    stepCards.forEach(function (stepCard) {
-      if (stepCard.querySelector(".walkthrough-step-actions")) {
-        return;
-      }
-
-      const actionRow = document.createElement("div");
-      actionRow.className = "walkthrough-step-actions";
-
-      const skipButton = document.createElement("button");
-      skipButton.type = "button";
-      skipButton.className = "nav-btn secondary";
-      skipButton.textContent = "Skip to answer";
-      skipButton.addEventListener("click", revealAnswer);
-
-      actionRow.appendChild(skipButton);
-
-      const insertionTarget = stepCard.querySelector(".next-step-btn, .nav-row");
-      if (insertionTarget) {
-        stepCard.insertBefore(actionRow, insertionTarget);
-      } else {
-        stepCard.appendChild(actionRow);
-      }
-    });
-  }
-
-  hintToggleButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      const hintIndex = Number(button.dataset.hintIndex);
-      const hintBody = document.getElementById(`hint-body-${hintIndex}`);
-      if (!hintBody) {
-        return;
-      }
-
-      hintBody.classList.remove("hidden");
-      button.classList.add("hidden");
-
-      const nextButton = hintsCard.querySelector(`[data-hint-index="${hintIndex + 1}"]`);
-      if (nextButton) {
-        nextButton.classList.remove("hidden");
-      }
-      focusRevealedContent(hintBody);
-    });
-  });
-
-  showHintsButton.addEventListener("click", function () {
-    revealHints();
-  });
-
-  showWalkthroughButton.addEventListener("click", function () {
-    revealWalkthrough();
-  });
-
-  showAnswerButton.addEventListener("click", function () {
-    revealAnswer();
-  });
-
-  if (isGuidedWalkthroughMode()) {
-    revealWalkthrough(false);
-  }
-}
-
 function getOrCreateWalkthroughTipsCard(questionCard, walkthroughContent) {
   const existingTipsCard = document.getElementById("tips-card") || document.getElementById("hints-card");
 
@@ -2941,362 +2501,21 @@ function normaliseRichTextBlock(html, className) {
   return `<p class="${className || "step-text"}">${value}</p>`;
 }
 
-function getCorrectChoice(step) {
-  if (!step || !Array.isArray(step.choices)) {
-    return null;
-  }
-
-  return step.choices.find(function (choice) {
-    return Boolean(choice && choice.correct);
-  }) || null;
-}
-
-function buildAnswerHighlight(label, html) {
-  const content = String(html || "").trim();
-
-  if (!content) {
-    return "";
-  }
-
-  return `
-    <div class="answer-highlight walkthrough-answer-highlight">
-      <p class="question-label">${label || "Key result"}</p>
-      ${content}
-    </div>
-  `;
-}
-
-function formatGraphCoordinate(value) {
-  return Number(Number(value).toFixed(2));
-}
-
-function createPlotScale(width, height, padding, xMin, xMax, yMin, yMax) {
-  return {
-    x: function (value) {
-      return formatGraphCoordinate(
-        padding + ((value - xMin) / (xMax - xMin)) * (width - padding * 2)
-      );
-    },
-    y: function (value) {
-      return formatGraphCoordinate(
-        height - padding - ((value - yMin) / (yMax - yMin)) * (height - padding * 2)
-      );
-    }
-  };
-}
-
-function plotLineMarkup(scale, x1, y1, x2, y2, className, extra) {
-  return `<line class="${className}" x1="${scale.x(x1)}" y1="${scale.y(y1)}" x2="${scale.x(x2)}" y2="${scale.y(y2)}"${extra || ""}></line>`;
-}
-
-function plotCircleMarkup(scale, x, y, radius, className, extra) {
-  return `<circle class="${className}" cx="${scale.x(x)}" cy="${scale.y(y)}" r="${radius}"${extra || ""}></circle>`;
-}
-
-function plotTextMarkup(scale, x, y, text, className, extra) {
-  return `<text class="${className}" x="${scale.x(x)}" y="${scale.y(y)}"${extra || ""}>${text}</text>`;
-}
-
-function buildLegacyPlotHtml(step) {
-  const plot = step && step.plot;
-
-  if (!plot) {
-    return "";
-  }
-
-  const width = plot.width || 420;
-  const height = plot.height || 420;
-  const padding = plot.padding || 28;
-  const xMin = plot.xMin == null ? -6.5 : plot.xMin;
-  const xMax = plot.xMax == null ? 6.5 : plot.xMax;
-  const yMin = plot.yMin == null ? -6.5 : plot.yMin;
-  const yMax = plot.yMax == null ? 6.5 : plot.yMax;
-  const scale = createPlotScale(width, height, padding, xMin, xMax, yMin, yMax);
-  const gridLines = [];
-
-  for (let x = Math.ceil(xMin); x <= Math.floor(xMax); x += 1) {
-    gridLines.push(plotLineMarkup(scale, x, yMin + 0.5, x, yMax - 0.5, "graph-grid-line"));
-  }
-
-  for (let y = Math.ceil(yMin); y <= Math.floor(yMax); y += 1) {
-    gridLines.push(plotLineMarkup(scale, xMin + 0.5, y, xMax - 0.5, y, "graph-grid-line"));
-  }
-
-  const fixedPoints = (plot.points || []).map(function (point) {
-    const labelX = point.labelX == null ? point.x + 0.22 : point.labelX;
-    const labelY = point.labelY == null ? point.y + 0.22 : point.labelY;
-
-    return plotCircleMarkup(scale, point.x, point.y, 5, point.className || "graph-point")
-      + plotTextMarkup(scale, labelX, labelY, point.label, "graph-label");
-  }).join("");
-
-  const targetLabel = plot.draggableLabel || "z";
-  const targetLabelX = plot.targetLabelX == null ? Number(plot.targetX) + 0.22 : plot.targetLabelX;
-  const targetLabelY = plot.targetLabelY == null ? Number(plot.targetY) - 0.18 : plot.targetLabelY;
-  const accessibleLabel = (plot.ariaLabel || "Argand diagram")
-    .replace(/^Interactive /, "")
-    .replace(/ with a draggable point for /, " with the answer point for ");
-
-  return `
-    <div class="graph-frame question-graph-frame walkthrough-plot-frame">
-      <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="${accessibleLabel}">
-        <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
-        ${gridLines.join("")}
-        ${plotLineMarkup(scale, xMin + 0.5, 0, xMax - 0.5, 0, "graph-axis")}
-        ${plotLineMarkup(scale, 0, yMin + 0.5, 0, yMax - 0.5, "graph-axis")}
-        ${plotCircleMarkup(scale, 0, 0, 4.5, "question-origin")}
-        ${plotTextMarkup(scale, xMax - 0.55, -0.22, plot.xAxisLabel || "Real", "graph-label")}
-        ${plotTextMarkup(scale, -0.18, yMax - 0.2, plot.yAxisLabel || "Imaginary", "graph-label", ' text-anchor="middle"')}
-        ${fixedPoints}
-        ${plotCircleMarkup(scale, plot.targetX, plot.targetY, 6, "graph-point-secondary")}
-        ${plotTextMarkup(scale, targetLabelX, targetLabelY, targetLabel, "graph-label")}
-      </svg>
-      <p class="plot-status">${targetLabel} is shown at (${plot.targetX}, ${plot.targetY}).</p>
-    </div>
-  `;
-}
-
-function containsLegacyMathContent(html) {
-  return /\\\(|\\\[|<div[^>]*math-block|<span[^>]*math|\$\$|\$[^$]+\$/.test(String(html || ""));
-}
-
-function rewriteLegacyPromptText(text) {
-  const value = String(text || "").trim();
-
-  if (!value) {
-    return "";
-  }
-
-  let rewritten = value
-    .replace(/\bwhat is the equation of\b/ig, "find the equation of")
-    .replace(/\bwhat is the gradient of\b/ig, "find the gradient of")
-    .replace(/\bwhat is the value of\b/ig, "find the value of")
-    .replace(/\bwhat is the maximum\b/ig, "find the maximum")
-    .replace(/\bwhat is the\b/ig, "find the")
-    .replace(/\bwhat are the\b/ig, "find the")
-    .replace(/\bwhat are\b/ig, "find")
-    .replace(/\bwhat is\b/ig, "find")
-    .replace(/\bwhich pair of\b/ig, "identify the pair of")
-    .replace(/\bwhich set of\b/ig, "identify the set of")
-    .replace(/\bwhich value of\b/ig, "identify the value of")
-    .replace(/\bwhich value\b/ig, "identify the value")
-    .replace(/\bwhich equation\b/ig, "identify the equation")
-    .replace(/\bwhich derivative\b/ig, "identify the derivative")
-    .replace(/\bwhich expression\b/ig, "identify the expression")
-    .replace(/\bwhich rewrite\b/ig, "identify the rewrite")
-    .replace(/\bwhich statement\b/ig, "identify the statement")
-    .replace(/\bwhich relationship\b/ig, "identify the relationship")
-    .replace(/\bwhich rule\b/ig, "identify the rule")
-    .replace(/\bwhich answer\b/ig, "identify the answer")
-    .replace(/\bwhich\b/ig, "identify")
-    .replace(/\bwhat valid value of\b/ig, "find the valid value of")
-    .replace(/\?+\s*$/g, "");
-
-  if (/[A-Za-z0-9)\]]$/.test(rewritten)) {
-    rewritten += ".";
-  }
-
-  return rewritten.charAt(0).toUpperCase() + rewritten.slice(1);
-}
-
-function cleanLegacyFeedbackTone(html) {
-  const value = String(html || "").trim();
-
-  if (!value) {
-    return "";
-  }
-
-  return value
-    .replace(/^<p([^>]*)>\s*(Correct|Yes|Exactly|Nice|Right|Great|Try again|Not quite|Close|Almost|Watch the signs here)\.\s*/i, "<p$1>")
-    .replace(/^(Correct|Yes|Exactly|Nice|Right|Great|Try again|Not quite|Close|Almost|Watch the signs here)\.\s*/i, "")
-    .replace(/^That is also correct\.\s*/i, "")
-    .replace(/^That is exactly right,?\s*(and\s+)?/i, "")
-    .replace(/^A rare anticlimax:\s*/i, "");
-}
-
-function buildLegacyTypedAnswerHtml(step) {
-  if (!step || step.type !== "typed" || !Array.isArray(step.acceptedAnswers) || !step.acceptedAnswers.length) {
-    return "";
-  }
-
-  if (!window.TypedMath || typeof window.TypedMath.formatMathForPreview !== "function") {
-    return "";
-  }
-
-  const previewOptions = Object.assign({
-    mode: step.mode || "expression"
-  }, step.options || {});
-  const latex = window.TypedMath.formatMathForPreview(step.acceptedAnswers[0], previewOptions);
-
-  if (!latex) {
-    return "";
-  }
-
-  return buildAnswerHighlight(step.resultLabel || "Key result", `
-    <div class="math-block">
-      \\[
-      ${latex}
-      \\]
-    </div>
-  `);
-}
-
-function buildLegacyIntroHtml(step, explanationHtml) {
-  const coachingHtml = cleanLegacyFeedbackTone(step && step.genericMessage);
-
-  if (coachingHtml) {
-    return coachingHtml;
-  }
-
-  if (!step || step.type === "choice" || step.type === "plot") {
-    return "";
-  }
-
-  if (containsLegacyMathContent(explanationHtml)) {
-    return "";
-  }
-
-  return rewriteLegacyPromptText(step.text);
-}
-
-function normaliseLegacyStandalonePrompts(root) {
-  if (!root || typeof root.querySelectorAll !== "function") {
-    return;
-  }
-
-  root.querySelectorAll(".step-card:not(.walkthrough-step-card) .step-text").forEach(function (node) {
-    if (!node || !node.closest(".step-card") || !node.closest(".step-card").querySelector(".feedback")) {
-      return;
-    }
-
-    const originalHtml = String(node.innerHTML || "").trim();
-
-    if (!originalHtml || !/[?]/.test(originalHtml)) {
-      return;
-    }
-
-    const rewrittenHtml = rewriteLegacyPromptText(originalHtml);
-
-    if (rewrittenHtml && rewrittenHtml !== originalHtml) {
-      node.innerHTML = rewrittenHtml;
-    }
-  });
-}
-
-function installLegacyFeedbackNormaliser(root) {
-  if (!root || typeof root.querySelectorAll !== "function") {
-    return;
-  }
-
-  function normaliseFeedbackElement(element) {
-    if (!element) {
-      return;
-    }
-
-    const cleanedHtml = cleanLegacyFeedbackTone(element.innerHTML);
-
-    if (cleanedHtml && cleanedHtml !== element.innerHTML) {
-      element.innerHTML = cleanedHtml;
-    }
-  }
-
-  root.querySelectorAll(".feedback").forEach(function (element) {
-    normaliseFeedbackElement(element);
-
-    if (typeof MutationObserver === "function") {
-      const observer = new MutationObserver(function () {
-        normaliseFeedbackElement(element);
-      });
-
-      observer.observe(element, {
-        childList: true,
-        characterData: true,
-        subtree: true
-      });
-    }
-  });
-
-  if (typeof window.setFeedback === "function" && !window.setFeedback.__walkthroughToneWrapped) {
-    const originalSetFeedback = window.setFeedback;
-    const wrappedSetFeedback = function wrappedSetFeedback(id, message, isSuccess) {
-      return originalSetFeedback.call(this, id, cleanLegacyFeedbackTone(message), isSuccess);
-    };
-
-    wrappedSetFeedback.__walkthroughToneWrapped = true;
-    window.setFeedback = wrappedSetFeedback;
-  }
-}
-
-// Legacy walkthrough data still stores interactive prompts; convert those prompts into
-// reveal-only explanations so every page can use the same guided UI while migrations happen incrementally.
-function buildLegacyWorkingHtml(config, step, stepIndex, totalSteps) {
-  const parts = [];
-  const correctChoice = getCorrectChoice(step);
-  const explanationHtml = cleanLegacyFeedbackTone(step.workingHtml
-    || step.explanationHtml
-    || step.successMessage
-    || (correctChoice && correctChoice.successMessage)
-    || "");
-  const introHtml = buildLegacyIntroHtml(step, explanationHtml);
-  const typedAnswerHtml = !containsLegacyMathContent(explanationHtml)
-    ? buildLegacyTypedAnswerHtml(step)
-    : "";
-
-  if (introHtml) {
-    parts.push(normaliseRichTextBlock(introHtml, "step-text walkthrough-working-intro"));
-  }
-
-  if (step.beforeHtml) {
-    parts.push(step.beforeHtml);
-  }
-
-  if (step.type === "plot") {
-    parts.push(buildLegacyPlotHtml(step));
-  }
-
-  if (explanationHtml) {
-    parts.push(normaliseRichTextBlock(explanationHtml, "step-text"));
-  }
-
-  if (typedAnswerHtml) {
-    parts.push(typedAnswerHtml);
-  }
-
-  if (step.type === "choice" && correctChoice && correctChoice.html) {
-    parts.push(buildAnswerHighlight(step.resultLabel || "Key result", correctChoice.html));
-  }
-
-  if (stepIndex === totalSteps - 1 && config.answerHtml) {
-    parts.push(config.answerHtml);
-  }
-
-  return parts.join("");
-}
-
-function normaliseGuidedStep(config, step, stepIndex, totalSteps, stepsAreGuided) {
-  const title = step.revealTitle || step.strategyTitle || step.title || "Step " + (stepIndex + 1);
-  const previewHtml = stepsAreGuided
-    ? (step.previewHtml || step.leadHtml || step.text || "")
-    : "";
-  const guidedWorkingHtml = [
-    step.beforeHtml || "",
-    step.workingHtml || step.explanationHtml || ""
-  ].join("");
-  const workingHtml = stepsAreGuided
-    ? (guidedWorkingHtml || buildLegacyWorkingHtml(config, step, stepIndex, totalSteps))
-    : buildLegacyWorkingHtml(config, step, stepIndex, totalSteps);
+function normaliseGuidedStep(step, stepIndex) {
+  const title = step.title || "Step " + (stepIndex + 1);
+  const previewHtml = step.previewHtml || "";
+  const workingHtml = step.workingHtml || "";
 
   return {
     title: title,
     previewHtml: previewHtml,
-    workingHtml: normaliseRichTextBlock(workingHtml, "step-text")
-      || normaliseRichTextBlock(step.text, "step-text"),
+    workingHtml: normaliseRichTextBlock(workingHtml, "step-text"),
     workingButtonLabel: step.workingButtonLabel || "Show working",
     workingHideLabel: step.workingHideLabel || "Hide working"
   };
 }
 
-function buildWalkthroughTipItems(config, stepsAreGuided) {
+function buildWalkthroughTipItems(config) {
   const items = [];
 
   if (Array.isArray(config.tips) && config.tips.length) {
@@ -3332,10 +2551,12 @@ function buildWalkthroughTipItems(config, stepsAreGuided) {
     });
   }
 
-  if (!items.length && !stepsAreGuided && Array.isArray(config.hints) && config.hints.length) {
-    items.push({
-      label: "Think first",
-      html: config.hints[0]
+  if (Array.isArray(config.hints) && config.hints.length) {
+    config.hints.forEach(function (hint, index) {
+      items.push({
+        label: "Hint " + (index + 1),
+        html: hint
+      });
     });
   }
 
@@ -3482,23 +2703,14 @@ function buildProgressiveWalkthroughHtml(config) {
 }
 
 function normaliseProgressiveWalkthroughConfig(config) {
-  const sourceSteps = Array.isArray(config.guidedSteps)
-    ? config.guidedSteps
-    : Array.isArray(config.walkthroughSteps)
-      ? config.walkthroughSteps
-      : Array.isArray(config.revealSteps)
-        ? config.revealSteps
-        : Array.isArray(config.steps)
-          ? config.steps
-          : [];
-  const stepsAreGuided = sourceSteps !== config.steps;
+  const sourceSteps = Array.isArray(config.guidedSteps) ? config.guidedSteps : [];
   const guidedSteps = sourceSteps.map(function (step, stepIndex) {
-    return normaliseGuidedStep(config, step, stepIndex, sourceSteps.length, stepsAreGuided);
+    return normaliseGuidedStep(step, stepIndex);
   });
 
   return Object.assign({}, config, {
     guidedSteps: guidedSteps,
-    tips: buildWalkthroughTipItems(config, stepsAreGuided)
+    tips: buildWalkthroughTipItems(config)
   });
 }
 
@@ -3805,9 +3017,12 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
     footer.appendChild(reportParagraph);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () {
-      ensureSiteHeader();
+  const initialSiteHeader = ensureSiteHeader();
+
+  function finishSharedPageSetup() {
+      if (!initialSiteHeader) {
+        ensureSiteHeader();
+      }
       const questionCard = document.getElementById("question-card");
       if (questionCard && document.querySelector("main.app:not(.home-app)")) {
         questionCard.classList.add("sticky-question-card");
@@ -3816,22 +3031,12 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
         setupQuestionImageZoom(questionCard);
       }
       normaliseButtonTypes(document);
-      normaliseLegacyStandalonePrompts(document);
-      installLegacyFeedbackNormaliser(document);
       ensureReportIssueFooter();
-    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", finishSharedPageSetup);
   } else {
-    ensureSiteHeader();
-    const questionCard = document.getElementById("question-card");
-    if (questionCard && document.querySelector("main.app:not(.home-app)")) {
-      questionCard.classList.add("sticky-question-card");
-      ensureStickyQuestionPreferenceControl(questionCard);
-      setupQuestionCardSticky(questionCard);
-      setupQuestionImageZoom(questionCard);
-    }
-    normaliseButtonTypes(document);
-    normaliseLegacyStandalonePrompts(document);
-    installLegacyFeedbackNormaliser(document);
-    ensureReportIssueFooter();
+    finishSharedPageSetup();
   }
 }());

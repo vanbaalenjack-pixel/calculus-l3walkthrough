@@ -29,7 +29,7 @@
       "description": "2025 NCEA Level 2 Calculus AS91262 Question 1(a) worked solution: using the power rule term by term and evaluating the gradient at a point. Use guided hints…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
-      "learningResourceType": "Interactive worked-solution walkthrough",
+      "learningResourceType": "Guided worked-solution walkthrough",
       "educationalUse": "Practice",
       "educationalLevel": "NCEA Level 2",
       "teaches": "using the power rule term by term and evaluating the gradient at a point",
@@ -79,13 +79,12 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-2" />
+<link rel="stylesheet" href="style.css?v=20260719-3" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-2"></script>
-  <script defer src="typed-math.js?v=20260719-2"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-3"></script>
 </head>
 <body>
   <main class="app">
@@ -102,11 +101,11 @@
 
 <header class="topbar">
       <div>
-        <p class="eyebrow">Level 2 Calculus Walkthrough</p>
-        <h1>2025 NCEA Level 2 Calculus Question 1(a)</h1>
-        <p class="subtitle">2025 Paper — Differentiate and evaluate the gradient</p>
+        <p id="page-eyebrow" class="eyebrow">Level 2 Calculus Walkthrough</p>
+        <h1 id="page-title">2025 NCEA Level 2 Calculus Question 1(a)</h1>
+        <p id="page-subtitle" class="subtitle">2025 Paper — Differentiate and evaluate the gradient</p>
       </div>
-      <a class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
+      <a id="back-link" class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
     </header>
 
     <!-- SEO:OVERVIEW:START -->
@@ -120,193 +119,9 @@
     </section>
     <!-- SEO:OVERVIEW:END -->
 
-<section class="question-card">
-      <p class="question-label">Question</p>
-      <div class="question-math">
-        \[
-        f(x)=2x^3-3x^2+\frac{x}{2}+7
-        \]
-      </div>
-      <p class="step-text">
-        Use calculus to find the gradient of the function at \(x=-\frac{1}{2}\).
-      </p>
-      <p class="step-text attempt-note">
-        Try the question yourself first. If you get stuck, open the hints before using the full walkthrough.
-      </p>
-      <button id="show-hints-btn" class="nav-btn" type="button">Show hints</button>
-    </section>
-
+<section id="question-card" class="question-card"></section>
     <section id="hints-card" class="question-card hidden"></section>
-
-    <div id="walkthrough-content" class="hidden">
-      <section id="step-1" class="step-card active">
-        <p class="step-number">Step 1</p>
-        <h2>Choose the right method</h2>
-        <p class="step-text">What is the best way to start differentiating this function?</p>
-
-        <div class="button-grid">
-          <button class="option-btn" onclick="checkMethod('correct')">Use the power rule term by term</button>
-          <button class="option-btn" onclick="checkMethod('wrong1')">Use the product rule</button>
-          <button class="option-btn" onclick="checkMethod('wrong2')">Use the quotient rule</button>
-          <button class="option-btn" onclick="checkMethod('wrong3')">Integrate first</button>
-        </div>
-
-        <div id="feedback-1" class="feedback"></div>
-        <button id="next-step-1" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-2')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-2" class="step-card hidden">
-        <p class="step-number">Step 2</p>
-        <h2>Differentiate the cubic term</h2>
-        <p class="step-text">What is the derivative of \(2x^3\)?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-2-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the derivative of two x cubed"
-            placeholder="Type your answer here"
-          />
-          <div id="step-2-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkCubic()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-2" class="feedback"></div>
-        <button id="next-step-2" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-3')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-3" class="step-card hidden">
-        <p class="step-number">Step 3</p>
-        <h2>Differentiate the rest of the function</h2>
-        <p class="step-text">What is the derivative of \(-3x^2+\frac{x}{2}+7\)?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-3-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the derivative of negative three x squared plus x over two plus seven"
-            placeholder="Type your answer here"
-          />
-          <div id="step-3-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkRemaining()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-3" class="feedback"></div>
-        <button id="next-step-3" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-4')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-4" class="step-card hidden">
-        <p class="step-number">Step 4</p>
-        <h2>Write the full derivative</h2>
-        <p class="step-text">Putting the terms together, which expression is \(f'(x)\)?</p>
-
-        <div class="math-input-group">
-          <input
-            id="step-4-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the full derivative"
-            placeholder="Type your answer here"
-          />
-          <div id="step-4-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkDerivative()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-4" class="feedback"></div>
-        <button id="next-step-4" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-5')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-5" class="step-card hidden">
-        <p class="step-number">Step 5</p>
-        <h2>Substitute the given x-value</h2>
-        <p class="step-text">Which substitution correctly finds the gradient at \(x=-\frac{1}{2}\)?</p>
-
-        <div class="button-grid two-col">
-          <button class="option-btn" onclick="checkSubstitution('correct')">
-            \[
-            f'\left(-\frac{1}{2}\right)=6\left(-\frac{1}{2}\right)^2-6\left(-\frac{1}{2}\right)+\frac{1}{2}
-            \]
-          </button>
-          <button class="option-btn" onclick="checkSubstitution('wrong1')">
-            \[
-            f\left(-\frac{1}{2}\right)=2\left(-\frac{1}{2}\right)^3-3\left(-\frac{1}{2}\right)^2+\frac{-1/2}{2}+7
-            \]
-          </button>
-        </div>
-
-        <div id="feedback-5" class="feedback"></div>
-        <button id="next-step-5" class="nav-btn next-step-btn hidden" type="button" onclick="showOnlyStep('step-6')">
-          Next step →
-        </button>
-      </section>
-
-      <section id="step-6" class="step-card hidden">
-        <p class="step-number">Step 6</p>
-        <h2>Final gradient</h2>
-        <p class="step-text">Now simplify the substitution carefully and type the gradient.</p>
-
-        <div class="math-block">
-          \[
-          f'(x)=6x^2-6x+\frac{1}{2}
-          \]
-          \[
-          f'\left(-\frac{1}{2}\right)=6\left(\frac{1}{4}\right)-6\left(-\frac{1}{2}\right)+\frac{1}{2}
-          \]
-          \[
-          =\frac{6}{4}+3+\frac{1}{2}
-          \]
-        </div>
-
-        <div class="math-input-group">
-          <input
-            id="step-6-answer"
-            class="math-answer-input"
-            type="text"
-            inputmode="text"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Type the final gradient"
-            placeholder="Type your answer here"
-          />
-          <div id="step-6-preview" class="math-preview is-placeholder">Preview will appear here.</div>
-          <button class="nav-btn check-btn" type="button" onclick="checkFinalGradient()">
-            Check
-          </button>
-        </div>
-
-        <div id="feedback-6" class="feedback"></div>
-
-        <div id="step-6-nav" class="nav-row hidden">
-          <a class="nav-btn secondary" href="level-2-calculus-2025.html">← Back to paper</a>
-          <a class="nav-btn" href="1b2025-l2.html">Next question →</a>
-        </div>
-      </section>
-    </div>
+    <div id="walkthrough-content" class="hidden"></div>
 
     <!-- SEO:SUMMARY:START -->
     <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
@@ -329,16 +144,6 @@
   </main>
 
   <script>
-    const katexDelimiters = [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "\\(", right: "\\)", display: false }
-    ];
-
-    function renderMath(element) {
-      renderMathInElement(element, { delimiters: katexDelimiters });
-    }
-
     const hintContent = [
       "Differentiate each term separately using the power rule, and remember the derivative of a constant is 0.",
       "The derivative of \\(2x^3\\) is \\(6x^2\\), the derivative of \\(-3x^2\\) is \\(-6x\\), and the derivative of \\(\\frac{x}{2}\\) is \\(\\frac{1}{2}\\).",
@@ -346,10 +151,8 @@
     ];
 
     document.addEventListener("DOMContentLoaded", function () {
-      renderMath(document.body);
-      initializeWalkthroughGate({
-        hints: hintContent,
-        answerHtml: `
+      const raw = String.raw;
+      const answerHtml = `
           <p class="step-text">The derivative is:</p>
           <div class="math-block">
             \\[
@@ -362,167 +165,153 @@
             f'\\left(-\\frac{1}{2}\\right)=5
             \\]
           </div>
+        `;
+      const guidedSteps = [
+        {
+          title: raw`Identify the differentiation method`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Differentiate the polynomial term by term using the power rule.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">Use the power rule term by term</div>
+        </div>
+
+      <p class="step-text">This is a polynomial, so differentiating term by term with the power rule is the cleanest start.</p>
+          `
+        },
+        {
+          title: raw`Differentiate the cubic term`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Apply the power rule to the cubic term \(2x^3\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            6 x^{2}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Multiply the power by the coefficient: \(3 \times 2=6\), then reduce the power by 1.</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Differentiate the rest of the function`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Differentiate the remaining polynomial terms and the constant.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            -6 x + \frac{1}{2}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">\(-3x^2\) becomes \(-6x\), \(\frac{x}{2}\) becomes \(\frac{1}{2}\), and the constant \(7\) disappears.</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Write the full derivative`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Combine the differentiated terms to form \(f'(x)\).</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            6 x^{2} - 6 x + \frac{1}{2}
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">Combining the differentiated terms gives \(f'(x)=6x^2-6x+\frac{1}{2}\).</p></div>
+        </div>
+          `
+        },
+        {
+          title: raw`Substitute the given x-value`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Substitute \(x=-\frac{1}{2}\) into the derivative to find the gradient.</p>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Key result</p>
+          <div class="step-text">\[
+            f'\left(-\frac{1}{2}\right)=6\left(-\frac{1}{2}\right)^2-6\left(-\frac{1}{2}\right)+\frac{1}{2}
+            \]</div>
+        </div>
+
+      <p class="step-text">To find the gradient, substitute into the derivative \(f'(x)\), not the original function \(f(x)\).</p>
+          `
+        },
+        {
+          title: raw`Final gradient`,
+          previewHtml: raw`<p class="step-text">Reveal the explanation and working for this step.</p>`,
+          workingHtml: raw`
+<p class="step-text">Simplify the substitution to obtain the gradient.</p>
+
+        <div class="math-block">
+          \[
+          f'(x)=6x^2-6x+\frac{1}{2}
+          \]
+          \[
+          f'\left(-\frac{1}{2}\right)=6\left(\frac{1}{4}\right)-6\left(-\frac{1}{2}\right)+\frac{1}{2}
+          \]
+          \[
+          =\frac{6}{4}+3+\frac{1}{2}
+          \]
+        </div>
+
+
+        <div class="answer-highlight walkthrough-answer-highlight">
+          <p class="question-label">Worked result</p>
+          <div class="math-block">
+            \[
+            5
+            \]
+          </div>
+          <div class="step-text"><p class="step-text">The gradient at \(x=-\frac{1}{2}\) is \(5\).</p></div>
+        </div>
+          `
+        }
+      ];
+
+      guidedSteps[guidedSteps.length - 1].workingHtml += answerHtml;
+
+      initializeProgressiveWalkthrough({
+        questionHtml: raw`
+<div class="question-math">
+        \[
+        f(x)=2x^3-3x^2+\frac{x}{2}+7
+        \]
+      </div>
+      <p class="step-text">
+        Use calculus to find the gradient of the function at \(x=-\frac{1}{2}\).
+      </p>
         `,
+        tips: hintContent,
+        answerHtml: answerHtml,
+        backHref: "level-2-calculus-2025.html",
         nextHref: "1b2025-l2.html",
-        nextLabel: "Next question →"
+        nextLabel: "Next question →",
+        finalNav: {
+          secondary: { href: "level-2-calculus-2025.html", label: "← Back to paper" },
+          primary: { href: "1b2025-l2.html", label: "Next question →" }
+        },
+        guidedSteps: guidedSteps
+      }, {
+        defaultEyebrow: "Level 2 Calculus Walkthrough"
       });
-      TypedMath.setupMathInputPreview("step-2-answer", "step-2-preview");
-      TypedMath.setupMathInputPreview("step-3-answer", "step-3-preview");
-      TypedMath.setupMathInputPreview("step-4-answer", "step-4-preview");
-      TypedMath.setupMathInputPreview("step-6-answer", "step-6-preview");
-      TypedMath.bindMathInputCheck("step-2-answer", checkCubic);
-      TypedMath.bindMathInputCheck("step-3-answer", checkRemaining);
-      TypedMath.bindMathInputCheck("step-4-answer", checkDerivative);
-      TypedMath.bindMathInputCheck("step-6-answer", checkFinalGradient);
     });
-
-    function showOnlyStep(stepId) {
-      const steps = document.querySelectorAll(".step-card");
-      steps.forEach(function (step) {
-        step.classList.add("hidden");
-      });
-      document.getElementById(stepId).classList.remove("hidden");
-    }
-
-    function setFeedback(id, message, isSuccess = false) {
-      const box = document.getElementById(id);
-      box.innerHTML = message;
-      box.classList.remove("success", "error");
-      box.classList.add(isSuccess ? "success" : "error");
-      renderMath(box);
-    }
-
-    function toggleNextStepButton(buttonId, shouldShow) {
-      const button = document.getElementById(buttonId);
-      if (!button) {
-        return;
-      }
-      button.classList.toggle("hidden", !shouldShow);
-    }
-
-    function checkMethod(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-1", "Correct. This is a polynomial, so differentiating term by term with the power rule is the cleanest start.", true);
-        toggleNextStepButton("next-step-1", true);
-      } else {
-        setFeedback("feedback-1", "Not quite. There is no product or quotient of functions here, just separate polynomial terms.");
-        toggleNextStepButton("next-step-1", false);
-      }
-    }
-
-    function checkCubic() {
-      TypedMath.checkTypedStep({
-        inputId: "step-2-answer",
-        feedbackId: "feedback-2",
-        nextButtonId: "next-step-2",
-        acceptedAnswers: ["6x^2"],
-        samples: [
-          { x: -2 },
-          { x: -1 },
-          { x: 1 },
-          { x: 3 }
-        ],
-        successMessage: "Correct. Multiply the power by the coefficient: \\(3 \\times 2=6\\), then reduce the power by 1.",
-        targetedFeedback: [
-          {
-            answers: ["2x^2"],
-            message: "Not quite. You need to multiply by the original power as well as reducing it by 1."
-          },
-          {
-            answers: ["6x"],
-            message: "Close, but the derivative of \\(x^3\\) is \\(3x^2\\), not \\(3x\\)."
-          },
-          {
-            answers: ["3x^2"],
-            message: "Almost there. The coefficient \\(2\\) must stay in front when you differentiate."
-          }
-        ],
-        genericMessage: "Try again. For \\(2x^3\\), bring the 3 down and reduce the power to 2."
-      });
-    }
-
-    function checkRemaining() {
-      TypedMath.checkTypedStep({
-        inputId: "step-3-answer",
-        feedbackId: "feedback-3",
-        nextButtonId: "next-step-3",
-        acceptedAnswers: ["-6x+1/2"],
-        samples: [
-          { x: -2 },
-          { x: -1 },
-          { x: 1 },
-          { x: 3 }
-        ],
-        successMessage: "Correct. \\(-3x^2\\) becomes \\(-6x\\), \\(\\frac{x}{2}\\) becomes \\(\\frac{1}{2}\\), and the constant \\(7\\) disappears.",
-        targetedFeedback: [
-          {
-            answers: ["-6x+x/2"],
-            message: "Close, but \\(\\frac{x}{2}=\\frac{1}{2}x\\), so its derivative is \\(\\frac{1}{2}\\), not \\(\\frac{x}{2}\\)."
-          },
-          {
-            answers: ["-3x+1"],
-            message: "Not quite. Apply the power rule to \\(-3x^2\\): it differentiates to \\(-6x\\)."
-          },
-          {
-            answers: ["-6x+1/2+7"],
-            message: "Almost there. The derivative of the constant \\(7\\) is 0, so it should disappear."
-          }
-        ],
-        genericMessage: "Not quite. Remember \\(\\frac{x}{2}=\\frac{1}{2}x\\), so its derivative is \\(\\frac{1}{2}\\), and the derivative of 7 is 0."
-      });
-    }
-
-    function checkDerivative() {
-      TypedMath.checkTypedStep({
-        inputId: "step-4-answer",
-        feedbackId: "feedback-4",
-        nextButtonId: "next-step-4",
-        acceptedAnswers: ["6x^2-6x+1/2"],
-        samples: [
-          { x: -2 },
-          { x: -1 },
-          { x: 1 },
-          { x: 3 }
-        ],
-        successMessage: "Correct. Combining the differentiated terms gives \\(f'(x)=6x^2-6x+\\frac{1}{2}\\).",
-        targetedFeedback: [
-          {
-            answers: ["6x^2-3x+1/2"],
-            message: "Close, but the derivative of \\(-3x^2\\) is \\(-6x\\), not \\(-3x\\)."
-          },
-          {
-            answers: ["6x^2-6x+x/2"],
-            message: "Not quite. The derivative of \\(\\frac{x}{2}\\) is \\(\\frac{1}{2}\\), not \\(\\frac{x}{2}\\)."
-          },
-          {
-            answers: ["2x^3-6x+1/2"],
-            message: "Almost there. \\(2x^3\\) must be differentiated to \\(6x^2\\), not left unchanged."
-          }
-        ],
-        genericMessage: "Check each term one more time and then combine them carefully."
-      });
-    }
-
-    function checkFinalGradient() {
-      TypedMath.checkTypedStep({
-        inputId: "step-6-answer",
-        feedbackId: "feedback-6",
-        successRevealId: "step-6-nav",
-        acceptedAnswers: ["5"],
-        successMessage: "Correct. The gradient at \\(x=-\\frac{1}{2}\\) is \\(5\\).",
-        genericMessage: "Not quite. Simplify \\(\\frac{6}{4}+3+\\frac{1}{2}\\) carefully."
-      });
-    }
-
-    function checkSubstitution(answer) {
-      if (answer === "correct") {
-        setFeedback("feedback-5", "Correct. To find the gradient, substitute into the derivative \\(f'(x)\\), not the original function \\(f(x)\\).", true);
-        toggleNextStepButton("next-step-5", true);
-      } else {
-        setFeedback("feedback-5", "Close, but that substitutes into the original function. The question asks for the gradient, so we need \\(f'\\left(-\\frac{1}{2}\\right)\\).");
-        toggleNextStepButton("next-step-5", false);
-      }
-    }
   </script>
 </body>
 </html>

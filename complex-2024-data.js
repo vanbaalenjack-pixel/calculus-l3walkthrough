@@ -220,83 +220,74 @@
         `)}
         ${tipBox(raw`If the factor is \(x-a\), the quick check is always \(f(a)=0\). Here \(x+3=x-(-3)\), so we use \(x=-3\).`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Use the factor theorem",
-          text: raw`What value of \(x\) should you substitute into the polynomial?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Use the factor theorem`,
+          previewHtml: raw`Since \(x+3=0\), the root is \(x=-3\).`,
+          workingHtml: raw`<p class="step-text">Since \(x+3=0\), the root is \(x=-3\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 -3
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Since \(x+3=0\), the root is \(x=-3\).`
-            },
-            {
-              html: raw`\[
-                3
-              \]`,
-              failureMessage: raw`Watch the sign. \(x+3=x-(-3)\), so the matching value is \(-3\).`
-            },
-            {
-              html: raw`\[
-                0
-              \]`,
-              failureMessage: raw`The factor theorem uses the value that makes the factor zero, not the constant term.`
-            },
-            {
-              html: raw`\[
-                12
-              \]`,
-              failureMessage: raw`That number comes from the polynomial, but it is not the root of the factor \(x+3\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "typed",
-          title: "Simplify the substitution",
-          text: raw`After substituting \(x=-3\), what equation do you get in \(p\)?`,
-          ariaLabel: "Type the equation in p",
-          mode: "equation",
-          acceptedAnswers: ["9p-54=0"],
-          samples: [{ p: 6 }, { p: 2 }, { p: 10 }],
-          successMessage: raw`Yes. Everything simplifies to \(9p-54=0\).`,
-          genericMessage: raw`Work through \((-3)^3\), \(p(-3)^2\), \(5(-3)\), and \(-12\), then collect like terms.`
+          title: raw`Simplify the substitution`,
+          previewHtml: raw`Everything simplifies to \(9p-54=0\).`,
+          workingHtml: raw`<p class="step-text">Everything simplifies to \(9p-54=0\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  9 p - 54 = 0
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Solve for p",
-          text: raw`What value of \(p\) makes the factor theorem work?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Solve for p`,
+          previewHtml: raw`Solving \(9p-54=0\) gives \(p=6\).`,
+          workingHtml: raw`<p class="step-text">Solving \(9p-54=0\) gives \(p=6\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 6
-              \]`,
-              correct: true,
-              successMessage: raw`Exactly. Solving \(9p-54=0\) gives \(p=6\).`
-            },
-            {
-              html: raw`\[
-                -6
-              \]`,
-              failureMessage: raw`Check the sign after moving \(54\) to the other side.`
-            },
-            {
-              html: raw`\[
-                9
-              \]`,
-              failureMessage: raw`That is the coefficient of \(p\), not the solution.`
-            },
-            {
-              html: raw`\[
-                54
-              \]`,
-              failureMessage: raw`You still need to divide by \(9\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Since \(x+3\) is a factor, \(f(-3)=0\).</p>
+        <div class="math-block">
+          \[
+          f(-3)=(-3)^3+p(-3)^2+5(-3)-12=0
+          \]
+          \[
+          -27+9p-15-12=0
+          \]
+          \[
+          9p-54=0
+          \]
+          \[
+          p=6
+          \]
+        </div>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          p=6
+          \]
+
+      </div>
+
+
+      <div class="callout-card tip">
+        <p class="callout-title">Exam Tip</p>
+        <p class="step-text">If the factor is \(x-a\), the quick check is always \(f(a)=0\). Here \(x+3=x-(-3)\), so we use \(x=-3\).</p>
+      </div>
+
+      `
         }
       ]
     }),
@@ -332,93 +323,66 @@
         `)}
         ${tipBox(raw`For polar powers, it helps to say out loud: modulus power first, angle multiplication second.`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Raise the modulus",
-          text: raw`What happens to the modulus when you work out \(z^{15}\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Raise the modulus`,
+          previewHtml: raw`The modulus becomes \(m^{15}\).`,
+          workingHtml: raw`<p class="step-text">The modulus becomes \(m^{15}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 m^{15}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The modulus becomes \(m^{15}\).`
-            },
-            {
-              html: raw`\[
-                15m
-              \]`,
-              failureMessage: raw`The modulus is raised to the power; it is not multiplied by the power.`
-            },
-            {
-              html: raw`\[
-                m^5
-              \]`,
-              failureMessage: raw`Nothing gets divided by \(3\) here. The modulus takes the full power \(15\).`
-            },
-            {
-              html: raw`\[
-                m^3
-              \]`,
-              failureMessage: raw`Only the argument simplifies to a multiple of \(3\); the modulus still becomes \(m^{15}\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Multiply the argument",
-          text: raw`What argument do you get after multiplying by \(15\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Multiply the argument`,
+          previewHtml: raw`\(15\times \frac{n\pi}{5}=3n\pi\).`,
+          workingHtml: raw`<p class="step-text">\(15\times \frac{n\pi}{5}=3n\pi\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 3n\pi
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. \(15\times \frac{n\pi}{5}=3n\pi\).`
-            },
-            {
-              html: raw`\[
-                15n\pi
-              \]`,
-              failureMessage: raw`You still need to divide by the \(5\) from the original argument.`
-            },
-            {
-              html: raw`\[
-                \frac{n\pi}{3}
-              \]`,
-              failureMessage: raw`The argument grows when we raise to a power; it does not get divided here.`
-            },
-            {
-              html: raw`\[
-                \frac{3\pi}{n}
-              \]`,
-              failureMessage: raw`The \(n\) stays as a multiplier in the angle.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Choose the safest final polar form",
-          text: raw`Which option matches the wording in the question most safely?`,
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Identify the safest final polar form`,
+          previewHtml: raw`That is the direct De Moivre result, and it works for positive real \(n\).`,
+          workingHtml: raw`<p class="step-text">That is the direct De Moivre result, and it works for positive real \(n\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 m^{15}\operatorname{cis}(3n\pi)
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. That is the direct De Moivre result, and it works for positive real \(n\).`
-            },
-            {
-              html: raw`\[
-                m^{15}\operatorname{cis}(n\pi)
-              \]`,
-              failureMessage: raw`That reduction only works if \(n\) is an integer, so it is not guaranteed by the wording of the question.`
-            }
-          ],
-          genericMessage: raw`Use the form that stays valid for any positive real \(n\).`
+              \]
+</div>
+
+        <p class="step-text">Apply De Moivre’s Theorem directly:</p>
+        <div class="math-block">
+          \[
+          z^{15}=m^{15}\operatorname{cis}\left(15\cdot\frac{n\pi}{5}\right)
+          \]
+          \[
+          z^{15}=m^{15}\operatorname{cis}(3n\pi)
+          \]
+        </div>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          z^{15}=m^{15}\operatorname{cis}(3n\pi)
+          \]
+
+      </div>
+
+
+      <div class="callout-card tip">
+        <p class="callout-title">Exam Tip</p>
+        <p class="step-text">For polar powers, it helps to say out loud: modulus power first, angle multiplication second.</p>
+      </div>
+
+      `
         }
       ]
     }),
@@ -466,61 +430,82 @@
         `)}
         ${tipBox(raw`Any time you square to solve an equation, it is worth checking the final answer in the original line. This one does work.`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Square once",
-          text: raw`After the first squaring and simplification, what equation do you get?`,
-          ariaLabel: "Type the simplified equation after squaring",
-          mode: "equation",
-          acceptedAnswers: ["12=8sqrt(kx)", "8sqrt(kx)=12"],
-          samples: [{ k: 2, x: 1 }, { k: 3, x: 4 }],
-          successMessage: raw`Correct. The \(kx\) terms cancel, leaving \(12=8\sqrt{kx}\).`,
-          genericMessage: raw`Expand \((4-\sqrt{kx})^2\) carefully, then cancel the matching \(kx\) terms.`
+          title: raw`Square once`,
+          previewHtml: raw`The \(kx\) terms cancel, leaving \(12=8\sqrt{kx}\).`,
+          workingHtml: raw`<p class="step-text">The \(kx\) terms cancel, leaving \(12=8\sqrt{kx}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  12 = 8 \sqrt{k x}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Square again",
-          text: raw`What equation do you get after squaring a second time?`,
-          ariaLabel: "Type the equation after squaring twice",
-          mode: "equation",
-          acceptedAnswers: ["144=64kx", "64kx=144"],
-          samples: [{ k: 2, x: 1 }, { k: 3, x: 4 }],
-          successMessage: raw`Yes. Squaring \(12=8\sqrt{kx}\) gives \(144=64kx\).`,
-          genericMessage: raw`Square both sides of \(12=8\sqrt{kx}\).`
+          title: raw`Square again`,
+          previewHtml: raw`Squaring \(12=8\sqrt{kx}\) gives \(144=64kx\).`,
+          workingHtml: raw`<p class="step-text">Squaring \(12=8\sqrt{kx}\) gives \(144=64kx\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  144 = 64 k x
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Solve for x",
-          text: raw`What is \(x\) in terms of \(k\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Solve for x`,
+          previewHtml: raw`Dividing by \(64k\) gives \(x=\frac{9}{4k}\).`,
+          workingHtml: raw`<p class="step-text">Dividing by \(64k\) gives \(x=\frac{9}{4k}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{9}{4k}
-              \]`,
-              correct: true,
-              successMessage: raw`Exactly. Dividing by \(64k\) gives \(x=\frac{9}{4k}\).`
-            },
-            {
-              html: raw`\[
-                \frac{9}{4}
-              \]`,
-              failureMessage: raw`You still need the \(k\) in the denominator.`
-            },
-            {
-              html: raw`\[
-                \frac{4k}{9}
-              \]`,
-              failureMessage: raw`That flips the fraction. Solve \(144=64kx\) by dividing both sides by \(64k\).`
-            },
-            {
-              html: raw`\[
-                \frac{9}{64k}
-              \]`,
-              failureMessage: raw`The fraction needs simplifying. \(144/64\) reduces to \(9/4\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Square both sides first:</p>
+        <div class="math-block">
+          \[
+          (4-\sqrt{kx})^2=(\sqrt{kx+4})^2
+          \]
+          \[
+          16+kx-8\sqrt{kx}=kx+4
+          \]
+          \[
+          12=8\sqrt{kx}
+          \]
+        </div>
+        <p class="step-text">Now square again:</p>
+        <div class="math-block">
+          \[
+          144=64kx
+          \]
+          \[
+          x=\frac{144}{64k}=\frac{9}{4k}
+          \]
+        </div>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          x=\frac{9}{4k}
+          \]
+
+      </div>
+
+
+      <div class="callout-card tip">
+        <p class="callout-title">Exam Tip</p>
+        <p class="step-text">Any time you square to solve an equation, it is worth checking the final answer in the original line. This one does work.</p>
+      </div>
+
+      `
         }
       ]
     }),
@@ -577,318 +562,223 @@
         `)}
         ${tipBox(raw`Once the locus is in the form \(y=mx+c\), the gradient is just the coefficient of \(x\).`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Write z in coordinates",
-          text: raw`To work with a locus, we want to express \(z\) in real coordinates. Let \(z=x+yi\). What does the equation become?`,
-          beforeHtml: raw`
+          title: raw`Write z in coordinates`,
+          previewHtml: raw`We have just replaced each \(z\) with \(x+yi\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               |z-i|=|z+1|
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\(|x+yi-i|=|x+yi+1|\)`,
-              correct: true,
-              successMessage: raw`Correct. We have just replaced each \(z\) with \(x+yi\).`
-            },
-            {
-              html: raw`\(|x+yi+i|=|x+yi-1|\)`,
-              failureMessage: raw`Watch the signs. Substituting into \(z-i\) gives \(x+yi-i\), and substituting into \(z+1\) gives \(x+yi+1\).`
-            },
-            {
-              html: raw`\(|x-yi-i|=|x+yi+1|\)`,
-              failureMessage: raw`Only \(z\) is being replaced. If \(z=x+yi\), the imaginary part stays \(+yi\).`
-            },
-            {
-              html: raw`\(|x+yi-i|=|x-yi+1|\)`,
-              failureMessage: raw`The second expression should still use \(z=x+yi\), so it becomes \(x+yi+1\).`
-            }
-          ]
+
+<p class="step-text">We have just replaced each \(z\) with \(x+yi\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \(|x+yi-i|=|x+yi+1|\)
+</div>`
         },
         {
-          type: "choice",
-          title: "Separate real and imaginary parts",
-          text: raw`Rewrite each expression by separating real and imaginary parts. What does the equation become now?`,
-          beforeHtml: raw`
+          title: raw`Separate real and imaginary parts`,
+          previewHtml: raw`The left side has real part \(x\) and imaginary part \(y-1\), while the right side has real part \(x+1\) and imaginary part \(y\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               |x+yi-i|=|x+yi+1|
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\(|x+(y-1)i|=|(x+1)+yi|\)`,
-              correct: true,
-              successMessage: raw`Exactly. The left side has real part \(x\) and imaginary part \(y-1\), while the right side has real part \(x+1\) and imaginary part \(y\).`
-            },
-            {
-              html: raw`\(|x+(y+1)i|=|(x-1)+yi|\)`,
-              failureMessage: raw`Check the signs again. Subtracting \(i\) changes the imaginary part to \(y-1\), and adding \(1\) changes the real part to \(x+1\).`
-            },
-            {
-              html: raw`\(|(x-1)+yi|=|x+(y-1)i|\)`,
-              failureMessage: raw`The left side comes from \(z-i\), so it should keep real part \(x\) and change the imaginary part to \(y-1\).`
-            },
-            {
-              html: raw`\(|x+(y-1)i|=|(x-1)+yi|\)`,
-              failureMessage: raw`The right side comes from \(z+1\), so the real part should become \(x+1\), not \(x-1\).`
-            }
-          ]
+
+<p class="step-text">The left side has real part \(x\) and imaginary part \(y-1\), while the right side has real part \(x+1\) and imaginary part \(y\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \(|x+(y-1)i|=|(x+1)+yi|\)
+</div>`
         },
         {
-          type: "choice",
-          title: "Interpret the locus",
-          text: raw`An equation of the form \(|z-a|=|z-b|\) describes points that are the same distance from two fixed points. What does that tell us about this locus?`,
-          beforeHtml: raw`
+          title: raw`Interpret the locus`,
+          previewHtml: raw`This locus is made of points that are the same distance from two fixed points in the Argand diagram.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               |x+(y-1)i|=|(x+1)+yi|
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`The points are equidistant from two fixed points`,
-              correct: true,
-              successMessage: raw`Yes. This locus is made of points that are the same distance from two fixed points in the Argand diagram.`
-            },
-            {
-              html: raw`The points are all the same distance from the origin`,
-              failureMessage: raw`That would describe a circle centred at the origin. Here, the distances are to two different fixed points.`
-            },
-            {
-              html: raw`The locus must be a circle centred at the origin`,
-              failureMessage: raw`Equal distance from two fixed points does not mean equal distance from the origin.`
-            },
-            {
-              html: raw`The real parts must always be equal`,
-              failureMessage: raw`This equation compares distances, not just real parts.`
-            }
-          ]
+
+<p class="step-text">This locus is made of points that are the same distance from two fixed points in the Argand diagram.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  The points are equidistant from two fixed points
+</div>`
         },
         {
-          type: "typed",
-          title: "Write the first distance",
-          text: raw`These fixed points are \((0,1)\) and \((-1,0)\). Write the left-hand modulus as a distance from \((x,y)\) to \((0,1)\).`,
-          beforeHtml: raw`
+          title: raw`Write the first distance`,
+          previewHtml: raw`That is the distance from \((x,y)\) to \((0,1)\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               |x+(y-1)i|
               \]
             </div>
-          `,
-          ariaLabel: "Type the first distance expression",
-          acceptedAnswers: ["sqrt(x^2+(y-1)^2)"],
-          samples: [{ x: 2, y: 3 }, { x: -1, y: 0 }, { x: 4, y: -2 }],
-          successMessage: raw`Correct. That is the distance from \((x,y)\) to \((0,1)\).`,
-          targetedFeedback: [
-            {
-              answers: ["sqrt((x+1)^2+y^2)"],
-              message: raw`That is the distance to \((-1,0)\), which belongs on the right-hand side.`
-            }
-          ],
-          genericMessage: raw`Use \(\sqrt{(\text{real part})^2+(\text{imaginary part})^2}\), or the distance formula from \((x,y)\) to \((0,1)\).`
+
+<p class="step-text">That is the distance from \((x,y)\) to \((0,1)\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \sqrt{x^{2} + \left(y - 1\right)^{2}}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Write both distances",
-          text: raw`Now write the full equation using distances from \((x,y)\) to both fixed points. What equation do you get?`,
-          beforeHtml: raw`
+          title: raw`Write both distances`,
+          previewHtml: raw`Each side is now written as a distance formula.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               |x+(y-1)i|=|(x+1)+yi|
               \]
             </div>
-          `,
-          ariaLabel: "Type the distance equation",
-          mode: "equation",
-          acceptedAnswers: ["sqrt(x^2+(y-1)^2)=sqrt((x+1)^2+y^2)"],
-          samples: [{ x: 2, y: 3 }, { x: -1, y: 0 }, { x: 4, y: -2 }],
-          successMessage: raw`Correct. Each side is now written as a distance formula.`,
-          targetedFeedback: [
-            {
-              answers: ["x^2+(y-1)^2=(x+1)^2+y^2"],
-              mode: "equation",
-              message: raw`That comes after squaring. This step still needs square roots because you are writing distances.`
-            }
-          ],
-          genericMessage: raw`Write the distance from \((x,y)\) to \((0,1)\) on the left, and the distance from \((x,y)\) to \((-1,0)\) on the right.`
+
+<p class="step-text">Each side is now written as a distance formula.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \sqrt{x^{2} + \left(y - 1\right)^{2}} = \sqrt{\left(x + 1\right)^{2} + y^{2}}
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Remove the square roots",
-          text: raw`How can we remove the square roots from this equation?`,
-          beforeHtml: raw`
+          title: raw`Remove the square roots`,
+          previewHtml: raw`Squaring both sides removes the square roots cleanly here.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \sqrt{x^2+(y-1)^2}=\sqrt{(x+1)^2+y^2}
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`Square both sides, so \(x^2+(y-1)^2=(x+1)^2+y^2\)`,
-              correct: true,
-              successMessage: raw`Exactly. Squaring both sides removes the square roots cleanly here.`
-            },
-            {
-              html: raw`Take square roots again`,
-              failureMessage: raw`The square roots are already there. We need an operation that removes them.`
-            },
-            {
-              html: raw`Set the real parts equal first`,
-              failureMessage: raw`This equation is comparing distances, not saying the real parts must match. Squaring is the direct way to remove the roots.`
-            },
-            {
-              html: raw`Subtract the moduli`,
-              failureMessage: raw`Subtracting does not remove the square roots.`
-            }
-          ]
+
+<p class="step-text">Squaring both sides removes the square roots cleanly here.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  Square both sides, so \(x^2+(y-1)^2=(x+1)^2+y^2\)
+</div>`
         },
         {
-          type: "choice",
-          title: "Expand both sides",
-          text: raw`After squaring, expand both sides. Which equation do you get?`,
-          beforeHtml: raw`
+          title: raw`Expand both sides`,
+          previewHtml: raw`Expanding \((y-1)^2\) and \((x+1)^2\) gives that line of working.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               x^2+(y-1)^2=(x+1)^2+y^2
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\(\displaystyle x^2+y^2-2y+1=x^2+2x+1+y^2\)`,
-              correct: true,
-              successMessage: raw`Correct. Expanding \((y-1)^2\) and \((x+1)^2\) gives that line of working.`
-            },
-            {
-              html: raw`\(\displaystyle x^2+y^2-1=x^2+2x+y^2\)`,
-              failureMessage: raw`Check both expansions carefully. \((y-1)^2\) gives \(y^2-2y+1\), and \((x+1)^2\) gives \(x^2+2x+1\).`
-            },
-            {
-              html: raw`\(\displaystyle x^2+y^2+2y+1=x^2-2x+1+y^2\)`,
-              failureMessage: raw`Both middle terms have the wrong signs.`
-            },
-            {
-              html: raw`\(\displaystyle x^2+y^2-2y+1=x^2+x+1+y^2\)`,
-              failureMessage: raw`The expansion of \((x+1)^2\) should give \(x^2+2x+1\), not \(x^2+x+1\).`
-            }
-          ]
+
+<p class="step-text">Expanding \((y-1)^2\) and \((x+1)^2\) gives that line of working.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \(\displaystyle x^2+y^2-2y+1=x^2+2x+1+y^2\)
+</div>`
         },
         {
-          type: "choice",
-          title: "Cancel matching terms",
-          text: raw`Cancel the terms that appear on both sides. What equation is left?`,
-          beforeHtml: raw`
+          title: raw`Cancel matching terms`,
+          previewHtml: raw`The \(x^2\), \(y^2\), and \(1\) terms cancel, leaving \(-2y=2x\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               x^2+y^2-2y+1=x^2+2x+1+y^2
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\(-2y=2x\)`,
-              correct: true,
-              successMessage: raw`Yes. The \(x^2\), \(y^2\), and \(1\) terms cancel, leaving \(-2y=2x\).`
-            },
-            {
-              html: raw`\(\phantom{-}2y=2x\)`,
-              failureMessage: raw`The \(-2y\) term stays negative after cancelling.`
-            },
-            {
-              html: raw`\(-2y=-2x\)`,
-              failureMessage: raw`The right-hand side should still be \(2x\) after the cancellation step.`
-            },
-            {
-              html: raw`\(\phantom{-}2y=-2x\)`,
-              failureMessage: raw`Both signs have flipped here. Go back to the expanded equation and cancel carefully.`
-            }
-          ]
+
+<p class="step-text">The \(x^2\), \(y^2\), and \(1\) terms cancel, leaving \(-2y=2x\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \(-2y=2x\)
+</div>`
         },
         {
-          type: "choice",
-          title: "Make y the subject",
-          text: raw`Rearrange to make \(y\) the subject. Which line equation do you get?`,
-          beforeHtml: raw`
+          title: raw`Make y the subject`,
+          previewHtml: raw`Dividing both sides by \(-2\) gives \(y=-x\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               -2y=2x
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\(\displaystyle y=-x\)`,
-              correct: true,
-              successMessage: raw`Correct. Dividing both sides by \(-2\) gives \(y=-x\).`
-            },
-            {
-              html: raw`\(\displaystyle y=x\)`,
-              failureMessage: raw`Dividing by \(-2\) changes the sign, so the gradient must be negative.`
-            },
-            {
-              html: raw`\(\displaystyle y=x+1\)`,
-              failureMessage: raw`No constant term appears after rearranging \(-2y=2x\).`
-            },
-            {
-              html: raw`\(\displaystyle y=-x+1\)`,
-              failureMessage: raw`There is no \(+1\) left after the cancellation step.`
-            }
-          ]
+
+<p class="step-text">Dividing both sides by \(-2\) gives \(y=-x\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \(\displaystyle y=-x\)
+</div>`
         },
         {
-          type: "choice",
-          title: "State the gradient",
-          text: raw`Compare \(y=-x\) with \(y=mx+c\). What is the gradient?`,
-          beforeHtml: raw`
+          title: raw`State the gradient`,
+          previewHtml: raw`In \(y=-x\), the coefficient of \(x\) is \(-1\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               y=-x
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">In \(y=-x\), the coefficient of \(x\) is \(-1\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 -1
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. In \(y=-x\), the coefficient of \(x\) is \(-1\).`
-            },
-            {
-              html: raw`\[
-                1
-              \]`,
-              failureMessage: raw`Check the sign of the coefficient of \(x\). The line is \(y=-x\), not \(y=x\).`
-            },
-            {
-              html: raw`\[
-                0
-              \]`,
-              failureMessage: raw`A gradient of \(0\) would give a horizontal line, and \(y=-x\) is not horizontal.`
-            },
-            {
-              html: raw`\[
-                \text{undefined}
-              \]`,
-              failureMessage: raw`The line is sloping, not vertical, so its gradient is defined.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Let \(z=x+yi\). Then:</p>
+        <div class="math-block">
+          \[
+          |z-i|=|x+yi-i|=|x+(y-1)i|=\sqrt{x^2+(y-1)^2}
+          \]
+          \[
+          |z+1|=|x+yi+1|=|(x+1)+yi|=\sqrt{(x+1)^2+y^2}
+          \]
+        </div>
+        <p class="step-text">These are distances from \((x,y)\) to the fixed points \((0,1)\) and \((-1,0)\), so the locus is the set of points equidistant from those two points.</p>
+        <p class="step-text">Set the distances equal and simplify:</p>
+        <div class="math-block">
+          \[
+          \sqrt{x^2+(y-1)^2}=\sqrt{(x+1)^2+y^2}
+          \]
+          \[
+          x^2+(y-1)^2=(x+1)^2+y^2
+          \]
+          \[
+          x^2+y^2-2y+1=x^2+2x+1+y^2
+          \]
+          \[
+          -2y=2x
+          \]
+          \[
+          y=-x
+          \]
+        </div>
+        <p class="step-text">In the form \(y=mx+c\), the gradient is the coefficient of \(x\), so the gradient is \(-1\).</p>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          \text{Gradient}=-1
+          \]
+
+      </div>
+
+
+      <div class="callout-card tip">
+        <p class="callout-title">Exam Tip</p>
+        <p class="step-text">Once the locus is in the form \(y=mx+c\), the gradient is just the coefficient of \(x\).</p>
+      </div>
+
+      `
         }
       ]
     }),
@@ -945,84 +835,104 @@
         `)}
         ${mistakeBox(raw`Do not set the original numerator and denominator equal. You need the real part of the simplified quotient to match the imaginary part.`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Split the numerator cleanly",
-          text: raw`After multiplying by \(4-5ki\), what pair do you get for \((\text{real numerator},\text{coefficient of }i)\)?`,
-          ariaLabel: "Type the real numerator and coefficient of i",
-          mode: "list",
-          options: orderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["15k^2+8,2k"],
-          samples: [{ k: 1 }, { k: 2 }, { k: -1 }],
-          successMessage: raw`Correct. The numerator is \(15k^2+8+2ki\), so the pair is \((15k^2+8,2k)\).`,
-          genericMessage: raw`Expand carefully and remember that \(i^2=-1\).`
+          title: raw`Split the numerator cleanly`,
+          previewHtml: raw`The numerator is \(15k^2+8+2ki\), so the pair is \((15k^2+8,2k)\).`,
+          workingHtml: raw`<p class="step-text">The numerator is \(15k^2+8+2ki\), so the pair is \((15k^2+8,2k)\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \left(15 k^{2} + 8,\ 2 k\right)
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Use y = x",
-          text: raw`What equation do you get by setting the real and imaginary parts equal?`,
-          ariaLabel: "Type the equation after matching parts",
-          mode: "equation",
-          acceptedAnswers: ["15k^2+8=2k", "15k^2-2k+8=0"],
-          samples: [{ k: 1 }, { k: 2 }, { k: -1 }],
-          successMessage: raw`Yes. Matching the parts leads to \(15k^2+8=2k\), or \(15k^2-2k+8=0\).`,
-          genericMessage: raw`Write \(w\) in \(a+bi\) form, then use \(a=b\).`
+          title: raw`Use y = x`,
+          previewHtml: raw`Matching the parts leads to \(15k^2+8=2k\), or \(15k^2-2k+8=0\).`,
+          workingHtml: raw`<p class="step-text">Matching the parts leads to \(15k^2+8=2k\), or \(15k^2-2k+8=0\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  15 k^{2} + 8 = 2 k
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Check the discriminant",
-          text: raw`What is the discriminant of \(15k^2-2k+8=0\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Check the discriminant`,
+          previewHtml: raw`The discriminant is negative, so there are no real solutions for \(k\).`,
+          workingHtml: raw`<p class="step-text">The discriminant is negative, so there are no real solutions for \(k\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 -476
-              \]`,
-              correct: true,
-              successMessage: raw`Right. The discriminant is negative, so there are no real solutions for \(k\).`
-            },
-            {
-              html: raw`\[
-                476
-              \]`,
-              failureMessage: raw`The calculation gives \(4-480\), so the result is negative.`
-            },
-            {
-              html: raw`\[
-                -236
-              \]`,
-              failureMessage: raw`There is an arithmetic slip in \(4ac\). Here \(4(15)(8)=480\).`
-            },
-            {
-              html: raw`\[
-                4
-              \]`,
-              failureMessage: raw`That is only the \(b^2\) part. You still need to subtract \(4ac\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Finish the argument",
-          text: raw`What conclusion does the negative discriminant give?`,
-          choices: [
-            {
-              html: raw`No real value of \(k\) works.`,
-              correct: true,
-              successMessage: raw`Exactly. No real \(k\) works, so \(w\) never lands on \(y=x\).`
-            },
-            {
-              html: raw`There is exactly one real value of \(k\).`,
-              failureMessage: raw`Not here. A negative discriminant means there are no real roots.`
-            },
-            {
-              html: raw`There are two real values of \(k\).`,
-              failureMessage: raw`That would need a positive discriminant, not a negative one.`
-            }
-          ],
-          genericMessage: raw`Use what a negative discriminant tells you about real roots.`
+          title: raw`Finish the argument`,
+          previewHtml: raw`No real \(k\) works, so \(w\) never lands on \(y=x\).`,
+          workingHtml: raw`<p class="step-text">No real \(k\) works, so \(w\) never lands on \(y=x\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  No real value of \(k\) works.
+</div>
+
+        <p class="step-text">First rationalise the denominator:</p>
+        <div class="math-block">
+          \[
+          w=\frac{2+3ki}{4+5ki}\cdot\frac{4-5ki}{4-5ki}
+          \]
+          \[
+          w=\frac{8+12ki-10ki-15k^2i^2}{16+25k^2}
+          \]
+          \[
+          w=\frac{15k^2+8+2ki}{16+25k^2}
+          \]
+          \[
+          w=\frac{15k^2+8}{16+25k^2}+\frac{2k}{16+25k^2}i
+          \]
+        </div>
+        <p class="step-text">For a point on \(y=x\), the real and imaginary parts must be equal:</p>
+        <div class="math-block">
+          \[
+          \frac{15k^2+8}{16+25k^2}=\frac{2k}{16+25k^2}
+          \]
+          \[
+          15k^2+8=2k
+          \]
+          \[
+          15k^2-2k+8=0
+          \]
+        </div>
+        <p class="step-text">Now check the discriminant:</p>
+        <div class="math-block">
+          \[
+          b^2-4ac=(-2)^2-4(15)(8)=4-480=-476
+          \]
+        </div>
+        <p class="step-text">Since the discriminant is negative, there is no real value of \(k\). So \(w\) cannot lie on \(y=x\).</p>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          \text{No real value of }k\text{ makes }w\text{ lie on }y=x.
+          \]
+
+      </div>
+
+
+      <div class="callout-card mistake">
+        <p class="callout-title">Common Mistake</p>
+        <p class="step-text">Do not set the original numerator and denominator equal. You need the real part of the simplified quotient to match the imaginary part.</p>
+      </div>
+
+      `
         }
       ]
     }),
@@ -1071,77 +981,76 @@
         `)}
         ${tipBox(raw`A quick way to check yourself is this: after rationalising, there should be no \(i\) left in the denominator.`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Choose the conjugate",
-          text: raw`Which pair \((\text{real part},\text{imaginary coefficient})\) represents the conjugate of \(2k+i\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\((2k,-1)\)`,
-              correct: true,
-              successMessage: raw`Correct. The conjugate is \(2k-i\), so the pair is \((2k,-1)\).`
-            },
-            {
-              html: raw`\((2k,1)\)`,
-              failureMessage: raw`That is the original number, not its conjugate.`
-            },
-            {
-              html: raw`\((-2k,-1)\)`,
-              failureMessage: raw`The real part stays the same when you take a conjugate.`
-            },
-            {
-              html: raw`\((-2k,1)\)`,
-              failureMessage: raw`Both signs have changed, but only the imaginary part should change sign.`
-            }
-          ]
+          title: raw`Identify the conjugate`,
+          previewHtml: raw`The conjugate is \(2k-i\), so the pair is \((2k,-1)\).`,
+          workingHtml: raw`<p class="step-text">The conjugate is \(2k-i\), so the pair is \((2k,-1)\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \((2k,-1)\)
+</div>`
         },
         {
-          type: "typed",
-          title: "Simplify the numerator",
-          text: raw`After multiplying out, what pair do you get for \((\text{real numerator},\text{coefficient of }i)\)?`,
-          ariaLabel: "Type the real numerator and coefficient of i",
-          mode: "list",
-          options: orderedListOptions,
-          previewOptions: wrappedListPreview,
-          acceptedAnswers: ["1,2k"],
-          samples: [{ k: 1 }, { k: 2 }, { k: 5 }],
-          successMessage: raw`Yes. Since \(i^2=-1\), the numerator becomes \(1+2ki\), so the pair is \((1,2k)\).`,
-          genericMessage: raw`Expand \(i(2k-i)\) and replace \(i^2\) with \(-1\).`
+          title: raw`Simplify the numerator`,
+          previewHtml: raw`Since \(i^2=-1\), the numerator becomes \(1+2ki\), so the pair is \((1,2k)\).`,
+          workingHtml: raw`<p class="step-text">Since \(i^2=-1\), the numerator becomes \(1+2ki\), so the pair is \((1,2k)\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \left(1,\ 2 k\right)
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Read off a and b",
-          text: raw`Which pair gives the coefficients \((a,b)\) in the final form \(a+bi\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Read off a and b`,
+          previewHtml: raw`So \(a=\frac{1}{4k^2+1}\) and \(b=\frac{2k}{4k^2+1}\).`,
+          workingHtml: raw`<p class="step-text">So \(a=\frac{1}{4k^2+1}\) and \(b=\frac{2k}{4k^2+1}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \left(\frac{1}{4k^2+1},\frac{2k}{4k^2+1}\right)
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. So \(a=\frac{1}{4k^2+1}\) and \(b=\frac{2k}{4k^2+1}\).`
-            },
-            {
-              html: raw`\[
-                \left(\frac{2k}{4k^2+1},\frac{1}{4k^2+1}\right)
-              \]`,
-              failureMessage: raw`Those are the right pieces, but the order should be \((a,b)\).`
-            },
-            {
-              html: raw`\[
-                \left(\frac{1}{4k^2-1},\frac{2k}{4k^2-1}\right)
-              \]`,
-              failureMessage: raw`The denominator comes from \((2k+i)(2k-i)=4k^2+1\), not \(4k^2-1\).`
-            },
-            {
-              html: raw`\[
-                (1,2k)
-              \]`,
-              failureMessage: raw`You still need to divide both parts by the denominator \(4k^2+1\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Multiply by the conjugate of the denominator:</p>
+        <div class="math-block">
+          \[
+          \frac{i}{2k+i}\cdot\frac{2k-i}{2k-i}
+          =\frac{i(2k-i)}{(2k+i)(2k-i)}
+          \]
+          \[
+          =\frac{2ki-i^2}{4k^2+1}
+          \]
+          \[
+          =\frac{1+2ki}{4k^2+1}
+          \]
+        </div>
+        <p class="step-text">Now split it into real and imaginary parts:</p>
+        <div class="math-block">
+          \[
+          \frac{i}{2k+i}=\frac{1}{4k^2+1}+\frac{2k}{4k^2+1}i
+          \]
+        </div>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          \frac{i}{2k+i}=\frac{1}{4k^2+1}+\frac{2k}{4k^2+1}i
+          \]
+
+      </div>
+
+
+      <div class="callout-card tip">
+        <p class="callout-title">Exam Tip</p>
+        <p class="step-text">A quick way to check yourself is this: after rationalising, there should be no \(i\) left in the denominator.</p>
+      </div>
+
+      `
         }
       ]
     }),
@@ -1186,61 +1095,79 @@
         `)}
         ${tipBox(raw`This is a classic “equal roots” cue. The moment you see it, think \(b^2-4ac=0\).`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Write the discriminant condition",
-          text: raw`What equation do you get from \(b^2-4ac=0\)?`,
-          ariaLabel: "Type the discriminant equation",
-          mode: "equation",
-          acceptedAnswers: ["(3+2r)^2-8(3-2r)=0"],
-          samples: [{ r: 1 }, { r: -2 }, { r: 3 }],
-          successMessage: raw`Correct. That is the discriminant condition for equal roots.`,
-          genericMessage: raw`Use \(a=2\), \(b=3+2r\), and \(c=3-2r\).`
+          title: raw`Write the discriminant condition`,
+          previewHtml: raw`That is the discriminant condition for equal roots.`,
+          workingHtml: raw`<p class="step-text">That is the discriminant condition for equal roots.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \left(3 + 2 r\right)^{2} - 8 \left(3 - 2 r\right) = 0
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Simplify the quadratic in r",
-          text: raw`After expanding, what quadratic in \(r\) do you get?`,
-          ariaLabel: "Type the quadratic in r",
-          mode: "equation",
-          acceptedAnswers: ["4r^2+28r-15=0"],
-          samples: [{ r: 1 }, { r: -2 }, { r: 3 }],
-          successMessage: raw`Yes. Expanding and collecting terms gives \(4r^2+28r-15=0\).`,
-          genericMessage: raw`Expand \((3+2r)^2\), then combine like terms carefully.`
+          title: raw`Simplify the quadratic in r`,
+          previewHtml: raw`Expanding and collecting terms gives \(4r^2+28r-15=0\).`,
+          workingHtml: raw`<p class="step-text">Expanding and collecting terms gives \(4r^2+28r-15=0\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  4 r^{2} + 28 r - 15 = 0
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Solve for r",
-          text: raw`Which pair of values for \(r\) is correct?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Solve for r`,
+          previewHtml: raw`The values are \(r=\frac{1}{2}\) and \(r=-\frac{15}{2}\).`,
+          workingHtml: raw`<p class="step-text">The values are \(r=\frac{1}{2}\) and \(r=-\frac{15}{2}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{1}{2},\ -\frac{15}{2}
-              \]`,
-              correct: true,
-              successMessage: raw`Exactly. The values are \(r=\frac{1}{2}\) and \(r=-\frac{15}{2}\).`
-            },
-            {
-              html: raw`\[
-                -\frac{1}{2},\ \frac{15}{2}
-              \]`,
-              failureMessage: raw`Both signs have flipped. Recheck the factorisation or quadratic formula step.`
-            },
-            {
-              html: raw`\[
-                \frac{1}{2},\ \frac{15}{2}
-              \]`,
-              failureMessage: raw`One sign is wrong. The larger root should be negative here.`
-            },
-            {
-              html: raw`\[
-                -\frac{1}{2},\ -\frac{15}{2}
-              \]`,
-              failureMessage: raw`Only one of the roots is negative.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">For equal roots, the discriminant must be zero:</p>
+        <div class="math-block">
+          \[
+          (3+2r)^2-4(2)(3-2r)=0
+          \]
+          \[
+          9+12r+4r^2-24+16r=0
+          \]
+          \[
+          4r^2+28r-15=0
+          \]
+        </div>
+        <p class="step-text">Now solve the quadratic in \(r\):</p>
+        <div class="math-block">
+          \[
+          r=\frac{1}{2},\,-\frac{15}{2}
+          \]
+        </div>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          r=\frac{1}{2},\,-\frac{15}{2}
+          \]
+
+      </div>
+
+
+      <div class="callout-card tip">
+        <p class="callout-title">Exam Tip</p>
+        <p class="step-text">This is a classic “equal roots” cue. The moment you see it, think \(b^2-4ac=0\).</p>
+      </div>
+
+      `
         }
       ]
     }),
@@ -1319,99 +1246,109 @@
         `)}
         ${mistakeBox(raw`Do not take the modulus too early. You need the actual value of \(w\) first, then you can find \(|w|\).`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Clear the denominator",
-          text: raw`Which equation do you get after multiplying both sides by \(w+i\)?`,
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Clear the denominator`,
+          previewHtml: raw`That is the clean starting point for solving for \(w\).`,
+          workingHtml: raw`<p class="step-text">That is the clean starting point for solving for \(w\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 w=(2-i)(w+i)
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. That is the clean starting point for solving for \(w\).`
-            },
-            {
-              html: raw`\[
-                w+i=(2-i)w
-              \]`,
-              failureMessage: raw`Close, but you need to multiply the whole right-hand side by \(w+i\), not just \(w\).`
-            },
-            {
-              html: raw`\[
-                w=(2-i)+w+i
-              \]`,
-              failureMessage: raw`That treats multiplication like addition. Clear the denominator first, then keep the factor \(w+i\) together.`
-            }
-          ],
-          genericMessage: raw`Multiply both sides of \(\frac{w}{w+i}=2-i\) by the denominator \(w+i\).`
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find w",
-          text: raw`If \(w=a+bi\), which pair \((a,b)\) do you get?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Find w`,
+          previewHtml: raw`So \(w=\frac{1}{2}-\frac{3}{2}i\).`,
+          workingHtml: raw`<p class="step-text">So \(w=\frac{1}{2}-\frac{3}{2}i\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \left(\frac{1}{2},-\frac{3}{2}\right)
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. So \(w=\frac{1}{2}-\frac{3}{2}i\).`
-            },
-            {
-              html: raw`\[
-                \left(-\frac{3}{2},\frac{1}{2}\right)
-              \]`,
-              failureMessage: raw`Those are the right numbers, but the order should be \((a,b)\).`
-            },
-            {
-              html: raw`\[
-                \left(\frac{1}{2},\frac{3}{2}\right)
-              \]`,
-              failureMessage: raw`The imaginary part should be negative, not positive.`
-            },
-            {
-              html: raw`\[
-                \left(-\frac{1}{2},-\frac{3}{2}\right)
-              \]`,
-              failureMessage: raw`The real part should be positive \(\frac{1}{2}\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the modulus",
-          text: raw`What is \(|w|\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Find the modulus`,
+          previewHtml: raw`\(|w|=\frac{\sqrt{10}}{2}\).`,
+          workingHtml: raw`<p class="step-text">\(|w|=\frac{\sqrt{10}}{2}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{\sqrt{10}}{2}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. \(|w|=\frac{\sqrt{10}}{2}\).`
-            },
-            {
-              html: raw`\[
-                \sqrt{10}
-              \]`,
-              failureMessage: raw`You still need the factor of \(\frac{1}{2}\) because both coordinates are halves.`
-            },
-            {
-              html: raw`\[
-                \frac{5}{2}
-              \]`,
-              failureMessage: raw`That adds the magnitudes instead of using \(\sqrt{a^2+b^2}\).`
-            },
-            {
-              html: raw`\[
-                \frac{10}{4}
-              \]`,
-              failureMessage: raw`That is the value under the square root before simplifying, not the modulus itself.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Rearrange first:</p>
+        <div class="math-block">
+          \[
+          w=(2-i)(w+i)
+          \]
+          \[
+          w=2w-wi+2i-i^2
+          \]
+          \[
+          w=2w+1+i(2-w)
+          \]
+        </div>
+        <p class="step-text">Let \(w=a+bi\). Then:</p>
+        <div class="math-block">
+          \[
+          a+bi+1+2i-ai-bi^2=0
+          \]
+          \[
+          a+b+1+bi+2i-ai=0
+          \]
+          \[
+          a+b+1=0
+          \]
+          \[
+          a=-b-1
+          \]
+          \[
+          bi+2i-ai=0
+          \]
+          \[
+          bi+2i+bi+i=0
+          \]
+          \[
+          2bi+3i=0
+          \]
+          \[
+          2b+3=0
+          \]
+          \[
+          b=-\frac{3}{2},\qquad a=\frac{1}{2}
+          \]
+        </div>
+        <p class="step-text">So:</p>
+        <div class="math-block">
+          \[
+          w=\frac{1}{2}-\frac{3}{2}i
+          \]
+          \[
+          |w|=\sqrt{\left(\frac{1}{2}\right)^2+\left(-\frac{3}{2}\right)^2}
+          =\sqrt{\frac{10}{4}}=\frac{\sqrt{10}}{2}
+          \]
+        </div>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          |w|=\frac{\sqrt{10}}{2}
+          \]
+
+      </div>
+
+
+      <div class="callout-card mistake">
+        <p class="callout-title">Common Mistake</p>
+        <p class="step-text">Do not take the modulus too early. You need the actual value of \(w\) first, then you can find \(|w|\).</p>
+      </div>
+
+      `
         }
       ]
     }),
@@ -1470,115 +1407,100 @@
         `)}
         ${tipBox(raw`That little constant-term shortcut saves time: once you have the quadratic factor, use the product of constants to pin down the last factor quickly.`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Use the conjugate root",
-          text: raw`Which conjugate root should you use?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Use the conjugate root`,
+          previewHtml: raw`The conjugate root is \(6+2i\).`,
+          workingHtml: raw`<p class="step-text">The conjugate root is \(6+2i\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 6+2i
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The conjugate root is \(6+2i\).`
-            },
-            {
-              html: raw`\[
-                6-2i
-              \]`,
-              failureMessage: raw`That is the root already given in the question, not its conjugate.`
-            },
-            {
-              html: raw`\[
-                -6+2i
-              \]`,
-              failureMessage: raw`The real part stays the same when you take a conjugate.`
-            },
-            {
-              html: raw`\[
-                -6-2i
-              \]`,
-              failureMessage: raw`Only the sign of the imaginary part changes for a conjugate root.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "typed",
-          title: "Build the quadratic factor",
-          text: raw`What quadratic factor comes from the conjugate pair?`,
-          ariaLabel: "Type the quadratic factor",
-          acceptedAnswers: ["z^2-12z+40"],
-          samples: [{ z: 0 }, { z: 2 }, { z: 5 }],
-          successMessage: raw`Yes. Multiplying the conjugate pair gives \(z^2-12z+40\).`,
-          genericMessage: raw`Multiply \((z-6+2i)(z-6-2i)\).`
+          title: raw`Build the quadratic factor`,
+          previewHtml: raw`Multiplying the conjugate pair gives \(z^2-12z+40\).`,
+          workingHtml: raw`<p class="step-text">Multiplying the conjugate pair gives \(z^2-12z+40\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  z^{2} - 12 z + 40
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the remaining root",
-          text: raw`Which pair gives the other two roots?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Find the remaining root`,
+          previewHtml: raw`The last factor is \(2z-5\), so the remaining roots are \(6+2i\) and \(\frac{5}{2}\).`,
+          workingHtml: raw`<p class="step-text">The last factor is \(2z-5\), so the remaining roots are \(6+2i\) and \(\frac{5}{2}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 6+2i,\ \frac{5}{2}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The last factor is \(2z-5\), so the remaining roots are \(6+2i\) and \(\frac{5}{2}\).`
-            },
-            {
-              html: raw`\[
-                6-2i,\ \frac{5}{2}
-              \]`,
-              failureMessage: raw`That repeats the root already given instead of using its conjugate.`
-            },
-            {
-              html: raw`\[
-                6+2i,\ -\frac{5}{2}
-              \]`,
-              failureMessage: raw`The sign of the real root is wrong. The last factor is \(2z-5\), not \(2z+5\).`
-            },
-            {
-              html: raw`\[
-                -6+2i,\ \frac{5}{2}
-              \]`,
-              failureMessage: raw`The conjugate keeps the real part \(6\), not \(-6\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Match the coefficient",
-          text: raw`What value of \(d\) does the expansion give?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Match the coefficient`,
+          previewHtml: raw`Expanding gives \(2z^3-29z^2+140z-200\), so \(d=-29\).`,
+          workingHtml: raw`<p class="step-text">Expanding gives \(2z^3-29z^2+140z-200\), so \(d=-29\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 -29
-              \]`,
-              correct: true,
-              successMessage: raw`Exactly. Expanding gives \(2z^3-29z^2+140z-200\), so \(d=-29\).`
-            },
-            {
-              html: raw`\[
-                29
-              \]`,
-              failureMessage: raw`The coefficient of \(z^2\) is negative after expansion.`
-            },
-            {
-              html: raw`\[
-                -12
-              \]`,
-              failureMessage: raw`That comes from the quadratic factor, but the cubic coefficient match happens after multiplying by the linear factor as well.`
-            },
-            {
-              html: raw`\[
-                140
-              \]`,
-              failureMessage: raw`That is the coefficient of \(z\), not of \(z^2\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Because the coefficients are real, the conjugate root \(6+2i\) is also a solution.</p>
+        <p class="step-text">So the conjugate pair gives:</p>
+        <div class="math-block">
+          \[
+          (z-(6-2i))(z-(6+2i))
+          =(z-6+2i)(z-6-2i)
+          \]
+          \[
+          =z^2-12z+40
+          \]
+        </div>
+        <p class="step-text">Now match the full cubic:</p>
+        <div class="math-block">
+          \[
+          (z^2-12z+40)(2z-a)
+          \]
+          \[
+          \text{To get the constant }-200,\text{ we need }40(-a)=-200,\text{ so }a=5
+          \]
+          \[
+          (z^2-12z+40)(2z-5)
+          \]
+          \[
+          =2z^3-29z^2+140z-200
+          \]
+        </div>
+        <p class="step-text">So the remaining root comes from \(2z-5=0\), which gives \(z=\frac{5}{2}\), and the coefficient is \(d=-29\).</p>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          d=-29
+          \]
+          \[
+          \text{Other two solutions: }6+2i,\ \frac{5}{2}
+          \]
+
+      </div>
+
+
+      <div class="callout-card tip">
+        <p class="callout-title">Exam Tip</p>
+        <p class="step-text">That little constant-term shortcut saves time: once you have the quadratic factor, use the product of constants to pin down the last factor quickly.</p>
+      </div>
+
+      `
         }
       ]
     }),
@@ -1653,94 +1575,118 @@
         `)}
         ${tipBox(raw`When the question gives you \(u=3+di\), it is basically handing you \(x=3\). Use that straight away after you find the circle.`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Rewrite the locus",
-          text: raw`What equation do you get after writing \(z=x+yi\) and converting both moduli to square roots?`,
-          ariaLabel: "Type the square-root equation",
-          mode: "equation",
-          acceptedAnswers: ["sqrt((x-1)^2+(y-7)^2)=2sqrt((x-4)^2+(y-4)^2)"],
-          samples: [{ x: 0, y: 0 }, { x: 3, y: 5 }, { x: 6, y: -1 }],
-          successMessage: raw`Correct. That is the clean Cartesian version of the locus.`,
-          genericMessage: raw`Use \(|a+bi|=\sqrt{a^2+b^2}\) on both sides.`
+          title: raw`Rewrite the locus`,
+          previewHtml: raw`That is the clean Cartesian version of the locus.`,
+          workingHtml: raw`<p class="step-text">That is the clean Cartesian version of the locus.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \sqrt{\left(x - 1\right)^{2} + \left(y - 7\right)^{2}} = 2 \sqrt{\left(x - 4\right)^{2} + \left(y - 4\right)^{2}}
+  \]
+</div>
+</div>`
         },
         {
-          type: "typed",
-          title: "Complete the square",
-          text: raw`What circle equation do you get after expanding and completing the square?`,
-          ariaLabel: "Type the circle equation",
-          mode: "equation",
-          acceptedAnswers: ["(x-5)^2+(y-3)^2=8"],
-          samples: [{ x: 0, y: 0 }, { x: 3, y: 5 }, { x: 6, y: -1 }],
-          successMessage: raw`Yes. The locus is the circle \((x-5)^2+(y-3)^2=8\).`,
-          genericMessage: raw`Expand first, then collect terms and complete the square in both variables.`
+          title: raw`Complete the square`,
+          previewHtml: raw`The locus is the circle \((x-5)^2+(y-3)^2=8\).`,
+          workingHtml: raw`<p class="step-text">The locus is the circle \((x-5)^2+(y-3)^2=8\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \left(x - 5\right)^{2} + \left(y - 3\right)^{2} = 8
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Use x = 3",
-          text: raw`After substituting \(x=3\), what equation do you get for \(y\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Use x = 3`,
+          previewHtml: raw`Substituting \(x=3\) leaves \((y-3)^2=4\).`,
+          workingHtml: raw`<p class="step-text">Substituting \(x=3\) leaves \((y-3)^2=4\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 (y-3)^2=4
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. Substituting \(x=3\) leaves \((y-3)^2=4\).`
-            },
-            {
-              html: raw`\[
-                (y-3)^2=8
-              \]`,
-              failureMessage: raw`You still need to subtract the \(x\)-part contribution \(4\) from the right-hand side \(8\).`
-            },
-            {
-              html: raw`\[
-                y^2-3=4
-              \]`,
-              failureMessage: raw`The completed-square form should stay centred around \(y-3\).`
-            },
-            {
-              html: raw`\[
-                (y+3)^2=4
-              \]`,
-              failureMessage: raw`The circle is centred at \(y=3\), not at \(y=-3\).`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find u",
-          text: raw`Which pair of complex numbers matches \(u\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Find u`,
+          previewHtml: raw`The two values are \(u=3+5i\) and \(u=3+i\).`,
+          workingHtml: raw`<p class="step-text">The two values are \(u=3+5i\) and \(u=3+i\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 3+5i,\ 3+i
-              \]`,
-              correct: true,
-              successMessage: raw`Exactly. The two values are \(u=3+5i\) and \(u=3+i\).`
-            },
-            {
-              html: raw`\[
-                3-5i,\ 3-i
-              \]`,
-              failureMessage: raw`The \(y\)-values here are \(5\) and \(1\), so both imaginary parts should be positive.`
-            },
-            {
-              html: raw`\[
-                5+3i,\ 1+3i
-              \]`,
-              failureMessage: raw`Those swap the real and imaginary parts. The real part is fixed at \(3\).`
-            },
-            {
-              html: raw`\[
-                3+4i,\ 3+2i
-              \]`,
-              failureMessage: raw`Those do not solve \((y-3)^2=4\).`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Let \(z=x+yi\). Then:</p>
+        <div class="math-block">
+          \[
+          |(x-1)+(y-7)i|=2|(x-4)+(y-4)i|
+          \]
+          \[
+          \sqrt{(x-1)^2+(y-7)^2}=2\sqrt{(x-4)^2+(y-4)^2}
+          \]
+        </div>
+        <p class="step-text">Square both sides and expand:</p>
+        <div class="math-block">
+          \[
+          (x-1)^2+(y-7)^2=4(x-4)^2+4(y-4)^2
+          \]
+          \[
+          -3x^2+30x-63=3y^2-18y+15
+          \]
+          \[
+          x^2-10x+y^2-6y+26=0
+          \]
+        </div>
+        <p class="step-text">Now complete the square:</p>
+        <div class="math-block">
+          \[
+          (x-5)^2+(y-3)^2=8
+          \]
+        </div>
+        <p class="step-text">Since \(u=3+di\), we know \(x=3\). Substitute that into the circle:</p>
+        <div class="math-block">
+          \[
+          (3-5)^2+(y-3)^2=8
+          \]
+          \[
+          4+(y-3)^2=8
+          \]
+          \[
+          (y-3)^2=4
+          \]
+          \[
+          y=5\text{ or }1
+          \]
+        </div>
+        <p class="step-text">So the two possible complex numbers are \(u=3+5i\) and \(u=3+i\).</p>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          (x-5)^2+(y-3)^2=8
+          \]
+          \[
+          u=3+5i,\ 3+i
+          \]
+
+      </div>
+
+
+      <div class="callout-card tip">
+        <p class="callout-title">Exam Tip</p>
+        <p class="step-text">When the question gives you \(u=3+di\), it is basically handing you \(x=3\). Use that straight away after you find the circle.</p>
+      </div>
+
+      `
         }
       ]
     }),
@@ -1785,105 +1731,75 @@
         `)}
         ${tipBox(raw`This is one of those nice ones where the parameter disappears completely after rationalising.`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Pick the conjugate",
-          text: raw`What conjugate should you multiply by?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Identify the conjugate`,
+          previewHtml: raw`That conjugate removes the surd from the denominator.`,
+          workingHtml: raw`<p class="step-text">That conjugate removes the surd from the denominator.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \sqrt{2p}+\sqrt{p}
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. That conjugate removes the surd from the denominator.`
-            },
-            {
-              html: raw`\[
-                \sqrt{2p}-\sqrt{p}
-              \]`,
-              failureMessage: raw`That is the original denominator, not its conjugate.`
-            },
-            {
-              html: raw`\[
-                \sqrt{2p}+\sqrt{2p}
-              \]`,
-              failureMessage: raw`The second term should be \(\sqrt{p}\), not a repeat of the first surd.`
-            },
-            {
-              html: raw`\[
-                \sqrt{p}-\sqrt{2p}
-              \]`,
-              failureMessage: raw`That reverses the terms and keeps the wrong sign pattern for the conjugate we need.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Simplify the denominator",
-          text: raw`What does the denominator simplify to after using the difference of two squares?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Simplify the denominator`,
+          previewHtml: raw`\((\sqrt{2p})^2-(\sqrt{p})^2=2p-p=p\).`,
+          workingHtml: raw`<p class="step-text">\((\sqrt{2p})^2-(\sqrt{p})^2=2p-p=p\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 p
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. \((\sqrt{2p})^2-(\sqrt{p})^2=2p-p=p\).`
-            },
-            {
-              html: raw`\[
-                3p
-              \]`,
-              failureMessage: raw`The denominator simplifies to \(2p-p\), not \(2p+p\).`
-            },
-            {
-              html: raw`\[
-                p^2
-              \]`,
-              failureMessage: raw`Difference of squares keeps the same power of \(p\) here; it does not square it.`
-            },
-            {
-              html: raw`\[
-                \sqrt{p}
-              \]`,
-              failureMessage: raw`Once the squares are applied, the surds disappear from the denominator.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Finish the simplification",
-          text: raw`What is the final simplified result?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Finish the simplification`,
+          previewHtml: raw`The whole expression simplifies to \(2+\sqrt{2}\).`,
+          workingHtml: raw`<p class="step-text">The whole expression simplifies to \(2+\sqrt{2}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 2+\sqrt{2}
-              \]`,
-              correct: true,
-              successMessage: raw`Exactly. The whole expression simplifies to \(2+\sqrt{2}\).`
-            },
-            {
-              html: raw`\[
-                2-\sqrt{2}
-              \]`,
-              failureMessage: raw`The conjugate changes the denominator, but the simplified numerator still gives a positive \(\sqrt{2}\) term.`
-            },
-            {
-              html: raw`\[
-                \sqrt{2}
-              \]`,
-              failureMessage: raw`You have lost the \(2\) coming from \(\frac{2p}{p}\).`
-            },
-            {
-              html: raw`\[
-                2p+\sqrt{2}
-              \]`,
-              failureMessage: raw`The \(p\) cancels out completely in the simplification.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Multiply by the conjugate of the denominator:</p>
+        <div class="math-block">
+          \[
+          \frac{\sqrt{2p}}{\sqrt{2p}-\sqrt{p}}\cdot\frac{\sqrt{2p}+\sqrt{p}}{\sqrt{2p}+\sqrt{p}}
+          \]
+          \[
+          =\frac{\sqrt{2p}(\sqrt{2p}+\sqrt{p})}{(\sqrt{2p})^2-(\sqrt{p})^2}
+          \]
+          \[
+          =\frac{2p+\sqrt{2p^2}}{p}
+          \]
+        </div>
+        <p class="step-text">Now simplify:</p>
+        <div class="math-block">
+          \[
+          \frac{2p}{p}+\frac{p\sqrt{2}}{p}=2+\sqrt{2}
+          \]
+        </div>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          2+\sqrt{2}
+          \]
+
+      </div>
+
+
+      <div class="callout-card tip">
+        <p class="callout-title">Exam Tip</p>
+        <p class="step-text">This is one of those nice ones where the parameter disappears completely after rationalising.</p>
+      </div>
+
+      `
         }
       ]
     }),
@@ -1951,45 +1867,22 @@
           \]
         `)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Read z from the diagram",
-          text: raw`Which pair gives the coefficients of \(z\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Read z from the diagram`,
+          previewHtml: raw`So \(z=-2+3i\).`,
+          workingHtml: raw`<p class="step-text">So \(z=-2+3i\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 (-2,3)
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. So \(z=-2+3i\).`
-            },
-            {
-              html: raw`\[
-                (2,3)
-              \]`,
-              failureMessage: raw`The point is to the left of the imaginary axis, so the real part is negative.`
-            },
-            {
-              html: raw`\[
-                (-2,-3)
-              \]`,
-              failureMessage: raw`The point is above the real axis, so the imaginary coefficient is positive.`
-            },
-            {
-              html: raw`\[
-                (3,-2)
-              \]`,
-              failureMessage: raw`That swaps the coordinates and changes the signs.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Find the plotted point",
-          text: raw`What ordered pair should you plot for \(w=z^2\)?`,
-          beforeHtml: raw`
+          title: raw`Find the plotted point`,
+          previewHtml: raw`Squaring gives \(w=-5-12i\), so the point is \((-5,-12)\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               z=-2+3i
@@ -2001,35 +1894,62 @@
               z^2=-5-12i
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">Squaring gives \(w=-5-12i\), so the point is \((-5,-12)\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 (-5,-12)
-              \]`,
-              correct: true,
-              successMessage: raw`Exactly. Squaring gives \(w=-5-12i\), so the point is \((-5,-12)\).`
-            },
-            {
-              html: raw`\[
-                (-5,12)
-              \]`,
-              failureMessage: raw`Check the sign of the imaginary part after squaring \((-2+3i)\).`
-            },
-            {
-              html: raw`\[
-                (5,-12)
-              \]`,
-              failureMessage: raw`The real part should be negative because \(4-9=-5\).`
-            },
-            {
-              html: raw`\[
-                (-1,-6)
-              \]`,
-              failureMessage: raw`That comes from incomplete simplification. Expand the square fully first.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Translate the point into complex form and square it:</p>
+        <div class="math-block">
+          \[
+          z=-2+3i
+          \]
+          \[
+          z^2=(-2+3i)^2
+          \]
+          \[
+          =4-12i+9i^2
+          \]
+          \[
+          =4-12i-9
+          \]
+          \[
+          =-5-12i
+          \]
+        </div>
+        <p class="step-text">So the point for \(w=z^2\) is \((-5,-12)\).</p>
+
+      <div class="graph-frame question-graph-frame">
+        <svg class="graph-svg" viewBox="0 0 420 420" role="img" aria-label="Argand diagram showing z at negative 2 comma 3 and w at negative 5 comma negative 12">
+          <rect class="graph-bg" x="0" y="0" width="420" height="420"></rect>
+          <line class="graph-grid-line" x1="28" y1="392" x2="28" y2="28"></line><line class="graph-grid-line" x1="58.33" y1="392" x2="58.33" y2="28"></line><line class="graph-grid-line" x1="88.67" y1="392" x2="88.67" y2="28"></line><line class="graph-grid-line" x1="119" y1="392" x2="119" y2="28"></line><line class="graph-grid-line" x1="149.33" y1="392" x2="149.33" y2="28"></line><line class="graph-grid-line" x1="179.67" y1="392" x2="179.67" y2="28"></line><line class="graph-grid-line" x1="210" y1="392" x2="210" y2="28"></line><line class="graph-grid-line" x1="240.33" y1="392" x2="240.33" y2="28"></line><line class="graph-grid-line" x1="270.67" y1="392" x2="270.67" y2="28"></line><line class="graph-grid-line" x1="301" y1="392" x2="301" y2="28"></line><line class="graph-grid-line" x1="331.33" y1="392" x2="331.33" y2="28"></line><line class="graph-grid-line" x1="361.67" y1="392" x2="361.67" y2="28"></line><line class="graph-grid-line" x1="392" y1="392" x2="392" y2="28"></line><line class="graph-grid-line" x1="28" y1="392" x2="392" y2="392"></line><line class="graph-grid-line" x1="28" y1="373.8" x2="392" y2="373.8"></line><line class="graph-grid-line" x1="28" y1="355.6" x2="392" y2="355.6"></line><line class="graph-grid-line" x1="28" y1="337.4" x2="392" y2="337.4"></line><line class="graph-grid-line" x1="28" y1="319.2" x2="392" y2="319.2"></line><line class="graph-grid-line" x1="28" y1="301" x2="392" y2="301"></line><line class="graph-grid-line" x1="28" y1="282.8" x2="392" y2="282.8"></line><line class="graph-grid-line" x1="28" y1="264.6" x2="392" y2="264.6"></line><line class="graph-grid-line" x1="28" y1="246.4" x2="392" y2="246.4"></line><line class="graph-grid-line" x1="28" y1="228.2" x2="392" y2="228.2"></line><line class="graph-grid-line" x1="28" y1="210" x2="392" y2="210"></line><line class="graph-grid-line" x1="28" y1="191.8" x2="392" y2="191.8"></line><line class="graph-grid-line" x1="28" y1="173.6" x2="392" y2="173.6"></line><line class="graph-grid-line" x1="28" y1="155.4" x2="392" y2="155.4"></line><line class="graph-grid-line" x1="28" y1="137.2" x2="392" y2="137.2"></line><line class="graph-grid-line" x1="28" y1="119" x2="392" y2="119"></line><line class="graph-grid-line" x1="28" y1="100.8" x2="392" y2="100.8"></line><line class="graph-grid-line" x1="28" y1="82.6" x2="392" y2="82.6"></line><line class="graph-grid-line" x1="28" y1="64.4" x2="392" y2="64.4"></line><line class="graph-grid-line" x1="28" y1="46.2" x2="392" y2="46.2"></line><line class="graph-grid-line" x1="28" y1="28" x2="392" y2="28"></line>
+          <line class="graph-axis" x1="28" y1="137.2" x2="392" y2="137.2"></line>
+          <line class="graph-axis" x1="270.67" y1="392" x2="270.67" y2="28"></line>
+          <circle class="question-origin" cx="270.67" cy="137.2" r="4.5"></circle>
+          <text class="graph-label" x="381.38" y="144.48" text-anchor="end">Real</text>
+          <text class="graph-label" x="270.67" y="31.64" text-anchor="middle">Imaginary</text>
+          <circle class="graph-point" cx="210" cy="82.6" r="5"></circle><text class="graph-label" x="223.65" y="75.32">z</text><circle class="graph-point-secondary" cx="119" cy="355.6" r="5"></circle><text class="graph-label" x="132.65" y="347.41">w</text>
+        </svg>
+      </div>
+
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          w=-5-12i
+          \]
+          \[
+          \text{Plot the point }(-5,-12).
+          \]
+
+      </div>
+
+      `
         }
       ]
     }),
@@ -2080,12 +2000,11 @@
         `)}
         ${tipBox(raw`As soon as you see \(\overline{z}\) and \(z^{-1}\) together, think about multiplying through by \(z\). It usually collapses nicely.`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Clear the inverse",
-          text: raw`What equation do you get after multiplying through by \(z\)?`,
-          beforeHtml: raw`
+          title: raw`Clear the inverse`,
+          previewHtml: raw`Follow the working to clear the inverse.`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               \overline{z}=3-di
@@ -2094,19 +2013,21 @@
               (3-di)(3+di)=10d
               \]
             </div>
-          `,
-          ariaLabel: "Type the equation after clearing the inverse",
-          mode: "equation",
-          acceptedAnswers: ["9+d^2=10d"],
-          samples: [{ d: 1 }, { d: 2 }, { d: 9 }],
-          successMessage: raw`Correct. Multiplying by \(z\) gives \(z\overline{z}=10d\), which becomes \(9+d^2=10d\).`,
-          genericMessage: raw`Use \((3-di)(3+di)\) on the left-hand side.`
+
+<p class="step-text">Multiplying by \(z\) gives \(z\overline{z}=10d\), which becomes \(9+d^2=10d\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  9 + d^{2} = 10 d
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Solve for d",
-          text: raw`Which pair of values for \(d\) is correct?`,
-          beforeHtml: raw`
+          title: raw`Solve for d`,
+          previewHtml: raw`The solutions are \(d=9\) and \(d=1\).`,
+          workingHtml: raw`
             <div class="math-block">
               \[
               9+d^2=10d
@@ -2118,35 +2039,56 @@
               (d-9)(d-1)=0
               \]
             </div>
-          `,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+
+<p class="step-text">The solutions are \(d=9\) and \(d=1\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 9,\ 1
-              \]`,
-              correct: true,
-              successMessage: raw`Exactly. The solutions are \(d=9\) and \(d=1\).`
-            },
-            {
-              html: raw`\[
-                -9,\ -1
-              \]`,
-              failureMessage: raw`Both signs are wrong. Factor \(d^2-10d+9\) carefully.`
-            },
-            {
-              html: raw`\[
-                9,\ -1
-              \]`,
-              failureMessage: raw`One value is right, but the second root should also be positive.`
-            },
-            {
-              html: raw`\[
-                10,\ 0
-              \]`,
-              failureMessage: raw`Those come from the coefficients, not from the factorised roots.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Start by writing the conjugate and clearing the inverse:</p>
+        <div class="math-block">
+          \[
+          3-di=\frac{10d}{3+di}
+          \]
+          \[
+          (3-di)(3+di)=10d
+          \]
+        </div>
+        <p class="step-text">Now simplify:</p>
+        <div class="math-block">
+          \[
+          9-d^2i^2=10d
+          \]
+          \[
+          9+d^2=10d
+          \]
+          \[
+          d^2-10d+9=0
+          \]
+          \[
+          (d-9)(d-1)=0
+          \]
+        </div>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          d=9,\ 1
+          \]
+
+      </div>
+
+
+      <div class="callout-card tip">
+        <p class="callout-title">Exam Tip</p>
+        <p class="step-text">As soon as you see \(\overline{z}\) and \(z^{-1}\) together, think about multiplying through by \(z\). It usually collapses nicely.</p>
+      </div>
+
+      `
         }
       ]
     }),
@@ -2188,102 +2130,105 @@
         <p class="step-text">So the four solutions are:</p>
         <div class="math-block">
           \[
-          3k^2\operatorname{cis}\left(\frac{\pi}{4}\right),\ 
-          3k^2\operatorname{cis}\left(\frac{3\pi}{4}\right),\ 
-          3k^2\operatorname{cis}\left(-\frac{3\pi}{4}\right),\ 
+          3k^2\operatorname{cis}\left(\frac{\pi}{4}\right),\;
+          3k^2\operatorname{cis}\left(\frac{3\pi}{4}\right),\;
+          3k^2\operatorname{cis}\left(-\frac{3\pi}{4}\right),\;
           3k^2\operatorname{cis}\left(-\frac{\pi}{4}\right)
           \]
         </div>
         ${answerBox(raw`
           \[
-          z=3k^2\operatorname{cis}\left(\frac{\pi}{4}\right),\ 
-          3k^2\operatorname{cis}\left(\frac{3\pi}{4}\right),\ 
-          3k^2\operatorname{cis}\left(-\frac{3\pi}{4}\right),\ 
+          z=3k^2\operatorname{cis}\left(\frac{\pi}{4}\right),\;
+          3k^2\operatorname{cis}\left(\frac{3\pi}{4}\right),\;
+          3k^2\operatorname{cis}\left(-\frac{3\pi}{4}\right),\;
           3k^2\operatorname{cis}\left(-\frac{\pi}{4}\right)
           \]
         `)}
         ${tipBox(raw`Make sure to use a different letter for your root counter so it does not get confused with the real constant \(k\).`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "choice",
-          title: "Rewrite the right-hand side",
-          text: raw`What is the modulus of \(-81k^8\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Rewrite the right-hand side`,
+          previewHtml: raw`The modulus is \(81k^8\).`,
+          workingHtml: raw`<p class="step-text">The modulus is \(81k^8\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 81k^8
-              \]`,
-              correct: true,
-              successMessage: raw`Correct. The modulus is \(81k^8\).`
-            },
-            {
-              html: raw`\[
-                -81k^8
-              \]`,
-              failureMessage: raw`A modulus is always non-negative, so the sign must disappear.`
-            },
-            {
-              html: raw`\[
-                9k^4
-              \]`,
-              failureMessage: raw`That is the fourth-root modulus, not the modulus of the original right-hand side.`
-            },
-            {
-              html: raw`\[
-                81k^2
-              \]`,
-              failureMessage: raw`The exponent on \(k\) should stay \(8\) before taking roots.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "General argument form",
-          text: raw`What general expression can you use for the fourth-root arguments?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`General argument form`,
+          previewHtml: raw`The arguments are \(\frac{\pi}{4}+n\frac{\pi}{2}\).`,
+          workingHtml: raw`<p class="step-text">The arguments are \(\frac{\pi}{4}+n\frac{\pi}{2}\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 \frac{\pi}{4}+n\frac{\pi}{2}
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. The arguments are \(\frac{\pi}{4}+n\frac{\pi}{2}\).`
-            },
-            {
-              html: raw`\[
-                \frac{\pi}{4}+n\frac{\pi}{4}
-              \]`,
-              failureMessage: raw`The roots should be spaced by \(\frac{2\pi}{4}=\frac{\pi}{2}\), not by \(\frac{\pi}{4}\).`
-            },
-            {
-              html: raw`\[
-                \pi+n\frac{\pi}{2}
-              \]`,
-              failureMessage: raw`The initial argument should be divided by \(4\) when taking fourth roots.`
-            },
-            {
-              html: raw`\[
-                \frac{\pi}{2}+n\pi
-              \]`,
-              failureMessage: raw`That gives the wrong starting angle and the wrong spacing for fourth roots.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "typed",
-          title: "List the four arguments",
-          text: raw`Type the four principal arguments, separated by commas.`,
-          ariaLabel: "Type the four arguments",
-          mode: "list",
-          options: unorderedListOptions,
-          acceptedAnswers: [
-            "pi/4,3pi/4,-3pi/4,-pi/4",
-            "pi/4,3pi/4,5pi/4,7pi/4"
-          ],
-          successMessage: raw`Correct. Those give the four fourth roots in polar form.`,
-          genericMessage: raw`Substitute \(n=0,1,2,3\) into \(\frac{\pi}{4}+n\frac{\pi}{2}\).`
+          title: raw`List the four arguments`,
+          previewHtml: raw`Those give the four fourth roots in polar form.`,
+          workingHtml: raw`<p class="step-text">Those give the four fourth roots in polar form.</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  \frac{\pi}{4},\ \frac{3 \pi}{4},\ \frac{-3 \pi}{4},\ \frac{-\pi}{4}
+  \]
+</div>
+</div>
+
+        <p class="step-text">Rewrite the equation first:</p>
+        <div class="math-block">
+          \[
+          z^4=-81k^8
+          \]
+          \[
+          z^4=81k^8\operatorname{cis}((2n+1)\pi)
+          \]
+        </div>
+        <p class="step-text">Now take fourth roots:</p>
+        <div class="math-block">
+          \[
+          z=3k^2\operatorname{cis}\left(\frac{(2n+1)\pi}{4}\right)
+          \]
+          \[
+          z=3k^2\operatorname{cis}\left(\frac{\pi}{4}+n\frac{\pi}{2}\right),\qquad n=0,1,2,3
+          \]
+        </div>
+        <p class="step-text">So the four solutions are:</p>
+        <div class="math-block">
+          \[
+          3k^2\operatorname{cis}\left(\frac{\pi}{4}\right),\;
+          3k^2\operatorname{cis}\left(\frac{3\pi}{4}\right),\;
+          3k^2\operatorname{cis}\left(-\frac{3\pi}{4}\right),\;
+          3k^2\operatorname{cis}\left(-\frac{\pi}{4}\right)
+          \]
+        </div>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          z=3k^2\operatorname{cis}\left(\frac{\pi}{4}\right),\;
+          3k^2\operatorname{cis}\left(\frac{3\pi}{4}\right),\;
+          3k^2\operatorname{cis}\left(-\frac{3\pi}{4}\right),\;
+          3k^2\operatorname{cis}\left(-\frac{\pi}{4}\right)
+          \]
+
+      </div>
+
+
+      <div class="callout-card tip">
+        <p class="callout-title">Exam Tip</p>
+        <p class="step-text">Make sure to use a different letter for your root counter so it does not get confused with the real constant \(k\).</p>
+      </div>
+
+      `
         }
       ]
     }),
@@ -2340,87 +2285,83 @@
         `)}
         ${tipBox(raw`That last substitution matters. Once you see \(x+\frac{1}{x}\) appear again, replace it with \(p\) straight away.`)}
       `,
-      steps: [
+      guidedSteps: [
         {
-          type: "typed",
-          title: "Expand the cube",
-          text: raw`After cubing both sides, what equation do you get before substituting back in \(p\)?`,
-          ariaLabel: "Type the expanded cube equation",
-          mode: "equation",
-          acceptedAnswers: [
-            "p^3=x^3+1/x^3+3x+3/x",
-            "p^3=x^3+3x+3/x+1/x^3",
-            "p^3=x^3+1/x^3+3(x+1/x)"
-          ],
-          samples: [{ x: 2, p: 5 }, { x: 3, p: 2 }, { x: 5, p: 7 }],
-          successMessage: raw`Correct. That is the expanded form of \(\left(x+\frac{1}{x}\right)^3\).`,
-          genericMessage: raw`Use \((a+b)^3=a^3+3a^2b+3ab^2+b^3\) with \(a=x\) and \(b=\frac{1}{x}\).`
+          title: raw`Expand the cube`,
+          previewHtml: raw`That is the expanded form of \(\left(x+\frac{1}{x}\right)^3\).`,
+          workingHtml: raw`<p class="step-text">That is the expanded form of \(\left(x+\frac{1}{x}\right)^3\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  <div class="math-block">
+  \[
+  p^{3} = x^{3} + \frac{1}{x^{3}} + 3 x + \frac{3}{x}
+  \]
+</div>
+</div>`
         },
         {
-          type: "choice",
-          title: "Substitute the given relation",
-          text: raw`What does \(3\left(x+\frac{1}{x}\right)\) become?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Substitute the given relation`,
+          previewHtml: raw`Since \(x+\frac{1}{x}=p\), the whole bracket becomes \(3p\).`,
+          workingHtml: raw`<p class="step-text">Since \(x+\frac{1}{x}=p\), the whole bracket becomes \(3p\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 3p
-              \]`,
-              correct: true,
-              successMessage: raw`Yes. Since \(x+\frac{1}{x}=p\), the whole bracket becomes \(3p\).`
-            },
-            {
-              html: raw`\[
-                p^3
-              \]`,
-              failureMessage: raw`The given relation is \(x+\frac{1}{x}=p\), so multiplying that bracket by \(3\) gives \(3p\), not \(p^3\).`
-            },
-            {
-              html: raw`\[
-                \frac{3}{p}
-              \]`,
-              failureMessage: raw`The bracket is replaced directly by \(p\); nothing is inverted here.`
-            },
-            {
-              html: raw`\[
-                p
-              \]`,
-              failureMessage: raw`Do not forget the factor of \(3\) in front of the bracket.`
-            }
-          ]
+              \]
+</div>`
         },
         {
-          type: "choice",
-          title: "Isolate the target expression",
-          text: raw`So what is \(x^3+\frac{1}{x^3}\) in terms of \(p\)?`,
-          buttonGridClass: "button-grid two-col",
-          choices: [
-            {
-              html: raw`\[
+          title: raw`Isolate the target expression`,
+          previewHtml: raw`Rearranging gives \(x^3+\frac{1}{x^3}=p^3-3p\).`,
+          workingHtml: raw`<p class="step-text">Rearranging gives \(x^3+\frac{1}{x^3}=p^3-3p\).</p>
+<div class="answer-highlight walkthrough-answer-highlight">
+  <p class="question-label">Key result</p>
+  \[
                 p^3-3p
-              \]`,
-              correct: true,
-              successMessage: raw`Exactly. Rearranging gives \(x^3+\frac{1}{x^3}=p^3-3p\).`
-            },
-            {
-              html: raw`\[
-                p^3+3p
-              \]`,
-              failureMessage: raw`The \(3p\) term is moved to the other side, so it should be subtracted.`
-            },
-            {
-              html: raw`\[
-                p^3-p
-              \]`,
-              failureMessage: raw`The coefficient of the middle term stays \(3\).`
-            },
-            {
-              html: raw`\[
-                3p-p^3
-              \]`,
-              failureMessage: raw`That has the terms in the wrong order after rearranging.`
-            }
-          ]
+              \]
+</div>
+
+        <p class="step-text">Start by cubing both sides:</p>
+        <div class="math-block">
+          \[
+          p^3=\left(x+\frac{1}{x}\right)^3
+          \]
+          \[
+          p^3=x^3+\frac{1}{x^3}+3x+\frac{3}{x}
+          \]
+        </div>
+        <p class="step-text">Now group the middle terms together:</p>
+        <div class="math-block">
+          \[
+          p^3=x^3+\frac{1}{x^3}+3\left(x+\frac{1}{x}\right)
+          \]
+          \[
+          p^3=x^3+\frac{1}{x^3}+3p
+          \]
+        </div>
+        <p class="step-text">Rearrange:</p>
+        <div class="math-block">
+          \[
+          x^3+\frac{1}{x^3}=p^3-3p
+          \]
+        </div>
+
+      <div class="answer-highlight">
+        <p class="question-label">Final Answer</p>
+
+          \[
+          x^3+\frac{1}{x^3}=p^3-3p
+          \]
+
+      </div>
+
+
+      <div class="callout-card tip">
+        <p class="callout-title">Exam Tip</p>
+        <p class="step-text">That last substitution matters. Once you see \(x+\frac{1}{x}\) appear again, replace it with \(p\) straight away.</p>
+      </div>
+
+      `
         }
       ]
     })
