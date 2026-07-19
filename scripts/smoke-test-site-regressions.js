@@ -102,7 +102,10 @@
 
     checks.documentReady = document.readyState === "complete";
     checks.katexAvailable = typeof window.katex === "object" || typeof window.katex === "function";
-    checks.mathRendered = document.querySelectorAll(".katex").length > 0;
+    // Some generated landing pages contain no mathematical notation. In that
+    // case, an empty KaTeX node set is valid provided no TeX source remains.
+    checks.mathRendered = document.querySelectorAll(".katex").length > 0
+      || unrenderedMath.length === 0;
     checks.noKatexErrors = !document.querySelector(".katex-error");
     checks.noUnrenderedMath = unrenderedMath.length === 0;
     checks.imagesLoaded = brokenImages.length === 0;

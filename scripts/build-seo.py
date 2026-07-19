@@ -2,7 +2,7 @@
 """Build the static SEO layer for Calc.nz.
 
 The question catalogue in ``index.html`` remains the source of truth.  This
-script reads its 432 crawlable question cards, derives the supported standards
+script reads its 447 crawlable question cards, derives the supported standards
 and paper years, and then makes deterministic, marker-delimited updates.
 
 Run from any directory::
@@ -33,9 +33,9 @@ from xml.sax.saxutils import escape as xml_escape
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://calc.nz/"
-CACHE_TOKEN = "20260719-3"
-EXPECTED_ROUTE_COUNT = 432
-EXPECTED_YEAR_COUNT = 29
+CACHE_TOKEN = "20260719-4"
+EXPECTED_ROUTE_COUNT = 447
+EXPECTED_YEAR_COUNT = 30
 
 REPOSITORY_URL = "https://github.com/vanbaalenjack-pixel/calculus-l3walkthrough"
 ERROR_REPORT_URL = (

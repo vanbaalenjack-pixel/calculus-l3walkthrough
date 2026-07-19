@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Dependency-free structural audit for Calc.nz.
 
-The 432 question cards in ``index.html`` are the route and ownership source of
+The 447 question cards in ``index.html`` are the route and ownership source of
 truth.  This audit deliberately checks generated landing pages and walkthrough
 sources against that catalogue instead of maintaining a second list of every
 question URL.
@@ -32,11 +32,11 @@ from urllib.parse import parse_qs, unquote, urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 INDEX_FILE = ROOT / "index.html"
 
-EXPECTED_LOGICAL_ROUTE_COUNT = 432
-EXPECTED_PHYSICAL_WALKTHROUGH_COUNT = 320
+EXPECTED_LOGICAL_ROUTE_COUNT = 447
+EXPECTED_PHYSICAL_WALKTHROUGH_COUNT = 335
 EXPECTED_STANDARD_COUNT = 5
-EXPECTED_YEAR_PAGE_COUNT = 29
-EXPECTED_DATA_FILE_COUNT = 27
+EXPECTED_YEAR_PAGE_COUNT = 30
+EXPECTED_DATA_FILE_COUNT = 28
 
 FULL_PARTS = tuple(f"{number}{letter}" for number in "123" for letter in "abcde")
 L2_CALCULUS_PARTS = tuple(f"{number}{letter}" for number in "123" for letter in "abcd")
@@ -71,7 +71,7 @@ STANDARD_SPECS: tuple[StandardSpec, ...] = (
     StandardSpec(
         "level-3-differentiation",
         "level-3-differentiation",
-        tuple(range(2017, 2026)),
+        tuple(range(2016, 2026)),
         FULL_PARTS,
     ),
     StandardSpec(
@@ -352,7 +352,7 @@ def discover_routes(failures: Failures) -> list[QuestionRoute]:
     }
     failures.check(
         seen_panels == expected_papers,
-        "index.html: paper panels differ from the expected 29 standard/year owners "
+        "index.html: paper panels differ from the expected 30 standard/year owners "
         f"(missing={sorted(expected_papers - seen_panels)}, "
         f"unexpected={sorted(seen_panels - expected_papers)})",
     )
@@ -501,7 +501,7 @@ def audit_year_pages(routes: Sequence[QuestionRoute], failures: Failures) -> Non
     )
     if missing_collective or unexpected_collective or repeated_collective:
         failures.add(
-            "year pages: collective question directory must contain all 432 logical routes "
+            "year pages: collective question directory must contain all 447 logical routes "
             "exactly once "
             f"(missing={missing_collective[:4]}, unexpected={unexpected_collective[:4]}, "
             f"repeated={repeated_collective[:4]})"

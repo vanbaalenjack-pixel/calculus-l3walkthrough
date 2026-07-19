@@ -20,8 +20,8 @@ import xml.etree.ElementTree as ET
 
 
 ORIGIN = "https://calc.nz"
-EXPECTED_SITEMAP_COUNT = 469
-EXPECTED_QUESTION_COUNT = 432
+EXPECTED_SITEMAP_COUNT = 485
+EXPECTED_QUESTION_COUNT = 447
 STANDARDS_INDEX_FILE = "standards.html"
 LEGACY_REDIRECTS = {
     "differentiation-2020.html",
@@ -45,6 +45,7 @@ for _slug in ("level-2-calculus", "level-2-algebra"):
 for _slug in ("level-3-complex-numbers", "level-3-differentiation", "level-3-integration"):
     for _year in range(2017, 2026):
         YEAR_FILE_TO_STANDARD[f"{_slug}-{_year}.html"] = _slug
+YEAR_FILE_TO_STANDARD["level-3-differentiation-2016.html"] = "level-3-differentiation"
 YEAR_FILES = set(YEAR_FILE_TO_STANDARD)
 
 
@@ -59,6 +60,7 @@ def build_expected_question_routes() -> Set[str]:
     for year in range(2017, 2026):
         routes.update(absolute(f"{part}{year}.html") for part in FULL_PARTS)
         routes.update(absolute(f"int-{part}{year}.html") for part in FULL_PARTS)
+    routes.update(absolute(f"{part}2016.html") for part in FULL_PARTS)
     routes.update(absolute(f"complex-{part}2025.html") for part in FULL_PARTS)
     for year in range(2017, 2025):
         routes.update(absolute(f"complex-{year}.html?q={part}") for part in FULL_PARTS)

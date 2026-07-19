@@ -52,6 +52,13 @@ document.addEventListener("DOMContentLoaded", function () {
       ? window.CalcNzWalkthrough.lastVisitedStorageKey
       : "calc.nz.lastWalkthrough"
   };
+  const standardCodes = {
+    "level-2-calculus": "AS91262",
+    "level-2-algebra": "AS91261",
+    "level-3-complex": "AS91577",
+    "level-3-differentiation": "AS91578",
+    "level-3-integration": "AS91579"
+  };
 
   if (!levelChooser || !levelButtons.length || !levelPanels.length) {
     ensureHomepageReportFooter();
@@ -197,6 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
       standard: standard,
       levelLabel: level ? getChoiceLabel("level", level) : "",
       standardLabel: standard ? getChoiceLabel("standard", standard) : "",
+      standardCode: standardCodes[standard] || "",
       year: getPaperYear(paper)
     };
   }
@@ -447,11 +455,18 @@ document.addEventListener("DOMContentLoaded", function () {
         const copy = link.querySelector(".index-link-copy");
         const titleText = title ? title.textContent.trim() : link.textContent.trim();
         const copyText = copy ? copy.textContent.trim() : "";
+        const partMatch = titleText.match(/Question\s+([123])\(([a-e])\)/i);
+        const partId = partMatch ? partMatch[1] + partMatch[2].toLowerCase() : "";
         const contextText = [
           context.levelLabel,
           context.standardLabel,
+          context.standardCode,
           context.year,
           context.year + " " + context.standardLabel,
+          context.year + " " + context.standardCode,
+          partId,
+          partId ? "question " + partId : "",
+          partId ? "q" + partId : "",
           paper
         ].join(" ");
 
@@ -547,7 +562,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .sort(function (first, second) {
           return second.score - first.score || second.year.localeCompare(first.year) || first.title.localeCompare(second.title);
         })
-        .slice(0, 10);
+        .slice(0, 15);
 
       resultsContainer.hidden = false;
 
