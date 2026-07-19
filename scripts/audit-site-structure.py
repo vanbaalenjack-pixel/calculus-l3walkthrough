@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Dependency-free structural audit for Calc.nz.
 
-The 447 question cards in ``index.html`` are the route and ownership source of
-truth.  This audit deliberately checks generated landing pages and walkthrough
-sources against that catalogue instead of maintaining a second list of every
-question URL.
+The structured records in ``question-catalogue.js`` are the route and ownership
+source of truth.  This audit deliberately checks generated landing pages and
+walkthrough sources against that catalogue instead of maintaining a second list
+of every question URL.  The catalogue assignment is deliberately JSON-compatible
+so build and QA tooling can read it without evaluating JavaScript.
 
 Run from any directory::
 
@@ -18,6 +19,7 @@ responsibility of the WebKit smoke tests.
 from __future__ import annotations
 
 import html
+import json
 import os
 import re
 import sys
@@ -30,7 +32,8 @@ from urllib.parse import parse_qs, unquote, urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
-INDEX_FILE = ROOT / "index.html"
+CATALOGUE_FILE = ROOT / "question-catalogue.js"
+CATALOGUE_GLOBAL = "CALC_NZ_QUESTION_CATALOGUE"
 
 EXPECTED_LOGICAL_ROUTE_COUNT = 447
 EXPECTED_PHYSICAL_WALKTHROUGH_COUNT = 335
@@ -44,7 +47,7 @@ L2_CALCULUS_PARTS = tuple(f"{number}{letter}" for number in "123" for letter in 
 
 @dataclass(frozen=True)
 class StandardSpec:
-    """Stable standard-level facts; question routes still come from index.html."""
+    """Stable standard-level facts; routes come from question-catalogue.js."""
 
     key: str
     public_slug: str
@@ -111,63 +114,6 @@ class Failures:
     def check(self, condition: bool, message: str) -> None:
         if not condition:
             self.add(message)
-
-
-class IndexCatalogueParser(HTMLParser):
-    """Collect question-card hrefs while retaining their paper-panel owner."""
-
-    VOID_TAGS = {
-        "area", "base", "br", "col", "embed", "hr", "img", "input", "link",
-        "meta", "param", "source", "track", "wbr",
-    }
-
-    def __init__(self) -> None:
-        super().__init__(convert_charrefs=True)
-        self.paper_panel: str | None = None
-        self.stack: list[tuple[str, str | None]] = []
-        self.cards: list[tuple[str, str, int]] = []
-
-    def handle_starttag(
-        self, tag: str, attrs: list[tuple[str, str | None]]
-    ) -> None:
-        tag = tag.lower()
-        values = {name.lower(): value or "" for name, value in attrs}
-        previous_panel = self.paper_panel
-        declared_panel = values.get("data-paper-panel", "").strip()
-        if declared_panel:
-            self.paper_panel = declared_panel
-
-        if tag == "a" and self.paper_panel:
-            classes = set(values.get("class", "").split())
-            href = html.unescape(values.get("href", "").strip())
-            if "index-link-card" in classes and href:
-                self.cards.append((self.paper_panel, href, self.getpos()[0]))
-
-        if tag not in self.VOID_TAGS:
-            self.stack.append((tag, previous_panel))
-
-    def handle_startendtag(
-        self, tag: str, attrs: list[tuple[str, str | None]]
-    ) -> None:
-        self.handle_starttag(tag, attrs)
-        if tag.lower() not in self.VOID_TAGS:
-            self.handle_endtag(tag)
-
-    def handle_endtag(self, tag: str) -> None:
-        tag = tag.lower()
-        match = next(
-            (
-                index
-                for index in range(len(self.stack) - 1, -1, -1)
-                if self.stack[index][0] == tag
-            ),
-            None,
-        )
-        if match is None:
-            return
-        previous_panel = self.stack[match][1]
-        del self.stack[match:]
-        self.paper_panel = previous_panel
 
 
 class PageLinkParser(HTMLParser):
@@ -286,55 +232,153 @@ def derive_part(spec: StandardSpec, year: int, href: str) -> str | None:
 
 
 def discover_routes(failures: Failures) -> list[QuestionRoute]:
-    source = read_text(INDEX_FILE, failures)
+    source = read_text(CATALOGUE_FILE, failures)
     if source is None:
         return []
 
-    parser = IndexCatalogueParser()
+    assignment = re.fullmatch(
+        rf"\s*(?:/\*[\s\S]*?\*/\s*)?window\.{CATALOGUE_GLOBAL}\s*=\s*"
+        rf"(?P<payload>\{{[\s\S]*\}})\s*;\s*",
+        source,
+    )
+    if assignment is None:
+        failures.add(
+            f"{CATALOGUE_FILE.name}: expected one JSON-compatible "
+            f"window.{CATALOGUE_GLOBAL} assignment"
+        )
+        return []
     try:
-        parser.feed(source)
-        parser.close()
-    except Exception as error:
-        failures.add(f"index.html: catalogue parse error ({error})")
+        catalogue = json.loads(assignment.group("payload"))
+    except (TypeError, ValueError) as error:
+        failures.add(f"{CATALOGUE_FILE.name}: catalogue JSON parse error ({error})")
         return []
 
+    if (
+        not isinstance(catalogue, dict)
+        or catalogue.get("schemaVersion") not in {1, 2}
+    ):
+        failures.add(
+            f"{CATALOGUE_FILE.name}: expected an object with schemaVersion 1 or 2"
+        )
+        return []
+
+    raw_records: list[tuple[str, int, str, str]] = []
+    seen_level_ids: set[str] = set()
+    for level in catalogue.get("levels", []):
+        if not isinstance(level, dict):
+            failures.add(f"{CATALOGUE_FILE.name}: level records must be objects")
+            continue
+        level_id = str(level.get("id", "")).strip()
+        if not re.fullmatch(r"level-[23]", level_id):
+            failures.add(
+                f"{CATALOGUE_FILE.name}: invalid level id {level_id!r}"
+            )
+        if level_id in seen_level_ids:
+            failures.add(
+                f"{CATALOGUE_FILE.name}: duplicate level id {level_id!r}"
+            )
+        seen_level_ids.add(level_id)
+        for standard in level.get("standards", []):
+            if not isinstance(standard, dict):
+                failures.add(
+                    f"{CATALOGUE_FILE.name}: standard records must be objects"
+                )
+                continue
+            standard_key = str(standard.get("id", "")).strip()
+            if standard_key not in SPEC_BY_KEY:
+                failures.add(
+                    f"{CATALOGUE_FILE.name}: unsupported standard id "
+                    f"{standard_key!r}"
+                )
+                continue
+            for paper in standard.get("papers", []):
+                if not isinstance(paper, dict):
+                    failures.add(
+                        f"{CATALOGUE_FILE.name}: paper records must be objects"
+                    )
+                    continue
+                year = paper.get("year")
+                if not isinstance(year, int):
+                    failures.add(
+                        f"{CATALOGUE_FILE.name}: {standard_key} paper has invalid "
+                        f"year {year!r}"
+                    )
+                    continue
+                expected_paper_id = f"{standard_key}-{year}"
+                if paper.get("id") != expected_paper_id:
+                    failures.add(
+                        f"{CATALOGUE_FILE.name}: paper id {paper.get('id')!r} "
+                        f"does not match {expected_paper_id!r}"
+                    )
+                for question in paper.get("questions", []):
+                    if not isinstance(question, dict):
+                        failures.add(
+                            f"{CATALOGUE_FILE.name}: question records must be objects"
+                        )
+                        continue
+                    raw_records.append(
+                        (
+                            expected_paper_id,
+                            year,
+                            str(question.get("id", "")).strip().lower(),
+                            html.unescape(str(question.get("href", "")).strip()),
+                        )
+                    )
+
     failures.check(
-        len(parser.cards) == EXPECTED_LOGICAL_ROUTE_COUNT,
-        f"index.html: expected {EXPECTED_LOGICAL_ROUTE_COUNT} question cards, "
-        f"found {len(parser.cards)}",
+        len(raw_records) == EXPECTED_LOGICAL_ROUTE_COUNT,
+        f"{CATALOGUE_FILE.name}: expected {EXPECTED_LOGICAL_ROUTE_COUNT} question "
+        f"records, found {len(raw_records)}",
     )
 
     routes: list[QuestionRoute] = []
     parts_by_paper: dict[str, list[str]] = defaultdict(list)
     seen_panels: set[str] = set()
 
-    for paper_id, href, line in parser.cards:
+    for record_number, (paper_id, declared_year, declared_part, href) in enumerate(
+        raw_records, 1
+    ):
         ownership = split_paper_id(paper_id)
         if ownership is None:
             failures.add(
-                f"index.html:{line}: question card belongs to unsupported paper panel "
-                f"{paper_id!r}"
+                f"{CATALOGUE_FILE.name}: question record {record_number} belongs to "
+                f"unsupported paper {paper_id!r}"
             )
             continue
         spec, year = ownership
         seen_panels.add(paper_id)
 
+        if year != declared_year:
+            failures.add(
+                f"{CATALOGUE_FILE.name}: question record {record_number} year "
+                f"{declared_year} disagrees with paper id {paper_id!r}"
+            )
+
         if year not in spec.years:
             failures.add(
-                f"index.html:{line}: {paper_id} has unexpected year {year} for {spec.key}"
+                f"{CATALOGUE_FILE.name}: {paper_id} has unexpected year {year} "
+                f"for {spec.key}"
             )
 
         part = derive_part(spec, year, href)
         if part is None or part not in spec.parts:
             failures.add(
-                f"index.html:{line}: {href!r} does not match {spec.key} {year} ownership"
+                f"{CATALOGUE_FILE.name}: question record {record_number} URL {href!r} "
+                f"does not match {spec.key} {year} ownership"
             )
             continue
+        if part != declared_part:
+            failures.add(
+                f"{CATALOGUE_FILE.name}: question record {record_number} id "
+                f"{declared_part!r} disagrees with URL-derived id {part!r}"
+            )
 
         logical_route = normalise_logical_route(href)
         source_file = unquote(urlsplit(href).path).lstrip("/")
         if not source_file or not (ROOT / source_file).is_file():
-            failures.add(f"index.html:{line}: walkthrough target is missing: {href!r}")
+            failures.add(
+                f"{CATALOGUE_FILE.name}: walkthrough target is missing: {href!r}"
+            )
 
         route = QuestionRoute(
             standard_key=spec.key,
@@ -352,7 +396,7 @@ def discover_routes(failures: Failures) -> list[QuestionRoute]:
     }
     failures.check(
         seen_panels == expected_papers,
-        "index.html: paper panels differ from the expected 30 standard/year owners "
+        f"{CATALOGUE_FILE.name}: papers differ from the expected 30 standard/year owners "
         f"(missing={sorted(expected_papers - seen_panels)}, "
         f"unexpected={sorted(seen_panels - expected_papers)})",
     )
@@ -364,10 +408,12 @@ def discover_routes(failures: Failures) -> list[QuestionRoute]:
         actual = parts_by_paper.get(paper_id, [])
         duplicates = sorted(part for part, count in Counter(actual).items() if count > 1)
         if duplicates:
-            failures.add(f"index.html: {paper_id} has duplicate parts: {duplicates}")
+            failures.add(
+                f"{CATALOGUE_FILE.name}: {paper_id} has duplicate parts: {duplicates}"
+            )
         if set(actual) != set(spec.parts):
             failures.add(
-                f"index.html: {paper_id} part ownership mismatch "
+                f"{CATALOGUE_FILE.name}: {paper_id} part ownership mismatch "
                 f"(missing={sorted(set(spec.parts) - set(actual))}, "
                 f"unexpected={sorted(set(actual) - set(spec.parts))})"
             )
@@ -378,19 +424,19 @@ def discover_routes(failures: Failures) -> list[QuestionRoute]:
     )
     if duplicate_routes:
         failures.add(
-            "index.html: duplicate logical walkthrough routes: "
+            f"{CATALOGUE_FILE.name}: duplicate logical walkthrough routes: "
             + ", ".join(duplicate_routes[:8])
         )
 
     physical_files = {route.source_file for route in routes}
     failures.check(
         len(routes) == EXPECTED_LOGICAL_ROUTE_COUNT,
-        f"index.html: derived {len(routes)} valid logical routes, expected "
+        f"{CATALOGUE_FILE.name}: derived {len(routes)} valid logical routes, expected "
         f"{EXPECTED_LOGICAL_ROUTE_COUNT}",
     )
     failures.check(
         len(physical_files) == EXPECTED_PHYSICAL_WALKTHROUGH_COUNT,
-        f"index.html: derived {len(physical_files)} physical walkthrough files, expected "
+        f"{CATALOGUE_FILE.name}: derived {len(physical_files)} physical walkthrough files, expected "
         f"{EXPECTED_PHYSICAL_WALKTHROUGH_COUNT}",
     )
     return routes
@@ -1202,6 +1248,23 @@ def audit_html_references(failures: Failures) -> None:
     issues: list[str] = []
     for path, parser in list(documents.items()):
         filename = display_path(path)
+        runtime_sources: list[str] = []
+        for src, _line in parser.script_sources:
+            parsed_src = urlsplit(src)
+            if parsed_src.scheme or parsed_src.netloc:
+                continue
+            script_target = resolve_internal_target(path, parsed_src.path)
+            if script_target is None or script_target.suffix.casefold() != ".js":
+                continue
+            try:
+                runtime_sources.append(script_target.read_text(encoding="utf-8"))
+            except (OSError, UnicodeError):
+                continue
+
+        def runtime_declares_id(element_id: str) -> bool:
+            quoted = re.compile(rf"['\"]{re.escape(element_id)}['\"]")
+            return any(quoted.search(runtime) for runtime in runtime_sources)
+
         for element_id, lines in sorted(parser.id_lines.items()):
             if len(lines) > 1:
                 issues.append(
@@ -1212,7 +1275,10 @@ def audit_html_references(failures: Failures) -> None:
             issues.append(f"{filename}:{line}: <a> has no href")
 
         for attribute, value, line in parser.aria_references:
-            missing = [token for token in value.split() if token not in parser.ids]
+            missing = [
+                token for token in value.split()
+                if token not in parser.ids and not runtime_declares_id(token)
+            ]
             if missing:
                 issues.append(
                     f"{filename}:{line}: {attribute} references missing id(s) {missing}"
@@ -1334,11 +1400,11 @@ def audit_navigation_catalogue(
 
     failures.check(
         tuple(full_parts) == FULL_PARTS,
-        "walkthrough-gate.js: WALKTHROUGH_NAV_PARTS differs from index ownership",
+        "walkthrough-gate.js: WALKTHROUGH_NAV_PARTS differs from catalogue ownership",
     )
     failures.check(
         tuple(l2_parts) == L2_CALCULUS_PARTS,
-        "walkthrough-gate.js: Level 2 Calculus parts differ from index ownership",
+        "walkthrough-gate.js: Level 2 Calculus parts differ from catalogue ownership",
     )
 
     navigation_by_paper: dict[str, set[str]] = defaultdict(set)
@@ -1396,7 +1462,7 @@ def audit_navigation_catalogue(
     navigation_papers = set(navigation_by_paper)
     if navigation_papers != expected_papers:
         failures.add(
-            "walkthrough-gate.js: navigation paper catalogue differs from index.html "
+            "walkthrough-gate.js: navigation paper catalogue differs from question-catalogue.js "
             f"(missing={sorted(expected_papers - navigation_papers)}, "
             f"unexpected={sorted(navigation_papers - expected_papers)})"
         )
@@ -1406,7 +1472,7 @@ def audit_navigation_catalogue(
         actual = navigation_by_paper[paper_id]
         if actual != expected:
             failures.add(
-                f"walkthrough-gate.js: {paper_id} part routes differ from index.html "
+                f"walkthrough-gate.js: {paper_id} part routes differ from question-catalogue.js "
                 f"(missing={sorted(expected - actual)[:4]}, "
                 f"unexpected={sorted(actual - expected)[:4]})"
             )

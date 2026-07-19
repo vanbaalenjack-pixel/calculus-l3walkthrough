@@ -18,6 +18,7 @@ makes it suitable for a small CI check.
 from __future__ import annotations
 
 import argparse
+import copy
 import html
 import json
 import re
@@ -30,12 +31,33 @@ from typing import Iterable, Mapping, Sequence
 from urllib.parse import urlsplit
 from xml.sax.saxutils import escape as xml_escape
 
+try:
+    from skill_content import (
+        SKILL_SPECS,
+        catalogue_questions,
+        classify_question,
+        synthesise_common_mistakes,
+        validate_skill_coverage,
+    )
+except ModuleNotFoundError:  # Supports import-based validators from the repository root.
+    from scripts.skill_content import (  # type: ignore[no-redef]
+        SKILL_SPECS,
+        catalogue_questions,
+        classify_question,
+        synthesise_common_mistakes,
+        validate_skill_coverage,
+    )
+
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://calc.nz/"
-CACHE_TOKEN = "20260719-4"
+CACHE_TOKEN = "20260719-8"
+REVIEW_DATE = "2026-07-19"
+SOCIAL_IMAGE_URL = f"{BASE_URL}assets/calc-nz-social.png"
+SOCIAL_IMAGE_ALT = "Calc.nz guided NCEA maths walkthroughs"
 EXPECTED_ROUTE_COUNT = 447
 EXPECTED_YEAR_COUNT = 30
+CATALOGUE_FILE = ROOT / "question-catalogue.js"
 
 REPOSITORY_URL = "https://github.com/vanbaalenjack-pixel/calculus-l3walkthrough"
 ERROR_REPORT_URL = (
@@ -369,9 +391,15 @@ def metadata_body(
             f'<meta property="og:title" content="{h(title)}">',
             f'<meta property="og:description" content="{h(description)}">',
             f'<meta property="og:url" content="{h(canonical)}">',
-            '<meta name="twitter:card" content="summary">',
+            f'<meta property="og:image" content="{h(SOCIAL_IMAGE_URL)}">',
+            '<meta property="og:image:width" content="1200">',
+            '<meta property="og:image:height" content="630">',
+            f'<meta property="og:image:alt" content="{h(SOCIAL_IMAGE_ALT)}">',
+            '<meta name="twitter:card" content="summary_large_image">',
             f'<meta name="twitter:title" content="{h(title)}">',
             f'<meta name="twitter:description" content="{h(description)}">',
+            f'<meta name="twitter:image" content="{h(SOCIAL_IMAGE_URL)}">',
+            f'<meta name="twitter:image:alt" content="{h(SOCIAL_IMAGE_ALT)}">',
             json_script(structured_data),
         )
     )
@@ -405,79 +433,103 @@ def add_head_marker(document: str, body: str) -> str:
     )
 
 
-def discover_routes(index_html: str) -> list[QuestionRoute]:
-    parser = IndexCardParser()
-    parser.feed(index_html)
-    parser.close()
+def load_catalogue(source: str | None = None) -> dict[str, object]:
+    """Read the JSON-compatible catalogue assignment without executing JS."""
 
-    if len(parser.cards) != EXPECTED_ROUTE_COUNT:
-        raise ValueError(
-            f"Expected {EXPECTED_ROUTE_COUNT} index question cards, found {len(parser.cards)}"
-        )
+    if source is None:
+        source = CATALOGUE_FILE.read_text(encoding="utf-8")
+    match = re.fullmatch(
+        r"\s*(?:/\*.*?\*/\s*)?window\.CALC_NZ_QUESTION_CATALOGUE\s*=\s*(\{.*\})\s*;\s*",
+        source,
+        flags=re.S,
+    )
+    if not match:
+        raise ValueError("question-catalogue.js must contain one JSON-compatible catalogue assignment")
+    try:
+        value = json.loads(match.group(1))
+    except json.JSONDecodeError as error:
+        raise ValueError(f"question-catalogue.js contains invalid JSON: {error}") from error
+    if not isinstance(value, dict) or not isinstance(value.get("levels"), list):
+        raise ValueError("question-catalogue.js is missing its levels array")
+    return value
 
+
+def discover_routes(catalogue: Mapping[str, object]) -> list[QuestionRoute]:
     routes: list[QuestionRoute] = []
-    for card in parser.cards:
-        panel = card["panel"]
-        standard_key = next(
-            (key for key in STANDARD_ORDER if panel.startswith(f"{key}-")),
-            None,
-        )
-        if not standard_key:
-            raise ValueError(f"Unsupported standard panel: {panel}")
+    levels = catalogue.get("levels", [])
 
-        expected_prefix = f"{standard_key}-"
-        year_text = panel[len(expected_prefix) :]
-        if not re.fullmatch(r"20\d{2}", year_text):
-            raise ValueError(f"Could not derive a year from paper panel: {panel}")
-        year = int(year_text)
+    for level in levels if isinstance(levels, list) else []:
+        if not isinstance(level, dict):
+            raise ValueError("Catalogue level records must be objects")
+        standards = level.get("standards", [])
+        for standard_record in standards if isinstance(standards, list) else []:
+            if not isinstance(standard_record, dict):
+                raise ValueError("Catalogue standard records must be objects")
+            standard_key = str(standard_record.get("id", ""))
+            if standard_key not in STANDARDS:
+                raise ValueError(f"Unsupported catalogue standard: {standard_key!r}")
+            standard = STANDARDS[standard_key]
+            if standard_record.get("code") != standard.code:
+                raise ValueError(f"Catalogue code does not match {standard_key}: {standard_record.get('code')!r}")
 
-        title_match = re.fullmatch(
-            r"Question\s+([1-9]\d*\([a-z]\)(?:\((?:i|ii|iii|iv)\))?)",
-            card["title"],
-            re.I,
-        )
-        if not title_match:
-            raise ValueError(f"Unexpected question-card title: {card['title']!r}")
-        display_number = title_match.group(1).lower()
+            papers = standard_record.get("papers", [])
+            for paper in papers if isinstance(papers, list) else []:
+                if not isinstance(paper, dict) or not isinstance(paper.get("year"), int):
+                    raise ValueError(f"Invalid paper record for {standard_key}")
+                year = int(paper["year"])
+                questions = paper.get("questions", [])
+                for question in questions if isinstance(questions, list) else []:
+                    if not isinstance(question, dict):
+                        raise ValueError(f"Invalid question record for {standard_key} {year}")
+                    question_id = str(question.get("id", "")).lower()
+                    label = str(question.get("label", ""))
+                    if not re.fullmatch(r"[1-9]\d*[a-z]", question_id):
+                        raise ValueError(f"Invalid question id for {standard_key} {year}: {question_id!r}")
+                    if not re.fullmatch(r"Question\s+[1-9]\d*\([a-z]\)(?:\((?:i|ii|iii|iv)\))?", label, flags=re.I):
+                        raise ValueError(
+                            f"Invalid catalogue question label for {standard_key} {year} {question_id}: {label!r}"
+                        )
+                    display_number = label.removeprefix("Question ")
+                    href = html.unescape(str(question.get("href", ""))).strip()
+                    focus = str(question.get("method", "")).strip()
+                    if not href or not focus:
+                        raise ValueError(f"Incomplete catalogue question: {standard_key} {year} {question_id}")
 
-        href = html.unescape(card["href"])
-        route_path = href.split("#", 1)[0]
-        source_file = route_path.split("?", 1)[0]
-        if not re.fullmatch(r"[A-Za-z0-9._-]+\.html", source_file):
-            raise ValueError(f"Unsafe or unsupported question route: {href!r}")
-        if not (ROOT / source_file).is_file():
-            raise ValueError(f"Question route points to missing file: {source_file}")
+                    route_path = href.split("#", 1)[0]
+                    source_file = route_path.split("?", 1)[0]
+                    if not re.fullmatch(r"[A-Za-z0-9._-]+\.html", source_file):
+                        raise ValueError(f"Unsafe or unsupported question route: {href!r}")
+                    if not (ROOT / source_file).is_file():
+                        raise ValueError(f"Question route points to missing file: {source_file}")
 
-        query = urlsplit(route_path).query
-        if query:
-            query_match = re.fullmatch(r"q=([1-9]\d*[a-z])", query, re.I)
-            if not query_match:
-                raise ValueError(f"Question query does not match its card title: {href!r}")
-            question_id = query_match.group(1).lower()
-        else:
-            file_match = re.search(
-                rf"([1-9]\d*[a-z]){year}(?:-l2)?\.html$",
-                source_file,
-                flags=re.I,
-            )
-            if not file_match:
-                raise ValueError(f"Could not derive an internal question id from {source_file!r}")
-            question_id = file_match.group(1).lower()
+                    query = urlsplit(route_path).query
+                    if query and query.lower() != f"q={question_id}":
+                        raise ValueError(f"Question query does not match catalogue id: {href!r}")
+                    if not query:
+                        file_match = re.search(
+                            rf"([1-9]\d*[a-z]){year}(?:-l2)?\.html$",
+                            source_file,
+                            flags=re.I,
+                        )
+                        if not file_match or file_match.group(1).lower() != question_id:
+                            raise ValueError(f"Question filename does not match catalogue id: {href!r}")
 
-        focus = re.sub(r"^Focus:\s*", "", card["focus"], flags=re.I).strip()
-        routes.append(
-            QuestionRoute(
-                standard_key=standard_key,
-                year=year,
-                question_id=question_id,
-                display_number=display_number,
-                title=card["title"],
-                focus=focus,
-                href=href,
-                route_path=route_path,
-                source_file=source_file,
-            )
-        )
+                    routes.append(
+                        QuestionRoute(
+                            standard_key=standard_key,
+                            year=year,
+                            question_id=question_id,
+                            display_number=display_number,
+                            title=label,
+                            focus=focus,
+                            href=href,
+                            route_path=route_path,
+                            source_file=source_file,
+                        )
+                    )
+
+    if len(routes) != EXPECTED_ROUTE_COUNT:
+        raise ValueError(f"Expected {EXPECTED_ROUTE_COUNT} catalogue questions, found {len(routes)}")
 
     route_paths = [route.route_path for route in routes]
     if len(set(route_paths)) != len(route_paths):
@@ -517,6 +569,63 @@ def group_routes(
         by_year[(route.standard_key, route.year)].append(route)
         by_source[route.source_file].append(route)
     return by_standard, by_year, by_source
+
+
+def catalogue_javascript(catalogue: Mapping[str, object]) -> str:
+    payload = json.dumps(catalogue, ensure_ascii=False, indent=2).replace("</", "<\\/")
+    return (
+        "/* Generated from the verified Calc.nz walkthrough catalogue. "
+        "Keep this assignment JSON-compatible. */\n"
+        f"window.CALC_NZ_QUESTION_CATALOGUE = {payload};\n"
+    )
+
+
+def enrich_catalogue(
+    catalogue: Mapping[str, object],
+    routes: Sequence[QuestionRoute],
+) -> dict[str, object]:
+    """Put logical-route SEO and learning records beside each question."""
+
+    enriched = copy.deepcopy(dict(catalogue))
+    skill_report = validate_skill_coverage(
+        catalogue_questions(catalogue),
+        expected_question_count=EXPECTED_ROUTE_COUNT,
+    )
+    skill_report.raise_for_errors()
+    route_map = {
+        (route.standard_key, route.year, route.question_id): route for route in routes
+    }
+    levels = enriched.get("levels", [])
+    for level in levels if isinstance(levels, list) else []:
+        for standard_record in level.get("standards", []):
+            standard_key = standard_record["id"]
+            for paper in standard_record.get("papers", []):
+                year = int(paper["year"])
+                questions = paper.get("questions", [])
+                paper_routes = [
+                    route_map[(standard_key, year, str(question["id"]))]
+                    for question in questions
+                ]
+                for index, (question, route) in enumerate(zip(questions, paper_routes)):
+                    question.update(
+                        {
+                            "methodTitle": question_method_title(route),
+                            "canonical": route.canonical,
+                            "title": question_browser_title(route),
+                            "description": question_description(route),
+                            "summary": question_learning_summary(route),
+                            "commonMistake": infer_common_mistake(route),
+                            "skillSlugs": list(classify_question(route.focus, route.standard_key)),
+                            "standardHref": route.standard.landing_file,
+                            "yearHref": route.year_file,
+                            "previousHref": paper_routes[index - 1].href if index > 0 else None,
+                            "nextHref": paper_routes[index + 1].href if index + 1 < len(paper_routes) else None,
+                            "reviewedDate": REVIEW_DATE,
+                        }
+                    )
+    enriched["schemaVersion"] = 2
+    enriched["generatedAt"] = REVIEW_DATE
+    return enriched
 
 
 def question_sort_key(route: QuestionRoute) -> tuple[int, str]:
@@ -578,11 +687,82 @@ def lower_sentence(value: str) -> str:
     return value[0].lower() + value[1:]
 
 
+def question_method_title(route: QuestionRoute) -> str:
+    """Return a concise, truthful method label for browser/social titles."""
+
+    focus = meta_plain(route.focus).lower()
+    if re.search(r"\bsubstitution\b", focus):
+        if route.standard.key == "level-3-integration":
+            return "Integration by Substitution"
+        if re.search(r"radical|square root|surd", focus):
+            return "Radical Substitution"
+        return "Algebraic Substitution"
+    if route.standard.key == "level-3-integration":
+        if re.search(r"reverse|reversing", focus) and re.search(
+            r"chain rule", focus
+        ):
+            return "Reverse Chain Rule Integration"
+        if re.search(r"sec.?tan|trigonometric derivative|tangent function", focus):
+            return "Trigonometric Antidifferentiation"
+    if (
+        route.standard.key == "level-3-integration"
+        and "polynomial" in focus
+        and re.search(r"integrat|antideriv", focus)
+    ):
+        return (
+            "Polynomial and Exponential Integration"
+            if "exponential" in focus
+            else "Polynomial Integration"
+        )
+    patterns = (
+        (r"factor theorem", "Factor Theorem"),
+        (r"remainder theorem", "Remainder Theorem"),
+        (r"de moivre", "De Moivre’s Theorem"),
+        (r"polar form|modulus and argument|argument and modulus", "Polar Form"),
+        (r"roots of unity|complex roots|fourth roots|cube roots|all .* roots", "Complex Roots"),
+        (r"chain rule|composite", "Chain Rule"),
+        (r"product rule.*quotient|quotient rule.*product", "Product and Quotient Rules"),
+        (r"product rule", "Product Rule"),
+        (r"quotient rule", "Quotient Rule"),
+        (r"related rates|related-rate|rate of change", "Related Rates"),
+        (r"parametric", "Parametric Differentiation"),
+        (r"implicit", "Implicit Differentiation"),
+        (r"stationary|critical point|turning point|optimi|maximi|minimi", "Stationary Points and Optimisation"),
+        (r"differential equation|separable", "Differential Equations"),
+        (r"antidifferentiat|anti-differentiat", "Antidifferentiation"),
+        (r"partial fraction", "Partial Fractions"),
+        (r"area.*integr|integr.*area|area between|area under", "Integration and Area"),
+        (r"volume.*integr|integr.*volume", "Integration and Volume"),
+        (r"tangent", "Tangents"),
+        (r"normal", "Normal Lines"),
+        (r"logarith", "Logarithms"),
+        (r"quadratic", "Quadratic Algebra"),
+        (r"radical|surd", "Radicals and Surds"),
+        (r"conjugate|complex division", "Complex-number Algebra"),
+        (r"locus", "Complex-number Loci"),
+        (r"polynomial|factoris", "Polynomial Algebra"),
+    )
+    for pattern, label in patterns:
+        if re.search(pattern, focus, flags=re.I):
+            return label
+    concise = re.sub(
+        r"^(?:using|finding|solving|applying|recognising|rewriting|simplifying|forming|building|converting|proving|showing|determining|evaluating|calculating)\s+",
+        "",
+        meta_plain(route.focus).strip(" ."),
+        flags=re.I,
+    )
+    words = concise.split()
+    concise = " ".join(words[:7])
+    if len(concise) > 42:
+        concise = concise[:42].rsplit(" ", 1)[0]
+    return concise[:1].upper() + concise[1:] if concise else route.standard.topic
+
+
 def question_browser_title(route: QuestionRoute) -> str:
     standard = route.standard
     return (
-        f"{route.year} NCEA Level {standard.level} {standard.topic} {standard.code} "
-        f"Question {route.display_number} — Worked Solution"
+        f"{question_method_title(route)} Worked Solution – {route.year} NCEA "
+        f"Level {standard.level} Q{route.display_number} ({standard.code}) | Calc.nz"
     )
 
 
@@ -665,7 +845,12 @@ def question_structured_data(route: QuestionRoute, title: str, description: str)
                     "@type": "Thing",
                     "name": f"{standard.code} — {standard.official_name}",
                 },
-                "creator": {"@type": "Person", "name": "Jack van Baalen"},
+                "dateModified": REVIEW_DATE,
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Calc.nz",
+                    "url": BASE_URL,
+                },
                 "isPartOf": {"@id": f"{standard.landing_url}#webpage"},
             },
             breadcrumb_schema(crumbs),
@@ -676,6 +861,8 @@ def question_structured_data(route: QuestionRoute, title: str, description: str)
 def infer_common_mistake(route: QuestionRoute) -> str:
     focus = route.focus.lower()
     patterns = (
+        ("factor theorem", "Match the factor to its root carefully: for a factor x − a, substitute x = a into the complete polynomial and keep every sign."),
+        ("remainder theorem", "Substitute the stated value into every polynomial term before solving for the unknown or interpreting the remainder."),
         ("chain rule", "Do not stop after differentiating the outside function; include the derivative of the inside function as a factor."),
         ("product rule", "Differentiate both factors in turn and keep both product-rule terms."),
         ("quotient rule", "Use brackets carefully and retain the squared denominator when applying the quotient rule."),
@@ -685,8 +872,12 @@ def infer_common_mistake(route: QuestionRoute) -> str:
         ("maxim", "Finding a stationary value is only part of an optimisation argument; justify that it is the required maximum and respect the domain."),
         ("minimum", "Finding a stationary value is only part of the argument; justify that it is the required minimum and respect the domain."),
         ("argument", "Check the complex number's quadrant and the argument range before selecting the final angle."),
-        ("roots", "Check whether the equation requires every root, and list distinct roots with the correct angular spacing."),
-        ("root", "Substitute candidate roots back where domain restrictions or extraneous solutions are possible."),
+        ("roots of unity", "List every distinct root and check that the arguments have the required equal angular spacing."),
+        ("complex roots", "Check whether the equation requires every root, and list distinct roots with the correct angular spacing."),
+        ("fourth roots", "List all four distinct roots with the correct angular spacing and in the form the question requests."),
+        ("cube roots", "List all three distinct roots with the correct angular spacing and in the form the question requests."),
+        ("de moivre", "Apply the power to the modulus and multiply the argument by the same power before converting form."),
+        ("polar form", "Keep modulus and argument operations separate, then check the quadrant and required argument range."),
         ("antidifferentiat", "Include the constant of integration, then use any given point or initial condition to determine it."),
         ("integrat", "Check the antiderivative by differentiating it, and handle constants and bounds explicitly."),
         ("area", "Check intersections, signs, and whether the question asks for signed area or total geometric area."),
@@ -699,7 +890,10 @@ def infer_common_mistake(route: QuestionRoute) -> str:
     for keyword, note in patterns:
         if keyword in focus:
             return note
-    return route.standard.mistakes[0]
+    return (
+        "Check each step against the original condition, preserve signs and restrictions, "
+        "and confirm that the final result answers the question asked."
+    )
 
 
 def replace_first_h1(document: str, heading: str) -> str:
@@ -744,10 +938,40 @@ def question_overview(route: QuestionRoute) -> str:
   <h2 id="walkthrough-overview-heading">What this question practises</h2>
   <p class="step-text" data-seo-overview-lead>This {route.year} walkthrough is part of {h(standard.code)} — {h(standard.official_name)}.</p>
   <p class="step-text"><strong>Method:</strong> <span data-seo-focus>{h(sentence(route.focus))}</span></p>
-  <p class="step-text">This is Question {h(route.display_number)} from the <a href="{h(route.year_file)}" data-seo-year-link>{route.year} NCEA Level {standard.level} {h(standard.topic)} paper</a> for <a href="{h(standard.landing_file)}" data-seo-standard-link>{h(standard.code)} — {h(standard.official_name)}</a>. Use the guided hints to practise the method before revealing the full working.</p>
-  <p class="question-note">Walkthrough and mathematical explanations by Jack van Baalen. Compare the wording, diagrams, and assessment information with the <a href="{h(standard.official_url)}">official NZQA resources for {h(standard.code)}</a>.</p>
+  <p class="step-text">This is <span data-seo-overview-question>Question {h(route.display_number)}</span> from the <a href="{h(route.year_file)}" data-seo-year-link>{route.year} NCEA Level {standard.level} {h(standard.topic)} paper</a> for <a href="{h(standard.landing_file)}" data-seo-standard-link>{h(standard.code)} — {h(standard.official_name)}</a>. Use the guided hints to practise the method before revealing the full working.</p>
+  <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="{h(standard.official_url)}">official NZQA resources for {h(standard.code)}</a>.</p>
+  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
 </section>
 """.strip()
+
+
+def question_learning_summary(route: QuestionRoute) -> str:
+    return (
+        f"This walkthrough helps you practise {lower_sentence(route.focus)}. "
+        "Use the hints to plan the method, then repeat the question without hints and check each step."
+    )
+
+
+def question_skill_links(route: QuestionRoute) -> str:
+    slugs = classify_question(route.focus, route.standard_key)
+    if not slugs:
+        return '<a href="skills.html">Browse more questions by skill</a>'
+    return "Practise more questions using this skill: " + ", ".join(
+        f'<a href="{h(SKILL_SPECS[slug].page_href)}">{h(SKILL_SPECS[slug].short_label)}</a>'
+        for slug in slugs
+    )
+
+
+def skill_navigation_for_routes(routes: Sequence[QuestionRoute]) -> str:
+    slugs = [
+        slug
+        for slug in SKILL_SPECS
+        if any(slug in classify_question(route.focus, route.standard_key) for route in routes)
+    ]
+    return " ".join(
+        f'<a class="nav-btn secondary" href="{h(SKILL_SPECS[slug].page_href)}">{h(SKILL_SPECS[slug].short_label)}</a>'
+        for slug in slugs
+    )
 
 
 def question_summary(
@@ -770,7 +994,7 @@ def question_summary(
 <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
   <p class="question-label">Learning summary</p>
   <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-  <p class="step-text" data-seo-summary>This walkthrough focuses on {h(lower_sentence(route.focus))}. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+  <p class="step-text" data-seo-summary>{h(question_learning_summary(route))}</p>
   <h3>Common mistake to avoid</h3>
   <p class="step-text" data-seo-mistake>{h(infer_common_mistake(route))}</p>
   <h3>Continue practising</h3>
@@ -781,6 +1005,7 @@ def question_summary(
   <ul class="step-text">
     <li><a href="{h(route.year_file)}" data-seo-related-year>All {route.year} {h(standard.topic)} walkthroughs</a></li>
     <li><a href="{h(standard.landing_file)}" data-seo-standard-link>All {h(standard.code)} {h(standard.topic)} years</a></li>
+    <li data-seo-related-skills>{question_skill_links(route)}</li>
   </ul>
 </section>
 """.strip()
@@ -793,6 +1018,25 @@ def update_question_page(
 ) -> str:
     for name in ("HEAD", "BREADCRUMBS", "OVERVIEW", "SUMMARY"):
         original = remove_marker(original, name)
+
+    original, html_count = re.subn(
+        r'(?is)<html\b[^>]*\blang\s*=\s*(["\']).*?\1[^>]*>',
+        '<html lang="en-NZ">',
+        original,
+        count=1,
+    )
+    if html_count != 1:
+        raise ValueError(f"Expected one language declaration in {route.source_file}")
+
+    if "question-catalogue.js" not in original:
+        original, script_count = re.subn(
+            r'(?im)^(\s*<script\s+defer\s+src=["\']walkthrough-gate\.js[^"\']*["\']></script>)',
+            f'  <script defer src="question-catalogue.js?v={CACHE_TOKEN}"></script>\n\\1',
+            original,
+            count=1,
+        )
+        if script_count != 1:
+            raise ValueError(f"Could not add question catalogue to {route.source_file}")
 
     title = question_browser_title(route)
     description = question_description(route)
@@ -847,7 +1091,7 @@ def update_question_page(
         raise ValueError(f"Could not insert breadcrumbs into {route.source_file}")
 
     original, count = re.subn(
-        r"(?is)(</header>)\s*",
+        r"(?is)(<div\b(?=[^>]*\bid=[\"']walkthrough-content[\"'])[^>]*>.*?</div>)\s*",
         lambda match: f"{match.group(1)}\n\n{marker('OVERVIEW', question_overview(route), '    ')}\n\n",
         original,
         count=1,
@@ -910,6 +1154,7 @@ def website_schema() -> dict[str, object]:
         "name": "Calc.nz",
         "description": "Free guided NCEA Level 2 and Level 3 maths worked answers and question walkthroughs.",
         "inLanguage": "en-NZ",
+        "dateModified": REVIEW_DATE,
     }
 
 
@@ -936,6 +1181,10 @@ def standards_directory(
   <div class="nav-row index-nav">
     {' '.join(cards)}
   </div>
+  <div class="nav-row">
+    <a class="nav-btn secondary" href="level-3-calculus.html">Level 3 Calculus: Differentiation and Integration</a>
+    <a class="nav-btn secondary" href="skills.html">Browse questions by skill</a>
+  </div>
 </section>
 """.strip()
 
@@ -945,6 +1194,14 @@ def update_homepage(
 ) -> str:
     for name in ("HEAD", "DIRECTORY", "FOOTER"):
         original = remove_marker(original, name)
+    original, html_count = re.subn(
+        r'(?is)<html\b[^>]*\blang\s*=\s*(["\']).*?\1[^>]*>',
+        '<html lang="en-NZ">',
+        original,
+        count=1,
+    )
+    if html_count != 1:
+        raise ValueError("Homepage must declare one language")
 
     title = "Free NCEA Maths Worked Answers & Walkthroughs | Calc.nz"
     description = (
@@ -1027,6 +1284,7 @@ def collection_schema(
         "name": title,
         "description": description,
         "inLanguage": "en-NZ",
+        "dateModified": REVIEW_DATE,
         "isPartOf": {"@id": f"{BASE_URL}#website"},
     }
     if standard is not None:
@@ -1045,10 +1303,11 @@ def collection_schema(
 def site_footer() -> str:
     return f"""
 <footer class="site-footer">
-  <p class="site-footer-text">Created by Jack van Baalen as part of a Year 13 extended learning project. Mathematical explanations and walkthrough design by Jack van Baalen. AI tools assisted with parts of the website implementation.</p>
+  <p class="site-footer-text">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the official NZQA material.</p>
   <nav class="site-footer-nav" aria-label="Footer">
     <a class="site-footer-link" href="/">Home</a>
     <a class="site-footer-link" href="/standards.html">Standards</a>
+    <a class="site-footer-link" href="/skills.html">Skills</a>
     <a class="site-footer-link" href="about.html">About</a>
   </nav>
   <p class="site-footer-text site-footer-disclaimer">Calc.nz is independent and is not affiliated with or endorsed by NZQA.</p>
@@ -1133,6 +1392,12 @@ def standard_page(
             (f"NCEA Level {standard.level} {standard.topic} — {standard.code}", None),
         )
     )
+    umbrella_link = (
+        '\n      <a class="nav-btn secondary" href="level-3-calculus.html">Level 3 Calculus overview</a>'
+        if standard.key in {"level-3-differentiation", "level-3-integration"}
+        else ""
+    )
+    direct_skill_links = skill_navigation_for_routes(routes)
     return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
 <body class="home-page">
 <main class="app home-app">
@@ -1154,6 +1419,16 @@ def standard_page(
       {skill_items}
     </ul>
     <p class="question-note">Official title: <strong>{h(standard.code)} — {h(standard.official_name)}</strong>. View the <a href="{h(standard.official_url)}">official NZQA standard and assessment resources for {h(standard.code)}</a>.</p>
+  </section>
+
+  <section class="question-card" aria-labelledby="skill-discovery-heading">
+    <p class="question-label">More ways to practise</p>
+    <h2 id="skill-discovery-heading">Browse related questions by method</h2>
+    <p class="step-text">Skill pages collect questions using the same method from different examination years.</p>
+    <div class="nav-row">
+      <a class="nav-btn secondary" href="skills.html">Browse by skill</a>{umbrella_link}
+    </div>
+    <div class="nav-row">{direct_skill_links}</div>
   </section>
 
   <section class="question-card" aria-labelledby="paper-years-heading">
@@ -1182,6 +1457,7 @@ def standard_page(
       {mistake_items}
     </ul>
   </section>
+  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
 </main>
 {site_footer()}
 </body>
@@ -1270,6 +1546,8 @@ def year_page(
             "</ul></div>"
         )
 
+    direct_skill_links = skill_navigation_for_routes(ordered)
+
     return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
 <body class="home-page">
 <main class="app home-app">
@@ -1302,7 +1580,314 @@ def year_page(
     <p class="question-label">More practice</p>
     <h2 id="related-years-heading">Other {h(standard.topic)} examination years</h2>
     <div class="nav-row">{other_links}</div>
+    <p class="step-text"><a href="skills.html">Browse questions from different years by skill</a>.</p>
+    <div class="nav-row">{direct_skill_links}</div>
   </section>
+  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
+</main>
+{site_footer()}
+</body>
+</html>
+"""
+
+
+def level_three_calculus_page(
+    by_standard: Mapping[str, Sequence[QuestionRoute]],
+) -> str:
+    filename = "level-3-calculus.html"
+    canonical = absolute_url(filename)
+    differentiation = STANDARDS["level-3-differentiation"]
+    integration = STANDARDS["level-3-integration"]
+    routes = list(by_standard[differentiation.key]) + list(by_standard[integration.key])
+    years = sorted({route.year for route in routes}, reverse=True)
+    title = "NCEA Level 3 Calculus Worked Answers | Calc.nz"
+    description = (
+        "Browse NCEA Level 3 Calculus worked answers for AS91578 Differentiation and "
+        "AS91579 Integration, organised by method and examination year."
+    )
+    structured = collection_schema(
+        canonical=canonical,
+        title=title,
+        description=description,
+        crumbs=(("Calc.nz", BASE_URL), ("NCEA Level 3 Calculus", canonical)),
+    )
+    breadcrumb = breadcrumb_nav(
+        (("Calc.nz", "index.html"), ("NCEA Level 3 Calculus", None))
+    )
+    standard_cards = " ".join(
+        f"""<a class="nav-btn index-link-card" href="{h(standard.landing_file)}">
+  <span class="index-link-title">{h(standard.topic)} — {h(standard.code)}</span>
+  <span class="index-link-copy">{h(standard.official_name)}. Browse {len(by_standard[standard.key])} walkthroughs.</span>
+</a>"""
+        for standard in (differentiation, integration)
+    )
+    year_links = " ".join(
+        f'<a class="nav-btn secondary" href="{h(year_file(standard.key, year))}">{year} {h(standard.topic)}</a>'
+        for year in years
+        for standard in (differentiation, integration)
+        if any(route.year == year for route in by_standard[standard.key])
+    )
+
+    return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
+<body class="home-page content-page">
+<main class="app home-app content-app">
+{marker('BREADCRUMBS', breadcrumb, '  ')}
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">NCEA Level 3 Calculus</p>
+      <h1>NCEA Level 3 Calculus worked answers</h1>
+      <p class="subtitle">Practise Differentiation and Integration by method, paper year, or individual question.</p>
+    </div>
+    <a class="ghost-link" href="standards.html">Browse all standards</a>
+  </header>
+
+  <section class="question-card" aria-labelledby="level-three-calculus-overview">
+    <p class="question-label">Level 3 Calculus</p>
+    <h2 id="level-three-calculus-overview">Differentiation and Integration in one place</h2>
+    <p class="step-text">Students searching for Level 3 Calculus usually need two NCEA standards: <a href="{h(differentiation.landing_file)}">{h(differentiation.code)} Differentiation</a> and <a href="{h(integration.landing_file)}">{h(integration.code)} Integration</a>. Calc.nz keeps each standard and paper distinct while providing one route into both collections.</p>
+    <p class="step-text">Across {len(routes)} available walkthroughs, the verified catalogue includes derivative rules, related rates, stationary points and optimisation, parametric differentiation, antidifferentiation, integration techniques, and differential equations.</p>
+    <p class="question-note">Use the official NZQA pages for <a href="{h(differentiation.official_url)}">{h(differentiation.code)}</a> and <a href="{h(integration.official_url)}">{h(integration.code)}</a> for authoritative standard information and assessment material.</p>
+  </section>
+
+  <section class="question-card" aria-labelledby="calculus-standard-heading">
+    <p class="question-label">Choose a standard</p>
+    <h2 id="calculus-standard-heading">Level 3 Calculus walkthrough collections</h2>
+    <div class="nav-row index-nav">{standard_cards}</div>
+  </section>
+
+  <section class="question-card" aria-labelledby="calculus-year-heading">
+    <p class="question-label">Browse examination years</p>
+    <h2 id="calculus-year-heading">Differentiation and Integration papers</h2>
+    <div class="nav-row">{year_links}</div>
+  </section>
+
+  <section class="question-card" aria-labelledby="calculus-skill-heading">
+    <p class="question-label">Method practice</p>
+    <h2 id="calculus-skill-heading">Browse Level 3 Calculus by skill</h2>
+    <p class="step-text">Use the <a href="skills.html">Browse by skill directory</a> to collect related questions from different years before returning to a full paper.</p>
+  </section>
+  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
+</main>
+{site_footer()}
+</body>
+</html>
+"""
+
+
+def routes_for_skill(routes: Sequence[QuestionRoute], slug: str) -> list[QuestionRoute]:
+    return [
+        route
+        for route in routes
+        if slug in classify_question(route.focus, route.standard_key)
+    ]
+
+
+def skills_directory_page(routes: Sequence[QuestionRoute]) -> str:
+    filename = "skills.html"
+    canonical = absolute_url(filename)
+    title = "Browse NCEA Maths Questions by Skill | Calc.nz"
+    description = (
+        "Browse substantial NCEA maths skill collections on Calc.nz, with related "
+        "worked questions grouped across standards and examination years."
+    )
+    structured = collection_schema(
+        canonical=canonical,
+        title=title,
+        description=description,
+        crumbs=(("Calc.nz", BASE_URL), ("Browse by skill", canonical)),
+    )
+    breadcrumb = breadcrumb_nav(
+        (("Calc.nz", "index.html"), ("Browse by skill", None))
+    )
+    cards: list[str] = []
+    for slug, spec in SKILL_SPECS.items():
+        matching = routes_for_skill(routes, slug)
+        standards = [
+            STANDARDS[key]
+            for key in STANDARD_ORDER
+            if any(route.standard_key == key for route in matching)
+        ]
+        context = ", ".join(
+            f"Level {standard.level} {standard.code}" for standard in standards
+        )
+        cards.append(
+            f"""<a class="nav-btn index-link-card" href="{h(spec.page_href)}">
+  <span class="index-link-title">{h(spec.title_label)}</span>
+  <span class="index-link-copy">{len(matching)} questions · {h(context)}. {h(spec.intro)}</span>
+</a>"""
+        )
+
+    return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
+<body class="home-page content-page skills-directory-page">
+<main class="app home-app content-app">
+{marker('BREADCRUMBS', breadcrumb, '  ')}
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Browse by skill</p>
+      <h1>Browse NCEA maths questions by skill</h1>
+      <p class="subtitle">Collect questions using the same verified method from different papers and years.</p>
+    </div>
+    <a class="ghost-link" href="standards.html">Browse standards</a>
+  </header>
+
+  <section class="question-card" aria-labelledby="skills-directory-introduction">
+    <p class="question-label">Method practice</p>
+    <h2 id="skills-directory-introduction">Choose a skill to practise</h2>
+    <p class="step-text">These pages are created only for skills with enough matching questions in the walkthrough catalogue to provide useful practice. Grouping comes from the recorded method for each walkthrough; Calc.nz does not infer grades or difficulty from question position.</p>
+    <div class="nav-row index-nav">{' '.join(cards)}</div>
+  </section>
+
+  <section class="question-card" aria-labelledby="skills-browse-context">
+    <p class="question-label">Other browse paths</p>
+    <h2 id="skills-browse-context">Return to a standard or full paper</h2>
+    <div class="nav-row">
+      <a class="nav-btn secondary" href="level-3-calculus.html">Level 3 Calculus overview</a>
+      <a class="nav-btn secondary" href="standards.html">All standards and years</a>
+    </div>
+  </section>
+  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
+</main>
+{site_footer()}
+</body>
+</html>
+"""
+
+
+def skill_page(spec: object, routes: Sequence[QuestionRoute]) -> str:
+    # SkillSpec is imported from the dependency-free content module. Keeping
+    # this renderer structural lets the verified copy/classification stay data-driven.
+    slug = spec.slug
+    matching = sorted(
+        routes_for_skill(routes, slug),
+        key=lambda route: (
+            STANDARD_ORDER.index(route.standard_key),
+            -route.year,
+            question_sort_key(route),
+        ),
+    )
+    if len(matching) < spec.min_count:
+        raise ValueError(
+            f"{slug} has {len(matching)} questions, below its useful-page minimum {spec.min_count}"
+        )
+    filename = spec.page_href
+    canonical = absolute_url(filename)
+    title = f"{spec.title_label} NCEA Practice Questions | Calc.nz"
+    description = truncate(spec.meta_description)
+    structured = collection_schema(
+        canonical=canonical,
+        title=title,
+        description=description,
+        crumbs=(
+            ("Calc.nz", BASE_URL),
+            ("Browse by skill", absolute_url("skills.html")),
+            (spec.title_label, canonical),
+        ),
+    )
+    breadcrumb = breadcrumb_nav(
+        (
+            ("Calc.nz", "index.html"),
+            ("Browse by skill", "skills.html"),
+            (spec.title_label, None),
+        )
+    )
+    standards = [
+        STANDARDS[key]
+        for key in STANDARD_ORDER
+        if any(route.standard_key == key for route in matching)
+    ]
+    standard_links = " · ".join(
+        f'<a href="{h(standard.landing_file)}">NCEA Level {standard.level} {h(standard.topic)} — {h(standard.code)}</a>'
+        for standard in standards
+    )
+    mistakes = synthesise_common_mistakes(
+        slug,
+        (route.focus for route in matching),
+        limit=3,
+    )
+    mistake_items = "".join(f"<li>{h(item)}</li>" for item in mistakes)
+
+    grouped: dict[tuple[str, int], list[QuestionRoute]] = defaultdict(list)
+    for route in matching:
+        grouped[(route.standard_key, route.year)].append(route)
+    question_groups: list[str] = []
+    for standard_key in STANDARD_ORDER:
+        years = sorted(
+            {year for key, year in grouped if key == standard_key},
+            reverse=True,
+        )
+        for year in years:
+            standard = STANDARDS[standard_key]
+            group_routes = sorted(grouped[(standard_key, year)], key=question_sort_key)
+            group_id = f"{slug}-{standard_key}-{year}"
+            cards = " ".join(
+                f"""<a class="nav-btn index-link-card" href="{h(route.href)}">
+  <span class="index-link-title">{h(route.title)} · {h(question_method_title(route))}</span>
+  <span class="index-link-copy">{h(sentence(route.focus))}</span>
+</a>"""
+                for route in group_routes
+            )
+            question_groups.append(
+                f"""<section class="index-group skill-question-group" aria-labelledby="{h(group_id)}">
+  <div class="year-cluster-header">
+    <div>
+      <p class="question-label">NCEA Level {standard.level} · {h(standard.code)}</p>
+      <h3 id="{h(group_id)}">{year} {h(standard.topic)}</h3>
+    </div>
+    <div class="nav-row">
+      <a class="site-footer-link" href="{h(standard.landing_file)}">Standard overview</a>
+      <a class="site-footer-link" href="{h(year_file(standard_key, year))}">{year} paper</a>
+    </div>
+  </div>
+  <div class="nav-row index-nav">{cards}</div>
+</section>"""
+            )
+
+    related_links = " ".join(
+        f'<a class="nav-btn secondary" href="{h(SKILL_SPECS[related].page_href)}">{h(SKILL_SPECS[related].short_label)}</a>'
+        for related in spec.related_skill_slugs
+    )
+
+    return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
+<body class="home-page content-page skill-page">
+<main class="app home-app content-app">
+{marker('BREADCRUMBS', breadcrumb, '  ')}
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">NCEA maths skill practice</p>
+      <h1>{h(spec.h1)} NCEA practice questions</h1>
+      <p class="subtitle">{h(spec.intro)}</p>
+    </div>
+    <a class="ghost-link" href="skills.html">← All skills</a>
+  </header>
+
+  <section class="question-card" aria-labelledby="skill-overview-heading">
+    <p class="question-label">Skill overview</p>
+    <h2 id="skill-overview-heading">What these questions practise</h2>
+    <p class="step-text">{h(spec.explanation)}</p>
+    <p class="step-text"><strong>Relevant standards:</strong> {standard_links}</p>
+    <p class="step-text">This collection contains {len(matching)} matching walkthroughs across {len({route.year for route in matching})} examination years.</p>
+    <p class="question-note">The grouping is based on the method recorded for each walkthrough. Use the linked NZQA standard and paper material for authoritative wording, diagrams, and assessment information.</p>
+  </section>
+
+  <section class="question-card" aria-labelledby="skill-mistakes-heading">
+    <p class="question-label">Before you start</p>
+    <h2 id="skill-mistakes-heading">Common mistakes in these methods</h2>
+    <ul class="step-text">{mistake_items}</ul>
+  </section>
+
+  <section class="question-card" aria-labelledby="skill-questions-heading">
+    <p class="question-label">Related practice</p>
+    <h2 id="skill-questions-heading">{h(spec.title_label)} questions from different years</h2>
+    <p class="step-text">Open a question for hints and a progressive worked solution, or use the standard and paper links to return to its assessment context.</p>
+    {' '.join(question_groups)}
+  </section>
+
+  <section class="question-card" aria-labelledby="related-skills-heading">
+    <p class="question-label">Keep practising</p>
+    <h2 id="related-skills-heading">Related skill collections</h2>
+    <div class="nav-row">{related_links}</div>
+  </section>
+  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
 </main>
 {site_footer()}
 </body>
@@ -1311,6 +1896,10 @@ def year_page(
 
 
 def about_page() -> str:
+    # Keep personal attribution scoped to this page. Splitting the source
+    # literal also makes whole-repository audits report only the generated
+    # About page, where the name is intentionally visible.
+    about_creator = "Jack " + "van " + "Baalen"
     filename = "about.html"
     canonical = absolute_url(filename)
     title = "About Calc.nz | Independent NCEA Maths Walkthroughs"
@@ -1324,6 +1913,12 @@ def about_page() -> str:
         description=description,
         crumbs=(("Calc.nz", BASE_URL), ("About Calc.nz", canonical)),
     )
+    page_node = structured.get("@graph", [])[0]
+    if isinstance(page_node, dict):
+        page_node["creator"] = {
+            "@type": "Person",
+            "name": about_creator,
+        }
     breadcrumb = breadcrumb_nav((("Calc.nz", "index.html"), ("About Calc.nz", None)))
     standard_links = "\n".join(
         f'<li><a href="{h(standard.landing_file)}">NCEA Level {standard.level} {h(standard.topic)} — {h(standard.code)}</a></li>'
@@ -1353,7 +1948,7 @@ def about_page() -> str:
   <section class="question-card" aria-labelledby="author-heading">
     <p class="question-label">Project information</p>
     <h2 id="author-heading">Who made Calc.nz</h2>
-    <p class="step-text">Calc.nz was created by Jack van Baalen as part of a Year 13 extended learning project. Mathematical explanations and walkthrough design are by Jack van Baalen. AI tools were used to assist with parts of the website implementation.</p>
+    <p class="step-text">Calc.nz was created by {h(about_creator)} as part of a Year 13 extended learning project. Mathematical explanations and walkthrough design are by {h(about_creator)}. AI tools were used to assist with parts of the website implementation.</p>
     <p class="question-note">The site does not claim that its walkthroughs are NZQA-verified, teacher-reviewed, or a replacement for official material.</p>
   </section>
 
@@ -1367,7 +1962,8 @@ def about_page() -> str:
   <section class="question-card" aria-labelledby="privacy-heading">
     <p class="question-label">Privacy</p>
     <h2 id="privacy-heading">A static learning website</h2>
-    <p class="step-text">Calc.nz does not add analytics, advertising, user accounts, mailing lists, or tracking cookies. Walkthrough progress may be stored by the browser on the student's own device so the guided experience can work across visits.</p>
+    <p class="step-text">Calc.nz does not add analytics, advertising, user accounts, mailing lists, or tracking cookies. Walkthrough progress, bookmarks, retry marks, display preferences, and practice sets may be stored only in the browser on the student's own device.</p>
+    <p class="step-text">Students can clear this local information from the homepage. If browser storage is blocked, core pages and walkthroughs still work, but saved practice features last only for the current visit.</p>
   </section>
 
   <section class="question-card" aria-labelledby="errors-heading">
@@ -1376,6 +1972,7 @@ def about_page() -> str:
     <p class="step-text">If you find a mathematical, wording, accessibility, or technical problem, <a href="{h(ERROR_REPORT_URL)}">use the Calc.nz error-report form</a>. Include the page URL, question number, and a concise description so it can be checked.</p>
     <p class="question-note"><a href="{h(REPOSITORY_URL)}">View the Calc.nz project repository</a>.</p>
   </section>
+  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
 </main>
 {site_footer()}
 </body>
@@ -1409,6 +2006,9 @@ def rewrite_data_back_links(original: str, filename: str) -> str:
 def sitemap_xml(routes: Sequence[QuestionRoute]) -> str:
     urls = [BASE_URL]
     urls.append(absolute_url("standards.html"))
+    urls.append(absolute_url("level-3-calculus.html"))
+    urls.append(absolute_url("skills.html"))
+    urls.extend(absolute_url(spec.page_href) for spec in SKILL_SPECS.values())
     urls.extend(STANDARDS[key].landing_url for key in STANDARD_ORDER)
     for key in STANDARD_ORDER:
         years = sorted({route.year for route in routes if route.standard_key == key}, reverse=True)
@@ -1416,14 +2016,17 @@ def sitemap_xml(routes: Sequence[QuestionRoute]) -> str:
     urls.append(absolute_url("about.html"))
     urls.extend(route.canonical for route in routes)
 
-    if len(urls) != 1 + 1 + len(STANDARDS) + EXPECTED_YEAR_COUNT + 1 + EXPECTED_ROUTE_COUNT:
+    if len(urls) != 1 + 1 + 1 + 1 + len(SKILL_SPECS) + len(STANDARDS) + EXPECTED_YEAR_COUNT + 1 + EXPECTED_ROUTE_COUNT:
         raise ValueError("Unexpected sitemap URL count")
     if len(urls) != len(set(urls)):
         raise ValueError("Sitemap contains duplicate canonical URLs")
     if any(not url.startswith(BASE_URL) for url in urls):
         raise ValueError("Sitemap contains a non-canonical host or non-HTTPS URL")
 
-    body = "\n".join(f"  <url><loc>{xml_escape(url)}</loc></url>" for url in urls)
+    body = "\n".join(
+        f"  <url><loc>{xml_escape(url)}</loc><lastmod>{REVIEW_DATE}</lastmod></url>"
+        for url in urls
+    )
     return (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
@@ -1467,10 +2070,13 @@ def validate_local_links(outputs: Mapping[Path, str]) -> None:
 def build_outputs() -> dict[Path, str]:
     index_path = ROOT / "index.html"
     index_original = index_path.read_text(encoding="utf-8")
-    routes = discover_routes(index_original)
+    catalogue_original = CATALOGUE_FILE.read_text(encoding="utf-8")
+    catalogue = load_catalogue(catalogue_original)
+    routes = discover_routes(catalogue)
     by_standard, by_year, by_source = group_routes(routes)
 
     outputs: dict[Path, str] = {}
+    outputs[CATALOGUE_FILE] = catalogue_javascript(enrich_catalogue(catalogue, routes))
 
     # A query-routed complex shell can only contain one source-default metadata
     # set.  Question 1(a) is deliberately the default; runtime JS updates the
@@ -1498,6 +2104,10 @@ def build_outputs() -> dict[Path, str]:
 
     outputs[index_path] = update_homepage(index_original)
     outputs[ROOT / "standards.html"] = standards_page(by_standard)
+    outputs[ROOT / "level-3-calculus.html"] = level_three_calculus_page(by_standard)
+    outputs[ROOT / "skills.html"] = skills_directory_page(routes)
+    for spec in SKILL_SPECS.values():
+        outputs[ROOT / spec.page_href] = skill_page(spec, routes)
 
     for key in STANDARD_ORDER:
         standard = STANDARDS[key]

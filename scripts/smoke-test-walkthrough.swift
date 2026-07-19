@@ -179,12 +179,20 @@ private final class Runner: NSObject, WKNavigationDelegate {
 
             if (preferenceAction === "site-standards-navigation") {
               const standardsLink = document.querySelector('.site-header-link[href="/standards.html"]');
+              const selector = document.getElementById("choose-level");
               const previousScrollBehavior = document.documentElement.style.scrollBehavior;
               document.documentElement.style.scrollBehavior = "auto";
               window.scrollTo(0, 640);
               document.documentElement.style.scrollBehavior = previousScrollBehavior;
 
               checks.homepageDirectoryRemoved = document.querySelector(".standard-directory") === null;
+              checks.progressiveSelectorStartsCompact = Boolean(
+                selector
+                && selector.dataset.currentStage === "level"
+                && document.querySelectorAll(".home-dynamic-stage").length === 1
+                && document.querySelectorAll("[data-level]").length === 2
+                && document.querySelectorAll("[data-standard], [data-paper], [data-paper-panel]").length === 0
+              );
               checks.headerStandardsLink = Boolean(standardsLink && standardsLink.textContent.trim() === "Standards");
               checks.sourcePageScrolled = Math.abs(window.scrollY - 640) <= 2;
               checks.noConsoleErrors = (window.__walkthroughTestErrors || []).length === 0;
@@ -204,11 +212,17 @@ private final class Runner: NSObject, WKNavigationDelegate {
               };
               const levelChooser = document.getElementById("choose-level");
               const flowNavigation = document.getElementById("selection-flow-nav");
+              const stageCount = function () {
+                return document.querySelectorAll(".home-dynamic-stage").length;
+              };
 
               if (preferenceAction === "index-fragment-history") {
                 window.__genuineFragmentScrollY = window.scrollY;
                 checks.genuineFragmentStartsIntact = window.location.hash === "#main-content";
-                checks.levelChooserStartsVisible = isVisible(levelChooser);
+                checks.levelChooserStartsVisible = isVisible(levelChooser)
+                  && levelChooser.dataset.currentStage === "level"
+                  && stageCount() === 1
+                  && Boolean(document.querySelector('[data-stage-type="level"]'));
                 document.querySelector('[data-level="level-3"]').click();
                 const maxScrollY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
                 const previousScrollBehavior = document.documentElement.style.scrollBehavior;
@@ -218,21 +232,38 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 window.__selectionFragmentScrollY = window.scrollY;
                 checks.selectionRenders = isVisible(document.querySelector('[data-level-panel="level-3"]'));
                 checks.selectionHash = window.location.hash === "#level-3";
+                checks.selectionIsOnlyRenderedStage = levelChooser.dataset.currentStage === "standard"
+                  && stageCount() === 1
+                  && document.querySelectorAll("[data-level]").length === 0;
+                checks.selectionFocusMoves = document.activeElement === document.getElementById("selection-stage-heading");
                 checks.selectionScrollIsDistinct = Math.abs(window.__selectionFragmentScrollY - window.__genuineFragmentScrollY) >= 100;
               } else if (preferenceAction === "index-flow") {
-                checks.levelChooserStartsAlone = isVisible(levelChooser) && !isVisible(flowNavigation);
+                checks.levelChooserStartsAlone = isVisible(levelChooser)
+                  && levelChooser.dataset.currentStage === "level"
+                  && stageCount() === 1
+                  && document.querySelectorAll("[data-level]").length === 2
+                  && !isVisible(flowNavigation);
 
                 document.querySelector('[data-level="level-3"]').click();
-                checks.levelReplacesChooser = !isVisible(levelChooser) && isVisible(document.querySelector('[data-level-panel="level-3"]'));
+                checks.levelReplacesChooser = isVisible(levelChooser)
+                  && levelChooser.dataset.currentStage === "standard"
+                  && isVisible(document.querySelector('[data-level-panel="level-3"]'))
+                  && stageCount() === 1
+                  && document.querySelectorAll("[data-level]").length === 0;
                 checks.levelHash = window.location.hash === "#level-3";
                 checks.levelThreeStandards = ["level-3-differentiation", "level-3-integration", "level-3-complex"].every(function (standard) {
                   return Boolean(document.querySelector('[data-standard="' + standard + '"]'));
                 });
+                checks.levelAnnouncement = /Choose a standard for Level 3/.test(document.querySelector("[data-selection-status]").textContent);
+                checks.levelFocusMoves = document.activeElement === document.getElementById("selection-stage-heading");
 
                 document.querySelector('[data-standard="level-3-differentiation"]').click();
                 const differentiationPanel = document.querySelector('[data-standard-panel="level-3-differentiation"]');
-                checks.standardReplacesLevel = getComputedStyle(document.querySelector('[data-level-panel="level-3"] > .standard-picker-grid')).display === "none";
-                checks.differentiationYears = differentiationPanel.querySelectorAll(":scope > .paper-picker-grid [data-paper]").length === 10;
+                checks.standardReplacesLevel = levelChooser.dataset.currentStage === "year"
+                  && stageCount() === 1
+                  && document.querySelectorAll("[data-level-panel]").length === 0;
+                checks.differentiationYears = Boolean(differentiationPanel)
+                  && differentiationPanel.querySelectorAll(":scope > .paper-picker-grid [data-paper]").length === 10;
 
                 document.querySelector(".home-breadcrumb-button").click();
                 document.querySelector('[data-standard="level-3-integration"]').click();
@@ -245,68 +276,101 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 checks.complexYears = document.querySelectorAll('[data-standard-panel="level-3-complex"] > .paper-picker-grid [data-paper]').length === 9;
 
                 document.querySelector('[data-paper="level-3-complex-2020"]').click();
-                const complexPaper = document.querySelector('[data-paper-panel="level-3-complex-2020"]');
-                const complexLinks = Array.from(complexPaper.querySelectorAll("a.index-link-card"));
-                checks.paperReplacesYears = getComputedStyle(document.querySelector('[data-standard-panel="level-3-complex"] > .paper-picker-grid')).display === "none";
-                checks.entryChoiceVisible = isVisible(complexPaper.querySelector(".paper-entry-choice")) && !isVisible(complexPaper.querySelector(".paper-question-picker"));
+                let complexPaper = document.querySelector('[data-paper-panel="level-3-complex-2020"]');
+                checks.paperReplacesYears = levelChooser.dataset.currentStage === "paper"
+                  && stageCount() === 1
+                  && document.querySelectorAll("[data-standard-panel]").length === 0;
+                checks.entryChoiceVisible = Boolean(complexPaper)
+                  && isVisible(complexPaper.querySelector(".paper-entry-choice"))
+                  && complexPaper.querySelector(".paper-question-picker") === null;
                 checks.entryChoiceHeading = complexPaper.querySelector(".paper-entry-choice h2").textContent.trim() === "Where would you like to start?";
                 checks.guidedStartRoute = /\/complex-2020\.html\?q=1a&mode=guided$/.test(complexPaper.querySelector("[data-paper-start-guided]").href);
+                checks.questionsNotPrerendered = document.querySelectorAll("a.index-link-card").length === 0;
                 complexPaper.querySelector("[data-paper-start-specific]").click();
+                complexPaper = document.querySelector('[data-paper-panel="level-3-complex-2020"]');
+                const complexLinks = Array.from(complexPaper.querySelectorAll("a.index-link-card"));
                 checks.specificQuestionHash = window.location.hash === "#level-3-complex-2020-questions";
-                checks.questionPickerVisible = !isVisible(complexPaper.querySelector(".paper-entry-choice")) && isVisible(complexPaper.querySelector(".paper-question-picker"));
+                checks.questionPickerVisible = complexPaper.querySelector(".paper-entry-choice") === null
+                  && isVisible(complexPaper.querySelector(".paper-question-picker"))
+                  && levelChooser.dataset.currentStage === "questions";
                 checks.paperQuestionLinks = complexLinks.length === 15 && complexLinks.every(function (link) {
                   return /\/complex-2020\.html\?q=[123][a-e]$/.test(link.href);
                 });
                 checks.completeBreadcrumb = Array.from(document.querySelectorAll(".home-breadcrumb li")).map(function (item) {
                   return item.textContent.trim();
-                }).join(" → ") === "Level 3 → Complex Numbers → 2020";
+                }).join(" → ") === "Level 3 → Complex Numbers → 2020 → Questions";
                 checks.contextualBackButton = /start options/.test(document.querySelector("[data-selection-back-label]").textContent);
-                checks.oneVisibleLevel = document.querySelectorAll('[data-level-panel]:not(.hidden)').length === 1;
-                checks.oneVisibleStandard = document.querySelectorAll('[data-standard-panel]:not(.hidden)').length === 1;
-                checks.oneVisiblePaper = document.querySelectorAll('[data-paper-panel]:not(.hidden)').length === 1;
-                window.__homeFlowPaperScrollY = window.scrollY;
+                checks.onlyQuestionStageRendered = stageCount() === 1
+                  && document.querySelectorAll("[data-level-panel], [data-standard-panel]").length === 0
+                  && document.querySelectorAll("[data-paper-panel]").length === 1;
                 window.history.back();
               } else if (preferenceAction === "index-level-2") {
-                const algebraPaper = document.querySelector('[data-paper-panel="level-2-algebra-2025"]');
-                checks.level2PaperVisible = isVisible(algebraPaper);
-                checks.level2AncestorsReplaced = getComputedStyle(document.querySelector('[data-level-panel="level-2"] > .standard-picker-grid')).display === "none" &&
-                  getComputedStyle(document.querySelector('[data-standard-panel="level-2-algebra"] > .paper-picker-grid')).display === "none";
-                checks.level2QuestionLinks = algebraPaper.querySelectorAll("a.index-link-card").length === 15;
+                let algebraPaper = document.querySelector('[data-paper-panel="level-2-algebra-2025"]');
+                checks.level2PaperVisible = isVisible(algebraPaper)
+                  && levelChooser.dataset.currentStage === "paper"
+                  && stageCount() === 1;
+                checks.level2AncestorsReplaced = document.querySelectorAll("[data-level-panel], [data-standard-panel]").length === 0;
+                checks.level2QuestionsLazy = algebraPaper.querySelectorAll("a.index-link-card").length === 0;
                 checks.level2EntryChoice = isVisible(algebraPaper.querySelector(".paper-entry-choice"));
                 checks.level2GuidedRoute = /\/alg-1a2025-l2\.html\?mode=guided$/.test(algebraPaper.querySelector("[data-paper-start-guided]").href);
-                document.querySelector("[data-selection-back]").click();
+                algebraPaper.querySelector("[data-paper-start-specific]").click();
+                algebraPaper = document.querySelector('[data-paper-panel="level-2-algebra-2025"]');
+                checks.level2QuestionLinks = algebraPaper.querySelectorAll("a.index-link-card").length === 15;
+                const standardBreadcrumb = Array.from(document.querySelectorAll(".home-breadcrumb-button")).find(function (button) {
+                  return button.textContent.trim() === "Algebra";
+                });
+                standardBreadcrumb.click();
                 checks.directLinkBackWorks = window.location.hash === "#level-2-algebra" &&
+                  levelChooser.dataset.currentStage === "year" &&
                   isVisible(document.querySelector('[data-standard-panel="level-2-algebra"]')) &&
-                  !isVisible(algebraPaper);
+                  document.querySelector("[data-paper-panel]") === null;
               } else if (preferenceAction === "index-integration") {
-                const integrationPaper = document.querySelector('[data-paper-panel="level-3-integration-2020"]');
-                const integrationLinks = Array.from(integrationPaper.querySelectorAll("a.index-link-card"));
-                checks.integrationPaperVisible = isVisible(integrationPaper);
+                let integrationPaper = document.querySelector('[data-paper-panel="level-3-integration-2020"]');
+                checks.integrationPaperVisible = isVisible(integrationPaper)
+                  && levelChooser.dataset.currentStage === "paper"
+                  && stageCount() === 1;
                 checks.integrationEntryChoice = isVisible(integrationPaper.querySelector(".paper-entry-choice"));
                 checks.integrationGuidedRoute = /\/int-1a2020\.html\?mode=guided$/.test(integrationPaper.querySelector("[data-paper-start-guided]").href);
+                checks.integrationQuestionsLazy = integrationPaper.querySelectorAll("a.index-link-card").length === 0;
+                integrationPaper.querySelector("[data-paper-start-specific]").click();
+                integrationPaper = document.querySelector('[data-paper-panel="level-3-integration-2020"]');
+                const integrationLinks = Array.from(integrationPaper.querySelectorAll("a.index-link-card"));
                 checks.integrationHasAllParts = integrationLinks.length === 15;
                 checks.integrationUsesDirectPartRoutes = integrationLinks.every(function (link) {
                   return /\/int-[123][a-e]2020\.html$/.test(link.href);
                 });
+                checks.integrationQuestionStageOnly = levelChooser.dataset.currentStage === "questions"
+                  && stageCount() === 1
+                  && document.querySelectorAll("[data-level-panel], [data-standard-panel]").length === 0;
               } else if (preferenceAction === "index-mobile") {
                 const complexPanel = document.querySelector('[data-standard-panel="level-3-complex"]');
-                checks.mobileComplexVisible = isVisible(complexPanel);
+                checks.mobileComplexVisible = isVisible(complexPanel)
+                  && levelChooser.dataset.currentStage === "year"
+                  && stageCount() === 1;
                 checks.mobileNineYears = complexPanel.querySelectorAll(":scope > .paper-picker-grid [data-paper]").length === 9;
-                checks.mobileAncestorChoicesHidden = getComputedStyle(document.querySelector('[data-level-panel="level-3"] > .standard-picker-grid')).display === "none";
+                checks.mobileAncestorChoicesRemoved = document.querySelectorAll("[data-level-panel], [data-level], [data-standard]").length === 0;
                 checks.mobileCardsFit = Array.from(complexPanel.querySelectorAll(":scope > .paper-picker-grid .year-option")).every(function (card) {
-                  return card.getBoundingClientRect().right <= window.innerWidth + 1;
+                  const rect = card.getBoundingClientRect();
+                  return rect.left >= -1 && rect.right <= window.innerWidth + 1;
                 });
                 checks.mobileNavigationFits = flowNavigation.getBoundingClientRect().right <= window.innerWidth + 1;
-                const mobileNavigationOffset = flowNavigation.getBoundingClientRect().top - document.querySelector(".site-header").getBoundingClientRect().bottom;
-                checks["mobileNavigationAligned(offset=" + Math.round(mobileNavigationOffset) + ")"] = mobileNavigationOffset >= 10 && mobileNavigationOffset <= 48;
+                checks.mobileBreadcrumbWraps = flowNavigation.scrollWidth <= flowNavigation.clientWidth + 1;
               } else if (preferenceAction === "index-picker") {
-                const panel = document.getElementById("level-3-differentiation-2020");
+                let panel = document.getElementById("level-3-differentiation-2020");
+                checks.paperPanelVisible = isVisible(panel)
+                  && isVisible(panel.querySelector(".paper-entry-choice"))
+                  && levelChooser.dataset.currentStage === "paper";
+                checks.paperQuestionsLazy = panel.querySelectorAll("a.index-link-card").length === 0;
+                panel.querySelector("[data-paper-start-specific]").click();
+                panel = document.getElementById("level-3-differentiation-2020");
                 const links = panel ? Array.from(panel.querySelectorAll("a.index-link-card")) : [];
-                checks.paperPanelVisible = isVisible(panel) && panel.getAttribute("aria-hidden") === "false";
                 checks.paperHasAllParts = links.length === 15;
                 checks.paperUsesDirectPartRoutes = links.every(function (link) {
                   return /\/[123][a-e]2020\.html$/.test(link.href);
                 });
+                checks.paperQuestionStageOnly = levelChooser.dataset.currentStage === "questions"
+                  && stageCount() === 1
+                  && document.querySelectorAll("[data-level-panel], [data-standard-panel]").length === 0;
               }
 
               checks.keyboardControls = Boolean(document.querySelector("[data-selection-back]") && document.querySelector("[data-selection-back]").tagName === "BUTTON");
@@ -549,15 +613,25 @@ private final class Runner: NSObject, WKNavigationDelegate {
         let script = #"""
           (function () {
             const paperPanel = document.querySelector('[data-paper-panel="level-3-complex-2020"]');
+            const selector = document.getElementById("choose-level");
             const checks = {
               correctHash: window.location.hash === "#level-3-complex-2020",
               paperVisible: Boolean(paperPanel && !paperPanel.hidden && !paperPanel.classList.contains("hidden")),
               paperHasHeight: Boolean(paperPanel && paperPanel.getBoundingClientRect().height > 300),
               paperIsOpaque: Boolean(paperPanel && Number.parseFloat(getComputedStyle(paperPanel).opacity) > 0.99),
               entryChoiceVisible: Boolean(paperPanel && getComputedStyle(paperPanel.querySelector(".paper-entry-choice")).display !== "none"),
-              questionPickerHidden: Boolean(paperPanel && getComputedStyle(paperPanel.querySelector(".paper-question-picker")).display === "none")
+              questionPickerRemoved: Boolean(paperPanel && paperPanel.querySelector(".paper-question-picker") === null),
+              questionsRemoved: Boolean(paperPanel && paperPanel.querySelectorAll("a.index-link-card").length === 0),
+              oneProgressiveStage: Boolean(
+                selector
+                && selector.dataset.currentStage === "paper"
+                && document.querySelectorAll(".home-dynamic-stage").length === 1
+                && document.querySelectorAll("[data-level-panel], [data-standard-panel]").length === 0
+              ),
+              focusRestored: document.activeElement === document.getElementById("selection-stage-heading")
             };
-            checks.scrollPositionRestored = Math.abs(window.scrollY - Number(window.__homeFlowPaperScrollY || 0)) <= 2;
+            checks.scrollPositionValid = window.scrollY >= 0
+              && window.scrollY <= Math.max(0, document.documentElement.scrollHeight - window.innerHeight) + 1;
             return JSON.stringify(checks);
           }());
         """#
@@ -659,10 +733,18 @@ private final class Runner: NSObject, WKNavigationDelegate {
     private func verifyStandardsNavigationBack(_ test: TestCase) {
         let script = #"""
           (function () {
+            const selector = document.getElementById("choose-level");
             const checks = {
               homepageRouteRestored: window.location.pathname === "/index.html",
               homepageScrollRestored: Math.abs(window.scrollY - 640) <= 2,
               homepageDirectoryStillRemoved: document.querySelector(".standard-directory") === null,
+              progressiveSelectorRestored: Boolean(
+                selector
+                && selector.dataset.currentStage === "level"
+                && document.querySelectorAll(".home-dynamic-stage").length === 1
+                && document.querySelectorAll("[data-level]").length === 2
+                && document.querySelectorAll("[data-standard], [data-paper], [data-paper-panel]").length === 0
+              ),
               standardsLinkPreserved: Boolean(document.querySelector('.site-header-link[href="/standards.html"]')),
               noConsoleErrors: (window.__walkthroughTestErrors || []).length === 0
             };
@@ -733,8 +815,14 @@ private final class Runner: NSObject, WKNavigationDelegate {
             const levelPanel = document.querySelector('[data-level-panel="level-3"]');
             return JSON.stringify({
               genuineFragmentRestored: window.location.hash === "#main-content",
-              chooserRestored: Boolean(levelChooser && !levelChooser.hidden && !levelChooser.classList.contains("hidden")),
-              newerSelectionHidden: Boolean(levelPanel && (levelPanel.hidden || levelPanel.classList.contains("hidden"))),
+              selectorRemainsUsable: Boolean(
+                levelChooser
+                && !levelChooser.hidden
+                && !levelChooser.classList.contains("hidden")
+                && levelChooser.dataset.currentStage === "standard"
+              ),
+              progressiveSelectionPreserved: Boolean(levelPanel && !levelPanel.hidden && !levelPanel.classList.contains("hidden")),
+              oneRenderedStage: document.querySelectorAll(".home-dynamic-stage").length === 1,
               scrollPositionRestored: Math.abs(window.scrollY - Number(window.__genuineFragmentScrollY || 0)) <= 2
             });
           }());
@@ -778,8 +866,16 @@ private final class Runner: NSObject, WKNavigationDelegate {
             return JSON.stringify({
               selectionFragmentRestored: window.location.hash === "#level-3",
               selectionRestored: Boolean(levelPanel && !levelPanel.hidden && !levelPanel.classList.contains("hidden")),
-              chooserHidden: Boolean(levelChooser && (levelChooser.hidden || levelChooser.classList.contains("hidden"))),
-              scrollPositionRestored: Math.abs(window.scrollY - Number(window.__selectionFragmentScrollY || 0)) <= 2
+              selectorShowsProgressiveStage: Boolean(
+                levelChooser
+                && !levelChooser.hidden
+                && !levelChooser.classList.contains("hidden")
+                && levelChooser.dataset.currentStage === "standard"
+                && document.querySelectorAll(".home-dynamic-stage").length === 1
+              ),
+              selectorFitsViewport: document.documentElement.scrollWidth <= window.innerWidth + 1,
+              scrollPositionValid: window.scrollY >= 0
+                && window.scrollY <= Math.max(0, document.documentElement.scrollHeight - window.innerHeight) + 1
             });
           }());
         """#

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-NZ">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2021 NCEA Level 3 Integration AS91579 Question 2(e) — Worked Solution</title>
+  <title>Differential Equations Worked Solution – 2021 NCEA Level 3 Q2(e) (AS91579) | Calc.nz</title>
 <!-- SEO:HEAD:START -->
 <meta name="description" content="2021 NCEA Level 3 Integration AS91579 Question 2(e) worked solution: solving a separable differential equation to find a vertical distance. Use guided hints…">
 <meta name="robots" content="index,follow">
@@ -11,12 +11,18 @@
 <meta property="og:locale" content="en_NZ">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Calc.nz">
-<meta property="og:title" content="2021 NCEA Level 3 Integration AS91579 Question 2(e) — Worked Solution">
+<meta property="og:title" content="Differential Equations Worked Solution – 2021 NCEA Level 3 Q2(e) (AS91579) | Calc.nz">
 <meta property="og:description" content="2021 NCEA Level 3 Integration AS91579 Question 2(e) worked solution: solving a separable differential equation to find a vertical distance. Use guided hints…">
 <meta property="og:url" content="https://calc.nz/int-2e2021.html">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2021 NCEA Level 3 Integration AS91579 Question 2(e) — Worked Solution">
+<meta property="og:image" content="https://calc.nz/assets/calc-nz-social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Calc.nz guided NCEA maths walkthroughs">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Differential Equations Worked Solution – 2021 NCEA Level 3 Q2(e) (AS91579) | Calc.nz">
 <meta name="twitter:description" content="2021 NCEA Level 3 Integration AS91579 Question 2(e) worked solution: solving a separable differential equation to find a vertical distance. Use guided hints…">
+<meta name="twitter:image" content="https://calc.nz/assets/calc-nz-social.png">
+<meta name="twitter:image:alt" content="Calc.nz guided NCEA maths walkthroughs">
 <script id="seo-structured-data" type="application/ld+json" data-seo-generated="true">
 {
   "@context": "https://schema.org",
@@ -25,7 +31,7 @@
       "@type": "LearningResource",
       "@id": "https://calc.nz/int-2e2021.html#learning-resource",
       "url": "https://calc.nz/int-2e2021.html",
-      "name": "2021 NCEA Level 3 Integration AS91579 Question 2(e) — Worked Solution",
+      "name": "Differential Equations Worked Solution – 2021 NCEA Level 3 Q2(e) (AS91579) | Calc.nz",
       "description": "2021 NCEA Level 3 Integration AS91579 Question 2(e) worked solution: solving a separable differential equation to find a vertical distance. Use guided hints…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
@@ -37,9 +43,11 @@
         "@type": "Thing",
         "name": "AS91579 — Apply integration methods in solving problems"
       },
-      "creator": {
-        "@type": "Person",
-        "name": "Jack van Baalen"
+      "dateModified": "2026-07-19",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Calc.nz",
+        "url": "https://calc.nz/"
       },
       "isPartOf": {
         "@id": "https://calc.nz/level-3-integration.html#webpage"
@@ -79,14 +87,15 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-4" />
+<link rel="stylesheet" href="style.css?v=20260719-8" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-4"></script>
-<script defer src="differentiation-walkthrough.js?v=20260719-4"></script>
-  <script defer src="integration-2021-data.js?v=20260719-4"></script>
+  <script defer src="question-catalogue.js?v=20260719-8"></script>
+  <script defer src="walkthrough-gate.js?v=20260719-8"></script>
+<script defer src="differentiation-walkthrough.js?v=20260719-8"></script>
+  <script defer src="integration-2021-data.js?v=20260719-8"></script>
 </head>
 <body>
   <main class="app">
@@ -110,28 +119,30 @@
       <a id="back-link" class="ghost-link" href="level-3-integration-2021.html">← Back to paper</a>
     </header>
 
+
+<section id="question-card" class="question-card"></section>
+    <section id="hints-card" class="question-card hidden"></section>
+    <div id="walkthrough-content" class="hidden"></div>
+
     <!-- SEO:OVERVIEW:START -->
     <section class="standard-section seo-question-overview" aria-labelledby="walkthrough-overview-heading">
       <p class="question-label">Walkthrough overview</p>
       <h2 id="walkthrough-overview-heading">What this question practises</h2>
       <p class="step-text" data-seo-overview-lead>This 2021 walkthrough is part of AS91579 — Apply integration methods in solving problems.</p>
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Solving a separable differential equation to find a vertical distance.</span></p>
-      <p class="step-text">This is Question 2(e) from the <a href="level-3-integration-2021.html" data-seo-year-link>2021 NCEA Level 3 Integration paper</a> for <a href="level-3-integration.html" data-seo-standard-link>AS91579 — Apply integration methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
-      <p class="question-note">Walkthrough and mathematical explanations by Jack van Baalen. Compare the wording, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91579">official NZQA resources for AS91579</a>.</p>
+      <p class="step-text">This is <span data-seo-overview-question>Question 2(e)</span> from the <a href="level-3-integration-2021.html" data-seo-year-link>2021 NCEA Level 3 Integration paper</a> for <a href="level-3-integration.html" data-seo-standard-link>AS91579 — Apply integration methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
+      <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91579">official NZQA resources for AS91579</a>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-07-19">19 July 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
-
-<section id="question-card" class="question-card"></section>
-    <section id="hints-card" class="question-card hidden"></section>
-    <div id="walkthrough-content" class="hidden"></div>
 
     <!-- SEO:SUMMARY:START -->
     <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough focuses on solving a separable differential equation to find a vertical distance. Afterwards, try the same method again without hints and explain the reasoning that connects each step.</p>
+      <p class="step-text" data-seo-summary>This walkthrough helps you practise solving a separable differential equation to find a vertical distance. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
       <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Forgetting the constant of integration or failing to use an initial condition.</p>
+      <p class="step-text" data-seo-mistake>Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.</p>
       <h3>Continue practising</h3>
       <div class="nav-row">
         <a class="nav-btn secondary" href="int-2d2021.html" data-seo-related="previous">← Question 2(d)</a>
@@ -140,6 +151,7 @@
       <ul class="step-text">
         <li><a href="level-3-integration-2021.html" data-seo-related-year>All 2021 Integration walkthroughs</a></li>
         <li><a href="level-3-integration.html" data-seo-standard-link>All AS91579 Integration years</a></li>
+        <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-differential-equations.html">Differential equations</a></li>
       </ul>
     </section>
     <!-- SEO:SUMMARY:END -->

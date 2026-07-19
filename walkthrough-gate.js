@@ -19,6 +19,7 @@ function syncSiteNavigationCurrentState(root) {
     const linkedPage = getSitePageName(link.href);
     const isSitePage = linkedPage === "index.html"
       || linkedPage === "standards.html"
+      || linkedPage === "skills.html"
       || linkedPage === "about.html";
 
     if (isSitePage && linkedPage === currentPage) {
@@ -84,9 +85,22 @@ const WALKTHROUGH_FOCUSABLE_SELECTOR = [
 ].join(", ");
 
 const STICKY_QUESTION_STORAGE_KEY = "calc.nz.stickyQuestionCard";
+const walkthroughVolatileStorageKeys = Object.create(null);
 let stickyQuestionPreferenceFallback = true;
 
+function isWalkthroughStorageKeyVolatile(storageKey) {
+  return walkthroughVolatileStorageKeys[storageKey] === true;
+}
+
+function markWalkthroughStorageKeyVolatile(storageKey) {
+  walkthroughVolatileStorageKeys[storageKey] = true;
+}
+
 function getStickyQuestionPreference() {
+  if (isWalkthroughStorageKeyVolatile(STICKY_QUESTION_STORAGE_KEY)) {
+    return stickyQuestionPreferenceFallback;
+  }
+
   try {
     const storedPreference = window.localStorage.getItem(STICKY_QUESTION_STORAGE_KEY);
     stickyQuestionPreferenceFallback = storedPreference === null
@@ -94,15 +108,20 @@ function getStickyQuestionPreference() {
       : storedPreference !== "false";
     return stickyQuestionPreferenceFallback;
   } catch (error) {
+    markWalkthroughStorageKeyVolatile(STICKY_QUESTION_STORAGE_KEY);
     return stickyQuestionPreferenceFallback;
   }
 }
 
 function setStickyQuestionPreference(enabled) {
   stickyQuestionPreferenceFallback = enabled;
+  if (isWalkthroughStorageKeyVolatile(STICKY_QUESTION_STORAGE_KEY)) {
+    return;
+  }
   try {
     window.localStorage.setItem(STICKY_QUESTION_STORAGE_KEY, enabled ? "true" : "false");
   } catch (error) {
+    markWalkthroughStorageKeyVolatile(STICKY_QUESTION_STORAGE_KEY);
     // The setting still applies for this page when storage is unavailable.
   }
 }
@@ -307,6 +326,7 @@ function ensureSiteHeader() {
     headerLinks.className = "site-header-links";
     headerLinks.innerHTML = `
       <a class="site-header-link" href="/standards.html">Standards</a>
+      <a class="site-header-link" href="/skills.html">Skills</a>
       <a class="site-header-link" href="about.html">About</a>
     `;
 
@@ -459,12 +479,17 @@ function ensureStickyQuestionPreferenceControl(questionCard) {
       <span id="sticky-question-setting-status" class="walkthrough-setting-status" aria-live="polite"></span>
     `;
 
-    const topbar = app.querySelector(".topbar");
-    if (topbar) {
-      topbar.insertAdjacentElement("afterend", setting);
-    } else {
-      app.insertBefore(setting, app.firstChild);
-    }
+  }
+
+  // Display preferences are useful after a student has reached the question
+  // and walkthrough. Keep them out of the question-first opening viewport.
+  const walkthroughContent = document.getElementById("walkthrough-content");
+  if (walkthroughContent && walkthroughContent.parentNode) {
+    walkthroughContent.insertAdjacentElement("afterend", setting);
+  } else if (questionCard.parentNode) {
+    questionCard.insertAdjacentElement("afterend", setting);
+  } else {
+    app.appendChild(setting);
   }
 
   const checkbox = document.getElementById("sticky-question-setting");
@@ -546,6 +571,8 @@ const WALKTHROUGH_PROGRESS_STORAGE_KEY = "calc.nz.walkthroughProgress";
 const WALKTHROUGH_SESSION_PROGRESS_STORAGE_KEY = "calc.nz.walkthroughSessionProgress";
 const WALKTHROUGH_LAST_VISITED_STORAGE_KEY = "calc.nz.lastWalkthrough";
 const WALKTHROUGH_EXAM_MODE_STORAGE_KEY = "calc.nz.examMode";
+const WALKTHROUGH_BOOKMARK_STORAGE_KEY = "calc.nz.bookmarks";
+const WALKTHROUGH_RETRY_STORAGE_KEY = "calc.nz.retryQuestions";
 const WALKTHROUGH_NAV_PARTS = [
   "1a", "1b", "1c", "1d", "1e",
   "2a", "2b", "2c", "2d", "2e",
@@ -570,6 +597,8 @@ let walkthroughSidebarPreferenceFallback = null;
 let walkthroughProgressFallback = {};
 let walkthroughLastVisitedFallback = null;
 let walkthroughExamModeFallback = false;
+let walkthroughBookmarkFallback = {};
+let walkthroughRetryFallback = {};
 
 function createWalkthroughPaper(id, year, routeTemplate, parts, partLabels) {
   const landingId = id.replace("level-3-complex-", "level-3-complex-numbers-");
@@ -719,6 +748,10 @@ function readWalkthroughSessionProgressMap() {
 }
 
 function readWalkthroughProgressMap() {
+  if (isWalkthroughStorageKeyVolatile(WALKTHROUGH_PROGRESS_STORAGE_KEY)) {
+    return walkthroughProgressFallback;
+  }
+
   const storage = getWalkthroughProgressStorage();
 
   if (!storage) {
@@ -737,6 +770,7 @@ function readWalkthroughProgressMap() {
       return parsedProgress;
     }
   } catch (error) {
+    markWalkthroughStorageKeyVolatile(WALKTHROUGH_PROGRESS_STORAGE_KEY);
     return walkthroughProgressFallback;
   }
 
@@ -746,6 +780,10 @@ function readWalkthroughProgressMap() {
 function writeWalkthroughProgressMap(progressMap) {
   walkthroughProgressFallback = progressMap;
 
+  if (isWalkthroughStorageKeyVolatile(WALKTHROUGH_PROGRESS_STORAGE_KEY)) {
+    return;
+  }
+
   const storage = getWalkthroughProgressStorage();
   if (!storage) {
     return;
@@ -754,6 +792,7 @@ function writeWalkthroughProgressMap(progressMap) {
   try {
     storage.setItem(WALKTHROUGH_PROGRESS_STORAGE_KEY, JSON.stringify(progressMap));
   } catch (error) {
+    markWalkthroughStorageKeyVolatile(WALKTHROUGH_PROGRESS_STORAGE_KEY);
     // Progress indicators are optional; keep the in-memory copy when storage is unavailable.
   }
 }
@@ -841,6 +880,10 @@ function getWalkthroughPaperProgressPercent(progress) {
 }
 
 function readLastWalkthrough() {
+  if (isWalkthroughStorageKeyVolatile(WALKTHROUGH_LAST_VISITED_STORAGE_KEY)) {
+    return walkthroughLastVisitedFallback;
+  }
+
   try {
     const storedLastVisited = window.localStorage.getItem(WALKTHROUGH_LAST_VISITED_STORAGE_KEY);
     const parsedLastVisited = storedLastVisited ? JSON.parse(storedLastVisited) : null;
@@ -850,6 +893,7 @@ function readLastWalkthrough() {
       return parsedLastVisited;
     }
   } catch (error) {
+    markWalkthroughStorageKeyVolatile(WALKTHROUGH_LAST_VISITED_STORAGE_KEY);
     return walkthroughLastVisitedFallback;
   }
 
@@ -876,11 +920,120 @@ function writeLastWalkthrough(context, partId) {
 
   walkthroughLastVisitedFallback = payload;
 
+  if (isWalkthroughStorageKeyVolatile(WALKTHROUGH_LAST_VISITED_STORAGE_KEY)) {
+    return;
+  }
+
   try {
     window.localStorage.setItem(WALKTHROUGH_LAST_VISITED_STORAGE_KEY, JSON.stringify(payload));
   } catch (error) {
+    markWalkthroughStorageKeyVolatile(WALKTHROUGH_LAST_VISITED_STORAGE_KEY);
     // The continue card can fall back to this page's in-memory state.
   }
+}
+
+function readWalkthroughCollection(storageKey, fallbackValue) {
+  if (isWalkthroughStorageKeyVolatile(storageKey)) {
+    return fallbackValue;
+  }
+
+  try {
+    const storedValue = window.localStorage.getItem(storageKey);
+    const parsedValue = storedValue ? JSON.parse(storedValue) : fallbackValue;
+
+    if (parsedValue && typeof parsedValue === "object" && !Array.isArray(parsedValue)) {
+      return parsedValue;
+    }
+  } catch (error) {
+    markWalkthroughStorageKeyVolatile(storageKey);
+    // The in-memory collection keeps the controls usable for this visit.
+  }
+
+  return fallbackValue;
+}
+
+function writeWalkthroughCollection(storageKey, collection, fallbackName) {
+  if (fallbackName === "bookmarks") {
+    walkthroughBookmarkFallback = collection;
+  } else {
+    walkthroughRetryFallback = collection;
+  }
+
+  if (isWalkthroughStorageKeyVolatile(storageKey)) {
+    return false;
+  }
+
+  try {
+    window.localStorage.setItem(storageKey, JSON.stringify(collection));
+    return true;
+  } catch (error) {
+    markWalkthroughStorageKeyVolatile(storageKey);
+    return false;
+  }
+}
+
+function getWalkthroughCollection(storageKey) {
+  if (storageKey === WALKTHROUGH_BOOKMARK_STORAGE_KEY) {
+    walkthroughBookmarkFallback = readWalkthroughCollection(storageKey, walkthroughBookmarkFallback);
+    return walkthroughBookmarkFallback;
+  }
+
+  walkthroughRetryFallback = readWalkthroughCollection(storageKey, walkthroughRetryFallback);
+  return walkthroughRetryFallback;
+}
+
+function getWalkthroughSavedQuestionPayload(context) {
+  if (!context || !context.paper || !context.partId) {
+    return null;
+  }
+
+  return {
+    paperId: context.paper.id,
+    partId: context.partId,
+    href: getWalkthroughPartHref(context.paper, context.partId),
+    label: context.paper.year + " " + context.standard.label + " \u00b7 " + walkthroughQuestionLabel(context.partId, context.paper),
+    levelLabel: context.level.label,
+    standardLabel: context.standard.label,
+    year: context.paper.year,
+    questionLabel: walkthroughQuestionLabel(context.partId, context.paper),
+    updatedAt: Date.now()
+  };
+}
+
+function getWalkthroughSavedQuestionKey(context) {
+  return context && context.paper && context.partId
+    ? context.paper.id + ":" + context.partId
+    : "";
+}
+
+function setWalkthroughQuestionSaved(context, storageKey, shouldSave) {
+  const key = getWalkthroughSavedQuestionKey(context);
+  const payload = getWalkthroughSavedQuestionPayload(context);
+
+  if (!key || !payload) {
+    return { saved: false, persistent: false };
+  }
+
+  const collection = Object.assign({}, getWalkthroughCollection(storageKey));
+  if (shouldSave) {
+    collection[key] = payload;
+  } else {
+    delete collection[key];
+  }
+
+  return {
+    saved: shouldSave,
+    persistent: writeWalkthroughCollection(
+      storageKey,
+      collection,
+      storageKey === WALKTHROUGH_BOOKMARK_STORAGE_KEY ? "bookmarks" : "retry"
+    )
+  };
+}
+
+function isWalkthroughQuestionSaved(context, storageKey) {
+  const key = getWalkthroughSavedQuestionKey(context);
+  return Boolean(key && getWalkthroughCollection(storageKey)[key]);
 }
 
 function applyWalkthroughProgressStateToLink(link, state) {
@@ -1130,8 +1283,45 @@ function getWalkthroughHeaderSubtitle(context, sourceSubtitle) {
 }
 
 const WALKTHROUGH_SEO_ORIGIN = "https://calc.nz";
+const WALKTHROUGH_SOCIAL_IMAGE = WALKTHROUGH_SEO_ORIGIN + "/assets/calc-nz-social.png";
 
-function getWalkthroughSeoCanonicalUrl(context) {
+function getWalkthroughCatalogueQuestion(context) {
+  const catalogue = window.CALC_NZ_QUESTION_CATALOGUE;
+  const levels = catalogue && Array.isArray(catalogue.levels) ? catalogue.levels : [];
+
+  if (!context) {
+    return null;
+  }
+
+  const level = levels.find(function (item) {
+    return item.id === context.level.id;
+  });
+  const standard = level && Array.isArray(level.standards)
+    ? level.standards.find(function (item) {
+      return item.id === context.standard.id;
+    })
+    : null;
+  const paper = standard && Array.isArray(standard.papers)
+    ? standard.papers.find(function (item) {
+      return item.id === context.paper.id || Number(item.year) === Number(context.paper.year);
+    })
+    : null;
+  const question = paper && Array.isArray(paper.questions)
+    ? paper.questions.find(function (item) {
+      return item.id === context.partId;
+    })
+    : null;
+
+  return question
+    ? { level: level, standard: standard, paper: paper, question: question }
+    : null;
+}
+
+function getWalkthroughSeoCanonicalUrl(context, catalogueEntry) {
+  if (catalogueEntry && catalogueEntry.question.canonical) {
+    return catalogueEntry.question.canonical;
+  }
+
   if (!context || !context.paper || !context.partId) {
     return WALKTHROUGH_SEO_ORIGIN + "/";
   }
@@ -1142,7 +1332,11 @@ function getWalkthroughSeoCanonicalUrl(context) {
   return target.href;
 }
 
-function getWalkthroughSeoTitle(context) {
+function getWalkthroughSeoTitle(context, catalogueEntry) {
+  if (catalogueEntry && catalogueEntry.question.title) {
+    return catalogueEntry.question.title;
+  }
+
   return context.paper.year
     + " NCEA "
     + context.level.label
@@ -1155,7 +1349,11 @@ function getWalkthroughSeoTitle(context) {
     + " \u2014 Worked Solution";
 }
 
-function getWalkthroughSeoDescription(context) {
+function getWalkthroughSeoDescription(context, catalogueEntry) {
+  if (catalogueEntry && catalogueEntry.question.description) {
+    return catalogueEntry.question.description;
+  }
+
   return "Work through "
     + context.paper.year
     + " NCEA "
@@ -1208,8 +1406,20 @@ function getWalkthroughSeoPlainText(value) {
     .trim();
 }
 
-function getWalkthroughSeoMistake(context, focus) {
+function getWalkthroughSeoMistake(context, focus, config, catalogueEntry) {
+  if (catalogueEntry && String(catalogueEntry.question.commonMistake || "").trim()) {
+    return getWalkthroughSeoPlainText(catalogueEntry.question.commonMistake);
+  }
+
+  if (config && String(config.commonMistake || "").trim()) {
+    return getWalkthroughSeoPlainText(config.commonMistake);
+  }
+
   const plainFocus = getWalkthroughSeoPlainText(focus).toLowerCase();
+
+  if (/factor theorem|polynomial factor|remainder theorem/.test(plainFocus)) {
+    return "Match the factor to its root carefully: for a factor x − a, substitute x = a into the complete polynomial and keep every sign.";
+  }
 
   if (/chain rule|inner function|inside function/.test(plainFocus)) {
     return "A common slip is differentiating the outside expression but forgetting to multiply by the derivative of the inside function.";
@@ -1235,7 +1445,7 @@ function getWalkthroughSeoMistake(context, focus) {
     return "Use the correct conjugate sign and expand the whole product before simplifying the real and imaginary parts.";
   }
 
-  if (/argument|polar|de moivre|root/.test(plainFocus) && context.standard.id === "level-3-complex") {
+  if (/argument|polar|de moivre|roots of unity|complex roots|finding (?:all|the) roots/.test(plainFocus) && context.standard.id === "level-3-complex") {
     return "Check the modulus and starting angle, including the quadrant, before applying polar-form or De Moivre reasoning.";
   }
 
@@ -1247,11 +1457,7 @@ function getWalkthroughSeoMistake(context, focus) {
     return "State the rule you are using, keep each algebraic step equivalent, and connect the derivative result back to the question.";
   }
 
-  if (context.standard.id === "level-3-complex") {
-    return "Keep modulus, argument, conjugate, and real or imaginary parts distinct, and finish in the form the question requests.";
-  }
-
-  return "Keep each algebraic transformation equivalent, preserve signs and exponents, and check that the final expression is in the requested form.";
+  return "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.";
 }
 
 function updateWalkthroughSeoRelatedLink(context, relation, offset) {
@@ -1305,10 +1511,11 @@ function buildWalkthroughSeoStructuredData(context, title, description, canonica
         learningResourceType: "Guided worked solution",
         educationalLevel: "NCEA " + context.level.label,
         mainEntityOfPage: canonicalUrl,
-        author: {
-          "@type": "Person",
-          name: "Jack van Baalen",
-          url: WALKTHROUGH_SEO_ORIGIN + "/about.html"
+        dateModified: "2026-07-19",
+        publisher: {
+          "@type": "Organization",
+          name: "Calc.nz",
+          url: WALKTHROUGH_SEO_ORIGIN + "/"
         },
         about: {
           "@type": "DefinedTerm",
@@ -1330,16 +1537,19 @@ function syncWalkthroughSeo(context, config) {
     return;
   }
 
-  const title = getWalkthroughSeoTitle(context);
-  const description = getWalkthroughSeoDescription(context);
-  const canonicalUrl = getWalkthroughSeoCanonicalUrl(context);
+  const catalogueEntry = getWalkthroughCatalogueQuestion(context);
+  const title = getWalkthroughSeoTitle(context, catalogueEntry);
+  const description = getWalkthroughSeoDescription(context, catalogueEntry);
+  const canonicalUrl = getWalkthroughSeoCanonicalUrl(context, catalogueEntry);
   const standardUrl = context.standard.indexHref;
   const yearUrl = context.paper.indexHref;
   const questionLabel = walkthroughQuestionLabel(context.partId, context.paper);
   const pageTitle = document.getElementById("page-title") || document.querySelector("main.app .topbar h1");
   const backLink = document.getElementById("back-link") || document.querySelector("main.app .topbar .ghost-link");
   const focusElement = document.querySelector("[data-seo-focus]");
-  const sourceFocus = config && config.focus
+  const sourceFocus = catalogueEntry && catalogueEntry.question.method
+    ? String(catalogueEntry.question.method)
+    : config && config.focus
     ? String(config.focus)
     : focusElement
       ? focusElement.innerHTML
@@ -1355,9 +1565,15 @@ function syncWalkthroughSeo(context, config) {
   ensureWalkthroughSeoMeta("property", "og:title", title);
   ensureWalkthroughSeoMeta("property", "og:description", description);
   ensureWalkthroughSeoMeta("property", "og:url", canonicalUrl);
-  ensureWalkthroughSeoMeta("name", "twitter:card", "summary");
+  ensureWalkthroughSeoMeta("property", "og:image", WALKTHROUGH_SOCIAL_IMAGE);
+  ensureWalkthroughSeoMeta("property", "og:image:width", "1200");
+  ensureWalkthroughSeoMeta("property", "og:image:height", "630");
+  ensureWalkthroughSeoMeta("property", "og:image:alt", "Calc.nz guided NCEA maths walkthroughs");
+  ensureWalkthroughSeoMeta("name", "twitter:card", "summary_large_image");
   ensureWalkthroughSeoMeta("name", "twitter:title", title);
   ensureWalkthroughSeoMeta("name", "twitter:description", description);
+  ensureWalkthroughSeoMeta("name", "twitter:image", WALKTHROUGH_SOCIAL_IMAGE);
+  ensureWalkthroughSeoMeta("name", "twitter:image:alt", "Calc.nz guided NCEA maths walkthroughs");
 
   if (pageTitle) {
     pageTitle.textContent = getWalkthroughHeaderTitle(context);
@@ -1390,8 +1606,12 @@ function syncWalkthroughSeo(context, config) {
     breadcrumbQuestion.textContent = questionLabel;
   }
 
-  if (focusElement && config && config.focus) {
-    focusElement.innerHTML = String(config.focus);
+  if (focusElement) {
+    if (catalogueEntry && catalogueEntry.question.method) {
+      focusElement.textContent = String(catalogueEntry.question.method);
+    } else if (config && config.focus) {
+      focusElement.innerHTML = String(config.focus);
+    }
     if (typeof window.renderMath === "function") {
       window.renderMath(focusElement);
     }
@@ -1408,24 +1628,69 @@ function syncWalkthroughSeo(context, config) {
       + ".";
   }
 
+  const overviewQuestion = document.querySelector("[data-seo-overview-question]");
+  if (overviewQuestion) {
+    overviewQuestion.textContent = questionLabel;
+  }
+
   const summary = document.querySelector("[data-seo-summary]");
   if (summary) {
     const plainFocus = getWalkthroughSeoPlainText(sourceFocus).replace(/[.\s]+$/, "");
-    summary.textContent = "This walkthrough helps you practise "
-      + plainFocus.charAt(0).toLowerCase()
-      + plainFocus.slice(1)
-      + ". Use the hints to plan the method before opening the full worked solution.";
+    summary.textContent = catalogueEntry && String(catalogueEntry.question.summary || "").trim()
+      ? getWalkthroughSeoPlainText(catalogueEntry.question.summary)
+      : config && String(config.learningSummary || "").trim()
+        ? getWalkthroughSeoPlainText(config.learningSummary)
+      : "This walkthrough helps you practise "
+        + plainFocus.charAt(0).toLowerCase()
+        + plainFocus.slice(1)
+        + ". Use the hints to plan the method before opening the full worked solution.";
   }
 
   const mistake = document.querySelector("[data-seo-mistake]");
   if (mistake) {
-    mistake.textContent = getWalkthroughSeoMistake(context, sourceFocus);
+    mistake.textContent = getWalkthroughSeoMistake(context, sourceFocus, config, catalogueEntry);
   }
 
   const yearRelatedLink = document.querySelector("[data-seo-related-year]");
   if (yearRelatedLink) {
     yearRelatedLink.href = yearUrl;
     yearRelatedLink.textContent = "All " + context.paper.year + " questions";
+  }
+
+  const relatedSkills = document.querySelector("[data-seo-related-skills]");
+  if (relatedSkills) {
+    const slugs = catalogueEntry && Array.isArray(catalogueEntry.question.skillSlugs)
+      ? catalogueEntry.question.skillSlugs
+      : [];
+    const skillLabels = {
+      "chain-rule": "Chain rule",
+      "product-quotient-rules": "Product and quotient rules",
+      "related-rates": "Related rates",
+      "stationary-points-optimisation": "Stationary points and optimisation",
+      "parametric-differentiation": "Parametric differentiation",
+      "antidifferentiation": "Antidifferentiation",
+      "integration-techniques": "Integration techniques",
+      "differential-equations": "Differential equations",
+      "complex-number-algebra": "Complex-number algebra",
+      "polar-form-de-moivre": "Polar form and De Moivre’s theorem"
+    };
+
+    relatedSkills.replaceChildren();
+    const lead = document.createElement("strong");
+    lead.textContent = slugs.length
+      ? "Practise more questions using this skill: "
+      : "Browse more questions by skill: ";
+    relatedSkills.appendChild(lead);
+
+    (slugs.length ? slugs : [""]).forEach(function (slug, index) {
+      if (index > 0) {
+        relatedSkills.appendChild(document.createTextNode(", "));
+      }
+      const link = document.createElement("a");
+      link.href = slug ? "skill-" + slug + ".html" : "skills.html";
+      link.textContent = slug ? (skillLabels[slug] || slug.replace(/-/g, " ")) : "all skills";
+      relatedSkills.appendChild(link);
+    });
   }
 
   updateWalkthroughSeoRelatedLink(context, "previous", -1);
@@ -1467,6 +1732,10 @@ function syncWalkthroughPageHeaderContext(context, config) {
 }
 
 function getWalkthroughSidebarStoredPreference() {
+  if (isWalkthroughStorageKeyVolatile(WALKTHROUGH_SIDEBAR_STORAGE_KEY)) {
+    return walkthroughSidebarPreferenceFallback;
+  }
+
   try {
     const storedPreference = window.localStorage.getItem(WALKTHROUGH_SIDEBAR_STORAGE_KEY);
 
@@ -1475,6 +1744,7 @@ function getWalkthroughSidebarStoredPreference() {
       return walkthroughSidebarPreferenceFallback;
     }
   } catch (error) {
+    markWalkthroughStorageKeyVolatile(WALKTHROUGH_SIDEBAR_STORAGE_KEY);
     return walkthroughSidebarPreferenceFallback;
   }
 
@@ -1484,9 +1754,14 @@ function getWalkthroughSidebarStoredPreference() {
 function setWalkthroughSidebarStoredPreference(isVisible) {
   walkthroughSidebarPreferenceFallback = isVisible;
 
+  if (isWalkthroughStorageKeyVolatile(WALKTHROUGH_SIDEBAR_STORAGE_KEY)) {
+    return;
+  }
+
   try {
     window.localStorage.setItem(WALKTHROUGH_SIDEBAR_STORAGE_KEY, isVisible ? "true" : "false");
   } catch (error) {
+    markWalkthroughStorageKeyVolatile(WALKTHROUGH_SIDEBAR_STORAGE_KEY);
     // The current page still reflects the preference when storage is unavailable.
   }
 }
@@ -1978,6 +2253,10 @@ function ensureControlsSection(tipsCard, walkthroughContent) {
 }
 
 function getWalkthroughExamModePreference() {
+  if (isWalkthroughStorageKeyVolatile(WALKTHROUGH_EXAM_MODE_STORAGE_KEY)) {
+    return walkthroughExamModeFallback;
+  }
+
   try {
     const storedPreference = window.localStorage.getItem(WALKTHROUGH_EXAM_MODE_STORAGE_KEY);
 
@@ -1986,6 +2265,7 @@ function getWalkthroughExamModePreference() {
       return walkthroughExamModeFallback;
     }
   } catch (error) {
+    markWalkthroughStorageKeyVolatile(WALKTHROUGH_EXAM_MODE_STORAGE_KEY);
     return walkthroughExamModeFallback;
   }
 
@@ -1995,9 +2275,14 @@ function getWalkthroughExamModePreference() {
 function setWalkthroughExamModePreference(enabled) {
   walkthroughExamModeFallback = Boolean(enabled);
 
+  if (isWalkthroughStorageKeyVolatile(WALKTHROUGH_EXAM_MODE_STORAGE_KEY)) {
+    return;
+  }
+
   try {
     window.localStorage.setItem(WALKTHROUGH_EXAM_MODE_STORAGE_KEY, enabled ? "true" : "false");
   } catch (error) {
+    markWalkthroughStorageKeyVolatile(WALKTHROUGH_EXAM_MODE_STORAGE_KEY);
     // The page still follows the preference for this visit when storage is unavailable.
   }
 }
@@ -2086,7 +2371,18 @@ function setupExamModeControls(options) {
   const status = document.getElementById("exam-mode-setting-status");
   const revealButton = revealPanel.querySelector("#exam-mode-reveal-btn");
   const offButton = revealPanel.querySelector("#exam-mode-off-btn");
+  const controlledElementIds = hiddenElements.map(function (element, index) {
+    if (!element.id) {
+      element.id = "exam-mode-controlled-content-" + (index + 1);
+    }
+    return element.id;
+  }).join(" ");
   let revealedForThisQuestion = false;
+
+  if (revealButton && controlledElementIds) {
+    revealButton.setAttribute("aria-controls", controlledElementIds);
+    revealButton.setAttribute("aria-expanded", "false");
+  }
 
   function applyExamModeState() {
     const isEnabled = getWalkthroughExamModePreference();
@@ -2095,6 +2391,10 @@ function setupExamModeControls(options) {
     checkbox.checked = isEnabled;
     document.body.classList.toggle("exam-mode-active", shouldHideWalkthrough);
     revealPanel.hidden = !shouldHideWalkthrough;
+
+    if (revealButton) {
+      revealButton.setAttribute("aria-expanded", shouldHideWalkthrough ? "false" : "true");
+    }
 
     hiddenElements.forEach(function (element) {
       element.classList.toggle("exam-mode-hidden", shouldHideWalkthrough);
@@ -2130,6 +2430,13 @@ function setupExamModeControls(options) {
         settings.onReveal();
         applyExamModeState();
       }
+      const revealedContainer = hiddenElements.find(function (element) {
+        return !element.hidden
+          && !element.classList.contains("hidden")
+          && !element.classList.contains("exam-mode-hidden")
+          && window.getComputedStyle(element).display !== "none";
+      });
+      focusRevealedContent(revealedContainer || questionCard);
     });
   }
 
@@ -2574,11 +2881,21 @@ function buildTipsCardHtml(config, tipItems) {
     <p class="question-label">${config.tipsTitle || "Before You Reveal"}</p>
     <p class="step-text">Try the question yourself first, then reveal one idea at a time and open the working only when you need it.</p>
     <div class="walkthrough-tip-list">
-      ${tipItems.map(function (item) {
+      ${tipItems.map(function (item, index) {
+        const tipNumber = index + 1;
+        const panelId = "walkthrough-tip-" + tipNumber;
+        const plainLabel = getWalkthroughSeoPlainText(item.label) || "Hint " + tipNumber;
         return `
           <div class="walkthrough-tip-card">
-            <p class="walkthrough-tip-label">${item.label}</p>
-            <div class="walkthrough-tip-body">
+            <button
+              class="walkthrough-tip-toggle"
+              type="button"
+              aria-controls="${panelId}"
+              aria-expanded="false"
+              data-tip-label="${escapeWalkthroughSidebarHtml(plainLabel)}"
+            >Show ${escapeWalkthroughSidebarHtml(plainLabel)}</button>
+            <div id="${panelId}" class="walkthrough-tip-body hidden" aria-hidden="true">
+              <p class="walkthrough-tip-label">${item.label}</p>
               ${normaliseRichTextBlock(item.html, "step-text")}
             </div>
           </div>
@@ -2588,11 +2905,122 @@ function buildTipsCardHtml(config, tipItems) {
   `;
 }
 
+function attachWalkthroughTipHandlers(tipsCard) {
+  if (!tipsCard) {
+    return;
+  }
+
+  tipsCard.querySelectorAll(".walkthrough-tip-toggle").forEach(function (button) {
+    const panel = document.getElementById(button.getAttribute("aria-controls"));
+    const label = button.dataset.tipLabel || "hint";
+
+    if (!panel) {
+      return;
+    }
+
+    button.setAttribute("aria-label", "Show " + label + " for this question");
+    button.addEventListener("click", function () {
+      const shouldShow = button.getAttribute("aria-expanded") !== "true";
+      button.setAttribute("aria-expanded", shouldShow ? "true" : "false");
+      button.setAttribute("aria-label", (shouldShow ? "Hide " : "Show ") + label + " for this question");
+      button.textContent = (shouldShow ? "Hide " : "Show ") + label;
+      panel.classList.toggle("hidden", !shouldShow);
+      panel.setAttribute("aria-hidden", shouldShow ? "false" : "true");
+
+      if (shouldShow) {
+        focusRevealedContent(panel);
+      }
+    });
+  });
+}
+
 function buildQuestionCardHtml(config) {
+  const context = window.__walkthroughCurrentContext;
+  const questionLabel = context
+    ? walkthroughQuestionLabel(context.partId, context.paper)
+    : "this question";
+
   return `
     <p class="question-label">Question</p>
     ${config.questionHtml}
+    <div class="question-personal-actions" aria-label="Save this question">
+      <button
+        id="bookmark-question-btn"
+        class="nav-btn secondary question-save-btn"
+        type="button"
+        aria-pressed="false"
+        aria-label="Bookmark ${escapeWalkthroughSidebarHtml(questionLabel)}"
+      >Bookmark question</button>
+      <button
+        id="retry-question-btn"
+        class="nav-btn secondary question-save-btn"
+        type="button"
+        aria-pressed="false"
+        aria-label="Mark ${escapeWalkthroughSidebarHtml(questionLabel)} for retry"
+      >Mark for retry</button>
+      <span id="question-save-status" class="question-save-status" aria-live="polite"></span>
+    </div>
   `;
+}
+
+function setupWalkthroughQuestionSaveControls(questionCard) {
+  const context = window.__walkthroughCurrentContext;
+  const bookmarkButton = questionCard && questionCard.querySelector("#bookmark-question-btn");
+  const retryButton = questionCard && questionCard.querySelector("#retry-question-btn");
+  const status = questionCard && questionCard.querySelector("#question-save-status");
+
+  if (!context || !bookmarkButton || !retryButton) {
+    return;
+  }
+
+  const questionLabel = walkthroughQuestionLabel(context.partId, context.paper);
+
+  function syncControl(button, storageKey, savedLabel, unsavedLabel, savedAria, unsavedAria) {
+    const isSaved = isWalkthroughQuestionSaved(context, storageKey);
+    button.setAttribute("aria-pressed", isSaved ? "true" : "false");
+    button.classList.toggle("is-saved", isSaved);
+    button.textContent = isSaved ? savedLabel : unsavedLabel;
+    button.setAttribute("aria-label", (isSaved ? savedAria : unsavedAria) + questionLabel);
+  }
+
+  function syncAll() {
+    syncControl(
+      bookmarkButton,
+      WALKTHROUGH_BOOKMARK_STORAGE_KEY,
+      "Bookmarked",
+      "Bookmark question",
+      "Remove bookmark for ",
+      "Bookmark "
+    );
+    syncControl(
+      retryButton,
+      WALKTHROUGH_RETRY_STORAGE_KEY,
+      "Retry marked",
+      "Mark for retry",
+      "Remove retry mark for ",
+      "Mark for retry: "
+    );
+  }
+
+  function toggleSaved(button, storageKey, savedMessage, removedMessage) {
+    const shouldSave = !isWalkthroughQuestionSaved(context, storageKey);
+    const result = setWalkthroughQuestionSaved(context, storageKey, shouldSave);
+    syncAll();
+
+    if (status) {
+      status.textContent = (result.saved ? savedMessage : removedMessage)
+        + (result.persistent ? "" : " Saved for this visit only because browser storage is unavailable.");
+    }
+  }
+
+  bookmarkButton.addEventListener("click", function () {
+    toggleSaved(bookmarkButton, WALKTHROUGH_BOOKMARK_STORAGE_KEY, "Question bookmarked.", "Bookmark removed.");
+  });
+  retryButton.addEventListener("click", function () {
+    toggleSaved(retryButton, WALKTHROUGH_RETRY_STORAGE_KEY, "Question marked for retry.", "Retry mark removed.");
+  });
+
+  syncAll();
 }
 
 function buildProgressiveFinalNavHtml(config) {
@@ -2631,6 +3059,9 @@ function buildProgressiveFinalNavHtml(config) {
 
 function renderProgressiveStep(step, index) {
   const stepNumber = index + 1;
+  const plainTitle = getWalkthroughSeoPlainText(step.title) || "Step " + stepNumber;
+  const showWorkingLabel = "Show working for Step " + stepNumber + ": " + plainTitle;
+  const hideWorkingLabel = "Hide working for Step " + stepNumber + ": " + plainTitle;
   const previewHtml = step.previewHtml
     ? `<div class="walkthrough-step-preview">${normaliseRichTextBlock(step.previewHtml, "step-text")}</div>`
     : "";
@@ -2655,8 +3086,11 @@ function renderProgressiveStep(step, index) {
           data-working-step="${index}"
           data-hidden-label="${step.workingButtonLabel}"
           data-shown-label="${step.workingHideLabel}"
+          data-hidden-aria-label="${escapeWalkthroughSidebarHtml(showWorkingLabel)}"
+          data-shown-aria-label="${escapeWalkthroughSidebarHtml(hideWorkingLabel)}"
           aria-controls="walkthrough-step-${stepNumber}-working"
           aria-expanded="false"
+          aria-label="${escapeWalkthroughSidebarHtml(showWorkingLabel)}"
         >
           ${step.workingButtonLabel}
         </button>
@@ -2664,6 +3098,7 @@ function renderProgressiveStep(step, index) {
       <div
         id="walkthrough-step-${stepNumber}-working"
         class="walkthrough-step-working hidden"
+        aria-hidden="true"
       >
         <p class="walkthrough-working-label">Working</p>
         <div class="walkthrough-working-body">
@@ -2676,6 +3111,10 @@ function renderProgressiveStep(step, index) {
 
 function buildProgressiveWalkthroughHtml(config) {
   return `
+    <div class="walkthrough-mobile-progress" aria-live="polite" aria-atomic="true">
+      <span id="walkthrough-mobile-progress-label">Step 1 of ${config.guidedSteps.length}</span>
+      <progress id="walkthrough-mobile-progress-meter" value="1" max="${config.guidedSteps.length}">1 of ${config.guidedSteps.length}</progress>
+    </div>
     <div class="walkthrough-sequence">
       ${config.guidedSteps.map(function (step, index) {
         return renderProgressiveStep(step, index);
@@ -2720,6 +3159,8 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
   const nextButton = document.getElementById("walkthrough-next-btn");
   const progressStatus = document.getElementById("walkthrough-progress-status");
   const progressDots = Array.from(walkthroughContent.querySelectorAll(".walkthrough-progress-dot"));
+  const mobileProgressLabel = document.getElementById("walkthrough-mobile-progress-label");
+  const mobileProgressMeter = document.getElementById("walkthrough-mobile-progress-meter");
   const finalNav = document.getElementById("walkthrough-final-nav");
   let currentStepIndex = 0;
   let walkthroughComplete = false;
@@ -2740,6 +3181,16 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
 
     progressStatus.textContent = (walkthroughComplete ? "Complete · " : "")
       + "Step " + (currentStepIndex + 1) + " of " + totalSteps;
+
+    if (mobileProgressLabel) {
+      mobileProgressLabel.textContent = (walkthroughComplete ? "Complete · " : "")
+        + "Step " + (currentStepIndex + 1) + " of " + totalSteps;
+    }
+    if (mobileProgressMeter) {
+      mobileProgressMeter.max = totalSteps;
+      mobileProgressMeter.value = walkthroughComplete ? totalSteps : currentStepIndex + 1;
+      mobileProgressMeter.textContent = mobileProgressMeter.value + " of " + totalSteps;
+    }
     previousButton.disabled = currentStepIndex === 0;
 
     const isLastStep = currentStepIndex === totalSteps - 1;
@@ -2748,13 +3199,28 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
 
     if (!isLastStep) {
       nextButton.textContent = "Next step →";
+      nextButton.setAttribute("aria-label", "Next step: " + getWalkthroughSeoPlainText(stepCards[currentStepIndex + 1].querySelector("h2").textContent));
+      nextButton.removeAttribute("aria-controls");
+      nextButton.removeAttribute("aria-expanded");
       nextButton.disabled = false;
     } else if (walkthroughComplete) {
       nextButton.textContent = "Question complete";
+      nextButton.setAttribute("aria-label", "Question complete");
+      nextButton.setAttribute("aria-controls", "walkthrough-step-" + (currentStepIndex + 1) + "-working");
+      nextButton.setAttribute("aria-expanded", "true");
       nextButton.disabled = true;
     } else {
       nextButton.textContent = currentWorkingVisible ? "Finish question" : "Show final answer";
+      nextButton.setAttribute("aria-label", currentWorkingVisible ? "Finish this question" : "Show the final answer for this question");
+      nextButton.setAttribute("aria-controls", "walkthrough-step-" + (currentStepIndex + 1) + "-working");
+      nextButton.setAttribute("aria-expanded", currentWorkingVisible ? "true" : "false");
       nextButton.disabled = false;
+    }
+
+    if (currentStepIndex > 0) {
+      previousButton.setAttribute("aria-label", "Previous step: " + getWalkthroughSeoPlainText(stepCards[currentStepIndex - 1].querySelector("h2").textContent));
+    } else {
+      previousButton.setAttribute("aria-label", "Previous step unavailable");
     }
 
     progressDots.forEach(function (dot, index) {
@@ -2828,10 +3294,17 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
 
     workingPanel.classList.toggle("hidden", !isVisible);
     workingPanel.classList.toggle("is-visible", isVisible);
+    workingPanel.setAttribute("aria-hidden", isVisible ? "false" : "true");
     stepCard.dataset.workingVisible = isVisible ? "true" : "false";
     button.textContent = isVisible
       ? (button.dataset.shownLabel || "Hide working")
       : (button.dataset.hiddenLabel || "Show working");
+    button.setAttribute(
+      "aria-label",
+      isVisible
+        ? (button.dataset.shownAriaLabel || "Hide working for this step")
+        : (button.dataset.hiddenAriaLabel || "Show working for this step")
+    );
     button.setAttribute("aria-expanded", isVisible ? "true" : "false");
     updateProgressUi();
   }
@@ -2906,12 +3379,14 @@ function initializeProgressiveWalkthrough(config, options) {
 
   questionCard.classList.add("sticky-question-card");
   questionCard.innerHTML = buildQuestionCardHtml(normalisedConfig);
+  setupWalkthroughQuestionSaveControls(questionCard);
   renderPartNavigation(normalisedConfig, questionCard);
   setupQuestionImageZoom(questionCard);
 
   if (normalisedConfig.tips.length) {
     tipsCard.innerHTML = buildTipsCardHtml(normalisedConfig, normalisedConfig.tips);
     tipsCard.classList.remove("hidden");
+    attachWalkthroughTipHandlers(tipsCard);
   } else {
     tipsCard.innerHTML = "";
     tipsCard.classList.add("hidden");
@@ -2954,6 +3429,8 @@ window.CalcNzWalkthrough = Object.assign(window.CalcNzWalkthrough || {}, {
   progressStorageKey: WALKTHROUGH_PROGRESS_STORAGE_KEY,
   lastVisitedStorageKey: WALKTHROUGH_LAST_VISITED_STORAGE_KEY,
   examModeStorageKey: WALKTHROUGH_EXAM_MODE_STORAGE_KEY,
+  bookmarkStorageKey: WALKTHROUGH_BOOKMARK_STORAGE_KEY,
+  retryStorageKey: WALKTHROUGH_RETRY_STORAGE_KEY,
   readProgressMap: readWalkthroughProgressMap,
   readLastWalkthrough: readLastWalkthrough,
   getPaperProgressById: getWalkthroughPaperProgressById,
@@ -2993,6 +3470,7 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
       footerNavigation.innerHTML = `
         <a class="site-footer-link" href="/">Home</a>
         <a class="site-footer-link" href="/standards.html">Standards</a>
+        <a class="site-footer-link" href="/skills.html">Skills</a>
         <a class="site-footer-link" href="about.html">About</a>
       `;
       footer.appendChild(footerNavigation);

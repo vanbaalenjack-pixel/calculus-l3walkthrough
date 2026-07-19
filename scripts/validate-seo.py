@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import re
 import sys
@@ -592,6 +593,51 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--max-errors", type=int, default=100)
     args = parser.parse_args(argv)
     root = args.root.resolve()
+
+    # The comprehensive validator owns catalogue/content/SEO/a11y validation.
+    # Keep this historical entry point as a compatibility wrapper (and retain
+    # its useful optional HTTP HEAD check) so existing CI commands automatically
+    # exercise the new logical-route checks.
+    quality_path = Path(__file__).with_name("validate-site-quality.py")
+    quality_spec = importlib.util.spec_from_file_location(
+        "calc_nz_validate_site_quality", quality_path
+    )
+    if quality_spec is None or quality_spec.loader is None:
+        print(f"Cannot load comprehensive validator: {quality_path}", file=sys.stderr)
+        return 1
+    quality_module = importlib.util.module_from_spec(quality_spec)
+    sys.modules[quality_spec.name] = quality_module
+    quality_spec.loader.exec_module(quality_module)
+    quality_status = quality_module.main(
+        ["--root", str(root), "--max-errors", str(args.max_errors)]
+    )
+    if quality_status:
+        return int(quality_status)
+    if args.head_base:
+        head_failures = Failures()
+        sitemap_entries = quality_module.parse_sitemap(root, head_failures)
+        sitemap_urls = [entry.url for entry in sitemap_entries]
+        if sitemap_urls:
+            validate_heads(
+                args.head_base,
+                sitemap_urls,
+                args.head_timeout,
+                args.head_workers,
+                head_failures,
+            )
+        if head_failures.items:
+            print(
+                f"HTTP validation failed: {len(head_failures.items)} issue(s)",
+                file=sys.stderr,
+            )
+            for message in head_failures.items[: max(1, args.max_errors)]:
+                print(f"- {message}", file=sys.stderr)
+            return 1
+        print(f"HTTP validation passed for {len(sitemap_urls)} sitemap URLs.")
+    return 0
+
+    # Legacy implementation retained below for a short transition period; the
+    # compatibility return above intentionally makes it unreachable.
     failures = Failures()
 
     if len(EXPECTED_SITEMAP_URLS) != EXPECTED_SITEMAP_COUNT:
