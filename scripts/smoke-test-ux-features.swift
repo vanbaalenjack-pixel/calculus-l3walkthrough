@@ -14,6 +14,7 @@ private struct TestStep {
 
 private let steps = [
     TestStep(name: "homepage initial", path: "index.html?ux-smoke=initial", width: 1280, height: 900, mode: "home-initial"),
+    TestStep(name: "homepage CTA at desktop fold", path: "index.html?ux-smoke=hero-fold", width: 1366, height: 768, mode: "home-hero-fold"),
     TestStep(name: "homepage deep-linked paper", path: "index.html?ux-smoke=deep#level-3-integration-2021-questions", width: 1280, height: 900, mode: "home-deep-link"),
     TestStep(name: "2019 differentiation progress and zoom", path: "1a2019.html", width: 1280, height: 900, mode: "diff-progress-zoom"),
     TestStep(name: "2020 integration separate progress", path: "int-1a2020.html", width: 1280, height: 900, mode: "integration-progress"),
@@ -21,6 +22,9 @@ private let steps = [
     TestStep(name: "exam mode differentiation", path: "1b2019.html", width: 1280, height: 900, mode: "exam-diff"),
     TestStep(name: "exam mode integration", path: "int-1b2020.html", width: 1280, height: 900, mode: "exam-integration"),
     TestStep(name: "mobile question zoom", path: "2d2019.html", width: 390, height: 844, mode: "mobile-question"),
+    TestStep(name: "mobile complex algebra skill navigation", path: "skill-complex-number-algebra.html?ux-smoke=mobile-nav", width: 390, height: 844, mode: "mobile-skill-nav"),
+    TestStep(name: "mobile chooser journey 320", path: "index.html?ux-smoke=chooser", width: 320, height: 568, mode: "mobile-chooser"),
+    TestStep(name: "mobile chooser journey 390", path: "index.html?ux-smoke=chooser", width: 390, height: 844, mode: "mobile-chooser"),
     TestStep(name: "mobile homepage", path: "index.html?ux-smoke=mobile", width: 390, height: 844, mode: "mobile-home"),
     TestStep(name: "homepage storage fallback", path: "index.html?ux-smoke=storage-off", width: 1280, height: 900, mode: "home-storage-off"),
     TestStep(name: "walkthrough read-only storage fallback", path: "1a2025.html?ux-smoke=storage-readonly", width: 1280, height: 900, mode: "walkthrough-storage-readonly"),
@@ -200,6 +204,20 @@ private final class Runner: NSObject, WKNavigationDelegate {
               checks.chainRuleSearch = chainResults.length > 0 && chainResults.some(function (link) {
                 return /chain rule/i.test(link.textContent);
               });
+              checks.noConsoleErrors = (window.__uxSmokeErrors || []).length === 0;
+            }
+
+            if (mode === "home-hero-fold") {
+              const header = document.querySelector(".site-header");
+              const cta = document.querySelector("[data-reveal-level-picker]");
+              const ctaRect = cta.getBoundingClientRect();
+              const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
+              metrics.heroCtaTop = Math.round(ctaRect.top);
+              metrics.heroCtaBottom = Math.round(ctaRect.bottom);
+              metrics.viewportHeight = window.innerHeight;
+              checks.ctaFullyVisible = ctaRect.top >= headerBottom && ctaRect.bottom <= window.innerHeight;
+              checks.ctaTouchTarget = ctaRect.height >= 44;
+              checks.noHorizontalOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
               checks.noConsoleErrors = (window.__uxSmokeErrors || []).length === 0;
             }
 
@@ -384,13 +402,192 @@ private final class Runner: NSObject, WKNavigationDelegate {
               checks.noConsoleErrors = (window.__uxSmokeErrors || []).length === 0;
             }
 
+            if (mode === "mobile-skill-nav") {
+              const navChildren = Array.from(document.querySelectorAll(".nav-row > *"));
+              const questionCards = Array.from(document.querySelectorAll(".skill-question-group .index-link-card"));
+              const yearHeaderLinks = Array.from(document.querySelectorAll(".year-cluster-header .site-footer-link"));
+              metrics.pageHeight = document.documentElement.scrollHeight;
+              metrics.questionCardMaxHeight = Math.round(Math.max.apply(null, questionCards.map(function (card) {
+                return card.getBoundingClientRect().height;
+              })));
+              metrics.yearHeaderLinkMaxHeight = Math.round(Math.max.apply(null, yearHeaderLinks.map(function (link) {
+                return link.getBoundingClientRect().height;
+              })));
+              checks.no220FlexBasis = navChildren.length > 0 && navChildren.every(function (element) {
+                return getComputedStyle(element).flexBasis !== "220px";
+              });
+              checks.questionCardsNaturalHeight = questionCards.length === 88 && questionCards.every(function (card) {
+                const height = card.getBoundingClientRect().height;
+                return height >= 44 && getComputedStyle(card).flexBasis !== "220px";
+              });
+              checks.yearHeaderLinksNaturalHeight = yearHeaderLinks.length > 0 && yearHeaderLinks.every(function (link) {
+                const height = link.getBoundingClientRect().height;
+                return height >= 44 && height < 100;
+              });
+              checks.pageNoLongerInflated = document.documentElement.scrollHeight < 24000;
+              checks.noHorizontalOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
+              const methodButton = document.querySelector('[data-skill-filter="Completing the Square"]');
+              const expectedMethodCards = questionCards.filter(function (card) {
+                return card.dataset.skillMethod === "Completing the Square";
+              });
+              if (methodButton) {
+                methodButton.click();
+              }
+              const visibleMethodCards = questionCards.filter(function (card) {
+                const group = card.closest("[data-skill-group]");
+                return !card.hidden && group && !group.hidden;
+              });
+              checks.methodFilterExact = Boolean(methodButton)
+                && expectedMethodCards.length > 0
+                && visibleMethodCards.length === expectedMethodCards.length
+                && visibleMethodCards.every(function (card) {
+                  return card.dataset.skillMethod === "Completing the Square";
+                });
+              checks.randomScopeMatchesFilter = Array.from(document.querySelectorAll(
+                '[data-skill-group]:not([hidden]) a.index-link-card[href][data-skill-method]:not([hidden])'
+              )).every(function (card) {
+                return card.dataset.skillMethod === "Completing the Square";
+              });
+              const allButton = document.querySelector('[data-skill-filter="all"]');
+              if (allButton) {
+                allButton.click();
+              }
+              checks.methodFilterReset = questionCards.every(function (card) {
+                return !card.hidden && !card.closest("[data-skill-group]").hidden;
+              });
+              checks.noConsoleErrors = (window.__uxSmokeErrors || []).length === 0;
+            }
+
+            if (mode === "mobile-chooser") {
+              const originalRequestAnimationFrame = window.requestAnimationFrame;
+              const originalCancelAnimationFrame = window.cancelAnimationFrame;
+              const originalMatchMedia = window.matchMedia;
+              const pendingFrames = [];
+              let nextFrameId = 0;
+              const observations = [];
+              const root = document.documentElement;
+              const previousInlineScrollBehavior = root.style.scrollBehavior;
+
+              root.style.scrollBehavior = "auto";
+              window.requestAnimationFrame = function (callback) {
+                nextFrameId += 1;
+                pendingFrames.push({ id: nextFrameId, callback: callback, cancelled: false });
+                return nextFrameId;
+              };
+              window.cancelAnimationFrame = function (id) {
+                pendingFrames.forEach(function (frame) {
+                  if (frame.id === id) {
+                    frame.cancelled = true;
+                  }
+                });
+              };
+              window.matchMedia = function (query) {
+                if (query === "(prefers-reduced-motion: reduce)") {
+                  return {
+                    matches: true,
+                    media: query,
+                    onchange: null,
+                    addListener: function () {},
+                    removeListener: function () {},
+                    addEventListener: function () {},
+                    removeEventListener: function () {},
+                    dispatchEvent: function () { return false; }
+                  };
+                }
+                return originalMatchMedia.call(window, query);
+              };
+
+              const flushNextFrame = function () {
+                const frames = pendingFrames.splice(0);
+                frames.forEach(function (frame) {
+                  if (!frame.cancelled) {
+                    frame.callback(performance.now());
+                  }
+                });
+              };
+              const choose = function (selector, expectedHeading, expectedHash) {
+                const control = document.querySelector(selector);
+                if (!control) {
+                  observations.push({ selector: selector, controlFound: false });
+                  return;
+                }
+                control.click();
+                flushNextFrame();
+                const heading = document.getElementById("selection-stage-heading");
+                const header = document.querySelector(".site-header");
+                const rect = heading.getBoundingClientRect();
+                const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
+                observations.push({
+                  selector: selector,
+                  controlFound: true,
+                  expectedHeading: expectedHeading,
+                  heading: heading.textContent.trim(),
+                  expectedHash: expectedHash,
+                  hash: window.location.hash,
+                  focused: document.activeElement === heading,
+                  visibleBelowHeader: rect.top >= headerBottom - 1,
+                  visibleWithinViewport: rect.bottom <= window.innerHeight + 1,
+                  top: Math.round(rect.top),
+                  headerBottom: Math.round(headerBottom)
+                });
+              };
+
+              const initialCta = document.querySelector("[data-reveal-level-picker]").getBoundingClientRect();
+              metrics.initialCtaTop = Math.round(initialCta.top);
+              metrics.initialCtaBottom = Math.round(initialCta.bottom);
+              choose("[data-reveal-level-picker]", "Step 1: Choose a level", "#choose-level");
+              choose('[data-level="level-3"]', "Step 2: Choose a standard", "#level-3");
+              choose('[data-standard="level-3-complex"]', "Step 3: Choose a paper year", "#level-3-complex");
+              choose('[data-paper="level-3-complex-2025"]', "Where would you like to start?", "#level-3-complex-2025");
+              choose("[data-paper-start-specific]", "Choose a question", "#level-3-complex-2025-questions");
+
+              const questionLinks = Array.from(document.querySelectorAll(".index-link-card"));
+              const narrowNavChildren = Array.from(document.querySelectorAll(".nav-row > *"));
+              metrics.chooserHeadingPositions = observations.map(function (observation) {
+                return observation.top + "/" + observation.headerBottom;
+              }).join(",");
+              metrics.questionLinkMaxHeight = Math.round(Math.max.apply(null, questionLinks.map(function (link) {
+                return link.getBoundingClientRect().height;
+              })));
+              checks.exactJourneyRendered = observations.length === 5 && observations.every(function (observation) {
+                return observation.controlFound
+                  && observation.heading === observation.expectedHeading
+                  && observation.hash === observation.expectedHash;
+              });
+              checks.focusFollowsEveryStage = observations.every(function (observation) { return observation.focused; });
+              checks.headingsBelowStickyHeader = observations.every(function (observation) { return observation.visibleBelowHeader; });
+              checks.headingsWithinViewport = observations.every(function (observation) { return observation.visibleWithinViewport; });
+              checks.no220FlexBasis = narrowNavChildren.length > 0 && narrowNavChildren.every(function (element) {
+                return getComputedStyle(element).flexBasis !== "220px";
+              });
+              checks.questionLinksAreNaturalHeight = questionLinks.length > 0 && questionLinks.every(function (link) {
+                const height = link.getBoundingClientRect().height;
+                return height >= 44 && getComputedStyle(link).flexBasis !== "220px";
+              });
+              checks.ctaFullyVisible = initialCta.top >= 0 && initialCta.bottom <= window.innerHeight;
+              checks.noHorizontalOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
+              checks.noConsoleErrors = (window.__uxSmokeErrors || []).length === 0;
+
+              window.requestAnimationFrame = originalRequestAnimationFrame;
+              window.cancelAnimationFrame = originalCancelAnimationFrame;
+              window.matchMedia = originalMatchMedia;
+              root.style.scrollBehavior = previousInlineScrollBehavior;
+            }
+
             if (mode === "mobile-home") {
               const howDetails = document.querySelector("[data-home-how-details]");
+              const primaryCta = document.querySelector("[data-reveal-level-picker]");
+              const primaryCtaRect = primaryCta.getBoundingClientRect();
+              const selector = document.getElementById("choose-level");
               metrics.mobileSelectorTop = Math.round(document.getElementById("choose-level").getBoundingClientRect().top + window.scrollY);
+              metrics.mobileCtaBottom = Math.round(primaryCtaRect.bottom);
               checks.noHorizontalOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
               checks.howItWorksCollapsed = Boolean(howDetails && !howDetails.open);
-              checks.howItWorksFollowsSelector = Boolean(howDetails && document.getElementById("choose-level").nextElementSibling.contains(howDetails));
-              checks.selectorNearFirstScreen = metrics.mobileSelectorTop <= window.innerHeight + 80;
+              checks.howItWorksFollowsSelector = Boolean(howDetails && selector.nextElementSibling.contains(howDetails));
+              checks.primaryCtaFullyVisible = primaryCtaRect.top >= 0 && primaryCtaRect.bottom <= window.innerHeight;
+              checks.chooserDiscoverable = primaryCta.getAttribute("href") === "#choose-level"
+                && primaryCta.getAttribute("aria-controls") === "choose-level"
+                && Boolean(selector.querySelector("[data-level]"));
               checks.searchVisible = isVisible(document.getElementById("walkthrough-site-search"));
               checks.continueVisible = isVisible(document.getElementById("homepage-continue-card"));
               const results = runSearch("quotient rule");

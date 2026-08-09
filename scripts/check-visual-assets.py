@@ -42,6 +42,69 @@ def png_dimensions(path: Path) -> tuple[int, int]:
     return struct.unpack(">II", header[16:24])
 
 
+def jpeg_dimensions(path: Path) -> tuple[int, int]:
+    """Read JPEG dimensions without adding an image-library dependency."""
+
+    start_of_frame_markers = {
+        0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7,
+        0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF,
+    }
+    with path.open("rb") as stream:
+        if stream.read(2) != b"\xff\xd8":
+            raise ValueError("invalid JPEG header")
+        while True:
+            prefix = stream.read(1)
+            if not prefix:
+                break
+            if prefix != b"\xff":
+                continue
+            marker_byte = stream.read(1)
+            while marker_byte == b"\xff":
+                marker_byte = stream.read(1)
+            if not marker_byte:
+                break
+            marker = marker_byte[0]
+            if marker in {0x01, *range(0xD0, 0xDA)}:
+                continue
+            length_bytes = stream.read(2)
+            if len(length_bytes) != 2:
+                break
+            segment_length = struct.unpack(">H", length_bytes)[0]
+            if segment_length < 2:
+                raise ValueError("invalid JPEG segment length")
+            if marker in start_of_frame_markers:
+                frame = stream.read(5)
+                if len(frame) != 5:
+                    break
+                height, width = struct.unpack(">HH", frame[1:5])
+                return width, height
+            if marker in {0xD9, 0xDA}:
+                break
+            stream.seek(segment_length - 2, 1)
+    raise ValueError("JPEG dimensions not found")
+
+
+def ico_dimensions(path: Path) -> tuple[int, int]:
+    """Return the largest square/icon entry advertised by an ICO container."""
+
+    with path.open("rb") as stream:
+        header = stream.read(6)
+        if len(header) != 6:
+            raise ValueError("invalid ICO header")
+        reserved, image_type, count = struct.unpack("<HHH", header)
+        if reserved != 0 or image_type != 1 or count < 1:
+            raise ValueError("invalid ICO directory")
+        dimensions: list[tuple[int, int]] = []
+        for _index in range(count):
+            entry = stream.read(16)
+            if len(entry) != 16:
+                raise ValueError("truncated ICO directory")
+            width = entry[0] or 256
+            height = entry[1] or 256
+            dimensions.append((width, height))
+    return max(dimensions, key=lambda value: value[0] * value[1])
+
+
 def main() -> int:
     failures: list[str] = []
     sources = source_files()
@@ -86,6 +149,48 @@ def main() -> int:
         dynamic_pattern = png_path.parent.relative_to(ROOT).as_posix() + "/${id}-question.png"
         if relative not in combined_source and dynamic_pattern not in combined_source:
             failures.append(f"{relative}: deployed asset is not referenced")
+
+    required_brand_assets = {
+        "favicon.ico": ((48, 48), ico_dimensions),
+        "assets/favicon-48.png": ((48, 48), png_dimensions),
+        "assets/favicon-192.png": ((192, 192), png_dimensions),
+        "assets/apple-touch-icon.png": ((180, 180), png_dimensions),
+        "assets/calc-nz-social.jpg": ((1200, 630), jpeg_dimensions),
+    }
+    for relative, (expected_dimensions, dimension_reader) in required_brand_assets.items():
+        path = ROOT / relative
+        if not path.is_file():
+            failures.append(f"{relative}: required brand asset is missing")
+            continue
+        try:
+            dimensions = dimension_reader(path)
+        except (OSError, ValueError) as error:
+            failures.append(f"{relative}: {error}")
+            continue
+        if dimensions != expected_dimensions:
+            failures.append(
+                f"{relative}: dimensions are {dimensions[0]}x{dimensions[1]}, "
+                f"expected {expected_dimensions[0]}x{expected_dimensions[1]}"
+            )
+        reference = "/" + relative
+        if reference not in combined_source and relative not in combined_source:
+            failures.append(f"{relative}: required site metadata reference is missing")
+
+    social_jpeg = ROOT / "assets" / "calc-nz-social.jpg"
+    legacy_social_png = ROOT / "assets" / "calc-nz-social.png"
+    if social_jpeg.is_file():
+        if social_jpeg.stat().st_size > 250_000:
+            failures.append(
+                "assets/calc-nz-social.jpg: optimized sharing image exceeds 250 KB"
+            )
+        if (
+            legacy_social_png.is_file()
+            and social_jpeg.stat().st_size >= legacy_social_png.stat().st_size // 2
+        ):
+            failures.append(
+                "assets/calc-nz-social.jpg: sharing image is not materially smaller "
+                "than the previous PNG"
+            )
 
     authored_images = []
     for path, text in source_text.items():

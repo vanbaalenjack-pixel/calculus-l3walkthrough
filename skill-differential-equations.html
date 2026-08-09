@@ -8,20 +8,24 @@
   <meta name="description" content="Practise NCEA Level 3 differential-equation questions from AS91578 and AS91579, including separation, initial conditions and verification.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://calc.nz/skill-differential-equations.html">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/favicon-48.png" type="image/png" sizes="48x48">
+  <link rel="icon" href="/assets/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180">
   <meta property="og:locale" content="en_NZ">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Calc.nz">
   <meta property="og:title" content="Differential Equations NCEA Practice Questions | Calc.nz">
   <meta property="og:description" content="Practise NCEA Level 3 differential-equation questions from AS91578 and AS91579, including separation, initial conditions and verification.">
   <meta property="og:url" content="https://calc.nz/skill-differential-equations.html">
-  <meta property="og:image" content="https://calc.nz/assets/calc-nz-social.png">
+  <meta property="og:image" content="https://calc.nz/assets/calc-nz-social.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Calc.nz guided NCEA maths walkthroughs">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Differential Equations NCEA Practice Questions | Calc.nz">
   <meta name="twitter:description" content="Practise NCEA Level 3 differential-equation questions from AS91578 and AS91579, including separation, initial conditions and verification.">
-  <meta name="twitter:image" content="https://calc.nz/assets/calc-nz-social.png">
+  <meta name="twitter:image" content="https://calc.nz/assets/calc-nz-social.jpg">
   <meta name="twitter:image:alt" content="Calc.nz guided NCEA maths walkthroughs">
   <script id="seo-structured-data" type="application/ld+json" data-seo-generated="true">
   {
@@ -34,7 +38,7 @@
         "name": "Differential Equations NCEA Practice Questions | Calc.nz",
         "description": "Practise NCEA Level 3 differential-equation questions from AS91578 and AS91579, including separation, initial conditions and verification.",
         "inLanguage": "en-NZ",
-        "dateModified": "2026-07-19",
+        "dateModified": "2026-08-09",
         "isPartOf": {
           "@id": "https://calc.nz/#website"
         }
@@ -66,33 +70,34 @@
   }
   </script>
   <!-- SEO:HEAD:END -->
-  <link rel="stylesheet" href="style.css?v=20260719-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-8"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      if (window.renderMathInElement) {
-        window.renderMathInElement(document.body, {
-          delimiters: [
-            { left: "\\[", right: "\\]", display: true },
-            { left: "\\(", right: "\\)", display: false }
-          ],
-          throwOnError: false
-        });
-      }
-    });
-  </script>
+  <link rel="stylesheet" href="style.css?v=20260809-1">
+  <script defer src="site-shell.js?v=20260809-1"></script>
 </head>
-<body class="home-page content-page skill-page">
-<main class="app home-app content-app">
+<body class="home-page content-page skill-page has-site-header">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+  <nav class="site-header-inner" aria-label="Site">
+    <a class="site-brand" href="/">Calc.nz</a>
+    <button class="site-menu-toggle" type="button" aria-expanded="false" aria-controls="site-header-links">
+      <span class="site-menu-label">Menu</span>
+      <span class="site-menu-icon" aria-hidden="true"></span>
+    </button>
+    <div id="site-header-links" class="site-header-links">
+      <a class="site-header-link" href="/standards.html">Standards</a>
+      <a class="site-header-link" href="/skills.html">Skills</a>
+
+      <a class="site-header-link" href="/search.html">Search</a>
+      <a class="site-header-link" href="/about.html">About</a>
+    </div>
+  </nav>
+</header>
+<main id="main-content" class="app home-app content-app" tabindex="-1">
   <!-- SEO:BREADCRUMBS:START -->
   <nav class="home-flow-nav seo-breadcrumbs" aria-label="Breadcrumb">
    <ol class="home-breadcrumb">
-    <li><a class="home-breadcrumb-button" href="/">Calc.nz</a></li>
-    <li><a class="home-breadcrumb-button" href="skills.html">Browse by skill</a></li>
-    <li><span class="home-breadcrumb-current" aria-current="page">Differential Equations</span></li>
+    <li class="breadcrumb-item breadcrumb-link"><a class="home-breadcrumb-button" href="/">Calc.nz</a></li>
+    <li class="breadcrumb-item breadcrumb-link breadcrumb-parent"><a class="home-breadcrumb-button" href="skills.html">Browse by skill</a></li>
+    <li class="breadcrumb-item breadcrumb-current"><span class="home-breadcrumb-current" aria-current="page">Differential Equations</span></li>
    </ol>
   </nav>
   <!-- SEO:BREADCRUMBS:END -->
@@ -120,236 +125,296 @@
     <ul class="step-text"><li>Separate the variables consistently before integrating, without dropping factors that belong with either differential.</li><li>Retain the integration constant and apply the supplied condition, then check the resulting branch and domain in context.</li><li>For verification, calculate the required derivatives and substitute them into both sides of the stated differential equation.</li></ul>
   </section>
 
-  <section class="question-card" aria-labelledby="skill-questions-heading">
+
+
+  <section class="question-card" aria-labelledby="skill-questions-heading" data-skill-collection>
     <p class="question-label">Related practice</p>
     <h2 id="skill-questions-heading">Differential Equations questions from different years</h2>
     <p class="step-text">Open a question for hints and a progressive worked solution, or use the standard and paper links to return to its assessment context.</p>
-    <section class="index-group skill-question-group" aria-labelledby="differential-equations-level-3-differentiation-2024">
-  <div class="year-cluster-header">
+    <div class="skill-question-tools">
+      <nav class="skill-jump-nav" aria-label="Jump to a year"><a class="skill-jump-link" href="#differential-equations-level-3-differentiation-2024">2024 Differentiation</a><a class="skill-jump-link" href="#differential-equations-level-3-differentiation-2023">2023 Differentiation</a><a class="skill-jump-link" href="#differential-equations-level-3-differentiation-2020">2020 Differentiation</a><a class="skill-jump-link" href="#differential-equations-level-3-differentiation-2017">2017 Differentiation</a><a class="skill-jump-link" href="#differential-equations-level-3-integration-2025">2025 Integration</a><a class="skill-jump-link" href="#differential-equations-level-3-integration-2024">2024 Integration</a><a class="skill-jump-link" href="#differential-equations-level-3-integration-2023">2023 Integration</a><a class="skill-jump-link" href="#differential-equations-level-3-integration-2022">2022 Integration</a><a class="skill-jump-link" href="#differential-equations-level-3-integration-2021">2021 Integration</a><a class="skill-jump-link" href="#differential-equations-level-3-integration-2020">2020 Integration</a><a class="skill-jump-link" href="#differential-equations-level-3-integration-2019">2019 Integration</a><a class="skill-jump-link" href="#differential-equations-level-3-integration-2018">2018 Integration</a><a class="skill-jump-link" href="#differential-equations-level-3-integration-2017">2017 Integration</a></nav>
+      <div class="skill-filter-row" role="group" aria-label="Filter this skill collection"><button class="skill-filter-chip is-active" type="button" aria-pressed="true" data-skill-filter="all">All questions</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="level-3-differentiation">AS91578</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="level-3-integration">AS91579</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Differential Equations">Differential Equations</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Higher Derivatives">Higher Derivatives</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Integration by Substitution">Integration by Substitution</button></div>
+      <button class="nav-btn secondary skill-random-button" type="button" data-skill-random>Random question from this skill</button>
+      <p class="visually-hidden" aria-live="polite" data-skill-filter-status>23 matching questions shown.</p>
+    </div>
+    <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Higher Derivatives">
+  <summary id="differential-equations-level-3-differentiation-2024" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2024 Differentiation</strong>
+    <span>1 question</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="differential-equations-level-3-differentiation-2024">2024 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2024.html">2024 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="2c2024.html">
-  <span class="index-link-title">Question 2(c) · First and second derivatives in a</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="2c2024.html" data-skill-method="Higher Derivatives">
+  <span class="index-link-title">Question 2(c) — Higher Derivatives</span>
   <span class="index-link-copy">First and second derivatives in a proof-style differential-equation question.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="differential-equations-level-3-differentiation-2023">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Differential Equations">
+  <summary id="differential-equations-level-3-differentiation-2023" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2023 Differentiation</strong>
+    <span>1 question</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="differential-equations-level-3-differentiation-2023">2023 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2023.html">2023 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="3e2023.html">
-  <span class="index-link-title">Question 3(e) · Differential Equations</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="3e2023.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 3(e) — Differential Equations</span>
   <span class="index-link-copy">Verifying a differential equation from a catenary model.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="differential-equations-level-3-differentiation-2020">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Differential Equations">
+  <summary id="differential-equations-level-3-differentiation-2020" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2020 Differentiation</strong>
+    <span>1 question</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="differential-equations-level-3-differentiation-2020">2020 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2020.html">2020 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="3e2020.html">
-  <span class="index-link-title">Question 3(e) · Differential Equations</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="3e2020.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 3(e) — Differential Equations</span>
   <span class="index-link-copy">Proving a differential equation using first and second derivatives.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="differential-equations-level-3-differentiation-2017">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Higher Derivatives">
+  <summary id="differential-equations-level-3-differentiation-2017" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2017 Differentiation</strong>
+    <span>1 question</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="differential-equations-level-3-differentiation-2017">2017 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2017.html">2017 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="3e2017.html">
-  <span class="index-link-title">Question 3(e) · Second derivatives and a</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="3e2017.html" data-skill-method="Higher Derivatives">
+  <span class="index-link-title">Question 3(e) — Higher Derivatives</span>
   <span class="index-link-copy">Second derivatives and a differential-equation parameter.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="differential-equations-level-3-integration-2025">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-integration" data-methods="Differential Equations">
+  <summary id="differential-equations-level-3-integration-2025" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91579</span>
+    <strong>2025 Integration</strong>
+    <span>2 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91579</p>
-      <h3 id="differential-equations-level-3-integration-2025">2025 Integration</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-integration.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-integration-2025.html">2025 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-1e2025.html">
-  <span class="index-link-title">Question 1(e) · Separating variables and evaluating the</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-1e2025.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 1(e) — Differential Equations</span>
   <span class="index-link-copy">Separating variables and evaluating the resulting model.</span>
-</a> <a class="nav-btn index-link-card" href="int-3c2025.html">
-  <span class="index-link-title">Question 3(c) · Differential Equations</span>
+</a> <a class="nav-btn index-link-card" href="int-3c2025.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 3(c) — Differential Equations</span>
   <span class="index-link-copy">Solving a separable differential equation with a radical.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="differential-equations-level-3-integration-2024">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-integration" data-methods="Differential Equations">
+  <summary id="differential-equations-level-3-integration-2024" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91579</span>
+    <strong>2024 Integration</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91579</p>
-      <h3 id="differential-equations-level-3-integration-2024">2024 Integration</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-integration.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-integration-2024.html">2024 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-1d2024.html">
-  <span class="index-link-title">Question 1(d) · Differential Equations</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-1d2024.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 1(d) — Differential Equations</span>
   <span class="index-link-copy">Product-to-sum before integrating a differential equation.</span>
-</a> <a class="nav-btn index-link-card" href="int-2c2024.html">
-  <span class="index-link-title">Question 2(c) · Separating variables with an exponential</span>
+</a> <a class="nav-btn index-link-card" href="int-2c2024.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 2(c) — Differential Equations</span>
   <span class="index-link-copy">Separating variables with an exponential model.</span>
-</a> <a class="nav-btn index-link-card" href="int-3b2024.html">
-  <span class="index-link-title">Question 3(b) · Differential Equations</span>
+</a> <a class="nav-btn index-link-card" href="int-3b2024.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 3(b) — Differential Equations</span>
   <span class="index-link-copy">Solving a logarithmic differential equation using a condition.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="differential-equations-level-3-integration-2023">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-integration" data-methods="Differential Equations">
+  <summary id="differential-equations-level-3-integration-2023" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91579</span>
+    <strong>2023 Integration</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91579</p>
-      <h3 id="differential-equations-level-3-integration-2023">2023 Integration</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-integration.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-integration-2023.html">2023 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-1d2023.html">
-  <span class="index-link-title">Question 1(d) · Separating variables and using a</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-1d2023.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 1(d) — Differential Equations</span>
   <span class="index-link-copy">Separating variables and using a condition to keep the correct solution branch.</span>
-</a> <a class="nav-btn index-link-card" href="int-2b2023.html">
-  <span class="index-link-title">Question 2(b) · Differential Equations</span>
+</a> <a class="nav-btn index-link-card" href="int-2b2023.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 2(b) — Differential Equations</span>
   <span class="index-link-copy">Integrating a radical differential equation and fitting the constant.</span>
-</a> <a class="nav-btn index-link-card" href="int-3e2023.html">
-  <span class="index-link-title">Question 3(e) · Differential Equations</span>
+</a> <a class="nav-btn index-link-card" href="int-3e2023.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 3(e) — Differential Equations</span>
   <span class="index-link-copy">Factor cancellation in a separable differential equation.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="differential-equations-level-3-integration-2022">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-integration" data-methods="Differential Equations">
+  <summary id="differential-equations-level-3-integration-2022" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91579</span>
+    <strong>2022 Integration</strong>
+    <span>1 question</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91579</p>
-      <h3 id="differential-equations-level-3-integration-2022">2022 Integration</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-integration.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-integration-2022.html">2022 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-2c2022.html">
-  <span class="index-link-title">Question 2(c) · Separating variables and using a</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-2c2022.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 2(c) — Differential Equations</span>
   <span class="index-link-copy">Separating variables and using a condition in a log model.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="differential-equations-level-3-integration-2021">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-integration" data-methods="Differential Equations">
+  <summary id="differential-equations-level-3-integration-2021" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91579</span>
+    <strong>2021 Integration</strong>
+    <span>2 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91579</p>
-      <h3 id="differential-equations-level-3-integration-2021">2021 Integration</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-integration.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-integration-2021.html">2021 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-2e2021.html">
-  <span class="index-link-title">Question 2(e) · Differential Equations</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-2e2021.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 2(e) — Differential Equations</span>
   <span class="index-link-copy">Solving a separable differential equation to find a vertical distance.</span>
-</a> <a class="nav-btn index-link-card" href="int-3c2021.html">
-  <span class="index-link-title">Question 3(c) · Differential Equations</span>
+</a> <a class="nav-btn index-link-card" href="int-3c2021.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 3(c) — Differential Equations</span>
   <span class="index-link-copy">Separating a trigonometric differential equation and using a condition.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="differential-equations-level-3-integration-2020">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-integration" data-methods="Differential Equations">
+  <summary id="differential-equations-level-3-integration-2020" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91579</span>
+    <strong>2020 Integration</strong>
+    <span>2 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91579</p>
-      <h3 id="differential-equations-level-3-integration-2020">2020 Integration</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-integration.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-integration-2020.html">2020 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-1e2020.html">
-  <span class="index-link-title">Question 1(e) · Differential Equations</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-1e2020.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 1(e) — Differential Equations</span>
   <span class="index-link-copy">Separating a logarithmic trigonometric differential equation.</span>
-</a> <a class="nav-btn index-link-card" href="int-2d2020.html">
-  <span class="index-link-title">Question 2(d) · Differential Equations</span>
+</a> <a class="nav-btn index-link-card" href="int-2d2020.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 2(d) — Differential Equations</span>
   <span class="index-link-copy">A separable radical and trigonometric differential equation.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="differential-equations-level-3-integration-2019">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-integration" data-methods="Differential Equations">
+  <summary id="differential-equations-level-3-integration-2019" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91579</span>
+    <strong>2019 Integration</strong>
+    <span>2 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91579</p>
-      <h3 id="differential-equations-level-3-integration-2019">2019 Integration</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-integration.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-integration-2019.html">2019 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-1e2019.html">
-  <span class="index-link-title">Question 1(e) · Differential Equations</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-1e2019.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 1(e) — Differential Equations</span>
   <span class="index-link-copy">Proving an exponential-growth relation from a differential equation.</span>
-</a> <a class="nav-btn index-link-card" href="int-3b2019.html">
-  <span class="index-link-title">Question 3(b) · Differential Equations</span>
-  <span class="index-link-copy">Integrating a \(\sec^2(2x)\) differential equation.</span>
+</a> <a class="nav-btn index-link-card" href="int-3b2019.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 3(b) — Differential Equations</span>
+  <span class="index-link-copy">Integrating a sec squared (2x) differential equation.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="differential-equations-level-3-integration-2018">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-integration" data-methods="Differential Equations">
+  <summary id="differential-equations-level-3-integration-2018" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91579</span>
+    <strong>2018 Integration</strong>
+    <span>2 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91579</p>
-      <h3 id="differential-equations-level-3-integration-2018">2018 Integration</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-integration.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-integration-2018.html">2018 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-1b2018.html">
-  <span class="index-link-title">Question 1(b) · Differential Equations</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-1b2018.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 1(b) — Differential Equations</span>
   <span class="index-link-copy">Integrating a differential equation and using an initial condition.</span>
-</a> <a class="nav-btn index-link-card" href="int-1d2018.html">
-  <span class="index-link-title">Question 1(d) · Separating variables and applying an</span>
+</a> <a class="nav-btn index-link-card" href="int-1d2018.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 1(d) — Differential Equations</span>
   <span class="index-link-copy">Separating variables and applying an initial condition.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="differential-equations-level-3-integration-2017">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-integration" data-methods="Differential Equations|Integration by Substitution">
+  <summary id="differential-equations-level-3-integration-2017" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91579</span>
+    <strong>2017 Integration</strong>
+    <span>2 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91579</p>
-      <h3 id="differential-equations-level-3-integration-2017">2017 Integration</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-integration.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-integration-2017.html">2017 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-3d2017.html">
-  <span class="index-link-title">Question 3(d) · Differential Equations</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="int-3d2017.html" data-skill-method="Differential Equations">
+  <span class="index-link-title">Question 3(d) — Differential Equations</span>
   <span class="index-link-copy">Solving a separable differential equation with a condition.</span>
-</a> <a class="nav-btn index-link-card" href="int-3e2017.html">
-  <span class="index-link-title">Question 3(e) · Integration by Substitution</span>
+</a> <a class="nav-btn index-link-card" href="int-3e2017.html" data-skill-method="Integration by Substitution">
+  <span class="index-link-title">Question 3(e) — Integration by Substitution</span>
   <span class="index-link-copy">Substitution in a parameterised differential equation.</span>
 </a></div>
-</section>
+</details>
   </section>
 
   <section class="question-card" aria-labelledby="related-skills-heading">
@@ -357,7 +422,7 @@
     <h2 id="related-skills-heading">Related skill collections</h2>
     <div class="nav-row"><a class="nav-btn secondary" href="skill-antidifferentiation.html">Antidifferentiation</a> <a class="nav-btn secondary" href="skill-integration-techniques.html">Integration techniques</a></div>
   </section>
-  <p class="page-updated">Page updated <time datetime="2026-07-19">19 July 2026</time>.</p>
+  <p class="page-updated">Page updated <time datetime="2026-08-09">9 August 2026</time>.</p>
 </main>
 <footer class="site-footer">
   <p class="site-footer-text">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the official NZQA material.</p>
@@ -365,6 +430,8 @@
     <a class="site-footer-link" href="/">Home</a>
     <a class="site-footer-link" href="/standards.html">Standards</a>
     <a class="site-footer-link" href="/skills.html">Skills</a>
+
+    <a class="site-footer-link" href="/search.html">Search</a>
     <a class="site-footer-link" href="about.html">About</a>
   </nav>
   <p class="site-footer-text site-footer-disclaimer">Calc.nz is independent and is not affiliated with or endorsed by NZQA.</p>

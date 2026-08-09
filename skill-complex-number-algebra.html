@@ -8,20 +8,24 @@
   <meta name="description" content="Practise NCEA Level 3 complex-number algebra from AS91577, including conjugates, polynomial roots, discriminants, surds and exact equations.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://calc.nz/skill-complex-number-algebra.html">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/favicon-48.png" type="image/png" sizes="48x48">
+  <link rel="icon" href="/assets/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180">
   <meta property="og:locale" content="en_NZ">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Calc.nz">
   <meta property="og:title" content="Complex-number Algebra NCEA Practice Questions | Calc.nz">
   <meta property="og:description" content="Practise NCEA Level 3 complex-number algebra from AS91577, including conjugates, polynomial roots, discriminants, surds and exact equations.">
   <meta property="og:url" content="https://calc.nz/skill-complex-number-algebra.html">
-  <meta property="og:image" content="https://calc.nz/assets/calc-nz-social.png">
+  <meta property="og:image" content="https://calc.nz/assets/calc-nz-social.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Calc.nz guided NCEA maths walkthroughs">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Complex-number Algebra NCEA Practice Questions | Calc.nz">
   <meta name="twitter:description" content="Practise NCEA Level 3 complex-number algebra from AS91577, including conjugates, polynomial roots, discriminants, surds and exact equations.">
-  <meta name="twitter:image" content="https://calc.nz/assets/calc-nz-social.png">
+  <meta name="twitter:image" content="https://calc.nz/assets/calc-nz-social.jpg">
   <meta name="twitter:image:alt" content="Calc.nz guided NCEA maths walkthroughs">
   <script id="seo-structured-data" type="application/ld+json" data-seo-generated="true">
   {
@@ -34,7 +38,7 @@
         "name": "Complex-number Algebra NCEA Practice Questions | Calc.nz",
         "description": "Practise NCEA Level 3 complex-number algebra from AS91577, including conjugates, polynomial roots, discriminants, surds and exact equations.",
         "inLanguage": "en-NZ",
-        "dateModified": "2026-07-19",
+        "dateModified": "2026-08-09",
         "isPartOf": {
           "@id": "https://calc.nz/#website"
         }
@@ -66,33 +70,34 @@
   }
   </script>
   <!-- SEO:HEAD:END -->
-  <link rel="stylesheet" href="style.css?v=20260719-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-8"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      if (window.renderMathInElement) {
-        window.renderMathInElement(document.body, {
-          delimiters: [
-            { left: "\\[", right: "\\]", display: true },
-            { left: "\\(", right: "\\)", display: false }
-          ],
-          throwOnError: false
-        });
-      }
-    });
-  </script>
+  <link rel="stylesheet" href="style.css?v=20260809-1">
+  <script defer src="site-shell.js?v=20260809-1"></script>
 </head>
-<body class="home-page content-page skill-page">
-<main class="app home-app content-app">
+<body class="home-page content-page skill-page has-site-header">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+  <nav class="site-header-inner" aria-label="Site">
+    <a class="site-brand" href="/">Calc.nz</a>
+    <button class="site-menu-toggle" type="button" aria-expanded="false" aria-controls="site-header-links">
+      <span class="site-menu-label">Menu</span>
+      <span class="site-menu-icon" aria-hidden="true"></span>
+    </button>
+    <div id="site-header-links" class="site-header-links">
+      <a class="site-header-link" href="/standards.html">Standards</a>
+      <a class="site-header-link" href="/skills.html">Skills</a>
+
+      <a class="site-header-link" href="/search.html">Search</a>
+      <a class="site-header-link" href="/about.html">About</a>
+    </div>
+  </nav>
+</header>
+<main id="main-content" class="app home-app content-app" tabindex="-1">
   <!-- SEO:BREADCRUMBS:START -->
   <nav class="home-flow-nav seo-breadcrumbs" aria-label="Breadcrumb">
    <ol class="home-breadcrumb">
-    <li><a class="home-breadcrumb-button" href="/">Calc.nz</a></li>
-    <li><a class="home-breadcrumb-button" href="skills.html">Browse by skill</a></li>
-    <li><span class="home-breadcrumb-current" aria-current="page">Complex-number Algebra</span></li>
+    <li class="breadcrumb-item breadcrumb-link"><a class="home-breadcrumb-button" href="/">Calc.nz</a></li>
+    <li class="breadcrumb-item breadcrumb-link breadcrumb-parent"><a class="home-breadcrumb-button" href="skills.html">Browse by skill</a></li>
+    <li class="breadcrumb-item breadcrumb-current"><span class="home-breadcrumb-current" aria-current="page">Complex-number Algebra</span></li>
    </ol>
   </nav>
   <!-- SEO:BREADCRUMBS:END -->
@@ -120,383 +125,427 @@
     <ul class="step-text"><li>When using a conjugate, change only the sign of the imaginary part and multiply the complete numerator and denominator.</li><li>Collect real and imaginary components separately before equating their corresponding coefficients.</li><li>Keep the divisor, root, and remainder signs consistent, then verify the factorisation or reconstructed polynomial.</li></ul>
   </section>
 
-  <section class="question-card" aria-labelledby="skill-questions-heading">
+
+
+  <section class="question-card" aria-labelledby="skill-questions-heading" data-skill-collection>
     <p class="question-label">Related practice</p>
     <h2 id="skill-questions-heading">Complex-number Algebra questions from different years</h2>
     <p class="step-text">Open a question for hints and a progressive worked solution, or use the standard and paper links to return to its assessment context.</p>
-    <section class="index-group skill-question-group" aria-labelledby="complex-number-algebra-level-3-complex-2025">
-  <div class="year-cluster-header">
+    <div class="skill-question-tools">
+      <nav class="skill-jump-nav" aria-label="Jump to a year"><a class="skill-jump-link" href="#complex-number-algebra-level-3-complex-2025">2025 Complex Numbers</a><a class="skill-jump-link" href="#complex-number-algebra-level-3-complex-2024">2024 Complex Numbers</a><a class="skill-jump-link" href="#complex-number-algebra-level-3-complex-2023">2023 Complex Numbers</a><a class="skill-jump-link" href="#complex-number-algebra-level-3-complex-2022">2022 Complex Numbers</a><a class="skill-jump-link" href="#complex-number-algebra-level-3-complex-2021">2021 Complex Numbers</a><a class="skill-jump-link" href="#complex-number-algebra-level-3-complex-2020">2020 Complex Numbers</a><a class="skill-jump-link" href="#complex-number-algebra-level-3-complex-2019">2019 Complex Numbers</a><a class="skill-jump-link" href="#complex-number-algebra-level-3-complex-2018">2018 Complex Numbers</a><a class="skill-jump-link" href="#complex-number-algebra-level-3-complex-2017">2017 Complex Numbers</a></nav>
+      <div class="skill-filter-row" role="group" aria-label="Filter this skill collection"><button class="skill-filter-chip is-active" type="button" aria-pressed="true" data-skill-filter="all">All questions</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="level-3-complex">AS91577</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Argand Diagram Algebra">Argand Diagram Algebra</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Completing the Square">Completing the Square</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Complex Simultaneous Equations">Complex Simultaneous Equations</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Complex-number Algebra">Complex-number Algebra</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Complex-number Loci">Complex-number Loci</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Discriminants and Real Roots">Discriminants and Real Roots</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Equating Real and Imaginary Parts">Equating Real and Imaginary Parts</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Factor Theorem">Factor Theorem</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Polar Form">Polar Form</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Polynomial Algebra">Polynomial Algebra</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Quadratic Algebra">Quadratic Algebra</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Radical Substitution">Radical Substitution</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Radicals and Surds">Radicals and Surds</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Remainder Theorem">Remainder Theorem</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Squaring a Complex Expression">Squaring a Complex Expression</button></div>
+      <button class="nav-btn secondary skill-random-button" type="button" data-skill-random>Random question from this skill</button>
+      <p class="visually-hidden" aria-live="polite" data-skill-filter-status>88 matching questions shown.</p>
+    </div>
+    <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Argand Diagram Algebra|Completing the Square|Complex Simultaneous Equations|Equating Real and Imaginary Parts|Polynomial Algebra|Quadratic Algebra|Radical Substitution|Squaring a Complex Expression">
+  <summary id="complex-number-algebra-level-3-complex-2025" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2025 Complex Numbers</strong>
+    <span>9 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="complex-number-algebra-level-3-complex-2025">2025 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2025.html">2025 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-1a2025.html">
-  <span class="index-link-title">Question 1(a) · Polynomial Algebra</span>
-  <span class="index-link-copy">Polynomial division and using the remainder to find \(p\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-1b2025.html">
-  <span class="index-link-title">Question 1(b) · Completing the square and solving in terms</span>
-  <span class="index-link-copy">Completing the square and solving in terms of \(k\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2a2025.html">
-  <span class="index-link-title">Question 2(a) · Combining complex numbers from an Argand</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-1a2025.html" data-skill-method="Polynomial Algebra">
+  <span class="index-link-title">Question 1(a) — Polynomial Algebra</span>
+  <span class="index-link-copy">Polynomial division and using the remainder to find p.</span>
+</a> <a class="nav-btn index-link-card" href="complex-1b2025.html" data-skill-method="Completing the Square">
+  <span class="index-link-title">Question 1(b) — Completing the Square</span>
+  <span class="index-link-copy">Completing the square and solving in terms of k.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2a2025.html" data-skill-method="Argand Diagram Algebra">
+  <span class="index-link-title">Question 2(a) — Argand Diagram Algebra</span>
   <span class="index-link-copy">Combining complex numbers from an Argand diagram.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2d2025.html">
-  <span class="index-link-title">Question 2(d) · Matching real and imaginary parts after</span>
+</a> <a class="nav-btn index-link-card" href="complex-2d2025.html" data-skill-method="Equating Real and Imaginary Parts">
+  <span class="index-link-title">Question 2(d) — Equating Real and Imaginary Parts</span>
   <span class="index-link-copy">Matching real and imaginary parts after expansion.</span>
-</a> <a class="nav-btn index-link-card" href="complex-3a2025.html">
-  <span class="index-link-title">Question 3(a) · Quadratic Algebra</span>
+</a> <a class="nav-btn index-link-card" href="complex-3a2025.html" data-skill-method="Quadratic Algebra">
+  <span class="index-link-title">Question 3(a) — Quadratic Algebra</span>
   <span class="index-link-copy">Conjugate roots and forming a quadratic with real coefficients.</span>
-</a> <a class="nav-btn index-link-card" href="complex-3b2025.html">
-  <span class="index-link-title">Question 3(b) · Squaring and simplifying a complex</span>
+</a> <a class="nav-btn index-link-card" href="complex-3b2025.html" data-skill-method="Squaring a Complex Expression">
+  <span class="index-link-title">Question 3(b) — Squaring a Complex Expression</span>
   <span class="index-link-copy">Squaring and simplifying a complex expression.</span>
-</a> <a class="nav-btn index-link-card" href="complex-3c2025.html">
-  <span class="index-link-title">Question 3(c) · Radical Substitution</span>
-  <span class="index-link-copy">Solving a radical equation with the substitution \(\sqrt{x}=u\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-3d2025.html">
-  <span class="index-link-title">Question 3(d) · Polynomial Algebra</span>
+</a> <a class="nav-btn index-link-card" href="complex-3c2025.html" data-skill-method="Radical Substitution">
+  <span class="index-link-title">Question 3(c) — Radical Substitution</span>
+  <span class="index-link-copy">Solving a radical equation with the substitution square root of x = u.</span>
+</a> <a class="nav-btn index-link-card" href="complex-3d2025.html" data-skill-method="Polynomial Algebra">
+  <span class="index-link-title">Question 3(d) — Polynomial Algebra</span>
   <span class="index-link-copy">Factorising a cubic and matching coefficients.</span>
-</a> <a class="nav-btn index-link-card" href="complex-3e2025.html">
-  <span class="index-link-title">Question 3(e) · Simultaneous equations with complex</span>
+</a> <a class="nav-btn index-link-card" href="complex-3e2025.html" data-skill-method="Complex Simultaneous Equations">
+  <span class="index-link-title">Question 3(e) — Complex Simultaneous Equations</span>
   <span class="index-link-copy">Solving simultaneous equations with complex numbers.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="complex-number-algebra-level-3-complex-2024">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Argand Diagram Algebra|Complex-number Algebra|Complex-number Loci|Discriminants and Real Roots|Factor Theorem|Radicals and Surds">
+  <summary id="complex-number-algebra-level-3-complex-2024" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2024 Complex Numbers</strong>
+    <span>9 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="complex-number-algebra-level-3-complex-2024">2024 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2024.html">2024 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2024.html?q=1a">
-  <span class="index-link-title">Question 1(a) · Factor Theorem</span>
-  <span class="index-link-copy">Using the factor theorem to find \(p\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=1c">
-  <span class="index-link-title">Question 1(c) · Radicals and Surds</span>
-  <span class="index-link-copy">Solving a surd equation in terms of \(k\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=1e">
-  <span class="index-link-title">Question 1(e) · A complex quotient cannot lie on y=x</span>
-  <span class="index-link-copy">Showing a complex quotient cannot lie on \(y=x\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=2a">
-  <span class="index-link-title">Question 2(a) · A complex fraction as a+bi</span>
-  <span class="index-link-copy">Rewriting a complex fraction as \(a+bi\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=2b">
-  <span class="index-link-title">Question 2(b) · Equal roots and the discriminant</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2024.html?q=1a" data-skill-method="Factor Theorem">
+  <span class="index-link-title">Question 1(a) — Factor Theorem</span>
+  <span class="index-link-copy">Using the factor theorem to find p.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=1c" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 1(c) — Radicals and Surds</span>
+  <span class="index-link-copy">Solving a surd equation in terms of k.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=1e" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 1(e) — Complex-number Algebra</span>
+  <span class="index-link-copy">Showing a complex quotient cannot lie on y = x.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=2a" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 2(a) — Complex-number Algebra</span>
+  <span class="index-link-copy">Rewriting a complex fraction as a + bi.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=2b" data-skill-method="Discriminants and Real Roots">
+  <span class="index-link-title">Question 2(b) — Discriminants and Real Roots</span>
   <span class="index-link-copy">Equal roots and the discriminant.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=2d">
-  <span class="index-link-title">Question 2(d) · Complex-number Algebra</span>
-  <span class="index-link-copy">Conjugate roots, factorisation, and finding \(d\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=2e">
-  <span class="index-link-title">Question 2(e) · Complex-number Loci</span>
+</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=2d" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 2(d) — Complex-number Algebra</span>
+  <span class="index-link-copy">Conjugate roots, factorisation, and finding d.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=2e" data-skill-method="Complex-number Loci">
+  <span class="index-link-title">Question 2(e) — Complex-number Loci</span>
   <span class="index-link-copy">Finding a circle locus and the matching complex numbers.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=3a">
-  <span class="index-link-title">Question 3(a) · Radicals and Surds</span>
+</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=3a" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 3(a) — Radicals and Surds</span>
   <span class="index-link-copy">Rationalising a surd denominator.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=3b">
-  <span class="index-link-title">Question 3(b) · Squaring a plotted complex number on an</span>
+</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=3b" data-skill-method="Argand Diagram Algebra">
+  <span class="index-link-title">Question 3(b) — Argand Diagram Algebra</span>
   <span class="index-link-copy">Squaring a plotted complex number on an Argand diagram.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="complex-number-algebra-level-3-complex-2023">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Complex-number Algebra|Polar Form|Quadratic Algebra|Radicals and Surds|Remainder Theorem">
+  <summary id="complex-number-algebra-level-3-complex-2023" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2023 Complex Numbers</strong>
+    <span>9 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="complex-number-algebra-level-3-complex-2023">2023 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2023.html">2023 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2023.html?q=1a">
-  <span class="index-link-title">Question 1(a) · Radicals and Surds</span>
-  <span class="index-link-copy">Expanding a surd binomial into the form \(a+bp+c\sqrt{p}\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=1b">
-  <span class="index-link-title">Question 1(b) · Quadratic Algebra</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2023.html?q=1a" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 1(a) — Radicals and Surds</span>
+  <span class="index-link-copy">Expanding a surd binomial into the form a + bp + c square root of p.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=1b" data-skill-method="Quadratic Algebra">
+  <span class="index-link-title">Question 1(b) — Quadratic Algebra</span>
   <span class="index-link-copy">Using the discriminant to find when a quadratic has no real roots.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=1c">
-  <span class="index-link-title">Question 1(c) · Rationalising a quotient and reading its</span>
+</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=1c" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 1(c) — Complex-number Algebra</span>
   <span class="index-link-copy">Rationalising a quotient and reading its real part.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=1d">
-  <span class="index-link-title">Question 1(d) · Complex-number Algebra</span>
+</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=1d" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 1(d) — Complex-number Algebra</span>
   <span class="index-link-copy">Conjugate roots and factorising a cubic with a real constant.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=2a">
-  <span class="index-link-title">Question 2(a) · Polar Form</span>
+</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=2a" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 2(a) — Polar Form</span>
   <span class="index-link-copy">Dividing complex numbers in polar form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=3a">
-  <span class="index-link-title">Question 3(a) · Remainder Theorem</span>
-  <span class="index-link-copy">Using the remainder theorem to find \(p\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=3b">
-  <span class="index-link-title">Question 3(b) · Multiplying by a complex number to solve</span>
-  <span class="index-link-copy">Multiplying by a complex number to solve for \(n\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=3c">
-  <span class="index-link-title">Question 3(c) · Radicals and Surds</span>
-  <span class="index-link-copy">Solving a surd equation for \(x\) in terms of \(w\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=3d">
-  <span class="index-link-title">Question 3(d) · Reciprocal complex expressions to find x</span>
-  <span class="index-link-copy">Simplifying reciprocal complex expressions to find \(x\) and \(y\).</span>
+</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=3a" data-skill-method="Remainder Theorem">
+  <span class="index-link-title">Question 3(a) — Remainder Theorem</span>
+  <span class="index-link-copy">Using the remainder theorem to find p.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=3b" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 3(b) — Complex-number Algebra</span>
+  <span class="index-link-copy">Multiplying by a complex number to solve for n.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=3c" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 3(c) — Radicals and Surds</span>
+  <span class="index-link-copy">Solving a surd equation for x in terms of w.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=3d" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 3(d) — Complex-number Algebra</span>
+  <span class="index-link-copy">Simplifying reciprocal complex expressions to find x and y.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="complex-number-algebra-level-3-complex-2022">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Completing the Square|Complex-number Algebra|Equating Real and Imaginary Parts|Polar Form|Polynomial Algebra|Radicals and Surds|Remainder Theorem">
+  <summary id="complex-number-algebra-level-3-complex-2022" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2022 Complex Numbers</strong>
+    <span>9 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="complex-number-algebra-level-3-complex-2022">2022 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2022.html">2022 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2022.html?q=1a">
-  <span class="index-link-title">Question 1(a) · Radicals and Surds</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2022.html?q=1a" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 1(a) — Radicals and Surds</span>
   <span class="index-link-copy">Rationalising a surd denominator into the required exact form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=1b">
-  <span class="index-link-title">Question 1(b) · Polar Form</span>
+</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=1b" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 1(b) — Polar Form</span>
   <span class="index-link-copy">Dividing complex numbers in polar form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=1c">
-  <span class="index-link-title">Question 1(c) · An argument condition to match real and</span>
+</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=1c" data-skill-method="Equating Real and Imaginary Parts">
+  <span class="index-link-title">Question 1(c) — Equating Real and Imaginary Parts</span>
   <span class="index-link-copy">Using an argument condition to match real and imaginary parts.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=1d">
-  <span class="index-link-title">Question 1(d) · Radicals and Surds</span>
-  <span class="index-link-copy">Isolating a surd and using the discriminant to find \(p\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=2a">
-  <span class="index-link-title">Question 2(a) · Remainder Theorem</span>
-  <span class="index-link-copy">Using the remainder theorem to find \(b\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=2c">
-  <span class="index-link-title">Question 2(c) · Polynomial Algebra</span>
-  <span class="index-link-copy">Factorising a cubic with a known root and finding \(h\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=2d">
-  <span class="index-link-title">Question 2(d) · Rationalising first, then finding the</span>
+</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=1d" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 1(d) — Radicals and Surds</span>
+  <span class="index-link-copy">Isolating a surd and using the discriminant to find p.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=2a" data-skill-method="Remainder Theorem">
+  <span class="index-link-title">Question 2(a) — Remainder Theorem</span>
+  <span class="index-link-copy">Using the remainder theorem to find b.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=2c" data-skill-method="Polynomial Algebra">
+  <span class="index-link-title">Question 2(c) — Polynomial Algebra</span>
+  <span class="index-link-copy">Factorising a cubic with a known root and finding h.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=2d" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 2(d) — Complex-number Algebra</span>
   <span class="index-link-copy">Rationalising first, then finding the principal argument.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=3b">
-  <span class="index-link-title">Question 3(b) · Completing the square to solve in terms</span>
-  <span class="index-link-copy">Completing the square to solve in terms of \(k\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=3d">
-  <span class="index-link-title">Question 3(d) · That a complex equation has no solution</span>
+</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=3b" data-skill-method="Completing the Square">
+  <span class="index-link-title">Question 3(b) — Completing the Square</span>
+  <span class="index-link-copy">Completing the square to solve in terms of k.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=3d" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 3(d) — Complex-number Algebra</span>
   <span class="index-link-copy">Proving that a complex equation has no solution.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="complex-number-algebra-level-3-complex-2021">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Argand Diagram Algebra|Completing the Square|Complex-number Algebra|Equating Real and Imaginary Parts|Factor Theorem|Polar Form|Radicals and Surds">
+  <summary id="complex-number-algebra-level-3-complex-2021" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2021 Complex Numbers</strong>
+    <span>10 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="complex-number-algebra-level-3-complex-2021">2021 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2021.html">2021 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2021.html?q=1a">
-  <span class="index-link-title">Question 1(a) · Multiplying complex numbers and matching</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2021.html?q=1a" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 1(a) — Complex-number Algebra</span>
   <span class="index-link-copy">Multiplying complex numbers and matching real or imaginary parts.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=1b">
-  <span class="index-link-title">Question 1(b) · Rationalising fraction 26z and plotting</span>
-  <span class="index-link-copy">Rationalising \(\frac{26}{z}\) and plotting \(4-6i\) on an Argand diagram.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=1c">
-  <span class="index-link-title">Question 1(c) · Factor Theorem</span>
-  <span class="index-link-copy">Using the remainder theorem and factor theorem to find \(a\) and \(b\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=2a">
-  <span class="index-link-title">Question 2(a) · Dividing complex numbers in cis form</span>
-  <span class="index-link-copy">Dividing complex numbers in \(\operatorname{cis}\) form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=2b">
-  <span class="index-link-title">Question 2(b) · Quadratic Algebra</span>
-  <span class="index-link-copy">Completing the square to solve a quadratic in terms of \(q\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=2c">
-  <span class="index-link-title">Question 2(c) · Complex-number Algebra</span>
+</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=1b" data-skill-method="Argand Diagram Algebra">
+  <span class="index-link-title">Question 1(b) — Argand Diagram Algebra</span>
+  <span class="index-link-copy">Rationalising 26 divided by z and plotting 4 - 6i on an Argand diagram.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=1c" data-skill-method="Factor Theorem">
+  <span class="index-link-title">Question 1(c) — Factor Theorem</span>
+  <span class="index-link-copy">Using the remainder theorem and factor theorem to find a and b.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=2a" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 2(a) — Polar Form</span>
+  <span class="index-link-copy">Dividing complex numbers in cis form.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=2b" data-skill-method="Completing the Square">
+  <span class="index-link-title">Question 2(b) — Completing the Square</span>
+  <span class="index-link-copy">Completing the square to solve a quadratic in terms of q.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=2c" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 2(c) — Complex-number Algebra</span>
   <span class="index-link-copy">Using conjugate multiplication to prove a quotient is purely imaginary.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=3b">
-  <span class="index-link-title">Question 3(b) · Radicals and Surds</span>
-  <span class="index-link-copy">Rationalising a surd denominator into \(a+b\sqrt{3}\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=3c">
-  <span class="index-link-title">Question 3(c) · Complex-number Algebra</span>
-  <span class="index-link-copy">Conjugate roots, cubic factorisation, and finding \(A\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=3d">
-  <span class="index-link-title">Question 3(d) · Radicals and Surds</span>
-  <span class="index-link-copy">Solving a radical equation in terms of \(m\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=3e">
-  <span class="index-link-title">Question 3(e) · A complex equation by equating real and</span>
+</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=3b" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 3(b) — Radicals and Surds</span>
+  <span class="index-link-copy">Rationalising a surd denominator into a + b square root of 3.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=3c" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 3(c) — Complex-number Algebra</span>
+  <span class="index-link-copy">Conjugate roots, cubic factorisation, and finding A.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=3d" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 3(d) — Radicals and Surds</span>
+  <span class="index-link-copy">Solving a radical equation in terms of m.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=3e" data-skill-method="Equating Real and Imaginary Parts">
+  <span class="index-link-title">Question 3(e) — Equating Real and Imaginary Parts</span>
   <span class="index-link-copy">Solving a complex equation by equating real and imaginary parts.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="complex-number-algebra-level-3-complex-2020">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Complex-number Algebra|Discriminants and Real Roots|Factor Theorem|Polar Form|Radicals and Surds">
+  <summary id="complex-number-algebra-level-3-complex-2020" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2020 Complex Numbers</strong>
+    <span>9 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="complex-number-algebra-level-3-complex-2020">2020 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2020.html">2020 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2020.html?q=1a">
-  <span class="index-link-title">Question 1(a) · Multiplying complex numbers and matching</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2020.html?q=1a" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 1(a) — Complex-number Algebra</span>
   <span class="index-link-copy">Multiplying complex numbers and matching corresponding parts.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=1b">
-  <span class="index-link-title">Question 1(b) · A zero discriminant to find a repeated</span>
+</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=1b" data-skill-method="Discriminants and Real Roots">
+  <span class="index-link-title">Question 1(b) — Discriminants and Real Roots</span>
   <span class="index-link-copy">Using a zero discriminant to find a repeated root.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=1c">
-  <span class="index-link-title">Question 1(c) · Radicals and Surds</span>
-  <span class="index-link-copy">Solving a surd equation in terms of \(g\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=1d">
-  <span class="index-link-title">Question 1(d) · Rationalising and simplifying complex</span>
+</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=1c" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 1(c) — Radicals and Surds</span>
+  <span class="index-link-copy">Solving a surd equation in terms of g.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=1d" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 1(d) — Complex-number Algebra</span>
   <span class="index-link-copy">Rationalising and simplifying complex fractions.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=1e">
-  <span class="index-link-title">Question 1(e) · An identity involving a complex quotient</span>
+</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=1e" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 1(e) — Complex-number Algebra</span>
   <span class="index-link-copy">Proving an identity involving a complex quotient.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=2a">
-  <span class="index-link-title">Question 2(a) · Factor Theorem</span>
-  <span class="index-link-copy">Applying the factor theorem to find \(q\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=2c">
-  <span class="index-link-title">Question 2(c) · Complex-number Algebra</span>
+</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=2a" data-skill-method="Factor Theorem">
+  <span class="index-link-title">Question 2(a) — Factor Theorem</span>
+  <span class="index-link-copy">Applying the factor theorem to find q.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=2c" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 2(c) — Complex-number Algebra</span>
   <span class="index-link-copy">Conjugate roots, cubic factorisation, and coefficient matching.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=3a">
-  <span class="index-link-title">Question 3(a) · Polar Form</span>
+</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=3a" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 3(a) — Polar Form</span>
   <span class="index-link-copy">Dividing complex numbers in polar form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=3c">
-  <span class="index-link-title">Question 3(c) · Complex-number Algebra</span>
+</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=3c" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 3(c) — Complex-number Algebra</span>
   <span class="index-link-copy">Using conjugates to prove a quotient is real.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="complex-number-algebra-level-3-complex-2019">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Completing the Square|Complex-number Algebra|Discriminants and Real Roots|Equating Real and Imaginary Parts|Radicals and Surds|Remainder Theorem">
+  <summary id="complex-number-algebra-level-3-complex-2019" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2019 Complex Numbers</strong>
+    <span>11 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="complex-number-algebra-level-3-complex-2019">2019 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2019.html">2019 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2019.html?q=1a">
-  <span class="index-link-title">Question 1(a) · Quadratic Algebra</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2019.html?q=1a" data-skill-method="Completing the Square">
+  <span class="index-link-title">Question 1(a) — Completing the Square</span>
   <span class="index-link-copy">Completing the square to solve a complex quadratic.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=1b">
-  <span class="index-link-title">Question 1(b) · Remainder Theorem</span>
+</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=1b" data-skill-method="Remainder Theorem">
+  <span class="index-link-title">Question 1(b) — Remainder Theorem</span>
   <span class="index-link-copy">Applying the Remainder Theorem to find p.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=1c">
-  <span class="index-link-title">Question 1(c) · Rationalising a complex quotient and</span>
+</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=1c" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 1(c) — Complex-number Algebra</span>
   <span class="index-link-copy">Rationalising a complex quotient and applying its modulus.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=1d">
-  <span class="index-link-title">Question 1(d) · Complex-number Algebra</span>
+</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=1d" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 1(d) — Complex-number Algebra</span>
   <span class="index-link-copy">Conjugate roots, cubic factorisation, and coefficient matching.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=1e">
-  <span class="index-link-title">Question 1(e) · Equating real and imaginary parts after</span>
+</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=1e" data-skill-method="Equating Real and Imaginary Parts">
+  <span class="index-link-title">Question 1(e) — Equating Real and Imaginary Parts</span>
   <span class="index-link-copy">Equating real and imaginary parts after clearing denominators.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=2a">
-  <span class="index-link-title">Question 2(a) · Complex-number Algebra</span>
+</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=2a" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 2(a) — Complex-number Algebra</span>
   <span class="index-link-copy">Using a conjugate and collecting complex-number terms.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=2b">
-  <span class="index-link-title">Question 2(b) · Radicals and Surds</span>
+</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=2b" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 2(b) — Radicals and Surds</span>
   <span class="index-link-copy">Rationalising a surd denominator into a + b√5.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=2d">
-  <span class="index-link-title">Question 2(d) · Making a rationalised complex quotient</span>
+</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=2d" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 2(d) — Complex-number Algebra</span>
   <span class="index-link-copy">Making a rationalised complex quotient purely real.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=3b">
-  <span class="index-link-title">Question 3(b) · For real x and y by matching</span>
+</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=3b" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 3(b) — Complex-number Algebra</span>
   <span class="index-link-copy">Solving for real x and y by matching complex parts.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=3c">
-  <span class="index-link-title">Question 3(c) · Radicals and Surds</span>
+</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=3c" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 3(c) — Radicals and Surds</span>
   <span class="index-link-copy">Solving a radical equation with real-domain checks.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=3e">
-  <span class="index-link-title">Question 3(e) · A discriminant is always positive</span>
+</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=3e" data-skill-method="Discriminants and Real Roots">
+  <span class="index-link-title">Question 3(e) — Discriminants and Real Roots</span>
   <span class="index-link-copy">Proving a discriminant is always positive.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="complex-number-algebra-level-3-complex-2018">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Argand Diagram Algebra|Completing the Square|Complex-number Algebra|Equating Real and Imaginary Parts|Quadratic Algebra|Radicals and Surds|Remainder Theorem">
+  <summary id="complex-number-algebra-level-3-complex-2018" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2018 Complex Numbers</strong>
+    <span>11 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="complex-number-algebra-level-3-complex-2018">2018 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2018.html">2018 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2018.html?q=1a">
-  <span class="index-link-title">Question 1(a) · Remainder Theorem</span>
-  <span class="index-link-copy">Applying the Remainder Theorem to evaluate \(f(2)\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=1c">
-  <span class="index-link-title">Question 1(c) · Radicals and Surds</span>
-  <span class="index-link-copy">Solving a radical equation in terms of \(k\) with real-domain checks.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=1d">
-  <span class="index-link-title">Question 1(d) · Quadratic Algebra</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2018.html?q=1a" data-skill-method="Remainder Theorem">
+  <span class="index-link-title">Question 1(a) — Remainder Theorem</span>
+  <span class="index-link-copy">Applying the Remainder Theorem to evaluate f(2).</span>
+</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=1c" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 1(c) — Radicals and Surds</span>
+  <span class="index-link-copy">Solving a radical equation in terms of k with real-domain checks.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=1d" data-skill-method="Quadratic Algebra">
+  <span class="index-link-title">Question 1(d) — Quadratic Algebra</span>
   <span class="index-link-copy">Using a zero discriminant to find when a quadratic has a repeated root.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=1e">
-  <span class="index-link-title">Question 1(e) · Complex-number Algebra</span>
-  <span class="index-link-copy">Rationalising \(z/\overline z\) and proving its modulus is \(1\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=2a">
-  <span class="index-link-title">Question 2(a) · Conjugating v, adding complex numbers,</span>
-  <span class="index-link-copy">Conjugating \(v\), adding complex numbers, and plotting \(w\) on an Argand diagram.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=2b">
-  <span class="index-link-title">Question 2(b) · Radicals and Surds</span>
-  <span class="index-link-copy">Rationalising a surd denominator into \(a+b\sqrt7\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=2c">
-  <span class="index-link-title">Question 2(c) · Complex-number Algebra</span>
-  <span class="index-link-copy">Using conjugate roots and cubic factorisation to find \(A\) and the remaining roots.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=2d">
-  <span class="index-link-title">Question 2(d) · Rationalising a complex fraction and</span>
+</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=1e" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 1(e) — Complex-number Algebra</span>
+  <span class="index-link-copy">Rationalising z/ overline z and proving its modulus is 1.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=2a" data-skill-method="Argand Diagram Algebra">
+  <span class="index-link-title">Question 2(a) — Argand Diagram Algebra</span>
+  <span class="index-link-copy">Conjugating v, adding complex numbers, and plotting w on an Argand diagram.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=2b" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 2(b) — Radicals and Surds</span>
+  <span class="index-link-copy">Rationalising a surd denominator into a + b square root of 7.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=2c" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 2(c) — Complex-number Algebra</span>
+  <span class="index-link-copy">Using conjugate roots and cubic factorisation to find A and the remaining roots.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=2d" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 2(d) — Complex-number Algebra</span>
   <span class="index-link-copy">Rationalising a complex fraction and finding its modulus.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=3a">
-  <span class="index-link-title">Question 3(a) · Expanding a complex product and matching</span>
+</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=3a" data-skill-method="Equating Real and Imaginary Parts">
+  <span class="index-link-title">Question 3(a) — Equating Real and Imaginary Parts</span>
   <span class="index-link-copy">Expanding a complex product and matching real and imaginary parts.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=3b">
-  <span class="index-link-title">Question 3(b) · Quadratic Algebra</span>
-  <span class="index-link-copy">Completing the square to solve a quadratic in terms of \(p\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=3e">
-  <span class="index-link-title">Question 3(e) · Radicals and Surds</span>
+</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=3b" data-skill-method="Completing the Square">
+  <span class="index-link-title">Question 3(b) — Completing the Square</span>
+  <span class="index-link-copy">Completing the square to solve a quadratic in terms of p.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=3e" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 3(e) — Radicals and Surds</span>
   <span class="index-link-copy">Rationalising a radical quotient and checking the real domain.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="complex-number-algebra-level-3-complex-2017">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Completing the Square|Complex-number Algebra|Polynomial Algebra|Radicals and Surds|Remainder Theorem">
+  <summary id="complex-number-algebra-level-3-complex-2017" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2017 Complex Numbers</strong>
+    <span>11 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="complex-number-algebra-level-3-complex-2017">2017 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2017.html">2017 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2017.html?q=1a">
-  <span class="index-link-title">Question 1(a) · Conjugating a complex number,</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2017.html?q=1a" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 1(a) — Complex-number Algebra</span>
   <span class="index-link-copy">Conjugating a complex number, distributing a real factor, and collecting parts.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=1b">
-  <span class="index-link-title">Question 1(b) · Radicals and Surds</span>
+</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=1b" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 1(b) — Radicals and Surds</span>
   <span class="index-link-copy">Rationalising a surd denominator with a difference of two squares.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=1c">
-  <span class="index-link-title">Question 1(c) · Radicals and Surds</span>
+</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=1c" data-skill-method="Radicals and Surds">
+  <span class="index-link-title">Question 1(c) — Radicals and Surds</span>
   <span class="index-link-copy">Solving a radical equation with domain and parameter restrictions.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=1d">
-  <span class="index-link-title">Question 1(d) · Complex-number Algebra</span>
+</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=1d" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 1(d) — Complex-number Algebra</span>
   <span class="index-link-copy">Conjugate roots, Vieta&#x27;s formula, and cubic factorisation.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=2a">
-  <span class="index-link-title">Question 2(a) · Remainder Theorem</span>
+</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=2a" data-skill-method="Remainder Theorem">
+  <span class="index-link-title">Question 2(a) — Remainder Theorem</span>
   <span class="index-link-copy">Applying the Remainder Theorem to find a constant.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=2c">
-  <span class="index-link-title">Question 2(c) · Complex-number Algebra</span>
+</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=2c" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 2(c) — Complex-number Algebra</span>
   <span class="index-link-copy">Exact complex division and choosing the principal argument.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=2e">
-  <span class="index-link-title">Question 2(e) · Rationalising a complex quotient and</span>
+</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=2e" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 2(e) — Complex-number Algebra</span>
   <span class="index-link-copy">Rationalising a complex quotient and making it purely real.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=3b">
-  <span class="index-link-title">Question 3(b) · Quadratic Algebra</span>
+</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=3b" data-skill-method="Completing the Square">
+  <span class="index-link-title">Question 3(b) — Completing the Square</span>
   <span class="index-link-copy">Completing the square to find complex quadratic roots.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=3c">
-  <span class="index-link-title">Question 3(c) · Polynomial Algebra</span>
+</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=3c" data-skill-method="Polynomial Algebra">
+  <span class="index-link-title">Question 3(c) — Polynomial Algebra</span>
   <span class="index-link-copy">Complete polynomial long division with quotient and remainder.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=3d">
-  <span class="index-link-title">Question 3(d) · And rationalising an equation with square</span>
-  <span class="index-link-copy">Solving and rationalising an equation with \(\sqrt3\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=3e">
-  <span class="index-link-title">Question 3(e) · A complex fraction identity step by step</span>
+</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=3d" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 3(d) — Complex-number Algebra</span>
+  <span class="index-link-copy">Solving and rationalising an equation with square root of 3.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=3e" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 3(e) — Complex-number Algebra</span>
   <span class="index-link-copy">Proving a complex fraction identity step by step.</span>
 </a></div>
-</section>
+</details>
   </section>
 
   <section class="question-card" aria-labelledby="related-skills-heading">
@@ -504,7 +553,7 @@
     <h2 id="related-skills-heading">Related skill collections</h2>
     <div class="nav-row"><a class="nav-btn secondary" href="skill-polar-form-de-moivre.html">Polar form and De Moivre</a></div>
   </section>
-  <p class="page-updated">Page updated <time datetime="2026-07-19">19 July 2026</time>.</p>
+  <p class="page-updated">Page updated <time datetime="2026-08-09">9 August 2026</time>.</p>
 </main>
 <footer class="site-footer">
   <p class="site-footer-text">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the official NZQA material.</p>
@@ -512,6 +561,8 @@
     <a class="site-footer-link" href="/">Home</a>
     <a class="site-footer-link" href="/standards.html">Standards</a>
     <a class="site-footer-link" href="/skills.html">Skills</a>
+
+    <a class="site-footer-link" href="/search.html">Search</a>
     <a class="site-footer-link" href="about.html">About</a>
   </nav>
   <p class="site-footer-text site-footer-disclaimer">Calc.nz is independent and is not affiliated with or endorsed by NZQA.</p>

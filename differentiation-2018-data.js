@@ -112,7 +112,7 @@
 
   function carPulleyDiagramHtml() {
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the car and pulley diagram">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 720 330" role="img" aria-labelledby="diff-2018-car-title diff-2018-car-desc">
           <title id="diff-2018-car-title">Car, rope, and pulley</title>
           <desc id="diff-2018-car-desc">A rope of length L runs from the tow-bar of a car to a pulley three metres higher. The horizontal separation is x.</desc>
@@ -176,7 +176,7 @@
     }
 
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the graph of f">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="diff-2018-function-title diff-2018-function-desc">
           <title id="diff-2018-function-title">Piecewise graph of y equals f of x</title>
           <desc id="diff-2018-function-desc">A decreasing ray has holes at negative seven comma two and negative three comma negative two. A separate horizontal piece runs from a filled point at negative three comma two to an open point at one comma two. An upper curve begins at a filled point at one comma five, peaks smoothly at three comma nine, and ends open at five comma five. A horizontal piece continues to seven comma five, where an increasing ray begins.</desc>
@@ -210,7 +210,7 @@
 
   function coneDiagramHtml() {
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the inverted cone diagram">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 600 500" role="img" aria-labelledby="diff-2018-cone-title diff-2018-cone-desc">
           <title id="diff-2018-cone-title">Inverted conical water tank</title>
           <desc id="diff-2018-cone-desc">The cone is 200 centimetres high with radius 80 centimetres. Water has depth h and surface radius r.</desc>
@@ -255,7 +255,7 @@
     const pointY = 15 - pointX * pointX;
 
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the parabola and triangle diagram">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="diff-2018-triangle-title diff-2018-triangle-desc">
           <title id="diff-2018-triangle-title">Triangle OAB inside y equals 15 minus x squared</title>
           <desc id="diff-2018-triangle-desc">The isosceles triangle has vertex O at the origin and the other vertices A and B at equal heights on opposite sides of the parabola.</desc>
@@ -287,7 +287,7 @@
 
   function wireDiagramHtml() {
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the symmetric wire diagram">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 640 520" role="img" aria-labelledby="diff-2018-wire-title diff-2018-wire-desc">
           <title id="diff-2018-wire-title">Symmetric wire inside a ten centimetre square</title>
           <desc id="diff-2018-wire-desc">A central vertical wire of length x joins two branch points. Four equal diagonal wires run from the branch points to the corners of a ten centimetre square. Dashed vertical and horizontal lines show symmetry.</desc>

@@ -11,6 +11,56 @@
     "2a": [2750, 438], "2b": [2750, 513], "2c": [2750, 550], "2d": [2750, 563], "2e": [2750, 550],
     "3a": [2750, 594], "3b": [2750, 488], "3c": [2750, 625], "3d": [2750, 638], "3e": [2750, 532]
   };
+  const questionTextHtml = {
+    "1a": raw`
+      <p>If \(s=2+3i\) and \(t=3+ki\), find the value of \(k\) if \(st=21-i\).</p>
+    `,
+    "1b": raw`
+      <p>Find the value or values of \(r\) such that the equation \(x^2+4rx+r=0\) has only one solution.</p>
+    `,
+    "1c": raw`
+      <p>Solve the following equation for \(x\) in terms of \(g\): \(2\sqrt{x}-5=\sqrt{4x-g}\).</p>
+    `,
+    "1d": raw`
+      <p>Write \(\frac{k+ki}{1-i}+\frac{2k}{1+i}\) in its simplest possible form.</p>
+    `,
+    "1e": raw`
+      <p>Given that \(T=\frac{a-bi}{a+bi}\), where \(a\) and \(b\) are real constants, prove that \(\frac{1+T^2}{2T}=\frac{a^2-b^2}{a^2+b^2}\).</p>
+    `,
+    "2a": raw`
+      <p>Given that \(x-2\) is a factor of \(2x^3+qx^2-17x-10\), find the value of \(q\).</p>
+    `,
+    "2b": raw`
+      <p>Find all possible values of \(k\), given that \(|5+3ki|=13\).</p>
+    `,
+    "2c": raw`
+      <p>One of the solutions of \(2z^3-15z^2+bz-30=0\) is \(z=3+i\), where \(b\) is a real number.</p>
+      <p>Find the other solutions, and the value of \(b\).</p>
+    `,
+    "2d": raw`
+      <p>Given that \(u=p+pi\) and \(v=-q+qi\), where \(p\) and \(q\) are both positive real constants, find \(\arg\!\left(\frac{u}{v}\right)\).</p>
+    `,
+    "2e": raw`
+      <p>Find the Cartesian equation of the locus described by \(|z+i|^2+|z-i|^2=10\).</p>
+      <p>Write your solution in the form \(x^2+y^2=k\).</p>
+    `,
+    "3a": raw`
+      <p>If \(u=12k^3\operatorname{cis}(\pi)\) and \(v=2k\operatorname{cis}\!\left(\frac{\pi}{3}\right)\), write the exact value of \(\frac{u}{v}\) in polar form.</p>
+    `,
+    "3b": raw`
+      <p>If \(z=5-i\) and \(w=-2+3i\), show that \(|z|^2=2|w|^2\).</p>
+    `,
+    "3c": raw`
+      <p>Given that \(z=a+bi\), where \(a\) and \(b\) are non-zero real numbers, show that \(\frac{z\overline z}{z+\overline z}\) is a real number.</p>
+    `,
+    "3d": raw`
+      <p>Solve the equation \(z^4=-16k^8\), where \(k\) is a real constant.</p>
+      <p>Give your solutions in polar form in terms of \(k\).</p>
+    `,
+    "3e": raw`
+      <p>For complex numbers \(u\) and \(v\), prove that if \(|u+v|=|u-v|\), then \(\frac{u}{v}\) is purely imaginary.</p>
+    `
+  };
   const metadata = {
     topic: "Complex Numbers",
     year: 2020,
@@ -28,17 +78,8 @@
     return "Question " + id.charAt(0) + "(" + id.charAt(1) + ")";
   }
 
-  function questionImageAlt(id, focus) {
-    const plainFocus = String(focus)
-      .replace(/\\\([\s\S]*?\\\)/g, "the mathematical expression shown")
-      .replace(/<[^>]*>/g, " ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .replace(/&/g, "&amp;")
-      .replace(/"/g, "&quot;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-    return questionLabel(id) + " scanned exam prompt. Walkthrough focus: " + plainFocus;
+  function questionImageAlt(id) {
+    return questionLabel(id) + " original exam prompt; text transcription follows";
   }
 
   function pageHref(id) {
@@ -121,7 +162,10 @@
       metadata: metadata,
       tags: tags,
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/complex-2020/${id}-question.png" width="${imageDimensions[0]}" height="${imageDimensions[1]}" alt="${questionImageAlt(id, focus)}" />
+        <img class="question-screenshot" src="assets/complex-2020/${id}-question.png" width="${imageDimensions[0]}" height="${imageDimensions[1]}" alt="${questionImageAlt(id)}" />
+        <div class="visually-hidden question-transcription" data-question-transcription>
+          ${questionTextHtml[id]}
+        </div>
       `,
       answerHtml: finalAnswer,
       guidedSteps: guidedSteps

@@ -147,7 +147,7 @@
     });
 
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the parabola and normal diagram">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="diff-2017-parabola-title diff-2017-parabola-desc">
           <title id="diff-2017-parabola-title">Parabola and normal line</title>
           <desc id="diff-2017-parabola-desc">The upward-opening parabola has vertex at three comma two. A rising normal line passes through one comma four and meets the right branch again at the point P.</desc>
@@ -184,7 +184,7 @@
     });
 
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the square-root curve and tangent">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="diff-2017-tangent-title diff-2017-tangent-desc">
           <title id="diff-2017-tangent-title">Square-root curve and tangent</title>
           <desc id="diff-2017-tangent-desc">The curve y equals square root of x begins at the origin. Its tangent at four comma two extends left to meet the x-axis at Q.</desc>
@@ -229,7 +229,7 @@
     const candidateY = Math.sqrt(candidateX);
 
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the square-root curve and closest-point diagram">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="diff-2017-closest-title diff-2017-closest-desc">
           <title id="diff-2017-closest-title">Point on the square-root curve closest to four comma zero</title>
           <desc id="diff-2017-closest-desc">A point P lies on y equals square root of x. A dashed segment joins P to the fixed point four comma zero on the x-axis.</desc>
@@ -259,7 +259,7 @@
 
   function semicircleRectangleDiagramHtml() {
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the rectangle inside a semicircle">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="60 0 600 430" role="img" aria-labelledby="diff-2017-semicircle-title diff-2017-semicircle-desc">
           <title id="diff-2017-semicircle-title">Rectangle inscribed in a semicircle</title>
           <desc id="diff-2017-semicircle-desc">A semicircle of radius r is centred on its diameter. A symmetric rectangle has half-width x and height y, with both upper corners on the arc.</desc>
@@ -321,7 +321,7 @@
     }
 
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the piecewise graph of f">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="diff-2017-piecewise-title diff-2017-piecewise-desc">
           <title id="diff-2017-piecewise-title">Piecewise graph of y equals f of x</title>
           <desc id="diff-2017-piecewise-desc">A horizontal branch at y equals one meets a rising line at negative two comma one. The line has an open point at negative one comma two and a filled point at negative one comma one, then ends filled at zero comma three. A separate curve begins open at zero comma two, falls to a corner at one comma zero, rises to a maximum at two comma five, and then falls through three comma zero.</desc>
@@ -352,7 +352,7 @@
 
   function elevatorDiagramHtml() {
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the elevator related-rates diagram">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="50 0 620 500" role="img" aria-labelledby="diff-2017-elevator-title diff-2017-elevator-desc">
           <title id="diff-2017-elevator-title">Elevator, Sarah, and angle of elevation</title>
           <desc id="diff-2017-elevator-desc">Sarah stands thirty metres horizontally from an elevator shaft. The elevator floor is x metres above her eye level and rises at two metres per second. A dashed line of sight forms the angle theta at Sarah.</desc>

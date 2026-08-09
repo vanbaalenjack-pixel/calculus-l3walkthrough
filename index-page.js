@@ -1,5 +1,7 @@
-document.addEventListener("DOMContentLoaded", function () {
+(function () {
   "use strict";
+
+  function initialiseHomepage() {
 
   const catalogue = window.CALC_NZ_QUESTION_CATALOGUE;
   const reportIssueHtml = 'Found an error or unclear explanation? Report it <a class="site-footer-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">here</a>.';
@@ -43,6 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function normaliseSearchText(value) {
+    if (window.CalcNzSearch && typeof window.CalcNzSearch.normalise === "function") {
+      return window.CalcNzSearch.normalise(value);
+    }
     return String(value || "")
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, " ")
@@ -111,18 +116,26 @@ document.addEventListener("DOMContentLoaded", function () {
             question: question,
             key: paper.id + ":" + question.id
           };
-          entry.haystack = normaliseSearchText([
-            level.label,
-            standard.label,
-            standard.code,
-            paper.year,
-            question.id,
-            question.label,
-            question.methodTitle,
-            question.method,
-            Array.isArray(question.skillSlugs) ? question.skillSlugs.join(" ") : "",
-            paper.id
-          ].join(" "));
+          const searchRecord = {
+            type: "Question",
+            title: question.label + " · " + (question.methodTitle || question.method),
+            description: question.methodPlain || question.method,
+            year: paper.year,
+            standard: standard.code + " " + standard.label,
+            keywords: [
+              level.label,
+              question.id,
+              Array.isArray(question.skillSlugs) ? question.skillSlugs.join(" ") : "",
+              paper.id
+            ].join(" ")
+          };
+          if (window.CalcNzSearch && typeof window.CalcNzSearch.prepareRecord === "function") {
+            entry.haystack = window.CalcNzSearch.prepareRecord(searchRecord).haystack;
+          } else {
+            entry.haystack = normaliseSearchText(Object.keys(searchRecord).map(function (key) {
+              return searchRecord[key];
+            }).join(" "));
+          }
           questions.push(entry);
           questionsByKey[entry.key] = entry;
         });
@@ -259,10 +272,13 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     const counts = catalogueCounts();
-    target.textContent = counts.questions + " walkthroughs across "
+    const message = counts.questions + " walkthroughs across "
       + counts.standards + " standards, "
       + counts.papers + " papers, and "
       + counts.years + " exam years.";
+    if (target.textContent.trim() !== message) {
+      target.textContent = message;
+    }
   }
 
   function setupHowItWorksDetails() {
@@ -546,7 +562,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return '<a class="nav-btn index-link-card" href="' + escapeHomeHtml(entry.question.href) + '">'
       + '<span class="index-link-title">' + escapeHomeHtml(entry.question.label) + '</span>'
       + progressText
-      + '<span class="index-link-copy">' + escapeHomeHtml(capitaliseSentence(entry.question.method)) + '</span></a>';
+      + '<span class="index-link-copy">' + escapeHomeHtml(entry.question.methodPlain || capitaliseSentence(entry.question.method)) + '</span></a>';
   }
 
   function renderQuestionStage(selection) {
@@ -645,19 +661,94 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function focusStageHeading() {
+  let cancelPendingStageScroll = null;
+
+  function prefersReducedStageMotion() {
+    return Boolean(
+      window.matchMedia
+      && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    );
+  }
+
+  function restoreStageScrollPosition(scrollY) {
+    if (
+      scrollY === null
+      || scrollY === undefined
+      || scrollY === ""
+      || !Number.isFinite(Number(scrollY))
+    ) {
+      return;
+    }
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    window.scrollTo({ top: Math.max(Number(scrollY), 0), left: window.scrollX, behavior: "auto" });
+    root.style.scrollBehavior = previousScrollBehavior;
+  }
+
+  function stageHeadingNeedsCorrection(heading) {
+    const header = document.querySelector(".site-header");
+    const headerBottom = header ? Math.max(header.getBoundingClientRect().bottom, 0) : 0;
+    const rect = heading.getBoundingClientRect();
+    return rect.top < headerBottom + 8 || rect.bottom > window.innerHeight - 8;
+  }
+
+  function focusStageHeading(options) {
+    const settings = options || {};
     const heading = document.getElementById("selection-stage-heading");
     if (!heading) {
       return;
     }
-    if (typeof focusWithoutPageScroll === "function") {
-      focusWithoutPageScroll(heading);
-    } else {
-      try {
-        heading.focus({ preventScroll: true });
-      } catch (error) {
-        heading.focus();
+
+    if (settings.focus !== false) {
+      if (typeof focusWithoutPageScroll === "function") {
+        focusWithoutPageScroll(heading);
+      } else {
+        try {
+          heading.focus({ preventScroll: true });
+        } catch (error) {
+          heading.focus();
+        }
       }
+    }
+
+    if (!settings.scroll) {
+      return;
+    }
+
+    if (cancelPendingStageScroll) {
+      cancelPendingStageScroll();
+      cancelPendingStageScroll = null;
+    }
+
+    const scrollOnNextFrame = function () {
+      cancelPendingStageScroll = null;
+      if (!heading.isConnected || document.getElementById("selection-stage-heading") !== heading) {
+        return;
+      }
+
+      restoreStageScrollPosition(settings.restoreScrollY);
+      if (settings.forceScroll === false && !stageHeadingNeedsCorrection(heading)) {
+        return;
+      }
+
+      heading.scrollIntoView({
+        block: "start",
+        inline: "nearest",
+        behavior: prefersReducedStageMotion() ? "auto" : "smooth"
+      });
+    };
+
+    if (typeof window.requestAnimationFrame === "function") {
+      const frame = window.requestAnimationFrame(scrollOnNextFrame);
+      cancelPendingStageScroll = function () {
+        window.cancelAnimationFrame(frame);
+      };
+    } else {
+      const timer = window.setTimeout(scrollOnNextFrame, 0);
+      cancelPendingStageScroll = function () {
+        window.clearTimeout(timer);
+      };
     }
   }
 
@@ -685,8 +776,13 @@ document.addEventListener("DOMContentLoaded", function () {
     updateBreadcrumb(next);
     updateSelectionStatus(next);
     bindStageEvents();
-    if (settings.focus) {
-      focusStageHeading();
+    if (settings.focus || settings.scroll) {
+      focusStageHeading({
+        focus: settings.focus,
+        scroll: settings.scroll,
+        forceScroll: settings.forceScroll,
+        restoreScrollY: settings.restoreScrollY
+      });
     }
   }
 
@@ -724,7 +820,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 
-  function navigateToSelection(selection, historyMode, options) {
+  function navigateToSelection(selection, historyMode) {
     const next = normaliseSelection(selection);
     const currentHash = selectionHash(activeSelection);
     const method = historyMode === "replace" ? "replaceState" : "pushState";
@@ -737,13 +833,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
       window.history[method](createHistoryState(next, currentHash), "", "#" + selectionHash(next));
-      renderSelection(next, { focus: true });
+      renderSelection(next, { focus: true, scroll: true });
     } else {
       window.location.hash = selectionHash(next);
-    }
-    if (options && options.scroll && selectorCard) {
-      const top = Math.max(window.scrollY + selectorCard.getBoundingClientRect().top - 90, 0);
-      window.scrollTo({ top: top, behavior: window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     }
   }
 
@@ -764,7 +856,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (revealLevelPickerButton) {
     revealLevelPickerButton.addEventListener("click", function (event) {
       event.preventDefault();
-      navigateToSelection(makeSelection(), "push", { scroll: true });
+      navigateToSelection(makeSelection(), "push");
     });
   }
 
@@ -774,18 +866,20 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!selection) {
       return;
     }
-    renderSelection(selection, { focus: true });
-    if (state && Number.isFinite(Number(state.scrollY))) {
-      window.setTimeout(function () {
-        window.scrollTo(0, Number(state.scrollY));
-      }, 0);
-    }
+    renderSelection(selection, {
+      focus: true,
+      scroll: true,
+      forceScroll: false,
+      restoreScrollY: state && Number.isFinite(Number(state.scrollY))
+        ? Number(state.scrollY)
+        : null
+    });
   });
 
   window.addEventListener("hashchange", function () {
     const selection = selectionFromHash(window.location.hash);
     if (selection && !selectionsMatch(selection, activeSelection)) {
-      renderSelection(selection, { focus: true });
+      renderSelection(selection, { focus: true, scroll: true });
     }
   });
 
@@ -801,7 +895,9 @@ document.addEventListener("DOMContentLoaded", function () {
       card.hidden = true;
       return;
     }
-    const href = record.href || entry.question.href;
+    // Catalogue URLs are the current contract; stored hrefs remain readable
+    // for compatibility but cannot pin students to an obsolete route forever.
+    const href = entry.question.href || record.href;
     const title = "Continue " + entry.paper.year + " " + entry.standard.label + " · " + entry.question.label;
     card.hidden = false;
     card.innerHTML = '<div class="home-continue-copy"><p class="question-label">Continue where you left off</p><h2 id="homepage-continue-heading">' + escapeHomeHtml(title) + '</h2><p class="step-text">Pick up from your most recent walkthrough.</p></div><a class="nav-btn home-continue-button" href="' + escapeHomeHtml(href) + '">Continue ' + escapeHomeHtml(entry.question.label) + '</a>';
@@ -810,7 +906,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function scoreSearchResult(entry, tokens, query) {
     let score = 0;
     const title = normaliseSearchText(entry.question.label);
-    const method = normaliseSearchText(entry.question.method);
+    const method = normaliseSearchText(entry.question.methodPlain || entry.question.method);
     const standard = normaliseSearchText(entry.standard.label + " " + entry.standard.code);
     tokens.forEach(function (token) {
       if (title.indexOf(token) >= 0) {
@@ -840,6 +936,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const input = searchSection.querySelector("#walkthrough-search-input");
     const form = searchSection.querySelector(".home-search-form");
     const resultsContainer = searchSection.querySelector("[data-search-results]");
+    const searchStatus = searchSection.querySelector("[data-search-status]");
 
     function renderSearchResults() {
       const query = normaliseSearchText(input.value);
@@ -847,11 +944,13 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!tokens.length) {
         resultsContainer.hidden = true;
         resultsContainer.innerHTML = "";
+        if (searchStatus) searchStatus.textContent = "";
         return;
       }
       const matches = questions.filter(function (entry) {
+        const haystackTokens = entry.haystack.split(" ").filter(Boolean);
         return tokens.every(function (token) {
-          return entry.haystack.indexOf(token) >= 0;
+          return haystackTokens.indexOf(token) >= 0;
         });
       }).map(function (entry) {
         return { entry: entry, score: scoreSearchResult(entry, tokens, query) };
@@ -866,11 +965,13 @@ document.addEventListener("DOMContentLoaded", function () {
       resultsContainer.hidden = false;
       if (!matches.length) {
         resultsContainer.innerHTML = '<p class="home-search-empty">No matching walkthroughs found. Try a method, year, or standard number.</p>';
+        if (searchStatus) searchStatus.textContent = "No matching walkthroughs found.";
         return;
       }
-      resultsContainer.innerHTML = '<p class="visually-hidden">' + matches.length + ' matching walkthroughs shown.</p><ol class="home-search-result-list">'
+      if (searchStatus) searchStatus.textContent = matches.length + " matching walkthroughs shown.";
+      resultsContainer.innerHTML = '<ol class="home-search-result-list">'
         + matches.map(function (entry) {
-          return '<li><a class="home-search-result" href="' + escapeHomeHtml(entry.question.href) + '"><span class="home-search-result-meta">' + escapeHomeHtml(entry.paper.year + " · " + entry.standard.label + " · " + entry.standard.code) + '</span><span class="home-search-result-title">' + escapeHomeHtml(entry.question.label) + '</span><span class="home-search-result-copy">' + escapeHomeHtml(capitaliseSentence(entry.question.method)) + '</span></a></li>';
+          return '<li><a class="home-search-result" href="' + escapeHomeHtml(entry.question.href) + '"><span class="home-search-result-meta"><span class="search-result-type">Question</span> · ' + escapeHomeHtml(entry.paper.year + " · " + entry.standard.label + " · " + entry.standard.code) + '</span><span class="home-search-result-title">' + escapeHomeHtml(entry.question.label + " · " + (entry.question.methodTitle || "Worked solution")) + '</span><span class="home-search-result-copy">' + escapeHomeHtml(entry.question.methodPlain || capitaliseSentence(entry.question.method)) + '</span></a></li>';
         }).join("") + '</ol>';
       renderHomeMath(resultsContainer);
     }
@@ -883,6 +984,9 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = first.href;
       }
     });
+    if (input.value.trim()) {
+      renderSearchResults();
+    }
   }
 
   function practiceScopes() {
@@ -982,18 +1086,22 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 
-  function renderPracticeSet(output, practiceSet) {
+  function renderPracticeSet(output, practiceSet, status) {
     output.hidden = false;
     output.innerHTML = '<div class="home-practice-result-heading"><p class="question-label">' + practiceSet.minutes + '-minute set</p><h3>Your ' + practiceSet.entries.length + '-question practice set</h3><p class="step-text">Work at your own pace or use your own timer. The set uses available questions only; it does not infer difficulty or grade level.</p></div><ol class="home-practice-set-list">'
       + practiceSet.entries.map(function (entry, index) {
-        return '<li><a class="home-practice-set-link" href="' + escapeHomeHtml(entry.question.href) + '"><span>' + (index + 1) + '. ' + escapeHomeHtml(entry.paper.year + " " + entry.standard.label + " · " + entry.question.label) + '</span><small>' + escapeHomeHtml(capitaliseSentence(entry.question.method)) + '</small></a></li>';
+        return '<li><a class="home-practice-set-link" href="' + escapeHomeHtml(entry.question.href) + '"><span>' + (index + 1) + '. ' + escapeHomeHtml(entry.paper.year + " " + entry.standard.label + " · " + entry.question.label) + '</span><small>' + escapeHomeHtml(entry.question.methodPlain || capitaliseSentence(entry.question.method)) + '</small></a></li>';
       }).join("") + '</ol>';
     renderHomeMath(output);
+    if (status) {
+      status.textContent = practiceSet.entries.length + "-question practice set ready.";
+    }
   }
 
   function setupPracticeTools() {
     const scopeSelect = document.querySelector("[data-practice-scope]");
     const output = document.querySelector("[data-practice-output]");
+    const status = document.querySelector("[data-practice-status]");
     if (!scopeSelect || !output) {
       return;
     }
@@ -1007,7 +1115,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const savedSet = normalisePracticeSet(readStoredJson(storageKeys.practiceSet, null));
     if (savedSet) {
-      renderPracticeSet(output, savedSet);
+      renderPracticeSet(output, savedSet, status);
     }
 
     document.querySelector("[data-random-question]").addEventListener("click", function () {
@@ -1015,6 +1123,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!scope.questions.length) {
         output.hidden = false;
         output.innerHTML = '<p class="home-search-empty">No questions are available in that scope.</p>';
+        if (status) status.textContent = "No questions are available in that scope.";
         return;
       }
       const entry = scope.questions[randomIndex(scope.questions.length)];
@@ -1029,12 +1138,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const entries = variedSample(scope.questions, Math.min(count, scope.questions.length));
         const record = practiceSetRecord(minutes, scope.value, entries);
         writeRawStorage(storageKeys.practiceSet, JSON.stringify(record));
-        renderPracticeSet(output, { minutes: minutes, scope: scope.value, entries: entries });
-        const heading = output.querySelector("h3");
-        if (heading) {
-          heading.tabIndex = -1;
-          heading.focus();
-        }
+        renderPracticeSet(output, { minutes: minutes, scope: scope.value, entries: entries }, status);
       });
     });
   }
@@ -1068,6 +1172,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function setupLocalLibrary() {
     const results = document.getElementById("home-library-results");
+    const status = document.querySelector("[data-library-status]");
     const buttons = Array.from(document.querySelectorAll("[data-library-view]"));
     const resetButton = document.querySelector("[data-reset-progress]");
     if (!results || !buttons.length || !resetButton) {
@@ -1097,12 +1202,14 @@ document.addEventListener("DOMContentLoaded", function () {
       results.hidden = false;
       if (!collection.length) {
         results.innerHTML = '<p class="home-search-empty">No ' + (view === "bookmarks" ? "bookmarked" : "retry") + ' questions are saved on this device yet.</p>';
+        if (status) status.textContent = "No " + (view === "bookmarks" ? "bookmarked" : "retry") + " questions are saved.";
         return;
       }
-      results.innerHTML = '<p class="visually-hidden">' + collection.length + ' saved questions shown.</p><ol class="home-library-list">'
+      if (status) status.textContent = collection.length + " saved questions shown.";
+      results.innerHTML = '<ol class="home-library-list">'
         + collection.map(function (item) {
           const entry = item.entry;
-          return '<li><a class="home-library-link" href="' + escapeHomeHtml(item.record.href || entry.question.href) + '"><span>' + escapeHomeHtml(entry.paper.year + " " + entry.standard.label + " · " + entry.question.label) + '</span><small>' + escapeHomeHtml(capitaliseSentence(entry.question.method)) + '</small></a></li>';
+          return '<li><a class="home-library-link" href="' + escapeHomeHtml(entry.question.href || item.record.href) + '"><span>' + escapeHomeHtml(entry.paper.year + " " + entry.standard.label + " · " + entry.question.label) + '</span><small>' + escapeHomeHtml(entry.question.methodPlain || capitaliseSentence(entry.question.method)) + '</small></a></li>';
         }).join("") + '</ol>';
       renderHomeMath(results);
     }
@@ -1119,6 +1226,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!shouldOpen) {
           results.hidden = true;
           results.innerHTML = "";
+          if (status) status.textContent = "Saved question list closed.";
           return;
         }
         renderLibrary(view);
@@ -1146,6 +1254,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       results.hidden = false;
       results.innerHTML = '<p class="home-search-empty">Saved practice has been cleared from this browser.</p>';
+      if (status) status.textContent = "Saved practice has been cleared from this browser.";
       const practiceOutput = document.querySelector("[data-practice-output]");
       if (practiceOutput) {
         practiceOutput.hidden = true;
@@ -1185,4 +1294,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   ensureHomepageReportFooter();
-});
+  }
+
+  // This bundle is normally loaded on demand after DOMContentLoaded. Keep the
+  // direct-script path working too for older cached HTML and local tests.
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initialiseHomepage, { once: true });
+  } else {
+    initialiseHomepage();
+  }
+}());

@@ -3,25 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simpson’s Rule with measured garden Worked Solution – 2023 NCEA Level 3 Q3(a) (AS91579) | Calc.nz</title>
+  <title>Numerical Integration Worked Solution – 2023 NCEA Level 3 Q3(a) (AS91579) | Calc.nz</title>
 <!-- SEO:HEAD:START -->
 <meta name="description" content="2023 NCEA Level 3 Integration AS91579 Question 3(a) worked solution: using Simpson’s Rule with measured garden ordinates. Use guided hints and step-by-step…">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://calc.nz/int-3a2023.html">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="/assets/favicon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180">
 <meta property="og:locale" content="en_NZ">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Calc.nz">
-<meta property="og:title" content="Simpson’s Rule with measured garden Worked Solution – 2023 NCEA Level 3 Q3(a) (AS91579) | Calc.nz">
+<meta property="og:title" content="Numerical Integration Worked Solution – 2023 NCEA Level 3 Q3(a) (AS91579) | Calc.nz">
 <meta property="og:description" content="2023 NCEA Level 3 Integration AS91579 Question 3(a) worked solution: using Simpson’s Rule with measured garden ordinates. Use guided hints and step-by-step…">
 <meta property="og:url" content="https://calc.nz/int-3a2023.html">
-<meta property="og:image" content="https://calc.nz/assets/calc-nz-social.png">
+<meta property="og:image" content="https://calc.nz/assets/calc-nz-social.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Calc.nz guided NCEA maths walkthroughs">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Simpson’s Rule with measured garden Worked Solution – 2023 NCEA Level 3 Q3(a) (AS91579) | Calc.nz">
+<meta name="twitter:title" content="Numerical Integration Worked Solution – 2023 NCEA Level 3 Q3(a) (AS91579) | Calc.nz">
 <meta name="twitter:description" content="2023 NCEA Level 3 Integration AS91579 Question 3(a) worked solution: using Simpson’s Rule with measured garden ordinates. Use guided hints and step-by-step…">
-<meta name="twitter:image" content="https://calc.nz/assets/calc-nz-social.png">
+<meta name="twitter:image" content="https://calc.nz/assets/calc-nz-social.jpg">
 <meta name="twitter:image:alt" content="Calc.nz guided NCEA maths walkthroughs">
 <script id="seo-structured-data" type="application/ld+json" data-seo-generated="true">
 {
@@ -31,7 +35,7 @@
       "@type": "LearningResource",
       "@id": "https://calc.nz/int-3a2023.html#learning-resource",
       "url": "https://calc.nz/int-3a2023.html",
-      "name": "Simpson’s Rule with measured garden Worked Solution – 2023 NCEA Level 3 Q3(a) (AS91579) | Calc.nz",
+      "name": "Numerical Integration Worked Solution – 2023 NCEA Level 3 Q3(a) (AS91579) | Calc.nz",
       "description": "2023 NCEA Level 3 Integration AS91579 Question 3(a) worked solution: using Simpson’s Rule with measured garden ordinates. Use guided hints and step-by-step…",
       "inLanguage": "en-NZ",
       "isAccessibleForFree": true,
@@ -43,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91579 — Apply integration methods in solving problems"
       },
-      "dateModified": "2026-07-19",
+      "dateModified": "2026-08-09",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -87,25 +91,47 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260719-8" />
+<link rel="stylesheet" href="style.css?v=20260809-1" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="question-catalogue.js?v=20260719-8"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-8"></script>
-<script defer src="differentiation-walkthrough.js?v=20260719-8"></script>
-  <script defer src="integration-2023-data.js?v=20260719-8"></script>
+  <script defer src="walkthrough-gate.js?v=20260809-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20260809-1"></script>
+  <script defer src="integration-2023-data.js?v=20260809-1"></script>
+  <!-- SEO:PAGE_RECORD:START -->
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-integration-2023", "year": 2023}, "question": {"canonical": "https://calc.nz/int-3a2023.html", "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.", "description": "2023 NCEA Level 3 Integration AS91579 Question 3(a) worked solution: using Simpson’s Rule with measured garden ordinates. Use guided hints and step-by-step…", "guideLinks": [], "id": "3a", "label": "Question 3(a)", "method": "using Simpson’s Rule with measured garden ordinates.", "methodTitle": "Numerical Integration", "skillSlugs": ["integration-techniques"], "summary": "This walkthrough helps you practise using Simpson’s Rule with measured garden ordinates. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Numerical Integration Worked Solution – 2023 NCEA Level 3 Q3(a) (AS91579) | Calc.nz"}, "standard": {"code": "AS91579", "id": "level-3-integration", "label": "Integration"}};</script>
+  <!-- SEO:PAGE_RECORD:END -->
+  <script defer src="site-shell.js?v=20260809-1"></script>
 </head>
-<body>
-  <main class="app">
+<body class="has-site-header">
+<!-- SEO:SITE_HEADER:START -->
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+  <nav class="site-header-inner" aria-label="Site">
+    <a class="site-brand" href="/">Calc.nz</a>
+    <button class="site-menu-toggle" type="button" aria-expanded="false" aria-controls="site-header-links">
+      <span class="site-menu-label">Menu</span>
+      <span class="site-menu-icon" aria-hidden="true"></span>
+    </button>
+    <div id="site-header-links" class="site-header-links">
+      <a class="site-header-link" href="/standards.html">Standards</a>
+      <a class="site-header-link" href="/skills.html">Skills</a>
+
+      <a class="site-header-link" href="/search.html">Search</a>
+      <a class="site-header-link" href="/about.html">About</a>
+    </div>
+  </nav>
+</header>
+<!-- SEO:SITE_HEADER:END -->
+  <main id="main-content" class="app" tabindex="-1">
   <!-- SEO:BREADCRUMBS:START -->
   <nav class="home-flow-nav seo-breadcrumbs" aria-label="Breadcrumb">
    <ol class="home-breadcrumb">
-    <li><a class="home-breadcrumb-button" href="/">Calc.nz</a></li>
-    <li><a class="home-breadcrumb-button" href="level-3-integration.html" data-seo-breadcrumb-standard>NCEA Level 3 Integration — AS91579</a></li>
-    <li><a class="home-breadcrumb-button" href="level-3-integration-2023.html" data-seo-breadcrumb-year>2023 paper</a></li>
-    <li><span class="home-breadcrumb-current" aria-current="page" data-seo-breadcrumb-question>Question 3(a)</span></li>
+    <li class="breadcrumb-item breadcrumb-link"><a class="home-breadcrumb-button" href="/">Calc.nz</a></li>
+    <li class="breadcrumb-item breadcrumb-link"><a class="home-breadcrumb-button" href="level-3-integration.html" data-seo-breadcrumb-standard>NCEA Level 3 Integration — AS91579</a></li>
+    <li class="breadcrumb-item breadcrumb-link breadcrumb-parent"><a class="home-breadcrumb-button" href="level-3-integration-2023.html" data-seo-breadcrumb-year>2023 paper</a></li>
+    <li class="breadcrumb-item breadcrumb-current"><span class="home-breadcrumb-current" aria-current="page" data-seo-breadcrumb-question>Question 3(a)</span></li>
    </ol>
   </nav>
   <!-- SEO:BREADCRUMBS:END -->
@@ -119,10 +145,70 @@
       <a id="back-link" class="ghost-link" href="level-3-integration-2023.html">← Back to paper</a>
     </header>
 
+    <!-- SEO:WALKTHROUGH_FALLBACK:START -->
+    <section id="question-card" class="question-card static-walkthrough-question" data-prerendered="true">
+      <p class="question-label">Question</p>
+      <p class="step-text">A garden designer wants an approximation of the area of the shaded garden section below.</p>
+          <div class="graph-frame question-graph-frame">
+            <svg id="question-graph-3a-int-2023" class="graph-svg" viewBox="0 0 560 330" aria-label="Garden section measured every 3 metres with ordinates 10, 13, 16, 15, and 14" role="img">
+          <rect class="graph-bg" x="0" y="0" width="560" height="330"></rect>
+          <path class="question-shade" d="M 75.04 139.08 Q 175.84 102.05 226.24 83.54 Q 276.64 65.03 327.04 71.2 Q 377.44 77.37 427.84 83.54 T 478.24 89.71 L 478.24 262.5 L 75.04 262.5 Z"></path>
+          <path class="question-curve" d="M 75.04 139.08 Q 175.84 102.05 226.24 83.54 Q 276.64 65.03 327.04 71.2 Q 377.44 77.37 427.84 83.54 T 478.24 89.71"></path>
+          <rect class="graph-soil" x="43.12" y="293.36" width="467.04" height="-30.24" rx="0"></rect>
+          <path class="graph-measure" d="M 43.12 262.5 L 510.16 262.5"></path>
 
-<section id="question-card" class="question-card"></section>
-    <section id="hints-card" class="question-card hidden"></section>
-    <div id="walkthrough-content" class="hidden"></div>
+              <line class="graph-guide" x1="75.04" y1="262.5" x2="75.04" y2="139.08"></line>
+              <text class="graph-label" x="78.4" y="198.94">10 metres</text>
+
+              <line class="graph-guide" x1="175.84" y1="262.5" x2="175.84" y2="102.05"></line>
+              <text class="graph-label" x="179.2" y="180.43">13 metres</text>
+
+              <line class="graph-guide" x1="276.64" y1="262.5" x2="276.64" y2="65.03"></line>
+              <text class="graph-label" x="280" y="161.91">16 metres</text>
+
+              <line class="graph-guide" x1="377.44" y1="262.5" x2="377.44" y2="77.37"></line>
+              <text class="graph-label" x="380.8" y="168.09">15 metres</text>
+
+              <line class="graph-guide" x1="478.24" y1="262.5" x2="478.24" y2="89.71"></line>
+              <text class="graph-label" x="481.6" y="174.26">14 metres</text>
+
+          <text class="graph-label" x="125.44" y="255.1" text-anchor="middle">3 metres</text><text class="graph-label" x="226.24" y="255.1" text-anchor="middle">3 metres</text><text class="graph-label" x="327.04" y="255.1" text-anchor="middle">3 metres</text><text class="graph-label" x="427.84" y="255.1" text-anchor="middle">3 metres</text>
+          <text class="graph-label" x="276.64" y="277.32" text-anchor="middle">path</text>
+          <rect class="graph-chip" x="80" y="32" width="118" height="52" rx="12"></rect>
+          <text class="graph-label" x="139" y="52" text-anchor="middle">Diagram is</text>
+          <text class="graph-label" x="139" y="71" text-anchor="middle">not to scale</text>
+        </svg>
+          </div>
+          <p class="step-text">Using these measurements, and Simpson’s Rule, find an approximation of the area of the garden section.</p>
+      <p class="question-note static-diagram-note">The diagram is shown in its initial state. JavaScript adds any interactive controls and later walkthrough visuals.</p>
+      <noscript><p class="question-note">Bookmarks, retry marks, exam mode, and the pinned-question setting need JavaScript. The question and first learning step remain available.</p></noscript>
+    </section>
+    <section id="hints-card" class="question-card tips-card static-walkthrough-support" data-prerendered="true">
+      <p class="question-label">First walkthrough idea</p>
+      <h2 id="static-first-idea-heading">Focus to try first</h2>
+      <p class="step-text">Read the equally spaced ordinates carefully, identify \(h\), then slot the values into Simpson’s Rule in the correct odd-even pattern.</p>
+    </section>
+    <div id="walkthrough-content" class="static-walkthrough-content" data-prerendered="true">
+      <section class="step-card static-first-step" aria-labelledby="static-first-step-heading">
+        <p class="step-number">Step 1</p>
+        <h2 id="static-first-step-heading">Find h</h2>
+        <p class="step-text">The measurements are taken every \(3\) metres.</p>
+        <details class="static-first-step-working">
+          <summary>Show the first step’s working</summary>
+          <div class="walkthrough-step-working"><p class="step-text">The measurements are taken every \(3\) metres.</p>
+    <div class="answer-highlight walkthrough-answer-highlight">
+      <p class="question-label">Key result</p>
+      <div class="math-block">
+      \[
+      3
+      \]
+    </div>
+    </div></div>
+        </details>
+      </section>
+      <noscript><p class="question-note">This no-JavaScript view shows the question, the first idea, and the first worked step. Enable JavaScript for all reveals, progress controls, and saved practice features.</p></noscript>
+    </div>
+    <!-- SEO:WALKTHROUGH_FALLBACK:END -->
 
     <!-- SEO:OVERVIEW:START -->
     <section class="standard-section seo-question-overview" aria-labelledby="walkthrough-overview-heading">
@@ -132,7 +218,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Using Simpson’s Rule with measured garden ordinates.</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 3(a)</span> from the <a href="level-3-integration-2023.html" data-seo-year-link>2023 NCEA Level 3 Integration paper</a> for <a href="level-3-integration.html" data-seo-standard-link>AS91579 — Apply integration methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91579">official NZQA resources for AS91579</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-07-19">19 July 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-08-09">9 August 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -152,6 +238,7 @@
         <li><a href="level-3-integration-2023.html" data-seo-related-year>All 2023 Integration walkthroughs</a></li>
         <li><a href="level-3-integration.html" data-seo-standard-link>All AS91579 Integration years</a></li>
         <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-integration-techniques.html">Integration techniques</a></li>
+        <li data-seo-related-guides hidden></li>
       </ul>
     </section>
     <!-- SEO:SUMMARY:END -->

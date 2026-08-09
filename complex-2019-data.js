@@ -11,6 +11,59 @@
     "2a": [2130, 200], "2b": [1960, 160], "2c": [1800, 250], "2d": [2090, 150], "2e": [1660, 140],
     "3a": [1750, 140], "3b": [2190, 215], "3c": [1700, 280], "3d": [1920, 260], "3e": [2150, 210]
   };
+  const questionTextHtml = {
+    "1a": raw`
+      <p>Solve the equation \(x^2-4x+7=0\).</p>
+      <p>Give your solution in the form \(a\pm\sqrt{b}\,i\), where \(a\) and \(b\) are rational numbers.</p>
+    `,
+    "1b": raw`
+      <p>When the polynomial \(2x^3-x^2-4x+p\) is divided by \(x-3\), the remainder is \(38\).</p>
+      <p>Find the value of \(p\).</p>
+    `,
+    "1c": raw`
+      <p>Complex numbers \(u\) and \(v\) are \(u=q+2i\) and \(v=1-2i\).</p>
+      <p>Given that \(\left|\frac{u}{v}\right|=13\), find all possible values of \(q\).</p>
+    `,
+    "1d": raw`
+      <p>One solution of the equation \(2z^3-5z^2+cz-5=0\) is \(z=1-2i\).</p>
+      <p>If \(c\) is real, find the value of \(c\) and the other two solutions of the equation.</p>
+    `,
+    "1e": raw`
+      <p>Find the values of \(x\) and \(y\), given that \(x\) and \(y\) are real, and \(\frac{1}{x+iy}-\frac{1}{1+i}=1-2i\).</p>
+    `,
+    "2a": raw`
+      <p>If \(p=3-i\) and \(q=-2+5i\), find \(\overline p-3q\), giving your solution in the form \(a+bi\).</p>
+    `,
+    "2b": raw`
+      <p>Write \(\frac{3}{4-\sqrt5}\) in the form \(a+b\sqrt5\), where \(a\) and \(b\) are rational numbers.</p>
+    `,
+    "2c": raw`
+      <p>Solve the equation \(z^4+16p^2i=0\), where \(p\) is real.</p>
+      <p>Write your solutions in polar form, in terms of \(p\).</p>
+    `,
+    "2d": raw`
+      <p>Find all possible values of \(m\) that make \(z=\frac{\sqrt3+mi}{1+\sqrt3i}\) a purely real number.</p>
+    `,
+    "2e": raw`
+      <p>If \(|z|=1\), and \(z\ne1\), prove that \(\frac{1+z}{1-z}\) is purely imaginary.</p>
+    `,
+    "3a": raw`
+      <p>If \(u=q^2\operatorname{cis}\frac{3\pi}{4}\) and \(v=q^3\operatorname{cis}\frac{\pi}{3}\), write \(\frac{u}{v}\) in the form \(r\operatorname{cis}\theta\).</p>
+    `,
+    "3b": raw`
+      <p>If \(x\) and \(y\) are real numbers and \((x+iy)(2+i)=3-i\), find the values of \(x\) and \(y\).</p>
+    `,
+    "3c": raw`
+      <p>Solve the following equation for \(x\) in terms of \(w\): \(2\sqrt{x-3}-w\sqrt{x}=0\).</p>
+    `,
+    "3d": raw`
+      <p>Two complex numbers are defined by \(u=1+pi\) and \(v=5+3i\).</p>
+      <p>Given that \(\arg\!\left(\frac{u}{v}\right)=\frac{\pi}{4}\), find the value of \(p\).</p>
+    `,
+    "3e": raw`
+      <p>Prove that the quadratic equation \(x^2+3kx+k^2=7x+3k\) will have two distinct real solutions for all real values of \(k\).</p>
+    `
+  };
   const metadata = {
     topic: "Complex Numbers",
     year: 2019,
@@ -28,17 +81,8 @@
     return "Question " + id.charAt(0) + "(" + id.charAt(1) + ")";
   }
 
-  function questionImageAlt(id, focus) {
-    const plainFocus = String(focus)
-      .replace(/\\\([\s\S]*?\\\)/g, "the mathematical expression shown")
-      .replace(/<[^>]*>/g, " ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .replace(/&/g, "&amp;")
-      .replace(/"/g, "&quot;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-    return questionLabel(id) + " scanned exam prompt. Walkthrough focus: " + plainFocus;
+  function questionImageAlt(id) {
+    return questionLabel(id) + " original exam prompt; text transcription follows";
   }
 
   function pageHref(id) {
@@ -121,7 +165,10 @@
       metadata: metadata,
       tags: tags,
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/complex-2019/${id}-question.png" width="${imageDimensions[0]}" height="${imageDimensions[1]}" alt="${questionImageAlt(id, focus)}" />
+        <img class="question-screenshot" src="assets/complex-2019/${id}-question.png" width="${imageDimensions[0]}" height="${imageDimensions[1]}" alt="${questionImageAlt(id)}" />
+        <div class="visually-hidden question-transcription" data-question-transcription>
+          ${questionTextHtml[id]}
+        </div>
       `,
       answerHtml: finalAnswer,
       guidedSteps: guidedSteps

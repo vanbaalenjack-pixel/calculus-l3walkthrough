@@ -20,6 +20,8 @@ function syncSiteNavigationCurrentState(root) {
     const isSitePage = linkedPage === "index.html"
       || linkedPage === "standards.html"
       || linkedPage === "skills.html"
+      || linkedPage === "guides.html"
+      || linkedPage === "search.html"
       || linkedPage === "about.html";
 
     if (isSitePage && linkedPage === currentPage) {
@@ -322,15 +324,26 @@ function ensureSiteHeader() {
     brandLink.href = "/";
     brandLink.textContent = "Calc.nz";
 
+    const menuToggle = document.createElement("button");
+    menuToggle.className = "site-menu-toggle";
+    menuToggle.type = "button";
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-controls", "site-header-links");
+    menuToggle.setAttribute("aria-label", "Open site menu");
+    menuToggle.innerHTML = '<span class="site-menu-label">Menu</span><span class="site-menu-icon" aria-hidden="true"></span>';
+
     const headerLinks = document.createElement("div");
+    headerLinks.id = "site-header-links";
     headerLinks.className = "site-header-links";
     headerLinks.innerHTML = `
       <a class="site-header-link" href="/standards.html">Standards</a>
       <a class="site-header-link" href="/skills.html">Skills</a>
+      <a class="site-header-link" href="/search.html">Search</a>
       <a class="site-header-link" href="about.html">About</a>
     `;
 
     headerInner.appendChild(brandLink);
+    headerInner.appendChild(menuToggle);
     headerInner.appendChild(headerLinks);
     siteHeader.appendChild(headerInner);
 
@@ -1283,9 +1296,29 @@ function getWalkthroughHeaderSubtitle(context, sourceSubtitle) {
 }
 
 const WALKTHROUGH_SEO_ORIGIN = "https://calc.nz";
-const WALKTHROUGH_SOCIAL_IMAGE = WALKTHROUGH_SEO_ORIGIN + "/assets/calc-nz-social.png";
+const WALKTHROUGH_SOCIAL_IMAGE = WALKTHROUGH_SEO_ORIGIN + "/assets/calc-nz-social.jpg";
 
 function getWalkthroughCatalogueQuestion(context) {
+  const pageRecords = window.CALC_NZ_PAGE_RECORDS;
+  const pageRecord = context && pageRecords && pageRecords[context.partId]
+    ? pageRecords[context.partId]
+    : window.CALC_NZ_PAGE_RECORD;
+  if (
+    pageRecord
+    && pageRecord.question
+    && context
+    && pageRecord.question.id === context.partId
+    && pageRecord.level
+    && pageRecord.level.id === context.level.id
+    && pageRecord.standard
+    && pageRecord.standard.id === context.standard.id
+    && pageRecord.paper
+    && pageRecord.paper.id === context.paper.id
+    && Number(pageRecord.paper.year) === Number(context.paper.year)
+  ) {
+    return pageRecord;
+  }
+
   const catalogue = window.CALC_NZ_QUESTION_CATALOGUE;
   const levels = catalogue && Array.isArray(catalogue.levels) ? catalogue.levels : [];
 
@@ -1511,7 +1544,7 @@ function buildWalkthroughSeoStructuredData(context, title, description, canonica
         learningResourceType: "Guided worked solution",
         educationalLevel: "NCEA " + context.level.label,
         mainEntityOfPage: canonicalUrl,
-        dateModified: "2026-07-19",
+        dateModified: "2026-08-09",
         publisher: {
           "@type": "Organization",
           name: "Calc.nz",
@@ -1691,6 +1724,29 @@ function syncWalkthroughSeo(context, config) {
       link.textContent = slug ? (skillLabels[slug] || slug.replace(/-/g, " ")) : "all skills";
       relatedSkills.appendChild(link);
     });
+  }
+
+  const relatedGuides = document.querySelector("[data-seo-related-guides]");
+  if (relatedGuides) {
+    const guideLinks = catalogueEntry && Array.isArray(catalogueEntry.question.guideLinks)
+      ? catalogueEntry.question.guideLinks.filter(function (guide) {
+        return guide && String(guide.href || "").trim() && String(guide.title || "").trim();
+      })
+      : [];
+    relatedGuides.replaceChildren();
+    relatedGuides.hidden = guideLinks.length === 0;
+    if (guideLinks.length) {
+      relatedGuides.appendChild(document.createTextNode("Related concept guide: "));
+      guideLinks.forEach(function (guide, index) {
+        if (index > 0) {
+          relatedGuides.appendChild(document.createTextNode(", "));
+        }
+        const link = document.createElement("a");
+        link.href = guide.href;
+        link.textContent = guide.title;
+        relatedGuides.appendChild(link);
+      });
+    }
   }
 
   updateWalkthroughSeoRelatedLink(context, "previous", -1);
@@ -2052,7 +2108,7 @@ function buildWalkthroughSidebarHtml(context) {
       <div class="walkthrough-sidebar-header-copy">
         <p class="question-label">Navigation</p>
         <p class="walkthrough-sidebar-current">${escapeWalkthroughSidebarHtml(context.level.label)} &middot; ${escapeWalkthroughSidebarHtml(context.standard.label)} &middot; ${escapeWalkthroughSidebarHtml(String(context.paper.year))}</p>
-        <div class="walkthrough-sidebar-progress" aria-label="Paper progress">
+        <div class="walkthrough-sidebar-progress" role="group" aria-label="Paper progress">
           <p class="walkthrough-sidebar-progress-text" data-walkthrough-paper-progress-text>${escapeWalkthroughSidebarHtml(getWalkthroughPaperProgressText(paperProgress))}</p>
           <div class="walkthrough-sidebar-progress-track" aria-hidden="true">
             <span class="walkthrough-sidebar-progress-bar" data-walkthrough-paper-progress-bar style="width: ${getWalkthroughPaperProgressPercent(paperProgress)}%"></span>
@@ -2943,7 +2999,7 @@ function buildQuestionCardHtml(config) {
   return `
     <p class="question-label">Question</p>
     ${config.questionHtml}
-    <div class="question-personal-actions" aria-label="Save this question">
+    <div class="question-personal-actions" role="group" aria-label="Save this question">
       <button
         id="bookmark-question-btn"
         class="nav-btn secondary question-save-btn"
@@ -3111,7 +3167,7 @@ function renderProgressiveStep(step, index) {
 
 function buildProgressiveWalkthroughHtml(config) {
   return `
-    <div class="walkthrough-mobile-progress" aria-live="polite" aria-atomic="true">
+    <div class="walkthrough-mobile-progress">
       <span id="walkthrough-mobile-progress-label">Step 1 of ${config.guidedSteps.length}</span>
       <progress id="walkthrough-mobile-progress-meter" value="1" max="${config.guidedSteps.length}">1 of ${config.guidedSteps.length}</progress>
     </div>
@@ -3327,6 +3383,9 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
         walkthroughComplete = true;
         markCurrentWalkthroughPartComplete();
         updateProgressUi();
+        focusRevealedContent(
+          document.getElementById("walkthrough-step-" + (currentStepIndex + 1) + "-working")
+        );
       }
     });
   }
@@ -3369,6 +3428,10 @@ function initializeProgressiveWalkthrough(config, options) {
   if (!eyebrow || !pageTitle || !subtitle || !backLink || !questionCard || !walkthroughContent || !tipsCard) {
     return;
   }
+  if (questionCard.dataset.walkthroughEnhanced === "true") {
+    return;
+  }
+  questionCard.dataset.walkthroughEnhanced = "true";
 
   document.title = normalisedConfig.browserTitle || document.title;
   eyebrow.textContent = normalisedConfig.eyebrow || pageOptions.defaultEyebrow || eyebrow.textContent;
@@ -3471,6 +3534,7 @@ window.initializeProgressiveWalkthrough = initializeProgressiveWalkthrough;
         <a class="site-footer-link" href="/">Home</a>
         <a class="site-footer-link" href="/standards.html">Standards</a>
         <a class="site-footer-link" href="/skills.html">Skills</a>
+        <a class="site-footer-link" href="/search.html">Search</a>
         <a class="site-footer-link" href="about.html">About</a>
       `;
       footer.appendChild(footerNavigation);

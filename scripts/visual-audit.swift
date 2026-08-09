@@ -364,7 +364,8 @@ private final class VisualAuditRunner: NSObject, WKNavigationDelegate {
             checks.socialCanonicalAgreement = Boolean(canonical)
               && metaContent('meta[property="og:url"]') === canonical.href;
             checks.mainLandmark = Boolean(document.querySelector("main"));
-            checks.skipLink = Boolean(document.querySelector('.skip-link[href="#main-content"]'));
+            const skipLink = document.querySelector('.skip-link[href^="#"]');
+            checks.skipLink = Boolean(skipLink && document.getElementById(skipLink.getAttribute("href").slice(1)));
             checks.noJavaScriptErrors = details.errors.length === 0;
 
             if (kind === "homepage") {

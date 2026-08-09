@@ -8,20 +8,24 @@
   <meta name="description" content="Practise NCEA Level 3 chain rule questions from AS91578, including composite powers, roots, logarithms and trigonometric functions.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://calc.nz/skill-chain-rule.html">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/favicon-48.png" type="image/png" sizes="48x48">
+  <link rel="icon" href="/assets/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180">
   <meta property="og:locale" content="en_NZ">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Calc.nz">
   <meta property="og:title" content="Chain Rule NCEA Practice Questions | Calc.nz">
   <meta property="og:description" content="Practise NCEA Level 3 chain rule questions from AS91578, including composite powers, roots, logarithms and trigonometric functions.">
   <meta property="og:url" content="https://calc.nz/skill-chain-rule.html">
-  <meta property="og:image" content="https://calc.nz/assets/calc-nz-social.png">
+  <meta property="og:image" content="https://calc.nz/assets/calc-nz-social.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Calc.nz guided NCEA maths walkthroughs">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Chain Rule NCEA Practice Questions | Calc.nz">
   <meta name="twitter:description" content="Practise NCEA Level 3 chain rule questions from AS91578, including composite powers, roots, logarithms and trigonometric functions.">
-  <meta name="twitter:image" content="https://calc.nz/assets/calc-nz-social.png">
+  <meta name="twitter:image" content="https://calc.nz/assets/calc-nz-social.jpg">
   <meta name="twitter:image:alt" content="Calc.nz guided NCEA maths walkthroughs">
   <script id="seo-structured-data" type="application/ld+json" data-seo-generated="true">
   {
@@ -34,7 +38,7 @@
         "name": "Chain Rule NCEA Practice Questions | Calc.nz",
         "description": "Practise NCEA Level 3 chain rule questions from AS91578, including composite powers, roots, logarithms and trigonometric functions.",
         "inLanguage": "en-NZ",
-        "dateModified": "2026-07-19",
+        "dateModified": "2026-08-09",
         "isPartOf": {
           "@id": "https://calc.nz/#website"
         }
@@ -66,33 +70,34 @@
   }
   </script>
   <!-- SEO:HEAD:END -->
-  <link rel="stylesheet" href="style.css?v=20260719-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-8"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      if (window.renderMathInElement) {
-        window.renderMathInElement(document.body, {
-          delimiters: [
-            { left: "\\[", right: "\\]", display: true },
-            { left: "\\(", right: "\\)", display: false }
-          ],
-          throwOnError: false
-        });
-      }
-    });
-  </script>
+  <link rel="stylesheet" href="style.css?v=20260809-1">
+  <script defer src="site-shell.js?v=20260809-1"></script>
 </head>
-<body class="home-page content-page skill-page">
-<main class="app home-app content-app">
+<body class="home-page content-page skill-page has-site-header">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+  <nav class="site-header-inner" aria-label="Site">
+    <a class="site-brand" href="/">Calc.nz</a>
+    <button class="site-menu-toggle" type="button" aria-expanded="false" aria-controls="site-header-links">
+      <span class="site-menu-label">Menu</span>
+      <span class="site-menu-icon" aria-hidden="true"></span>
+    </button>
+    <div id="site-header-links" class="site-header-links">
+      <a class="site-header-link" href="/standards.html">Standards</a>
+      <a class="site-header-link" href="/skills.html">Skills</a>
+
+      <a class="site-header-link" href="/search.html">Search</a>
+      <a class="site-header-link" href="/about.html">About</a>
+    </div>
+  </nav>
+</header>
+<main id="main-content" class="app home-app content-app" tabindex="-1">
   <!-- SEO:BREADCRUMBS:START -->
   <nav class="home-flow-nav seo-breadcrumbs" aria-label="Breadcrumb">
    <ol class="home-breadcrumb">
-    <li><a class="home-breadcrumb-button" href="/">Calc.nz</a></li>
-    <li><a class="home-breadcrumb-button" href="skills.html">Browse by skill</a></li>
-    <li><span class="home-breadcrumb-current" aria-current="page">Chain Rule</span></li>
+    <li class="breadcrumb-item breadcrumb-link"><a class="home-breadcrumb-button" href="/">Calc.nz</a></li>
+    <li class="breadcrumb-item breadcrumb-link breadcrumb-parent"><a class="home-breadcrumb-button" href="skills.html">Browse by skill</a></li>
+    <li class="breadcrumb-item breadcrumb-current"><span class="home-breadcrumb-current" aria-current="page">Chain Rule</span></li>
    </ol>
   </nav>
   <!-- SEO:BREADCRUMBS:END -->
@@ -120,221 +125,269 @@
     <ul class="step-text"><li>Differentiate the outer expression while retaining the inner expression, then multiply by the inner derivative.</li><li>After rewriting a root or reciprocal as a power, keep the new exponent and any negative sign consistent through differentiation.</li><li>For a trigonometric, logarithmic, or exponential composite, include the derivative of its complete inside expression.</li></ul>
   </section>
 
-  <section class="question-card" aria-labelledby="skill-questions-heading">
+
+
+  <section class="question-card" aria-labelledby="skill-questions-heading" data-skill-collection>
     <p class="question-label">Related practice</p>
     <h2 id="skill-questions-heading">Chain Rule questions from different years</h2>
     <p class="step-text">Open a question for hints and a progressive worked solution, or use the standard and paper links to return to its assessment context.</p>
-    <section class="index-group skill-question-group" aria-labelledby="chain-rule-level-3-differentiation-2025">
-  <div class="year-cluster-header">
+    <div class="skill-question-tools">
+      <nav class="skill-jump-nav" aria-label="Jump to a year"><a class="skill-jump-link" href="#chain-rule-level-3-differentiation-2025">2025 Differentiation</a><a class="skill-jump-link" href="#chain-rule-level-3-differentiation-2024">2024 Differentiation</a><a class="skill-jump-link" href="#chain-rule-level-3-differentiation-2023">2023 Differentiation</a><a class="skill-jump-link" href="#chain-rule-level-3-differentiation-2022">2022 Differentiation</a><a class="skill-jump-link" href="#chain-rule-level-3-differentiation-2021">2021 Differentiation</a><a class="skill-jump-link" href="#chain-rule-level-3-differentiation-2020">2020 Differentiation</a><a class="skill-jump-link" href="#chain-rule-level-3-differentiation-2019">2019 Differentiation</a><a class="skill-jump-link" href="#chain-rule-level-3-differentiation-2018">2018 Differentiation</a><a class="skill-jump-link" href="#chain-rule-level-3-differentiation-2017">2017 Differentiation</a><a class="skill-jump-link" href="#chain-rule-level-3-differentiation-2016">2016 Differentiation</a></nav>
+      <div class="skill-filter-row" role="group" aria-label="Filter this skill collection"><button class="skill-filter-chip is-active" type="button" aria-pressed="true" data-skill-filter="all">All questions</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="level-3-differentiation">AS91578</button></div>
+      <button class="nav-btn secondary skill-random-button" type="button" data-skill-random>Random question from this skill</button>
+      <p class="visually-hidden" aria-live="polite" data-skill-filter-status>30 matching questions shown.</p>
+    </div>
+    <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Chain Rule">
+  <summary id="chain-rule-level-3-differentiation-2025" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2025 Differentiation</strong>
+    <span>1 question</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="chain-rule-level-3-differentiation-2025">2025 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2025.html">2025 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2025.html">
-  <span class="index-link-title">Question 1(a) · Chain Rule</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2025.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 1(a) — Chain Rule</span>
   <span class="index-link-copy">Chain rule differentiation of a composite polynomial.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="chain-rule-level-3-differentiation-2024">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Chain Rule">
+  <summary id="chain-rule-level-3-differentiation-2024" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2024 Differentiation</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="chain-rule-level-3-differentiation-2024">2024 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2024.html">2024 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2024.html">
-  <span class="index-link-title">Question 1(a) · Chain Rule</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2024.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 1(a) — Chain Rule</span>
   <span class="index-link-copy">Rewriting a square root as a power and applying the chain rule.</span>
-</a> <a class="nav-btn index-link-card" href="2b2024.html">
-  <span class="index-link-title">Question 2(b) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="2b2024.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 2(b) — Chain Rule</span>
   <span class="index-link-copy">Chain rule differentiation of a logarithmic displacement function.</span>
-</a> <a class="nav-btn index-link-card" href="3a2024.html">
-  <span class="index-link-title">Question 3(a) · Chain Rule</span>
-  <span class="index-link-copy">Product rule with \(\sqrt{x}\) and a trig chain rule.</span>
+</a> <a class="nav-btn index-link-card" href="3a2024.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 3(a) — Chain Rule</span>
+  <span class="index-link-copy">Product rule with square root of x and a trig chain rule.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="chain-rule-level-3-differentiation-2023">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Chain Rule">
+  <summary id="chain-rule-level-3-differentiation-2023" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2023 Differentiation</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="chain-rule-level-3-differentiation-2023">2023 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2023.html">2023 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2023.html">
-  <span class="index-link-title">Question 1(a) · Chain Rule</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2023.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 1(a) — Chain Rule</span>
   <span class="index-link-copy">Rewriting a square root and applying the chain rule.</span>
-</a> <a class="nav-btn index-link-card" href="2b2023.html">
-  <span class="index-link-title">Question 2(b) · Chain Rule</span>
-  <span class="index-link-copy">Chain rule differentiation of \(y=\cot(2x)\).</span>
-</a> <a class="nav-btn index-link-card" href="3a2023.html">
-  <span class="index-link-title">Question 3(a) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="2b2023.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 2(b) — Chain Rule</span>
+  <span class="index-link-copy">Chain rule differentiation of y = cot(2x).</span>
+</a> <a class="nav-btn index-link-card" href="3a2023.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 3(a) — Chain Rule</span>
   <span class="index-link-copy">The chain rule inside a logarithm.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="chain-rule-level-3-differentiation-2022">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Chain Rule">
+  <summary id="chain-rule-level-3-differentiation-2022" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2022 Differentiation</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="chain-rule-level-3-differentiation-2022">2022 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2022.html">2022 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="2a2022.html">
-  <span class="index-link-title">Question 2(a) · Chain Rule</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="2a2022.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 2(a) — Chain Rule</span>
   <span class="index-link-copy">Product rule with a trig chain rule.</span>
-</a> <a class="nav-btn index-link-card" href="2b2022.html">
-  <span class="index-link-title">Question 2(b) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="2b2022.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 2(b) — Chain Rule</span>
   <span class="index-link-copy">Chain rule and finding a tangent gradient.</span>
-</a> <a class="nav-btn index-link-card" href="3a2022.html">
-  <span class="index-link-title">Question 3(a) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="3a2022.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 3(a) — Chain Rule</span>
   <span class="index-link-copy">Rewriting radicals and using the chain rule.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="chain-rule-level-3-differentiation-2021">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Chain Rule">
+  <summary id="chain-rule-level-3-differentiation-2021" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2021 Differentiation</strong>
+    <span>4 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="chain-rule-level-3-differentiation-2021">2021 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2021.html">2021 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2021.html">
-  <span class="index-link-title">Question 1(a) · Chain Rule</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2021.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 1(a) — Chain Rule</span>
   <span class="index-link-copy">Product rule with exponential and trigonometric chain rules.</span>
-</a> <a class="nav-btn index-link-card" href="1c2021.html">
-  <span class="index-link-title">Question 1(c) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="1c2021.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 1(c) — Chain Rule</span>
   <span class="index-link-copy">Product and chain rules for stationary points.</span>
-</a> <a class="nav-btn index-link-card" href="2a2021.html">
-  <span class="index-link-title">Question 2(a) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="2a2021.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 2(a) — Chain Rule</span>
   <span class="index-link-copy">Chain rule differentiation of a composite polynomial.</span>
-</a> <a class="nav-btn index-link-card" href="3e2021.html">
-  <span class="index-link-title">Question 3(e) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="3e2021.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 3(e) — Chain Rule</span>
   <span class="index-link-copy">Lamp and table optimisation using product and chain rules.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="chain-rule-level-3-differentiation-2020">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Chain Rule">
+  <summary id="chain-rule-level-3-differentiation-2020" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2020 Differentiation</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="chain-rule-level-3-differentiation-2020">2020 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2020.html">2020 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2020.html">
-  <span class="index-link-title">Question 1(a) · Chain Rule</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2020.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 1(a) — Chain Rule</span>
   <span class="index-link-copy">Chain rule differentiation of a fifth power.</span>
-</a> <a class="nav-btn index-link-card" href="2c2020.html">
-  <span class="index-link-title">Question 2(c) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="2c2020.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 2(c) — Chain Rule</span>
   <span class="index-link-copy">Product and chain rules for stationary points.</span>
-</a> <a class="nav-btn index-link-card" href="3a2020.html">
-  <span class="index-link-title">Question 3(a) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="3a2020.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 3(a) — Chain Rule</span>
   <span class="index-link-copy">Chain rule differentiation of a logarithm.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="chain-rule-level-3-differentiation-2019">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Chain Rule">
+  <summary id="chain-rule-level-3-differentiation-2019" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2019 Differentiation</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="chain-rule-level-3-differentiation-2019">2019 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2019.html">2019 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2019.html">
-  <span class="index-link-title">Question 1(a) · Chain Rule</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2019.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 1(a) — Chain Rule</span>
   <span class="index-link-copy">Chain rule differentiation of a square root.</span>
-</a> <a class="nav-btn index-link-card" href="2a2019.html">
-  <span class="index-link-title">Question 2(a) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="2a2019.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 2(a) — Chain Rule</span>
   <span class="index-link-copy">Chain rule differentiation of a fourth power.</span>
-</a> <a class="nav-btn index-link-card" href="2e2019.html">
-  <span class="index-link-title">Question 2(e) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="2e2019.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 2(e) — Chain Rule</span>
   <span class="index-link-copy">Proving a second-derivative chain rule identity.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="chain-rule-level-3-differentiation-2018">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Chain Rule">
+  <summary id="chain-rule-level-3-differentiation-2018" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2018 Differentiation</strong>
+    <span>1 question</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="chain-rule-level-3-differentiation-2018">2018 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2018.html">2018 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2018.html">
-  <span class="index-link-title">Question 1(a) · Chain Rule</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2018.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 1(a) — Chain Rule</span>
   <span class="index-link-copy">Negative powers with the power and chain rules.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="chain-rule-level-3-differentiation-2017">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Chain Rule">
+  <summary id="chain-rule-level-3-differentiation-2017" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2017 Differentiation</strong>
+    <span>4 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="chain-rule-level-3-differentiation-2017">2017 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2017.html">2017 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2017.html">
-  <span class="index-link-title">Question 1(a) · Chain Rule</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1a2017.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 1(a) — Chain Rule</span>
   <span class="index-link-copy">Power and chain rules for a square root and trigonometric function.</span>
-</a> <a class="nav-btn index-link-card" href="1b2017.html">
-  <span class="index-link-title">Question 1(b) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="1b2017.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 1(b) — Chain Rule</span>
   <span class="index-link-copy">Quotient and chain rules, then evaluating a gradient.</span>
-</a> <a class="nav-btn index-link-card" href="2a2017.html">
-  <span class="index-link-title">Question 2(a) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="2a2017.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 2(a) — Chain Rule</span>
   <span class="index-link-copy">Chain rule differentiation of a composite fifth power.</span>
-</a> <a class="nav-btn index-link-card" href="3a2017.html">
-  <span class="index-link-title">Question 3(a) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="3a2017.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 3(a) — Chain Rule</span>
   <span class="index-link-copy">Product and chain rules for a logarithmic function.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="chain-rule-level-3-differentiation-2016">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-differentiation" data-methods="Chain Rule">
+  <summary id="chain-rule-level-3-differentiation-2016" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91578</span>
+    <strong>2016 Differentiation</strong>
+    <span>5 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91578</p>
-      <h3 id="chain-rule-level-3-differentiation-2016">2016 Differentiation</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-differentiation.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-differentiation-2016.html">2016 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1b2016.html">
-  <span class="index-link-title">Question 1(b) · Chain Rule</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="1b2016.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 1(b) — Chain Rule</span>
   <span class="index-link-copy">Trigonometric chain rule and evaluating a tide-height rate.</span>
-</a> <a class="nav-btn index-link-card" href="1e2016.html">
-  <span class="index-link-title">Question 1(e) · First and second chain-rule derivatives</span>
+</a> <a class="nav-btn index-link-card" href="1e2016.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 1(e) — Chain Rule</span>
   <span class="index-link-copy">First and second chain-rule derivatives of an exponential.</span>
-</a> <a class="nav-btn index-link-card" href="2a2016.html">
-  <span class="index-link-title">Question 2(a) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="2a2016.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 2(a) — Chain Rule</span>
   <span class="index-link-copy">Product and chain rules with a logarithm.</span>
-</a> <a class="nav-btn index-link-card" href="2b2016.html">
-  <span class="index-link-title">Question 2(b) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="2b2016.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 2(b) — Chain Rule</span>
   <span class="index-link-copy">Chain rule differentiation of a square-root function.</span>
-</a> <a class="nav-btn index-link-card" href="3a2016.html">
-  <span class="index-link-title">Question 3(a) · Chain Rule</span>
+</a> <a class="nav-btn index-link-card" href="3a2016.html" data-skill-method="Chain Rule">
+  <span class="index-link-title">Question 3(a) — Chain Rule</span>
   <span class="index-link-copy">Chain rule differentiation of a fourth root.</span>
 </a></div>
-</section>
+</details>
   </section>
 
   <section class="question-card" aria-labelledby="related-skills-heading">
@@ -342,7 +395,7 @@
     <h2 id="related-skills-heading">Related skill collections</h2>
     <div class="nav-row"><a class="nav-btn secondary" href="skill-product-quotient-rules.html">Product and quotient rules</a> <a class="nav-btn secondary" href="skill-related-rates.html">Related rates</a> <a class="nav-btn secondary" href="skill-stationary-points-optimisation.html">Stationary points and optimisation</a> <a class="nav-btn secondary" href="skill-parametric-differentiation.html">Parametric differentiation</a></div>
   </section>
-  <p class="page-updated">Page updated <time datetime="2026-07-19">19 July 2026</time>.</p>
+  <p class="page-updated">Page updated <time datetime="2026-08-09">9 August 2026</time>.</p>
 </main>
 <footer class="site-footer">
   <p class="site-footer-text">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the official NZQA material.</p>
@@ -350,6 +403,8 @@
     <a class="site-footer-link" href="/">Home</a>
     <a class="site-footer-link" href="/standards.html">Standards</a>
     <a class="site-footer-link" href="/skills.html">Skills</a>
+
+    <a class="site-footer-link" href="/search.html">Search</a>
     <a class="site-footer-link" href="about.html">About</a>
   </nav>
   <p class="site-footer-text site-footer-disclaimer">Calc.nz is independent and is not affiliated with or endorsed by NZQA.</p>

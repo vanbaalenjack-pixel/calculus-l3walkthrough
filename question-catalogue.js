@@ -25,9 +25,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "label": "Question 1(a)",
                   "method": "using the power rule term by term and evaluating the gradient at a point.",
                   "href": "1a2025-l2.html",
-                  "methodTitle": "The power rule term by term and",
+                  "methodTitle": "Power Rule",
                   "canonical": "https://calc.nz/1a2025-l2.html",
-                  "title": "The power rule term by term and Worked Solution – 2025 NCEA Level 2 Q1(a) (AS91262) | Calc.nz",
+                  "title": "Power Rule Worked Solution – 2025 NCEA Level 2 Q1(a) (AS91262) | Calc.nz",
                   "description": "2025 NCEA Level 2 Calculus AS91262 Question 1(a) worked solution: using the power rule term by term and evaluating the gradient at a point. Use guided hints…",
                   "summary": "This walkthrough helps you practise using the power rule term by term and evaluating the gradient at a point. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -36,7 +36,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": null,
                   "nextHref": "1b2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using the power rule term by term and evaluating the gradient at a point."
                 },
                 {
                   "id": "1b",
@@ -54,7 +55,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "1a2025-l2.html",
                   "nextHref": "1c2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding the point of tangency, the gradient, and the tangent equation."
                 },
                 {
                   "id": "1c",
@@ -74,16 +76,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "1b2025-l2.html",
                   "nextHref": "1d2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding critical points, identifying the minimum, and solving for the constant."
                 },
                 {
                   "id": "1d",
                   "label": "Question 1(d)",
                   "method": "writing displacement equations, solving when they are equal, and answering in context.",
                   "href": "1d2025-l2.html",
-                  "methodTitle": "Writing displacement equations, solving",
+                  "methodTitle": "Calculus and Motion",
                   "canonical": "https://calc.nz/1d2025-l2.html",
-                  "title": "Writing displacement equations, solving Worked Solution – 2025 NCEA Level 2 Q1(d) (AS91262) | Calc.nz",
+                  "title": "Calculus and Motion Worked Solution – 2025 NCEA Level 2 Q1(d) (AS91262) | Calc.nz",
                   "description": "2025 NCEA Level 2 Calculus AS91262 Question 1(d) worked solution: writing displacement equations, solving when they are equal, and answering in context. Use…",
                   "summary": "This walkthrough helps you practise writing displacement equations, solving when they are equal, and answering in context. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -92,7 +95,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "1c2025-l2.html",
                   "nextHref": "2a2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Writing displacement equations, solving when they are equal, and answering in context."
                 },
                 {
                   "id": "2a",
@@ -112,7 +116,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "1d2025-l2.html",
                   "nextHref": "2b2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Sketching the derivative from stationary points, signs, and changes in concavity."
                 },
                 {
                   "id": "2b",
@@ -132,7 +137,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "2a2025-l2.html",
                   "nextHref": "2c2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Antidifferentiating and using a point on the graph to find the constant."
                 },
                 {
                   "id": "2c",
@@ -152,7 +158,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "2b2025-l2.html",
                   "nextHref": "2d2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Differentiating, evaluating a rate, and using derivatives to justify the minimum turning point."
                 },
                 {
                   "id": "2d",
@@ -172,16 +179,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "2c2025-l2.html",
                   "nextHref": "3a2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using a stationary point and an x-intercept to find constants, then classifying the other stationary point."
                 },
                 {
                   "id": "3a",
                   "label": "Question 3(a)",
                   "method": "differentiating, solving for the given gradient, and finding the coordinate on the curve.",
                   "href": "3a2025-l2.html",
-                  "methodTitle": "Differentiating, solving for the given",
+                  "methodTitle": "Gradients and Curve Points",
                   "canonical": "https://calc.nz/3a2025-l2.html",
-                  "title": "Differentiating, solving for the given Worked Solution – 2025 NCEA Level 2 Q3(a) (AS91262) | Calc.nz",
+                  "title": "Gradients and Curve Points Worked Solution – 2025 NCEA Level 2 Q3(a) (AS91262) | Calc.nz",
                   "description": "2025 NCEA Level 2 Calculus AS91262 Question 3(a) worked solution: differentiating, solving for the given gradient, and finding the coordinate on the curve.…",
                   "summary": "This walkthrough helps you practise differentiating, solving for the given gradient, and finding the coordinate on the curve. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -190,7 +198,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "2d2025-l2.html",
                   "nextHref": "3b2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Differentiating, solving for the given gradient, and finding the coordinate on the curve."
                 },
                 {
                   "id": "3b",
@@ -208,7 +217,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "3a2025-l2.html",
                   "nextHref": "3c2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Forming an area expression, finding the height from the given area, and evaluating the rate of change."
                 },
                 {
                   "id": "3c",
@@ -228,7 +238,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "3b2025-l2.html",
                   "nextHref": "3d2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using a surface-area constraint, writing volume in one variable, maximizing it, and proving the maximum."
                 },
                 {
                   "id": "3d",
@@ -248,7 +259,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "3c2025-l2.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Differentiating, factorising, classifying critical points, and finding where the function is decreasing."
                 }
               ]
             }
@@ -283,16 +295,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": null,
                   "nextHref": "alg-1b2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Simplifying a radical expression."
                 },
                 {
                   "id": "1b",
                   "label": "Question 1(b)",
                   "method": "rearranging an equation to make x the subject.",
                   "href": "alg-1b2025-l2.html",
-                  "methodTitle": "Rearranging an equation to make x the",
+                  "methodTitle": "Rearranging Formulae",
                   "canonical": "https://calc.nz/alg-1b2025-l2.html",
-                  "title": "Rearranging an equation to make x the Worked Solution – 2025 NCEA Level 2 Q1(b) (AS91261) | Calc.nz",
+                  "title": "Rearranging Formulae Worked Solution – 2025 NCEA Level 2 Q1(b) (AS91261) | Calc.nz",
                   "description": "2025 NCEA Level 2 Algebra AS91261 Question 1(b) worked solution: rearranging an equation to make x the subject. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise rearranging an equation to make x the subject. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -301,7 +314,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-1a2025-l2.html",
                   "nextHref": "alg-1c2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rearranging an equation to make x the subject."
                 },
                 {
                   "id": "1c",
@@ -319,16 +333,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-1b2025-l2.html",
                   "nextHref": "alg-1d2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Building a quadratic from a root and a point on the graph."
                 },
                 {
                   "id": "1d",
                   "label": "Question 1(d)",
                   "method": "using Pythagoras to write area in terms of the radius.",
                   "href": "alg-1d2025-l2.html",
-                  "methodTitle": "Pythagoras to write area in terms of",
+                  "methodTitle": "Pythagoras and Area",
                   "canonical": "https://calc.nz/alg-1d2025-l2.html",
-                  "title": "Pythagoras to write area in terms of Worked Solution – 2025 NCEA Level 2 Q1(d) (AS91261) | Calc.nz",
+                  "title": "Pythagoras and Area Worked Solution – 2025 NCEA Level 2 Q1(d) (AS91261) | Calc.nz",
                   "description": "2025 NCEA Level 2 Algebra AS91261 Question 1(d) worked solution: using Pythagoras to write area in terms of the radius. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise using Pythagoras to write area in terms of the radius. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -337,7 +352,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-1c2025-l2.html",
                   "nextHref": "alg-1e2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using Pythagoras to write area in terms of the radius."
                 },
                 {
                   "id": "1e",
@@ -355,16 +371,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-1d2025-l2.html",
                   "nextHref": "alg-2a2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving an exponential equation with a substitution."
                 },
                 {
                   "id": "2a",
                   "label": "Question 2(a)",
                   "method": "identifying the missing term in a perfect square.",
                   "href": "alg-2a2025-l2.html",
-                  "methodTitle": "Identifying the missing term in a perfect",
+                  "methodTitle": "Perfect Squares",
                   "canonical": "https://calc.nz/alg-2a2025-l2.html",
-                  "title": "Identifying the missing term in a perfect Worked Solution – 2025 NCEA Level 2 Q2(a) (AS91261) | Calc.nz",
+                  "title": "Perfect Squares Worked Solution – 2025 NCEA Level 2 Q2(a) (AS91261) | Calc.nz",
                   "description": "2025 NCEA Level 2 Algebra AS91261 Question 2(a) worked solution: identifying the missing term in a perfect square. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise identifying the missing term in a perfect square. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -373,7 +390,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-1e2025-l2.html",
                   "nextHref": "alg-2b2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Identifying the missing term in a perfect square."
                 },
                 {
                   "id": "2b",
@@ -391,7 +409,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-2a2025-l2.html",
                   "nextHref": "alg-2c2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Factorising and simplifying an algebraic fraction."
                 },
                 {
                   "id": "2c",
@@ -409,7 +428,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-2b2025-l2.html",
                   "nextHref": "alg-2d2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a quadratic and matching it to a surd form."
                 },
                 {
                   "id": "2d",
@@ -427,16 +447,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-2c2025-l2.html",
                   "nextHref": "alg-2e2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Combining logarithms and solving the resulting equation."
                 },
                 {
                   "id": "2e",
                   "label": "Question 2(e)",
                   "method": "using the discriminant in simultaneous equations.",
                   "href": "alg-2e2025-l2.html",
-                  "methodTitle": "The discriminant in simultaneous equations",
+                  "methodTitle": "Discriminants and Simultaneous Equations",
                   "canonical": "https://calc.nz/alg-2e2025-l2.html",
-                  "title": "The discriminant in simultaneous equations Worked Solution – 2025 NCEA Level 2 Q2(e) (AS91261) | Calc.nz",
+                  "title": "Discriminants and Simultaneous Equations Worked Solution – 2025 NCEA Level 2 Q2(e) (AS91261) | Calc.nz",
                   "description": "2025 NCEA Level 2 Algebra AS91261 Question 2(e) worked solution: using the discriminant in simultaneous equations. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise using the discriminant in simultaneous equations. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -445,7 +466,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-2d2025-l2.html",
                   "nextHref": "alg-3a2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using the discriminant in simultaneous equations."
                 },
                 {
                   "id": "3a",
@@ -463,7 +485,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-2e2025-l2.html",
                   "nextHref": "alg-3b2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a logarithm with a variable base."
                 },
                 {
                   "id": "3b",
@@ -481,7 +504,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-3a2025-l2.html",
                   "nextHref": "alg-3c2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Forming a quadratic equation from its roots."
                 },
                 {
                   "id": "3c",
@@ -499,16 +523,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-3b2025-l2.html",
                   "nextHref": "alg-3d2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rewriting a logarithm in terms of given values."
                 },
                 {
                   "id": "3d",
                   "label": "Question 3(d)",
                   "method": "using root relationships to rewrite an expression.",
                   "href": "alg-3d2025-l2.html",
-                  "methodTitle": "Root relationships to rewrite an",
+                  "methodTitle": "Root Relationships",
                   "canonical": "https://calc.nz/alg-3d2025-l2.html",
-                  "title": "Root relationships to rewrite an Worked Solution – 2025 NCEA Level 2 Q3(d) (AS91261) | Calc.nz",
+                  "title": "Root Relationships Worked Solution – 2025 NCEA Level 2 Q3(d) (AS91261) | Calc.nz",
                   "description": "2025 NCEA Level 2 Algebra AS91261 Question 3(d) worked solution: using root relationships to rewrite an expression. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise using root relationships to rewrite an expression. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -517,7 +542,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-3c2025-l2.html",
                   "nextHref": "alg-3e2025-l2.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using root relationships to rewrite an expression."
                 },
                 {
                   "id": "3e",
@@ -535,7 +561,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-3d2025-l2.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Modelling a golf shot with a quadratic and interpreting the result."
                 }
               ]
             }
@@ -579,7 +606,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": null,
                   "nextHref": "1b2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Chain rule differentiation of a composite polynomial."
                 },
                 {
                   "id": "1b",
@@ -597,7 +625,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "1a2025.html",
                   "nextHref": "1c2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rewriting in power form and finding a rate of change."
                 },
                 {
                   "id": "1c",
@@ -617,7 +646,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "1b2025.html",
                   "nextHref": "1d2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product rule and the gradient of a normal."
                 },
                 {
                   "id": "1d",
@@ -635,7 +665,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "1c2025.html",
                   "nextHref": "1e2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding a tangent and its x-intercept."
                 },
                 {
                   "id": "1e",
@@ -656,7 +687,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "1d2025.html",
                   "nextHref": "2a2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Parametric differentiation with stationary inflection points."
                 },
                 {
                   "id": "2a",
@@ -674,7 +706,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "1e2025.html",
                   "nextHref": "2b2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Differentiating reciprocal and logarithmic terms."
                 },
                 {
                   "id": "2b",
@@ -694,7 +727,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "2a2025.html",
                   "nextHref": "2c2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product rule and deciding whether a model is increasing or decreasing."
                 },
                 {
                   "id": "2c",
@@ -714,7 +748,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "2b2025.html",
                   "nextHref": "2d2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Quotient rule and tangents with a given gradient."
                 },
                 {
                   "id": "2d",
@@ -734,16 +769,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "2c2025.html",
                   "nextHref": "2e2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Parametric gradients and tangent equations."
                 },
                 {
                   "id": "2e",
                   "label": "Question 2(e)",
                   "method": "first and second derivatives in a radius of curvature problem.",
                   "href": "2e2025.html",
-                  "methodTitle": "First and second derivatives in a radius",
+                  "methodTitle": "Radius of Curvature",
                   "canonical": "https://calc.nz/2e2025.html",
-                  "title": "First and second derivatives in a radius Worked Solution – 2025 NCEA Level 3 Q2(e) (AS91578) | Calc.nz",
+                  "title": "Radius of Curvature Worked Solution – 2025 NCEA Level 3 Q2(e) (AS91578) | Calc.nz",
                   "description": "2025 NCEA Level 3 Differentiation AS91578 Question 2(e) worked solution: first and second derivatives in a radius of curvature problem. Use guided hints and…",
                   "summary": "This walkthrough helps you practise first and second derivatives in a radius of curvature problem. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -752,7 +788,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "2d2025.html",
                   "nextHref": "3a2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "First and second derivatives in a radius of curvature problem."
                 },
                 {
                   "id": "3a",
@@ -772,7 +809,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "2e2025.html",
                   "nextHref": "3b2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reading differentiability, stationary points, and a limit from a graph."
                 },
                 {
                   "id": "3b",
@@ -792,7 +830,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "3a2025.html",
                   "nextHref": "3c2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Stationary points on a logarithmic curve."
                 },
                 {
                   "id": "3c",
@@ -812,7 +851,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "3b2025.html",
                   "nextHref": "3d2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Related rates for the volume of a sphere."
                 },
                 {
                   "id": "3d",
@@ -832,7 +872,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "3c2025.html",
                   "nextHref": "3e2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a parametric gradient condition."
                 },
                 {
                   "id": "3e",
@@ -852,7 +893,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "3d2025.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Maximising the area of a rectangle inside a curve."
                 }
               ]
             },
@@ -880,7 +922,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": null,
                   "nextHref": "1b2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rewriting a square root as a power and applying the chain rule."
                 },
                 {
                   "id": "1b",
@@ -890,7 +933,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Product Rule",
                   "canonical": "https://calc.nz/1b2024.html",
                   "title": "Product Rule Worked Solution – 2024 NCEA Level 3 Q1(b) (AS91578) | Calc.nz",
-                  "description": "2024 NCEA Level 3 Differentiation AS91578 Question 1(b) worked solution: product rule differentiation and evaluating the gradient at x=0. Use guided hints…",
+                  "description": "2024 NCEA Level 3 Differentiation AS91578 Question 1(b) worked solution: product rule differentiation and evaluating the gradient at x = 0. Use guided hints…",
                   "summary": "This walkthrough helps you practise product rule differentiation and evaluating the gradient at \\(x=0\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Differentiate both factors in turn and keep both product-rule terms.",
                   "skillSlugs": [
@@ -900,17 +943,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "1a2024.html",
                   "nextHref": "1c2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product rule differentiation and evaluating the gradient at x = 0."
                 },
                 {
                   "id": "1c",
                   "label": "Question 1(c)",
                   "method": "differentiating, solving \\(f'(x)=0\\), and finding where a function is decreasing.",
                   "href": "1c2024.html",
-                  "methodTitle": "Differentiating, solving f'(x)=0, and",
+                  "methodTitle": "Function Behaviour",
                   "canonical": "https://calc.nz/1c2024.html",
-                  "title": "Differentiating, solving f'(x)=0, and Worked Solution – 2024 NCEA Level 3 Q1(c) (AS91578) | Calc.nz",
-                  "description": "2024 NCEA Level 3 Differentiation AS91578 Question 1(c) worked solution: differentiating, solving f'(x)=0, and finding where a function is decreasing. Use…",
+                  "title": "Function Behaviour Worked Solution – 2024 NCEA Level 3 Q1(c) (AS91578) | Calc.nz",
+                  "description": "2024 NCEA Level 3 Differentiation AS91578 Question 1(c) worked solution: differentiating, solving f'(x) = 0, and finding where a function is decreasing. Use…",
                   "summary": "This walkthrough helps you practise differentiating, solving \\(f'(x)=0\\), and finding where a function is decreasing. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
                   "skillSlugs": [],
@@ -918,7 +962,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "1b2024.html",
                   "nextHref": "1d2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Differentiating, solving f'(x) = 0, and finding where a function is decreasing."
                 },
                 {
                   "id": "1d",
@@ -938,7 +983,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "1c2024.html",
                   "nextHref": "1e2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Stationary points, the second derivative test, and classifying the point."
                 },
                 {
                   "id": "1e",
@@ -956,7 +1002,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "1d2024.html",
                   "nextHref": "2a2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Locating a point of inflection and finding the tangent there."
                 },
                 {
                   "id": "2a",
@@ -966,7 +1013,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Parametric Differentiation",
                   "canonical": "https://calc.nz/2a2024.html",
                   "title": "Parametric Differentiation Worked Solution – 2024 NCEA Level 3 Q2(a) (AS91578) | Calc.nz",
-                  "description": "2024 NCEA Level 3 Differentiation AS91578 Question 2(a) worked solution: parametric differentiation using fraction dy/dtdx/dt. Use guided hints and…",
+                  "description": "2024 NCEA Level 3 Differentiation AS91578 Question 2(a) worked solution: parametric differentiation using dy/dt divided by dx/dt. Use guided hints and…",
                   "summary": "This walkthrough helps you practise parametric differentiation using \\(\\frac{dy/dt}{dx/dt}\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
                   "skillSlugs": [
@@ -976,7 +1023,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "1e2024.html",
                   "nextHref": "2b2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Parametric differentiation using dy/dt divided by dx/dt."
                 },
                 {
                   "id": "2b",
@@ -996,16 +1044,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "2a2024.html",
                   "nextHref": "2c2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Chain rule differentiation of a logarithmic displacement function."
                 },
                 {
                   "id": "2c",
                   "label": "Question 2(c)",
                   "method": "first and second derivatives in a proof-style differential-equation question.",
                   "href": "2c2024.html",
-                  "methodTitle": "First and second derivatives in a",
+                  "methodTitle": "Higher Derivatives",
                   "canonical": "https://calc.nz/2c2024.html",
-                  "title": "First and second derivatives in a Worked Solution – 2024 NCEA Level 3 Q2(c) (AS91578) | Calc.nz",
+                  "title": "Higher Derivatives Worked Solution – 2024 NCEA Level 3 Q2(c) (AS91578) | Calc.nz",
                   "description": "2024 NCEA Level 3 Differentiation AS91578 Question 2(c) worked solution: first and second derivatives in a proof-style differential-equation question. Use…",
                   "summary": "This walkthrough helps you practise first and second derivatives in a proof-style differential-equation question. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -1016,17 +1065,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "2b2024.html",
                   "nextHref": "2d2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "First and second derivatives in a proof-style differential-equation question."
                 },
                 {
                   "id": "2d",
                   "label": "Question 2(d)",
                   "method": "finding a point of inflection on \\(\\frac{\\ln x}{x}\\).",
                   "href": "2d2024.html",
-                  "methodTitle": "A point of inflection on fraction ln",
+                  "methodTitle": "Quotient Rule and Inflection",
                   "canonical": "https://calc.nz/2d2024.html",
-                  "title": "A point of inflection on fraction ln Worked Solution – 2024 NCEA Level 3 Q2(d) (AS91578) | Calc.nz",
-                  "description": "2024 NCEA Level 3 Differentiation AS91578 Question 2(d) worked solution: finding a point of inflection on fraction ln xx. Use guided hints and step-by-step…",
+                  "title": "Quotient Rule and Inflection Worked Solution – 2024 NCEA Level 3 Q2(d) (AS91578) | Calc.nz",
+                  "description": "2024 NCEA Level 3 Differentiation AS91578 Question 2(d) worked solution: finding a point of inflection on ln x divided by x. Use guided hints and…",
                   "summary": "This walkthrough helps you practise finding a point of inflection on \\(\\frac{\\ln x}{x}\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "A zero second derivative alone is not enough; check the required change in concavity or other supporting evidence.",
                   "skillSlugs": [],
@@ -1034,7 +1084,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "2c2024.html",
                   "nextHref": "2e2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding a point of inflection on ln x divided by x."
                 },
                 {
                   "id": "2e",
@@ -1054,7 +1105,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "2d2024.html",
                   "nextHref": "3a2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using a discriminant condition to force a single turning point."
                 },
                 {
                   "id": "3a",
@@ -1075,16 +1127,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "2e2024.html",
                   "nextHref": "3b2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product rule with square root of x and a trig chain rule."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "reading continuity, differentiability, and limits from a graph.",
                   "href": "3b2024.html",
-                  "methodTitle": "Reading continuity, differentiability,",
+                  "methodTitle": "Graph Analysis",
                   "canonical": "https://calc.nz/3b2024.html",
-                  "title": "Reading continuity, differentiability, Worked Solution – 2024 NCEA Level 3 Q3(b) (AS91578) | Calc.nz",
+                  "title": "Graph Analysis Worked Solution – 2024 NCEA Level 3 Q3(b) (AS91578) | Calc.nz",
                   "description": "2024 NCEA Level 3 Differentiation AS91578 Question 3(b) worked solution: reading continuity, differentiability, and limits from a graph. Use guided hints…",
                   "summary": "This walkthrough helps you practise reading continuity, differentiability, and limits from a graph. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -1093,7 +1146,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "3a2024.html",
                   "nextHref": "3c2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reading continuity, differentiability, and limits from a graph."
                 },
                 {
                   "id": "3c",
@@ -1114,7 +1168,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "3b2024.html",
                   "nextHref": "3d2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Quotient rule differentiation and finding stationary points."
                 },
                 {
                   "id": "3d",
@@ -1134,16 +1189,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "3c2024.html",
                   "nextHref": "3e2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Related rates for the height of a conical pile."
                 },
                 {
                   "id": "3e",
                   "label": "Question 3(e)",
                   "method": "forming an area function and proving its largest possible value.",
                   "href": "3e2024.html",
-                  "methodTitle": "An area function and proving its largest",
+                  "methodTitle": "Stationary Points and Optimisation",
                   "canonical": "https://calc.nz/3e2024.html",
-                  "title": "An area function and proving its largest Worked Solution – 2024 NCEA Level 3 Q3(e) (AS91578) | Calc.nz",
+                  "title": "Stationary Points and Optimisation Worked Solution – 2024 NCEA Level 3 Q3(e) (AS91578) | Calc.nz",
                   "description": "2024 NCEA Level 3 Differentiation AS91578 Question 3(e) worked solution: forming an area function and proving its largest possible value. Use guided hints…",
                   "summary": "This walkthrough helps you practise forming an area function and proving its largest possible value. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -1154,7 +1210,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "3d2024.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Forming an area function and proving its largest possible value."
                 }
               ]
             },
@@ -1182,7 +1239,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": null,
                   "nextHref": "1b2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rewriting a square root and applying the chain rule."
                 },
                 {
                   "id": "1b",
@@ -1202,7 +1260,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "1a2023.html",
                   "nextHref": "1c2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product rule differentiation and evaluating a rate of change."
                 },
                 {
                   "id": "1c",
@@ -1220,7 +1279,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "1b2023.html",
                   "nextHref": "1d2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using derivatives to find a parallel tangent on a rational curve."
                 },
                 {
                   "id": "1d",
@@ -1240,7 +1300,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "1c2023.html",
                   "nextHref": "1e2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Parametric differentiation and building a tangent equation."
                 },
                 {
                   "id": "1e",
@@ -1250,7 +1311,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Stationary Points and Optimisation",
                   "canonical": "https://calc.nz/1e2023.html",
                   "title": "Stationary Points and Optimisation Worked Solution – 2023 NCEA Level 3 Q1(e) (AS91578) | Calc.nz",
-                  "description": "2023 NCEA Level 3 Differentiation AS91578 Question 1(e) worked solution: maximising a triangle area on the curve y=x(x-2m) to the power 2. Use guided hints…",
+                  "description": "2023 NCEA Level 3 Differentiation AS91578 Question 1(e) worked solution: maximising a triangle area on the curve y = x(x - 2m) squared. Use guided hints and…",
                   "summary": "This walkthrough helps you practise maximising a triangle area on the curve \\(y=x(x-2m)^2\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Finding a stationary value is only part of an optimisation argument; justify that it is the required maximum and respect the domain.",
                   "skillSlugs": [
@@ -1260,7 +1321,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "1d2023.html",
                   "nextHref": "2a2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Maximising a triangle area on the curve y = x(x - 2m) squared."
                 },
                 {
                   "id": "2a",
@@ -1270,7 +1332,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Product Rule",
                   "canonical": "https://calc.nz/2a2023.html",
                   "title": "Product Rule Worked Solution – 2023 NCEA Level 3 Q2(a) (AS91578) | Calc.nz",
-                  "description": "2023 NCEA Level 3 Differentiation AS91578 Question 2(a) worked solution: rewriting fraction x to the power 2cos x and using the product rule. Use guided…",
+                  "description": "2023 NCEA Level 3 Differentiation AS91578 Question 2(a) worked solution: rewriting x squared divided by cos x and using the product rule. Use guided hints…",
                   "summary": "This walkthrough helps you practise rewriting \\(\\frac{x^2}{\\cos x}\\) and using the product rule. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Differentiate both factors in turn and keep both product-rule terms.",
                   "skillSlugs": [
@@ -1280,7 +1342,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "1e2023.html",
                   "nextHref": "2b2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rewriting x squared divided by cos x and using the product rule."
                 },
                 {
                   "id": "2b",
@@ -1290,7 +1353,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Chain Rule",
                   "canonical": "https://calc.nz/2b2023.html",
                   "title": "Chain Rule Worked Solution – 2023 NCEA Level 3 Q2(b) (AS91578) | Calc.nz",
-                  "description": "2023 NCEA Level 3 Differentiation AS91578 Question 2(b) worked solution: chain rule differentiation of y=cot(2x). Use guided hints and step-by-step reasoning.",
+                  "description": "2023 NCEA Level 3 Differentiation AS91578 Question 2(b) worked solution: chain rule differentiation of y = cot(2x). Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise chain rule differentiation of \\(y=\\cot(2x)\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Do not stop after differentiating the outside function; include the derivative of the inside function as a factor.",
                   "skillSlugs": [
@@ -1300,7 +1363,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "2a2023.html",
                   "nextHref": "2c2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Chain rule differentiation of y = cot(2x)."
                 },
                 {
                   "id": "2c",
@@ -1320,7 +1384,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "2b2023.html",
                   "nextHref": "2d2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Quotient rule differentiation and horizontal tangents."
                 },
                 {
                   "id": "2d",
@@ -1338,7 +1403,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "2c2023.html",
                   "nextHref": "2e2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Second derivatives and finding a logarithmic point of inflection."
                 },
                 {
                   "id": "2e",
@@ -1358,7 +1424,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "2d2023.html",
                   "nextHref": "3a2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Related rates for a helicopter chasing a car."
                 },
                 {
                   "id": "3a",
@@ -1378,16 +1445,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "2e2023.html",
                   "nextHref": "3b2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "The chain rule inside a logarithm."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "reading continuity, concavity, and limits from a graph.",
                   "href": "3b2023.html",
-                  "methodTitle": "Reading continuity, concavity, and limits",
+                  "methodTitle": "Graph Analysis",
                   "canonical": "https://calc.nz/3b2023.html",
-                  "title": "Reading continuity, concavity, and limits Worked Solution – 2023 NCEA Level 3 Q3(b) (AS91578) | Calc.nz",
+                  "title": "Graph Analysis Worked Solution – 2023 NCEA Level 3 Q3(b) (AS91578) | Calc.nz",
                   "description": "2023 NCEA Level 3 Differentiation AS91578 Question 3(b) worked solution: reading continuity, concavity, and limits from a graph. Use guided hints and…",
                   "summary": "This walkthrough helps you practise reading continuity, concavity, and limits from a graph. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -1396,7 +1464,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "3a2023.html",
                   "nextHref": "3c2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reading continuity, concavity, and limits from a graph."
                 },
                 {
                   "id": "3c",
@@ -1416,7 +1485,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "3b2023.html",
                   "nextHref": "3d2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Parametric differentiation for a Ferris wheel model."
                 },
                 {
                   "id": "3d",
@@ -1436,7 +1506,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "3c2023.html",
                   "nextHref": "3e2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Stationary points and classifying them with the second derivative."
                 },
                 {
                   "id": "3e",
@@ -1456,7 +1527,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "3d2023.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Verifying a differential equation from a catenary model."
                 }
               ]
             },
@@ -1471,9 +1543,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "label": "Question 1(a)",
                   "method": "differentiation of the function.",
                   "href": "1a2022.html",
-                  "methodTitle": "Differentiation of the function",
+                  "methodTitle": "Chain Rule",
                   "canonical": "https://calc.nz/1a2022.html",
-                  "title": "Differentiation of the function Worked Solution – 2022 NCEA Level 3 Q1(a) (AS91578) | Calc.nz",
+                  "title": "Chain Rule Worked Solution – 2022 NCEA Level 3 Q1(a) (AS91578) | Calc.nz",
                   "description": "2022 NCEA Level 3 Differentiation AS91578 Question 1(a) worked solution: differentiation of the function. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise differentiation of the function. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -1482,7 +1554,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": null,
                   "nextHref": "1b2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Differentiation of the function."
                 },
                 {
                   "id": "1b",
@@ -1502,7 +1575,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "1a2022.html",
                   "nextHref": "1c2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding and interpreting stationary points."
                 },
                 {
                   "id": "1c",
@@ -1520,7 +1594,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "1b2022.html",
                   "nextHref": "1d2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "The normal line and its x-intercept."
                 },
                 {
                   "id": "1d",
@@ -1540,16 +1615,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "1c2022.html",
                   "nextHref": "1e2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Parametric differentiation."
                 },
                 {
                   "id": "1e",
                   "label": "Question 1(e)",
                   "method": "proving there are no points of inflection.",
                   "href": "1e2022.html",
-                  "methodTitle": "There are no points of inflection",
+                  "methodTitle": "Second Derivative and Concavity",
                   "canonical": "https://calc.nz/1e2022.html",
-                  "title": "There are no points of inflection Worked Solution – 2022 NCEA Level 3 Q1(e) (AS91578) | Calc.nz",
+                  "title": "Second Derivative and Concavity Worked Solution – 2022 NCEA Level 3 Q1(e) (AS91578) | Calc.nz",
                   "description": "2022 NCEA Level 3 Differentiation AS91578 Question 1(e) worked solution: proving there are no points of inflection. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise proving there are no points of inflection. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -1558,7 +1634,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "1d2022.html",
                   "nextHref": "2a2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving there are no points of inflection."
                 },
                 {
                   "id": "2a",
@@ -1579,7 +1656,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "1e2022.html",
                   "nextHref": "2b2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product rule with a trig chain rule."
                 },
                 {
                   "id": "2b",
@@ -1599,7 +1677,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "2a2022.html",
                   "nextHref": "2c2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Chain rule and finding a tangent gradient."
                 },
                 {
                   "id": "2c",
@@ -1620,7 +1699,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "2b2022.html",
                   "nextHref": "2d2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Quotient rule and finding when motion is stationary."
                 },
                 {
                   "id": "2d",
@@ -1640,7 +1720,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "2c2022.html",
                   "nextHref": "2e2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Forming an area function and maximising it."
                 },
                 {
                   "id": "2e",
@@ -1658,7 +1739,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "2d2022.html",
                   "nextHref": "3a2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Implicit differentiation and tangent-line distance."
                 },
                 {
                   "id": "3a",
@@ -1678,16 +1760,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "2e2022.html",
                   "nextHref": "3b2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rewriting radicals and using the chain rule."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "reading differentiability, derivatives, and limits from a graph.",
                   "href": "3b2022.html",
-                  "methodTitle": "Reading differentiability, derivatives,",
+                  "methodTitle": "Graph Analysis",
                   "canonical": "https://calc.nz/3b2022.html",
-                  "title": "Reading differentiability, derivatives, Worked Solution – 2022 NCEA Level 3 Q3(b) (AS91578) | Calc.nz",
+                  "title": "Graph Analysis Worked Solution – 2022 NCEA Level 3 Q3(b) (AS91578) | Calc.nz",
                   "description": "2022 NCEA Level 3 Differentiation AS91578 Question 3(b) worked solution: reading differentiability, derivatives, and limits from a graph. Use guided hints…",
                   "summary": "This walkthrough helps you practise reading differentiability, derivatives, and limits from a graph. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -1696,7 +1779,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "3a2022.html",
                   "nextHref": "3c2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reading differentiability, derivatives, and limits from a graph."
                 },
                 {
                   "id": "3c",
@@ -1716,7 +1800,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "3b2022.html",
                   "nextHref": "3d2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Related rates using volume and height."
                 },
                 {
                   "id": "3d",
@@ -1736,7 +1821,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "3c2022.html",
                   "nextHref": "3e2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding stationary points and classifying them."
                 },
                 {
                   "id": "3e",
@@ -1756,7 +1842,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "3d2022.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Building a time function and minimising it."
                 }
               ]
             },
@@ -1785,7 +1872,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": null,
                   "nextHref": "1b2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product rule with exponential and trigonometric chain rules."
                 },
                 {
                   "id": "1b",
@@ -1805,7 +1893,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "1a2021.html",
                   "nextHref": "1c2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reading stationary points, concavity, and limits from a graph."
                 },
                 {
                   "id": "1c",
@@ -1827,7 +1916,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "1b2021.html",
                   "nextHref": "1d2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product and chain rules for stationary points."
                 },
                 {
                   "id": "1d",
@@ -1847,7 +1937,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "1c2021.html",
                   "nextHref": "1e2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Parametric differentiation and evaluating a tangent gradient."
                 },
                 {
                   "id": "1e",
@@ -1867,7 +1958,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "1d2021.html",
                   "nextHref": "2a2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Cone and cylinder optimisation with a maximum-volume proof."
                 },
                 {
                   "id": "2a",
@@ -1887,7 +1979,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "1e2021.html",
                   "nextHref": "2b2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Chain rule differentiation of a composite polynomial."
                 },
                 {
                   "id": "2b",
@@ -1908,7 +2001,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "2a2021.html",
                   "nextHref": "2c2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Quotient rule and stationary points."
                 },
                 {
                   "id": "2c",
@@ -1928,7 +2022,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "2b2021.html",
                   "nextHref": "2d2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product rule and finding the equation of a normal."
                 },
                 {
                   "id": "2d",
@@ -1948,7 +2043,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "2c2021.html",
                   "nextHref": "2e2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Related rates for the volume and radius of a sphere."
                 },
                 {
                   "id": "2e",
@@ -1958,7 +2054,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Tangents",
                   "canonical": "https://calc.nz/2e2021.html",
                   "title": "Tangents Worked Solution – 2021 NCEA Level 3 Q2(e) (AS91578) | Calc.nz",
-                  "description": "2021 NCEA Level 3 Differentiation AS91578 Question 2(e) worked solution: tangent geometry on y=square root of 2x-4. Use guided hints and step-by-step…",
+                  "description": "2021 NCEA Level 3 Differentiation AS91578 Question 2(e) worked solution: tangent geometry on y = square root of (2x - 4). Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise tangent geometry on \\(y=\\sqrt{2x-4}\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Use the derivative for the gradient and the original curve for the point before forming the tangent equation.",
                   "skillSlugs": [],
@@ -1966,7 +2062,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "2d2021.html",
                   "nextHref": "3a2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Tangent geometry on y = square root of (2x - 4)."
                 },
                 {
                   "id": "3a",
@@ -1976,7 +2073,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Quotient Rule",
                   "canonical": "https://calc.nz/3a2021.html",
                   "title": "Quotient Rule Worked Solution – 2021 NCEA Level 3 Q3(a) (AS91578) | Calc.nz",
-                  "description": "2021 NCEA Level 3 Differentiation AS91578 Question 3(a) worked solution: quotient rule with cot x and to the power 2 x. Use guided hints and step-by-step…",
+                  "description": "2021 NCEA Level 3 Differentiation AS91578 Question 3(a) worked solution: quotient rule with cot x and csc squared x. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise quotient rule with \\(\\cot x\\) and \\(\\csc^2 x\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Use brackets carefully and retain the squared denominator when applying the quotient rule.",
                   "skillSlugs": [
@@ -1986,7 +2083,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "2e2021.html",
                   "nextHref": "3b2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Quotient rule with cot x and csc squared x."
                 },
                 {
                   "id": "3b",
@@ -2006,16 +2104,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "3a2021.html",
                   "nextHref": "3c2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Stationary point on a radical function."
                 },
                 {
                   "id": "3c",
                   "label": "Question 3(c)",
                   "method": "using the derivative sign to find where a function is increasing.",
                   "href": "3c2021.html",
-                  "methodTitle": "The derivative sign to find where a",
+                  "methodTitle": "Function Behaviour",
                   "canonical": "https://calc.nz/3c2021.html",
-                  "title": "The derivative sign to find where a Worked Solution – 2021 NCEA Level 3 Q3(c) (AS91578) | Calc.nz",
+                  "title": "Function Behaviour Worked Solution – 2021 NCEA Level 3 Q3(c) (AS91578) | Calc.nz",
                   "description": "2021 NCEA Level 3 Differentiation AS91578 Question 3(c) worked solution: using the derivative sign to find where a function is increasing. Use guided hints…",
                   "summary": "This walkthrough helps you practise using the derivative sign to find where a function is increasing. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -2024,7 +2123,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "3b2021.html",
                   "nextHref": "3d2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using the derivative sign to find where a function is increasing."
                 },
                 {
                   "id": "3d",
@@ -2044,7 +2144,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "3c2021.html",
                   "nextHref": "3e2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Quotient rule with a parameter and a given tangent gradient."
                 },
                 {
                   "id": "3e",
@@ -2066,7 +2167,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "3d2021.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Lamp and table optimisation using product and chain rules."
                 }
               ]
             },
@@ -2094,7 +2196,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": null,
                   "nextHref": "1b2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Chain rule differentiation of a fifth power."
                 },
                 {
                   "id": "1b",
@@ -2112,7 +2215,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "1a2020.html",
                   "nextHref": "1c2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Trig derivatives and evaluating a tangent gradient."
                 },
                 {
                   "id": "1c",
@@ -2133,7 +2237,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "1b2020.html",
                   "nextHref": "1d2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Quotient rule and a stationary point on a logarithmic function."
                 },
                 {
                   "id": "1d",
@@ -2153,7 +2258,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "1c2020.html",
                   "nextHref": "1e2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product rule and proving a tangent equation."
                 },
                 {
                   "id": "1e",
@@ -2173,7 +2279,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "1d2020.html",
                   "nextHref": "2a2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Maximising a cylinder volume inside a sphere."
                 },
                 {
                   "id": "2a",
@@ -2193,16 +2300,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "1e2020.html",
                   "nextHref": "2b2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Quotient rule differentiation of a trigonometric fraction."
                 },
                 {
                   "id": "2b",
                   "label": "Question 2(b)",
                   "method": "differentiating an exponential depreciation model.",
                   "href": "2b2020.html",
-                  "methodTitle": "Differentiating an exponential",
+                  "methodTitle": "Exponential Differentiation",
                   "canonical": "https://calc.nz/2b2020.html",
-                  "title": "Differentiating an exponential Worked Solution – 2020 NCEA Level 3 Q2(b) (AS91578) | Calc.nz",
+                  "title": "Exponential Differentiation Worked Solution – 2020 NCEA Level 3 Q2(b) (AS91578) | Calc.nz",
                   "description": "2020 NCEA Level 3 Differentiation AS91578 Question 2(b) worked solution: differentiating an exponential depreciation model. Use guided hints and…",
                   "summary": "This walkthrough helps you practise differentiating an exponential depreciation model. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -2211,7 +2319,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "2a2020.html",
                   "nextHref": "2c2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Differentiating an exponential depreciation model."
                 },
                 {
                   "id": "2c",
@@ -2233,7 +2342,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "2b2020.html",
                   "nextHref": "2d2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product and chain rules for stationary points."
                 },
                 {
                   "id": "2d",
@@ -2253,7 +2363,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "2c2020.html",
                   "nextHref": "2e2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Related rates for an angle of elevation."
                 },
                 {
                   "id": "2e",
@@ -2273,7 +2384,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "2d2020.html",
                   "nextHref": "3a2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Parametric first and second derivatives."
                 },
                 {
                   "id": "3a",
@@ -2293,7 +2405,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "2e2020.html",
                   "nextHref": "3b2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Chain rule differentiation of a logarithm."
                 },
                 {
                   "id": "3b",
@@ -2311,7 +2424,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "3a2020.html",
                   "nextHref": "3c2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding where a tangent has a given gradient."
                 },
                 {
                   "id": "3c",
@@ -2329,7 +2443,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "3b2020.html",
                   "nextHref": "3d2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Normal gradient and an x-intercept."
                 },
                 {
                   "id": "3d",
@@ -2349,7 +2464,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "3c2020.html",
                   "nextHref": "3e2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Stationary points and second derivative classification."
                 },
                 {
                   "id": "3e",
@@ -2369,7 +2485,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "3d2020.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving a differential equation using first and second derivatives."
                 }
               ]
             },
@@ -2397,7 +2514,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": null,
                   "nextHref": "1b2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Chain rule differentiation of a square root."
                 },
                 {
                   "id": "1b",
@@ -2407,7 +2525,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Logarithms",
                   "canonical": "https://calc.nz/1b2019.html",
                   "title": "Logarithms Worked Solution – 2019 NCEA Level 3 Q1(b) (AS91578) | Calc.nz",
-                  "description": "2019 NCEA Level 3 Differentiation AS91578 Question 1(b) worked solution: differentiating a logarithm and evaluating a rate at t=4. Use guided hints and…",
+                  "description": "2019 NCEA Level 3 Differentiation AS91578 Question 1(b) worked solution: differentiating a logarithm and evaluating a rate at t = 4. Use guided hints and…",
                   "summary": "This walkthrough helps you practise differentiating a logarithm and evaluating a rate at \\(t=4\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Keep logarithm domain restrictions and any inner-function factor visible throughout the working.",
                   "skillSlugs": [],
@@ -2415,7 +2533,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "1a2019.html",
                   "nextHref": "1c2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Differentiating a logarithm and evaluating a rate at t = 4."
                 },
                 {
                   "id": "1c",
@@ -2435,7 +2554,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "1b2019.html",
                   "nextHref": "1d2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Quotient rule differentiation and tangent gradient."
                 },
                 {
                   "id": "1d",
@@ -2455,7 +2575,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "1c2019.html",
                   "nextHref": "1e2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product rule and finding where a function is decreasing."
                 },
                 {
                   "id": "1e",
@@ -2475,7 +2596,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "1d2019.html",
                   "nextHref": "2a2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Related rates for the volume and surface area of a sphere."
                 },
                 {
                   "id": "2a",
@@ -2495,7 +2617,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "1e2019.html",
                   "nextHref": "2b2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Chain rule differentiation of a fourth power."
                 },
                 {
                   "id": "2b",
@@ -2505,7 +2628,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Tangents",
                   "canonical": "https://calc.nz/2b2019.html",
                   "title": "Tangents Worked Solution – 2019 NCEA Level 3 Q2(b) (AS91578) | Calc.nz",
-                  "description": "2019 NCEA Level 3 Differentiation AS91578 Question 2(b) worked solution: differentiating y=tan(2x) and evaluating a tangent gradient. Use guided hints and…",
+                  "description": "2019 NCEA Level 3 Differentiation AS91578 Question 2(b) worked solution: differentiating y = tan(2x) and evaluating a tangent gradient. Use guided hints and…",
                   "summary": "This walkthrough helps you practise differentiating \\(y=\\tan(2x)\\) and evaluating a tangent gradient. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Use the derivative for the gradient and the original curve for the point before forming the tangent equation.",
                   "skillSlugs": [],
@@ -2513,7 +2636,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "2a2019.html",
                   "nextHref": "2c2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Differentiating y = tan(2x) and evaluating a tangent gradient."
                 },
                 {
                   "id": "2c",
@@ -2533,7 +2657,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "2b2019.html",
                   "nextHref": "2d2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Parametric differentiation and evaluating the gradient."
                 },
                 {
                   "id": "2d",
@@ -2553,7 +2678,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "2c2019.html",
                   "nextHref": "2e2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Related rates for the height of a rising bridge arm."
                 },
                 {
                   "id": "2e",
@@ -2573,16 +2699,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "2d2019.html",
                   "nextHref": "3a2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving a second-derivative chain rule identity."
                 },
                 {
                   "id": "3a",
                   "label": "Question 3(a)",
                   "method": "differentiating a cosecant form.",
                   "href": "3a2019.html",
-                  "methodTitle": "Differentiating a cosecant form",
+                  "methodTitle": "Trigonometric Differentiation",
                   "canonical": "https://calc.nz/3a2019.html",
-                  "title": "Differentiating a cosecant form Worked Solution – 2019 NCEA Level 3 Q3(a) (AS91578) | Calc.nz",
+                  "title": "Trigonometric Differentiation Worked Solution – 2019 NCEA Level 3 Q3(a) (AS91578) | Calc.nz",
                   "description": "2019 NCEA Level 3 Differentiation AS91578 Question 3(a) worked solution: differentiating a cosecant form. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise differentiating a cosecant form. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -2591,16 +2718,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "2e2019.html",
                   "nextHref": "3b2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Differentiating a cosecant form."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "reading derivative conditions and limits from a graph.",
                   "href": "3b2019.html",
-                  "methodTitle": "Reading derivative conditions and limits",
+                  "methodTitle": "Graph Analysis",
                   "canonical": "https://calc.nz/3b2019.html",
-                  "title": "Reading derivative conditions and limits Worked Solution – 2019 NCEA Level 3 Q3(b) (AS91578) | Calc.nz",
+                  "title": "Graph Analysis Worked Solution – 2019 NCEA Level 3 Q3(b) (AS91578) | Calc.nz",
                   "description": "2019 NCEA Level 3 Differentiation AS91578 Question 3(b) worked solution: reading derivative conditions and limits from a graph. Use guided hints and…",
                   "summary": "This walkthrough helps you practise reading derivative conditions and limits from a graph. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -2609,7 +2737,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "3a2019.html",
                   "nextHref": "3c2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reading derivative conditions and limits from a graph."
                 },
                 {
                   "id": "3c",
@@ -2619,7 +2748,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Stationary Points and Optimisation",
                   "canonical": "https://calc.nz/3c2019.html",
                   "title": "Stationary Points and Optimisation Worked Solution – 2019 NCEA Level 3 Q3(c) (AS91578) | Calc.nz",
-                  "description": "2019 NCEA Level 3 Differentiation AS91578 Question 3(c) worked solution: maximising a rectangle area under y=4-square root of x. Use guided hints and…",
+                  "description": "2019 NCEA Level 3 Differentiation AS91578 Question 3(c) worked solution: maximising a rectangle area under y = 4 - square root of x. Use guided hints and…",
                   "summary": "This walkthrough helps you practise maximising a rectangle area under \\(y=4-\\sqrt{x}\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Finding a stationary value is only part of an optimisation argument; justify that it is the required maximum and respect the domain.",
                   "skillSlugs": [
@@ -2629,16 +2758,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "3b2019.html",
                   "nextHref": "3d2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Maximising a rectangle area under y = 4 - square root of x."
                 },
                 {
                   "id": "3d",
                   "label": "Question 3(d)",
                   "method": "finding when acceleration is zero from a velocity model.",
                   "href": "3d2019.html",
-                  "methodTitle": "When acceleration is zero from a velocity",
+                  "methodTitle": "Differentiation and Motion",
                   "canonical": "https://calc.nz/3d2019.html",
-                  "title": "When acceleration is zero from a velocity Worked Solution – 2019 NCEA Level 3 Q3(d) (AS91578) | Calc.nz",
+                  "title": "Differentiation and Motion Worked Solution – 2019 NCEA Level 3 Q3(d) (AS91578) | Calc.nz",
                   "description": "2019 NCEA Level 3 Differentiation AS91578 Question 3(d) worked solution: finding when acceleration is zero from a velocity model. Use guided hints and…",
                   "summary": "This walkthrough helps you practise finding when acceleration is zero from a velocity model. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -2647,7 +2777,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "3c2019.html",
                   "nextHref": "3e2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding when acceleration is zero from a velocity model."
                 },
                 {
                   "id": "3e",
@@ -2665,7 +2796,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "3d2019.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using a tangent intercept to find the coordinate of P."
                 }
               ]
             },
@@ -2693,16 +2825,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": null,
                   "nextHref": "1b2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Negative powers with the power and chain rules."
                 },
                 {
                   "id": "1b",
                   "label": "Question 1(b)",
                   "method": "second derivatives and proving an identity.",
                   "href": "1b2018.html",
-                  "methodTitle": "Second derivatives and proving an identity",
+                  "methodTitle": "Higher Derivatives",
                   "canonical": "https://calc.nz/1b2018.html",
-                  "title": "Second derivatives and proving an identity Worked Solution – 2018 NCEA Level 3 Q1(b) (AS91578) | Calc.nz",
+                  "title": "Higher Derivatives Worked Solution – 2018 NCEA Level 3 Q1(b) (AS91578) | Calc.nz",
                   "description": "2018 NCEA Level 3 Differentiation AS91578 Question 1(b) worked solution: second derivatives and proving an identity. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise second derivatives and proving an identity. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -2711,7 +2844,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "1a2018.html",
                   "nextHref": "1c2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Second derivatives and proving an identity."
                 },
                 {
                   "id": "1c",
@@ -2729,7 +2863,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "1b2018.html",
                   "nextHref": "1d2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Logarithmic and trigonometric differentiation."
                 },
                 {
                   "id": "1d",
@@ -2749,7 +2884,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "1c2018.html",
                   "nextHref": "1e2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Related rates for a car, rope, and pulley."
                 },
                 {
                   "id": "1e",
@@ -2769,7 +2905,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "1d2018.html",
                   "nextHref": "2a2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Parametric first and second derivatives."
                 },
                 {
                   "id": "2a",
@@ -2787,7 +2924,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "1e2018.html",
                   "nextHref": "2b2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Differentiating a radical and a cosecant."
                 },
                 {
                   "id": "2b",
@@ -2805,16 +2943,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "2a2018.html",
                   "nextHref": "2c2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding velocity from a logarithmic distance function."
                 },
                 {
                   "id": "2c",
                   "label": "Question 2(c)",
                   "method": "function values, limits, derivatives, and continuity from a graph.",
                   "href": "2c2018.html",
-                  "methodTitle": "Function values, limits, derivatives, and",
+                  "methodTitle": "Graph Analysis",
                   "canonical": "https://calc.nz/2c2018.html",
-                  "title": "Function values, limits, derivatives, and Worked Solution – 2018 NCEA Level 3 Q2(c) (AS91578) | Calc.nz",
+                  "title": "Graph Analysis Worked Solution – 2018 NCEA Level 3 Q2(c) (AS91578) | Calc.nz",
                   "description": "2018 NCEA Level 3 Differentiation AS91578 Question 2(c) worked solution: function values, limits, derivatives, and continuity from a graph. Use guided hints…",
                   "summary": "This walkthrough helps you practise function values, limits, derivatives, and continuity from a graph. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -2823,7 +2962,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "2b2018.html",
                   "nextHref": "2d2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Function values, limits, derivatives, and continuity from a graph."
                 },
                 {
                   "id": "2d",
@@ -2844,7 +2984,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "2c2018.html",
                   "nextHref": "2e2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product rule and stationary points of an exponential function."
                 },
                 {
                   "id": "2e",
@@ -2864,7 +3005,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "2d2018.html",
                   "nextHref": "3a2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Related rates for surface area in a conical tank."
                 },
                 {
                   "id": "3a",
@@ -2884,7 +3026,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "2e2018.html",
                   "nextHref": "3b2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Quotient rule with an exponential numerator."
                 },
                 {
                   "id": "3b",
@@ -2904,7 +3047,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "3a2018.html",
                   "nextHref": "3c2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding a parametric gradient."
                 },
                 {
                   "id": "3c",
@@ -2924,7 +3068,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "3b2018.html",
                   "nextHref": "3d2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Maximising the area of a triangle inside a parabola."
                 },
                 {
                   "id": "3d",
@@ -2944,7 +3089,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "3c2018.html",
                   "nextHref": "3e2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product rule and the equation of a tangent."
                 },
                 {
                   "id": "3e",
@@ -2964,7 +3110,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "3d2018.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Building and minimising a symmetric wire-length model."
                 }
               ]
             },
@@ -2992,7 +3139,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": null,
                   "nextHref": "1b2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Power and chain rules for a square root and trigonometric function."
                 },
                 {
                   "id": "1b",
@@ -3012,7 +3160,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "1a2017.html",
                   "nextHref": "1c2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Quotient and chain rules, then evaluating a gradient."
                 },
                 {
                   "id": "1c",
@@ -3030,7 +3179,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "1b2017.html",
                   "nextHref": "1d2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding a normal and its second intersection with a parabola."
                 },
                 {
                   "id": "1d",
@@ -3050,16 +3200,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "1c2017.html",
                   "nextHref": "1e2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Parametric differentiation and evaluating the gradient."
                 },
                 {
                   "id": "1e",
                   "label": "Question 1(e)",
                   "method": "combining point and turning-point conditions to find parameters.",
                   "href": "1e2017.html",
-                  "methodTitle": "Combining point and turning-point",
+                  "methodTitle": "Derivative Conditions",
                   "canonical": "https://calc.nz/1e2017.html",
-                  "title": "Combining point and turning-point Worked Solution – 2017 NCEA Level 3 Q1(e) (AS91578) | Calc.nz",
+                  "title": "Derivative Conditions Worked Solution – 2017 NCEA Level 3 Q1(e) (AS91578) | Calc.nz",
                   "description": "2017 NCEA Level 3 Differentiation AS91578 Question 1(e) worked solution: combining point and turning-point conditions to find parameters. Use guided hints…",
                   "summary": "This walkthrough helps you practise combining point and turning-point conditions to find parameters. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -3070,7 +3221,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "1d2017.html",
                   "nextHref": "2a2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Combining point and turning-point conditions to find parameters."
                 },
                 {
                   "id": "2a",
@@ -3090,7 +3242,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "1e2017.html",
                   "nextHref": "2b2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Chain rule differentiation of a composite fifth power."
                 },
                 {
                   "id": "2b",
@@ -3110,7 +3263,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "2a2017.html",
                   "nextHref": "2c2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Maximising a logarithmic germination model over its domain."
                 },
                 {
                   "id": "2c",
@@ -3128,7 +3282,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "2b2017.html",
                   "nextHref": "2d2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "A tangent to a square-root curve and its x-intercept."
                 },
                 {
                   "id": "2d",
@@ -3148,7 +3303,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "2c2017.html",
                   "nextHref": "2e2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Minimising squared distance from a point to a curve."
                 },
                 {
                   "id": "2e",
@@ -3168,7 +3324,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "2d2017.html",
                   "nextHref": "3a2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Maximising the area of a rectangle in a semicircle."
                 },
                 {
                   "id": "3a",
@@ -3189,16 +3346,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "2e2017.html",
                   "nextHref": "3b2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product and chain rules for a logarithmic function."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "negative powers and evaluating a gradient at a point.",
                   "href": "3b2017.html",
-                  "methodTitle": "Negative powers and evaluating a gradient",
+                  "methodTitle": "Power Rule",
                   "canonical": "https://calc.nz/3b2017.html",
-                  "title": "Negative powers and evaluating a gradient Worked Solution – 2017 NCEA Level 3 Q3(b) (AS91578) | Calc.nz",
+                  "title": "Power Rule Worked Solution – 2017 NCEA Level 3 Q3(b) (AS91578) | Calc.nz",
                   "description": "2017 NCEA Level 3 Differentiation AS91578 Question 3(b) worked solution: negative powers and evaluating a gradient at a point. Use guided hints and…",
                   "summary": "This walkthrough helps you practise negative powers and evaluating a gradient at a point. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -3207,16 +3365,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "3a2017.html",
                   "nextHref": "3c2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Negative powers and evaluating a gradient at a point."
                 },
                 {
                   "id": "3c",
                   "label": "Question 3(c)",
                   "method": "derivatives, continuity, limits, and concavity from a piecewise graph.",
                   "href": "3c2017.html",
-                  "methodTitle": "Derivatives, continuity, limits, and",
+                  "methodTitle": "Graph Analysis",
                   "canonical": "https://calc.nz/3c2017.html",
-                  "title": "Derivatives, continuity, limits, and Worked Solution – 2017 NCEA Level 3 Q3(c) (AS91578) | Calc.nz",
+                  "title": "Graph Analysis Worked Solution – 2017 NCEA Level 3 Q3(c) (AS91578) | Calc.nz",
                   "description": "2017 NCEA Level 3 Differentiation AS91578 Question 3(c) worked solution: derivatives, continuity, limits, and concavity from a piecewise graph. Use guided…",
                   "summary": "This walkthrough helps you practise derivatives, continuity, limits, and concavity from a piecewise graph. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -3225,7 +3384,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "3b2017.html",
                   "nextHref": "3d2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Derivatives, continuity, limits, and concavity from a piecewise graph."
                 },
                 {
                   "id": "3d",
@@ -3245,16 +3405,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "3c2017.html",
                   "nextHref": "3e2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Related rates for an elevator and a changing viewing angle."
                 },
                 {
                   "id": "3e",
                   "label": "Question 3(e)",
                   "method": "second derivatives and a differential-equation parameter.",
                   "href": "3e2017.html",
-                  "methodTitle": "Second derivatives and a",
+                  "methodTitle": "Higher Derivatives",
                   "canonical": "https://calc.nz/3e2017.html",
-                  "title": "Second derivatives and a Worked Solution – 2017 NCEA Level 3 Q3(e) (AS91578) | Calc.nz",
+                  "title": "Higher Derivatives Worked Solution – 2017 NCEA Level 3 Q3(e) (AS91578) | Calc.nz",
                   "description": "2017 NCEA Level 3 Differentiation AS91578 Question 3(e) worked solution: second derivatives and a differential-equation parameter. Use guided hints and…",
                   "summary": "This walkthrough helps you practise second derivatives and a differential-equation parameter. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -3265,7 +3426,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "3d2017.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Second derivatives and a differential-equation parameter."
                 }
               ]
             },
@@ -3280,9 +3442,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "label": "Question 1(a)",
                   "method": "power rule differentiation with negative exponents.",
                   "href": "1a2016.html",
-                  "methodTitle": "Power rule differentiation with negative",
+                  "methodTitle": "Power Rule",
                   "canonical": "https://calc.nz/1a2016.html",
-                  "title": "Power rule differentiation with negative Worked Solution – 2016 NCEA Level 3 Q1(a) (AS91578) | Calc.nz",
+                  "title": "Power Rule Worked Solution – 2016 NCEA Level 3 Q1(a) (AS91578) | Calc.nz",
                   "description": "2016 NCEA Level 3 Differentiation AS91578 Question 1(a) worked solution: power rule differentiation with negative exponents. Use guided hints and…",
                   "summary": "This walkthrough helps you practise power rule differentiation with negative exponents. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -3291,7 +3453,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": null,
                   "nextHref": "1b2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Power rule differentiation with negative exponents."
                 },
                 {
                   "id": "1b",
@@ -3311,7 +3474,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "1a2016.html",
                   "nextHref": "1c2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Trigonometric chain rule and evaluating a tide-height rate."
                 },
                 {
                   "id": "1c",
@@ -3331,7 +3495,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "1b2016.html",
                   "nextHref": "1d2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Parametric differentiation and a tangent gradient."
                 },
                 {
                   "id": "1d",
@@ -3349,16 +3514,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "1c2016.html",
                   "nextHref": "1e2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Perpendicular tangent gradients on a parabola."
                 },
                 {
                   "id": "1e",
                   "label": "Question 1(e)",
                   "method": "first and second chain-rule derivatives of an exponential.",
                   "href": "1e2016.html",
-                  "methodTitle": "First and second chain-rule derivatives",
+                  "methodTitle": "Chain Rule",
                   "canonical": "https://calc.nz/1e2016.html",
-                  "title": "First and second chain-rule derivatives Worked Solution – 2016 NCEA Level 3 Q1(e) (AS91578) | Calc.nz",
+                  "title": "Chain Rule Worked Solution – 2016 NCEA Level 3 Q1(e) (AS91578) | Calc.nz",
                   "description": "2016 NCEA Level 3 Differentiation AS91578 Question 1(e) worked solution: first and second chain-rule derivatives of an exponential. Use guided hints and…",
                   "summary": "This walkthrough helps you practise first and second chain-rule derivatives of an exponential. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -3369,7 +3535,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "1d2016.html",
                   "nextHref": "2a2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "First and second chain-rule derivatives of an exponential."
                 },
                 {
                   "id": "2a",
@@ -3390,7 +3557,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "1e2016.html",
                   "nextHref": "2b2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product and chain rules with a logarithm."
                 },
                 {
                   "id": "2b",
@@ -3410,7 +3578,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "2a2016.html",
                   "nextHref": "2c2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Chain rule differentiation of a square-root function."
                 },
                 {
                   "id": "2c",
@@ -3430,7 +3599,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "2b2016.html",
                   "nextHref": "2d2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Continuity, differentiability, stationary points, concavity, and limits from a graph."
                 },
                 {
                   "id": "2d",
@@ -3450,7 +3620,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "2c2016.html",
                   "nextHref": "2e2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Related rates for the radius of an inflating sphere."
                 },
                 {
                   "id": "2e",
@@ -3470,7 +3641,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "2d2016.html",
                   "nextHref": "3a2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Maximising the volume of a cone inside a sphere."
                 },
                 {
                   "id": "3a",
@@ -3490,7 +3662,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "2e2016.html",
                   "nextHref": "3b2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Chain rule differentiation of a fourth root."
                 },
                 {
                   "id": "3b",
@@ -3508,7 +3681,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "3a2016.html",
                   "nextHref": "3c2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a horizontal-tangent condition with an exponential."
                 },
                 {
                   "id": "3c",
@@ -3528,7 +3702,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "3b2016.html",
                   "nextHref": "3d2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Maximising a rectangle area beneath a parabola."
                 },
                 {
                   "id": "3d",
@@ -3548,7 +3723,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "3c2016.html",
                   "nextHref": "3e2016.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Quotient rule proof with exponential and trigonometric functions."
                 },
                 {
                   "id": "3e",
@@ -3568,7 +3744,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "3d2016.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Maximising a rugby conversion angle using trigonometry and calculus."
                 }
               ]
             }
@@ -3605,16 +3782,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": null,
                   "nextHref": "int-1b2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Recognising a reverse derivative with a sec-tan pattern."
                 },
                 {
                   "id": "1b",
                   "label": "Question 1(b)",
                   "method": "integrating a derivative and using an initial condition.",
                   "href": "int-1b2025.html",
-                  "methodTitle": "Integrating a derivative and using an",
+                  "methodTitle": "Integration with Conditions",
                   "canonical": "https://calc.nz/int-1b2025.html",
-                  "title": "Integrating a derivative and using an Worked Solution – 2025 NCEA Level 3 Q1(b) (AS91579) | Calc.nz",
+                  "title": "Integration with Conditions Worked Solution – 2025 NCEA Level 3 Q1(b) (AS91579) | Calc.nz",
                   "description": "2025 NCEA Level 3 Integration AS91579 Question 1(b) worked solution: integrating a derivative and using an initial condition. Use guided hints and…",
                   "summary": "This walkthrough helps you practise integrating a derivative and using an initial condition. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -3625,16 +3803,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-1a2025.html",
                   "nextHref": "int-1c2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating a derivative and using an initial condition."
                 },
                 {
                   "id": "1c",
                   "label": "Question 1(c)",
                   "method": "linking two definite integrals to solve for constants.",
                   "href": "int-1c2025.html",
-                  "methodTitle": "Linking two definite integrals to solve",
+                  "methodTitle": "Definite Integral Equations",
                   "canonical": "https://calc.nz/int-1c2025.html",
-                  "title": "Linking two definite integrals to solve Worked Solution – 2025 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
+                  "title": "Definite Integral Equations Worked Solution – 2025 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
                   "description": "2025 NCEA Level 3 Integration AS91579 Question 1(c) worked solution: linking two definite integrals to solve for constants. Use guided hints and…",
                   "summary": "This walkthrough helps you practise linking two definite integrals to solve for constants. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -3643,7 +3822,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-1b2025.html",
                   "nextHref": "int-1d2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Linking two definite integrals to solve for constants."
                 },
                 {
                   "id": "1d",
@@ -3663,16 +3843,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-1c2025.html",
                   "nextHref": "int-1e2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using product-to-sum before integrating a shaded trig area."
                 },
                 {
                   "id": "1e",
                   "label": "Question 1(e)",
                   "method": "separating variables and evaluating the resulting model.",
                   "href": "int-1e2025.html",
-                  "methodTitle": "Separating variables and evaluating the",
+                  "methodTitle": "Differential Equations",
                   "canonical": "https://calc.nz/int-1e2025.html",
-                  "title": "Separating variables and evaluating the Worked Solution – 2025 NCEA Level 3 Q1(e) (AS91579) | Calc.nz",
+                  "title": "Differential Equations Worked Solution – 2025 NCEA Level 3 Q1(e) (AS91579) | Calc.nz",
                   "description": "2025 NCEA Level 3 Integration AS91579 Question 1(e) worked solution: separating variables and evaluating the resulting model. Use guided hints and…",
                   "summary": "This walkthrough helps you practise separating variables and evaluating the resulting model. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -3683,7 +3864,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-1d2025.html",
                   "nextHref": "int-2a2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Separating variables and evaluating the resulting model."
                 },
                 {
                   "id": "2a",
@@ -3703,16 +3885,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-1e2025.html",
                   "nextHref": "int-2b2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reverse chain rule integration of a linear power."
                 },
                 {
                   "id": "2b",
                   "label": "Question 2(b)",
                   "method": "integrating a rate function and fitting the constant.",
                   "href": "int-2b2025.html",
-                  "methodTitle": "Integrating a rate function and fitting",
+                  "methodTitle": "Integration with Conditions",
                   "canonical": "https://calc.nz/int-2b2025.html",
-                  "title": "Integrating a rate function and fitting Worked Solution – 2025 NCEA Level 3 Q2(b) (AS91579) | Calc.nz",
+                  "title": "Integration with Conditions Worked Solution – 2025 NCEA Level 3 Q2(b) (AS91579) | Calc.nz",
                   "description": "2025 NCEA Level 3 Integration AS91579 Question 2(b) worked solution: integrating a rate function and fitting the constant. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise integrating a rate function and fitting the constant. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -3723,16 +3906,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-2a2025.html",
                   "nextHref": "int-2c2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating a rate function and fitting the constant."
                 },
                 {
                   "id": "2c",
                   "label": "Question 2(c)",
                   "method": "using a definite integral to determine a constant.",
                   "href": "int-2c2025.html",
-                  "methodTitle": "A definite integral to determine a",
+                  "methodTitle": "Definite Integral Equations",
                   "canonical": "https://calc.nz/int-2c2025.html",
-                  "title": "A definite integral to determine a Worked Solution – 2025 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
+                  "title": "Definite Integral Equations Worked Solution – 2025 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
                   "description": "2025 NCEA Level 3 Integration AS91579 Question 2(c) worked solution: using a definite integral to determine a constant. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise using a definite integral to determine a constant. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -3741,16 +3925,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-2b2025.html",
                   "nextHref": "int-2d2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using a definite integral to determine a constant."
                 },
                 {
                   "id": "2d",
                   "label": "Question 2(d)",
                   "method": "building velocity and displacement from acceleration with initial conditions.",
                   "href": "int-2d2025.html",
-                  "methodTitle": "Velocity and displacement from",
+                  "methodTitle": "Integration and Kinematics",
                   "canonical": "https://calc.nz/int-2d2025.html",
-                  "title": "Velocity and displacement from Worked Solution – 2025 NCEA Level 3 Q2(d) (AS91579) | Calc.nz",
+                  "title": "Integration and Kinematics Worked Solution – 2025 NCEA Level 3 Q2(d) (AS91579) | Calc.nz",
                   "description": "2025 NCEA Level 3 Integration AS91579 Question 2(d) worked solution: building velocity and displacement from acceleration with initial conditions. Use…",
                   "summary": "This walkthrough helps you practise building velocity and displacement from acceleration with initial conditions. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -3761,7 +3946,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-2c2025.html",
                   "nextHref": "int-2e2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Building velocity and displacement from acceleration with initial conditions."
                 },
                 {
                   "id": "2e",
@@ -3781,16 +3967,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-2d2025.html",
                   "nextHref": "int-3a2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Substitution in a shaded trigonometric area problem."
                 },
                 {
                   "id": "3a",
                   "label": "Question 3(a)",
                   "method": "estimating cross-sectional area with the trapezium rule.",
                   "href": "int-3a2025.html",
-                  "methodTitle": "Estimating cross-sectional area with the",
+                  "methodTitle": "Numerical Integration",
                   "canonical": "https://calc.nz/int-3a2025.html",
-                  "title": "Estimating cross-sectional area with the Worked Solution – 2025 NCEA Level 3 Q3(a) (AS91579) | Calc.nz",
+                  "title": "Numerical Integration Worked Solution – 2025 NCEA Level 3 Q3(a) (AS91579) | Calc.nz",
                   "description": "2025 NCEA Level 3 Integration AS91579 Question 3(a) worked solution: estimating cross-sectional area with the trapezium rule. Use guided hints and…",
                   "summary": "This walkthrough helps you practise estimating cross-sectional area with the trapezium rule. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -3801,7 +3988,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-2e2025.html",
                   "nextHref": "int-3b2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Estimating cross-sectional area with the trapezium rule."
                 },
                 {
                   "id": "3b",
@@ -3822,7 +4010,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-3a2025.html",
                   "nextHref": "int-3c2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Logarithmic antiderivatives with a linear inside."
                 },
                 {
                   "id": "3c",
@@ -3842,16 +4031,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-3b2025.html",
                   "nextHref": "int-3d2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a separable differential equation with a radical."
                 },
                 {
                   "id": "3d",
                   "label": "Question 3(d)",
                   "method": "proving a cubic relation from a shaded area.",
                   "href": "int-3d2025.html",
-                  "methodTitle": "A cubic relation from a shaded area",
+                  "methodTitle": "Integration and Area",
                   "canonical": "https://calc.nz/int-3d2025.html",
-                  "title": "A cubic relation from a shaded area Worked Solution – 2025 NCEA Level 3 Q3(d) (AS91579) | Calc.nz",
+                  "title": "Integration and Area Worked Solution – 2025 NCEA Level 3 Q3(d) (AS91579) | Calc.nz",
                   "description": "2025 NCEA Level 3 Integration AS91579 Question 3(d) worked solution: proving a cubic relation from a shaded area. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise proving a cubic relation from a shaded area. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -3860,16 +4050,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-3c2025.html",
                   "nextHref": "int-3e2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving a cubic relation from a shaded area."
                 },
                 {
                   "id": "3e",
                   "label": "Question 3(e)",
                   "method": "using weighted-average integrals to find a balance point.",
                   "href": "int-3e2025.html",
-                  "methodTitle": "Weighted-average integrals to find a",
+                  "methodTitle": "Mean-value Integration",
                   "canonical": "https://calc.nz/int-3e2025.html",
-                  "title": "Weighted-average integrals to find a Worked Solution – 2025 NCEA Level 3 Q3(e) (AS91579) | Calc.nz",
+                  "title": "Mean-value Integration Worked Solution – 2025 NCEA Level 3 Q3(e) (AS91579) | Calc.nz",
                   "description": "2025 NCEA Level 3 Integration AS91579 Question 3(e) worked solution: using weighted-average integrals to find a balance point. Use guided hints and…",
                   "summary": "This walkthrough helps you practise using weighted-average integrals to find a balance point. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -3878,7 +4069,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-3d2025.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using weighted-average integrals to find a balance point."
                 }
               ]
             },
@@ -3906,7 +4098,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": null,
                   "nextHref": "int-1b2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Recognising a reverse sec-tan derivative pattern."
                 },
                 {
                   "id": "1b",
@@ -3924,16 +4117,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-1a2024.html",
                   "nextHref": "int-1c2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Setting up and evaluating a shaded polynomial area."
                 },
                 {
                   "id": "1c",
                   "label": "Question 1(c)",
                   "method": "integrating velocity and using a position condition.",
                   "href": "int-1c2024.html",
-                  "methodTitle": "Integrating velocity and using a position",
+                  "methodTitle": "Integration and Kinematics",
                   "canonical": "https://calc.nz/int-1c2024.html",
-                  "title": "Integrating velocity and using a position Worked Solution – 2024 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
+                  "title": "Integration and Kinematics Worked Solution – 2024 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
                   "description": "2024 NCEA Level 3 Integration AS91579 Question 1(c) worked solution: integrating velocity and using a position condition. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise integrating velocity and using a position condition. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -3944,7 +4138,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-1b2024.html",
                   "nextHref": "int-1d2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating velocity and using a position condition."
                 },
                 {
                   "id": "1d",
@@ -3965,7 +4160,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-1c2024.html",
                   "nextHref": "int-1e2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product-to-sum before integrating a differential equation."
                 },
                 {
                   "id": "1e",
@@ -3983,16 +4179,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-1d2024.html",
                   "nextHref": "int-2a2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding area between sec² and tan² curves."
                 },
                 {
                   "id": "2a",
                   "label": "Question 2(a)",
                   "method": "expanding a square before integrating term by term.",
                   "href": "int-2a2024.html",
-                  "methodTitle": "Expanding a square before integrating",
+                  "methodTitle": "Algebraic Integration",
                   "canonical": "https://calc.nz/int-2a2024.html",
-                  "title": "Expanding a square before integrating Worked Solution – 2024 NCEA Level 3 Q2(a) (AS91579) | Calc.nz",
+                  "title": "Algebraic Integration Worked Solution – 2024 NCEA Level 3 Q2(a) (AS91579) | Calc.nz",
                   "description": "2024 NCEA Level 3 Integration AS91579 Question 2(a) worked solution: expanding a square before integrating term by term. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise expanding a square before integrating term by term. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -4003,16 +4200,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-1e2024.html",
                   "nextHref": "int-2b2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Expanding a square before integrating term by term."
                 },
                 {
                   "id": "2b",
                   "label": "Question 2(b)",
                   "method": "solving for a lower limit from a definite integral.",
                   "href": "int-2b2024.html",
-                  "methodTitle": "For a lower limit from a definite",
+                  "methodTitle": "Definite Integral Equations",
                   "canonical": "https://calc.nz/int-2b2024.html",
-                  "title": "For a lower limit from a definite Worked Solution – 2024 NCEA Level 3 Q2(b) (AS91579) | Calc.nz",
+                  "title": "Definite Integral Equations Worked Solution – 2024 NCEA Level 3 Q2(b) (AS91579) | Calc.nz",
                   "description": "2024 NCEA Level 3 Integration AS91579 Question 2(b) worked solution: solving for a lower limit from a definite integral. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise solving for a lower limit from a definite integral. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4021,16 +4219,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-2a2024.html",
                   "nextHref": "int-2c2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving for a lower limit from a definite integral."
                 },
                 {
                   "id": "2c",
                   "label": "Question 2(c)",
                   "method": "separating variables with an exponential model.",
                   "href": "int-2c2024.html",
-                  "methodTitle": "Separating variables with an exponential",
+                  "methodTitle": "Differential Equations",
                   "canonical": "https://calc.nz/int-2c2024.html",
-                  "title": "Separating variables with an exponential Worked Solution – 2024 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
+                  "title": "Differential Equations Worked Solution – 2024 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
                   "description": "2024 NCEA Level 3 Integration AS91579 Question 2(c) worked solution: separating variables with an exponential model. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise separating variables with an exponential model. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4041,17 +4240,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-2b2024.html",
                   "nextHref": "int-2d2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Separating variables with an exponential model."
                 },
                 {
                   "id": "2d",
                   "label": "Question 2(d)",
                   "method": "using trig identities in a shaded \\(\\sin^2x\\) area.",
                   "href": "int-2d2024.html",
-                  "methodTitle": "Trig identities in a shaded sin to",
+                  "methodTitle": "Trigonometric Integration",
                   "canonical": "https://calc.nz/int-2d2024.html",
-                  "title": "Trig identities in a shaded sin to Worked Solution – 2024 NCEA Level 3 Q2(d) (AS91579) | Calc.nz",
-                  "description": "2024 NCEA Level 3 Integration AS91579 Question 2(d) worked solution: using trig identities in a shaded sin to the power 2x area. Use guided hints and…",
+                  "title": "Trigonometric Integration Worked Solution – 2024 NCEA Level 3 Q2(d) (AS91579) | Calc.nz",
+                  "description": "2024 NCEA Level 3 Integration AS91579 Question 2(d) worked solution: using trig identities in a shaded sin squared x area. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise using trig identities in a shaded \\(\\sin^2x\\) area. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
                   "skillSlugs": [
@@ -4061,7 +4261,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-2c2024.html",
                   "nextHref": "int-2e2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using trig identities in a shaded sin squared x area."
                 },
                 {
                   "id": "2e",
@@ -4081,16 +4282,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-2d2024.html",
                   "nextHref": "int-3a2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Logarithmic substitution in a spherical mass model."
                 },
                 {
                   "id": "3a",
                   "label": "Question 3(a)",
                   "method": "integrating exponential terms with different inside coefficients.",
                   "href": "int-3a2024.html",
-                  "methodTitle": "Integrating exponential terms with",
+                  "methodTitle": "Exponential Integration",
                   "canonical": "https://calc.nz/int-3a2024.html",
-                  "title": "Integrating exponential terms with Worked Solution – 2024 NCEA Level 3 Q3(a) (AS91579) | Calc.nz",
+                  "title": "Exponential Integration Worked Solution – 2024 NCEA Level 3 Q3(a) (AS91579) | Calc.nz",
                   "description": "2024 NCEA Level 3 Integration AS91579 Question 3(a) worked solution: integrating exponential terms with different inside coefficients. Use guided hints and…",
                   "summary": "This walkthrough helps you practise integrating exponential terms with different inside coefficients. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -4101,7 +4303,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-2e2024.html",
                   "nextHref": "int-3b2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating exponential terms with different inside coefficients."
                 },
                 {
                   "id": "3b",
@@ -4121,16 +4324,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-3a2024.html",
                   "nextHref": "int-3c2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a logarithmic differential equation using a condition."
                 },
                 {
                   "id": "3c",
                   "label": "Question 3(c)",
                   "method": "decomposing a rational integrand before solving for a parameter.",
                   "href": "int-3c2024.html",
-                  "methodTitle": "Decomposing a rational integrand before",
+                  "methodTitle": "Rational-function Integration",
                   "canonical": "https://calc.nz/int-3c2024.html",
-                  "title": "Decomposing a rational integrand before Worked Solution – 2024 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
+                  "title": "Rational-function Integration Worked Solution – 2024 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
                   "description": "2024 NCEA Level 3 Integration AS91579 Question 3(c) worked solution: decomposing a rational integrand before solving for a parameter. Use guided hints and…",
                   "summary": "This walkthrough helps you practise decomposing a rational integrand before solving for a parameter. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4141,16 +4345,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-3b2024.html",
                   "nextHref": "int-3d2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Decomposing a rational integrand before solving for a parameter."
                 },
                 {
                   "id": "3d",
                   "label": "Question 3(d)",
                   "method": "splitting a cosine area into two equal parts.",
                   "href": "int-3d2024.html",
-                  "methodTitle": "Splitting a cosine area into two equal",
+                  "methodTitle": "Trigonometric Integration",
                   "canonical": "https://calc.nz/int-3d2024.html",
-                  "title": "Splitting a cosine area into two equal Worked Solution – 2024 NCEA Level 3 Q3(d) (AS91579) | Calc.nz",
+                  "title": "Trigonometric Integration Worked Solution – 2024 NCEA Level 3 Q3(d) (AS91579) | Calc.nz",
                   "description": "2024 NCEA Level 3 Integration AS91579 Question 3(d) worked solution: splitting a cosine area into two equal parts. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise splitting a cosine area into two equal parts. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -4159,16 +4364,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-3c2024.html",
                   "nextHref": "int-3e2024.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Splitting a cosine area into two equal parts."
                 },
                 {
                   "id": "3e",
                   "label": "Question 3(e)",
                   "method": "building and solving a Newton's law of cooling model.",
                   "href": "int-3e2024.html",
-                  "methodTitle": "And solving a Newton's law of cooling",
+                  "methodTitle": "Newton’s Law of Cooling",
                   "canonical": "https://calc.nz/int-3e2024.html",
-                  "title": "And solving a Newton's law of cooling Worked Solution – 2024 NCEA Level 3 Q3(e) (AS91579) | Calc.nz",
+                  "title": "Newton’s Law of Cooling Worked Solution – 2024 NCEA Level 3 Q3(e) (AS91579) | Calc.nz",
                   "description": "2024 NCEA Level 3 Integration AS91579 Question 3(e) worked solution: building and solving a Newton's law of cooling model. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise building and solving a Newton's law of cooling model. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4177,7 +4383,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-3d2024.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Building and solving a Newton's law of cooling model."
                 }
               ]
             },
@@ -4192,9 +4399,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "label": "Question 1(a)",
                   "method": "splitting an integral into three familiar antiderivatives.",
                   "href": "int-1a2023.html",
-                  "methodTitle": "Splitting an integral into three familiar",
+                  "methodTitle": "Algebraic Integration",
                   "canonical": "https://calc.nz/int-1a2023.html",
-                  "title": "Splitting an integral into three familiar Worked Solution – 2023 NCEA Level 3 Q1(a) (AS91579) | Calc.nz",
+                  "title": "Algebraic Integration Worked Solution – 2023 NCEA Level 3 Q1(a) (AS91579) | Calc.nz",
                   "description": "2023 NCEA Level 3 Integration AS91579 Question 1(a) worked solution: splitting an integral into three familiar antiderivatives. Use guided hints and…",
                   "summary": "This walkthrough helps you practise splitting an integral into three familiar antiderivatives. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4206,16 +4413,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": null,
                   "nextHref": "int-1b2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Splitting an integral into three familiar antiderivatives."
                 },
                 {
                   "id": "1b",
                   "label": "Question 1(b)",
                   "method": "integrating velocity to get position, then using the starting distance.",
                   "href": "int-1b2023.html",
-                  "methodTitle": "Integrating velocity to get position,",
+                  "methodTitle": "Integration and Kinematics",
                   "canonical": "https://calc.nz/int-1b2023.html",
-                  "title": "Integrating velocity to get position, Worked Solution – 2023 NCEA Level 3 Q1(b) (AS91579) | Calc.nz",
+                  "title": "Integration and Kinematics Worked Solution – 2023 NCEA Level 3 Q1(b) (AS91579) | Calc.nz",
                   "description": "2023 NCEA Level 3 Integration AS91579 Question 1(b) worked solution: integrating velocity to get position, then using the starting distance. Use guided…",
                   "summary": "This walkthrough helps you practise integrating velocity to get position, then using the starting distance. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -4226,7 +4434,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-1a2023.html",
                   "nextHref": "int-1c2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating velocity to get position, then using the starting distance."
                 },
                 {
                   "id": "1c",
@@ -4236,7 +4445,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Integration and Area",
                   "canonical": "https://calc.nz/int-1c2023.html",
                   "title": "Integration and Area Worked Solution – 2023 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
-                  "description": "2023 NCEA Level 3 Integration AS91579 Question 1(c) worked solution: finding intersections and the area between square root of x and fraction x to the power…",
+                  "description": "2023 NCEA Level 3 Integration AS91579 Question 1(c) worked solution: finding intersections and the area between square root of x and x squared divided by 8.…",
                   "summary": "This walkthrough helps you practise finding intersections and the area between \\(\\sqrt{x}\\) and \\(\\frac{x^2}{8}\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
                   "skillSlugs": [],
@@ -4244,16 +4453,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-1b2023.html",
                   "nextHref": "int-1d2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding intersections and the area between square root of x and x squared divided by 8."
                 },
                 {
                   "id": "1d",
                   "label": "Question 1(d)",
                   "method": "separating variables and using a condition to keep the correct solution branch.",
                   "href": "int-1d2023.html",
-                  "methodTitle": "Separating variables and using a",
+                  "methodTitle": "Differential Equations",
                   "canonical": "https://calc.nz/int-1d2023.html",
-                  "title": "Separating variables and using a Worked Solution – 2023 NCEA Level 3 Q1(d) (AS91579) | Calc.nz",
+                  "title": "Differential Equations Worked Solution – 2023 NCEA Level 3 Q1(d) (AS91579) | Calc.nz",
                   "description": "2023 NCEA Level 3 Integration AS91579 Question 1(d) worked solution: separating variables and using a condition to keep the correct solution branch. Use…",
                   "summary": "This walkthrough helps you practise separating variables and using a condition to keep the correct solution branch. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4264,16 +4474,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-1c2023.html",
                   "nextHref": "int-1e2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Separating variables and using a condition to keep the correct solution branch."
                 },
                 {
                   "id": "1e",
                   "label": "Question 1(e)",
                   "method": "combining curve intersections with a subtract-a-cap area strategy.",
                   "href": "int-1e2023.html",
-                  "methodTitle": "Combining curve intersections with a",
+                  "methodTitle": "Integration and Area",
                   "canonical": "https://calc.nz/int-1e2023.html",
-                  "title": "Combining curve intersections with a Worked Solution – 2023 NCEA Level 3 Q1(e) (AS91579) | Calc.nz",
+                  "title": "Integration and Area Worked Solution – 2023 NCEA Level 3 Q1(e) (AS91579) | Calc.nz",
                   "description": "2023 NCEA Level 3 Integration AS91579 Question 1(e) worked solution: combining curve intersections with a subtract-a-cap area strategy. Use guided hints and…",
                   "summary": "This walkthrough helps you practise combining curve intersections with a subtract-a-cap area strategy. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -4282,7 +4493,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-1d2023.html",
                   "nextHref": "int-2a2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Combining curve intersections with a subtract-a-cap area strategy."
                 },
                 {
                   "id": "2a",
@@ -4300,7 +4512,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-1e2023.html",
                   "nextHref": "int-2b2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reversing a linear exponential chain rule."
                 },
                 {
                   "id": "2b",
@@ -4320,16 +4533,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-2a2023.html",
                   "nextHref": "int-2c2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating a radical differential equation and fitting the constant."
                 },
                 {
                   "id": "2c",
                   "label": "Question 2(c)",
                   "method": "rewriting a rational integrand before solving for \\(k\\).",
                   "href": "int-2c2023.html",
-                  "methodTitle": "A rational integrand before solving for k",
+                  "methodTitle": "Rational-function Integration",
                   "canonical": "https://calc.nz/int-2c2023.html",
-                  "title": "A rational integrand before solving for k Worked Solution – 2023 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
+                  "title": "Rational-function Integration Worked Solution – 2023 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
                   "description": "2023 NCEA Level 3 Integration AS91579 Question 2(c) worked solution: rewriting a rational integrand before solving for k. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise rewriting a rational integrand before solving for \\(k\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4340,7 +4554,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-2b2023.html",
                   "nextHref": "int-2d2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rewriting a rational integrand before solving for k."
                 },
                 {
                   "id": "2d",
@@ -4358,7 +4573,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-2c2023.html",
                   "nextHref": "int-2e2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Spotting a logarithmic quotient by differentiating the denominator."
                 },
                 {
                   "id": "2e",
@@ -4376,16 +4592,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-2d2023.html",
                   "nextHref": "int-3a2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Building and solving a quadratic decay model for volume."
                 },
                 {
                   "id": "3a",
                   "label": "Question 3(a)",
                   "method": "using Simpson’s Rule with measured garden ordinates.",
                   "href": "int-3a2023.html",
-                  "methodTitle": "Simpson’s Rule with measured garden",
+                  "methodTitle": "Numerical Integration",
                   "canonical": "https://calc.nz/int-3a2023.html",
-                  "title": "Simpson’s Rule with measured garden Worked Solution – 2023 NCEA Level 3 Q3(a) (AS91579) | Calc.nz",
+                  "title": "Numerical Integration Worked Solution – 2023 NCEA Level 3 Q3(a) (AS91579) | Calc.nz",
                   "description": "2023 NCEA Level 3 Integration AS91579 Question 3(a) worked solution: using Simpson’s Rule with measured garden ordinates. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise using Simpson’s Rule with measured garden ordinates. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4396,7 +4613,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-2e2023.html",
                   "nextHref": "int-3b2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using Simpson’s Rule with measured garden ordinates."
                 },
                 {
                   "id": "3b",
@@ -4416,16 +4634,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-3a2023.html",
                   "nextHref": "int-3c2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Simplifying radicals before integrating term by term."
                 },
                 {
                   "id": "3c",
                   "label": "Question 3(c)",
                   "method": "using product-to-sum in a shaded trigonometric area.",
                   "href": "int-3c2023.html",
-                  "methodTitle": "Product-to-sum in a shaded trigonometric",
+                  "methodTitle": "Trigonometric Integration",
                   "canonical": "https://calc.nz/int-3c2023.html",
-                  "title": "Product-to-sum in a shaded trigonometric Worked Solution – 2023 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
+                  "title": "Trigonometric Integration Worked Solution – 2023 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
                   "description": "2023 NCEA Level 3 Integration AS91579 Question 3(c) worked solution: using product-to-sum in a shaded trigonometric area. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise using product-to-sum in a shaded trigonometric area. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -4436,16 +4655,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-3b2023.html",
                   "nextHref": "int-3d2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using product-to-sum in a shaded trigonometric area."
                 },
                 {
                   "id": "3d",
                   "label": "Question 3(d)",
                   "method": "integrating acceleration to velocity with an initial condition.",
                   "href": "int-3d2023.html",
-                  "methodTitle": "Integrating acceleration to velocity with",
+                  "methodTitle": "Integration and Kinematics",
                   "canonical": "https://calc.nz/int-3d2023.html",
-                  "title": "Integrating acceleration to velocity with Worked Solution – 2023 NCEA Level 3 Q3(d) (AS91579) | Calc.nz",
+                  "title": "Integration and Kinematics Worked Solution – 2023 NCEA Level 3 Q3(d) (AS91579) | Calc.nz",
                   "description": "2023 NCEA Level 3 Integration AS91579 Question 3(d) worked solution: integrating acceleration to velocity with an initial condition. Use guided hints and…",
                   "summary": "This walkthrough helps you practise integrating acceleration to velocity with an initial condition. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -4456,7 +4676,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-3c2023.html",
                   "nextHref": "int-3e2023.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating acceleration to velocity with an initial condition."
                 },
                 {
                   "id": "3e",
@@ -4477,7 +4698,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-3d2023.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Factor cancellation in a separable differential equation."
                 }
               ]
             },
@@ -4505,16 +4727,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": null,
                   "nextHref": "int-1b2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Splitting an integral into logarithm and trig parts."
                 },
                 {
                   "id": "1b",
                   "label": "Question 1(b)",
                   "method": "using symmetry and signed area on a graph with no formula.",
                   "href": "int-1b2022.html",
-                  "methodTitle": "Symmetry and signed area on a graph",
+                  "methodTitle": "Trigonometric Integration",
                   "canonical": "https://calc.nz/int-1b2022.html",
-                  "title": "Symmetry and signed area on a graph Worked Solution – 2022 NCEA Level 3 Q1(b) (AS91579) | Calc.nz",
+                  "title": "Trigonometric Integration Worked Solution – 2022 NCEA Level 3 Q1(b) (AS91579) | Calc.nz",
                   "description": "2022 NCEA Level 3 Integration AS91579 Question 1(b) worked solution: using symmetry and signed area on a graph with no formula. Use guided hints and…",
                   "summary": "This walkthrough helps you practise using symmetry and signed area on a graph with no formula. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -4523,17 +4746,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-1a2022.html",
                   "nextHref": "int-1c2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using symmetry and signed area on a graph with no formula."
                 },
                 {
                   "id": "1c",
                   "label": "Question 1(c)",
                   "method": "rewriting \\(\\sin^2(2x)\\) before integrating exactly.",
                   "href": "int-1c2022.html",
-                  "methodTitle": "Sin to the power 2(2x) before integrating",
+                  "methodTitle": "Sin squared (2x) before integrating exactly",
                   "canonical": "https://calc.nz/int-1c2022.html",
-                  "title": "Sin to the power 2(2x) before integrating Worked Solution – 2022 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
-                  "description": "2022 NCEA Level 3 Integration AS91579 Question 1(c) worked solution: rewriting sin to the power 2(2x) before integrating exactly. Use guided hints and…",
+                  "title": "Sin squared (2x) before integrating exactly Worked Solution – 2022 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
+                  "description": "2022 NCEA Level 3 Integration AS91579 Question 1(c) worked solution: rewriting sin squared (2x) before integrating exactly. Use guided hints and…",
                   "summary": "This walkthrough helps you practise rewriting \\(\\sin^2(2x)\\) before integrating exactly. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
                   "skillSlugs": [
@@ -4543,16 +4767,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-1b2022.html",
                   "nextHref": "int-1d2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rewriting sin squared (2x) before integrating exactly."
                 },
                 {
                   "id": "1d",
                   "label": "Question 1(d)",
                   "method": "setting up a shaded-area equation to solve for \\(k\\).",
                   "href": "int-1d2022.html",
-                  "methodTitle": "Setting up a shaded-area equation to solve",
+                  "methodTitle": "Integration and Area",
                   "canonical": "https://calc.nz/int-1d2022.html",
-                  "title": "Setting up a shaded-area equation to solve Worked Solution – 2022 NCEA Level 3 Q1(d) (AS91579) | Calc.nz",
+                  "title": "Integration and Area Worked Solution – 2022 NCEA Level 3 Q1(d) (AS91579) | Calc.nz",
                   "description": "2022 NCEA Level 3 Integration AS91579 Question 1(d) worked solution: setting up a shaded-area equation to solve for k. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise setting up a shaded-area equation to solve for \\(k\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -4561,7 +4786,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-1c2022.html",
                   "nextHref": "int-1e2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Setting up a shaded-area equation to solve for k."
                 },
                 {
                   "id": "1e",
@@ -4579,16 +4805,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-1d2022.html",
                   "nextHref": "int-2a2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding exact area between exponential curves."
                 },
                 {
                   "id": "2a",
                   "label": "Question 2(a)",
                   "method": "integrating an exponential term and a square-root term.",
                   "href": "int-2a2022.html",
-                  "methodTitle": "Integrating an exponential term and a",
+                  "methodTitle": "Radical Integration",
                   "canonical": "https://calc.nz/int-2a2022.html",
-                  "title": "Integrating an exponential term and a Worked Solution – 2022 NCEA Level 3 Q2(a) (AS91579) | Calc.nz",
+                  "title": "Radical Integration Worked Solution – 2022 NCEA Level 3 Q2(a) (AS91579) | Calc.nz",
                   "description": "2022 NCEA Level 3 Integration AS91579 Question 2(a) worked solution: integrating an exponential term and a square-root term. Use guided hints and…",
                   "summary": "This walkthrough helps you practise integrating an exponential term and a square-root term. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -4599,16 +4826,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-1e2022.html",
                   "nextHref": "int-2b2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating an exponential term and a square-root term."
                 },
                 {
                   "id": "2b",
                   "label": "Question 2(b)",
                   "method": "solving for an upper limit from a definite integral.",
                   "href": "int-2b2022.html",
-                  "methodTitle": "For an upper limit from a definite",
+                  "methodTitle": "Definite Integral Equations",
                   "canonical": "https://calc.nz/int-2b2022.html",
-                  "title": "For an upper limit from a definite Worked Solution – 2022 NCEA Level 3 Q2(b) (AS91579) | Calc.nz",
+                  "title": "Definite Integral Equations Worked Solution – 2022 NCEA Level 3 Q2(b) (AS91579) | Calc.nz",
                   "description": "2022 NCEA Level 3 Integration AS91579 Question 2(b) worked solution: solving for an upper limit from a definite integral. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise solving for an upper limit from a definite integral. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4617,16 +4845,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-2a2022.html",
                   "nextHref": "int-2c2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving for an upper limit from a definite integral."
                 },
                 {
                   "id": "2c",
                   "label": "Question 2(c)",
                   "method": "separating variables and using a condition in a log model.",
                   "href": "int-2c2022.html",
-                  "methodTitle": "Separating variables and using a",
+                  "methodTitle": "Differential Equations",
                   "canonical": "https://calc.nz/int-2c2022.html",
-                  "title": "Separating variables and using a Worked Solution – 2022 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
+                  "title": "Differential Equations Worked Solution – 2022 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
                   "description": "2022 NCEA Level 3 Integration AS91579 Question 2(c) worked solution: separating variables and using a condition in a log model. Use guided hints and…",
                   "summary": "This walkthrough helps you practise separating variables and using a condition in a log model. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Keep logarithm domain restrictions and any inner-function factor visible throughout the working.",
@@ -4637,16 +4866,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-2b2022.html",
                   "nextHref": "int-2d2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Separating variables and using a condition in a log model."
                 },
                 {
                   "id": "2d",
                   "label": "Question 2(d)",
                   "method": "turning acceleration into velocity, then distance over one second.",
                   "href": "int-2d2022.html",
-                  "methodTitle": "Turning acceleration into velocity, then",
+                  "methodTitle": "Integration and Kinematics",
                   "canonical": "https://calc.nz/int-2d2022.html",
-                  "title": "Turning acceleration into velocity, then Worked Solution – 2022 NCEA Level 3 Q2(d) (AS91579) | Calc.nz",
+                  "title": "Integration and Kinematics Worked Solution – 2022 NCEA Level 3 Q2(d) (AS91579) | Calc.nz",
                   "description": "2022 NCEA Level 3 Integration AS91579 Question 2(d) worked solution: turning acceleration into velocity, then distance over one second. Use guided hints and…",
                   "summary": "This walkthrough helps you practise turning acceleration into velocity, then distance over one second. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4655,7 +4885,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-2c2022.html",
                   "nextHref": "int-2e2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Turning acceleration into velocity, then distance over one second."
                 },
                 {
                   "id": "2e",
@@ -4673,7 +4904,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-2d2022.html",
                   "nextHref": "int-3a2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a separable leakage model for the required time."
                 },
                 {
                   "id": "3a",
@@ -4693,16 +4925,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-2e2022.html",
                   "nextHref": "int-3b2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reverse chain rule on a linear power."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "applying the Trapezium Rule from tabulated values.",
                   "href": "int-3b2022.html",
-                  "methodTitle": "The Trapezium Rule from tabulated values",
+                  "methodTitle": "Numerical Integration",
                   "canonical": "https://calc.nz/int-3b2022.html",
-                  "title": "The Trapezium Rule from tabulated values Worked Solution – 2022 NCEA Level 3 Q3(b) (AS91579) | Calc.nz",
+                  "title": "Numerical Integration Worked Solution – 2022 NCEA Level 3 Q3(b) (AS91579) | Calc.nz",
                   "description": "2022 NCEA Level 3 Integration AS91579 Question 3(b) worked solution: applying the Trapezium Rule from tabulated values. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise applying the Trapezium Rule from tabulated values. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4713,16 +4946,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-3a2022.html",
                   "nextHref": "int-3c2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Applying the Trapezium Rule from tabulated values."
                 },
                 {
                   "id": "3c",
                   "label": "Question 3(c)",
                   "method": "simplifying a rational integrand before evaluating it.",
                   "href": "int-3c2022.html",
-                  "methodTitle": "A rational integrand before evaluating it",
+                  "methodTitle": "Rational-function Integration",
                   "canonical": "https://calc.nz/int-3c2022.html",
-                  "title": "A rational integrand before evaluating it Worked Solution – 2022 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
+                  "title": "Rational-function Integration Worked Solution – 2022 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
                   "description": "2022 NCEA Level 3 Integration AS91579 Question 3(c) worked solution: simplifying a rational integrand before evaluating it. Use guided hints and…",
                   "summary": "This walkthrough helps you practise simplifying a rational integrand before evaluating it. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4733,7 +4967,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-3b2022.html",
                   "nextHref": "int-3d2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Simplifying a rational integrand before evaluating it."
                 },
                 {
                   "id": "3d",
@@ -4751,7 +4986,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-3c2022.html",
                   "nextHref": "int-3e2022.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Identifying top-minus-bottom for an area between a curve and a line."
                 },
                 {
                   "id": "3e",
@@ -4769,7 +5005,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-3d2022.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Expressing a shaded region as rectangle minus logarithmic curve area."
                 }
               ]
             },
@@ -4784,9 +5021,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "label": "Question 1(a)",
                   "method": "integrating a linear term and a reciprocal term.",
                   "href": "int-1a2021.html",
-                  "methodTitle": "Integrating a linear term and a reciprocal",
+                  "methodTitle": "Algebraic Integration",
                   "canonical": "https://calc.nz/int-1a2021.html",
-                  "title": "Integrating a linear term and a reciprocal Worked Solution – 2021 NCEA Level 3 Q1(a) (AS91579) | Calc.nz",
+                  "title": "Algebraic Integration Worked Solution – 2021 NCEA Level 3 Q1(a) (AS91579) | Calc.nz",
                   "description": "2021 NCEA Level 3 Integration AS91579 Question 1(a) worked solution: integrating a linear term and a reciprocal term. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise integrating a linear term and a reciprocal term. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -4797,16 +5034,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": null,
                   "nextHref": "int-1b2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating a linear term and a reciprocal term."
                 },
                 {
                   "id": "1b",
                   "label": "Question 1(b)(i)",
                   "method": "integrating a gradient function and fitting the constant.",
                   "href": "int-1b2021.html",
-                  "methodTitle": "Integrating a gradient function and",
+                  "methodTitle": "Integration with Conditions",
                   "canonical": "https://calc.nz/int-1b2021.html",
-                  "title": "Integrating a gradient function and Worked Solution – 2021 NCEA Level 3 Q1(b)(i) (AS91579) | Calc.nz",
+                  "title": "Integration with Conditions Worked Solution – 2021 NCEA Level 3 Q1(b)(i) (AS91579) | Calc.nz",
                   "description": "2021 NCEA Level 3 Integration AS91579 Question 1(b)(i) worked solution: integrating a gradient function and fitting the constant. Use guided hints and…",
                   "summary": "This walkthrough helps you practise integrating a gradient function and fitting the constant. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -4817,7 +5055,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-1a2021.html",
                   "nextHref": "int-1c2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating a gradient function and fitting the constant."
                 },
                 {
                   "id": "1c",
@@ -4827,7 +5066,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Integration and Area",
                   "canonical": "https://calc.nz/int-1c2021.html",
                   "title": "Integration and Area Worked Solution – 2021 NCEA Level 3 Q1(b)(ii) (AS91579) | Calc.nz",
-                  "description": "2021 NCEA Level 3 Integration AS91579 Question 1(b)(ii) worked solution: using the curve equation to find the area between x=1 and x=2. Use guided hints and…",
+                  "description": "2021 NCEA Level 3 Integration AS91579 Question 1(b)(ii) worked solution: using the curve equation to find the area between x = 1 and x = 2. Use guided hints…",
                   "summary": "This walkthrough helps you practise using the curve equation to find the area between \\(x=1\\) and \\(x=2\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
                   "skillSlugs": [],
@@ -4835,16 +5074,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-1b2021.html",
                   "nextHref": "int-1d2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using the curve equation to find the area between x = 1 and x = 2."
                 },
                 {
                   "id": "1d",
                   "label": "Question 1(c)",
                   "method": "integrating acceleration twice with initial conditions.",
                   "href": "int-1d2021.html",
-                  "methodTitle": "Integrating acceleration twice with",
+                  "methodTitle": "Integration and Kinematics",
                   "canonical": "https://calc.nz/int-1d2021.html",
-                  "title": "Integrating acceleration twice with Worked Solution – 2021 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
+                  "title": "Integration and Kinematics Worked Solution – 2021 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
                   "description": "2021 NCEA Level 3 Integration AS91579 Question 1(c) worked solution: integrating acceleration twice with initial conditions. Use guided hints and…",
                   "summary": "This walkthrough helps you practise integrating acceleration twice with initial conditions. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -4855,16 +5095,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-1c2021.html",
                   "nextHref": "int-1e2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating acceleration twice with initial conditions."
                 },
                 {
                   "id": "1e",
                   "label": "Question 1(d)",
                   "method": "solving a square-root leakage model from two volume readings.",
                   "href": "int-1e2021.html",
-                  "methodTitle": "A square-root leakage model from two",
+                  "methodTitle": "Integration with Conditions",
                   "canonical": "https://calc.nz/int-1e2021.html",
-                  "title": "A square-root leakage model from two Worked Solution – 2021 NCEA Level 3 Q1(d) (AS91579) | Calc.nz",
+                  "title": "Integration with Conditions Worked Solution – 2021 NCEA Level 3 Q1(d) (AS91579) | Calc.nz",
                   "description": "2021 NCEA Level 3 Integration AS91579 Question 1(d) worked solution: solving a square-root leakage model from two volume readings. Use guided hints and…",
                   "summary": "This walkthrough helps you practise solving a square-root leakage model from two volume readings. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4873,7 +5114,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-1d2021.html",
                   "nextHref": "int-2a2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a square-root leakage model from two volume readings."
                 },
                 {
                   "id": "2a",
@@ -4891,16 +5133,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-1e2021.html",
                   "nextHref": "int-2b2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating exponential and radical terms."
                 },
                 {
                   "id": "2b",
                   "label": "Question 2(b)",
                   "method": "adding a constant inside a definite integral.",
                   "href": "int-2b2021.html",
-                  "methodTitle": "Adding a constant inside a definite",
+                  "methodTitle": "Definite Integral Equations",
                   "canonical": "https://calc.nz/int-2b2021.html",
-                  "title": "Adding a constant inside a definite Worked Solution – 2021 NCEA Level 3 Q2(b) (AS91579) | Calc.nz",
+                  "title": "Definite Integral Equations Worked Solution – 2021 NCEA Level 3 Q2(b) (AS91579) | Calc.nz",
                   "description": "2021 NCEA Level 3 Integration AS91579 Question 2(b) worked solution: adding a constant inside a definite integral. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise adding a constant inside a definite integral. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -4909,16 +5152,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-2a2021.html",
                   "nextHref": "int-2c2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Adding a constant inside a definite integral."
                 },
                 {
                   "id": "2c",
                   "label": "Question 2(c)",
                   "method": "using product-to-sum before integrating a trig product.",
                   "href": "int-2c2021.html",
-                  "methodTitle": "Product-to-sum before integrating a trig",
+                  "methodTitle": "Trigonometric Integration",
                   "canonical": "https://calc.nz/int-2c2021.html",
-                  "title": "Product-to-sum before integrating a trig Worked Solution – 2021 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
+                  "title": "Trigonometric Integration Worked Solution – 2021 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
                   "description": "2021 NCEA Level 3 Integration AS91579 Question 2(c) worked solution: using product-to-sum before integrating a trig product. Use guided hints and…",
                   "summary": "This walkthrough helps you practise using product-to-sum before integrating a trig product. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -4929,7 +5173,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-2b2021.html",
                   "nextHref": "int-2d2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using product-to-sum before integrating a trig product."
                 },
                 {
                   "id": "2d",
@@ -4947,7 +5192,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-2c2021.html",
                   "nextHref": "int-2e2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Setting a shaded logarithmic area equal to 4 and solving for k."
                 },
                 {
                   "id": "2e",
@@ -4967,17 +5213,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-2d2021.html",
                   "nextHref": "int-3a2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a separable differential equation to find a vertical distance."
                 },
                 {
                   "id": "3a",
                   "label": "Question 3(a)",
                   "method": "expanding \\((x+\\sqrt{x})^2\\) before integrating.",
                   "href": "int-3a2021.html",
-                  "methodTitle": "Expanding (x+square root of x) to the",
+                  "methodTitle": "Algebraic Integration",
                   "canonical": "https://calc.nz/int-3a2021.html",
-                  "title": "Expanding (x+square root of x) to the Worked Solution – 2021 NCEA Level 3 Q3(a) (AS91579) | Calc.nz",
-                  "description": "2021 NCEA Level 3 Integration AS91579 Question 3(a) worked solution: expanding (x+square root of x) to the power 2 before integrating. Use guided hints and…",
+                  "title": "Algebraic Integration Worked Solution – 2021 NCEA Level 3 Q3(a) (AS91579) | Calc.nz",
+                  "description": "2021 NCEA Level 3 Integration AS91579 Question 3(a) worked solution: expanding (x + square root of x) squared before integrating. Use guided hints and…",
                   "summary": "This walkthrough helps you practise expanding \\((x+\\sqrt{x})^2\\) before integrating. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
                   "skillSlugs": [
@@ -4987,16 +5234,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-2e2021.html",
                   "nextHref": "int-3b2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Expanding (x + square root of x) squared before integrating."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "applying the Trapezium Rule with a width of \\(0.25\\).",
                   "href": "int-3b2021.html",
-                  "methodTitle": "The Trapezium Rule with a width of",
+                  "methodTitle": "Numerical Integration",
                   "canonical": "https://calc.nz/int-3b2021.html",
-                  "title": "The Trapezium Rule with a width of Worked Solution – 2021 NCEA Level 3 Q3(b) (AS91579) | Calc.nz",
+                  "title": "Numerical Integration Worked Solution – 2021 NCEA Level 3 Q3(b) (AS91579) | Calc.nz",
                   "description": "2021 NCEA Level 3 Integration AS91579 Question 3(b) worked solution: applying the Trapezium Rule with a width of 0.25. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise applying the Trapezium Rule with a width of \\(0.25\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5007,7 +5255,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-3a2021.html",
                   "nextHref": "int-3c2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Applying the Trapezium Rule with a width of 0.25."
                 },
                 {
                   "id": "3c",
@@ -5027,16 +5276,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-3b2021.html",
                   "nextHref": "int-3d2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Separating a trigonometric differential equation and using a condition."
                 },
                 {
                   "id": "3d",
                   "label": "Question 3(d)",
                   "method": "finding graph limits and integrating a rational curve.",
                   "href": "int-3d2021.html",
-                  "methodTitle": "Graph limits and integrating a rational",
+                  "methodTitle": "Rational-function Integration",
                   "canonical": "https://calc.nz/int-3d2021.html",
-                  "title": "Graph limits and integrating a rational Worked Solution – 2021 NCEA Level 3 Q3(d) (AS91579) | Calc.nz",
+                  "title": "Rational-function Integration Worked Solution – 2021 NCEA Level 3 Q3(d) (AS91579) | Calc.nz",
                   "description": "2021 NCEA Level 3 Integration AS91579 Question 3(d) worked solution: finding graph limits and integrating a rational curve. Use guided hints and…",
                   "summary": "This walkthrough helps you practise finding graph limits and integrating a rational curve. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -5045,16 +5295,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-3c2021.html",
                   "nextHref": "int-3e2021.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding graph limits and integrating a rational curve."
                 },
                 {
                   "id": "3e",
                   "label": "Question 3(e)",
                   "method": "proving an exponential shaded-area formula in terms of \\(k\\).",
                   "href": "int-3e2021.html",
-                  "methodTitle": "An exponential shaded-area formula in",
+                  "methodTitle": "Integration and Area",
                   "canonical": "https://calc.nz/int-3e2021.html",
-                  "title": "An exponential shaded-area formula in Worked Solution – 2021 NCEA Level 3 Q3(e) (AS91579) | Calc.nz",
+                  "title": "Integration and Area Worked Solution – 2021 NCEA Level 3 Q3(e) (AS91579) | Calc.nz",
                   "description": "2021 NCEA Level 3 Integration AS91579 Question 3(e) worked solution: proving an exponential shaded-area formula in terms of k. Use guided hints and…",
                   "summary": "This walkthrough helps you practise proving an exponential shaded-area formula in terms of \\(k\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -5063,7 +5314,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-3d2021.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving an exponential shaded-area formula in terms of k."
                 }
               ]
             },
@@ -5092,16 +5344,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": null,
                   "nextHref": "int-1b2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Power, constant, and logarithmic antiderivatives."
                 },
                 {
                   "id": "1b",
                   "label": "Question 1(b)",
                   "method": "integrating velocity and using the initial displacement.",
                   "href": "int-1b2020.html",
-                  "methodTitle": "Integrating velocity and using the",
+                  "methodTitle": "Integration and Kinematics",
                   "canonical": "https://calc.nz/int-1b2020.html",
-                  "title": "Integrating velocity and using the Worked Solution – 2020 NCEA Level 3 Q1(b) (AS91579) | Calc.nz",
+                  "title": "Integration and Kinematics Worked Solution – 2020 NCEA Level 3 Q1(b) (AS91579) | Calc.nz",
                   "description": "2020 NCEA Level 3 Integration AS91579 Question 1(b) worked solution: integrating velocity and using the initial displacement. Use guided hints and…",
                   "summary": "This walkthrough helps you practise integrating velocity and using the initial displacement. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -5112,16 +5365,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-1a2020.html",
                   "nextHref": "int-1c2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating velocity and using the initial displacement."
                 },
                 {
                   "id": "1c",
                   "label": "Question 1(c)",
                   "method": "rewriting a rational integrand before evaluating it.",
                   "href": "int-1c2020.html",
-                  "methodTitle": "A rational integrand before evaluating it",
+                  "methodTitle": "Rational-function Integration",
                   "canonical": "https://calc.nz/int-1c2020.html",
-                  "title": "A rational integrand before evaluating it Worked Solution – 2020 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
+                  "title": "Rational-function Integration Worked Solution – 2020 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
                   "description": "2020 NCEA Level 3 Integration AS91579 Question 1(c) worked solution: rewriting a rational integrand before evaluating it. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise rewriting a rational integrand before evaluating it. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5132,7 +5386,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-1b2020.html",
                   "nextHref": "int-1d2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rewriting a rational integrand before evaluating it."
                 },
                 {
                   "id": "1d",
@@ -5150,7 +5405,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-1c2020.html",
                   "nextHref": "int-1e2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding intersections and the area between a curve and a line."
                 },
                 {
                   "id": "1e",
@@ -5170,16 +5426,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-1d2020.html",
                   "nextHref": "int-2a2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Separating a logarithmic trigonometric differential equation."
                 },
                 {
                   "id": "2a",
                   "label": "Question 2(a)",
                   "method": "integrating a reciprocal-square term.",
                   "href": "int-2a2020.html",
-                  "methodTitle": "Integrating a reciprocal-square term",
+                  "methodTitle": "Power Rule Integration",
                   "canonical": "https://calc.nz/int-2a2020.html",
-                  "title": "Integrating a reciprocal-square term Worked Solution – 2020 NCEA Level 3 Q2(a) (AS91579) | Calc.nz",
+                  "title": "Power Rule Integration Worked Solution – 2020 NCEA Level 3 Q2(a) (AS91579) | Calc.nz",
                   "description": "2020 NCEA Level 3 Integration AS91579 Question 2(a) worked solution: integrating a reciprocal-square term. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise integrating a reciprocal-square term. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -5190,16 +5447,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-1e2020.html",
                   "nextHref": "int-2b2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating a reciprocal-square term."
                 },
                 {
                   "id": "2b",
                   "label": "Question 2(b)",
                   "method": "applying Simpson’s Rule to tabulated values.",
                   "href": "int-2b2020.html",
-                  "methodTitle": "Simpson’s Rule to tabulated values",
+                  "methodTitle": "Numerical Integration",
                   "canonical": "https://calc.nz/int-2b2020.html",
-                  "title": "Simpson’s Rule to tabulated values Worked Solution – 2020 NCEA Level 3 Q2(b) (AS91579) | Calc.nz",
+                  "title": "Numerical Integration Worked Solution – 2020 NCEA Level 3 Q2(b) (AS91579) | Calc.nz",
                   "description": "2020 NCEA Level 3 Integration AS91579 Question 2(b) worked solution: applying Simpson’s Rule to tabulated values. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise applying Simpson’s Rule to tabulated values. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5210,16 +5468,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-2a2020.html",
                   "nextHref": "int-2c2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Applying Simpson’s Rule to tabulated values."
                 },
                 {
                   "id": "2c",
                   "label": "Question 2(c)",
                   "method": "reverse chain-rule integration of a square root.",
                   "href": "int-2c2020.html",
-                  "methodTitle": "Reverse chain-rule integration of a",
+                  "methodTitle": "Chain Rule",
                   "canonical": "https://calc.nz/int-2c2020.html",
-                  "title": "Reverse chain-rule integration of a Worked Solution – 2020 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
+                  "title": "Chain Rule Worked Solution – 2020 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
                   "description": "2020 NCEA Level 3 Integration AS91579 Question 2(c) worked solution: reverse chain-rule integration of a square root. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise reverse chain-rule integration of a square root. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -5230,7 +5489,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-2b2020.html",
                   "nextHref": "int-2d2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reverse chain-rule integration of a square root."
                 },
                 {
                   "id": "2d",
@@ -5250,16 +5510,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-2c2020.html",
                   "nextHref": "int-2e2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "A separable radical and trigonometric differential equation."
                 },
                 {
                   "id": "2e",
                   "label": "Question 2(e)",
                   "method": "splitting geometric area where a curve crosses the axis.",
                   "href": "int-2e2020.html",
-                  "methodTitle": "Splitting geometric area where a curve",
+                  "methodTitle": "Integration and Area",
                   "canonical": "https://calc.nz/int-2e2020.html",
-                  "title": "Splitting geometric area where a curve Worked Solution – 2020 NCEA Level 3 Q2(e) (AS91579) | Calc.nz",
+                  "title": "Integration and Area Worked Solution – 2020 NCEA Level 3 Q2(e) (AS91579) | Calc.nz",
                   "description": "2020 NCEA Level 3 Integration AS91579 Question 2(e) worked solution: splitting geometric area where a curve crosses the axis. Use guided hints and…",
                   "summary": "This walkthrough helps you practise splitting geometric area where a curve crosses the axis. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -5268,7 +5529,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-2d2020.html",
                   "nextHref": "int-3a2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Splitting geometric area where a curve crosses the axis."
                 },
                 {
                   "id": "3a",
@@ -5288,16 +5550,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-2e2020.html",
                   "nextHref": "int-3b2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Recognising the reverse sec-tan derivative."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "integrating a gradient and using an initial condition.",
                   "href": "int-3b2020.html",
-                  "methodTitle": "Integrating a gradient and using an",
+                  "methodTitle": "Integration with Conditions",
                   "canonical": "https://calc.nz/int-3b2020.html",
-                  "title": "Integrating a gradient and using an Worked Solution – 2020 NCEA Level 3 Q3(b) (AS91579) | Calc.nz",
+                  "title": "Integration with Conditions Worked Solution – 2020 NCEA Level 3 Q3(b) (AS91579) | Calc.nz",
                   "description": "2020 NCEA Level 3 Integration AS91579 Question 3(b) worked solution: integrating a gradient and using an initial condition. Use guided hints and…",
                   "summary": "This walkthrough helps you practise integrating a gradient and using an initial condition. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -5308,16 +5571,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-3a2020.html",
                   "nextHref": "int-3c2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating a gradient and using an initial condition."
                 },
                 {
                   "id": "3c",
                   "label": "Question 3(c)",
                   "method": "integrating acceleration to find velocity.",
                   "href": "int-3c2020.html",
-                  "methodTitle": "Integrating acceleration to find velocity",
+                  "methodTitle": "Integration and Kinematics",
                   "canonical": "https://calc.nz/int-3c2020.html",
-                  "title": "Integrating acceleration to find velocity Worked Solution – 2020 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
+                  "title": "Integration and Kinematics Worked Solution – 2020 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
                   "description": "2020 NCEA Level 3 Integration AS91579 Question 3(c) worked solution: integrating acceleration to find velocity. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise integrating acceleration to find velocity. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -5328,16 +5592,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-3b2020.html",
                   "nextHref": "int-3d2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating acceleration to find velocity."
                 },
                 {
                   "id": "3d",
                   "label": "Question 3(d)",
                   "method": "solving an exponential radioactive-decay model.",
                   "href": "int-3d2020.html",
-                  "methodTitle": "An exponential radioactive-decay model",
+                  "methodTitle": "Exponential Models",
                   "canonical": "https://calc.nz/int-3d2020.html",
-                  "title": "An exponential radioactive-decay model Worked Solution – 2020 NCEA Level 3 Q3(d) (AS91579) | Calc.nz",
+                  "title": "Exponential Models Worked Solution – 2020 NCEA Level 3 Q3(d) (AS91579) | Calc.nz",
                   "description": "2020 NCEA Level 3 Integration AS91579 Question 3(d) worked solution: solving an exponential radioactive-decay model. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise solving an exponential radioactive-decay model. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5346,7 +5611,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-3c2020.html",
                   "nextHref": "int-3e2020.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving an exponential radioactive-decay model."
                 },
                 {
                   "id": "3e",
@@ -5366,7 +5632,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-3d2020.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product-to-sum in an area between cosine curves."
                 }
               ]
             },
@@ -5394,16 +5661,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": null,
                   "nextHref": "int-1b2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rewriting a radical denominator and integrating a power."
                 },
                 {
                   "id": "1b",
                   "label": "Question 1(b)",
                   "method": "applying the Trapezium Rule to tabulated values.",
                   "href": "int-1b2019.html",
-                  "methodTitle": "The Trapezium Rule to tabulated values",
+                  "methodTitle": "Numerical Integration",
                   "canonical": "https://calc.nz/int-1b2019.html",
-                  "title": "The Trapezium Rule to tabulated values Worked Solution – 2019 NCEA Level 3 Q1(b) (AS91579) | Calc.nz",
+                  "title": "Numerical Integration Worked Solution – 2019 NCEA Level 3 Q1(b) (AS91579) | Calc.nz",
                   "description": "2019 NCEA Level 3 Integration AS91579 Question 1(b) worked solution: applying the Trapezium Rule to tabulated values. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise applying the Trapezium Rule to tabulated values. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5414,16 +5682,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-1a2019.html",
                   "nextHref": "int-1c2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Applying the Trapezium Rule to tabulated values."
                 },
                 {
                   "id": "1c",
                   "label": "Question 1(c)",
                   "method": "using product-to-sum before evaluating a trig integral.",
                   "href": "int-1c2019.html",
-                  "methodTitle": "Product-to-sum before evaluating a trig",
+                  "methodTitle": "Trigonometric Integration",
                   "canonical": "https://calc.nz/int-1c2019.html",
-                  "title": "Product-to-sum before evaluating a trig Worked Solution – 2019 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
+                  "title": "Trigonometric Integration Worked Solution – 2019 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
                   "description": "2019 NCEA Level 3 Integration AS91579 Question 1(c) worked solution: using product-to-sum before evaluating a trig integral. Use guided hints and…",
                   "summary": "This walkthrough helps you practise using product-to-sum before evaluating a trig integral. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5434,16 +5703,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-1b2019.html",
                   "nextHref": "int-1d2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using product-to-sum before evaluating a trig integral."
                 },
                 {
                   "id": "1d",
                   "label": "Question 1(d)",
                   "method": "proving equal areas under a reciprocal-root curve.",
                   "href": "int-1d2019.html",
-                  "methodTitle": "Equal areas under a reciprocal-root curve",
+                  "methodTitle": "Integration and Area",
                   "canonical": "https://calc.nz/int-1d2019.html",
-                  "title": "Equal areas under a reciprocal-root curve Worked Solution – 2019 NCEA Level 3 Q1(d) (AS91579) | Calc.nz",
+                  "title": "Integration and Area Worked Solution – 2019 NCEA Level 3 Q1(d) (AS91579) | Calc.nz",
                   "description": "2019 NCEA Level 3 Integration AS91579 Question 1(d) worked solution: proving equal areas under a reciprocal-root curve. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise proving equal areas under a reciprocal-root curve. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -5452,7 +5722,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-1c2019.html",
                   "nextHref": "int-1e2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving equal areas under a reciprocal-root curve."
                 },
                 {
                   "id": "1e",
@@ -5472,7 +5743,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-1d2019.html",
                   "nextHref": "int-2a2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving an exponential-growth relation from a differential equation."
                 },
                 {
                   "id": "2a",
@@ -5492,16 +5764,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-1e2019.html",
                   "nextHref": "int-2b2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reversing the chain rule for an exponential term."
                 },
                 {
                   "id": "2b",
                   "label": "Question 2(b)",
                   "method": "using signed areas and symmetry on a graph.",
                   "href": "int-2b2019.html",
-                  "methodTitle": "Signed areas and symmetry on a graph",
+                  "methodTitle": "Trigonometric Integration",
                   "canonical": "https://calc.nz/int-2b2019.html",
-                  "title": "Signed areas and symmetry on a graph Worked Solution – 2019 NCEA Level 3 Q2(b) (AS91579) | Calc.nz",
+                  "title": "Trigonometric Integration Worked Solution – 2019 NCEA Level 3 Q2(b) (AS91579) | Calc.nz",
                   "description": "2019 NCEA Level 3 Integration AS91579 Question 2(b) worked solution: using signed areas and symmetry on a graph. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise using signed areas and symmetry on a graph. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -5510,7 +5783,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-2a2019.html",
                   "nextHref": "int-2c2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using signed areas and symmetry on a graph."
                 },
                 {
                   "id": "2c",
@@ -5528,17 +5802,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-2b2019.html",
                   "nextHref": "int-2d2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving for an upper limit from a logarithmic integral."
                 },
                 {
                   "id": "2d",
                   "label": "Question 2(d)",
                   "method": "using the \\(\\cos^2x\\) identity to find shaded area.",
                   "href": "int-2d2019.html",
-                  "methodTitle": "The cos to the power 2x identity",
+                  "methodTitle": "Integration and Area",
                   "canonical": "https://calc.nz/int-2d2019.html",
-                  "title": "The cos to the power 2x identity Worked Solution – 2019 NCEA Level 3 Q2(d) (AS91579) | Calc.nz",
-                  "description": "2019 NCEA Level 3 Integration AS91579 Question 2(d) worked solution: using the cos to the power 2x identity to find shaded area. Use guided hints and…",
+                  "title": "Integration and Area Worked Solution – 2019 NCEA Level 3 Q2(d) (AS91579) | Calc.nz",
+                  "description": "2019 NCEA Level 3 Integration AS91579 Question 2(d) worked solution: using the cos squared x identity to find shaded area. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise using the \\(\\cos^2x\\) identity to find shaded area. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
                   "skillSlugs": [],
@@ -5546,7 +5821,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-2c2019.html",
                   "nextHref": "int-2e2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using the cos squared x identity to find shaded area."
                 },
                 {
                   "id": "2e",
@@ -5564,7 +5840,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-2d2019.html",
                   "nextHref": "int-3a2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding area between two exponential curves."
                 },
                 {
                   "id": "3a",
@@ -5584,7 +5861,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-2e2019.html",
                   "nextHref": "int-3b2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reverse chain rule integration of a cubic power."
                 },
                 {
                   "id": "3b",
@@ -5594,7 +5872,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Differential Equations",
                   "canonical": "https://calc.nz/int-3b2019.html",
                   "title": "Differential Equations Worked Solution – 2019 NCEA Level 3 Q3(b) (AS91579) | Calc.nz",
-                  "description": "2019 NCEA Level 3 Integration AS91579 Question 3(b) worked solution: integrating a to the power 2(2x) differential equation. Use guided hints and…",
+                  "description": "2019 NCEA Level 3 Integration AS91579 Question 3(b) worked solution: integrating a sec squared (2x) differential equation. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise integrating a \\(\\sec^2(2x)\\) differential equation. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
                   "skillSlugs": [
@@ -5604,16 +5882,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-3a2019.html",
                   "nextHref": "int-3c2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating a sec squared (2x) differential equation."
                 },
                 {
                   "id": "3c",
                   "label": "Question 3(c)",
                   "method": "rewriting a rational integrand before evaluating it.",
                   "href": "int-3c2019.html",
-                  "methodTitle": "A rational integrand before evaluating it",
+                  "methodTitle": "Rational-function Integration",
                   "canonical": "https://calc.nz/int-3c2019.html",
-                  "title": "A rational integrand before evaluating it Worked Solution – 2019 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
+                  "title": "Rational-function Integration Worked Solution – 2019 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
                   "description": "2019 NCEA Level 3 Integration AS91579 Question 3(c) worked solution: rewriting a rational integrand before evaluating it. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise rewriting a rational integrand before evaluating it. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5624,16 +5903,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-3b2019.html",
                   "nextHref": "int-3d2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rewriting a rational integrand before evaluating it."
                 },
                 {
                   "id": "3d",
                   "label": "Question 3(d)",
                   "method": "integrating a derivative and using an initial condition.",
                   "href": "int-3d2019.html",
-                  "methodTitle": "Integrating a derivative and using an",
+                  "methodTitle": "Integration with Conditions",
                   "canonical": "https://calc.nz/int-3d2019.html",
-                  "title": "Integrating a derivative and using an Worked Solution – 2019 NCEA Level 3 Q3(d) (AS91579) | Calc.nz",
+                  "title": "Integration with Conditions Worked Solution – 2019 NCEA Level 3 Q3(d) (AS91579) | Calc.nz",
                   "description": "2019 NCEA Level 3 Integration AS91579 Question 3(d) worked solution: integrating a derivative and using an initial condition. Use guided hints and…",
                   "summary": "This walkthrough helps you practise integrating a derivative and using an initial condition. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -5644,16 +5924,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-3c2019.html",
                   "nextHref": "int-3e2019.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating a derivative and using an initial condition."
                 },
                 {
                   "id": "3e",
                   "label": "Question 3(e)",
                   "method": "pumping energy with similar triangles and a definite integral.",
                   "href": "int-3e2019.html",
-                  "methodTitle": "Pumping energy with similar triangles and",
+                  "methodTitle": "Integration and Work",
                   "canonical": "https://calc.nz/int-3e2019.html",
-                  "title": "Pumping energy with similar triangles and Worked Solution – 2019 NCEA Level 3 Q3(e) (AS91579) | Calc.nz",
+                  "title": "Integration and Work Worked Solution – 2019 NCEA Level 3 Q3(e) (AS91579) | Calc.nz",
                   "description": "2019 NCEA Level 3 Integration AS91579 Question 3(e) worked solution: pumping energy with similar triangles and a definite integral. Use guided hints and…",
                   "summary": "This walkthrough helps you practise pumping energy with similar triangles and a definite integral. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5662,7 +5943,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-3d2019.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Pumping energy with similar triangles and a definite integral."
                 }
               ]
             },
@@ -5677,9 +5959,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "label": "Question 1(a)",
                   "method": "negative powers and the integration constant.",
                   "href": "int-1a2018.html",
-                  "methodTitle": "Negative powers and the integration",
+                  "methodTitle": "Algebraic Integration",
                   "canonical": "https://calc.nz/int-1a2018.html",
-                  "title": "Negative powers and the integration Worked Solution – 2018 NCEA Level 3 Q1(a) (AS91579) | Calc.nz",
+                  "title": "Algebraic Integration Worked Solution – 2018 NCEA Level 3 Q1(a) (AS91579) | Calc.nz",
                   "description": "2018 NCEA Level 3 Integration AS91579 Question 1(a) worked solution: negative powers and the integration constant. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise negative powers and the integration constant. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.",
@@ -5690,7 +5972,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": null,
                   "nextHref": "int-1b2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Negative powers and the integration constant."
                 },
                 {
                   "id": "1b",
@@ -5710,7 +5993,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-1a2018.html",
                   "nextHref": "int-1c2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating a differential equation and using an initial condition."
                 },
                 {
                   "id": "1c",
@@ -5730,16 +6014,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-1b2018.html",
                   "nextHref": "int-1d2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Algebraic division before logarithmic integration."
                 },
                 {
                   "id": "1d",
                   "label": "Question 1(d)",
                   "method": "separating variables and applying an initial condition.",
                   "href": "int-1d2018.html",
-                  "methodTitle": "Separating variables and applying an",
+                  "methodTitle": "Differential Equations",
                   "canonical": "https://calc.nz/int-1d2018.html",
-                  "title": "Separating variables and applying an Worked Solution – 2018 NCEA Level 3 Q1(d) (AS91579) | Calc.nz",
+                  "title": "Differential Equations Worked Solution – 2018 NCEA Level 3 Q1(d) (AS91579) | Calc.nz",
                   "description": "2018 NCEA Level 3 Integration AS91579 Question 1(d) worked solution: separating variables and applying an initial condition. Use guided hints and…",
                   "summary": "This walkthrough helps you practise separating variables and applying an initial condition. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5750,16 +6035,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-1c2018.html",
                   "nextHref": "int-1e2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Separating variables and applying an initial condition."
                 },
                 {
                   "id": "1e",
                   "label": "Question 1(e)",
                   "method": "using a point on an exponential curve to prove an area result.",
                   "href": "int-1e2018.html",
-                  "methodTitle": "A point on an exponential curve to",
+                  "methodTitle": "Trigonometric Integration",
                   "canonical": "https://calc.nz/int-1e2018.html",
-                  "title": "A point on an exponential curve to Worked Solution – 2018 NCEA Level 3 Q1(e) (AS91579) | Calc.nz",
+                  "title": "Trigonometric Integration Worked Solution – 2018 NCEA Level 3 Q1(e) (AS91579) | Calc.nz",
                   "description": "2018 NCEA Level 3 Integration AS91579 Question 1(e) worked solution: using a point on an exponential curve to prove an area result. Use guided hints and…",
                   "summary": "This walkthrough helps you practise using a point on an exponential curve to prove an area result. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -5768,7 +6054,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-1d2018.html",
                   "nextHref": "int-2a2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using a point on an exponential curve to prove an area result."
                 },
                 {
                   "id": "2a",
@@ -5788,7 +6075,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-1e2018.html",
                   "nextHref": "int-2b2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reverse trigonometric derivative patterns."
                 },
                 {
                   "id": "2b",
@@ -5806,16 +6094,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-2a2018.html",
                   "nextHref": "int-2c2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding an upper limit from a radical integral."
                 },
                 {
                   "id": "2c",
                   "label": "Question 2(c)",
                   "method": "a double-angle identity and the first positive trig solution.",
                   "href": "int-2c2018.html",
-                  "methodTitle": "A double-angle identity and the first",
+                  "methodTitle": "Trigonometric Integration",
                   "canonical": "https://calc.nz/int-2c2018.html",
-                  "title": "A double-angle identity and the first Worked Solution – 2018 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
+                  "title": "Trigonometric Integration Worked Solution – 2018 NCEA Level 3 Q2(c) (AS91579) | Calc.nz",
                   "description": "2018 NCEA Level 3 Integration AS91579 Question 2(c) worked solution: a double-angle identity and the first positive trig solution. Use guided hints and…",
                   "summary": "This walkthrough helps you practise a double-angle identity and the first positive trig solution. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5826,16 +6115,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-2b2018.html",
                   "nextHref": "int-2d2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "A double-angle identity and the first positive trig solution."
                 },
                 {
                   "id": "2d",
                   "label": "Question 2(d)",
                   "method": "building velocity and distance from acceleration.",
                   "href": "int-2d2018.html",
-                  "methodTitle": "Velocity and distance from acceleration",
+                  "methodTitle": "Integration and Kinematics",
                   "canonical": "https://calc.nz/int-2d2018.html",
-                  "title": "Velocity and distance from acceleration Worked Solution – 2018 NCEA Level 3 Q2(d) (AS91579) | Calc.nz",
+                  "title": "Integration and Kinematics Worked Solution – 2018 NCEA Level 3 Q2(d) (AS91579) | Calc.nz",
                   "description": "2018 NCEA Level 3 Integration AS91579 Question 2(d) worked solution: building velocity and distance from acceleration. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise building velocity and distance from acceleration. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5846,16 +6136,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-2c2018.html",
                   "nextHref": "int-2e2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Building velocity and distance from acceleration."
                 },
                 {
                   "id": "2e",
                   "label": "Question 2(e)",
                   "method": "solving and fitting an exponential candle-mass model.",
                   "href": "int-2e2018.html",
-                  "methodTitle": "And fitting an exponential candle-mass",
+                  "methodTitle": "Exponential Models",
                   "canonical": "https://calc.nz/int-2e2018.html",
-                  "title": "And fitting an exponential candle-mass Worked Solution – 2018 NCEA Level 3 Q2(e) (AS91579) | Calc.nz",
+                  "title": "Exponential Models Worked Solution – 2018 NCEA Level 3 Q2(e) (AS91579) | Calc.nz",
                   "description": "2018 NCEA Level 3 Integration AS91579 Question 2(e) worked solution: solving and fitting an exponential candle-mass model. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise solving and fitting an exponential candle-mass model. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5864,7 +6155,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-2d2018.html",
                   "nextHref": "int-3a2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving and fitting an exponential candle-mass model."
                 },
                 {
                   "id": "3a",
@@ -5884,16 +6176,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-2e2018.html",
                   "nextHref": "int-3b2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Expansion, the power rule, and logarithmic integration."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "Simpson's Rule and its alternating coefficients.",
                   "href": "int-3b2018.html",
-                  "methodTitle": "Simpson's Rule and its alternating",
+                  "methodTitle": "Numerical Integration",
                   "canonical": "https://calc.nz/int-3b2018.html",
-                  "title": "Simpson's Rule and its alternating Worked Solution – 2018 NCEA Level 3 Q3(b) (AS91579) | Calc.nz",
+                  "title": "Numerical Integration Worked Solution – 2018 NCEA Level 3 Q3(b) (AS91579) | Calc.nz",
                   "description": "2018 NCEA Level 3 Integration AS91579 Question 3(b) worked solution: simpson's Rule and its alternating coefficients. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise simpson's Rule and its alternating coefficients. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5904,16 +6197,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-3a2018.html",
                   "nextHref": "int-3c2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Simpson's Rule and its alternating coefficients."
                 },
                 {
                   "id": "3c",
                   "label": "Question 3(c)",
                   "method": "solving an exponential definite integral for its limit.",
                   "href": "int-3c2018.html",
-                  "methodTitle": "An exponential definite integral for its",
+                  "methodTitle": "Definite Integral Equations",
                   "canonical": "https://calc.nz/int-3c2018.html",
-                  "title": "An exponential definite integral for its Worked Solution – 2018 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
+                  "title": "Definite Integral Equations Worked Solution – 2018 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
                   "description": "2018 NCEA Level 3 Integration AS91579 Question 3(c) worked solution: solving an exponential definite integral for its limit. Use guided hints and…",
                   "summary": "This walkthrough helps you practise solving an exponential definite integral for its limit. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -5922,7 +6216,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-3b2018.html",
                   "nextHref": "int-3d2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving an exponential definite integral for its limit."
                 },
                 {
                   "id": "3d",
@@ -5940,7 +6235,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-3c2018.html",
                   "nextHref": "int-3e2018.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Intersections and area between a cube-root curve and a parabola."
                 },
                 {
                   "id": "3e",
@@ -5958,7 +6254,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-3d2018.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Subtracting the tangent area from the area under a quartic."
                 }
               ]
             },
@@ -5984,7 +6281,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": null,
                   "nextHref": "int-1b2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reversing the derivative of a tangent function."
                 },
                 {
                   "id": "1b",
@@ -6002,16 +6300,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-1a2017.html",
                   "nextHref": "int-1c2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using a definite integral to find an enclosed area."
                 },
                 {
                   "id": "1c",
                   "label": "Question 1(c)",
                   "method": "building velocity and displacement from acceleration.",
                   "href": "int-1c2017.html",
-                  "methodTitle": "Velocity and displacement from",
+                  "methodTitle": "Integration and Kinematics",
                   "canonical": "https://calc.nz/int-1c2017.html",
-                  "title": "Velocity and displacement from Worked Solution – 2017 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
+                  "title": "Integration and Kinematics Worked Solution – 2017 NCEA Level 3 Q1(c) (AS91579) | Calc.nz",
                   "description": "2017 NCEA Level 3 Integration AS91579 Question 1(c) worked solution: building velocity and displacement from acceleration. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise building velocity and displacement from acceleration. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6022,16 +6321,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-1b2017.html",
                   "nextHref": "int-1d2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Building velocity and displacement from acceleration."
                 },
                 {
                   "id": "1d",
                   "label": "Question 1(d)",
                   "method": "solving for an unknown limit in an exponential integral.",
                   "href": "int-1d2017.html",
-                  "methodTitle": "For an unknown limit in an exponential",
+                  "methodTitle": "Definite Integral Equations",
                   "canonical": "https://calc.nz/int-1d2017.html",
-                  "title": "For an unknown limit in an exponential Worked Solution – 2017 NCEA Level 3 Q1(d) (AS91579) | Calc.nz",
+                  "title": "Definite Integral Equations Worked Solution – 2017 NCEA Level 3 Q1(d) (AS91579) | Calc.nz",
                   "description": "2017 NCEA Level 3 Integration AS91579 Question 1(d) worked solution: solving for an unknown limit in an exponential integral. Use guided hints and…",
                   "summary": "This walkthrough helps you practise solving for an unknown limit in an exponential integral. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6040,16 +6340,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-1c2017.html",
                   "nextHref": "int-1e2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving for an unknown limit in an exponential integral."
                 },
                 {
                   "id": "1e",
                   "label": "Question 1(e)",
                   "method": "finding a mean value using a squared-trigonometric identity.",
                   "href": "int-1e2017.html",
-                  "methodTitle": "A mean value using a",
+                  "methodTitle": "Trigonometric Integration",
                   "canonical": "https://calc.nz/int-1e2017.html",
-                  "title": "A mean value using a Worked Solution – 2017 NCEA Level 3 Q1(e) (AS91579) | Calc.nz",
+                  "title": "Trigonometric Integration Worked Solution – 2017 NCEA Level 3 Q1(e) (AS91579) | Calc.nz",
                   "description": "2017 NCEA Level 3 Integration AS91579 Question 1(e) worked solution: finding a mean value using a squared-trigonometric identity. Use guided hints and…",
                   "summary": "This walkthrough helps you practise finding a mean value using a squared-trigonometric identity. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6060,7 +6361,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-1d2017.html",
                   "nextHref": "int-2a2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding a mean value using a squared-trigonometric identity."
                 },
                 {
                   "id": "2a",
@@ -6080,7 +6382,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-1e2017.html",
                   "nextHref": "int-2b2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Logarithmic integration with a linear denominator."
                 },
                 {
                   "id": "2b",
@@ -6100,7 +6403,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-2a2017.html",
                   "nextHref": "int-2c2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Reversing the chain rule for a linear power."
                 },
                 {
                   "id": "2c",
@@ -6118,7 +6422,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-2b2017.html",
                   "nextHref": "int-2d2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding the shaded area between a parabola and its tangent."
                 },
                 {
                   "id": "2d",
@@ -6138,7 +6443,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-2c2017.html",
                   "nextHref": "int-2e2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Product-to-sum before integrating a trigonometric area."
                 },
                 {
                   "id": "2e",
@@ -6156,7 +6462,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-2d2017.html",
                   "nextHref": "int-3a2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating logarithmic acceleration to find velocity."
                 },
                 {
                   "id": "3a",
@@ -6176,16 +6483,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-2e2017.html",
                   "nextHref": "int-3b2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Integrating polynomial and exponential terms."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "applying the Trapezium Rule to courtyard measurements.",
                   "href": "int-3b2017.html",
-                  "methodTitle": "The Trapezium Rule to courtyard",
+                  "methodTitle": "Numerical Integration",
                   "canonical": "https://calc.nz/int-3b2017.html",
-                  "title": "The Trapezium Rule to courtyard Worked Solution – 2017 NCEA Level 3 Q3(b) (AS91579) | Calc.nz",
+                  "title": "Numerical Integration Worked Solution – 2017 NCEA Level 3 Q3(b) (AS91579) | Calc.nz",
                   "description": "2017 NCEA Level 3 Integration AS91579 Question 3(b) worked solution: applying the Trapezium Rule to courtyard measurements. Use guided hints and…",
                   "summary": "This walkthrough helps you practise applying the Trapezium Rule to courtyard measurements. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6196,16 +6504,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-3a2017.html",
                   "nextHref": "int-3c2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Applying the Trapezium Rule to courtyard measurements."
                 },
                 {
                   "id": "3c",
                   "label": "Question 3(c)",
                   "method": "rewriting a rational function to find the exact courtyard area.",
                   "href": "int-3c2017.html",
-                  "methodTitle": "A rational function to find the exact",
+                  "methodTitle": "Rational-function Integration",
                   "canonical": "https://calc.nz/int-3c2017.html",
-                  "title": "A rational function to find the exact Worked Solution – 2017 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
+                  "title": "Rational-function Integration Worked Solution – 2017 NCEA Level 3 Q3(c) (AS91579) | Calc.nz",
                   "description": "2017 NCEA Level 3 Integration AS91579 Question 3(c) worked solution: rewriting a rational function to find the exact courtyard area. Use guided hints and…",
                   "summary": "This walkthrough helps you practise rewriting a rational function to find the exact courtyard area. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.",
@@ -6216,7 +6525,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-3b2017.html",
                   "nextHref": "int-3d2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rewriting a rational function to find the exact courtyard area."
                 },
                 {
                   "id": "3d",
@@ -6236,7 +6546,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-3c2017.html",
                   "nextHref": "int-3e2017.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a separable differential equation with a condition."
                 },
                 {
                   "id": "3e",
@@ -6257,7 +6568,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-3d2017.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Substitution in a parameterised differential equation."
                 }
               ]
             }
@@ -6294,16 +6606,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": null,
                   "nextHref": "complex-1b2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Polynomial division and using the remainder to find p."
                 },
                 {
                   "id": "1b",
                   "label": "Question 1(b)",
                   "method": "completing the square and solving in terms of \\(k\\).",
                   "href": "complex-1b2025.html",
-                  "methodTitle": "Completing the square and solving in terms",
+                  "methodTitle": "Completing the Square",
                   "canonical": "https://calc.nz/complex-1b2025.html",
-                  "title": "Completing the square and solving in terms Worked Solution – 2025 NCEA Level 3 Q1(b) (AS91577) | Calc.nz",
+                  "title": "Completing the Square Worked Solution – 2025 NCEA Level 3 Q1(b) (AS91577) | Calc.nz",
                   "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 1(b) worked solution: completing the square and solving in terms of k. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise completing the square and solving in terms of \\(k\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6314,16 +6627,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-1a2025.html",
                   "nextHref": "complex-1c2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Completing the square and solving in terms of k."
                 },
                 {
                   "id": "1c",
                   "label": "Question 1(c)",
                   "method": "discriminants and proving real roots for every real \\(k\\).",
                   "href": "complex-1c2025.html",
-                  "methodTitle": "Discriminants and proving real roots for",
+                  "methodTitle": "Discriminants and Real Roots",
                   "canonical": "https://calc.nz/complex-1c2025.html",
-                  "title": "Discriminants and proving real roots for Worked Solution – 2025 NCEA Level 3 Q1(c) (AS91577) | Calc.nz",
+                  "title": "Discriminants and Real Roots Worked Solution – 2025 NCEA Level 3 Q1(c) (AS91577) | Calc.nz",
                   "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 1(c) worked solution: discriminants and proving real roots for every real k. Use guided hints and…",
                   "summary": "This walkthrough helps you practise discriminants and proving real roots for every real \\(k\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6332,7 +6646,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-1b2025.html",
                   "nextHref": "complex-1d2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Discriminants and proving real roots for every real k."
                 },
                 {
                   "id": "1d",
@@ -6352,7 +6667,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-1c2025.html",
                   "nextHref": "complex-1e2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Writing cube roots in polar form."
                 },
                 {
                   "id": "1e",
@@ -6370,16 +6686,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-1d2025.html",
                   "nextHref": "complex-2a2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Converting a modulus locus into a Cartesian equation."
                 },
                 {
                   "id": "2a",
                   "label": "Question 2(a)",
                   "method": "combining complex numbers from an Argand diagram.",
                   "href": "complex-2a2025.html",
-                  "methodTitle": "Combining complex numbers from an Argand",
+                  "methodTitle": "Argand Diagram Algebra",
                   "canonical": "https://calc.nz/complex-2a2025.html",
-                  "title": "Combining complex numbers from an Argand Worked Solution – 2025 NCEA Level 3 Q2(a) (AS91577) | Calc.nz",
+                  "title": "Argand Diagram Algebra Worked Solution – 2025 NCEA Level 3 Q2(a) (AS91577) | Calc.nz",
                   "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 2(a) worked solution: combining complex numbers from an Argand diagram. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise combining complex numbers from an Argand diagram. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6390,7 +6707,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-1e2025.html",
                   "nextHref": "complex-2b2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Combining complex numbers from an Argand diagram."
                 },
                 {
                   "id": "2b",
@@ -6400,7 +6718,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "De Moivre’s Theorem",
                   "canonical": "https://calc.nz/complex-2b2025.html",
                   "title": "De Moivre’s Theorem Worked Solution – 2025 NCEA Level 3 Q2(b) (AS91577) | Calc.nz",
-                  "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 2(b) worked solution: de Moivre’s Theorem and converting to a+bi. Use guided hints and step-by-step…",
+                  "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 2(b) worked solution: de Moivre’s Theorem and converting to a + bi. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise de Moivre’s Theorem and converting to \\(a+bi\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Apply the power to the modulus and multiply the argument by the same power before converting form.",
                   "skillSlugs": [
@@ -6410,16 +6728,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-2a2025.html",
                   "nextHref": "complex-2c2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "De Moivre’s Theorem and converting to a + bi."
                 },
                 {
                   "id": "2c",
                   "label": "Question 2(c)",
                   "method": "solving a modulus equation with a real parameter.",
                   "href": "complex-2c2025.html",
-                  "methodTitle": "A modulus equation with a real parameter",
+                  "methodTitle": "Modulus Equations",
                   "canonical": "https://calc.nz/complex-2c2025.html",
-                  "title": "A modulus equation with a real parameter Worked Solution – 2025 NCEA Level 3 Q2(c) (AS91577) | Calc.nz",
+                  "title": "Modulus Equations Worked Solution – 2025 NCEA Level 3 Q2(c) (AS91577) | Calc.nz",
                   "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 2(c) worked solution: solving a modulus equation with a real parameter. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise solving a modulus equation with a real parameter. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6428,16 +6747,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-2b2025.html",
                   "nextHref": "complex-2d2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a modulus equation with a real parameter."
                 },
                 {
                   "id": "2d",
                   "label": "Question 2(d)",
                   "method": "matching real and imaginary parts after expansion.",
                   "href": "complex-2d2025.html",
-                  "methodTitle": "Matching real and imaginary parts after",
+                  "methodTitle": "Equating Real and Imaginary Parts",
                   "canonical": "https://calc.nz/complex-2d2025.html",
-                  "title": "Matching real and imaginary parts after Worked Solution – 2025 NCEA Level 3 Q2(d) (AS91577) | Calc.nz",
+                  "title": "Equating Real and Imaginary Parts Worked Solution – 2025 NCEA Level 3 Q2(d) (AS91577) | Calc.nz",
                   "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 2(d) worked solution: matching real and imaginary parts after expansion. Use guided hints and…",
                   "summary": "This walkthrough helps you practise matching real and imaginary parts after expansion. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6448,16 +6768,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-2c2025.html",
                   "nextHref": "complex-2e2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Matching real and imaginary parts after expansion."
                 },
                 {
                   "id": "2e",
                   "label": "Question 2(e)",
                   "method": "using an argument condition to solve for a real constant.",
                   "href": "complex-2e2025.html",
-                  "methodTitle": "An argument condition to solve for a",
+                  "methodTitle": "Arguments and Quadrants",
                   "canonical": "https://calc.nz/complex-2e2025.html",
-                  "title": "An argument condition to solve for a Worked Solution – 2025 NCEA Level 3 Q2(e) (AS91577) | Calc.nz",
+                  "title": "Arguments and Quadrants Worked Solution – 2025 NCEA Level 3 Q2(e) (AS91577) | Calc.nz",
                   "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 2(e) worked solution: using an argument condition to solve for a real constant. Use guided hints and…",
                   "summary": "This walkthrough helps you practise using an argument condition to solve for a real constant. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the complex number's quadrant and the argument range before selecting the final angle.",
@@ -6468,7 +6789,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-2d2025.html",
                   "nextHref": "complex-3a2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using an argument condition to solve for a real constant."
                 },
                 {
                   "id": "3a",
@@ -6488,16 +6810,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-2e2025.html",
                   "nextHref": "complex-3b2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Conjugate roots and forming a quadratic with real coefficients."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "squaring and simplifying a complex expression.",
                   "href": "complex-3b2025.html",
-                  "methodTitle": "Squaring and simplifying a complex",
+                  "methodTitle": "Squaring a Complex Expression",
                   "canonical": "https://calc.nz/complex-3b2025.html",
-                  "title": "Squaring and simplifying a complex Worked Solution – 2025 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
+                  "title": "Squaring a Complex Expression Worked Solution – 2025 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
                   "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 3(b) worked solution: squaring and simplifying a complex expression. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise squaring and simplifying a complex expression. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6508,7 +6831,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-3a2025.html",
                   "nextHref": "complex-3c2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Squaring and simplifying a complex expression."
                 },
                 {
                   "id": "3c",
@@ -6518,7 +6842,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Radical Substitution",
                   "canonical": "https://calc.nz/complex-3c2025.html",
                   "title": "Radical Substitution Worked Solution – 2025 NCEA Level 3 Q3(c) (AS91577) | Calc.nz",
-                  "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 3(c) worked solution: solving a radical equation with the substitution square root of x=u. Use guided…",
+                  "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 3(c) worked solution: solving a radical equation with the substitution square root of x = u. Use guided…",
                   "summary": "This walkthrough helps you practise solving a radical equation with the substitution \\(\\sqrt{x}=u\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "State or check the real-domain restriction and test for extraneous solutions after squaring.",
                   "skillSlugs": [
@@ -6528,7 +6852,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-3b2025.html",
                   "nextHref": "complex-3d2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a radical equation with the substitution square root of x = u."
                 },
                 {
                   "id": "3d",
@@ -6548,16 +6873,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-3c2025.html",
                   "nextHref": "complex-3e2025.html",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Factorising a cubic and matching coefficients."
                 },
                 {
                   "id": "3e",
                   "label": "Question 3(e)",
                   "method": "solving simultaneous equations with complex numbers.",
                   "href": "complex-3e2025.html",
-                  "methodTitle": "Simultaneous equations with complex",
+                  "methodTitle": "Complex Simultaneous Equations",
                   "canonical": "https://calc.nz/complex-3e2025.html",
-                  "title": "Simultaneous equations with complex Worked Solution – 2025 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
+                  "title": "Complex Simultaneous Equations Worked Solution – 2025 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
                   "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 3(e) worked solution: solving simultaneous equations with complex numbers. Use guided hints and…",
                   "summary": "This walkthrough helps you practise solving simultaneous equations with complex numbers. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6568,7 +6894,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-3d2025.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving simultaneous equations with complex numbers."
                 }
               ]
             },
@@ -6596,7 +6923,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": null,
                   "nextHref": "complex-2024.html?q=1b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using the factor theorem to find p."
                 },
                 {
                   "id": "1b",
@@ -6616,7 +6944,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=1a",
                   "nextHref": "complex-2024.html?q=1c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "De Moivre’s Theorem in polar form."
                 },
                 {
                   "id": "1c",
@@ -6636,7 +6965,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=1b",
                   "nextHref": "complex-2024.html?q=1d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a surd equation in terms of k."
                 },
                 {
                   "id": "1d",
@@ -6654,17 +6984,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=1c",
                   "nextHref": "complex-2024.html?q=1e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Turning a modulus locus into a line."
                 },
                 {
                   "id": "1e",
                   "label": "Question 1(e)",
                   "method": "showing a complex quotient cannot lie on \\(y=x\\).",
                   "href": "complex-2024.html?q=1e",
-                  "methodTitle": "A complex quotient cannot lie on y=x",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2024.html?q=1e",
-                  "title": "A complex quotient cannot lie on y=x Worked Solution – 2024 NCEA Level 3 Q1(e) (AS91577) | Calc.nz",
-                  "description": "2024 NCEA Level 3 Complex Numbers AS91577 Question 1(e) worked solution: showing a complex quotient cannot lie on y=x. Use guided hints and step-by-step…",
+                  "title": "Complex-number Algebra Worked Solution – 2024 NCEA Level 3 Q1(e) (AS91577) | Calc.nz",
+                  "description": "2024 NCEA Level 3 Complex Numbers AS91577 Question 1(e) worked solution: showing a complex quotient cannot lie on y = x. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise showing a complex quotient cannot lie on \\(y=x\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
                   "skillSlugs": [
@@ -6674,17 +7005,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=1d",
                   "nextHref": "complex-2024.html?q=2a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Showing a complex quotient cannot lie on y = x."
                 },
                 {
                   "id": "2a",
                   "label": "Question 2(a)",
                   "method": "rewriting a complex fraction as \\(a+bi\\).",
                   "href": "complex-2024.html?q=2a",
-                  "methodTitle": "A complex fraction as a+bi",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2024.html?q=2a",
-                  "title": "A complex fraction as a+bi Worked Solution – 2024 NCEA Level 3 Q2(a) (AS91577) | Calc.nz",
-                  "description": "2024 NCEA Level 3 Complex Numbers AS91577 Question 2(a) worked solution: rewriting a complex fraction as a+bi. Use guided hints and step-by-step reasoning.",
+                  "title": "Complex-number Algebra Worked Solution – 2024 NCEA Level 3 Q2(a) (AS91577) | Calc.nz",
+                  "description": "2024 NCEA Level 3 Complex Numbers AS91577 Question 2(a) worked solution: rewriting a complex fraction as a + bi. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise rewriting a complex fraction as \\(a+bi\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
                   "skillSlugs": [
@@ -6694,16 +7026,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=1e",
                   "nextHref": "complex-2024.html?q=2b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rewriting a complex fraction as a + bi."
                 },
                 {
                   "id": "2b",
                   "label": "Question 2(b)",
                   "method": "equal roots and the discriminant.",
                   "href": "complex-2024.html?q=2b",
-                  "methodTitle": "Equal roots and the discriminant",
+                  "methodTitle": "Discriminants and Real Roots",
                   "canonical": "https://calc.nz/complex-2024.html?q=2b",
-                  "title": "Equal roots and the discriminant Worked Solution – 2024 NCEA Level 3 Q2(b) (AS91577) | Calc.nz",
+                  "title": "Discriminants and Real Roots Worked Solution – 2024 NCEA Level 3 Q2(b) (AS91577) | Calc.nz",
                   "description": "2024 NCEA Level 3 Complex Numbers AS91577 Question 2(b) worked solution: equal roots and the discriminant. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise equal roots and the discriminant. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6714,16 +7047,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=2a",
                   "nextHref": "complex-2024.html?q=2c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Equal roots and the discriminant."
                 },
                 {
                   "id": "2c",
                   "label": "Question 2(c)",
                   "method": "solving for \\(w\\) before finding \\(|w|\\).",
                   "href": "complex-2024.html?q=2c",
-                  "methodTitle": "For w before finding |w|",
+                  "methodTitle": "Complex Modulus",
                   "canonical": "https://calc.nz/complex-2024.html?q=2c",
-                  "title": "For w before finding |w| Worked Solution – 2024 NCEA Level 3 Q2(c) (AS91577) | Calc.nz",
+                  "title": "Complex Modulus Worked Solution – 2024 NCEA Level 3 Q2(c) (AS91577) | Calc.nz",
                   "description": "2024 NCEA Level 3 Complex Numbers AS91577 Question 2(c) worked solution: solving for w before finding |w|. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise solving for \\(w\\) before finding \\(|w|\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6732,7 +7066,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=2b",
                   "nextHref": "complex-2024.html?q=2d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving for w before finding |w|."
                 },
                 {
                   "id": "2d",
@@ -6752,7 +7087,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=2c",
                   "nextHref": "complex-2024.html?q=2e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Conjugate roots, factorisation, and finding d."
                 },
                 {
                   "id": "2e",
@@ -6772,7 +7108,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=2d",
                   "nextHref": "complex-2024.html?q=3a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding a circle locus and the matching complex numbers."
                 },
                 {
                   "id": "3a",
@@ -6792,16 +7129,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=2e",
                   "nextHref": "complex-2024.html?q=3b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising a surd denominator."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "squaring a plotted complex number on an Argand diagram.",
                   "href": "complex-2024.html?q=3b",
-                  "methodTitle": "Squaring a plotted complex number on an",
+                  "methodTitle": "Argand Diagram Algebra",
                   "canonical": "https://calc.nz/complex-2024.html?q=3b",
-                  "title": "Squaring a plotted complex number on an Worked Solution – 2024 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
+                  "title": "Argand Diagram Algebra Worked Solution – 2024 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
                   "description": "2024 NCEA Level 3 Complex Numbers AS91577 Question 3(b) worked solution: squaring a plotted complex number on an Argand diagram. Use guided hints and…",
                   "summary": "This walkthrough helps you practise squaring a plotted complex number on an Argand diagram. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6812,7 +7150,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=3a",
                   "nextHref": "complex-2024.html?q=3c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Squaring a plotted complex number on an Argand diagram."
                 },
                 {
                   "id": "3c",
@@ -6822,7 +7161,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2024.html?q=3c",
                   "title": "Complex-number Algebra Worked Solution – 2024 NCEA Level 3 Q3(c) (AS91577) | Calc.nz",
-                  "description": "2024 NCEA Level 3 Complex Numbers AS91577 Question 3(c) worked solution: using z, conjugate of z, and z to the power -1 to solve for d. Use guided hints and…",
+                  "description": "2024 NCEA Level 3 Complex Numbers AS91577 Question 3(c) worked solution: using z, conjugate of (z), and z to the power (-1) to solve for d. Use guided hints…",
                   "summary": "This walkthrough helps you practise using \\(z\\), \\(\\overline{z}\\), and \\(z^{-1}\\) to solve for \\(d\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
                   "skillSlugs": [],
@@ -6830,7 +7169,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=3b",
                   "nextHref": "complex-2024.html?q=3d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using z, conjugate of (z), and z to the power (-1) to solve for d."
                 },
                 {
                   "id": "3d",
@@ -6850,17 +7190,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=3c",
                   "nextHref": "complex-2024.html?q=3e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Fourth roots in polar form."
                 },
                 {
                   "id": "3e",
                   "label": "Question 3(e)",
                   "method": "cubing \\(x+\\frac{1}{x}\\) to find \\(x^3+\\frac{1}{x^3}\\).",
                   "href": "complex-2024.html?q=3e",
-                  "methodTitle": "Cubing x+fraction 1x to find x to",
+                  "methodTitle": "Complex Algebraic Identities",
                   "canonical": "https://calc.nz/complex-2024.html?q=3e",
-                  "title": "Cubing x+fraction 1x to find x to Worked Solution – 2024 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
-                  "description": "2024 NCEA Level 3 Complex Numbers AS91577 Question 3(e) worked solution: cubing x+fraction 1x to find x to the power 3+fraction 1x to the power 3. Use…",
+                  "title": "Complex Algebraic Identities Worked Solution – 2024 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
+                  "description": "2024 NCEA Level 3 Complex Numbers AS91577 Question 3(e) worked solution: cubing x + 1 divided by x to find x cubed + 1 divided by x cubed. Use guided hints…",
                   "summary": "This walkthrough helps you practise cubing \\(x+\\frac{1}{x}\\) to find \\(x^3+\\frac{1}{x^3}\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
                   "skillSlugs": [],
@@ -6868,7 +7209,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Cubing x + 1 divided by x to find x cubed + 1 divided by x cubed."
                 }
               ]
             },
@@ -6886,7 +7228,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Radicals and Surds",
                   "canonical": "https://calc.nz/complex-2023.html?q=1a",
                   "title": "Radicals and Surds Worked Solution – 2023 NCEA Level 3 Q1(a) (AS91577) | Calc.nz",
-                  "description": "2023 NCEA Level 3 Complex Numbers AS91577 Question 1(a) worked solution: expanding a surd binomial into the form a+bp+csquare root of p. Use guided hints…",
+                  "description": "2023 NCEA Level 3 Complex Numbers AS91577 Question 1(a) worked solution: expanding a surd binomial into the form a + bp + c square root of p. Use guided…",
                   "summary": "This walkthrough helps you practise expanding a surd binomial into the form \\(a+bp+c\\sqrt{p}\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Keep exact values until the end and check any denominator or domain restriction.",
                   "skillSlugs": [
@@ -6896,7 +7238,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": null,
                   "nextHref": "complex-2023.html?q=1b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Expanding a surd binomial into the form a + bp + c square root of p."
                 },
                 {
                   "id": "1b",
@@ -6916,16 +7259,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=1a",
                   "nextHref": "complex-2023.html?q=1c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using the discriminant to find when a quadratic has no real roots."
                 },
                 {
                   "id": "1c",
                   "label": "Question 1(c)",
                   "method": "rationalising a quotient and reading its real part.",
                   "href": "complex-2023.html?q=1c",
-                  "methodTitle": "Rationalising a quotient and reading its",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2023.html?q=1c",
-                  "title": "Rationalising a quotient and reading its Worked Solution – 2023 NCEA Level 3 Q1(c) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2023 NCEA Level 3 Q1(c) (AS91577) | Calc.nz",
                   "description": "2023 NCEA Level 3 Complex Numbers AS91577 Question 1(c) worked solution: rationalising a quotient and reading its real part. Use guided hints and…",
                   "summary": "This walkthrough helps you practise rationalising a quotient and reading its real part. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -6936,7 +7280,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=1b",
                   "nextHref": "complex-2023.html?q=1d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising a quotient and reading its real part."
                 },
                 {
                   "id": "1d",
@@ -6956,17 +7301,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=1c",
                   "nextHref": "complex-2023.html?q=1e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Conjugate roots and factorising a cubic with a real constant."
                 },
                 {
                   "id": "1e",
                   "label": "Question 1(e)",
                   "method": "simplifying \\(\\frac{u}{v}\\) and solving a modulus equation in \\(k\\).",
                   "href": "complex-2023.html?q=1e",
-                  "methodTitle": "Fraction uv and solving a modulus equation",
+                  "methodTitle": "Modulus Equations",
                   "canonical": "https://calc.nz/complex-2023.html?q=1e",
-                  "title": "Fraction uv and solving a modulus equation Worked Solution – 2023 NCEA Level 3 Q1(e) (AS91577) | Calc.nz",
-                  "description": "2023 NCEA Level 3 Complex Numbers AS91577 Question 1(e) worked solution: simplifying fraction uv and solving a modulus equation in k. Use guided hints and…",
+                  "title": "Modulus Equations Worked Solution – 2023 NCEA Level 3 Q1(e) (AS91577) | Calc.nz",
+                  "description": "2023 NCEA Level 3 Complex Numbers AS91577 Question 1(e) worked solution: simplifying u divided by v and solving a modulus equation in k. Use guided hints…",
                   "summary": "This walkthrough helps you practise simplifying \\(\\frac{u}{v}\\) and solving a modulus equation in \\(k\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
                   "skillSlugs": [],
@@ -6974,7 +7320,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=1d",
                   "nextHref": "complex-2023.html?q=2a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Simplifying u divided by v and solving a modulus equation in k."
                 },
                 {
                   "id": "2a",
@@ -6995,16 +7342,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=1e",
                   "nextHref": "complex-2023.html?q=2b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Dividing complex numbers in polar form."
                 },
                 {
                   "id": "2b",
                   "label": "Question 2(b)",
                   "method": "finding a modulus in terms of a real parameter.",
                   "href": "complex-2023.html?q=2b",
-                  "methodTitle": "A modulus in terms of a real",
+                  "methodTitle": "Complex Modulus",
                   "canonical": "https://calc.nz/complex-2023.html?q=2b",
-                  "title": "A modulus in terms of a real Worked Solution – 2023 NCEA Level 3 Q2(b) (AS91577) | Calc.nz",
+                  "title": "Complex Modulus Worked Solution – 2023 NCEA Level 3 Q2(b) (AS91577) | Calc.nz",
                   "description": "2023 NCEA Level 3 Complex Numbers AS91577 Question 2(b) worked solution: finding a modulus in terms of a real parameter. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise finding a modulus in terms of a real parameter. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7013,16 +7361,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=2a",
                   "nextHref": "complex-2023.html?q=2c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding a modulus in terms of a real parameter."
                 },
                 {
                   "id": "2c",
                   "label": "Question 2(c)",
                   "method": "solving for \\(z\\) before finding its argument.",
                   "href": "complex-2023.html?q=2c",
-                  "methodTitle": "For z before finding its argument",
+                  "methodTitle": "Arguments and Quadrants",
                   "canonical": "https://calc.nz/complex-2023.html?q=2c",
-                  "title": "For z before finding its argument Worked Solution – 2023 NCEA Level 3 Q2(c) (AS91577) | Calc.nz",
+                  "title": "Arguments and Quadrants Worked Solution – 2023 NCEA Level 3 Q2(c) (AS91577) | Calc.nz",
                   "description": "2023 NCEA Level 3 Complex Numbers AS91577 Question 2(c) worked solution: solving for z before finding its argument. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise solving for \\(z\\) before finding its argument. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the complex number's quadrant and the argument range before selecting the final angle.",
@@ -7033,7 +7382,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=2b",
                   "nextHref": "complex-2023.html?q=2d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving for z before finding its argument."
                 },
                 {
                   "id": "2d",
@@ -7053,7 +7403,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=2c",
                   "nextHref": "complex-2023.html?q=2e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Writing all cube roots in polar form."
                 },
                 {
                   "id": "2e",
@@ -7071,7 +7422,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=2d",
                   "nextHref": "complex-2023.html?q=3a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Turning a locus into a circle and using tangency."
                 },
                 {
                   "id": "3a",
@@ -7091,16 +7443,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=2e",
                   "nextHref": "complex-2023.html?q=3b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using the remainder theorem to find p."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "multiplying by a complex number to solve for \\(n\\).",
                   "href": "complex-2023.html?q=3b",
-                  "methodTitle": "Multiplying by a complex number to solve",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2023.html?q=3b",
-                  "title": "Multiplying by a complex number to solve Worked Solution – 2023 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2023 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
                   "description": "2023 NCEA Level 3 Complex Numbers AS91577 Question 3(b) worked solution: multiplying by a complex number to solve for n. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise multiplying by a complex number to solve for \\(n\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7111,7 +7464,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=3a",
                   "nextHref": "complex-2023.html?q=3c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Multiplying by a complex number to solve for n."
                 },
                 {
                   "id": "3c",
@@ -7131,16 +7485,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=3b",
                   "nextHref": "complex-2023.html?q=3d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a surd equation for x in terms of w."
                 },
                 {
                   "id": "3d",
                   "label": "Question 3(d)",
                   "method": "simplifying reciprocal complex expressions to find \\(x\\) and \\(y\\).",
                   "href": "complex-2023.html?q=3d",
-                  "methodTitle": "Reciprocal complex expressions to find x",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2023.html?q=3d",
-                  "title": "Reciprocal complex expressions to find x Worked Solution – 2023 NCEA Level 3 Q3(d) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2023 NCEA Level 3 Q3(d) (AS91577) | Calc.nz",
                   "description": "2023 NCEA Level 3 Complex Numbers AS91577 Question 3(d) worked solution: simplifying reciprocal complex expressions to find x and y. Use guided hints and…",
                   "summary": "This walkthrough helps you practise simplifying reciprocal complex expressions to find \\(x\\) and \\(y\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7151,16 +7506,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=3c",
                   "nextHref": "complex-2023.html?q=3e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Simplifying reciprocal complex expressions to find x and y."
                 },
                 {
                   "id": "3e",
                   "label": "Question 3(e)",
                   "method": "finding \\(z\\), then \\(w\\), and using \\(\\operatorname{Im}(w)\\).",
                   "href": "complex-2023.html?q=3e",
-                  "methodTitle": "Z, then w, and using Im(w)",
+                  "methodTitle": "Complex Equations and Imaginary Parts",
                   "canonical": "https://calc.nz/complex-2023.html?q=3e",
-                  "title": "Z, then w, and using Im(w) Worked Solution – 2023 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
+                  "title": "Complex Equations and Imaginary Parts Worked Solution – 2023 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
                   "description": "2023 NCEA Level 3 Complex Numbers AS91577 Question 3(e) worked solution: finding z, then w, and using Im(w). Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise finding \\(z\\), then \\(w\\), and using \\(\\operatorname{Im}(w)\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7169,7 +7525,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding z, then w, and using Im(w)."
                 }
               ]
             },
@@ -7197,7 +7554,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": null,
                   "nextHref": "complex-2022.html?q=1b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising a surd denominator into the required exact form."
                 },
                 {
                   "id": "1b",
@@ -7218,16 +7576,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=1a",
                   "nextHref": "complex-2022.html?q=1c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Dividing complex numbers in polar form."
                 },
                 {
                   "id": "1c",
                   "label": "Question 1(c)",
                   "method": "using an argument condition to match real and imaginary parts.",
                   "href": "complex-2022.html?q=1c",
-                  "methodTitle": "An argument condition to match real and",
+                  "methodTitle": "Equating Real and Imaginary Parts",
                   "canonical": "https://calc.nz/complex-2022.html?q=1c",
-                  "title": "An argument condition to match real and Worked Solution – 2022 NCEA Level 3 Q1(c) (AS91577) | Calc.nz",
+                  "title": "Equating Real and Imaginary Parts Worked Solution – 2022 NCEA Level 3 Q1(c) (AS91577) | Calc.nz",
                   "description": "2022 NCEA Level 3 Complex Numbers AS91577 Question 1(c) worked solution: using an argument condition to match real and imaginary parts. Use guided hints and…",
                   "summary": "This walkthrough helps you practise using an argument condition to match real and imaginary parts. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the complex number's quadrant and the argument range before selecting the final angle.",
@@ -7239,7 +7598,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=1b",
                   "nextHref": "complex-2022.html?q=1d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using an argument condition to match real and imaginary parts."
                 },
                 {
                   "id": "1d",
@@ -7259,16 +7619,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=1c",
                   "nextHref": "complex-2022.html?q=1e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Isolating a surd and using the discriminant to find p."
                 },
                 {
                   "id": "1e",
                   "label": "Question 1(e)",
                   "method": "proving an identity involving moduli and real parts.",
                   "href": "complex-2022.html?q=1e",
-                  "methodTitle": "An identity involving moduli and real",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2022.html?q=1e",
-                  "title": "An identity involving moduli and real Worked Solution – 2022 NCEA Level 3 Q1(e) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2022 NCEA Level 3 Q1(e) (AS91577) | Calc.nz",
                   "description": "2022 NCEA Level 3 Complex Numbers AS91577 Question 1(e) worked solution: proving an identity involving moduli and real parts. Use guided hints and…",
                   "summary": "This walkthrough helps you practise proving an identity involving moduli and real parts. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7277,7 +7638,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=1d",
                   "nextHref": "complex-2022.html?q=2a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving an identity involving moduli and real parts."
                 },
                 {
                   "id": "2a",
@@ -7297,7 +7659,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=1e",
                   "nextHref": "complex-2022.html?q=2b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using the remainder theorem to find b."
                 },
                 {
                   "id": "2b",
@@ -7307,7 +7670,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2022.html?q=2b",
                   "title": "Complex-number Algebra Worked Solution – 2022 NCEA Level 3 Q2(b) (AS91577) | Calc.nz",
-                  "description": "2022 NCEA Level 3 Complex Numbers AS91577 Question 2(b) worked solution: solving for z using z and conjugate of z. Use guided hints and step-by-step…",
+                  "description": "2022 NCEA Level 3 Complex Numbers AS91577 Question 2(b) worked solution: solving for z using z and conjugate of (z). Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise solving for \\(z\\) using \\(z\\) and \\(\\overline{z}\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
                   "skillSlugs": [],
@@ -7315,7 +7678,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=2a",
                   "nextHref": "complex-2022.html?q=2c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving for z using z and conjugate of (z)."
                 },
                 {
                   "id": "2c",
@@ -7335,16 +7699,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=2b",
                   "nextHref": "complex-2022.html?q=2d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Factorising a cubic with a known root and finding h."
                 },
                 {
                   "id": "2d",
                   "label": "Question 2(d)",
                   "method": "rationalising first, then finding the principal argument.",
                   "href": "complex-2022.html?q=2d",
-                  "methodTitle": "Rationalising first, then finding the",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2022.html?q=2d",
-                  "title": "Rationalising first, then finding the Worked Solution – 2022 NCEA Level 3 Q2(d) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2022 NCEA Level 3 Q2(d) (AS91577) | Calc.nz",
                   "description": "2022 NCEA Level 3 Complex Numbers AS91577 Question 2(d) worked solution: rationalising first, then finding the principal argument. Use guided hints and…",
                   "summary": "This walkthrough helps you practise rationalising first, then finding the principal argument. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the complex number's quadrant and the argument range before selecting the final angle.",
@@ -7356,7 +7721,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=2c",
                   "nextHref": "complex-2022.html?q=2e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising first, then finding the principal argument."
                 },
                 {
                   "id": "2e",
@@ -7374,16 +7740,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=2d",
                   "nextHref": "complex-2022.html?q=3a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Turning a modulus locus into a circle equation."
                 },
                 {
                   "id": "3a",
                   "label": "Question 3(a)",
                   "method": "combining Argand-diagram points and plotting the result.",
                   "href": "complex-2022.html?q=3a",
-                  "methodTitle": "Combining Argand-diagram points and",
+                  "methodTitle": "Argand Diagram Algebra",
                   "canonical": "https://calc.nz/complex-2022.html?q=3a",
-                  "title": "Combining Argand-diagram points and Worked Solution – 2022 NCEA Level 3 Q3(a) (AS91577) | Calc.nz",
+                  "title": "Argand Diagram Algebra Worked Solution – 2022 NCEA Level 3 Q3(a) (AS91577) | Calc.nz",
                   "description": "2022 NCEA Level 3 Complex Numbers AS91577 Question 3(a) worked solution: combining Argand-diagram points and plotting the result. Use guided hints and…",
                   "summary": "This walkthrough helps you practise combining Argand-diagram points and plotting the result. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7392,16 +7759,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=2e",
                   "nextHref": "complex-2022.html?q=3b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Combining Argand-diagram points and plotting the result."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "completing the square to solve in terms of \\(k\\).",
                   "href": "complex-2022.html?q=3b",
-                  "methodTitle": "Completing the square to solve in terms",
+                  "methodTitle": "Completing the Square",
                   "canonical": "https://calc.nz/complex-2022.html?q=3b",
-                  "title": "Completing the square to solve in terms Worked Solution – 2022 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
+                  "title": "Completing the Square Worked Solution – 2022 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
                   "description": "2022 NCEA Level 3 Complex Numbers AS91577 Question 3(b) worked solution: completing the square to solve in terms of k. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise completing the square to solve in terms of \\(k\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7412,7 +7780,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=3a",
                   "nextHref": "complex-2022.html?q=3c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Completing the square to solve in terms of k."
                 },
                 {
                   "id": "3c",
@@ -7432,16 +7801,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=3b",
                   "nextHref": "complex-2022.html?q=3d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding the three cube roots in polar form."
                 },
                 {
                   "id": "3d",
                   "label": "Question 3(d)",
                   "method": "proving that a complex equation has no solution.",
                   "href": "complex-2022.html?q=3d",
-                  "methodTitle": "That a complex equation has no solution",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2022.html?q=3d",
-                  "title": "That a complex equation has no solution Worked Solution – 2022 NCEA Level 3 Q3(d) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2022 NCEA Level 3 Q3(d) (AS91577) | Calc.nz",
                   "description": "2022 NCEA Level 3 Complex Numbers AS91577 Question 3(d) worked solution: proving that a complex equation has no solution. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise proving that a complex equation has no solution. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7452,7 +7822,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=3c",
                   "nextHref": "complex-2022.html?q=3e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving that a complex equation has no solution."
                 },
                 {
                   "id": "3e",
@@ -7462,7 +7833,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2022.html?q=3e",
                   "title": "Complex-number Algebra Worked Solution – 2022 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
-                  "description": "2022 NCEA Level 3 Complex Numbers AS91577 Question 3(e) worked solution: solving for a and b from z and conjugate of z. Use guided hints and step-by-step…",
+                  "description": "2022 NCEA Level 3 Complex Numbers AS91577 Question 3(e) worked solution: solving for a and b from z and conjugate of (z). Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise solving for \\(a\\) and \\(b\\) from \\(z\\) and \\(\\overline{z}\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
                   "skillSlugs": [],
@@ -7470,7 +7841,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving for a and b from z and conjugate of (z)."
                 }
               ]
             },
@@ -7485,9 +7857,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "label": "Question 1(a)",
                   "method": "multiplying complex numbers and matching real or imaginary parts.",
                   "href": "complex-2021.html?q=1a",
-                  "methodTitle": "Multiplying complex numbers and matching",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2021.html?q=1a",
-                  "title": "Multiplying complex numbers and matching Worked Solution – 2021 NCEA Level 3 Q1(a) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2021 NCEA Level 3 Q1(a) (AS91577) | Calc.nz",
                   "description": "2021 NCEA Level 3 Complex Numbers AS91577 Question 1(a) worked solution: multiplying complex numbers and matching real or imaginary parts. Use guided hints…",
                   "summary": "This walkthrough helps you practise multiplying complex numbers and matching real or imaginary parts. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7498,17 +7870,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": null,
                   "nextHref": "complex-2021.html?q=1b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Multiplying complex numbers and matching real or imaginary parts."
                 },
                 {
                   "id": "1b",
                   "label": "Question 1(b)",
                   "method": "rationalising \\(\\frac{26}{z}\\) and plotting \\(4-6i\\) on an Argand diagram.",
                   "href": "complex-2021.html?q=1b",
-                  "methodTitle": "Rationalising fraction 26z and plotting",
+                  "methodTitle": "Argand Diagram Algebra",
                   "canonical": "https://calc.nz/complex-2021.html?q=1b",
-                  "title": "Rationalising fraction 26z and plotting Worked Solution – 2021 NCEA Level 3 Q1(b) (AS91577) | Calc.nz",
-                  "description": "2021 NCEA Level 3 Complex Numbers AS91577 Question 1(b) worked solution: rationalising fraction 26z and plotting 4-6i on an Argand diagram. Use guided hints…",
+                  "title": "Argand Diagram Algebra Worked Solution – 2021 NCEA Level 3 Q1(b) (AS91577) | Calc.nz",
+                  "description": "2021 NCEA Level 3 Complex Numbers AS91577 Question 1(b) worked solution: rationalising 26 divided by z and plotting 4 - 6i on an Argand diagram. Use guided…",
                   "summary": "This walkthrough helps you practise rationalising \\(\\frac{26}{z}\\) and plotting \\(4-6i\\) on an Argand diagram. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
                   "skillSlugs": [
@@ -7518,7 +7891,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=1a",
                   "nextHref": "complex-2021.html?q=1c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising 26 divided by z and plotting 4 - 6i on an Argand diagram."
                 },
                 {
                   "id": "1c",
@@ -7538,17 +7912,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=1b",
                   "nextHref": "complex-2021.html?q=1d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using the remainder theorem and factor theorem to find a and b."
                 },
                 {
                   "id": "1d",
                   "label": "Question 1(d)",
                   "method": "converting a quotient to \\(a+bi\\) and reading its argument.",
                   "href": "complex-2021.html?q=1d",
-                  "methodTitle": "A quotient to a+bi and reading its",
+                  "methodTitle": "Arguments and Quadrants",
                   "canonical": "https://calc.nz/complex-2021.html?q=1d",
-                  "title": "A quotient to a+bi and reading its Worked Solution – 2021 NCEA Level 3 Q1(d) (AS91577) | Calc.nz",
-                  "description": "2021 NCEA Level 3 Complex Numbers AS91577 Question 1(d) worked solution: converting a quotient to a+bi and reading its argument. Use guided hints and…",
+                  "title": "Arguments and Quadrants Worked Solution – 2021 NCEA Level 3 Q1(d) (AS91577) | Calc.nz",
+                  "description": "2021 NCEA Level 3 Complex Numbers AS91577 Question 1(d) worked solution: converting a quotient to a + bi and reading its argument. Use guided hints and…",
                   "summary": "This walkthrough helps you practise converting a quotient to \\(a+bi\\) and reading its argument. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the complex number's quadrant and the argument range before selecting the final angle.",
                   "skillSlugs": [],
@@ -7556,7 +7931,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=1c",
                   "nextHref": "complex-2021.html?q=1e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Converting a quotient to a + bi and reading its argument."
                 },
                 {
                   "id": "1e",
@@ -7574,16 +7950,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=1d",
                   "nextHref": "complex-2021.html?q=2a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving a circular locus in Cartesian form."
                 },
                 {
                   "id": "2a",
                   "label": "Question 2(a)",
                   "method": "dividing complex numbers in \\(\\operatorname{cis}\\) form.",
                   "href": "complex-2021.html?q=2a",
-                  "methodTitle": "Dividing complex numbers in cis form",
+                  "methodTitle": "Polar Form",
                   "canonical": "https://calc.nz/complex-2021.html?q=2a",
-                  "title": "Dividing complex numbers in cis form Worked Solution – 2021 NCEA Level 3 Q2(a) (AS91577) | Calc.nz",
+                  "title": "Polar Form Worked Solution – 2021 NCEA Level 3 Q2(a) (AS91577) | Calc.nz",
                   "description": "2021 NCEA Level 3 Complex Numbers AS91577 Question 2(a) worked solution: dividing complex numbers in cis form. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise dividing complex numbers in \\(\\operatorname{cis}\\) form. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7595,16 +7972,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=1e",
                   "nextHref": "complex-2021.html?q=2b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Dividing complex numbers in cis form."
                 },
                 {
                   "id": "2b",
                   "label": "Question 2(b)",
                   "method": "completing the square to solve a quadratic in terms of \\(q\\).",
                   "href": "complex-2021.html?q=2b",
-                  "methodTitle": "Quadratic Algebra",
+                  "methodTitle": "Completing the Square",
                   "canonical": "https://calc.nz/complex-2021.html?q=2b",
-                  "title": "Quadratic Algebra Worked Solution – 2021 NCEA Level 3 Q2(b) (AS91577) | Calc.nz",
+                  "title": "Completing the Square Worked Solution – 2021 NCEA Level 3 Q2(b) (AS91577) | Calc.nz",
                   "description": "2021 NCEA Level 3 Complex Numbers AS91577 Question 2(b) worked solution: completing the square to solve a quadratic in terms of q. Use guided hints and…",
                   "summary": "This walkthrough helps you practise completing the square to solve a quadratic in terms of \\(q\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7615,7 +7993,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=2a",
                   "nextHref": "complex-2021.html?q=2c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Completing the square to solve a quadratic in terms of q."
                 },
                 {
                   "id": "2c",
@@ -7635,7 +8014,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=2b",
                   "nextHref": "complex-2021.html?q=2d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using conjugate multiplication to prove a quotient is purely imaginary."
                 },
                 {
                   "id": "2d",
@@ -7655,17 +8035,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=2c",
                   "nextHref": "complex-2021.html?q=2e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding cube roots in cis form."
                 },
                 {
                   "id": "2e",
                   "label": "Question 2(e)",
                   "method": "turning a modulus equation into the circle \\(|z|=4\\).",
                   "href": "complex-2021.html?q=2e",
-                  "methodTitle": "Turning a modulus equation into the circle",
+                  "methodTitle": "Modulus Equations",
                   "canonical": "https://calc.nz/complex-2021.html?q=2e",
-                  "title": "Turning a modulus equation into the circle Worked Solution – 2021 NCEA Level 3 Q2(e) (AS91577) | Calc.nz",
-                  "description": "2021 NCEA Level 3 Complex Numbers AS91577 Question 2(e) worked solution: turning a modulus equation into the circle |z|=4. Use guided hints and step-by-step…",
+                  "title": "Modulus Equations Worked Solution – 2021 NCEA Level 3 Q2(e) (AS91577) | Calc.nz",
+                  "description": "2021 NCEA Level 3 Complex Numbers AS91577 Question 2(e) worked solution: turning a modulus equation into the circle |z| = 4. Use guided hints and…",
                   "summary": "This walkthrough helps you practise turning a modulus equation into the circle \\(|z|=4\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
                   "skillSlugs": [],
@@ -7673,7 +8054,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=2d",
                   "nextHref": "complex-2021.html?q=3a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Turning a modulus equation into the circle |z| = 4."
                 },
                 {
                   "id": "3a",
@@ -7693,7 +8075,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=2e",
                   "nextHref": "complex-2021.html?q=3b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using modulus and argument to choose the correct value of m."
                 },
                 {
                   "id": "3b",
@@ -7703,7 +8086,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Radicals and Surds",
                   "canonical": "https://calc.nz/complex-2021.html?q=3b",
                   "title": "Radicals and Surds Worked Solution – 2021 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
-                  "description": "2021 NCEA Level 3 Complex Numbers AS91577 Question 3(b) worked solution: rationalising a surd denominator into a+bsquare root of 3. Use guided hints and…",
+                  "description": "2021 NCEA Level 3 Complex Numbers AS91577 Question 3(b) worked solution: rationalising a surd denominator into a + b square root of 3. Use guided hints and…",
                   "summary": "This walkthrough helps you practise rationalising a surd denominator into \\(a+b\\sqrt{3}\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Keep exact values until the end and check any denominator or domain restriction.",
                   "skillSlugs": [
@@ -7713,7 +8096,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=3a",
                   "nextHref": "complex-2021.html?q=3c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising a surd denominator into a + b square root of 3."
                 },
                 {
                   "id": "3c",
@@ -7733,7 +8117,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=3b",
                   "nextHref": "complex-2021.html?q=3d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Conjugate roots, cubic factorisation, and finding A."
                 },
                 {
                   "id": "3d",
@@ -7753,16 +8138,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=3c",
                   "nextHref": "complex-2021.html?q=3e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a radical equation in terms of m."
                 },
                 {
                   "id": "3e",
                   "label": "Question 3(e)",
                   "method": "solving a complex equation by equating real and imaginary parts.",
                   "href": "complex-2021.html?q=3e",
-                  "methodTitle": "A complex equation by equating real and",
+                  "methodTitle": "Equating Real and Imaginary Parts",
                   "canonical": "https://calc.nz/complex-2021.html?q=3e",
-                  "title": "A complex equation by equating real and Worked Solution – 2021 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
+                  "title": "Equating Real and Imaginary Parts Worked Solution – 2021 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
                   "description": "2021 NCEA Level 3 Complex Numbers AS91577 Question 3(e) worked solution: solving a complex equation by equating real and imaginary parts. Use guided hints…",
                   "summary": "This walkthrough helps you practise solving a complex equation by equating real and imaginary parts. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7773,7 +8159,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a complex equation by equating real and imaginary parts."
                 }
               ]
             },
@@ -7788,9 +8175,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "label": "Question 1(a)",
                   "method": "multiplying complex numbers and matching corresponding parts.",
                   "href": "complex-2020.html?q=1a",
-                  "methodTitle": "Multiplying complex numbers and matching",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2020.html?q=1a",
-                  "title": "Multiplying complex numbers and matching Worked Solution – 2020 NCEA Level 3 Q1(a) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2020 NCEA Level 3 Q1(a) (AS91577) | Calc.nz",
                   "description": "2020 NCEA Level 3 Complex Numbers AS91577 Question 1(a) worked solution: multiplying complex numbers and matching corresponding parts. Use guided hints and…",
                   "summary": "This walkthrough helps you practise multiplying complex numbers and matching corresponding parts. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7801,16 +8188,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": null,
                   "nextHref": "complex-2020.html?q=1b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Multiplying complex numbers and matching corresponding parts."
                 },
                 {
                   "id": "1b",
                   "label": "Question 1(b)",
                   "method": "using a zero discriminant to find a repeated root.",
                   "href": "complex-2020.html?q=1b",
-                  "methodTitle": "A zero discriminant to find a repeated",
+                  "methodTitle": "Discriminants and Real Roots",
                   "canonical": "https://calc.nz/complex-2020.html?q=1b",
-                  "title": "A zero discriminant to find a repeated Worked Solution – 2020 NCEA Level 3 Q1(b) (AS91577) | Calc.nz",
+                  "title": "Discriminants and Real Roots Worked Solution – 2020 NCEA Level 3 Q1(b) (AS91577) | Calc.nz",
                   "description": "2020 NCEA Level 3 Complex Numbers AS91577 Question 1(b) worked solution: using a zero discriminant to find a repeated root. Use guided hints and…",
                   "summary": "This walkthrough helps you practise using a zero discriminant to find a repeated root. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7821,7 +8209,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=1a",
                   "nextHref": "complex-2020.html?q=1c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using a zero discriminant to find a repeated root."
                 },
                 {
                   "id": "1c",
@@ -7841,16 +8230,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=1b",
                   "nextHref": "complex-2020.html?q=1d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a surd equation in terms of g."
                 },
                 {
                   "id": "1d",
                   "label": "Question 1(d)",
                   "method": "rationalising and simplifying complex fractions.",
                   "href": "complex-2020.html?q=1d",
-                  "methodTitle": "Rationalising and simplifying complex",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2020.html?q=1d",
-                  "title": "Rationalising and simplifying complex Worked Solution – 2020 NCEA Level 3 Q1(d) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2020 NCEA Level 3 Q1(d) (AS91577) | Calc.nz",
                   "description": "2020 NCEA Level 3 Complex Numbers AS91577 Question 1(d) worked solution: rationalising and simplifying complex fractions. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise rationalising and simplifying complex fractions. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7861,16 +8251,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=1c",
                   "nextHref": "complex-2020.html?q=1e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising and simplifying complex fractions."
                 },
                 {
                   "id": "1e",
                   "label": "Question 1(e)",
                   "method": "proving an identity involving a complex quotient.",
                   "href": "complex-2020.html?q=1e",
-                  "methodTitle": "An identity involving a complex quotient",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2020.html?q=1e",
-                  "title": "An identity involving a complex quotient Worked Solution – 2020 NCEA Level 3 Q1(e) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2020 NCEA Level 3 Q1(e) (AS91577) | Calc.nz",
                   "description": "2020 NCEA Level 3 Complex Numbers AS91577 Question 1(e) worked solution: proving an identity involving a complex quotient. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise proving an identity involving a complex quotient. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7881,7 +8272,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=1d",
                   "nextHref": "complex-2020.html?q=2a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving an identity involving a complex quotient."
                 },
                 {
                   "id": "2a",
@@ -7901,16 +8293,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=1e",
                   "nextHref": "complex-2020.html?q=2b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Applying the factor theorem to find q."
                 },
                 {
                   "id": "2b",
                   "label": "Question 2(b)",
                   "method": "solving a modulus equation for all real values of \\(k\\).",
                   "href": "complex-2020.html?q=2b",
-                  "methodTitle": "A modulus equation for all real values",
+                  "methodTitle": "Modulus Equations",
                   "canonical": "https://calc.nz/complex-2020.html?q=2b",
-                  "title": "A modulus equation for all real values Worked Solution – 2020 NCEA Level 3 Q2(b) (AS91577) | Calc.nz",
+                  "title": "Modulus Equations Worked Solution – 2020 NCEA Level 3 Q2(b) (AS91577) | Calc.nz",
                   "description": "2020 NCEA Level 3 Complex Numbers AS91577 Question 2(b) worked solution: solving a modulus equation for all real values of k. Use guided hints and…",
                   "summary": "This walkthrough helps you practise solving a modulus equation for all real values of \\(k\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -7919,7 +8312,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=2a",
                   "nextHref": "complex-2020.html?q=2c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a modulus equation for all real values of k."
                 },
                 {
                   "id": "2c",
@@ -7939,16 +8333,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=2b",
                   "nextHref": "complex-2020.html?q=2d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Conjugate roots, cubic factorisation, and coefficient matching."
                 },
                 {
                   "id": "2d",
                   "label": "Question 2(d)",
                   "method": "finding the principal argument of a quotient.",
                   "href": "complex-2020.html?q=2d",
-                  "methodTitle": "The principal argument of a quotient",
+                  "methodTitle": "Arguments and Quadrants",
                   "canonical": "https://calc.nz/complex-2020.html?q=2d",
-                  "title": "The principal argument of a quotient Worked Solution – 2020 NCEA Level 3 Q2(d) (AS91577) | Calc.nz",
+                  "title": "Arguments and Quadrants Worked Solution – 2020 NCEA Level 3 Q2(d) (AS91577) | Calc.nz",
                   "description": "2020 NCEA Level 3 Complex Numbers AS91577 Question 2(d) worked solution: finding the principal argument of a quotient. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise finding the principal argument of a quotient. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the complex number's quadrant and the argument range before selecting the final angle.",
@@ -7959,7 +8354,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=2c",
                   "nextHref": "complex-2020.html?q=2e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding the principal argument of a quotient."
                 },
                 {
                   "id": "2e",
@@ -7977,7 +8373,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=2d",
                   "nextHref": "complex-2020.html?q=3a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Converting a modulus locus into a Cartesian circle."
                 },
                 {
                   "id": "3a",
@@ -7998,16 +8395,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=2e",
                   "nextHref": "complex-2020.html?q=3b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Dividing complex numbers in polar form."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "comparing squared moduli directly.",
                   "href": "complex-2020.html?q=3b",
-                  "methodTitle": "Comparing squared moduli directly",
+                  "methodTitle": "Complex Modulus",
                   "canonical": "https://calc.nz/complex-2020.html?q=3b",
-                  "title": "Comparing squared moduli directly Worked Solution – 2020 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
+                  "title": "Complex Modulus Worked Solution – 2020 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
                   "description": "2020 NCEA Level 3 Complex Numbers AS91577 Question 3(b) worked solution: comparing squared moduli directly. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise comparing squared moduli directly. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8016,7 +8414,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=3a",
                   "nextHref": "complex-2020.html?q=3c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Comparing squared moduli directly."
                 },
                 {
                   "id": "3c",
@@ -8036,7 +8435,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=3b",
                   "nextHref": "complex-2020.html?q=3d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using conjugates to prove a quotient is real."
                 },
                 {
                   "id": "3d",
@@ -8056,16 +8456,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=3c",
                   "nextHref": "complex-2020.html?q=3e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding all fourth roots in polar form."
                 },
                 {
                   "id": "3e",
                   "label": "Question 3(e)",
                   "method": "proving a quotient is purely imaginary from equal moduli.",
                   "href": "complex-2020.html?q=3e",
-                  "methodTitle": "A quotient is purely imaginary from equal",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2020.html?q=3e",
-                  "title": "A quotient is purely imaginary from equal Worked Solution – 2020 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2020 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
                   "description": "2020 NCEA Level 3 Complex Numbers AS91577 Question 3(e) worked solution: proving a quotient is purely imaginary from equal moduli. Use guided hints and…",
                   "summary": "This walkthrough helps you practise proving a quotient is purely imaginary from equal moduli. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8074,7 +8475,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving a quotient is purely imaginary from equal moduli."
                 }
               ]
             },
@@ -8089,9 +8491,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "label": "Question 1(a)",
                   "method": "completing the square to solve a complex quadratic.",
                   "href": "complex-2019.html?q=1a",
-                  "methodTitle": "Quadratic Algebra",
+                  "methodTitle": "Completing the Square",
                   "canonical": "https://calc.nz/complex-2019.html?q=1a",
-                  "title": "Quadratic Algebra Worked Solution – 2019 NCEA Level 3 Q1(a) (AS91577) | Calc.nz",
+                  "title": "Completing the Square Worked Solution – 2019 NCEA Level 3 Q1(a) (AS91577) | Calc.nz",
                   "description": "2019 NCEA Level 3 Complex Numbers AS91577 Question 1(a) worked solution: completing the square to solve a complex quadratic. Use guided hints and…",
                   "summary": "This walkthrough helps you practise completing the square to solve a complex quadratic. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8102,7 +8504,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": null,
                   "nextHref": "complex-2019.html?q=1b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Completing the square to solve a complex quadratic."
                 },
                 {
                   "id": "1b",
@@ -8122,16 +8525,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=1a",
                   "nextHref": "complex-2019.html?q=1c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Applying the Remainder Theorem to find p."
                 },
                 {
                   "id": "1c",
                   "label": "Question 1(c)",
                   "method": "rationalising a complex quotient and applying its modulus.",
                   "href": "complex-2019.html?q=1c",
-                  "methodTitle": "Rationalising a complex quotient and",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2019.html?q=1c",
-                  "title": "Rationalising a complex quotient and Worked Solution – 2019 NCEA Level 3 Q1(c) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2019 NCEA Level 3 Q1(c) (AS91577) | Calc.nz",
                   "description": "2019 NCEA Level 3 Complex Numbers AS91577 Question 1(c) worked solution: rationalising a complex quotient and applying its modulus. Use guided hints and…",
                   "summary": "This walkthrough helps you practise rationalising a complex quotient and applying its modulus. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8142,7 +8546,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=1b",
                   "nextHref": "complex-2019.html?q=1d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising a complex quotient and applying its modulus."
                 },
                 {
                   "id": "1d",
@@ -8162,16 +8567,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=1c",
                   "nextHref": "complex-2019.html?q=1e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Conjugate roots, cubic factorisation, and coefficient matching."
                 },
                 {
                   "id": "1e",
                   "label": "Question 1(e)",
                   "method": "equating real and imaginary parts after clearing denominators.",
                   "href": "complex-2019.html?q=1e",
-                  "methodTitle": "Equating real and imaginary parts after",
+                  "methodTitle": "Equating Real and Imaginary Parts",
                   "canonical": "https://calc.nz/complex-2019.html?q=1e",
-                  "title": "Equating real and imaginary parts after Worked Solution – 2019 NCEA Level 3 Q1(e) (AS91577) | Calc.nz",
+                  "title": "Equating Real and Imaginary Parts Worked Solution – 2019 NCEA Level 3 Q1(e) (AS91577) | Calc.nz",
                   "description": "2019 NCEA Level 3 Complex Numbers AS91577 Question 1(e) worked solution: equating real and imaginary parts after clearing denominators. Use guided hints and…",
                   "summary": "This walkthrough helps you practise equating real and imaginary parts after clearing denominators. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8182,7 +8588,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=1d",
                   "nextHref": "complex-2019.html?q=2a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Equating real and imaginary parts after clearing denominators."
                 },
                 {
                   "id": "2a",
@@ -8202,7 +8609,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=1e",
                   "nextHref": "complex-2019.html?q=2b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using a conjugate and collecting complex-number terms."
                 },
                 {
                   "id": "2b",
@@ -8222,7 +8630,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=2a",
                   "nextHref": "complex-2019.html?q=2c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising a surd denominator into a + b√5."
                 },
                 {
                   "id": "2c",
@@ -8242,16 +8651,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=2b",
                   "nextHref": "complex-2019.html?q=2d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding fourth roots in polar form for every real p."
                 },
                 {
                   "id": "2d",
                   "label": "Question 2(d)",
                   "method": "making a rationalised complex quotient purely real.",
                   "href": "complex-2019.html?q=2d",
-                  "methodTitle": "Making a rationalised complex quotient",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2019.html?q=2d",
-                  "title": "Making a rationalised complex quotient Worked Solution – 2019 NCEA Level 3 Q2(d) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2019 NCEA Level 3 Q2(d) (AS91577) | Calc.nz",
                   "description": "2019 NCEA Level 3 Complex Numbers AS91577 Question 2(d) worked solution: making a rationalised complex quotient purely real. Use guided hints and…",
                   "summary": "This walkthrough helps you practise making a rationalised complex quotient purely real. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8262,16 +8672,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=2c",
                   "nextHref": "complex-2019.html?q=2e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Making a rationalised complex quotient purely real."
                 },
                 {
                   "id": "2e",
                   "label": "Question 2(e)",
                   "method": "proving a unit-circle quotient is purely imaginary.",
                   "href": "complex-2019.html?q=2e",
-                  "methodTitle": "A unit-circle quotient is purely imaginary",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2019.html?q=2e",
-                  "title": "A unit-circle quotient is purely imaginary Worked Solution – 2019 NCEA Level 3 Q2(e) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2019 NCEA Level 3 Q2(e) (AS91577) | Calc.nz",
                   "description": "2019 NCEA Level 3 Complex Numbers AS91577 Question 2(e) worked solution: proving a unit-circle quotient is purely imaginary. Use guided hints and…",
                   "summary": "This walkthrough helps you practise proving a unit-circle quotient is purely imaginary. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8280,7 +8691,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=2d",
                   "nextHref": "complex-2019.html?q=3a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving a unit-circle quotient is purely imaginary."
                 },
                 {
                   "id": "3a",
@@ -8300,16 +8712,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=2e",
                   "nextHref": "complex-2019.html?q=3b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Dividing moduli and subtracting arguments in polar form."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "solving for real x and y by matching complex parts.",
                   "href": "complex-2019.html?q=3b",
-                  "methodTitle": "For real x and y by matching",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2019.html?q=3b",
-                  "title": "For real x and y by matching Worked Solution – 2019 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2019 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
                   "description": "2019 NCEA Level 3 Complex Numbers AS91577 Question 3(b) worked solution: solving for real x and y by matching complex parts. Use guided hints and…",
                   "summary": "This walkthrough helps you practise solving for real x and y by matching complex parts. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8320,7 +8733,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=3a",
                   "nextHref": "complex-2019.html?q=3c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving for real x and y by matching complex parts."
                 },
                 {
                   "id": "3c",
@@ -8340,16 +8754,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=3b",
                   "nextHref": "complex-2019.html?q=3d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a radical equation with real-domain checks."
                 },
                 {
                   "id": "3d",
                   "label": "Question 3(d)",
                   "method": "using an argument condition and verifying the quadrant.",
                   "href": "complex-2019.html?q=3d",
-                  "methodTitle": "An argument condition and verifying the",
+                  "methodTitle": "Arguments and Quadrants",
                   "canonical": "https://calc.nz/complex-2019.html?q=3d",
-                  "title": "An argument condition and verifying the Worked Solution – 2019 NCEA Level 3 Q3(d) (AS91577) | Calc.nz",
+                  "title": "Arguments and Quadrants Worked Solution – 2019 NCEA Level 3 Q3(d) (AS91577) | Calc.nz",
                   "description": "2019 NCEA Level 3 Complex Numbers AS91577 Question 3(d) worked solution: using an argument condition and verifying the quadrant. Use guided hints and…",
                   "summary": "This walkthrough helps you practise using an argument condition and verifying the quadrant. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the complex number's quadrant and the argument range before selecting the final angle.",
@@ -8360,16 +8775,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=3c",
                   "nextHref": "complex-2019.html?q=3e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using an argument condition and verifying the quadrant."
                 },
                 {
                   "id": "3e",
                   "label": "Question 3(e)",
                   "method": "proving a discriminant is always positive.",
                   "href": "complex-2019.html?q=3e",
-                  "methodTitle": "A discriminant is always positive",
+                  "methodTitle": "Discriminants and Real Roots",
                   "canonical": "https://calc.nz/complex-2019.html?q=3e",
-                  "title": "A discriminant is always positive Worked Solution – 2019 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
+                  "title": "Discriminants and Real Roots Worked Solution – 2019 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
                   "description": "2019 NCEA Level 3 Complex Numbers AS91577 Question 3(e) worked solution: proving a discriminant is always positive. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise proving a discriminant is always positive. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8380,7 +8796,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving a discriminant is always positive."
                 }
               ]
             },
@@ -8408,16 +8825,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": null,
                   "nextHref": "complex-2018.html?q=1b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Applying the Remainder Theorem to evaluate f(2)."
                 },
                 {
                   "id": "1b",
                   "label": "Question 1(b)",
                   "method": "multiplying moduli and adding arguments in cis form.",
                   "href": "complex-2018.html?q=1b",
-                  "methodTitle": "Multiplying moduli and adding arguments",
+                  "methodTitle": "Arguments and Quadrants",
                   "canonical": "https://calc.nz/complex-2018.html?q=1b",
-                  "title": "Multiplying moduli and adding arguments Worked Solution – 2018 NCEA Level 3 Q1(b) (AS91577) | Calc.nz",
+                  "title": "Arguments and Quadrants Worked Solution – 2018 NCEA Level 3 Q1(b) (AS91577) | Calc.nz",
                   "description": "2018 NCEA Level 3 Complex Numbers AS91577 Question 1(b) worked solution: multiplying moduli and adding arguments in cis form. Use guided hints and…",
                   "summary": "This walkthrough helps you practise multiplying moduli and adding arguments in cis form. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the complex number's quadrant and the argument range before selecting the final angle.",
@@ -8428,7 +8846,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=1a",
                   "nextHref": "complex-2018.html?q=1c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Multiplying moduli and adding arguments in cis form."
                 },
                 {
                   "id": "1c",
@@ -8448,7 +8867,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=1b",
                   "nextHref": "complex-2018.html?q=1d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a radical equation in terms of k with real-domain checks."
                 },
                 {
                   "id": "1d",
@@ -8468,7 +8888,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=1c",
                   "nextHref": "complex-2018.html?q=1e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using a zero discriminant to find when a quadratic has a repeated root."
                 },
                 {
                   "id": "1e",
@@ -8478,7 +8899,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2018.html?q=1e",
                   "title": "Complex-number Algebra Worked Solution – 2018 NCEA Level 3 Q1(e) (AS91577) | Calc.nz",
-                  "description": "2018 NCEA Level 3 Complex Numbers AS91577 Question 1(e) worked solution: rationalising z/conjugate of z and proving its modulus is 1. Use guided hints and…",
+                  "description": "2018 NCEA Level 3 Complex Numbers AS91577 Question 1(e) worked solution: rationalising z/ overline z and proving its modulus is 1. Use guided hints and…",
                   "summary": "This walkthrough helps you practise rationalising \\(z/\\overline z\\) and proving its modulus is \\(1\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
                   "skillSlugs": [
@@ -8488,16 +8909,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=1d",
                   "nextHref": "complex-2018.html?q=2a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising z/ overline z and proving its modulus is 1."
                 },
                 {
                   "id": "2a",
                   "label": "Question 2(a)",
                   "method": "conjugating \\(v\\), adding complex numbers, and plotting \\(w\\) on an Argand diagram.",
                   "href": "complex-2018.html?q=2a",
-                  "methodTitle": "Conjugating v, adding complex numbers,",
+                  "methodTitle": "Argand Diagram Algebra",
                   "canonical": "https://calc.nz/complex-2018.html?q=2a",
-                  "title": "Conjugating v, adding complex numbers, Worked Solution – 2018 NCEA Level 3 Q2(a) (AS91577) | Calc.nz",
+                  "title": "Argand Diagram Algebra Worked Solution – 2018 NCEA Level 3 Q2(a) (AS91577) | Calc.nz",
                   "description": "2018 NCEA Level 3 Complex Numbers AS91577 Question 2(a) worked solution: conjugating v, adding complex numbers, and plotting w on an Argand diagram. Use…",
                   "summary": "This walkthrough helps you practise conjugating \\(v\\), adding complex numbers, and plotting \\(w\\) on an Argand diagram. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8508,7 +8930,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=1e",
                   "nextHref": "complex-2018.html?q=2b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Conjugating v, adding complex numbers, and plotting w on an Argand diagram."
                 },
                 {
                   "id": "2b",
@@ -8518,7 +8941,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "methodTitle": "Radicals and Surds",
                   "canonical": "https://calc.nz/complex-2018.html?q=2b",
                   "title": "Radicals and Surds Worked Solution – 2018 NCEA Level 3 Q2(b) (AS91577) | Calc.nz",
-                  "description": "2018 NCEA Level 3 Complex Numbers AS91577 Question 2(b) worked solution: rationalising a surd denominator into a+bsquare root of 7. Use guided hints and…",
+                  "description": "2018 NCEA Level 3 Complex Numbers AS91577 Question 2(b) worked solution: rationalising a surd denominator into a + b square root of 7. Use guided hints and…",
                   "summary": "This walkthrough helps you practise rationalising a surd denominator into \\(a+b\\sqrt7\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Keep exact values until the end and check any denominator or domain restriction.",
                   "skillSlugs": [
@@ -8528,7 +8951,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=2a",
                   "nextHref": "complex-2018.html?q=2c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising a surd denominator into a + b square root of 7."
                 },
                 {
                   "id": "2c",
@@ -8548,16 +8972,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=2b",
                   "nextHref": "complex-2018.html?q=2d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using conjugate roots and cubic factorisation to find A and the remaining roots."
                 },
                 {
                   "id": "2d",
                   "label": "Question 2(d)",
                   "method": "rationalising a complex fraction and finding its modulus.",
                   "href": "complex-2018.html?q=2d",
-                  "methodTitle": "Rationalising a complex fraction and",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2018.html?q=2d",
-                  "title": "Rationalising a complex fraction and Worked Solution – 2018 NCEA Level 3 Q2(d) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2018 NCEA Level 3 Q2(d) (AS91577) | Calc.nz",
                   "description": "2018 NCEA Level 3 Complex Numbers AS91577 Question 2(d) worked solution: rationalising a complex fraction and finding its modulus. Use guided hints and…",
                   "summary": "This walkthrough helps you practise rationalising a complex fraction and finding its modulus. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8568,7 +8993,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=2c",
                   "nextHref": "complex-2018.html?q=2e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising a complex fraction and finding its modulus."
                 },
                 {
                   "id": "2e",
@@ -8586,16 +9012,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=2d",
                   "nextHref": "complex-2018.html?q=3a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Using an equidistant locus to find the imaginary coordinate m."
                 },
                 {
                   "id": "3a",
                   "label": "Question 3(a)",
                   "method": "expanding a complex product and matching real and imaginary parts.",
                   "href": "complex-2018.html?q=3a",
-                  "methodTitle": "Expanding a complex product and matching",
+                  "methodTitle": "Equating Real and Imaginary Parts",
                   "canonical": "https://calc.nz/complex-2018.html?q=3a",
-                  "title": "Expanding a complex product and matching Worked Solution – 2018 NCEA Level 3 Q3(a) (AS91577) | Calc.nz",
+                  "title": "Equating Real and Imaginary Parts Worked Solution – 2018 NCEA Level 3 Q3(a) (AS91577) | Calc.nz",
                   "description": "2018 NCEA Level 3 Complex Numbers AS91577 Question 3(a) worked solution: expanding a complex product and matching real and imaginary parts. Use guided hints…",
                   "summary": "This walkthrough helps you practise expanding a complex product and matching real and imaginary parts. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8606,16 +9033,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=2e",
                   "nextHref": "complex-2018.html?q=3b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Expanding a complex product and matching real and imaginary parts."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "completing the square to solve a quadratic in terms of \\(p\\).",
                   "href": "complex-2018.html?q=3b",
-                  "methodTitle": "Quadratic Algebra",
+                  "methodTitle": "Completing the Square",
                   "canonical": "https://calc.nz/complex-2018.html?q=3b",
-                  "title": "Quadratic Algebra Worked Solution – 2018 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
+                  "title": "Completing the Square Worked Solution – 2018 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
                   "description": "2018 NCEA Level 3 Complex Numbers AS91577 Question 3(b) worked solution: completing the square to solve a quadratic in terms of p. Use guided hints and…",
                   "summary": "This walkthrough helps you practise completing the square to solve a quadratic in terms of \\(p\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8626,7 +9054,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=3a",
                   "nextHref": "complex-2018.html?q=3c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Completing the square to solve a quadratic in terms of p."
                 },
                 {
                   "id": "3c",
@@ -8646,17 +9075,18 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=3b",
                   "nextHref": "complex-2018.html?q=3d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding all cube roots in polar form with De Moivre's theorem."
                 },
                 {
                   "id": "3d",
                   "label": "Question 3(d)",
                   "method": "combining an argument condition with \\(w\\overline w=|w|^2\\).",
                   "href": "complex-2018.html?q=3d",
-                  "methodTitle": "Complex-number Algebra",
+                  "methodTitle": "Arguments and Quadrants",
                   "canonical": "https://calc.nz/complex-2018.html?q=3d",
-                  "title": "Complex-number Algebra Worked Solution – 2018 NCEA Level 3 Q3(d) (AS91577) | Calc.nz",
-                  "description": "2018 NCEA Level 3 Complex Numbers AS91577 Question 3(d) worked solution: combining an argument condition with wconjugate of w=|w| to the power 2. Use guided…",
+                  "title": "Arguments and Quadrants Worked Solution – 2018 NCEA Level 3 Q3(d) (AS91577) | Calc.nz",
+                  "description": "2018 NCEA Level 3 Complex Numbers AS91577 Question 3(d) worked solution: combining an argument condition with w overline w = |w|^2. Use guided hints and…",
                   "summary": "This walkthrough helps you practise combining an argument condition with \\(w\\overline w=|w|^2\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check the complex number's quadrant and the argument range before selecting the final angle.",
                   "skillSlugs": [
@@ -8666,7 +9096,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=3c",
                   "nextHref": "complex-2018.html?q=3e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Combining an argument condition with w overline w = |w|^2."
                 },
                 {
                   "id": "3e",
@@ -8686,7 +9117,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising a radical quotient and checking the real domain."
                 }
               ]
             },
@@ -8701,9 +9133,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "label": "Question 1(a)",
                   "method": "conjugating a complex number, distributing a real factor, and collecting parts.",
                   "href": "complex-2017.html?q=1a",
-                  "methodTitle": "Conjugating a complex number,",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2017.html?q=1a",
-                  "title": "Conjugating a complex number, Worked Solution – 2017 NCEA Level 3 Q1(a) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2017 NCEA Level 3 Q1(a) (AS91577) | Calc.nz",
                   "description": "2017 NCEA Level 3 Complex Numbers AS91577 Question 1(a) worked solution: conjugating a complex number, distributing a real factor, and collecting parts. Use…",
                   "summary": "This walkthrough helps you practise conjugating a complex number, distributing a real factor, and collecting parts. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8714,7 +9146,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": null,
                   "nextHref": "complex-2017.html?q=1b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Conjugating a complex number, distributing a real factor, and collecting parts."
                 },
                 {
                   "id": "1b",
@@ -8734,7 +9167,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=1a",
                   "nextHref": "complex-2017.html?q=1c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising a surd denominator with a difference of two squares."
                 },
                 {
                   "id": "1c",
@@ -8754,7 +9188,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=1b",
                   "nextHref": "complex-2017.html?q=1d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving a radical equation with domain and parameter restrictions."
                 },
                 {
                   "id": "1d",
@@ -8774,7 +9209,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=1c",
                   "nextHref": "complex-2017.html?q=1e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Conjugate roots, Vieta's formula, and cubic factorisation."
                 },
                 {
                   "id": "1e",
@@ -8792,7 +9228,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=1d",
                   "nextHref": "complex-2017.html?q=2a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Converting a modulus locus into the Cartesian equation of a circle."
                 },
                 {
                   "id": "2a",
@@ -8812,7 +9249,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=1e",
                   "nextHref": "complex-2017.html?q=2b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Applying the Remainder Theorem to find a constant."
                 },
                 {
                   "id": "2b",
@@ -8830,7 +9268,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=2a",
                   "nextHref": "complex-2017.html?q=2c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Simplifying radical products with a real-domain check."
                 },
                 {
                   "id": "2c",
@@ -8851,7 +9290,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=2b",
                   "nextHref": "complex-2017.html?q=2d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Exact complex division and choosing the principal argument."
                 },
                 {
                   "id": "2d",
@@ -8871,16 +9311,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=2c",
                   "nextHref": "complex-2017.html?q=2e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Finding and listing all four fourth roots in polar form."
                 },
                 {
                   "id": "2e",
                   "label": "Question 2(e)",
                   "method": "rationalising a complex quotient and making it purely real.",
                   "href": "complex-2017.html?q=2e",
-                  "methodTitle": "Rationalising a complex quotient and",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2017.html?q=2e",
-                  "title": "Rationalising a complex quotient and Worked Solution – 2017 NCEA Level 3 Q2(e) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2017 NCEA Level 3 Q2(e) (AS91577) | Calc.nz",
                   "description": "2017 NCEA Level 3 Complex Numbers AS91577 Question 2(e) worked solution: rationalising a complex quotient and making it purely real. Use guided hints and…",
                   "summary": "This walkthrough helps you practise rationalising a complex quotient and making it purely real. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8891,7 +9332,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=2d",
                   "nextHref": "complex-2017.html?q=3a",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Rationalising a complex quotient and making it purely real."
                 },
                 {
                   "id": "3a",
@@ -8911,16 +9353,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=2e",
                   "nextHref": "complex-2017.html?q=3b",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Dividing moduli and subtracting arguments in polar form."
                 },
                 {
                   "id": "3b",
                   "label": "Question 3(b)",
                   "method": "completing the square to find complex quadratic roots.",
                   "href": "complex-2017.html?q=3b",
-                  "methodTitle": "Quadratic Algebra",
+                  "methodTitle": "Completing the Square",
                   "canonical": "https://calc.nz/complex-2017.html?q=3b",
-                  "title": "Quadratic Algebra Worked Solution – 2017 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
+                  "title": "Completing the Square Worked Solution – 2017 NCEA Level 3 Q3(b) (AS91577) | Calc.nz",
                   "description": "2017 NCEA Level 3 Complex Numbers AS91577 Question 3(b) worked solution: completing the square to find complex quadratic roots. Use guided hints and…",
                   "summary": "This walkthrough helps you practise completing the square to find complex quadratic roots. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8931,7 +9374,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=3a",
                   "nextHref": "complex-2017.html?q=3c",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Completing the square to find complex quadratic roots."
                 },
                 {
                   "id": "3c",
@@ -8951,16 +9395,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=3b",
                   "nextHref": "complex-2017.html?q=3d",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Complete polynomial long division with quotient and remainder."
                 },
                 {
                   "id": "3d",
                   "label": "Question 3(d)",
                   "method": "solving and rationalising an equation with \\(\\sqrt3\\).",
                   "href": "complex-2017.html?q=3d",
-                  "methodTitle": "And rationalising an equation with square",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2017.html?q=3d",
-                  "title": "And rationalising an equation with square Worked Solution – 2017 NCEA Level 3 Q3(d) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2017 NCEA Level 3 Q3(d) (AS91577) | Calc.nz",
                   "description": "2017 NCEA Level 3 Complex Numbers AS91577 Question 3(d) worked solution: solving and rationalising an equation with square root of 3. Use guided hints and…",
                   "summary": "This walkthrough helps you practise solving and rationalising an equation with \\(\\sqrt3\\). Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8971,16 +9416,17 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=3c",
                   "nextHref": "complex-2017.html?q=3e",
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Solving and rationalising an equation with square root of 3."
                 },
                 {
                   "id": "3e",
                   "label": "Question 3(e)",
                   "method": "proving a complex fraction identity step by step.",
                   "href": "complex-2017.html?q=3e",
-                  "methodTitle": "A complex fraction identity step by step",
+                  "methodTitle": "Complex-number Algebra",
                   "canonical": "https://calc.nz/complex-2017.html?q=3e",
-                  "title": "A complex fraction identity step by step Worked Solution – 2017 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
+                  "title": "Complex-number Algebra Worked Solution – 2017 NCEA Level 3 Q3(e) (AS91577) | Calc.nz",
                   "description": "2017 NCEA Level 3 Complex Numbers AS91577 Question 3(e) worked solution: proving a complex fraction identity step by step. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise proving a complex fraction identity step by step. Use the hints to plan the method, then repeat the question without hints and check each step.",
                   "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.",
@@ -8991,7 +9437,8 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-07-19"
+                  "reviewedDate": "2026-08-09",
+                  "methodPlain": "Proving a complex fraction identity step by step."
                 }
               ]
             }
@@ -9000,5 +9447,5 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
       ]
     }
   ],
-  "generatedAt": "2026-07-19"
+  "generatedAt": "2026-08-09"
 };

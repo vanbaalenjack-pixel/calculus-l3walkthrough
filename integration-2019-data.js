@@ -11,6 +11,75 @@
     "2a": [1625, 563], "2b": [2782, 2250], "2c": [2938, 388], "2d": [2188, 1344], "2e": [2844, 1969],
     "3a": [1750, 657], "3b": [2688, 438], "3c": [2438, 388], "3d": [2782, 538], "3e": [2907, 2344]
   };
+  const questionTextHtml = {
+    "1a": raw`
+      <p>Find \(\int\left(2+\frac{2}{\sqrt{x}}\right)\,dx\).</p>
+    `,
+    "1b": raw`
+      <p>Use the values given in the table to find an approximation to \(\int_2^5 f(x)\,dx\), using the Trapezium Rule.</p>
+      <table>
+        <caption>Values for the Trapezium Rule</caption>
+        <tbody>
+          <tr><th scope="row">\(x\)</th><td>2</td><td>2.5</td><td>3</td><td>3.5</td><td>4</td><td>4.5</td><td>5</td></tr>
+          <tr><th scope="row">\(f(x)\)</th><td>0.6</td><td>1.1</td><td>1.7</td><td>2.6</td><td>3.2</td><td>3.4</td><td>2.6</td></tr>
+        </tbody>
+      </table>
+    `,
+    "1c": raw`
+      <p>Find \(\int_0^{\pi/12}\cos(4x)\cos(2x)\,dx\).</p>
+      <p>You must use calculus and show the results of any integration needed to solve the problem.</p>
+    `,
+    "1d": raw`
+      <p>The graph shows the curve \(y=\frac{6}{\sqrt{3x+1}}\). Region A is the area under the curve from \(x=0\) to \(x=5\), and region B is the area under the curve from \(x=5\) to \(x=16\).</p>
+      <p>Show that the areas of regions A and B are equal.</p>
+      <p>You must use calculus and show the results of any integration needed to solve the problem.</p>
+    `,
+    "1e": raw`
+      <p>The rate of change of quantity \(N\) at any instant is given by the differential equation \(\frac{dN}{dt}=kN\).</p>
+      <p>If \(N\) has positive values \(N_1\) and \(N_2\) at times \(t_1\) and \(2t_1\), respectively, prove that \(k=\frac{1}{t_1}\ln\!\left(\frac{N_2}{N_1}\right)\).</p>
+      <p>You must use calculus and show the results of any integration needed to solve the problem.</p>
+    `,
+    "2a": raw`
+      <p>Find \(\int\left(1+2e^{4x}\right)\,dx\).</p>
+    `,
+    "2b": raw`
+      <p>The graph of \(y=f(x)\) has the \(y\)-axis as a line of symmetry. It crosses the \(x\)-axis at \(-A,-B,B,A\). Each shaded region below the axis, from \(-A\) to \(-B\) and from \(B\) to \(A\), has area \(1.2\).</p>
+      <p>If \(\int_{-A}^{A}f(x)\,dx=5.8\), what is the value of \(\int_{-B}^{B}f(x)\,dx\)?</p>
+    `,
+    "2c": raw`
+      <p>Find \(k\) such that \(\int_3^k\frac{8}{2x-5}\,dx=10\).</p>
+      <p>You must use calculus and show the results of any integration needed to solve the problem.</p>
+    `,
+    "2d": raw`
+      <p>The diagram shows the graph of \(y=\cos^2x\). The region under the curve between \(x=0\) and \(x=\pi\) is shaded.</p>
+      <p>Find the area of the shaded region.</p>
+      <p>You must use calculus and show the results of any integration needed to solve the problem.</p>
+    `,
+    "2e": raw`
+      <p>The diagram shows the graphs of \(y=(e^x)^2\) and \(y=20-(e^x)^2\). The region between the two curves, from the \(y\)-axis to their intersection, is shaded.</p>
+      <p>Find the area of the region shaded in the diagram.</p>
+      <p>You must use calculus and show the results of any integration needed to solve the problem.</p>
+    `,
+    "3a": raw`
+      <p>Find \(\int 24(2x-1)^3\,dx\).</p>
+    `,
+    "3b": raw`
+      <p>Solve the differential equation \(\frac{dy}{dx}=4\sec^2(2x)\), given that when \(x=\frac{\pi}{8}\), \(y=5\).</p>
+    `,
+    "3c": raw`
+      <p>Find \(\int_1^4\left(x+1+\frac{x}{x+1}\right)\,dx\).</p>
+      <p>You must use calculus and show the results of any integration needed to solve the problem.</p>
+    `,
+    "3d": raw`
+      <p>If \(\frac{dy}{dx}=\frac{4x}{4x^2-3}+\sqrt{x}\) and \(y(1)=2\), find \(y(4)\).</p>
+    `,
+    "3e": raw`
+      <p>An inverted right pyramid has a square base of side length \(0.9\) metres and a height of \(1.5\) metres. The pyramid is initially filled with water to a depth of \(1\) metre.</p>
+      <p>The energy required to pump water out of a tank of height \(H\) is given by \(E=9800\int_{H-d}^{H}(H-h)A(h)\,dh\), where \(E\) is the energy in joules, \(d\) is the initial depth of the water in the tank, \(h\) is the depth of the water in the tank at any instant, and \(A(h)\) is the area of the surface of the water at this instant.</p>
+      <p>Find the energy required to pump the water out of the tank shown.</p>
+      <p>You must use calculus and show the results of any integration needed to solve the problem.</p>
+    `
+  };
   const metadata = {
     topic: "Integration",
     year: 2019,
@@ -28,17 +97,8 @@
     return "Question " + id.charAt(0) + "(" + id.charAt(1) + ")";
   }
 
-  function questionImageAlt(id, focus) {
-    const plainFocus = String(focus)
-      .replace(/\\\([\s\S]*?\\\)/g, "the mathematical expression shown")
-      .replace(/<[^>]*>/g, " ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .replace(/&/g, "&amp;")
-      .replace(/"/g, "&quot;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-    return questionLabel(id) + " scanned exam prompt. Walkthrough focus: " + plainFocus;
+  function questionImageAlt(id) {
+    return questionLabel(id) + " original exam prompt; text transcription follows";
   }
 
   function pageHref(id) {
@@ -121,7 +181,10 @@
       metadata: metadata,
       tags: tags,
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/integration-2019/${id}-question.png" width="${imageDimensions[0]}" height="${imageDimensions[1]}" alt="${questionImageAlt(id, focus)}" loading="eager" decoding="async" fetchpriority="high" />
+        <img class="question-screenshot" src="assets/integration-2019/${id}-question.png" width="${imageDimensions[0]}" height="${imageDimensions[1]}" alt="${questionImageAlt(id)}" loading="eager" decoding="async" fetchpriority="high" />
+        <div class="visually-hidden question-transcription" data-question-transcription>
+          ${questionTextHtml[id]}
+        </div>
       `,
       answerHtml: finalAnswer,
       guidedSteps: guidedSteps

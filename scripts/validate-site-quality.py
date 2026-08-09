@@ -51,6 +51,14 @@ ORIGIN = "https://calc.nz"
 CATALOGUE_FILE = "question-catalogue.js"
 CATALOGUE_GLOBAL = "CALC_NZ_QUESTION_CATALOGUE"
 EXPECTED_QUESTION_COUNT = 447
+EXPECTED_SOCIAL_IMAGE_URL = ORIGIN + "/assets/calc-nz-social.jpg"
+EXPECTED_ICON_LINKS = (
+    ("icon", "/favicon.ico", "48x48", ""),
+    ("icon", "/assets/favicon-48.png", "48x48", "image/png"),
+    ("icon", "/assets/favicon-192.png", "192x192", "image/png"),
+    ("apple-touch-icon", "/assets/apple-touch-icon.png", "180x180", ""),
+)
+NO_INITIAL_MATH_ASSET_PAGES = {"index.html", "standards.html", "skills.html"}
 # Assemble the prohibited search strings at runtime so the validator itself does
 # not become a source-tree occurrence of the text it is meant to prohibit.
 PERSONAL_NAME_PATTERNS = (
@@ -519,6 +527,27 @@ class StaticPageParser(HTMLParser):
         ]
 
 
+def element_has_ancestor(
+    parser: StaticPageParser, element: Element, ancestor_tag: str
+) -> bool:
+    parent = element.parent
+    while parent is not None:
+        candidate = parser.elements[parent]
+        if candidate.tag == ancestor_tag:
+            return True
+        parent = candidate.parent
+    return False
+
+
+def document_title_values(parser: StaticPageParser) -> list[str]:
+    """Return HTML document titles without counting accessible SVG titles."""
+
+    return [
+        element.text for element in parser.find("title")
+        if element_has_ancestor(parser, element, "head")
+    ]
+
+
 def parse_pages(root: Path, failures: Failures) -> dict[str, StaticPageParser]:
     pages: dict[str, StaticPageParser] = {}
     for path in sorted(root.glob("*.html")):
@@ -606,8 +635,11 @@ def parse_sitemap(root: Path, failures: Failures) -> list[SitemapEntry]:
             failures.add("sitemap.xml: every <url> needs exactly one non-empty <loc>")
             continue
         lastmods = children.get("lastmod", [])
-        if len(lastmods) > 1:
-            failures.add(f"sitemap.xml: {locations[0]} has more than one <lastmod>")
+        if len(lastmods) != 1:
+            failures.add(
+                f"sitemap.xml: {locations[0]} must have exactly one <lastmod>, "
+                f"found {len(lastmods)}"
+            )
         lastmod = lastmods[0] if lastmods else ""
         if lastmod:
             try:
@@ -647,6 +679,13 @@ def validate_sitemap(
     if duplicate_urls:
         failures.add(f"sitemap.xml: duplicate URL (first: {duplicate_urls[0]!r})")
     actual = set(urls)
+    dated_entries = [entry.lastmod for entry in entries if entry.lastmod]
+    if len(dated_entries) == len(entries) and len(entries) > 1:
+        if len(set(dated_entries)) < 2:
+            failures.add(
+                "sitemap.xml: every URL has the same lastmod; use meaningful "
+                "page/content dates rather than one build date"
+            )
 
     expected_question_urls = {record.canonical for record in records if record.canonical}
     missing_questions = sorted(expected_question_urls - actual)
@@ -796,13 +835,90 @@ def image_dimensions(path: Path) -> Optional[tuple[int, int]]:
     try:
         with path.open("rb") as stream:
             header = stream.read(32)
+            stream.seek(0)
+            if header.startswith(b"\xff\xd8"):
+                stream.read(2)
+                start_of_frame_markers = {
+                    0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7,
+                    0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF,
+                }
+                while True:
+                    prefix = stream.read(1)
+                    if not prefix:
+                        return None
+                    if prefix != b"\xff":
+                        continue
+                    marker_byte = stream.read(1)
+                    while marker_byte == b"\xff":
+                        marker_byte = stream.read(1)
+                    if not marker_byte:
+                        return None
+                    marker = marker_byte[0]
+                    if marker in {0x01, *range(0xD0, 0xDA)}:
+                        continue
+                    length_bytes = stream.read(2)
+                    if len(length_bytes) != 2:
+                        return None
+                    segment_length = struct.unpack(">H", length_bytes)[0]
+                    if segment_length < 2:
+                        return None
+                    if marker in start_of_frame_markers:
+                        frame = stream.read(5)
+                        if len(frame) != 5:
+                            return None
+                        height, width = struct.unpack(">HH", frame[1:5])
+                        return width, height
+                    if marker in {0xD9, 0xDA}:
+                        return None
+                    stream.seek(segment_length - 2, 1)
     except OSError:
         return None
     if header.startswith(b"\x89PNG\r\n\x1a\n") and len(header) >= 24:
         return struct.unpack(">II", header[16:24])
-    # JPEG dimensions are not needed for the generated sharing asset. Return
-    # None so the metadata values remain the validation source for other types.
+    if len(header) >= 22 and header[:4] == b"\x00\x00\x01\x00":
+        count = struct.unpack("<H", header[4:6])[0]
+        if count:
+            width = header[6] or 256
+            height = header[7] or 256
+            return width, height
     return None
+
+
+def validate_icon_metadata(
+    root: Path,
+    filename: str,
+    parser: StaticPageParser,
+    failures: Failures,
+) -> None:
+    links = parser.find("link")
+    for rel, href, sizes, media_type in EXPECTED_ICON_LINKS:
+        matches = [
+            element for element in links
+            if rel in element.attrs.get("rel", "").casefold().split()
+            and element.attrs.get("href", "") == href
+        ]
+        if len(matches) != 1:
+            failures.add(
+                f"{filename}: expected one {rel} link for {href}, found {len(matches)}"
+            )
+            continue
+        link = matches[0]
+        if link.attrs.get("sizes", "").casefold() != sizes:
+            failures.add(f"{filename}: {href} must declare sizes={sizes!r}")
+        if link.attrs.get("type", "").casefold() != media_type:
+            expected = media_type or "no type attribute"
+            failures.add(f"{filename}: {href} must declare {expected}")
+        target, _fragment = resolve_local_target(root, root / filename, href)
+        if target is None or not target.is_file():
+            failures.add(f"{filename}: icon target is missing: {href}")
+            continue
+        expected_size = tuple(int(value) for value in sizes.split("x"))
+        dimensions = image_dimensions(target)
+        if dimensions != expected_size:
+            detail = "unreadable" if dimensions is None else f"{dimensions[0]}x{dimensions[1]}"
+            failures.add(
+                f"{filename}: {href} is {detail}, expected {sizes}"
+            )
 
 
 def validate_social_metadata(
@@ -861,6 +977,11 @@ def validate_social_metadata(
         failures.add(f"{filename}: twitter:card must be summary_large_image")
     if og_image and twitter_image and og_image != twitter_image:
         failures.add(f"{filename}: twitter:image does not match og:image")
+    if og_image and og_image != EXPECTED_SOCIAL_IMAGE_URL:
+        failures.add(
+            f"{filename}: og:image must use the optimized sitewide sharing image "
+            f"{EXPECTED_SOCIAL_IMAGE_URL!r}"
+        )
     for label, value in (("og:image", og_image), ("twitter:image", twitter_image)):
         parsed = urlsplit(value)
         if value and (parsed.scheme != "https" or not parsed.netloc):
@@ -880,7 +1001,11 @@ def validate_social_metadata(
                 failures.add(f"{filename}: sharing image target is missing: {og_image}")
             else:
                 dimensions = image_dimensions(target)
-                if dimensions is not None and dimensions != (1200, 630):
+                if dimensions is None:
+                    failures.add(
+                        f"{filename}: sharing image dimensions could not be read"
+                    )
+                elif dimensions != (1200, 630):
                     failures.add(
                         f"{filename}: sharing image is {dimensions[0]}x{dimensions[1]}, "
                         "expected 1200x630"
@@ -926,6 +1051,15 @@ def validate_personal_name(root: Path, failures: Failures) -> None:
         )
 
 
+def schema_types(node: Mapping[str, Any]) -> set[str]:
+    raw_types = node.get("@type")
+    if isinstance(raw_types, str):
+        return {raw_types}
+    if isinstance(raw_types, list):
+        return {value for value in raw_types if isinstance(value, str)}
+    return set()
+
+
 def validate_jsonld_page(
     filename: str,
     parser: StaticPageParser,
@@ -935,17 +1069,21 @@ def validate_jsonld_page(
     failures: Failures,
 ) -> list[dict[str, Any]]:
     nodes = jsonld_nodes(parser, filename, failures)
-    typed_nodes = [node for node in nodes if node.get("@type")]
+    typed_nodes = [node for node in nodes if schema_types(node)]
     if not typed_nodes:
         failures.add(f"{filename}: JSON-LD contains no typed nodes")
         return nodes
     page_nodes = [
         node for node in nodes
-        if node.get("@type") in {"WebPage", "CollectionPage", "LearningResource"}
+        if schema_types(node).intersection(
+            {"WebPage", "CollectionPage", "LearningResource", "Article"}
+        )
     ]
     if not page_nodes and filename != "index.html":
         failures.add(f"{filename}: JSON-LD has no page or learning-resource node")
     for node in page_nodes:
+        types = schema_types(node)
+        is_article = "Article" in types
         node_url = normalise_space(node.get("url") or node.get("mainEntityOfPage"))
         if node_url and node_url != canonical:
             failures.add(
@@ -954,11 +1092,24 @@ def validate_jsonld_page(
             )
         node_name = normalise_space(node.get("name"))
         node_description = normalise_space(node.get("description"))
-        if node_name and node_name != title:
-            failures.add(f"{filename}: JSON-LD name does not match page title")
-        if node_description and node_description != description:
+        visible_h1 = [element.text for element in parser.find("h1") if element.visible]
+        expected_name = visible_h1[0] if is_article and len(visible_h1) == 1 else title
+        if node_name and node_name != expected_name:
+            failures.add(
+                f"{filename}: JSON-LD name does not match "
+                + ("article H1" if is_article else "page title")
+            )
+        if node_description and node_description != description and not is_article:
             failures.add(f"{filename}: JSON-LD description does not match meta description")
-        if node.get("author") and filename != "about.html":
+        author = node.get("author")
+        if is_article:
+            if not isinstance(author, dict) or not normalise_space(author.get("name")):
+                failures.add(f"{filename}: Article JSON-LD needs a named author")
+            if "LearningResource" not in types:
+                failures.add(
+                    f"{filename}: guide Article must also identify as LearningResource"
+                )
+        elif author and filename != "about.html":
             failures.add(f"{filename}: JSON-LD author must be omitted outside About")
     breadcrumb_nodes = [node for node in nodes if node.get("@type") == "BreadcrumbList"]
     if filename != "index.html" and len(breadcrumb_nodes) != 1:
@@ -1059,6 +1210,15 @@ def validate_accessibility_page(
         return any(quoted.search(source) for source in runtime_sources)
 
     for element in parser.elements:
+        if (
+            element.tag in {"div", "span", "p"}
+            and (element.attrs.get("aria-label") or element.attrs.get("aria-labelledby"))
+            and not element.attrs.get("role")
+        ):
+            failures.add(
+                f"{filename}:{element.line}: generic {element.tag} is named with ARIA "
+                "but has no semantic role"
+            )
         for attribute in ("aria-controls", "aria-labelledby", "aria-describedby"):
             value = element.attrs.get(attribute, "").strip()
             if not value:
@@ -1142,6 +1302,15 @@ def validate_shared_accessibility_contract(root: Path, failures: Failures) -> No
             r"[\s\S]{0,300}nextButton\.setAttribute\([\"']aria-expanded[\"']"
         ),
         "mobile progress indicator": r"walkthrough-mobile-progress",
+        "sidebar progress group semantics": (
+            r"walkthrough-sidebar-progress[\"']\s+role=[\"']group[\"']"
+        ),
+        "question-save group semantics": (
+            r"question-personal-actions[\"']\s+role=[\"']group[\"']"
+        ),
+        "logical focus after final answer": (
+            r"walkthroughComplete\s*=\s*true[\s\S]{0,300}focusRevealedContent\("
+        ),
         "logical focus after step navigation": r"heading\.focus\s*\(",
         "KaTeX auto-render with MathML default": r"renderMathInElement",
     }
@@ -1152,11 +1321,41 @@ def validate_shared_accessibility_contract(root: Path, failures: Failures) -> No
         failures.add(
             "walkthrough-gate.js: KaTeX output=html removes the MathML accessibility layer"
         )
+    if re.search(
+        r"walkthrough-mobile-progress[\"'][^>]*\baria-live\s*=", runtime
+    ):
+        failures.add(
+            "walkthrough-gate.js: mobile progress duplicates the canonical live status"
+        )
     style_requirements = {
         "visible keyboard focus": r":focus-visible",
+        "solid high-contrast focus token": r"--focus-ring:\s*#[0-9a-f]{6}",
+        "lightbox focus contrast": (
+            r"\.question-image-lightbox-close:focus-visible\s*\{[^}]*"
+            r"outline:\s*3px\s+solid\s+#fff\s*!important"
+        ),
         "skip-link focus style": r"\.skip-link:focus",
         "reduced motion": r"prefers-reduced-motion:\s*reduce",
         "focused-content scroll clearance": r"scroll-padding|scroll-margin",
+        "44px walkthrough setting target": (
+            r"\.walkthrough-setting-toggle\s*\{[^}]*min-height:\s*44px"
+        ),
+        "44px range target": (
+            r"input\[type=[\"']range[\"']\]\s*\{[^}]*min-height:\s*44px"
+        ),
+        "44px no-JavaScript details target": (
+            r"\.static-first-step-working\s*>\s*summary\s*\{[^}]*min-height:\s*44px"
+        ),
+        "solid off-state setting boundary": (
+            r"\.walkthrough-setting-switch\s*\{[^}]*border:\s*1px\s+solid\s+#[0-9a-f]{6}"
+        ),
+        "solid home search boundary": (
+            r"\.home-search-input\s*\{[^}]*border:\s*1px\s+solid\s+#[0-9a-f]{6}"
+        ),
+        "mobile walkthrough drawer trigger remains visible": (
+            r"\.seo-breadcrumbs\s*\+\s*\.topbar\s+\.ghost-link:not\("
+            r"\.walkthrough-sidebar-open-toggle\)\s*\{[^}]*display:\s*none"
+        ),
     }
     for label, pattern in style_requirements.items():
         if not re.search(pattern, styles, re.I):
@@ -1172,10 +1371,27 @@ def validate_static_pages(
     uniqueness: dict[str, dict[str, list[str]]] = defaultdict(lambda: defaultdict(list))
     for filename, parser in sorted(pages.items()):
         validate_accessibility_page(root, filename, parser, failures)
+        validate_icon_metadata(root, filename, parser, failures)
+        if filename in NO_INITIAL_MATH_ASSET_PAGES:
+            math_assets = sorted({
+                element.attrs.get(attribute, "")
+                for element in parser.elements
+                for attribute in ("src", "href")
+                if attribute in element.attrs
+                and (
+                    "katex" in element.attrs.get(attribute, "").casefold()
+                    or "auto-render" in element.attrs.get(attribute, "").casefold()
+                )
+            })
+            if math_assets:
+                failures.add(
+                    f"{filename}: no initial maths but eagerly loads "
+                    + ", ".join(math_assets)
+                )
         if page_is_noindex(parser):
             continue
         title = exactly_one(
-            [element.text for element in parser.find("title")],
+            document_title_values(parser),
             filename, "title", failures,
         )
         description = exactly_one(
@@ -1509,12 +1725,206 @@ def question_configuration_source(
     return "\n".join(chunks)
 
 
+def question_page_records(
+    parser: StaticPageParser,
+    filename: str,
+    failures: Failures,
+) -> dict[str, Mapping[str, Any]]:
+    """Read the generated per-page metadata without executing its inline JS."""
+
+    assignments: list[tuple[str, object]] = []
+    pattern = re.compile(
+        r"^\s*window\.(CALC_NZ_PAGE_RECORDS?)\s*=\s*(\{.*\})\s*;\s*$",
+        re.S,
+    )
+    for script in parser.find("script"):
+        if script.attrs.get("src"):
+            continue
+        source = "".join(script.text_parts)
+        if "CALC_NZ_PAGE_RECORD" not in source:
+            continue
+        match = pattern.fullmatch(source)
+        if not match:
+            failures.add(f"{filename}: malformed inline walkthrough page-record assignment")
+            continue
+        try:
+            assignments.append((match.group(1), json.loads(match.group(2))))
+        except json.JSONDecodeError as error:
+            failures.add(f"{filename}: invalid walkthrough page-record JSON ({error})")
+
+    if len(assignments) != 1:
+        failures.add(
+            f"{filename}: expected exactly one walkthrough page-record assignment, "
+            f"found {len(assignments)}"
+        )
+        return {}
+
+    variable, payload = assignments[0]
+    if not isinstance(payload, dict):
+        failures.add(f"{filename}: walkthrough page-record payload must be an object")
+        return {}
+    if variable == "CALC_NZ_PAGE_RECORDS":
+        invalid = [key for key, value in payload.items() if not isinstance(key, str) or not isinstance(value, dict)]
+        if invalid:
+            failures.add(f"{filename}: invalid keyed walkthrough page records: {invalid[:3]}")
+            return {}
+        return payload
+
+    question = payload.get("question")
+    question_id = question.get("id") if isinstance(question, dict) else None
+    if not isinstance(question_id, str) or not question_id:
+        failures.add(f"{filename}: singular walkthrough page record has no question id")
+        return {}
+    return {question_id: payload}
+
+
+def validate_question_page_records(
+    filename: str,
+    actual: Mapping[str, Mapping[str, Any]],
+    expected: Sequence[QuestionRecord],
+    failures: Failures,
+) -> None:
+    expected_by_id = {record.question_id: record for record in expected}
+    if set(actual) != set(expected_by_id):
+        failures.add(
+            f"{filename}: page-record ownership mismatch "
+            f"(expected={sorted(expected_by_id)}, found={sorted(actual)})"
+        )
+        return
+
+    for question_id, expected_record in expected_by_id.items():
+        page_record = actual[question_id]
+        level = page_record.get("level")
+        standard = page_record.get("standard")
+        paper = page_record.get("paper")
+        question = page_record.get("question")
+        if not all(isinstance(value, dict) for value in (level, standard, paper, question)):
+            failures.add(f"{filename}: page record {question_id} is structurally incomplete")
+            continue
+        assert isinstance(level, dict) and isinstance(standard, dict)
+        assert isinstance(paper, dict) and isinstance(question, dict)
+        expected_values: tuple[tuple[str, object, object], ...] = (
+            ("level.id", level.get("id"), expected_record.standard.level_id),
+            ("level.label", level.get("label"), expected_record.standard.level_label),
+            ("standard.id", standard.get("id"), expected_record.standard.key),
+            ("standard.label", standard.get("label"), expected_record.standard.label),
+            ("standard.code", standard.get("code"), expected_record.standard.code),
+            ("paper.id", paper.get("id"), expected_record.paper_id),
+            ("paper.year", paper.get("year"), expected_record.year),
+            ("question.id", question.get("id"), expected_record.question_id),
+            ("question.label", question.get("label"), expected_record.label),
+            ("question.method", question.get("method"), expected_record.method),
+            ("question.methodTitle", question.get("methodTitle"), expected_record.method_title),
+            ("question.canonical", question.get("canonical"), expected_record.canonical),
+            ("question.title", question.get("title"), expected_record.title),
+            ("question.description", question.get("description"), expected_record.description),
+            ("question.summary", question.get("summary"), expected_record.summary),
+            ("question.commonMistake", question.get("commonMistake"), expected_record.common_mistake),
+            ("question.skillSlugs", question.get("skillSlugs"), list(expected_record.skill_slugs)),
+        )
+        for field_name, value, wanted in expected_values:
+            if value != wanted:
+                failures.add(
+                    f"{filename}: page record {question_id} {field_name} is "
+                    f"{value!r}, expected {wanted!r}"
+                )
+
+
+def validate_static_walkthrough_fallback(
+    parser: StaticPageParser,
+    filename: str,
+    failures: Failures,
+) -> None:
+    mounts: dict[str, Element] = {}
+    expected_classes = {
+        "question-card": "static-walkthrough-question",
+        "hints-card": "static-walkthrough-support",
+        "walkthrough-content": "static-walkthrough-content",
+    }
+    for element_id, expected_class in expected_classes.items():
+        candidates = [
+            element for element in parser.elements
+            if element.attrs.get("id") == element_id
+        ]
+        if len(candidates) != 1:
+            failures.add(
+                f"{filename}: expected one pre-rendered #{element_id}, "
+                f"found {len(candidates)}"
+            )
+            continue
+        element = candidates[0]
+        mounts[element_id] = element
+        classes = element.attrs.get("class", "").split()
+        if element.attrs.get("data-prerendered") != "true" or expected_class not in classes:
+            failures.add(f"{filename}: #{element_id} is not marked as static walkthrough content")
+        if not element.visible:
+            failures.add(f"{filename}: pre-rendered #{element_id} is hidden in raw HTML")
+
+    question_card = mounts.get("question-card")
+    if question_card is not None:
+        question_index = next(
+            index for index, element in enumerate(parser.elements)
+            if element is question_card
+        )
+        content_classes = {
+            "question-math", "question-prompt", "step-text", "graph-frame",
+            "question-screenshot", "math-block",
+        }
+        has_question_content = False
+        for candidate in parser.elements:
+            if not content_classes.intersection(candidate.attrs.get("class", "").split()):
+                continue
+            parent = candidate.parent
+            while parent is not None:
+                if parent == question_index:
+                    has_question_content = True
+                    break
+                parent = parser.elements[parent].parent
+            if has_question_content:
+                break
+        if not has_question_content:
+            failures.add(f"{filename}: raw #question-card has no authored question content")
+
+    first_idea = [
+        element for element in parser.elements
+        if element.attrs.get("id") == "static-first-idea-heading"
+    ]
+    first_step = [
+        element for element in parser.elements
+        if element.attrs.get("id") == "static-first-step-heading"
+    ]
+    working = [
+        element for element in parser.find("details")
+        if "static-first-step-working" in element.attrs.get("class", "").split()
+    ]
+    if len(first_idea) != 1 or not first_idea[0].text:
+        failures.add(f"{filename}: raw walkthrough has no first idea heading")
+    if len(first_step) != 1 or not first_step[0].text:
+        failures.add(f"{filename}: raw walkthrough has no first guided-step heading")
+    if len(working) != 1 or not working[0].text:
+        failures.add(f"{filename}: raw walkthrough has no usable first-step working")
+    no_script = [element for element in parser.find("noscript") if "JavaScript" in element.text]
+    if len(no_script) < 2:
+        failures.add(f"{filename}: walkthrough has no useful no-JavaScript state")
+
+
 def validate_parameter_runtime_contract(root: Path, failures: Failures) -> None:
     try:
         runtime = (root / "walkthrough-gate.js").read_text(encoding="utf-8")
+        generator = (root / "scripts" / "build-seo.py").read_text(encoding="utf-8")
     except (OSError, UnicodeError) as error:
         failures.add(f"walkthrough-gate.js: cannot inspect parameter SEO runtime ({error})")
         return
+    review_date_match = re.search(
+        r'^REVIEW_DATE\s*=\s*["\']([^"\']+)', generator, re.M
+    )
+    if review_date_match is None or (
+        f'dateModified: "{review_date_match.group(1)}"' not in runtime
+    ):
+        failures.add(
+            "walkthrough-gate.js: runtime structured dateModified does not match "
+            "build-seo.py REVIEW_DATE"
+        )
     required_tokens = {
         "structured question catalogue": CATALOGUE_GLOBAL,
         "per-question canonical": "canonical",
@@ -1530,6 +1940,26 @@ def validate_parameter_runtime_contract(root: Path, failures: Failures) -> None:
                 f"walkthrough-gate.js: parameter-route metadata does not use {label}"
             )
     required_patterns = {
+        "active per-page record selection": (
+            r"pageRecords\s*&&\s*pageRecords\[context\.partId\]"
+        ),
+        "complete per-page record identity check": (
+            r"pageRecord\.level\.id\s*===\s*context\.level\.id"
+            r"[\s\S]{0,500}pageRecord\.standard\.id\s*===\s*context\.standard\.id"
+            r"[\s\S]{0,500}pageRecord\.paper\.id\s*===\s*context\.paper\.id"
+        ),
+        "pre-rendered question replacement": (
+            r"questionCard\.innerHTML\s*=\s*buildQuestionCardHtml"
+        ),
+        "pre-rendered support replacement": (
+            r"tipsCard\.innerHTML\s*=\s*buildTipsCardHtml"
+        ),
+        "pre-rendered walkthrough replacement": (
+            r"walkthroughContent\.innerHTML\s*=\s*buildProgressiveWalkthroughHtml"
+        ),
+        "once-only progressive enhancement": (
+            r"questionCard\.dataset\.walkthroughEnhanced\s*===\s*[\"']true[\"']"
+        ),
         "catalogue record selected by the active question": (
             r"item\.id\s*===\s*context\.partId"
         ),
@@ -1641,31 +2071,26 @@ def validate_walkthroughs(
                 source_records[0],
             )
             default = preferred
-            script_names = {
-                unquote(urlsplit(element.attrs.get("src", "")).path).split("/")[-1]
-                for element in parser.find("script")
-            }
-            if CATALOGUE_FILE not in script_names:
-                failures.add(
-                    f"{source_file}: query-routed shell must load {CATALOGUE_FILE}"
-                )
-            else:
-                ordered_scripts = [
-                    unquote(urlsplit(element.attrs.get("src", "")).path).split("/")[-1]
-                    for element in parser.find("script")
-                ]
-                runtime_index = next(
-                    (index for index, name in enumerate(ordered_scripts)
-                     if name == "walkthrough-gate.js"),
-                    -1,
-                )
-                if runtime_index >= 0 and ordered_scripts.index(CATALOGUE_FILE) > runtime_index:
-                    failures.add(
-                        f"{source_file}: {CATALOGUE_FILE} must load before walkthrough-gate.js"
-                    )
+
+        script_names = {
+            unquote(urlsplit(element.attrs.get("src", "")).path).split("/")[-1]
+            for element in parser.find("script")
+        }
+        if CATALOGUE_FILE in script_names:
+            failures.add(
+                f"{source_file}: question page should use its compact page record, "
+                f"not load {CATALOGUE_FILE}"
+            )
+        validate_question_page_records(
+            source_file,
+            question_page_records(parser, source_file, failures),
+            source_records,
+            failures,
+        )
+        validate_static_walkthrough_fallback(parser, source_file, failures)
 
         title = exactly_one(
-            [element.text for element in parser.find("title")],
+            document_title_values(parser),
             source_file, "title", failures,
         )
         description = exactly_one(
@@ -1904,6 +2329,28 @@ def validate_discovery_pages(
                 f"{filename}: linked questions disagree with catalogue skillSlugs "
                 f"(missing={missing[:4]}, unexpected={unexpected[:4]})"
             )
+        expected_methods = {
+            normalise_url_path(record.href): record.method_title
+            for record in skill_records
+        }
+        question_cards = [
+            link for link in parser.find("a")
+            if "index-link-card" in link.attrs.get("class", "").split()
+            and normalise_url_path(link.attrs.get("href", "")) in expected_methods
+        ]
+        if len(question_cards) != len(skill_records):
+            failures.add(
+                f"{filename}: expected {len(skill_records)} question cards with "
+                f"per-card method metadata, found {len(question_cards)}"
+            )
+        for card in question_cards:
+            route_path = normalise_url_path(card.attrs.get("href", ""))
+            method = normalise_space(card.attrs.get("data-skill-method"))
+            if method != expected_methods[route_path]:
+                failures.add(
+                    f"{filename}: {route_path} data-skill-method is {method!r}, "
+                    f"expected {expected_methods[route_path]!r}"
+                )
         if len(expected_routes) < 3:
             failures.add(
                 f"{filename}: only {len(expected_routes)} questions support this page; "
@@ -1960,6 +2407,452 @@ def validate_discovery_pages(
                 failures.add(f"{facts.landing_href}: missing year link {year_href}")
 
 
+def validate_search_and_guides(
+    root: Path,
+    pages: Mapping[str, StaticPageParser],
+    records: Sequence[QuestionRecord],
+    sitemap_urls: set[str],
+    failures: Failures,
+) -> None:
+    registry_path = root / "guides.json"
+    try:
+        registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, ValueError) as error:
+        failures.add(f"guides.json: missing or invalid JSON ({error})")
+        return
+    if not isinstance(registry, dict) or registry.get("schemaVersion") != 1:
+        failures.add("guides.json: expected schemaVersion 1")
+        return
+    guides = registry.get("guides")
+    if not isinstance(guides, list):
+        failures.add("guides.json: guides must be a list")
+        return
+
+    known_practice_ids: dict[str, set[str]] = defaultdict(set)
+    for record in records:
+        known_practice_ids[record.standard.key].add(
+            f"{record.year}:{record.question_id}"
+        )
+    guide_slugs: set[str] = set()
+    for index, guide in enumerate(guides, 1):
+        context = f"guides.json: guide {index}"
+        if not isinstance(guide, dict):
+            failures.add(f"{context} must be an object")
+            continue
+        slug = normalise_space(guide.get("slug"))
+        context = f"guides.json: {slug or f'guide {index}'}"
+        if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
+            failures.add(f"{context} has an invalid slug")
+        if slug in guide_slugs:
+            failures.add(f"guides.json: duplicate guide slug {slug!r}")
+        guide_slugs.add(slug)
+        for field_name in (
+            "title", "summary", "subject", "author", "reviewedDate", "directAnswer",
+        ):
+            if not normalise_space(guide.get(field_name)):
+                failures.add(f"{context} is missing {field_name}")
+        standard_key = normalise_space(guide.get("standardKey"))
+        if standard_key not in STANDARD_FACTS:
+            failures.add(f"{context} has unknown standardKey {standard_key!r}")
+        raw_skills = guide.get("skillSlugs")
+        if not isinstance(raw_skills, list) or not raw_skills:
+            failures.add(f"{context} needs at least one skillSlugs entry")
+            raw_skills = []
+        skill_slugs = [normalise_space(value) for value in raw_skills]
+        unknown_skills = sorted(
+            value for value in skill_slugs if value not in SKILL_SPECS
+        )
+        if unknown_skills:
+            failures.add(f"{context} has unknown skill slugs {unknown_skills!r}")
+        if len(skill_slugs) != len(set(skill_slugs)):
+            failures.add(f"{context} has duplicate skill slugs")
+        mismatched_skills = sorted(
+            value for value in skill_slugs
+            if value in SKILL_SPECS
+            and standard_key not in SKILL_SPECS[value].standard_ids
+        )
+        if mismatched_skills:
+            failures.add(
+                f"{context} has skills outside {standard_key!r}: "
+                f"{mismatched_skills!r}"
+            )
+        reviewed_date = normalise_space(guide.get("reviewedDate"))
+        try:
+            parsed_review_date = date.fromisoformat(reviewed_date)
+        except ValueError:
+            failures.add(f"{context} has invalid reviewedDate {reviewed_date!r}")
+        else:
+            if parsed_review_date > date.today():
+                failures.add(f"{context} reviewedDate is in the future")
+
+        sections = guide.get("sections")
+        if not isinstance(sections, list) or len(sections) < 2:
+            failures.add(f"{context} needs at least two substantive sections")
+            sections = []
+        section_ids: set[str] = set()
+        for section_index, section in enumerate(sections, 1):
+            if not isinstance(section, dict):
+                failures.add(f"{context} section {section_index} must be an object")
+                continue
+            section_id = normalise_space(section.get("id"))
+            if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", section_id):
+                failures.add(f"{context} section {section_index} has an invalid id")
+            if section_id in section_ids:
+                failures.add(f"{context} has duplicate section id {section_id!r}")
+            section_ids.add(section_id)
+            if not normalise_space(section.get("heading")):
+                failures.add(f"{context} section {section_index} has no heading")
+            if len(plain_math_text(section.get("html"))) < 40:
+                failures.add(f"{context} section {section_index} is too thin")
+
+        sources = guide.get("sources")
+        if not isinstance(sources, list) or not sources:
+            failures.add(f"{context} needs at least one source")
+            sources = []
+        for source_index, source in enumerate(sources, 1):
+            if not isinstance(source, dict) or not normalise_space(source.get("label")):
+                failures.add(f"{context} source {source_index} needs a label")
+            if not isinstance(source, dict) or not normalise_space(source.get("href")):
+                failures.add(f"{context} source {source_index} needs an href")
+
+        related_concepts = guide.get("relatedConcepts", [])
+        if not isinstance(related_concepts, list):
+            failures.add(f"{context} relatedConcepts must be a list")
+            related_concepts = []
+        for related_index, related in enumerate(related_concepts, 1):
+            if not isinstance(related, dict):
+                failures.add(f"{context} related concept {related_index} must be an object")
+                continue
+            if not normalise_space(related.get("title")):
+                failures.add(f"{context} related concept {related_index} needs a title")
+            if not normalise_space(related.get("href")):
+                failures.add(f"{context} related concept {related_index} needs an href")
+
+        practice_ids = guide.get("practiceQuestionIds", [])
+        if not isinstance(practice_ids, list) or not practice_ids:
+            failures.add(
+                f"{context} practiceQuestionIds must be a nonempty list"
+            )
+            practice_ids = []
+        normalised_practice_ids = [normalise_space(value) for value in practice_ids]
+        if any(
+            not re.fullmatch(r"20\d{2}:[1-9]\d*[a-z]", value)
+            for value in normalised_practice_ids
+        ):
+            failures.add(f"{context} has invalid practice question ids")
+        if len(normalised_practice_ids) != len(set(normalised_practice_ids)):
+            failures.add(f"{context} has duplicate practice question ids")
+        unknown_practice = sorted(
+            value for value in normalised_practice_ids
+            if value not in known_practice_ids.get(standard_key, set())
+        )
+        if unknown_practice:
+            failures.add(
+                f"{context} has unknown/mismatched practice questions "
+                f"{unknown_practice!r}"
+            )
+        unrelated_practice = sorted(
+            f"{record.year}:{record.question_id}"
+            for record in records
+            if record.standard.key == standard_key
+            and f"{record.year}:{record.question_id}" in normalised_practice_ids
+            and not (set(record.skill_slugs) & set(skill_slugs))
+        )
+        if unrelated_practice:
+            failures.add(
+                f"{context} practice questions do not match its skills "
+                f"{unrelated_practice!r}"
+            )
+        if not isinstance(guide.get("toc", True), bool):
+            failures.add(f"{context} toc must be true or false")
+
+    guide_files = {
+        filename for filename in pages
+        if re.fullmatch(r"guide-[a-z0-9-]+\.html", filename)
+    }
+    expected_guide_files = {f"guide-{slug}.html" for slug in guide_slugs}
+    if guide_files != expected_guide_files:
+        failures.add(
+            "guide pages disagree with guides.json "
+            f"(missing={sorted(expected_guide_files - guide_files)!r}, "
+            f"unexpected={sorted(guide_files - expected_guide_files)!r})"
+        )
+    guides_hub = pages.get("guides.html")
+    if guides:
+        if guides_hub is None:
+            failures.add("guides.html: substantive guides exist but the hub is missing")
+        if ORIGIN + "/guides.html" not in sitemap_urls:
+            failures.add("guides.html: published hub is missing from sitemap")
+        for guide in guides:
+            if not isinstance(guide, dict):
+                continue
+            slug = normalise_space(guide.get("slug"))
+            filename = f"guide-{slug}.html"
+            if ORIGIN + "/" + filename not in sitemap_urls:
+                failures.add(f"{filename}: published guide is missing from sitemap")
+            guide_page = pages.get(filename)
+            if guide_page is None:
+                continue
+            if len(guide_page.find("article")) != 1:
+                failures.add(f"{filename}: expected one article landmark")
+            if "guide-direct-answer" not in guide_page.ids:
+                failures.add(f"{filename}: missing direct answer/formula summary")
+            authored_math = normalise_space(guide.get("directAnswer")) + " " + " ".join(
+                normalise_space(section.get("html"))
+                for section in guide.get("sections", [])
+                if isinstance(section, dict)
+            )
+            needs_katex = bool(re.search(
+                r"\\\([\s\S]+?\\\)|\\\[[\s\S]+?\\\]",
+                authored_math,
+            ))
+            asset_values = {
+                element.attrs.get(attribute, "")
+                for element in guide_page.elements
+                for attribute in ("src", "href")
+                if element.attrs.get(attribute)
+            }
+            math_assets = {
+                value for value in asset_values
+                if "katex" in value.casefold() or "auto-render" in value.casefold()
+            }
+            render_scripts = [
+                element.text for element in guide_page.find("script")
+                if "renderMathInElement" in element.text
+            ]
+            if needs_katex:
+                for required_asset in (
+                    "dist/katex.min.css",
+                    "dist/katex.min.js",
+                    "contrib/auto-render.min.js",
+                ):
+                    if not any(required_asset in value for value in math_assets):
+                        failures.add(
+                            f"{filename}: authored TeX is missing {required_asset}"
+                        )
+                if len(render_scripts) != 1:
+                    failures.add(
+                        f"{filename}: authored TeX needs one KaTeX auto-render call"
+                    )
+                elif re.search(r"\boutput\s*:\s*[\"']html[\"']", render_scripts[0]):
+                    failures.add(
+                        f"{filename}: KaTeX output=html removes accessible MathML"
+                    )
+            elif math_assets or render_scripts:
+                failures.add(f"{filename}: maths-free guide eagerly loads KaTeX")
+            guide_hrefs = [link.attrs.get("href", "") for link in guide_page.find("a")]
+            standard_key = normalise_space(guide.get("standardKey"))
+            facts = STANDARD_FACTS.get(standard_key)
+            if facts and not any(
+                href_matches(value, facts.landing_href) for value in guide_hrefs
+            ):
+                failures.add(f"{filename}: missing linked standard {facts.landing_href}")
+            for skill_slug in guide.get("skillSlugs", []):
+                spec = SKILL_SPECS.get(normalise_space(skill_slug))
+                if spec and not any(
+                    href_matches(value, spec.page_href) for value in guide_hrefs
+                ):
+                    failures.add(f"{filename}: missing linked skill {spec.page_href}")
+            matching_practice = [
+                record for record in records
+                if record.standard.key == standard_key
+                and f"{record.year}:{record.question_id}"
+                in guide.get("practiceQuestionIds", [])
+            ]
+            for record in matching_practice:
+                if not any(href_matches(value, record.href) for value in guide_hrefs):
+                    failures.add(f"{filename}: missing practice link {record.href}")
+
+            if guides_hub and not any(
+                href_matches(link.attrs.get("href", ""), filename)
+                for link in guides_hub.find("a")
+            ):
+                failures.add(f"guides.html: missing guide card for {filename}")
+            if facts:
+                standard_page = pages.get(facts.landing_href)
+                if standard_page and not any(
+                    href_matches(link.attrs.get("href", ""), filename)
+                    for link in standard_page.find("a")
+                ):
+                    failures.add(
+                        f"{facts.landing_href}: missing reverse guide link {filename}"
+                    )
+            for skill_slug in guide.get("skillSlugs", []):
+                spec = SKILL_SPECS.get(normalise_space(skill_slug))
+                skill_page = pages.get(spec.page_href) if spec else None
+                if skill_page and not any(
+                    href_matches(link.attrs.get("href", ""), filename)
+                    for link in skill_page.find("a")
+                ):
+                    failures.add(
+                        f"{spec.page_href}: missing reverse guide link {filename}"
+                    )
+    else:
+        if guides_hub is not None:
+            failures.add("guides.html: empty registry must not publish a hub")
+        if any("/guide" in urlsplit(url).path for url in sitemap_urls):
+            failures.add("sitemap.xml: empty guide registry publishes guide URLs")
+
+    search = pages.get("search.html")
+    if search is None:
+        failures.add("search.html: global search page is missing")
+        return
+    if ORIGIN + "/search.html" not in sitemap_urls:
+        failures.add("search.html: global search page is missing from sitemap")
+    script_names = {
+        Path(unquote(urlsplit(script.attrs.get("src", "")).path)).name
+        for script in search.find("script") if script.attrs.get("src")
+    }
+    for required in ("search-core.js", "search-page.js", "site-shell.js"):
+        if required not in script_names:
+            failures.add(f"search.html: missing required script {required}")
+    if CATALOGUE_FILE in script_names:
+        failures.add("search.html: question catalogue must be loaded on demand")
+    search_forms = [
+        form for form in search.find("form")
+        if form.attrs.get("role", "").casefold() == "search"
+    ]
+    if len(search_forms) != 1:
+        failures.add("search.html: expected one role=search form")
+    if len([
+        element for element in search.find("input")
+        if element.attrs.get("type", "").casefold() == "search"
+        and "data-global-search-input" in element.attrs
+    ]) != 1:
+        failures.add("search.html: expected one labelled global search input")
+    if not any(
+        element.attrs.get("aria-live") == "polite"
+        and "data-global-search-status" in element.attrs
+        for element in search.elements
+    ):
+        failures.add("search.html: missing polite search result status")
+    if len(search.with_attr("data-global-search-results")) != 1:
+        failures.add("search.html: missing search result container")
+
+    embedded_records: list[dict[str, Any]] = []
+    inline_scripts = [
+        element.text for element in search.find("script")
+        if "CALC_NZ_STATIC_SEARCH_RECORDS" in element.text
+    ]
+    if len(inline_scripts) != 1:
+        failures.add(
+            "search.html: expected one embedded static search-record assignment"
+        )
+    else:
+        match = re.fullmatch(
+            r"window\.CALC_NZ_STATIC_SEARCH_RECORDS\s*=\s*(\[[\s\S]*\]);",
+            inline_scripts[0],
+        )
+        try:
+            payload = json.loads(match.group(1)) if match else None
+        except (TypeError, ValueError):
+            payload = None
+        if not isinstance(payload, list) or not all(
+            isinstance(record, dict) for record in payload
+        ):
+            failures.add("search.html: static search records are not valid JSON objects")
+        else:
+            embedded_records = payload
+    record_types = {
+        normalise_space(record.get("type")) for record in embedded_records
+    }
+    wanted_types = {"Standard", "Paper", "Skill"} | ({"Guide"} if guides else set())
+    if record_types != wanted_types:
+        failures.add(
+            f"search.html: static result types {sorted(record_types)!r}, "
+            f"expected {sorted(wanted_types)!r}"
+        )
+    if any(normalise_space(record.get("type")) == "Question" for record in embedded_records):
+        failures.add("search.html: question records must remain in the lazy catalogue")
+    for guide in guides:
+        if not isinstance(guide, dict):
+            continue
+        slug = normalise_space(guide.get("slug"))
+        filename = f"guide-{slug}.html"
+        matches = [
+            record for record in embedded_records
+            if normalise_space(record.get("type")) == "Guide"
+            and normalise_url_path(normalise_space(record.get("href"))) == filename
+        ]
+        if len(matches) != 1:
+            failures.add(
+                f"search.html: expected one static Guide record for {filename}, "
+                f"found {len(matches)}"
+            )
+            continue
+        authored_values = [normalise_space(guide.get("directAnswer"))]
+        authored_values.extend(
+            f"{normalise_space(section.get('heading'))} "
+            f"{normalise_space(section.get('html'))}"
+            for section in guide.get("sections", [])
+            if isinstance(section, dict)
+        )
+        authored_values.extend(
+            normalise_space(item.get("title"))
+            for item in guide.get("relatedConcepts", [])
+            if isinstance(item, dict)
+        )
+        searchable_prose = " ".join(
+            re.sub(
+                r"\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]",
+                " ",
+                value,
+            )
+            for value in authored_values
+        )
+        expected_terms = set(re.findall(
+            r"[a-z][a-z'-]{3,}", plain_math_text(searchable_prose).casefold()
+        ))
+        keyword_text = normalise_space(matches[0].get("keywords")).casefold()
+        missing_terms = sorted(
+            term for term in expected_terms if term not in keyword_text
+        )
+        if missing_terms:
+            failures.add(
+                f"search.html: {filename} omits authored guide terms from search "
+                f"keywords: {missing_terms[:8]!r}"
+            )
+
+    try:
+        search_runtime = (root / "search-page.js").read_text(encoding="utf-8")
+        generator = (root / "scripts" / "build-seo.py").read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as error:
+        failures.add(f"search runtime: cannot inspect source ({error})")
+    else:
+        for token in (
+            CATALOGUE_GLOBAL,
+            'type: "Question"',
+            "loadCatalogue",
+            "cataloguePromise = null",
+            "requestCatalogue",
+            "searchRequestId",
+            "input.value.trim() !== query",
+        ):
+            if token not in search_runtime:
+                failures.add(f"search-page.js: missing lazy question contract {token!r}")
+        cache_match = re.search(r'^CACHE_TOKEN\s*=\s*["\']([^"\']+)', generator, re.M)
+        runtime_tokens = set(re.findall(r"\?v=([0-9A-Za-z._-]+)", search_runtime))
+        if cache_match is None or runtime_tokens != {cache_match.group(1)}:
+            failures.add(
+                "search-page.js: lazy catalogue token does not match build-seo.py "
+                "CACHE_TOKEN"
+            )
+
+    for filename, parser in pages.items():
+        if not any(
+            href_matches(link.attrs.get("href", ""), "search.html")
+            for link in parser.find("a")
+        ):
+            failures.add(f"{filename}: no crawlable global search link")
+        guide_linked = any(
+            href_matches(link.attrs.get("href", ""), "guides.html")
+            for link in parser.find("a")
+        )
+        if bool(guides) != guide_linked and filename != "guides.html":
+            state = "missing" if guides else "published with an empty registry"
+            failures.add(f"{filename}: Guides navigation is {state}")
+
+
 def validate_homepage_architecture(
     root: Path, parser: Optional[StaticPageParser], records: Sequence[QuestionRecord],
     failures: Failures,
@@ -1985,8 +2878,36 @@ def validate_homepage_architecture(
         unquote(urlsplit(element.attrs.get("src", "")).path).split("/")[-1]
         for element in parser.find("script")
     }
-    if CATALOGUE_FILE not in script_names:
-        failures.add(f"index.html: must load {CATALOGUE_FILE}")
+    required_lazy_scripts = {"site-shell.js", "search-core.js", "index-loader.js"}
+    missing_lazy_scripts = sorted(required_lazy_scripts - script_names)
+    if missing_lazy_scripts:
+        failures.add(
+            "index.html: missing lazy homepage scripts "
+            + ", ".join(missing_lazy_scripts)
+        )
+    eager_scripts = sorted(
+        {CATALOGUE_FILE, "index-page.js"}.intersection(script_names)
+    )
+    if eager_scripts:
+        failures.add(
+            "index.html: catalogue/practice scripts must be loaded on demand, not "
+            "in initial HTML: " + ", ".join(eager_scripts)
+        )
+    initial_math_assets = sorted({
+        element.attrs.get(attribute, "")
+        for element in parser.elements
+        for attribute in ("src", "href")
+        if attribute in element.attrs
+        and (
+            "katex" in element.attrs.get(attribute, "").casefold()
+            or "auto-render" in element.attrs.get(attribute, "").casefold()
+        )
+    })
+    if initial_math_assets:
+        failures.add(
+            "index.html: KaTeX must not load before content requiring maths: "
+            + ", ".join(initial_math_assets)
+        )
     live_regions = [
         element for element in parser.elements
         if element.attrs.get("aria-live") in {"polite", "assertive"}
@@ -1994,10 +2915,36 @@ def validate_homepage_architecture(
     ]
     if not live_regions:
         failures.add("index.html: selector/search has no live-region announcements")
+    result_lists = [
+        *parser.with_attr("data-search-results"),
+        *parser.with_attr("data-practice-output"),
+        *[
+            element for element in parser.with_attr("id")
+            if element.attrs.get("id") == "home-library-results"
+        ],
+    ]
+    for element in result_lists:
+        if "aria-live" in element.attrs:
+            failures.add(
+                f"index.html:{element.line}: dynamic result list must not be an "
+                "atomic live region; announce its dedicated status instead"
+            )
+    for status_attribute in (
+        "data-search-status",
+        "data-practice-status",
+        "data-library-status",
+    ):
+        statuses = parser.with_attr(status_attribute)
+        if len(statuses) != 1 or statuses[0].attrs.get("role") != "status":
+            failures.add(
+                f"index.html: expected one dedicated role=status for {status_attribute}"
+            )
     try:
         runtime = (root / "index-page.js").read_text(encoding="utf-8")
+        loader = (root / "index-loader.js").read_text(encoding="utf-8")
+        generator = (root / "scripts" / "build-seo.py").read_text(encoding="utf-8")
     except (OSError, UnicodeError) as error:
-        failures.add(f"index-page.js: cannot inspect selector runtime ({error})")
+        failures.add(f"homepage scripts: cannot inspect selector/lazy runtime ({error})")
         return element_count, link_count
     contracts = {
         "structured catalogue use": CATALOGUE_GLOBAL,
@@ -2008,6 +2955,26 @@ def validate_homepage_architecture(
     for label, token in contracts.items():
         if token not in runtime:
             failures.add(f"index-page.js: missing {label}")
+    for token in (
+        CATALOGUE_FILE,
+        "index-page.js",
+        "IntersectionObserver",
+        "focusin",
+        "deferredActivationPending",
+        'dispatchEvent(new Event("input"',
+        "requestHomepageTools();",
+    ):
+        if token not in loader:
+            failures.add(f"index-loader.js: missing lazy-load contract {token!r}")
+    cache_match = re.search(r'^CACHE_TOKEN\s*=\s*["\']([^"\']+)', generator, re.M)
+    loader_tokens = set(re.findall(r"\?v=([0-9A-Za-z._-]+)", loader))
+    if cache_match is None:
+        failures.add("scripts/build-seo.py: cannot identify CACHE_TOKEN")
+    elif loader_tokens != {cache_match.group(1)}:
+        failures.add(
+            "index-loader.js: lazy asset tokens do not match build-seo.py "
+            f"CACHE_TOKEN ({sorted(loader_tokens)!r})"
+        )
     return element_count, link_count
 
 
@@ -2083,6 +3050,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if records:
         validate_walkthroughs(root, pages, records, sitemap_urls, failures)
         validate_discovery_pages(pages, records, sitemap_urls, failures)
+        validate_search_and_guides(root, pages, records, sitemap_urls, failures)
         homepage_elements, homepage_links = validate_homepage_architecture(
             root, pages.get("index.html"), records, failures
         )

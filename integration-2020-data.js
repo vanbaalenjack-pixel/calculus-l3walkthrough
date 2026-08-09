@@ -11,6 +11,78 @@
     "2a": [2188, 782], "2b": [2844, 688], "2c": [2844, 488], "2d": [2844, 575], "2e": [2844, 1907],
     "3a": [2125, 500], "3b": [2844, 575], "3c": [2844, 1219], "3d": [2844, 1500], "3e": [2844, 1938]
   };
+  const questionTextHtml = {
+    "1a": raw`
+      <p>Find \(\int\left(x+2+\frac{3}{x}\right)\,dx\).</p>
+    `,
+    "1b": raw`
+      <p>For \(t\ge0\), the velocity of an object is given by \(v(t)=0.6\sqrt{t}\), where \(v\) is the velocity of the object in centimetres per second and \(t\) is time in seconds from the start of the object's motion.</p>
+      <p>The object has a displacement of \(5\) centimetres at \(t=0\). What will be the displacement of the object after \(16\) seconds?</p>
+    `,
+    "1c": raw`
+      <p>Find \(\int_4^8\frac{5x-11}{x-3}\,dx\).</p>
+      <p>You must use calculus and show the results of any integration needed to solve the problem.</p>
+    `,
+    "1d": raw`
+      <p>The graph shows the curve \(y=x+\frac{3}{x}\) and the line \(y=4\). The region between the line and curve, between their two positive intersections, is shaded.</p>
+      <p>Find the shaded area.</p>
+      <p>You must use calculus and show the results of any integration needed to solve the problem.</p>
+    `,
+    "1e": raw`
+      <p>Consider the differential equation \(\tan x\,\frac{dy}{dx}=\frac{\sec^2x}{y}\), where \(0&lt;x&lt;\frac{\pi}{2}\).</p>
+      <p>Given that \(y=2\) when \(x=\frac{\pi}{4}\), find the value or values of \(y\) when \(x=\frac{\pi}{3}\).</p>
+      <p>You must use calculus and give the results of any integration needed to solve this problem.</p>
+    `,
+    "2a": raw`
+      <p>Find \(\int\left(\pi-\frac{2}{x^2}\right)\,dx\).</p>
+    `,
+    "2b": raw`
+      <p>Use the values given in the table to find an approximation to \(\int_0^3 f(x)\,dx\), using Simpson's Rule.</p>
+      <table>
+        <caption>Values for Simpson's Rule</caption>
+        <tbody>
+          <tr><th scope="row">\(x\)</th><td>0</td><td>0.5</td><td>1</td><td>1.5</td><td>2</td><td>2.5</td><td>3</td></tr>
+          <tr><th scope="row">\(f(x)\)</th><td>1.1</td><td>1.8</td><td>2.1</td><td>2.4</td><td>2.7</td><td>1.8</td><td>1.3</td></tr>
+        </tbody>
+      </table>
+    `,
+    "2c": raw`
+      <p>Find \(k\) such that \(\int_1^k9\sqrt{3x-2}\,dx=126\).</p>
+      <p>You must use calculus and give the results of any integration needed to solve this problem.</p>
+    `,
+    "2d": raw`
+      <p>If \(\frac{dy}{dx}=\sqrt{y}\cos(4x)\), and \(y=1\) when \(x=\frac{\pi}{8}\), find the value of \(y\) when \(x=\frac{\pi}{4}\).</p>
+      <p>You must use calculus and show the results of any integration needed to solve the problem.</p>
+    `,
+    "2e": raw`
+      <p>The graph shows the curve \(y=x+2\sqrt{x}-3\). The shaded area lies between the curve and the \(x\)-axis from \(x=0\) to \(x=4\), crossing the axis once within the interval.</p>
+      <p>Find the shaded area.</p>
+      <p>You must use calculus and give the results of any integration needed to solve this problem.</p>
+    `,
+    "3a": raw`
+      <p>Find \(\int\sec(2x)\tan(2x)\,dx\).</p>
+    `,
+    "3b": raw`
+      <p>If \(\frac{dy}{dx}=\cos(2x)\), and \(y=1\) when \(x=\frac{\pi}{12}\), find the value of \(y\) when \(x=\frac{\pi}{4}\).</p>
+      <p>You must use calculus and give the results of any integration needed to solve this problem.</p>
+    `,
+    "3c": raw`
+      <p>An object originally moving at a constant velocity suddenly starts to accelerate. From the start of the object's acceleration, its motion can be modelled by \(\frac{dv}{dt}=t+e^{0.2t}\) for \(0\le t\le15\), where \(v\) is the velocity in metres per second and \(t\) is the time in seconds after the object starts to accelerate.</p>
+      <p>When \(t=0\), the velocity of the object was \(8\) metres per second. Find the velocity of the object when \(t=10\).</p>
+      <p>You must use calculus and give the results of any integration needed to solve this problem.</p>
+    `,
+    "3d": raw`
+      <p>In radioactive decay, the rate at which a radioactive substance decays at any instant is proportional to the number of radioactive atoms present at that instant. This can be modelled by \(\frac{dN}{dt}=kN\), where \(N\) is the number of radioactive atoms present and \(t\) is the time in days.</p>
+      <p>A quantity of manganese-52 is produced. Manganese-52 is a radioactive isotope of manganese and has a half-life of \(5.6\) days; after \(5.6\) days, half of any atoms of manganese-52 would have decayed.</p>
+      <p>How long would it take for \(95\%\) of the manganese-52 to decay?</p>
+      <p>You must use calculus and give the results of any integration needed to solve this problem.</p>
+    `,
+    "3e": raw`
+      <p>The graph shows the curves \(y=\cos x\) and \(y=\cos^3x\) for \(0\le x\le\frac{\pi}{2}\). The region between the curves is shaded.</p>
+      <p>Find the shaded area.</p>
+      <p>You must use calculus and give the results of any integration needed to solve this problem.</p>
+    `
+  };
   const metadata = {
     topic: "Integration",
     year: 2020,
@@ -28,17 +100,8 @@
     return "Question " + id.charAt(0) + "(" + id.charAt(1) + ")";
   }
 
-  function questionImageAlt(id, focus) {
-    const plainFocus = String(focus)
-      .replace(/\\\([\s\S]*?\\\)/g, "the mathematical expression shown")
-      .replace(/<[^>]*>/g, " ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .replace(/&/g, "&amp;")
-      .replace(/"/g, "&quot;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-    return questionLabel(id) + " scanned exam prompt. Walkthrough focus: " + plainFocus;
+  function questionImageAlt(id) {
+    return questionLabel(id) + " original exam prompt; text transcription follows";
   }
 
   function pageHref(id) {
@@ -121,7 +184,10 @@
       metadata: metadata,
       tags: tags,
       questionHtml: raw`
-        <img class="question-screenshot" src="assets/integration-2020/${id}-question.png" width="${imageDimensions[0]}" height="${imageDimensions[1]}" alt="${questionImageAlt(id, focus)}" />
+        <img class="question-screenshot" src="assets/integration-2020/${id}-question.png" width="${imageDimensions[0]}" height="${imageDimensions[1]}" alt="${questionImageAlt(id)}" />
+        <div class="visually-hidden question-transcription" data-question-transcription>
+          ${questionTextHtml[id]}
+        </div>
       `,
       answerHtml: finalAnswer,
       guidedSteps: guidedSteps

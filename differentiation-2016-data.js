@@ -149,7 +149,7 @@
     ];
 
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the parabola and perpendicular tangents">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="diff-2016-1d-title diff-2016-1d-desc">
           <title id="diff-2016-1d-title">Parabola with perpendicular tangents at P and Q</title>
           <desc id="diff-2016-1d-desc">The parabola y equals one quarter times x minus two squared has vertex at two comma zero. Q is at six comma four. Tangents at Q and at the point P on the left branch meet at a right angle.</desc>
@@ -202,7 +202,7 @@
     }
 
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the piecewise function graph">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="diff-2016-2c-title diff-2016-2c-desc">
           <title id="diff-2016-2c-title">Graph of the piecewise function y equals f of x</title>
           <desc id="diff-2016-2c-desc">A curved left branch has a smooth minimum at negative four and a corner at negative two. A descending line has an open point at negative one comma one while a filled point is at negative one comma five, and it ends open at one comma negative five. A filled point at one comma negative three starts a concave-down curve with a maximum at three comma five; the curve meets a horizontal ray at x equals four.</desc>
@@ -238,7 +238,7 @@
 
   function coneInSphereDiagramHtml() {
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the cone inscribed in a sphere">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 680 470" role="img" aria-labelledby="diff-2016-2e-title diff-2016-2e-desc">
           <title id="diff-2016-2e-title">Cone inscribed in a sphere of radius six centimetres</title>
           <desc id="diff-2016-2e-desc">A sphere is shown in cross-section as a circle centred at the origin with radius six. A cone has its apex at the top of the sphere and a horizontal circular base s centimetres below the x-axis. The cone has height h and base radius r.</desc>
@@ -284,7 +284,7 @@
     const rectangleY = Math.pow(rectangleX - 6, 2);
 
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the rectangle beneath the parabola">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="diff-2016-3c-title diff-2016-3c-desc">
           <title id="diff-2016-3c-title">Rectangle with opposite vertex on y equals x minus six squared</title>
           <desc id="diff-2016-3c-desc">An axes-aligned rectangle has lower-left vertex at the origin. Its upper-right vertex lies on the left branch of the upward-opening parabola y equals x minus six squared, whose vertex is at six comma zero.</desc>
@@ -311,7 +311,7 @@
 
   function rugbyConversionDiagramHtml() {
     return raw`
-      <div class="graph-frame question-graph-frame" aria-label="Open a larger view of the rugby conversion geometry">
+      <div class="graph-frame question-graph-frame">
         <svg class="graph-svg" viewBox="0 0 720 450" role="img" aria-labelledby="diff-2016-3e-title diff-2016-3e-desc">
           <title id="diff-2016-3e-title">Rugby conversion angle geometry</title>
           <desc id="diff-2016-3e-desc">The ball is on a line perpendicular to the goal-line through the point where the try was scored. That point is fifteen metres from the nearer goal-post, and the posts are five point four metres apart. The ball is d metres from the goal-line, and the two sight lines from the ball to the posts form angle theta.</desc>

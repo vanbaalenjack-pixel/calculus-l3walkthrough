@@ -21,10 +21,13 @@ import argparse
 import copy
 import html
 import json
+import os
 import re
+import subprocess
 import sys
 from collections import defaultdict
 from dataclasses import dataclass
+from datetime import date
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Iterable, Mapping, Sequence
@@ -51,13 +54,27 @@ except ModuleNotFoundError:  # Supports import-based validators from the reposit
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://calc.nz/"
-CACHE_TOKEN = "20260719-8"
-REVIEW_DATE = "2026-07-19"
-SOCIAL_IMAGE_URL = f"{BASE_URL}assets/calc-nz-social.png"
+CACHE_TOKEN = "20260809-1"
+REVIEW_DATE = "2026-08-09"
+WALKTHROUGH_CONTENT_RELEASE_DATE = "2026-08-09"
+SOCIAL_IMAGE_URL = f"{BASE_URL}assets/calc-nz-social.jpg"
 SOCIAL_IMAGE_ALT = "Calc.nz guided NCEA maths walkthroughs"
 EXPECTED_ROUTE_COUNT = 447
 EXPECTED_YEAR_COUNT = 30
 CATALOGUE_FILE = ROOT / "question-catalogue.js"
+GUIDES_FILE = ROOT / "guides.json"
+WALKTHROUGH_EXTRACTOR = ROOT / "scripts" / "extract-walkthrough-content.swift"
+
+PAGE_MODIFIED_DATES = {
+    "index.html": "2026-08-09",
+    "standards.html": "2026-08-09",
+    "skills.html": "2026-08-09",
+    "search.html": "2026-08-09",
+    # Navigation and icon chrome changed in the current release, but the
+    # substantive About-page content did not. Keep its content date distinct.
+    "about.html": "2026-07-19",
+    "404.html": "2026-08-09",
+}
 
 REPOSITORY_URL = "https://github.com/vanbaalenjack-pixel/calculus-l3walkthrough"
 ERROR_REPORT_URL = (
@@ -95,6 +112,32 @@ class Standard:
     @property
     def landing_url(self) -> str:
         return absolute_url(self.landing_file)
+
+
+@dataclass(frozen=True)
+class Guide:
+    slug: str
+    title: str
+    summary: str
+    subject: str
+    standard_key: str
+    skill_slugs: tuple[str, ...]
+    author: str
+    reviewed_date: str
+    direct_answer: str
+    sections: tuple[Mapping[str, object], ...]
+    related_concepts: tuple[Mapping[str, object], ...]
+    practice_question_ids: tuple[str, ...]
+    sources: tuple[Mapping[str, object], ...]
+    toc: bool
+
+    @property
+    def filename(self) -> str:
+        return f"guide-{self.slug}.html"
+
+    @property
+    def canonical(self) -> str:
+        return absolute_url(self.filename)
 
 
 # The official titles below are the titles used by NZQA for these achievement
@@ -385,6 +428,10 @@ def metadata_body(
             f'<meta name="description" content="{h(description)}">',
             f'<meta name="robots" content="{h(robots)}">',
             f'<link rel="canonical" href="{h(canonical)}">',
+            '<link rel="icon" href="/favicon.ico" sizes="48x48">',
+            '<link rel="icon" href="/assets/favicon-48.png" type="image/png" sizes="48x48">',
+            '<link rel="icon" href="/assets/favicon-192.png" type="image/png" sizes="192x192">',
+            '<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180">',
             f'<meta property="og:locale" content="en_NZ">',
             f'<meta property="og:type" content="{h(og_type)}">',
             f'<meta property="og:site_name" content="Calc.nz">',
@@ -433,6 +480,77 @@ def add_head_marker(document: str, body: str) -> str:
     )
 
 
+def inject_site_shell(document: str, *, guides_published: bool | None = None) -> str:
+    """Put the shared header in source while keeping the JS setup idempotent."""
+
+    document = remove_marker(document, "SITE_HEADER")
+    document = re.sub(
+        r'(?im)^[ \t]*<script\b(?=[^>\r\n]*\bsrc\s*=\s*["\']site-shell\.js(?:\?[^"\']*)?["\'])[^>]*>\s*</script>[ \t]*\n?',
+        "",
+        document,
+    )
+    document, count = re.subn(
+        r"(?is)(</head>)",
+        f'  <script defer src="site-shell.js?v={CACHE_TOKEN}"></script>\n\\1',
+        document,
+        count=1,
+    )
+    if count != 1:
+        raise ValueError("Could not add the shared site shell script")
+
+    body_match = re.search(r"(?is)<body\b[^>]*>", document)
+    if not body_match:
+        raise ValueError("Could not find a body element for the shared site header")
+    body_tag = body_match.group(0)
+    if re.search(r"\bclass\s*=", body_tag, flags=re.I):
+        body_tag = re.sub(
+            r"(?is)\bclass\s*=\s*(['\"])(.*?)\1",
+            lambda match: (
+                f'class="{normalise_space(match.group(2) + " has-site-header")}"'
+                if "has-site-header" not in match.group(2).split()
+                else match.group(0)
+            ),
+            body_tag,
+            count=1,
+        )
+    else:
+        body_tag = body_tag[:-1] + ' class="has-site-header">'
+    document = document[: body_match.start()] + body_tag + document[body_match.end() :]
+
+    body_match = re.search(r"(?is)<body\b[^>]*>", document)
+    assert body_match
+    header = marker("SITE_HEADER", site_header(guides_published=guides_published))
+    remainder = document[body_match.end() :].lstrip("\r\n")
+    document = document[: body_match.end()] + "\n" + header + "\n" + remainder
+
+    document, main_count = re.subn(
+        r"(?is)<main\b([^>]*)>",
+        lambda match: (
+            "<main"
+            + (match.group(1) if re.search(r"\bid\s*=", match.group(1), flags=re.I) else ' id="main-content"' + match.group(1))
+            + ("" if re.search(r"\btabindex\s*=", match.group(1), flags=re.I) else ' tabindex="-1"')
+            + ">"
+        ),
+        document,
+        count=1,
+    )
+    if main_count != 1:
+        raise ValueError("Could not identify the main content landmark")
+    main_match = re.search(
+        r'(?is)<main\b[^>]*\bid\s*=\s*(["\'])(?P<id>[^"\']+)\1',
+        document,
+    )
+    if not main_match:
+        raise ValueError("Could not identify the main landmark id")
+    main_id = main_match.group("id")
+    document = document.replace(
+        'class="skip-link" href="#main-content"',
+        f'class="skip-link" href="#{h(main_id)}"',
+        1,
+    )
+    return document
+
+
 def load_catalogue(source: str | None = None) -> dict[str, object]:
     """Read the JSON-compatible catalogue assignment without executing JS."""
 
@@ -452,6 +570,238 @@ def load_catalogue(source: str | None = None) -> dict[str, object]:
     if not isinstance(value, dict) or not isinstance(value.get("levels"), list):
         raise ValueError("question-catalogue.js is missing its levels array")
     return value
+
+
+def load_guides(source: str | None = None) -> list[Guide]:
+    """Load substantive guide entries; an empty registry publishes no URLs."""
+
+    if source is None:
+        source = GUIDES_FILE.read_text(encoding="utf-8")
+    try:
+        payload = json.loads(source)
+    except json.JSONDecodeError as error:
+        raise ValueError(f"guides.json contains invalid JSON: {error}") from error
+    if not isinstance(payload, dict) or payload.get("schemaVersion") != 1:
+        raise ValueError("guides.json must use schemaVersion 1")
+    raw_guides = payload.get("guides")
+    if not isinstance(raw_guides, list):
+        raise ValueError("guides.json must contain a guides list")
+
+    guides: list[Guide] = []
+    slugs: set[str] = set()
+    for index, record in enumerate(raw_guides):
+        if not isinstance(record, dict):
+            raise ValueError(f"Guide entry {index + 1} must be an object")
+        slug = str(record.get("slug", "")).strip()
+        if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
+            raise ValueError(f"Guide entry {index + 1} has an invalid slug")
+        if slug in slugs:
+            raise ValueError(f"Duplicate guide slug: {slug}")
+        slugs.add(slug)
+        standard_key = str(record.get("standardKey", ""))
+        if standard_key not in STANDARDS:
+            raise ValueError(f"Guide {slug} has an unknown standardKey")
+        raw_skill_slugs = record.get("skillSlugs")
+        if not isinstance(raw_skill_slugs, list) or not raw_skill_slugs:
+            raise ValueError(f"Guide {slug} must include at least one skill slug")
+        skill_slugs = tuple(str(value).strip() for value in raw_skill_slugs)
+        if any(
+            not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", value)
+            for value in skill_slugs
+        ) or len(skill_slugs) != len(set(skill_slugs)):
+            raise ValueError(f"Guide {slug} has invalid or duplicate skill slugs")
+        unknown_skills = sorted(set(skill_slugs) - set(SKILL_SPECS))
+        if unknown_skills:
+            raise ValueError(f"Guide {slug} has unknown skill slugs: {unknown_skills}")
+        mismatched_skills = sorted(
+            value
+            for value in skill_slugs
+            if standard_key not in SKILL_SPECS[value].standard_ids
+        )
+        if mismatched_skills:
+            raise ValueError(
+                f"Guide {slug} has skills outside {standard_key}: {mismatched_skills}"
+            )
+        sections = record.get("sections", [])
+        sources = record.get("sources", [])
+        required_text = (
+            "title",
+            "summary",
+            "subject",
+            "author",
+            "reviewedDate",
+            "directAnswer",
+        )
+        missing = [name for name in required_text if not str(record.get(name, "")).strip()]
+        if missing or not isinstance(sections, list) or len(sections) < 2:
+            raise ValueError(
+                f"Guide {slug} is not substantive enough to publish; missing {missing or ['at least two sections']}"
+            )
+        if not isinstance(sources, list) or not sources:
+            raise ValueError(f"Guide {slug} must include at least one source")
+        reviewed_date = str(record["reviewedDate"])
+        try:
+            parsed_review_date = date.fromisoformat(reviewed_date)
+        except ValueError:
+            raise ValueError(f"Guide {slug} has an invalid reviewedDate")
+        if parsed_review_date > date.today():
+            raise ValueError(f"Guide {slug} has a future reviewedDate")
+
+        section_ids: set[str] = set()
+        for section_index, section in enumerate(sections, 1):
+            if not isinstance(section, dict):
+                raise ValueError(f"Guide {slug} section {section_index} must be an object")
+            section_id = str(section.get("id", "")).strip()
+            if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", section_id):
+                raise ValueError(f"Guide {slug} section {section_index} has an invalid id")
+            if section_id in section_ids:
+                raise ValueError(f"Guide {slug} has duplicate section id {section_id}")
+            section_ids.add(section_id)
+            if not str(section.get("heading", "")).strip() or len(
+                re.sub(r"<[^>]+>", " ", str(section.get("html", ""))).strip()
+            ) < 40:
+                raise ValueError(f"Guide {slug} section {section_index} is incomplete or too thin")
+
+        for source_index, item in enumerate(sources, 1):
+            if not isinstance(item, dict):
+                raise ValueError(f"Guide {slug} source {source_index} must be an object")
+            if not str(item.get("label", "")).strip() or not str(item.get("href", "")).strip():
+                raise ValueError(f"Guide {slug} source {source_index} needs a label and href")
+
+        raw_related = record.get("relatedConcepts", [])
+        if not isinstance(raw_related, list):
+            raise ValueError(f"Guide {slug} relatedConcepts must be a list")
+        for related_index, item in enumerate(raw_related, 1):
+            if not isinstance(item, dict):
+                raise ValueError(f"Guide {slug} related concept {related_index} must be an object")
+            if not str(item.get("title", "")).strip() or not str(item.get("href", "")).strip():
+                raise ValueError(f"Guide {slug} related concept {related_index} needs a title and href")
+
+        raw_practice = record.get("practiceQuestionIds")
+        if not isinstance(raw_practice, list) or not raw_practice:
+            raise ValueError(f"Guide {slug} must include at least one practice question")
+        practice_question_ids = tuple(str(value).strip() for value in raw_practice)
+        if any(
+            not re.fullmatch(r"20\d{2}:[1-9]\d*[a-z]", value)
+            for value in practice_question_ids
+        ) or len(practice_question_ids) != len(set(practice_question_ids)):
+            raise ValueError(f"Guide {slug} has invalid or duplicate practice question ids")
+        toc = record.get("toc", True)
+        if not isinstance(toc, bool):
+            raise ValueError(f"Guide {slug} toc must be true or false")
+        guides.append(
+            Guide(
+                slug=slug,
+                title=str(record["title"]).strip(),
+                summary=str(record["summary"]).strip(),
+                subject=str(record["subject"]).strip(),
+                standard_key=standard_key,
+                skill_slugs=skill_slugs,
+                author=str(record["author"]).strip(),
+                reviewed_date=reviewed_date,
+                direct_answer=str(record["directAnswer"]).strip(),
+                sections=tuple(sections),
+                related_concepts=tuple(raw_related),
+                practice_question_ids=practice_question_ids,
+                sources=tuple(sources),
+                toc=toc,
+            )
+        )
+    return guides
+
+
+def unexpected_guide_outputs(
+    guides: Sequence[Guide],
+    root: Path = ROOT,
+) -> tuple[Path, ...]:
+    """Return published guide files that are no longer registered.
+
+    Removal stays an explicit operation so unpublishing content cannot silently
+    delete a page that may already be indexed or linked from elsewhere.
+    """
+
+    expected = (
+        {root / "guides.html"} | {root / guide.filename for guide in guides}
+        if guides
+        else set()
+    )
+    actual = set(root.glob("guide-*.html"))
+    hub = root / "guides.html"
+    if hub.is_file():
+        actual.add(hub)
+    return tuple(sorted(actual - expected, key=lambda path: path.name))
+
+
+def validate_guide_relationships(
+    guides: Sequence[Guide],
+    routes: Sequence[QuestionRoute],
+) -> None:
+    """Require every published practice relationship to resolve exactly."""
+
+    route_by_key = {
+        (route.standard_key, f"{route.year}:{route.question_id}"): route
+        for route in routes
+    }
+    for guide in guides:
+        missing = sorted(
+            question_id
+            for question_id in guide.practice_question_ids
+            if (guide.standard_key, question_id) not in route_by_key
+        )
+        if missing:
+            raise ValueError(
+                f"Guide {guide.slug} has unknown or mismatched practice questions: {missing}"
+            )
+        unrelated = sorted(
+            question_id
+            for question_id in guide.practice_question_ids
+            if not (
+                set(guide.skill_slugs)
+                & set(
+                    classify_question(
+                        route_by_key[(guide.standard_key, question_id)].focus,
+                        guide.standard_key,
+                    )
+                )
+            )
+        )
+        if unrelated:
+            raise ValueError(
+                f"Guide {guide.slug} practice questions do not match its skills: {unrelated}"
+            )
+
+
+def load_walkthrough_content() -> dict[str, Mapping[str, object]]:
+    """Project authored JS configs into deterministic static fallback records."""
+
+    environment = os.environ.copy()
+    # Swift records the module-cache path in its PCM output. Reusing a cache
+    # once addressed through the /tmp symlink can make Foundation appear twice.
+    cache_path = "/private/tmp/calc-nz-seo-swift-module-cache-v2"
+    environment["CLANG_MODULE_CACHE_PATH"] = cache_path
+    environment["SWIFT_MODULE_CACHE_PATH"] = cache_path
+    environment["SWIFT_MODULECACHE_PATH"] = cache_path
+    process = subprocess.run(
+        ["swift", str(WALKTHROUGH_EXTRACTOR), "--root", str(ROOT)],
+        cwd=ROOT,
+        env=environment,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if process.returncode:
+        detail = process.stderr.decode("utf-8", errors="replace").strip()
+        raise ValueError(f"Walkthrough content extraction failed: {detail}")
+    try:
+        payload = json.loads(process.stdout)
+    except json.JSONDecodeError as error:
+        raise ValueError(f"Walkthrough content extractor returned invalid JSON: {error}") from error
+    if not isinstance(payload, dict) or len(payload) != EXPECTED_ROUTE_COUNT:
+        raise ValueError(
+            f"Expected {EXPECTED_ROUTE_COUNT} walkthrough fallback records, found "
+            f"{len(payload) if isinstance(payload, dict) else 'a non-object'}"
+        )
+    return payload
 
 
 def discover_routes(catalogue: Mapping[str, object]) -> list[QuestionRoute]:
@@ -610,6 +960,7 @@ def enrich_catalogue(
                     question.update(
                         {
                             "methodTitle": question_method_title(route),
+                            "methodPlain": sentence(meta_plain(route.focus)),
                             "canonical": route.canonical,
                             "title": question_browser_title(route),
                             "description": question_description(route),
@@ -637,9 +988,67 @@ def question_sort_key(route: QuestionRoute) -> tuple[int, str]:
 def meta_plain(value: str) -> str:
     """Turn short catalogue TeX into readable search-snippet prose."""
 
+    def grouped_expression(expression: str) -> str:
+        expression = expression.strip()
+        if re.search(
+            r"\s(?:plus|minus|divided by)\s|[+=]|(?<=\S)-(?=\S)",
+            expression,
+        ):
+            return f"({expression})"
+        return expression
+
     value = html.unescape(value)
+    value = re.sub(r"<[^>]+>", " ", value)
     value = value.replace(r"\(", "").replace(r"\)", "")
     value = value.replace(r"\[", "").replace(r"\]", "")
+    value = value.replace(r"\left", "").replace(r"\right", "")
+
+    # Resolve braced TeX structures from the inside out so snippets retain the
+    # mathematical relationship instead of flattening tokens such as
+    # \frac{dy/dt}{dx/dt} into an unreadable string.
+    fraction_pattern = re.compile(
+        r"\\(?:dfrac|tfrac|frac)\{([^{}]*)\}\{([^{}]*)\}"
+    )
+    while fraction_pattern.search(value):
+        value = fraction_pattern.sub(
+            lambda match: (
+                f"{grouped_expression(match.group(1))} divided by "
+                f"{grouped_expression(match.group(2))}"
+            ),
+            value,
+        )
+    indexed_root_pattern = re.compile(r"\\sqrt\[([^\]]+)\]\{([^{}]*)\}")
+    while indexed_root_pattern.search(value):
+        value = indexed_root_pattern.sub(
+            lambda match: (
+                f"the {match.group(1).strip()} root of ({match.group(2).strip()})"
+            ),
+            value,
+        )
+    square_root_pattern = re.compile(r"\\sqrt\{([^{}]*)\}")
+    while square_root_pattern.search(value):
+        value = square_root_pattern.sub(
+            lambda match: (
+                f" square root of {grouped_expression(match.group(1))} "
+            ),
+            value,
+        )
+    for command, label in (
+        ("overline", "conjugate of"),
+        ("operatorname", ""),
+        ("mathrm", ""),
+        ("text", ""),
+    ):
+        command_pattern = re.compile(rf"\\{command}\{{([^{{}}]*)\}}")
+        while command_pattern.search(value):
+            value = command_pattern.sub(
+                lambda match, prefix=label: (
+                    f"{prefix} ({match.group(1).strip()})" if prefix
+                    else match.group(1).strip()
+                ),
+                value,
+            )
+
     replacements = {
         r"\ln": "ln",
         r"\log": "log",
@@ -647,18 +1056,61 @@ def meta_plain(value: str) -> str:
         r"\cos": "cos",
         r"\tan": "tan",
         r"\cot": "cot",
-        r"\sqrt": "square root of ",
-        r"\frac": "fraction ",
-        r"\overline": "conjugate of ",
+        r"\sqrt": " square root of ",
         r"\theta": "theta",
+        r"\alpha": "alpha",
+        r"\beta": "beta",
+        r"\Delta": "Delta",
         r"\pi": "pi",
         r"\cdot": " times ",
+        r"\times": " times ",
+        r"\pm": " plus or minus ",
+        r"\Im": "imaginary part of ",
+        r"\Re": "real part of ",
+        r"\,": " ",
+        r"\;": " ",
+        r"\!": "",
     }
     for source, target in replacements.items():
         value = value.replace(source, target)
-    value = re.sub(r"\\[A-Za-z]+", "", value)
-    value = value.replace("{", "").replace("}", "")
-    value = value.replace("^", " to the power ")
+    value = re.sub(
+        r"\b(sin|cos|tan|cot|sec|csc)\^2(?=[A-Za-z(])",
+        lambda match: f"{match.group(1)} squared ",
+        value,
+    )
+    value = re.sub(
+        r"(\([^()]+\)|[A-Za-z0-9]+)(?:\^\{2\}|\^2(?![A-Za-z0-9]))",
+        lambda match: f"{match.group(1)} squared",
+        value,
+    )
+    value = re.sub(
+        r"(\([^()]+\)|[A-Za-z0-9]+)(?:\^\{3\}|\^3(?![A-Za-z0-9]))",
+        lambda match: f"{match.group(1)} cubed",
+        value,
+    )
+    value = re.sub(
+        r"(\([^()]+\)|[A-Za-z0-9]+)\^\{([^{}]+)\}",
+        lambda match: f"{match.group(1)} to the power ({match.group(2)})",
+        value,
+    )
+    value = re.sub(
+        r"(\([^()]+\)|[A-Za-z0-9]+)\^(-?[A-Za-z0-9]+)",
+        lambda match: f"{match.group(1)} to the power {match.group(2)}",
+        value,
+    )
+    value = re.sub(r"_\{([^{}]+)\}", r" subscript (\1)", value)
+    value = re.sub(r"_([A-Za-z0-9]+)", r" subscript \1", value)
+    value = re.sub(r"\\([A-Za-z]+)", r" \1 ", value)
+    value = value.replace("{", "(").replace("}", ")")
+    value = re.sub(r"\s*([+=])\s*", r" \1 ", value)
+    value = re.sub(
+        r"(?<=[0-9)])\s*-\s*(?=(?:square root|[A-Za-z0-9(]))",
+        " - ",
+        value,
+    )
+    value = re.sub(r"(?<=[A-Za-z)])-(?=[0-9(])", " - ", value)
+    value = re.sub(r"\b(squared|cubed)(?=[A-Za-z(])", r"\1 ", value)
+    value = re.sub(r"\s+([)])", r"\1", value)
     return normalise_space(value).strip(" .")
 
 
@@ -687,8 +1139,29 @@ def lower_sentence(value: str) -> str:
     return value[0].lower() + value[1:]
 
 
+def human_date(value: str) -> str:
+    parsed = date.fromisoformat(value)
+    return f"{parsed.day} {parsed.strftime('%B')} {parsed.year}"
+
+
 def question_method_title(route: QuestionRoute) -> str:
     """Return a concise, truthful method label for browser/social titles."""
+
+    route_specific_titles = {
+        "alg-2e2025-l2.html": "Discriminants and Simultaneous Equations",
+        "alg-3d2025-l2.html": "Root Relationships",
+        "2d2024.html": "Quotient Rule and Inflection",
+        "1a2022.html": "Chain Rule",
+        "1e2022.html": "Second Derivative and Concavity",
+        "3a2019.html": "Trigonometric Differentiation",
+        "int-2a2020.html": "Power Rule Integration",
+        "int-1d2019.html": "Integration and Area",
+        "complex-2023.html?q=2b": "Complex Modulus",
+        "complex-2023.html?q=3e": "Complex Equations and Imaginary Parts",
+        "complex-2020.html?q=3b": "Complex Modulus",
+    }
+    if route.route_path in route_specific_titles:
+        return route_specific_titles[route.route_path]
 
     focus = meta_plain(route.focus).lower()
     if re.search(r"\bsubstitution\b", focus):
@@ -715,19 +1188,30 @@ def question_method_title(route: QuestionRoute) -> str:
             else "Polynomial Integration"
         )
     patterns = (
+        (r"newton['’]?s law of cooling", "Newton’s Law of Cooling"),
+        (r"finding \|[^|]+\|", "Complex Modulus"),
         (r"factor theorem", "Factor Theorem"),
         (r"remainder theorem", "Remainder Theorem"),
+        (r"completing the square", "Completing the Square"),
+        (r"argand", "Argand Diagram Algebra"),
+        (r"squaring.*complex|complex.*squar", "Squaring a Complex Expression"),
+        (r"equating real and imaginary|real and imaginary parts", "Equating Real and Imaginary Parts"),
+        (r"simultaneous.*complex|complex.*simultaneous", "Complex Simultaneous Equations"),
         (r"de moivre", "De Moivre’s Theorem"),
         (r"polar form|modulus and argument|argument and modulus", "Polar Form"),
         (r"roots of unity|complex roots|fourth roots|cube roots|all .* roots", "Complex Roots"),
-        (r"chain rule|composite", "Chain Rule"),
+        (r"chain[- ]rule|composite", "Chain Rule"),
         (r"product rule.*quotient|quotient rule.*product", "Product and Quotient Rules"),
         (r"product rule", "Product Rule"),
         (r"quotient rule", "Quotient Rule"),
         (r"related rates|related-rate|rate of change", "Related Rates"),
         (r"parametric", "Parametric Differentiation"),
         (r"implicit", "Implicit Differentiation"),
-        (r"stationary|critical point|turning point|optimi|maximi|minimi", "Stationary Points and Optimisation"),
+        (
+            r"stationary|critical point|turning point|optimi|maximi|minimi|"
+            r"largest possible|smallest possible",
+            "Stationary Points and Optimisation",
+        ),
         (r"differential equation|separable", "Differential Equations"),
         (r"antidifferentiat|anti-differentiat", "Antidifferentiation"),
         (r"partial fraction", "Partial Fractions"),
@@ -738,11 +1222,100 @@ def question_method_title(route: QuestionRoute) -> str:
         (r"logarith", "Logarithms"),
         (r"quadratic", "Quadratic Algebra"),
         (r"radical|surd", "Radicals and Surds"),
-        (r"conjugate|complex division", "Complex-number Algebra"),
+        (
+            r"conjugate|complex division|rationalis|complex quotient|"
+            r"complex fraction|reciprocal complex|purely (?:real|imaginary)|"
+            r"matching (?:real|imaginary|corresponding).*parts|collecting parts",
+            "Complex-number Algebra",
+        ),
         (r"locus", "Complex-number Loci"),
         (r"polynomial|factoris", "Polynomial Algebra"),
     )
     for pattern, label in patterns:
+        if re.search(pattern, focus, flags=re.I):
+            return label
+
+    scoped_patterns: Mapping[str, Sequence[tuple[str, str]]] = {
+        "level-2-calculus": (
+            (r"power rule|negative (?:powers|exponents)", "Power Rule"),
+            (r"velocity|acceleration|displacement|motion", "Calculus and Motion"),
+            (r"gradient|coordinate on the curve", "Gradients and Curve Points"),
+        ),
+        "level-2-algebra": (
+            (r"rearrang|make .* subject", "Rearranging Formulae"),
+            (r"pythagoras", "Pythagoras and Area"),
+            (r"perfect square", "Perfect Squares"),
+        ),
+        "level-3-differentiation": (
+            (r"radius of curvature", "Radius of Curvature"),
+            (
+                r"continuity|differentiability|concavity|limits?.*graph|"
+                r"reading .* graph|piecewise graph",
+                "Graph Analysis",
+            ),
+            (r"power rule|negative (?:powers|exponents)", "Power Rule"),
+            (r"velocity|acceleration|displacement|motion", "Differentiation and Motion"),
+            (r"first and second derivatives|second derivatives", "Higher Derivatives"),
+            (r"derivative sign|increasing|decreasing", "Function Behaviour"),
+            (r"exponential", "Exponential Differentiation"),
+            (r"point.*condition|condition.*parameter", "Derivative Conditions"),
+        ),
+        "level-3-integration": (
+            (r"separating variables", "Differential Equations"),
+            (
+                r"velocity|acceleration|displacement|position|distance over",
+                "Integration and Kinematics",
+            ),
+            (r"simpson|trapezium", "Numerical Integration"),
+            (
+                r"rational (?:integrand|curve|function)|decompos(?:e|ing).*rational",
+                "Rational-function Integration",
+            ),
+            (
+                r"area strategy|shaded[- ]area|geometric area|area formula|"
+                r"courtyard area|curve intersections",
+                "Integration and Area",
+            ),
+            (
+                r"integrating exponential terms?|exponential terms?.*inside coefficients",
+                "Exponential Integration",
+            ),
+            (r"square[- ]root term|radical term", "Radical Integration"),
+            (
+                r"product-to-sum|double-angle|trig(?:onometric)? identit|"
+                r"sin to the power 2|cos to the power 2|squared-trigonometric|"
+                r"(?:sin|cos|sine|cosine).*area",
+                "Trigonometric Integration",
+            ),
+            (r"mean value|weighted-average|balance point", "Mean-value Integration"),
+            (r"pumping energy|similar triangles", "Integration and Work"),
+            (
+                r"definite integrals?|unknown limit|adding a constant inside",
+                "Definite Integral Equations",
+            ),
+            (
+                r"initial condition|position condition|fitting the constant|"
+                r"using a condition|volume readings",
+                "Integration with Conditions",
+            ),
+            (
+                r"expanding|term by term|familiar antiderivatives|"
+                r"linear term|reciprocal term|negative powers",
+                "Algebraic Integration",
+            ),
+            (r"exponential.*model|model.*exponential", "Exponential Models"),
+        ),
+        "level-3-complex": (
+            (r"discriminant", "Discriminants and Real Roots"),
+            (r"argument|quadrant", "Arguments and Quadrants"),
+            (r"modulus equation|equal moduli", "Modulus Equations"),
+            (r"cis form|moduli.*arguments", "Polar Form"),
+            (r"cubing|algebraic identit", "Complex Algebraic Identities"),
+            (r"square root|radical", "Radical Equations"),
+            (r"complex|real part|imaginary part", "Complex-number Algebra"),
+        ),
+    }
+    for pattern, label in scoped_patterns.get(route.standard.key, ()):
         if re.search(pattern, focus, flags=re.I):
             return label
     concise = re.sub(
@@ -751,11 +1324,16 @@ def question_method_title(route: QuestionRoute) -> str:
         meta_plain(route.focus).strip(" ."),
         flags=re.I,
     )
-    words = concise.split()
-    concise = " ".join(words[:7])
-    if len(concise) > 42:
-        concise = concise[:42].rsplit(" ", 1)[0]
-    return concise[:1].upper() + concise[1:] if concise else route.standard.topic
+    concise = concise.rstrip(" ,;:-")
+    if concise and len(concise) <= 44:
+        return concise[:1].upper() + concise[1:]
+    return {
+        "level-2-calculus": "Calculus Method",
+        "level-2-algebra": "Algebraic Method",
+        "level-3-complex": "Complex Numbers Method",
+        "level-3-differentiation": "Differentiation Method",
+        "level-3-integration": "Integration Method",
+    }.get(route.standard.key, f"{route.standard.topic} Method")
 
 
 def question_browser_title(route: QuestionRoute) -> str:
@@ -805,11 +1383,14 @@ def breadcrumb_nav(
             href = "/" + href[len("index.html") :]
         data_attribute = data_attributes[index] if data_attributes is not None else None
         dynamic_attribute = f" {data_attribute}" if data_attribute else ""
+        position_class = "breadcrumb-current" if href is None else "breadcrumb-link"
+        if index == len(items) - 2:
+            position_class += " breadcrumb-parent"
         if href is None:
             content = f'<span class="home-breadcrumb-current" aria-current="page"{dynamic_attribute}>{h(name)}</span>'
         else:
             content = f'<a class="home-breadcrumb-button" href="{h(href)}"{dynamic_attribute}>{h(name)}</a>'
-        list_items.append(f"  <li>{content}</li>")
+        list_items.append(f'  <li class="breadcrumb-item {position_class}">{content}</li>')
     return (
         '<nav class="home-flow-nav seo-breadcrumbs" aria-label="Breadcrumb">\n'
         ' <ol class="home-breadcrumb">\n'
@@ -940,7 +1521,7 @@ def question_overview(route: QuestionRoute) -> str:
   <p class="step-text"><strong>Method:</strong> <span data-seo-focus>{h(sentence(route.focus))}</span></p>
   <p class="step-text">This is <span data-seo-overview-question>Question {h(route.display_number)}</span> from the <a href="{h(route.year_file)}" data-seo-year-link>{route.year} NCEA Level {standard.level} {h(standard.topic)} paper</a> for <a href="{h(standard.landing_file)}" data-seo-standard-link>{h(standard.code)} — {h(standard.official_name)}</a>. Use the guided hints to practise the method before revealing the full working.</p>
   <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="{h(standard.official_url)}">official NZQA resources for {h(standard.code)}</a>.</p>
-  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
+  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">{human_date(REVIEW_DATE)}</time>.</p>
 </section>
 """.strip()
 
@@ -977,6 +1558,7 @@ def skill_navigation_for_routes(routes: Sequence[QuestionRoute]) -> str:
 def question_summary(
     route: QuestionRoute,
     siblings: Sequence[QuestionRoute],
+    guides: Sequence[Guide] = (),
 ) -> str:
     standard = route.standard
     ordered = sorted(siblings, key=question_sort_key)
@@ -989,6 +1571,17 @@ def question_summary(
     following_label = f"Question {following.display_number} →" if following else "Next question"
     previous_hidden = "" if previous else " hidden"
     following_hidden = "" if following else " hidden"
+    matching_guides = [
+        guide
+        for guide in guides
+        if guide.standard_key == route.standard_key
+        and f"{route.year}:{route.question_id}" in guide.practice_question_ids
+    ]
+    guide_links = ", ".join(
+        f'<a href="{h(guide.filename)}">{h(guide.title)}</a>'
+        for guide in matching_guides
+    )
+    guide_hidden = "" if guide_links else " hidden"
 
     return f"""
 <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
@@ -1006,17 +1599,198 @@ def question_summary(
     <li><a href="{h(route.year_file)}" data-seo-related-year>All {route.year} {h(standard.topic)} walkthroughs</a></li>
     <li><a href="{h(standard.landing_file)}" data-seo-standard-link>All {h(standard.code)} {h(standard.topic)} years</a></li>
     <li data-seo-related-skills>{question_skill_links(route)}</li>
+    <li data-seo-related-guides{guide_hidden}>{'Related concept guide: ' + guide_links if guide_links else ''}</li>
   </ul>
 </section>
 """.strip()
+
+
+def question_page_record(
+    route: QuestionRoute,
+    guides: Sequence[Guide] = (),
+) -> dict[str, object]:
+    standard = route.standard
+    matching_guides = [
+        guide
+        for guide in guides
+        if guide.standard_key == route.standard_key
+        and f"{route.year}:{route.question_id}" in guide.practice_question_ids
+    ]
+    return {
+        "level": {
+            "id": f"level-{standard.level}",
+            "label": f"Level {standard.level}",
+        },
+        "standard": {
+            "id": route.standard_key,
+            "label": standard.topic,
+            "code": standard.code,
+        },
+        "paper": {
+            "id": f"{route.standard_key}-{route.year}",
+            "year": route.year,
+        },
+        "question": {
+            "id": route.question_id,
+            "label": f"Question {route.display_number}",
+            "method": route.focus,
+            "methodTitle": question_method_title(route),
+            "canonical": route.canonical,
+            "title": question_browser_title(route),
+            "description": question_description(route),
+            "summary": question_learning_summary(route),
+            "commonMistake": infer_common_mistake(route),
+            "skillSlugs": list(classify_question(route.focus, route.standard_key)),
+            "guideLinks": [
+                {"href": guide.filename, "title": guide.title}
+                for guide in matching_guides
+            ],
+        },
+    }
+
+
+def inject_question_page_record(
+    document: str,
+    route: QuestionRoute,
+    source_routes: Sequence[QuestionRoute],
+    guides: Sequence[Guide] = (),
+) -> str:
+    document = remove_marker(document, "PAGE_RECORD")
+    owned_routes = sorted(
+        (candidate for candidate in source_routes if candidate.source_file == route.source_file),
+        key=lambda candidate: candidate.question_id,
+    )
+    if not owned_routes or route.route_path not in {candidate.route_path for candidate in owned_routes}:
+        raise ValueError(f"Could not resolve page-record ownership for {route.route_path}")
+    if len(owned_routes) == 1:
+        payload: object = question_page_record(route, guides)
+        assignment = "window.CALC_NZ_PAGE_RECORD"
+    else:
+        payload = {
+            candidate.question_id: question_page_record(candidate, guides)
+            for candidate in owned_routes
+        }
+        assignment = "window.CALC_NZ_PAGE_RECORDS"
+    encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True).replace("</", "<\\/")
+    block = marker(
+        "PAGE_RECORD",
+        f"<script>{assignment} = {encoded};</script>",
+        "  ",
+    )
+    document, count = re.subn(
+        r"(?is)(</head>)",
+        lambda match: f"{block}\n{match.group(1)}",
+        document,
+        count=1,
+    )
+    if count != 1:
+        raise ValueError(f"Could not add the page record for {route.route_path}")
+    return document
+
+
+def walkthrough_rich_block(value: object, class_name: str = "step-text") -> str:
+    markup = str(value or "").strip()
+    if not markup:
+        return ""
+    if re.search(r"<(?:div|p|section|article|figure|svg|table|ol|ul|li|blockquote|h[1-6]|pre|hr)\b", markup, flags=re.I):
+        return markup
+    return f'<p class="{h(class_name)}">{markup}</p>'
+
+
+def walkthrough_fallback(route: QuestionRoute, record: Mapping[str, object]) -> str:
+    expected_identity = {
+        "standardId": route.standard_key,
+        "paperId": f"{route.standard_key}-{route.year}",
+        "questionId": route.question_id,
+        "pageFile": route.source_file,
+    }
+    for field_name, expected in expected_identity.items():
+        if record.get(field_name) != expected:
+            raise ValueError(
+                f"Static walkthrough projection for {route.route_path} has "
+                f"{field_name}={record.get(field_name)!r}, expected {expected!r}"
+            )
+    question_html = str(record.get("questionHtml", "")).strip()
+    support = record.get("firstSupport")
+    step = record.get("firstGuidedStep")
+    if not question_html or not isinstance(support, dict) or not isinstance(step, dict):
+        raise ValueError(f"Incomplete static walkthrough projection for {route.route_path}")
+    support_kind = str(support.get("kind", "idea")).strip().title()
+    support_html = walkthrough_rich_block(support.get("html"))
+    step_title = str(step.get("title", "First step")).strip()
+    preview_html = walkthrough_rich_block(step.get("previewHtml"))
+    working_html = walkthrough_rich_block(step.get("workingHtml"))
+    rendered_diagram_count = record.get("renderedQuestionElementCount", 0)
+    if not isinstance(rendered_diagram_count, int) or rendered_diagram_count < 0:
+        raise ValueError(
+            f"Invalid renderedQuestionElementCount for {route.route_path}"
+        )
+    if rendered_diagram_count:
+        diagram_note = (
+            '<p class="question-note static-diagram-note">The diagram is shown in its initial state. JavaScript adds any interactive controls and later walkthrough visuals.</p>'
+        )
+    elif record.get("hasAfterRender") is True:
+        diagram_note = (
+            '<p class="question-note static-diagram-note">A later walkthrough visual becomes available with JavaScript; the complete question and first learning steps remain below.</p>'
+        )
+    else:
+        diagram_note = ""
+    body = f"""
+<section id="question-card" class="question-card static-walkthrough-question" data-prerendered="true">
+  <p class="question-label">Question</p>
+  {question_html}
+  {diagram_note}
+  <noscript><p class="question-note">Bookmarks, retry marks, exam mode, and the pinned-question setting need JavaScript. The question and first learning step remain available.</p></noscript>
+</section>
+<section id="hints-card" class="question-card tips-card static-walkthrough-support" data-prerendered="true">
+  <p class="question-label">First walkthrough idea</p>
+  <h2 id="static-first-idea-heading">{h(support_kind)} to try first</h2>
+  {support_html}
+</section>
+<div id="walkthrough-content" class="static-walkthrough-content" data-prerendered="true">
+  <section class="step-card static-first-step" aria-labelledby="static-first-step-heading">
+    <p class="step-number">Step 1</p>
+    <h2 id="static-first-step-heading">{h(step_title)}</h2>
+    {preview_html}
+    <details class="static-first-step-working">
+      <summary>Show the first step’s working</summary>
+      <div class="walkthrough-step-working">{working_html}</div>
+    </details>
+  </section>
+  <noscript><p class="question-note">This no-JavaScript view shows the question, the first idea, and the first worked step. Enable JavaScript for all reveals, progress controls, and saved practice features.</p></noscript>
+</div>""".strip()
+    return marker("WALKTHROUGH_FALLBACK", body, "    ")
+
+
+def remove_legacy_walkthrough_mounts(document: str, source_file: str) -> str:
+    """Remove only known empty runtime mounts; never regex across authored HTML."""
+
+    for mount_id in ("question-card", "hints-card", "walkthrough-content"):
+        empty_mount = re.compile(
+            rf"(?is)\s*<(?P<tag>section|div)\b"
+            rf"(?=[^>]*\bid\s*=\s*[\"']{re.escape(mount_id)}[\"'])"
+            rf"[^>]*>\s*</(?P=tag)>"
+        )
+        document = empty_mount.sub("", document)
+        if re.search(
+            rf"(?is)<(?:section|div)\b"
+            rf"(?=[^>]*\bid\s*=\s*[\"']{re.escape(mount_id)}[\"'])",
+            document,
+        ):
+            raise ValueError(
+                f"Refusing to replace non-empty or malformed #{mount_id} in {source_file}"
+            )
+    return document
 
 
 def update_question_page(
     original: str,
     route: QuestionRoute,
     siblings: Sequence[QuestionRoute],
+    fallback_record: Mapping[str, object],
+    guides: Sequence[Guide] = (),
 ) -> str:
-    for name in ("HEAD", "BREADCRUMBS", "OVERVIEW", "SUMMARY"):
+    for name in ("HEAD", "BREADCRUMBS", "OVERVIEW", "SUMMARY", "SITE_HEADER", "PAGE_RECORD", "WALKTHROUGH_FALLBACK"):
         original = remove_marker(original, name)
 
     original, html_count = re.subn(
@@ -1028,15 +1802,11 @@ def update_question_page(
     if html_count != 1:
         raise ValueError(f"Expected one language declaration in {route.source_file}")
 
-    if "question-catalogue.js" not in original:
-        original, script_count = re.subn(
-            r'(?im)^(\s*<script\s+defer\s+src=["\']walkthrough-gate\.js[^"\']*["\']></script>)',
-            f'  <script defer src="question-catalogue.js?v={CACHE_TOKEN}"></script>\n\\1',
-            original,
-            count=1,
-        )
-        if script_count != 1:
-            raise ValueError(f"Could not add question catalogue to {route.source_file}")
+    original = re.sub(
+        r'(?im)^[ \t]*<script\b(?=[^>\r\n]*\bsrc\s*=\s*["\']question-catalogue\.js(?:\?[^"\']*)?["\'])[^>]*>\s*</script>[ \t]*\n?',
+        "",
+        original,
+    )
 
     title = question_browser_title(route)
     description = question_description(route)
@@ -1090,8 +1860,19 @@ def update_question_page(
     if count != 1:
         raise ValueError(f"Could not insert breadcrumbs into {route.source_file}")
 
+    original = remove_legacy_walkthrough_mounts(original, route.source_file)
+    fallback = walkthrough_fallback(route, fallback_record)
+    original, fallback_count = re.subn(
+        r"(?is)(</header>)",
+        lambda match: f"{match.group(1)}\n\n{fallback}\n",
+        original,
+        count=1,
+    )
+    if fallback_count != 1:
+        raise ValueError(f"Could not insert static walkthrough content into {route.source_file}")
+
     original, count = re.subn(
-        r"(?is)(<div\b(?=[^>]*\bid=[\"']walkthrough-content[\"'])[^>]*>.*?</div>)\s*",
+        r"(?ims)(^[ \t]*<!-- SEO:WALKTHROUGH_FALLBACK:END -->)\s*",
         lambda match: f"{match.group(1)}\n\n{marker('OVERVIEW', question_overview(route), '    ')}\n\n",
         original,
         count=1,
@@ -1101,7 +1882,7 @@ def update_question_page(
 
     original, count = re.subn(
         r"(?is)\s*</main>",
-        lambda match: f"\n\n{marker('SUMMARY', question_summary(route, siblings), '    ')}\n  </main>",
+        lambda match: f"\n\n{marker('SUMMARY', question_summary(route, siblings, guides), '    ')}\n  </main>",
         original,
         count=1,
     )
@@ -1115,8 +1896,8 @@ def update_question_page(
         "",
         original,
     )
-
-    return original
+    original = inject_question_page_record(original, route, siblings, guides)
+    return inject_site_shell(original)
 
 
 def update_redirect_page(original: str, source: str, target: str) -> str:
@@ -1133,7 +1914,7 @@ def update_redirect_page(original: str, source: str, target: str) -> str:
         "url": absolute_url(target),
         "name": title,
     }
-    return add_head_marker(
+    updated = add_head_marker(
         original,
         metadata_body(
             title=title,
@@ -1143,6 +1924,7 @@ def update_redirect_page(original: str, source: str, target: str) -> str:
             robots="noindex,follow",
         ),
     )
+    return inject_site_shell(updated)
 
 
 def website_schema() -> dict[str, object]:
@@ -1192,7 +1974,7 @@ def standards_directory(
 def update_homepage(
     original: str,
 ) -> str:
-    for name in ("HEAD", "DIRECTORY", "FOOTER"):
+    for name in ("HEAD", "DIRECTORY", "FOOTER", "SITE_HEADER"):
         original = remove_marker(original, name)
     original, html_count = re.subn(
         r'(?is)<html\b[^>]*\blang\s*=\s*(["\']).*?\1[^>]*>',
@@ -1220,6 +2002,60 @@ def update_homepage(
     )
     original = replace_first_h1(original, "Free NCEA maths worked answers and walkthroughs")
 
+    original = re.sub(
+        r'(?im)^\s*<(?:link|script)\b[^>]*(?:katex|auto-render|walkthrough-gate\.js|question-catalogue\.js|index-page\.js|site-shell\.js|search-core\.js|index-loader\.js)[^>]*>(?:</script>)?\s*\n?',
+        "",
+        original,
+    )
+    homepage_scripts = "\n".join(
+        (
+            f'<script defer src="site-shell.js?v={CACHE_TOKEN}"></script>',
+            f'<script defer src="search-core.js?v={CACHE_TOKEN}"></script>',
+            f'<script defer src="index-loader.js?v={CACHE_TOKEN}"></script>',
+        )
+    )
+    original, script_count = re.subn(
+        r"(?is)(</head>)",
+        lambda match: f"{homepage_scripts}\n{match.group(1)}",
+        original,
+        count=1,
+    )
+    if script_count != 1:
+        raise ValueError("Could not add the lazy homepage scripts")
+
+    homepage_guides_link = (
+        '<a class="site-footer-link" href="/guides.html">Guides</a>'
+        if load_guides()
+        else ""
+    )
+    footer_navigation = f"""
+<nav class="site-footer-nav" aria-label="Footer">
+  <a class="site-footer-link" href="/">Home</a>
+  <a class="site-footer-link" href="/standards.html">Standards</a>
+  <a class="site-footer-link" href="/skills.html">Skills</a>
+  {homepage_guides_link}
+  <a class="site-footer-link" href="/search.html">Search</a>
+  <a class="site-footer-link" href="/about.html">About</a>
+</nav>""".strip()
+    if "site-footer-nav" not in original:
+        original, footer_nav_count = re.subn(
+            r"(?is)(<footer\b[^>]*>)",
+            lambda match: f"{match.group(1)}\n  {footer_navigation}",
+            original,
+            count=1,
+        )
+        if footer_nav_count != 1:
+            raise ValueError("Could not add the homepage footer navigation")
+    else:
+        original, footer_nav_count = re.subn(
+            r'(?is)<nav\b(?=[^>]*\bclass=["\'][^"\']*\bsite-footer-nav\b)[^>]*>.*?</nav>',
+            footer_navigation,
+            original,
+            count=1,
+        )
+        if footer_nav_count != 1:
+            raise ValueError("Could not update the homepage footer navigation")
+
     footer = f"""
 <p class="site-footer-text site-footer-disclaimer">Calc.nz is an independent learning resource and is not affiliated with or endorsed by NZQA. Check questions and assessment information against the <a class="site-footer-link" href="https://www2.nzqa.govt.nz/ncea/subjects/select-subject/mathematics-and-statistics/">official NZQA Mathematics and Statistics material</a>.</p>
 """.strip()
@@ -1231,7 +2067,7 @@ def update_homepage(
     )
     if count != 1:
         raise ValueError("Could not improve the homepage footer")
-    return original
+    return inject_site_shell(original)
 
 
 def page_head(
@@ -1240,6 +2076,8 @@ def page_head(
     description: str,
     canonical: str,
     structured_data: Mapping[str, object],
+    robots: str = "index,follow",
+    og_type: str = "website",
 ) -> str:
     return f"""<!DOCTYPE html>
 <html lang="en-NZ">
@@ -1247,26 +2085,38 @@ def page_head(
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{h(title)}</title>
-{marker('HEAD', metadata_body(title=title, description=description, canonical=canonical, structured_data=structured_data), '  ')}
+{marker('HEAD', metadata_body(title=title, description=description, canonical=canonical, structured_data=structured_data, robots=robots, og_type=og_type), '  ')}
   <link rel="stylesheet" href="style.css?v={CACHE_TOKEN}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v={CACHE_TOKEN}"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {{
-      if (window.renderMathInElement) {{
-        window.renderMathInElement(document.body, {{
-          delimiters: [
-            {{ left: "\\\\[", right: "\\\\]", display: true }},
-            {{ left: "\\\\(", right: "\\\\)", display: false }}
-          ],
-          throwOnError: false
-        }});
-      }}
-    }});
-  </script>
+  <script defer src="site-shell.js?v={CACHE_TOKEN}"></script>
 </head>"""
+
+
+def site_header(*, guides_published: bool | None = None) -> str:
+    if guides_published is None:
+        guides_published = bool(load_guides())
+    guides_link = (
+        '<a class="site-header-link" href="/guides.html">Guides</a>'
+        if guides_published
+        else ""
+    )
+    return f"""
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+  <nav class="site-header-inner" aria-label="Site">
+    <a class="site-brand" href="/">Calc.nz</a>
+    <button class="site-menu-toggle" type="button" aria-expanded="false" aria-controls="site-header-links">
+      <span class="site-menu-label">Menu</span>
+      <span class="site-menu-icon" aria-hidden="true"></span>
+    </button>
+    <div id="site-header-links" class="site-header-links">
+      <a class="site-header-link" href="/standards.html">Standards</a>
+      <a class="site-header-link" href="/skills.html">Skills</a>
+      {guides_link}
+      <a class="site-header-link" href="/search.html">Search</a>
+      <a class="site-header-link" href="/about.html">About</a>
+    </div>
+  </nav>
+</header>""".strip()
 
 
 def collection_schema(
@@ -1276,6 +2126,7 @@ def collection_schema(
     description: str,
     crumbs: Sequence[tuple[str, str]],
     standard: Standard | None = None,
+    date_modified: str = REVIEW_DATE,
 ) -> dict[str, object]:
     page: dict[str, object] = {
         "@type": "WebPage",
@@ -1284,7 +2135,7 @@ def collection_schema(
         "name": title,
         "description": description,
         "inLanguage": "en-NZ",
-        "dateModified": REVIEW_DATE,
+        "dateModified": date_modified,
         "isPartOf": {"@id": f"{BASE_URL}#website"},
     }
     if standard is not None:
@@ -1300,7 +2151,14 @@ def collection_schema(
     }
 
 
-def site_footer() -> str:
+def site_footer(*, guides_published: bool | None = None) -> str:
+    if guides_published is None:
+        guides_published = bool(load_guides())
+    guides_link = (
+        '<a class="site-footer-link" href="/guides.html">Guides</a>'
+        if guides_published
+        else ""
+    )
     return f"""
 <footer class="site-footer">
   <p class="site-footer-text">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the official NZQA material.</p>
@@ -1308,6 +2166,8 @@ def site_footer() -> str:
     <a class="site-footer-link" href="/">Home</a>
     <a class="site-footer-link" href="/standards.html">Standards</a>
     <a class="site-footer-link" href="/skills.html">Skills</a>
+    {guides_link}
+    <a class="site-footer-link" href="/search.html">Search</a>
     <a class="site-footer-link" href="about.html">About</a>
   </nav>
   <p class="site-footer-text site-footer-disclaimer">Calc.nz is independent and is not affiliated with or endorsed by NZQA.</p>
@@ -1333,8 +2193,9 @@ def standards_page(
     )
     breadcrumb = breadcrumb_nav((("Calc.nz", "index.html"), ("Standards", None)))
     return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
-<body class="home-page standards-page">
-<main class="app home-app standards-app">
+<body class="home-page standards-page has-site-header">
+{site_header()}
+<main id="main-content" class="app home-app standards-app" tabindex="-1">
 {marker('BREADCRUMBS', breadcrumb, '  ')}
   {standards_directory(by_standard)}
 </main>
@@ -1354,6 +2215,7 @@ def grade_reasoning_html() -> str:
 def standard_page(
     standard: Standard,
     routes: Sequence[QuestionRoute],
+    guides: Sequence[Guide] = (),
 ) -> str:
     years = sorted({route.year for route in routes}, reverse=True)
     canonical = standard.landing_url
@@ -1398,9 +2260,26 @@ def standard_page(
         else ""
     )
     direct_skill_links = skill_navigation_for_routes(routes)
+    matching_guides = [guide for guide in guides if guide.standard_key == standard.key]
+    guide_block = ""
+    if matching_guides:
+        guide_cards = " ".join(
+            f'<a class="nav-btn index-link-card" href="{h(guide.filename)}">'
+            f'<span class="index-link-title">{h(guide.title)}</span>'
+            f'<span class="index-link-copy">{h(guide.summary)}</span></a>'
+            for guide in matching_guides
+        )
+        guide_block = f"""
+  <section class="question-card related-guide-section" aria-labelledby="standard-guides-heading">
+    <p class="question-label">Learn the concepts</p>
+    <h2 id="standard-guides-heading">Guides for {h(standard.code)}</h2>
+    <div class="nav-row index-nav">{guide_cards}</div>
+  </section>
+"""
     return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
-<body class="home-page">
-<main class="app home-app">
+<body class="home-page has-site-header">
+{site_header()}
+<main id="main-content" class="app home-app" tabindex="-1">
 {marker('BREADCRUMBS', breadcrumb, '  ')}
   <header class="topbar">
     <div>
@@ -1440,6 +2319,8 @@ def standard_page(
     </div>
   </section>
 
+  {guide_block}
+
   <section class="question-card" aria-labelledby="grade-reasoning-heading">
     <p class="question-label">Reasoning progression</p>
     <h2 id="grade-reasoning-heading">Achieved, Merit, and Excellence thinking</h2>
@@ -1457,7 +2338,7 @@ def standard_page(
       {mistake_items}
     </ul>
   </section>
-  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
+  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">{human_date(REVIEW_DATE)}</time>.</p>
 </main>
 {site_footer()}
 </body>
@@ -1511,7 +2392,7 @@ def year_page(
             cards.append(
                 f"""<a class="nav-btn index-link-card" href="{h(route.href)}">
   <span class="index-link-title">Question {h(route.display_number)} worked solution</span>
-  <span class="index-link-copy">{h(sentence(route.focus))}</span>
+  <span class="index-link-copy">{h(sentence(meta_plain(route.focus)))}</span>
 </a>"""
             )
         groups.append(
@@ -1535,22 +2416,23 @@ def year_page(
         priority_note = (
             '<p class="question-note"><strong>Looking for 2022 NCEA complex numbers worked answers?</strong> '
             "Start with the question that matches your paper, attempt it first, and use each hint before opening the full working.</p>"
-            '<div class="attempt-note" aria-labelledby="official-2022-sources-heading">'
-            '<h3 id="official-2022-sources-heading">Official 2022 NZQA Complex Numbers material</h3>'
+            '<section class="attempt-note" aria-labelledby="official-2022-sources-heading">'
+            '<h2 id="official-2022-sources-heading">Official 2022 NZQA Complex Numbers material</h2>'
             '<ul class="step-text">'
             '<li><a href="https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2022/91577-exm-2022.pdf">2022 AS91577 examination paper (PDF)</a></li>'
             '<li><a href="https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2022/91577-frm-2022.pdf">2022 AS91577 formulae sheet (PDF)</a></li>'
             '<li><a href="https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2022/91577-ass-2022.pdf">2022 AS91577 assessment schedule (PDF)</a></li>'
             '<li><a href="https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2022/level3/91577-report-2022.pdf">2022 AS91577 assessment report (PDF)</a></li>'
             f'<li><a href="{h(standard.official_url)}">Durable NZQA standard and assessment-resource record for AS91577</a></li>'
-            "</ul></div>"
+            "</ul></section>"
         )
 
     direct_skill_links = skill_navigation_for_routes(ordered)
 
     return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
-<body class="home-page">
-<main class="app home-app">
+<body class="home-page has-site-header">
+{site_header()}
+<main id="main-content" class="app home-app" tabindex="-1">
 {marker('BREADCRUMBS', breadcrumb, '  ')}
   <header class="topbar">
     <div>
@@ -1561,13 +2443,18 @@ def year_page(
     <a class="ghost-link" href="{h(standard.landing_file)}">← All {h(standard.topic)} years</a>
   </header>
 
-  <section class="question-card" aria-labelledby="paper-overview-heading">
-    <p class="question-label">Paper overview</p>
-    <h2 id="paper-overview-heading">Work through the {year} questions one step at a time</h2>
-    <p class="step-text">This page contains {len(ordered)} independent worked question walkthroughs for NCEA Level {standard.level} {h(standard.topic)} ({h(standard.code)}). Each walkthrough offers hints, reveals the full working in a logical sequence, and focuses on the method described below.</p>
-    {priority_note}
-    <p class="question-note">Calc.nz is independent of NZQA. Use the <a href="{h(standard.official_url)}">official NZQA {h(standard.code)} assessment resources</a> for the original paper, diagrams, assessment schedule, and authoritative standard information.</p>
-  </section>
+  <details class="question-card paper-overview-details" open data-mobile-paper-overview>
+    <summary id="paper-overview-heading">
+      <span class="question-label">Paper overview</span>
+      <strong>Work through the {year} questions one step at a time</strong>
+      <span class="paper-overview-summary">{len(ordered)} walkthroughs · {h(standard.code)} · Official source context included</span>
+    </summary>
+    <div class="paper-overview-body">
+      <p class="step-text">This page contains {len(ordered)} independent worked question walkthroughs for NCEA Level {standard.level} {h(standard.topic)} ({h(standard.code)}). Each walkthrough offers hints, reveals the full working in a logical sequence, and focuses on the method described below.</p>
+      {priority_note}
+      <p class="question-note">Calc.nz is independent of NZQA. Use the <a href="{h(standard.official_url)}">official NZQA {h(standard.code)} assessment resources</a> for the original paper, diagrams, assessment schedule, and authoritative standard information.</p>
+    </div>
+  </details>
 
   <section class="question-card" aria-labelledby="question-list-heading">
     <p class="question-label">Worked question index</p>
@@ -1583,7 +2470,7 @@ def year_page(
     <p class="step-text"><a href="skills.html">Browse questions from different years by skill</a>.</p>
     <div class="nav-row">{direct_skill_links}</div>
   </section>
-  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
+  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">{human_date(REVIEW_DATE)}</time>.</p>
 </main>
 {site_footer()}
 </body>
@@ -1629,8 +2516,9 @@ def level_three_calculus_page(
     )
 
     return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
-<body class="home-page content-page">
-<main class="app home-app content-app">
+<body class="home-page content-page has-site-header">
+{site_header()}
+<main id="main-content" class="app home-app content-app" tabindex="-1">
 {marker('BREADCRUMBS', breadcrumb, '  ')}
   <header class="topbar">
     <div>
@@ -1666,7 +2554,7 @@ def level_three_calculus_page(
     <h2 id="calculus-skill-heading">Browse Level 3 Calculus by skill</h2>
     <p class="step-text">Use the <a href="skills.html">Browse by skill directory</a> to collect related questions from different years before returning to a full paper.</p>
   </section>
-  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
+  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">{human_date(REVIEW_DATE)}</time>.</p>
 </main>
 {site_footer()}
 </body>
@@ -1718,8 +2606,9 @@ def skills_directory_page(routes: Sequence[QuestionRoute]) -> str:
         )
 
     return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
-<body class="home-page content-page skills-directory-page">
-<main class="app home-app content-app">
+<body class="home-page content-page skills-directory-page has-site-header">
+{site_header()}
+<main id="main-content" class="app home-app content-app" tabindex="-1">
 {marker('BREADCRUMBS', breadcrumb, '  ')}
   <header class="topbar">
     <div>
@@ -1745,7 +2634,7 @@ def skills_directory_page(routes: Sequence[QuestionRoute]) -> str:
       <a class="nav-btn secondary" href="standards.html">All standards and years</a>
     </div>
   </section>
-  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
+  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">{human_date(REVIEW_DATE)}</time>.</p>
 </main>
 {site_footer()}
 </body>
@@ -1753,7 +2642,11 @@ def skills_directory_page(routes: Sequence[QuestionRoute]) -> str:
 """
 
 
-def skill_page(spec: object, routes: Sequence[QuestionRoute]) -> str:
+def skill_page(
+    spec: object,
+    routes: Sequence[QuestionRoute],
+    guides: Sequence[Guide] = (),
+) -> str:
     # SkillSpec is imported from the dependency-free content module. Keeping
     # this renderer structural lets the verified copy/classification stay data-driven.
     slug = spec.slug
@@ -1810,6 +2703,7 @@ def skill_page(spec: object, routes: Sequence[QuestionRoute]) -> str:
     for route in matching:
         grouped[(route.standard_key, route.year)].append(route)
     question_groups: list[str] = []
+    jump_links: list[str] = []
     for standard_key in STANDARD_ORDER:
         years = sorted(
             {year for key, year in grouped if key == standard_key},
@@ -1819,19 +2713,27 @@ def skill_page(spec: object, routes: Sequence[QuestionRoute]) -> str:
             standard = STANDARDS[standard_key]
             group_routes = sorted(grouped[(standard_key, year)], key=question_sort_key)
             group_id = f"{slug}-{standard_key}-{year}"
+            method_values = sorted({question_method_title(route) for route in group_routes})
+            jump_links.append(
+                f'<a class="skill-jump-link" href="#{h(group_id)}">{year} {h(standard.topic)}</a>'
+            )
             cards = " ".join(
-                f"""<a class="nav-btn index-link-card" href="{h(route.href)}">
-  <span class="index-link-title">{h(route.title)} · {h(question_method_title(route))}</span>
-  <span class="index-link-copy">{h(sentence(route.focus))}</span>
+                f"""<a class="nav-btn index-link-card" href="{h(route.href)}" data-skill-method="{h(question_method_title(route))}">
+  <span class="index-link-title">{h(route.title)} — {h(question_method_title(route))}</span>
+  <span class="index-link-copy">{h(sentence(meta_plain(route.focus)))}</span>
 </a>"""
                 for route in group_routes
             )
             question_groups.append(
-                f"""<section class="index-group skill-question-group" aria-labelledby="{h(group_id)}">
-  <div class="year-cluster-header">
+                f"""<details class="index-group skill-question-group" open data-skill-group data-standard="{h(standard_key)}" data-methods="{h('|'.join(method_values))}">
+  <summary id="{h(group_id)}" class="skill-question-summary">
+    <span class="question-label">NCEA Level {standard.level} · {h(standard.code)}</span>
+    <strong>{year} {h(standard.topic)}</strong>
+    <span>{len(group_routes)} question{'s' if len(group_routes) != 1 else ''}</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level {standard.level} · {h(standard.code)}</p>
-      <h3 id="{h(group_id)}">{year} {h(standard.topic)}</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="{h(standard.landing_file)}">Standard overview</a>
@@ -1839,17 +2741,46 @@ def skill_page(spec: object, routes: Sequence[QuestionRoute]) -> str:
     </div>
   </div>
   <div class="nav-row index-nav">{cards}</div>
-</section>"""
+</details>"""
             )
+
+    method_filters = sorted({question_method_title(route) for route in matching})
+    filter_buttons = [
+        '<button class="skill-filter-chip is-active" type="button" aria-pressed="true" data-skill-filter="all">All questions</button>'
+    ]
+    filter_buttons.extend(
+        f'<button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="{h(standard.key)}">{h(standard.code)}</button>'
+        for standard in standards
+    )
+    if len(method_filters) > 1:
+        filter_buttons.extend(
+            f'<button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="{h(method)}">{h(method)}</button>'
+            for method in method_filters
+        )
 
     related_links = " ".join(
         f'<a class="nav-btn secondary" href="{h(SKILL_SPECS[related].page_href)}">{h(SKILL_SPECS[related].short_label)}</a>'
         for related in spec.related_skill_slugs
     )
+    matching_guides = [guide for guide in guides if slug in guide.skill_slugs]
+    guide_block = ""
+    if matching_guides:
+        guide_links = " ".join(
+            f'<a class="nav-btn secondary guide-chip" href="{h(guide.filename)}">{h(guide.title)}</a>'
+            for guide in matching_guides
+        )
+        guide_block = f"""
+  <section class="question-card related-guide-section" aria-labelledby="skill-guides-heading">
+    <p class="question-label">Learn before practising</p>
+    <h2 id="skill-guides-heading">Guides related to this skill</h2>
+    <div class="nav-row">{guide_links}</div>
+  </section>
+"""
 
     return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
-<body class="home-page content-page skill-page">
-<main class="app home-app content-app">
+<body class="home-page content-page skill-page has-site-header">
+{site_header()}
+<main id="main-content" class="app home-app content-app" tabindex="-1">
 {marker('BREADCRUMBS', breadcrumb, '  ')}
   <header class="topbar">
     <div>
@@ -1875,10 +2806,18 @@ def skill_page(spec: object, routes: Sequence[QuestionRoute]) -> str:
     <ul class="step-text">{mistake_items}</ul>
   </section>
 
-  <section class="question-card" aria-labelledby="skill-questions-heading">
+  {guide_block}
+
+  <section class="question-card" aria-labelledby="skill-questions-heading" data-skill-collection>
     <p class="question-label">Related practice</p>
     <h2 id="skill-questions-heading">{h(spec.title_label)} questions from different years</h2>
     <p class="step-text">Open a question for hints and a progressive worked solution, or use the standard and paper links to return to its assessment context.</p>
+    <div class="skill-question-tools">
+      <nav class="skill-jump-nav" aria-label="Jump to a year">{''.join(jump_links)}</nav>
+      <div class="skill-filter-row" role="group" aria-label="Filter this skill collection">{''.join(filter_buttons)}</div>
+      <button class="nav-btn secondary skill-random-button" type="button" data-skill-random>Random question from this skill</button>
+      <p class="visually-hidden" aria-live="polite" data-skill-filter-status>{len(matching)} matching questions shown.</p>
+    </div>
     {' '.join(question_groups)}
   </section>
 
@@ -1887,7 +2826,7 @@ def skill_page(spec: object, routes: Sequence[QuestionRoute]) -> str:
     <h2 id="related-skills-heading">Related skill collections</h2>
     <div class="nav-row">{related_links}</div>
   </section>
-  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
+  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">{human_date(REVIEW_DATE)}</time>.</p>
 </main>
 {site_footer()}
 </body>
@@ -1912,6 +2851,7 @@ def about_page() -> str:
         title=title,
         description=description,
         crumbs=(("Calc.nz", BASE_URL), ("About Calc.nz", canonical)),
+        date_modified=PAGE_MODIFIED_DATES[filename],
     )
     page_node = structured.get("@graph", [])[0]
     if isinstance(page_node, dict):
@@ -1925,8 +2865,9 @@ def about_page() -> str:
         for standard in STANDARDS.values()
     )
     return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
-<body class="home-page">
-<main class="app home-app">
+<body class="home-page has-site-header">
+{site_header()}
+<main id="main-content" class="app home-app" tabindex="-1">
 {marker('BREADCRUMBS', breadcrumb, '  ')}
   <header class="topbar">
     <div>
@@ -1972,7 +2913,339 @@ def about_page() -> str:
     <p class="step-text">If you find a mathematical, wording, accessibility, or technical problem, <a href="{h(ERROR_REPORT_URL)}">use the Calc.nz error-report form</a>. Include the page URL, question number, and a concise description so it can be checked.</p>
     <p class="question-note"><a href="{h(REPOSITORY_URL)}">View the Calc.nz project repository</a>.</p>
   </section>
-  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">19 July 2026</time>.</p>
+  <p class="page-updated">Page updated <time datetime="{PAGE_MODIFIED_DATES[filename]}">{human_date(PAGE_MODIFIED_DATES[filename])}</time>.</p>
+</main>
+{site_footer()}
+</body>
+</html>
+"""
+
+
+def static_search_records(
+    routes: Sequence[QuestionRoute],
+    guides: Sequence[Guide],
+) -> list[dict[str, object]]:
+    records: list[dict[str, object]] = []
+    for key in STANDARD_ORDER:
+        standard = STANDARDS[key]
+        records.append(
+            {
+                "type": "Standard",
+                "title": f"NCEA Level {standard.level} {standard.topic} — {standard.code}",
+                "description": standard.summary,
+                "href": standard.landing_file,
+                "standard": standard.code,
+                "keywords": " ".join(standard.skills),
+            }
+        )
+        years = sorted({route.year for route in routes if route.standard_key == key}, reverse=True)
+        for year in years:
+            records.append(
+                {
+                    "type": "Paper",
+                    "title": f"{year} {standard.topic} paper",
+                    "description": f"All guided {standard.code} walkthroughs from the {year} paper.",
+                    "href": year_file(key, year),
+                    "year": year,
+                    "standard": f"{standard.code} {standard.topic}",
+                    "keywords": "paper exam questions",
+                }
+            )
+    for spec in SKILL_SPECS.values():
+        matching = routes_for_skill(routes, spec.slug)
+        records.append(
+            {
+                "type": "Skill",
+                "title": spec.title_label,
+                "description": spec.intro,
+                "href": spec.page_href,
+                "standard": " ".join(sorted({route.standard.code for route in matching})),
+                "keywords": f"{spec.slug} {spec.explanation}",
+            }
+        )
+    for guide in guides:
+        standard = STANDARDS[guide.standard_key]
+        authored_search_text = [guide.direct_answer]
+        authored_search_text.extend(
+            f"{section.get('heading', '')} {section.get('html', '')}"
+            for section in guide.sections
+        )
+        authored_search_text.extend(
+            str(item.get("title", "")) for item in guide.related_concepts
+        )
+        guide_keywords = " ".join(
+            (
+                *guide.skill_slugs,
+                *(
+                    meta_plain(re.sub(r"<[^>]+>", " ", value))
+                    for value in authored_search_text
+                ),
+            )
+        )
+        records.append(
+            {
+                "type": "Guide",
+                "title": guide.title,
+                "description": guide.summary,
+                "href": guide.filename,
+                "standard": f"{standard.code} {standard.topic}",
+                "keywords": normalise_space(guide_keywords),
+            }
+        )
+    return records
+
+
+def search_page(routes: Sequence[QuestionRoute], guides: Sequence[Guide]) -> str:
+    filename = "search.html"
+    canonical = absolute_url(filename)
+    title = "Search NCEA Maths Guides, Skills & Questions | Calc.nz"
+    description = (
+        "Search Calc.nz by mathematical method, NCEA standard, paper year, skill, "
+        "guide, or exact walkthrough question."
+    )
+    structured = collection_schema(
+        canonical=canonical,
+        title=title,
+        description=description,
+        crumbs=(("Calc.nz", BASE_URL), ("Search", canonical)),
+    )
+    breadcrumb = breadcrumb_nav((("Calc.nz", "index.html"), ("Search", None)))
+    records = json.dumps(static_search_records(routes, guides), ensure_ascii=False).replace("</", "<\\/")
+    scripts = "\n".join(
+        (
+            f'<script>window.CALC_NZ_STATIC_SEARCH_RECORDS = {records};</script>',
+            f'<script defer src="search-core.js?v={CACHE_TOKEN}"></script>',
+            f'<script defer src="search-page.js?v={CACHE_TOKEN}"></script>',
+        )
+    )
+    return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured).replace('</head>', scripts + chr(10) + '</head>')}
+<body class="home-page content-page search-page has-site-header">
+{site_header(guides_published=bool(guides))}
+<main id="main-content" class="app home-app content-app" tabindex="-1">
+{marker('BREADCRUMBS', breadcrumb, '  ')}
+  <header class="topbar search-page-header">
+    <div>
+      <p class="eyebrow">Find the right next step</p>
+      <h1>Search Calc.nz</h1>
+      <p class="subtitle">Search by method, topic, standard number, paper year, skill, or question.</p>
+    </div>
+  </header>
+  <section class="question-card global-search-card" aria-labelledby="global-search-heading">
+    <p class="question-label">Site search</p>
+    <h2 id="global-search-heading">What do you want to practise?</h2>
+    <form class="home-search-form" role="search" data-global-search-form>
+      <label for="global-search-input">Search guides, skills, papers, and questions</label>
+      <input id="global-search-input" class="home-search-input" type="search" name="q" autocomplete="off" placeholder="Try conjugates, loci, De Moivre, or AS91577" data-global-search-input>
+      <button class="nav-btn global-search-submit" type="submit">Search</button>
+    </form>
+    <p class="search-status visually-hidden" aria-live="polite" aria-atomic="true" data-global-search-status>Enter a search term.</p>
+    <div class="home-search-results" data-global-search-results hidden></div>
+    <noscript><p class="question-note">Search needs JavaScript, but every destination remains available through the <a href="standards.html">standards</a> and <a href="skills.html">skills</a> directories.</p></noscript>
+  </section>
+  <nav class="question-card" aria-labelledby="search-browse-heading">
+    <p class="question-label">Browse instead</p>
+    <h2 id="search-browse-heading">Explore crawlable directories</h2>
+    <div class="nav-row">
+      <a class="nav-btn secondary" href="standards.html">Standards and papers</a>
+      <a class="nav-btn secondary" href="skills.html">Skills</a>
+    </div>
+  </nav>
+</main>
+{site_footer()}
+</body>
+</html>
+"""
+
+
+def guides_hub_page(guides: Sequence[Guide]) -> str:
+    canonical = absolute_url("guides.html")
+    title = "NCEA Maths Guides & Concept Explanations | Calc.nz"
+    description = "Learn NCEA maths concepts, then move directly into matched standards, skills, and walkthrough questions."
+    structured = collection_schema(
+        canonical=canonical,
+        title=title,
+        description=description,
+        crumbs=(("Calc.nz", BASE_URL), ("Guides", canonical)),
+    )
+    breadcrumb = breadcrumb_nav((("Calc.nz", "index.html"), ("Guides", None)))
+    grouped: dict[str, list[Guide]] = defaultdict(list)
+    for guide in guides:
+        grouped[guide.standard_key].append(guide)
+    groups = []
+    for standard_key in STANDARD_ORDER:
+        if standard_key not in grouped:
+            continue
+        standard = STANDARDS[standard_key]
+        cards = "".join(
+            f'<a class="content-info-card guide-card" href="{h(guide.filename)}"><strong>{h(guide.title)}</strong><p>{h(guide.summary)}</p></a>'
+            for guide in grouped[standard_key]
+        )
+        groups.append(
+            f'<section class="question-card"><p class="question-label">NCEA Level {standard.level} · {h(standard.code)}</p><h2>{h(standard.topic)}</h2><div class="content-card-grid">{cards}</div></section>'
+        )
+    return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
+<body class="home-page content-page guides-page has-site-header">
+{site_header(guides_published=True)}
+<main id="main-content" class="app home-app content-app" tabindex="-1">
+{marker('BREADCRUMBS', breadcrumb, '  ')}
+  <header class="topbar"><div><p class="eyebrow">Learn, connect, practise</p><h1>NCEA maths guides</h1><p class="subtitle">Concept explanations connected to the exact standards, skills, and walkthroughs where you can use them.</p></div></header>
+  {''.join(groups)}
+</main>
+{site_footer()}
+</body>
+</html>
+"""
+
+
+GUIDE_TEX_PATTERN = re.compile(
+    r"\\\([\s\S]+?\\\)|\\\[[\s\S]+?\\\]"
+)
+
+
+def guide_requires_katex(guide: Guide) -> bool:
+    """Return whether authored guide content contains supported TeX delimiters."""
+
+    values = [guide.direct_answer]
+    values.extend(str(section.get("html", "")) for section in guide.sections)
+    return any(GUIDE_TEX_PATTERN.search(value) for value in values)
+
+
+def guide_katex_assets() -> str:
+    """Load and run accessible KaTeX only for guides that contain maths."""
+
+    return r"""  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      if (typeof window.renderMathInElement !== "function") return;
+      window.renderMathInElement(document.querySelector(".guide-article"), {
+        delimiters: [
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true }
+        ],
+        throwOnError: false
+      });
+    });
+  </script>"""
+
+
+def guide_page(guide: Guide, routes: Sequence[QuestionRoute]) -> str:
+    standard = STANDARDS[guide.standard_key]
+    title = f"{guide.title} — NCEA Maths Guide | Calc.nz"
+    description = truncate(guide.summary)
+    crumbs = (
+        ("Calc.nz", BASE_URL),
+        ("Guides", absolute_url("guides.html")),
+        (guide.title, guide.canonical),
+    )
+    structured = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": ["Article", "LearningResource"],
+                "@id": f"{guide.canonical}#article",
+                "url": guide.canonical,
+                "name": guide.title,
+                "description": guide.summary,
+                "inLanguage": "en-NZ",
+                "isAccessibleForFree": True,
+                "educationalLevel": f"NCEA Level {standard.level}",
+                "learningResourceType": "Concept guide",
+                "author": {"@type": "Person", "name": guide.author},
+                "dateModified": guide.reviewed_date,
+                "about": {"@type": "DefinedTerm", "name": standard.official_name, "termCode": standard.code},
+            },
+            breadcrumb_schema(crumbs),
+        ],
+    }
+    breadcrumb = breadcrumb_nav((("Calc.nz", "index.html"), ("Guides", "guides.html"), (guide.title, None)))
+    section_html = []
+    toc_items = []
+    for index, section in enumerate(guide.sections):
+        section_id = str(section.get("id", f"section-{index + 1}"))
+        if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", section_id):
+            raise ValueError(f"Guide {guide.slug} has an invalid section id: {section_id}")
+        heading = str(section.get("heading", "")).strip()
+        body = str(section.get("html", "")).strip()
+        if not heading or not body:
+            raise ValueError(f"Guide {guide.slug} contains an incomplete section")
+        toc_items.append(f'<li><a href="#{h(section_id)}">{h(heading)}</a></li>')
+        section_html.append(f'<section class="guide-section" aria-labelledby="{h(section_id)}"><h2 id="{h(section_id)}">{h(heading)}</h2>{body}</section>')
+    matched = [
+        route for route in routes
+        if route.standard_key == guide.standard_key
+        and f"{route.year}:{route.question_id}" in guide.practice_question_ids
+    ]
+    practice_links = "".join(
+        f'<li><a href="{h(route.href)}">{route.year} Question {h(route.display_number)} — {h(question_method_title(route))}</a></li>'
+        for route in matched
+    ) or '<li><a href="skills.html">Browse matched questions by skill</a></li>'
+    related = "".join(
+        f'<li><a href="{h(str(item.get("href", "")))}">{h(str(item.get("title", "Related concept")))}</a></li>'
+        for item in guide.related_concepts
+    )
+    sources = "".join(
+        f'<li><a href="{h(str(item.get("href", "")))}">{h(str(item.get("label", "Source")))}</a></li>'
+        for item in guide.sources
+    )
+    skill_links = " · ".join(
+        f'<a href="{h(SKILL_SPECS[slug].page_href)}">{h(SKILL_SPECS[slug].short_label)}</a>'
+        for slug in guide.skill_slugs
+    ) or '<a href="skills.html">Browse skills</a>'
+    toc = f'<nav class="guide-toc" aria-label="On this page"><p class="question-label">On this page</p><ol>{"".join(toc_items)}</ol></nav>' if guide.toc else ""
+    head = page_head(
+        title=title,
+        description=description,
+        canonical=guide.canonical,
+        structured_data=structured,
+        og_type="article",
+    )
+    if guide_requires_katex(guide):
+        head = head.replace("</head>", f"{guide_katex_assets()}\n</head>")
+    return f"""{head}
+<body class="home-page content-page guide-page has-site-header">
+{site_header(guides_published=True)}
+<main id="main-content" class="app home-app content-app guide-layout" tabindex="-1">
+{marker('BREADCRUMBS', breadcrumb, '  ')}
+  <article class="guide-article">
+    <header class="topbar"><div><p class="eyebrow">{h(guide.subject)} · {h(standard.code)}</p><h1>{h(guide.title)}</h1><p class="subtitle">{h(guide.summary)}</p></div></header>
+    <section class="guide-direct-answer" aria-labelledby="guide-direct-answer"><p class="question-label">Direct answer</p><h2 id="guide-direct-answer">Formula and idea summary</h2>{guide.direct_answer}</section>
+    {toc}
+    {''.join(section_html)}
+    <section class="guide-section"><h2>Practise this concept</h2><ul>{practice_links}</ul><p><strong>Standard:</strong> <a href="{h(standard.landing_file)}">{h(standard.code)} — {h(standard.official_name)}</a></p><p><strong>Skills:</strong> {skill_links}</p></section>
+    {f'<section class="guide-section"><h2>Related concepts</h2><ul>{related}</ul></section>' if related else ''}
+    <section class="guide-section guide-review"><h2>Sources and review</h2><ul>{sources}</ul><p>Written by {h(guide.author)}. Reviewed <time datetime="{h(guide.reviewed_date)}">{h(guide.reviewed_date)}</time>.</p></section>
+  </article>
+</main>
+{site_footer()}
+</body>
+</html>
+"""
+
+
+def not_found_page(guides_published: bool) -> str:
+    canonical = absolute_url("404.html")
+    title = "Page Not Found | Calc.nz"
+    description = "The requested Calc.nz page could not be found. Search the site or return to the standards and skills directories."
+    structured = {"@context": "https://schema.org", "@type": "WebPage", "url": canonical, "name": title}
+    guide_link = '<a class="nav-btn secondary" href="guides.html">Guides</a>' if guides_published else ""
+    return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured, robots='noindex,follow')}
+<body class="home-page not-found-page has-site-header">
+{site_header(guides_published=guides_published)}
+<main id="main-content" class="app home-app not-found-app" tabindex="-1">
+  <section class="question-card not-found-card" aria-labelledby="not-found-heading">
+    <p class="eyebrow">404 · Page not found</p>
+    <h1 id="not-found-heading">That page isn’t here</h1>
+    <p class="subtitle">The address may be out of date or mistyped. Your saved practice and progress have not been changed.</p>
+    <div class="nav-row">
+      <a class="nav-btn" href="/">Go home</a>
+      <a class="nav-btn secondary" href="standards.html">Standards</a>
+      <a class="nav-btn secondary" href="skills.html">Skills</a>
+      {guide_link}
+      <a class="nav-btn secondary" href="search.html">Search Calc.nz</a>
+    </div>
+  </section>
 </main>
 {site_footer()}
 </body>
@@ -2003,29 +3276,89 @@ def rewrite_data_back_links(original: str, filename: str) -> str:
     return updated
 
 
-def sitemap_xml(routes: Sequence[QuestionRoute]) -> str:
-    urls = [BASE_URL]
-    urls.append(absolute_url("standards.html"))
-    urls.append(absolute_url("level-3-calculus.html"))
-    urls.append(absolute_url("skills.html"))
-    urls.extend(absolute_url(spec.page_href) for spec in SKILL_SPECS.values())
-    urls.extend(STANDARDS[key].landing_url for key in STANDARD_ORDER)
+_GIT_LASTMOD_CACHE: dict[str, str] = {}
+
+
+def git_last_modified(filename: str) -> str:
+    if filename in _GIT_LASTMOD_CACHE:
+        return _GIT_LASTMOD_CACHE[filename]
+    process = subprocess.run(
+        ["git", "log", "-1", "--format=%cs", "--", filename],
+        cwd=ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        check=False,
+        text=True,
+    )
+    value = process.stdout.strip() if process.returncode == 0 else ""
+    if not re.fullmatch(r"20\d{2}-\d{2}-\d{2}", value):
+        value = PAGE_MODIFIED_DATES.get(filename, REVIEW_DATE)
+    _GIT_LASTMOD_CACHE[filename] = value
+    return value
+
+
+def question_content_lastmod(route: QuestionRoute) -> str:
+    topic = {
+        "level-2-algebra": "algebra",
+        "level-3-complex": "complex",
+        "level-3-differentiation": "differentiation",
+        "level-3-integration": "integration",
+    }.get(route.standard_key)
+    candidates = [route.source_file]
+    if topic:
+        data_filename = f"{topic}-{route.year}-data.js"
+        if (ROOT / data_filename).is_file():
+            candidates.append(data_filename)
+    return max(
+        WALKTHROUGH_CONTENT_RELEASE_DATE,
+        *(git_last_modified(filename) for filename in candidates),
+    )
+
+
+def sitemap_xml(routes: Sequence[QuestionRoute], guides: Sequence[Guide]) -> str:
+    entries: list[tuple[str, str]] = []
+
+    def add(path: str, lastmod: str) -> None:
+        entries.append((absolute_url(path), lastmod))
+
+    question_dates = {route.route_path: question_content_lastmod(route) for route in routes}
+    add("", PAGE_MODIFIED_DATES["index.html"])
+    add("standards.html", PAGE_MODIFIED_DATES["standards.html"])
+    calculus_routes = [route for route in routes if route.standard_key in {"level-3-differentiation", "level-3-integration"}]
+    add("level-3-calculus.html", max(question_dates[route.route_path] for route in calculus_routes))
+    add("skills.html", PAGE_MODIFIED_DATES["skills.html"])
+    add("search.html", PAGE_MODIFIED_DATES["search.html"])
+    for spec in SKILL_SPECS.values():
+        matching = routes_for_skill(routes, spec.slug)
+        add(spec.page_href, max(question_dates[route.route_path] for route in matching))
+    for key in STANDARD_ORDER:
+        standard_routes = [route for route in routes if route.standard_key == key]
+        add(STANDARDS[key].landing_file, max(question_dates[route.route_path] for route in standard_routes))
     for key in STANDARD_ORDER:
         years = sorted({route.year for route in routes if route.standard_key == key}, reverse=True)
-        urls.extend(absolute_url(year_file(key, year)) for year in years)
-    urls.append(absolute_url("about.html"))
-    urls.extend(route.canonical for route in routes)
+        for year in years:
+            year_routes = [route for route in routes if route.standard_key == key and route.year == year]
+            add(year_file(key, year), max(question_dates[route.route_path] for route in year_routes))
+    add("about.html", PAGE_MODIFIED_DATES["about.html"])
+    if guides:
+        add("guides.html", max(guide.reviewed_date for guide in guides))
+        for guide in guides:
+            add(guide.filename, guide.reviewed_date)
+    entries.extend((route.canonical, question_dates[route.route_path]) for route in routes)
 
-    if len(urls) != 1 + 1 + 1 + 1 + len(SKILL_SPECS) + len(STANDARDS) + EXPECTED_YEAR_COUNT + 1 + EXPECTED_ROUTE_COUNT:
-        raise ValueError("Unexpected sitemap URL count")
+    expected_count = 1 + 1 + 1 + 1 + 1 + len(SKILL_SPECS) + len(STANDARDS) + EXPECTED_YEAR_COUNT + 1 + EXPECTED_ROUTE_COUNT
+    expected_count += (1 + len(guides)) if guides else 0
+    if len(entries) != expected_count:
+        raise ValueError(f"Unexpected sitemap URL count: expected {expected_count}, found {len(entries)}")
+    urls = [url for url, _ in entries]
     if len(urls) != len(set(urls)):
         raise ValueError("Sitemap contains duplicate canonical URLs")
     if any(not url.startswith(BASE_URL) for url in urls):
         raise ValueError("Sitemap contains a non-canonical host or non-HTTPS URL")
 
     body = "\n".join(
-        f"  <url><loc>{xml_escape(url)}</loc><lastmod>{REVIEW_DATE}</lastmod></url>"
-        for url in urls
+        f"  <url><loc>{xml_escape(url)}</loc><lastmod>{lastmod}</lastmod></url>"
+        for url, lastmod in entries
     )
     return (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2061,7 +3394,15 @@ def validate_local_links(outputs: Mapping[Path, str]) -> None:
             local_path = parsed.path.lstrip("/")
             if not local_path:
                 continue
-            if "/" in local_path or local_path not in available:
+            target = (ROOT / local_path).resolve()
+            # Permit repository-owned asset subdirectories while rejecting
+            # traversal and links to missing files.
+            try:
+                target.relative_to(ROOT.resolve())
+            except ValueError:
+                failures.append(f"{path.name}: {href}")
+                continue
+            if not target.is_file() and local_path not in available:
                 failures.append(f"{path.name}: {href}")
     if failures:
         raise ValueError("Generated HTML has missing local links:\n  " + "\n  ".join(sorted(set(failures))))
@@ -2072,7 +3413,16 @@ def build_outputs() -> dict[Path, str]:
     index_original = index_path.read_text(encoding="utf-8")
     catalogue_original = CATALOGUE_FILE.read_text(encoding="utf-8")
     catalogue = load_catalogue(catalogue_original)
+    guides = load_guides()
+    orphaned_guides = unexpected_guide_outputs(guides)
+    if orphaned_guides:
+        raise ValueError(
+            "Unregistered guide output must be reviewed and removed explicitly: "
+            + ", ".join(path.name for path in orphaned_guides)
+        )
+    walkthrough_content = load_walkthrough_content()
     routes = discover_routes(catalogue)
+    validate_guide_relationships(guides, routes)
     by_standard, by_year, by_source = group_routes(routes)
 
     outputs: dict[Path, str] = {}
@@ -2091,6 +3441,8 @@ def build_outputs() -> dict[Path, str]:
             path.read_text(encoding="utf-8"),
             default,
             by_year[(default.standard_key, default.year)],
+            walkthrough_content[default.route_path],
+            guides,
         )
 
     for source, target in LEGACY_REDIRECTS.items():
@@ -2106,12 +3458,22 @@ def build_outputs() -> dict[Path, str]:
     outputs[ROOT / "standards.html"] = standards_page(by_standard)
     outputs[ROOT / "level-3-calculus.html"] = level_three_calculus_page(by_standard)
     outputs[ROOT / "skills.html"] = skills_directory_page(routes)
+    outputs[ROOT / "search.html"] = search_page(routes, guides)
     for spec in SKILL_SPECS.values():
-        outputs[ROOT / spec.page_href] = skill_page(spec, routes)
+        outputs[ROOT / spec.page_href] = skill_page(spec, routes, guides)
+
+    if guides:
+        outputs[ROOT / "guides.html"] = guides_hub_page(guides)
+        for guide in guides:
+            outputs[ROOT / guide.filename] = guide_page(guide, routes)
 
     for key in STANDARD_ORDER:
         standard = STANDARDS[key]
-        outputs[ROOT / standard.landing_file] = standard_page(standard, by_standard[key])
+        outputs[ROOT / standard.landing_file] = standard_page(
+            standard,
+            by_standard[key],
+            guides,
+        )
         years = sorted({route.year for route in by_standard[key]}, reverse=True)
         for year in years:
             outputs[ROOT / year_file(key, year)] = year_page(
@@ -2122,8 +3484,9 @@ def build_outputs() -> dict[Path, str]:
             )
 
     outputs[ROOT / "about.html"] = about_page()
+    outputs[ROOT / "404.html"] = not_found_page(bool(guides))
     outputs[ROOT / "robots.txt"] = robots_txt()
-    outputs[ROOT / "sitemap.xml"] = sitemap_xml(routes)
+    outputs[ROOT / "sitemap.xml"] = sitemap_xml(routes, guides)
 
     # All HTML pages are generator-controlled. Use one cache token for local
     # styles, scripts, and data so shared walkthrough changes cannot be served
@@ -2133,12 +3496,18 @@ def build_outputs() -> dict[Path, str]:
     )
     for path, content in tuple(outputs.items()):
         if path.suffix == ".html":
-            outputs[path] = cache_pattern.sub(
+            content = cache_pattern.sub(
                 lambda match: (
                     match.group("prefix") + CACHE_TOKEN + match.group("suffix")
                 ),
                 content,
             )
+            # Optional template blocks can otherwise leave indentation-only
+            # lines. Keep generated HTML deterministic and diff-clean without
+            # altering authored text or inline markup.
+            outputs[path] = "\n".join(
+                line.rstrip() for line in content.splitlines()
+            ) + "\n"
 
     validate_local_links(outputs)
     return outputs

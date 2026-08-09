@@ -8,20 +8,24 @@
   <meta name="description" content="Practise NCEA Level 3 polar form and De Moivre questions from AS91577, including arguments, powers and complete sets of complex roots.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://calc.nz/skill-polar-form-de-moivre.html">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/favicon-48.png" type="image/png" sizes="48x48">
+  <link rel="icon" href="/assets/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180">
   <meta property="og:locale" content="en_NZ">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Calc.nz">
   <meta property="og:title" content="Polar Form and De Moivre’s Theorem NCEA Practice Questions | Calc.nz">
   <meta property="og:description" content="Practise NCEA Level 3 polar form and De Moivre questions from AS91577, including arguments, powers and complete sets of complex roots.">
   <meta property="og:url" content="https://calc.nz/skill-polar-form-de-moivre.html">
-  <meta property="og:image" content="https://calc.nz/assets/calc-nz-social.png">
+  <meta property="og:image" content="https://calc.nz/assets/calc-nz-social.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Calc.nz guided NCEA maths walkthroughs">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Polar Form and De Moivre’s Theorem NCEA Practice Questions | Calc.nz">
   <meta name="twitter:description" content="Practise NCEA Level 3 polar form and De Moivre questions from AS91577, including arguments, powers and complete sets of complex roots.">
-  <meta name="twitter:image" content="https://calc.nz/assets/calc-nz-social.png">
+  <meta name="twitter:image" content="https://calc.nz/assets/calc-nz-social.jpg">
   <meta name="twitter:image:alt" content="Calc.nz guided NCEA maths walkthroughs">
   <script id="seo-structured-data" type="application/ld+json" data-seo-generated="true">
   {
@@ -34,7 +38,7 @@
         "name": "Polar Form and De Moivre’s Theorem NCEA Practice Questions | Calc.nz",
         "description": "Practise NCEA Level 3 polar form and De Moivre questions from AS91577, including arguments, powers and complete sets of complex roots.",
         "inLanguage": "en-NZ",
-        "dateModified": "2026-07-19",
+        "dateModified": "2026-08-09",
         "isPartOf": {
           "@id": "https://calc.nz/#website"
         }
@@ -66,33 +70,34 @@
   }
   </script>
   <!-- SEO:HEAD:END -->
-  <link rel="stylesheet" href="style.css?v=20260719-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="walkthrough-gate.js?v=20260719-8"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      if (window.renderMathInElement) {
-        window.renderMathInElement(document.body, {
-          delimiters: [
-            { left: "\\[", right: "\\]", display: true },
-            { left: "\\(", right: "\\)", display: false }
-          ],
-          throwOnError: false
-        });
-      }
-    });
-  </script>
+  <link rel="stylesheet" href="style.css?v=20260809-1">
+  <script defer src="site-shell.js?v=20260809-1"></script>
 </head>
-<body class="home-page content-page skill-page">
-<main class="app home-app content-app">
+<body class="home-page content-page skill-page has-site-header">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+  <nav class="site-header-inner" aria-label="Site">
+    <a class="site-brand" href="/">Calc.nz</a>
+    <button class="site-menu-toggle" type="button" aria-expanded="false" aria-controls="site-header-links">
+      <span class="site-menu-label">Menu</span>
+      <span class="site-menu-icon" aria-hidden="true"></span>
+    </button>
+    <div id="site-header-links" class="site-header-links">
+      <a class="site-header-link" href="/standards.html">Standards</a>
+      <a class="site-header-link" href="/skills.html">Skills</a>
+
+      <a class="site-header-link" href="/search.html">Search</a>
+      <a class="site-header-link" href="/about.html">About</a>
+    </div>
+  </nav>
+</header>
+<main id="main-content" class="app home-app content-app" tabindex="-1">
   <!-- SEO:BREADCRUMBS:START -->
   <nav class="home-flow-nav seo-breadcrumbs" aria-label="Breadcrumb">
    <ol class="home-breadcrumb">
-    <li><a class="home-breadcrumb-button" href="/">Calc.nz</a></li>
-    <li><a class="home-breadcrumb-button" href="skills.html">Browse by skill</a></li>
-    <li><span class="home-breadcrumb-current" aria-current="page">Polar Form and De Moivre’s Theorem</span></li>
+    <li class="breadcrumb-item breadcrumb-link"><a class="home-breadcrumb-button" href="/">Calc.nz</a></li>
+    <li class="breadcrumb-item breadcrumb-link breadcrumb-parent"><a class="home-breadcrumb-button" href="skills.html">Browse by skill</a></li>
+    <li class="breadcrumb-item breadcrumb-current"><span class="home-breadcrumb-current" aria-current="page">Polar Form and De Moivre’s Theorem</span></li>
    </ol>
   </nav>
   <!-- SEO:BREADCRUMBS:END -->
@@ -120,200 +125,244 @@
     <ul class="step-text"><li>Choose the argument from the correct quadrant and within the range required by the question.</li><li>When dividing in polar form, divide the moduli and subtract the arguments in a consistent order.</li><li>When multiplying in polar form, multiply the moduli and add the arguments before normalising the angle if required.</li></ul>
   </section>
 
-  <section class="question-card" aria-labelledby="skill-questions-heading">
+
+
+  <section class="question-card" aria-labelledby="skill-questions-heading" data-skill-collection>
     <p class="question-label">Related practice</p>
     <h2 id="skill-questions-heading">Polar Form and De Moivre’s Theorem questions from different years</h2>
     <p class="step-text">Open a question for hints and a progressive worked solution, or use the standard and paper links to return to its assessment context.</p>
-    <section class="index-group skill-question-group" aria-labelledby="polar-form-de-moivre-level-3-complex-2025">
-  <div class="year-cluster-header">
+    <div class="skill-question-tools">
+      <nav class="skill-jump-nav" aria-label="Jump to a year"><a class="skill-jump-link" href="#polar-form-de-moivre-level-3-complex-2025">2025 Complex Numbers</a><a class="skill-jump-link" href="#polar-form-de-moivre-level-3-complex-2024">2024 Complex Numbers</a><a class="skill-jump-link" href="#polar-form-de-moivre-level-3-complex-2023">2023 Complex Numbers</a><a class="skill-jump-link" href="#polar-form-de-moivre-level-3-complex-2022">2022 Complex Numbers</a><a class="skill-jump-link" href="#polar-form-de-moivre-level-3-complex-2021">2021 Complex Numbers</a><a class="skill-jump-link" href="#polar-form-de-moivre-level-3-complex-2020">2020 Complex Numbers</a><a class="skill-jump-link" href="#polar-form-de-moivre-level-3-complex-2019">2019 Complex Numbers</a><a class="skill-jump-link" href="#polar-form-de-moivre-level-3-complex-2018">2018 Complex Numbers</a><a class="skill-jump-link" href="#polar-form-de-moivre-level-3-complex-2017">2017 Complex Numbers</a></nav>
+      <div class="skill-filter-row" role="group" aria-label="Filter this skill collection"><button class="skill-filter-chip is-active" type="button" aria-pressed="true" data-skill-filter="all">All questions</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="level-3-complex">AS91577</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Arguments and Quadrants">Arguments and Quadrants</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Complex Roots">Complex Roots</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Complex-number Algebra">Complex-number Algebra</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="De Moivre’s Theorem">De Moivre’s Theorem</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Equating Real and Imaginary Parts">Equating Real and Imaginary Parts</button><button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="Polar Form">Polar Form</button></div>
+      <button class="nav-btn secondary skill-random-button" type="button" data-skill-random>Random question from this skill</button>
+      <p class="visually-hidden" aria-live="polite" data-skill-filter-status>27 matching questions shown.</p>
+    </div>
+    <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Arguments and Quadrants|De Moivre’s Theorem|Polar Form">
+  <summary id="polar-form-de-moivre-level-3-complex-2025" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2025 Complex Numbers</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="polar-form-de-moivre-level-3-complex-2025">2025 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2025.html">2025 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-1d2025.html">
-  <span class="index-link-title">Question 1(d) · Polar Form</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-1d2025.html" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 1(d) — Polar Form</span>
   <span class="index-link-copy">Writing cube roots in polar form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2b2025.html">
-  <span class="index-link-title">Question 2(b) · De Moivre’s Theorem</span>
-  <span class="index-link-copy">De Moivre’s Theorem and converting to \(a+bi\).</span>
-</a> <a class="nav-btn index-link-card" href="complex-2e2025.html">
-  <span class="index-link-title">Question 2(e) · An argument condition to solve for a</span>
+</a> <a class="nav-btn index-link-card" href="complex-2b2025.html" data-skill-method="De Moivre’s Theorem">
+  <span class="index-link-title">Question 2(b) — De Moivre’s Theorem</span>
+  <span class="index-link-copy">De Moivre’s Theorem and converting to a + bi.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2e2025.html" data-skill-method="Arguments and Quadrants">
+  <span class="index-link-title">Question 2(e) — Arguments and Quadrants</span>
   <span class="index-link-copy">Using an argument condition to solve for a real constant.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="polar-form-de-moivre-level-3-complex-2024">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="De Moivre’s Theorem|Polar Form">
+  <summary id="polar-form-de-moivre-level-3-complex-2024" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2024 Complex Numbers</strong>
+    <span>2 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="polar-form-de-moivre-level-3-complex-2024">2024 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2024.html">2024 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2024.html?q=1b">
-  <span class="index-link-title">Question 1(b) · De Moivre’s Theorem</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2024.html?q=1b" data-skill-method="De Moivre’s Theorem">
+  <span class="index-link-title">Question 1(b) — De Moivre’s Theorem</span>
   <span class="index-link-copy">De Moivre’s Theorem in polar form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=3d">
-  <span class="index-link-title">Question 3(d) · Polar Form</span>
+</a> <a class="nav-btn index-link-card" href="complex-2024.html?q=3d" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 3(d) — Polar Form</span>
   <span class="index-link-copy">Fourth roots in polar form.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="polar-form-de-moivre-level-3-complex-2023">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Arguments and Quadrants|Polar Form">
+  <summary id="polar-form-de-moivre-level-3-complex-2023" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2023 Complex Numbers</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="polar-form-de-moivre-level-3-complex-2023">2023 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2023.html">2023 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2023.html?q=2a">
-  <span class="index-link-title">Question 2(a) · Polar Form</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2023.html?q=2a" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 2(a) — Polar Form</span>
   <span class="index-link-copy">Dividing complex numbers in polar form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=2c">
-  <span class="index-link-title">Question 2(c) · For z before finding its argument</span>
-  <span class="index-link-copy">Solving for \(z\) before finding its argument.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=2d">
-  <span class="index-link-title">Question 2(d) · Polar Form</span>
+</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=2c" data-skill-method="Arguments and Quadrants">
+  <span class="index-link-title">Question 2(c) — Arguments and Quadrants</span>
+  <span class="index-link-copy">Solving for z before finding its argument.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2023.html?q=2d" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 2(d) — Polar Form</span>
   <span class="index-link-copy">Writing all cube roots in polar form.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="polar-form-de-moivre-level-3-complex-2022">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Complex-number Algebra|Equating Real and Imaginary Parts|Polar Form">
+  <summary id="polar-form-de-moivre-level-3-complex-2022" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2022 Complex Numbers</strong>
+    <span>4 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="polar-form-de-moivre-level-3-complex-2022">2022 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2022.html">2022 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2022.html?q=1b">
-  <span class="index-link-title">Question 1(b) · Polar Form</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2022.html?q=1b" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 1(b) — Polar Form</span>
   <span class="index-link-copy">Dividing complex numbers in polar form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=1c">
-  <span class="index-link-title">Question 1(c) · An argument condition to match real and</span>
+</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=1c" data-skill-method="Equating Real and Imaginary Parts">
+  <span class="index-link-title">Question 1(c) — Equating Real and Imaginary Parts</span>
   <span class="index-link-copy">Using an argument condition to match real and imaginary parts.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=2d">
-  <span class="index-link-title">Question 2(d) · Rationalising first, then finding the</span>
+</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=2d" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 2(d) — Complex-number Algebra</span>
   <span class="index-link-copy">Rationalising first, then finding the principal argument.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=3c">
-  <span class="index-link-title">Question 3(c) · Polar Form</span>
+</a> <a class="nav-btn index-link-card" href="complex-2022.html?q=3c" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 3(c) — Polar Form</span>
   <span class="index-link-copy">Finding the three cube roots in polar form.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="polar-form-de-moivre-level-3-complex-2021">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Complex Roots|Polar Form">
+  <summary id="polar-form-de-moivre-level-3-complex-2021" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2021 Complex Numbers</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="polar-form-de-moivre-level-3-complex-2021">2021 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2021.html">2021 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2021.html?q=2a">
-  <span class="index-link-title">Question 2(a) · Dividing complex numbers in cis form</span>
-  <span class="index-link-copy">Dividing complex numbers in \(\operatorname{cis}\) form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=2d">
-  <span class="index-link-title">Question 2(d) · Complex Roots</span>
-  <span class="index-link-copy">Finding cube roots in \(\operatorname{cis}\) form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=3a">
-  <span class="index-link-title">Question 3(a) · Polar Form</span>
-  <span class="index-link-copy">Using modulus and argument to choose the correct value of \(m\).</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2021.html?q=2a" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 2(a) — Polar Form</span>
+  <span class="index-link-copy">Dividing complex numbers in cis form.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=2d" data-skill-method="Complex Roots">
+  <span class="index-link-title">Question 2(d) — Complex Roots</span>
+  <span class="index-link-copy">Finding cube roots in cis form.</span>
+</a> <a class="nav-btn index-link-card" href="complex-2021.html?q=3a" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 3(a) — Polar Form</span>
+  <span class="index-link-copy">Using modulus and argument to choose the correct value of m.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="polar-form-de-moivre-level-3-complex-2020">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Arguments and Quadrants|Polar Form">
+  <summary id="polar-form-de-moivre-level-3-complex-2020" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2020 Complex Numbers</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="polar-form-de-moivre-level-3-complex-2020">2020 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2020.html">2020 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2020.html?q=2d">
-  <span class="index-link-title">Question 2(d) · The principal argument of a quotient</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2020.html?q=2d" data-skill-method="Arguments and Quadrants">
+  <span class="index-link-title">Question 2(d) — Arguments and Quadrants</span>
   <span class="index-link-copy">Finding the principal argument of a quotient.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=3a">
-  <span class="index-link-title">Question 3(a) · Polar Form</span>
+</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=3a" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 3(a) — Polar Form</span>
   <span class="index-link-copy">Dividing complex numbers in polar form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=3d">
-  <span class="index-link-title">Question 3(d) · Polar Form</span>
+</a> <a class="nav-btn index-link-card" href="complex-2020.html?q=3d" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 3(d) — Polar Form</span>
   <span class="index-link-copy">Finding all fourth roots in polar form.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="polar-form-de-moivre-level-3-complex-2019">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Arguments and Quadrants|Polar Form">
+  <summary id="polar-form-de-moivre-level-3-complex-2019" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2019 Complex Numbers</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="polar-form-de-moivre-level-3-complex-2019">2019 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2019.html">2019 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2019.html?q=2c">
-  <span class="index-link-title">Question 2(c) · Polar Form</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2019.html?q=2c" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 2(c) — Polar Form</span>
   <span class="index-link-copy">Finding fourth roots in polar form for every real p.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=3a">
-  <span class="index-link-title">Question 3(a) · Polar Form</span>
+</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=3a" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 3(a) — Polar Form</span>
   <span class="index-link-copy">Dividing moduli and subtracting arguments in polar form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=3d">
-  <span class="index-link-title">Question 3(d) · An argument condition and verifying the</span>
+</a> <a class="nav-btn index-link-card" href="complex-2019.html?q=3d" data-skill-method="Arguments and Quadrants">
+  <span class="index-link-title">Question 3(d) — Arguments and Quadrants</span>
   <span class="index-link-copy">Using an argument condition and verifying the quadrant.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="polar-form-de-moivre-level-3-complex-2018">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Arguments and Quadrants|De Moivre’s Theorem">
+  <summary id="polar-form-de-moivre-level-3-complex-2018" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2018 Complex Numbers</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="polar-form-de-moivre-level-3-complex-2018">2018 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2018.html">2018 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2018.html?q=1b">
-  <span class="index-link-title">Question 1(b) · Multiplying moduli and adding arguments</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2018.html?q=1b" data-skill-method="Arguments and Quadrants">
+  <span class="index-link-title">Question 1(b) — Arguments and Quadrants</span>
   <span class="index-link-copy">Multiplying moduli and adding arguments in cis form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=3c">
-  <span class="index-link-title">Question 3(c) · De Moivre’s Theorem</span>
+</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=3c" data-skill-method="De Moivre’s Theorem">
+  <span class="index-link-title">Question 3(c) — De Moivre’s Theorem</span>
   <span class="index-link-copy">Finding all cube roots in polar form with De Moivre&#x27;s theorem.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=3d">
-  <span class="index-link-title">Question 3(d) · Complex-number Algebra</span>
-  <span class="index-link-copy">Combining an argument condition with \(w\overline w=|w|^2\).</span>
+</a> <a class="nav-btn index-link-card" href="complex-2018.html?q=3d" data-skill-method="Arguments and Quadrants">
+  <span class="index-link-title">Question 3(d) — Arguments and Quadrants</span>
+  <span class="index-link-copy">Combining an argument condition with w overline w = |w|^2.</span>
 </a></div>
-</section> <section class="index-group skill-question-group" aria-labelledby="polar-form-de-moivre-level-3-complex-2017">
-  <div class="year-cluster-header">
+</details> <details class="index-group skill-question-group" open data-skill-group data-standard="level-3-complex" data-methods="Complex-number Algebra|Polar Form">
+  <summary id="polar-form-de-moivre-level-3-complex-2017" class="skill-question-summary">
+    <span class="question-label">NCEA Level 3 · AS91577</span>
+    <strong>2017 Complex Numbers</strong>
+    <span>3 questions</span>
+  </summary>
+  <div class="year-cluster-header skill-year-links">
     <div>
-      <p class="question-label">NCEA Level 3 · AS91577</p>
-      <h3 id="polar-form-de-moivre-level-3-complex-2017">2017 Complex Numbers</h3>
+      <p class="step-text">Open a question or return to its assessment context.</p>
     </div>
     <div class="nav-row">
       <a class="site-footer-link" href="level-3-complex-numbers.html">Standard overview</a>
       <a class="site-footer-link" href="level-3-complex-numbers-2017.html">2017 paper</a>
     </div>
   </div>
-  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2017.html?q=2c">
-  <span class="index-link-title">Question 2(c) · Complex-number Algebra</span>
+  <div class="nav-row index-nav"><a class="nav-btn index-link-card" href="complex-2017.html?q=2c" data-skill-method="Complex-number Algebra">
+  <span class="index-link-title">Question 2(c) — Complex-number Algebra</span>
   <span class="index-link-copy">Exact complex division and choosing the principal argument.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=2d">
-  <span class="index-link-title">Question 2(d) · Polar Form</span>
+</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=2d" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 2(d) — Polar Form</span>
   <span class="index-link-copy">Finding and listing all four fourth roots in polar form.</span>
-</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=3a">
-  <span class="index-link-title">Question 3(a) · Polar Form</span>
+</a> <a class="nav-btn index-link-card" href="complex-2017.html?q=3a" data-skill-method="Polar Form">
+  <span class="index-link-title">Question 3(a) — Polar Form</span>
   <span class="index-link-copy">Dividing moduli and subtracting arguments in polar form.</span>
 </a></div>
-</section>
+</details>
   </section>
 
   <section class="question-card" aria-labelledby="related-skills-heading">
@@ -321,7 +370,7 @@
     <h2 id="related-skills-heading">Related skill collections</h2>
     <div class="nav-row"><a class="nav-btn secondary" href="skill-complex-number-algebra.html">Complex-number algebra</a></div>
   </section>
-  <p class="page-updated">Page updated <time datetime="2026-07-19">19 July 2026</time>.</p>
+  <p class="page-updated">Page updated <time datetime="2026-08-09">9 August 2026</time>.</p>
 </main>
 <footer class="site-footer">
   <p class="site-footer-text">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the official NZQA material.</p>
@@ -329,6 +378,8 @@
     <a class="site-footer-link" href="/">Home</a>
     <a class="site-footer-link" href="/standards.html">Standards</a>
     <a class="site-footer-link" href="/skills.html">Skills</a>
+
+    <a class="site-footer-link" href="/search.html">Search</a>
     <a class="site-footer-link" href="about.html">About</a>
   </nav>
   <p class="site-footer-text site-footer-disclaimer">Calc.nz is independent and is not affiliated with or endorsed by NZQA.</p>
