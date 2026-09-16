@@ -192,11 +192,7 @@
     "1a": createConfig("1a", "2022 Paper — Rationalising a surd denominator", {
       focus: raw`multiplying by the conjugate, using the difference of squares, and finishing in the exact form \(ak+bk\sqrt{5}\).`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{Write }\frac{12k}{1+\sqrt{5}}\text{ in the form }ak+bk\sqrt{5},\text{ where }a\text{ and }b\text{ are integers.}
-          \]
-        </div>
+        <p class="step-text question-instruction">Write \(\frac{12k}{1+\sqrt{5}}\) in the form \(ak+bk\sqrt{5}\), where \(a\) and \(b\) are integers.</p>
       `,
       hints: [
         raw`Multiply top and bottom by the conjugate of \(1+\sqrt{5}\).`,
@@ -303,11 +299,7 @@
     "1b": createConfig("1b", "2022 Paper — Division in polar form", {
       focus: raw`dividing the moduli, subtracting the arguments, and writing the result cleanly in polar form.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{If }u=m^5\operatorname{cis}\left(\frac{\pi}{3}\right)\text{ and }v=m^2\operatorname{cis}\left(\frac{\pi}{5}\right),\text{ write }\frac{u}{v}\text{ in polar form.}
-          \]
-        </div>
+        <p class="step-text question-instruction">If \(u=m^5\operatorname{cis}\left(\frac{\pi}{3}\right)\) and \(v=m^2\operatorname{cis}\left(\frac{\pi}{5}\right)\), write \(\frac{u}{v}\) in polar form.</p>
       `,
       hints: [
         raw`When you divide complex numbers in polar form, divide the moduli and subtract the arguments.`,
@@ -388,11 +380,7 @@
     "1c": createConfig("1c", "2022 Paper — Argument condition after expansion", {
       focus: raw`expanding the product carefully and using \(\arg(uvw)=\frac{\pi}{4}\) to match the real and imaginary parts.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{If }u=3+2i,\ v=4+2i,\text{ and }w=2+ki,\text{ find the value of }k\text{ if }\arg(uvw)=\frac{\pi}{4}.
-          \]
-        </div>
+        <p class="step-text question-instruction">If \(u=3+2i\), \(v=4+2i\), and \(w=2+ki\), find the value of \(k\) if \(\arg(uvw)=\frac{\pi}{4}\).</p>
       `,
       questionNotes: [
         raw`An argument of \(\frac{\pi}{4}\) means the complex number lies in the first quadrant on the line \(y=x\).`
@@ -526,10 +514,9 @@
     "1d": createConfig("1d", "2022 Paper — One real solution via the discriminant", {
       focus: raw`isolating the surd, squaring carefully, and using the discriminant to force exactly one real solution.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{Find the value(s) of }p\text{ for which the equation }x-2\sqrt{x+p}=-5\text{ has only one real solution.}
-          \]
+        <p class="step-text question-instruction">Find the value(s) of \(p\) for which the following equation has exactly one real solution.</p>
+        <div class="question-math" aria-label="Radical equation">
+          \[x-2\sqrt{x+p}=-5\]
         </div>
       `,
       hints: [
@@ -676,13 +663,9 @@
     "1e": createConfig("1e", "2022 Paper — Moduli and real parts proof", {
       focus: raw`rewriting the complex numbers in \(a+bi\) form and simplifying both modulus-squared expressions side by side.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{For complex numbers }w\text{ and }z,\text{ prove that}
-          \]
-          \[
-          |w+z|^2-|w-\overline{z}|^2=4\operatorname{Re}(w)\operatorname{Re}(z),
-          \]
+        <p class="step-text question-instruction">For complex numbers \(w\) and \(z\), prove that</p>
+        <div class="question-math" aria-label="Modulus identity to prove">
+          \[|w+z|^2-|w-\overline{z}|^2=4\operatorname{Re}(w)\operatorname{Re}(z).\]
         </div>
         <p class="step-text">where \(\operatorname{Re}(w)\) is the real part of \(w\), and \(\operatorname{Re}(z)\) is the real part of \(z\).</p>
       `,
@@ -835,14 +818,7 @@
     "2a": createConfig("2a", "2022 Paper — Remainder theorem", {
       focus: raw`recognising the remainder theorem and substituting the value that makes the divisor zero.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{Dividing }x^3-3x^2+bx+9\text{ by }(x+2)\text{ gives a remainder of }3.
-          \]
-          \[
-          \text{Find the value of }b.
-          \]
-        </div>
+        <p class="step-text question-instruction">Dividing \(x^3-3x^2+bx+9\) by \(x+2\) gives a remainder of \(3\). Find the value of \(b\).</p>
       `,
       hints: [
         raw`If the divisor is \(x+2\), then the special input is \(x=-2\).`,
@@ -943,11 +919,7 @@
     "2b": createConfig("2b", "2022 Paper — Solving with a conjugate", {
       focus: raw`writing \(z\) and \(\overline{z}\) in terms of \(a\) and \(b\), then equating real and imaginary parts.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{Find the complex number }z\text{ for which }z+4\overline{z}=15+12i.
-          \]
-        </div>
+        <p class="step-text question-instruction">Find the complex number \(z\) for which \(z+4\overline{z}=15+12i\).</p>
       `,
       hints: [
         raw`Let \(z=a+bi\), so \(\overline{z}=a-bi\).`,
@@ -1065,10 +1037,9 @@
     "2c": createConfig("2c", "2022 Paper — Cubic factorisation with a known root", {
       focus: raw`using the known factor \(z+4\), setting the remainder to zero, and solving the reduced quadratic.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{One of the solutions of }z^3-2z^2+hz+180=0\text{ is }z=-4.\ (h\text{ is a real number}.)
-          \]
+        <p class="step-text question-instruction">One solution of the following equation is \(z=-4\), where \(h\) is a real number.</p>
+        <div class="question-math" aria-label="Cubic equation">
+          \[z^3-2z^2+hz+180=0\]
         </div>
         <p class="step-text">Find the other solutions, in the form \(a\pm bi\), and the value of \(h\).</p>
       `,
@@ -1331,9 +1302,10 @@
     "2e": createConfig("2e", "2022 Paper — Locus to Cartesian circle form", {
       focus: raw`writing \(z=x+yi\), converting each modulus into a distance, and then completing the square to reveal the circle.`,
       questionHtml: raw`
+        <p class="step-text">Find the Cartesian equation of the locus described by</p>
         <div class="question-math">
           \[
-          \text{Find the Cartesian equation of the locus described by }|z+i|=2|z-5i|
+          |z+i|=2|z-5i|
           \]
         </div>
         <p class="step-text">in the form \((x-a)^2+(y-b)^2=k^2\).</p>
@@ -1491,11 +1463,7 @@
       questionHtml: raw`
         <p class="step-text">The complex numbers \(r\) and \(s\) are represented on the Argand diagram below.</p>
         ${questionThreeDiagramHtml()}
-        <div class="question-math">
-          \[
-          \text{If }v=2r-s,\text{ find }v\text{ and mark it on the Argand diagram above.}
-          \]
-        </div>
+        <p class="step-text question-instruction">If \(v=2r-s\), find \(v\) and mark it on the Argand diagram above.</p>
       `,
       questionNotes: [
         raw`Read each plotted point as \((\text{real part},\text{imaginary part})\).`
@@ -1632,10 +1600,9 @@
     "3b": createConfig("3b", "2022 Paper — Completing the square with a complex root", {
       focus: raw`completing the square in \(z\) and then taking the square root of a negative real expression.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{Solve the equation }z^2+6kz+15k^2=0\text{ in terms of real number }k.
-          \]
+        <p class="step-text question-instruction">Solve the following equation in terms of the real number \(k\).</p>
+        <div class="question-math" aria-label="Quadratic equation">
+          \[z^2+6kz+15k^2=0\]
         </div>
         <p class="step-text">Give your solution in the form \(ak\pm \sqrt{b}\,ki\), where \(a\) and \(b\) are rational numbers.</p>
       `,
@@ -1747,9 +1714,10 @@
     "3c": createConfig("3c", "2022 Paper — Cube roots in polar form", {
       focus: raw`isolating \(z^3\), rewriting the right-hand side in polar form, and then taking the three cube roots using De Moivre's Theorem.`,
       questionHtml: raw`
+        <p class="step-text question-instruction">Solve the equation, where \(k\) is a real constant.</p>
         <div class="question-math">
           \[
-          \text{Solve the equation }z^3+k^6i=0,\text{ where }k\text{ is a real constant.}
+          z^3+k^6i=0
           \]
         </div>
         <p class="step-text">Give your solution(s) in polar form in terms of \(k\).</p>
@@ -1887,11 +1855,7 @@
     "3d": createConfig("3d", "2022 Paper — Proving impossibility", {
       focus: raw`using the fact that \(|z|\) is real, equating real and imaginary parts, and deriving a contradiction.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{Prove that there is no complex number }z\text{ such that }|z|-z=i.
-          \]
-        </div>
+        <p class="step-text question-instruction">Prove that there is no complex number \(z\) such that \(|z|-z=i\).</p>
       `,
       hints: [
         raw`Rearrange first so the real quantity \(|z|\) sits by itself.`,
@@ -2045,10 +2009,9 @@
     "3e": createConfig("3e", raw`2022 Paper — Solving for \(a\) and \(b\) using \(z\) and \(\overline{z}\)`, {
       focus: raw`clearing the denominators with \(z\overline{z}\), then equating real and imaginary parts in terms of \(a\) and \(b\).`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{If }z=a+bi\text{ is a non-zero complex number, and }\frac{i}{z}+\frac{3}{\overline{z}}=1,
-          \]
+        <p class="step-text question-instruction">Let \(z=a+bi\) be a non-zero complex number. Given that</p>
+        <div class="question-math" aria-label="Equation involving a complex number and its conjugate">
+          \[\frac{i}{z}+\frac{3}{\overline{z}}=1,\]
         </div>
         <p class="step-text">find the values of \(a\) and \(b\).</p>
       `,

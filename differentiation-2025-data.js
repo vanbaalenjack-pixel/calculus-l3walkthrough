@@ -475,9 +475,10 @@
     }),
     "1c": createConfig("1c", "2025 Paper — Gradient of a normal line", {
       questionHtml: raw`
+        <p class="step-text">What is the gradient of the normal to the following curve when \(x=\frac{\pi}{4}\)?</p>
         <div class="question-math">
           \[
-          \text{What is the gradient of the normal to the curve } y=\sin^3x\cos x \text{ when } x=\frac{\pi}{4}\text{?}
+          y=\sin^3x\cos x
           \]
         </div>
         <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
@@ -1318,17 +1319,11 @@
         <div class="graph-frame question-graph-frame">
           <svg id="question-graph-3a" class="graph-svg" viewBox="0 0 460 320" aria-label="Graph of a piecewise function with a horizontal ray, two holes, and turning points" role="img"></svg>
         </div>
-        <div class="question-math">
-          \[
-          \text{(i) Find the value(s) of }x\text{ where }f(x)\text{ is not differentiable.}
-          \]
-          \[
-          \text{(ii) Find the value(s) of }x\text{ where }f'(x)=0.
-          \]
-          \[
-          \text{(iii) What is the value of }\lim_{x\to -2}f(x)\text{?}
-          \]
-        </div>
+        <ol class="step-text question-parts" type="i">
+          <li>Find the value(s) of \(x\) where \(f(x)\) is not differentiable.</li>
+          <li>Find the value(s) of \(x\) where \(f'(x)=0\).</li>
+          <li>What is the value of \(\lim_{x\to -2}f(x)\)?</li>
+        </ol>
       `,
       hints: [
         raw`Points are not differentiable where the graph has a jump, a hole, or a sharp break.`,

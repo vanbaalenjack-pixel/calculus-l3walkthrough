@@ -2892,6 +2892,13 @@ a.standard-directory-card:focus-visible {
   display: none !important;
 }
 
+/* Static pages retain a compact context block without JavaScript. Once the
+   richer live walkthrough is mounted, its heading/tips already provide that
+   context, so remove the duplicate overview card. */
+body.walkthrough-runtime-ready .seo-question-overview {
+  display: none;
+}
+
 .exam-mode-reveal-panel {
   display: grid;
   gap: 10px;
@@ -4321,8 +4328,7 @@ body.question-image-lightbox-open {
 
 .global-search-card .home-search-form {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 10px;
+  gap: 16px;
 }
 
 .global-search-card .home-search-form > label {
@@ -4331,6 +4337,65 @@ body.question-image-lightbox-open {
 
 .global-search-card .home-search-input {
   min-width: 0;
+}
+
+.global-search-query-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.global-search-filters {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid rgba(184, 202, 226, 0.82);
+  border-radius: 16px;
+  background: rgba(248, 251, 255, 0.84);
+}
+
+.global-search-filters legend {
+  padding: 0 6px;
+  color: var(--text);
+  font-weight: 750;
+}
+
+.global-search-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.global-search-filter-grid label {
+  display: grid;
+  gap: 6px;
+  color: var(--text);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.global-search-filter-grid select {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 36px 10px 12px;
+  border: 1px solid #8492a6;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+}
+
+.global-search-filter-grid select:focus-visible {
+  outline: 3px solid rgba(70, 111, 216, 0.18);
+  outline-offset: 2px;
+  border-color: rgba(70, 111, 216, 0.48);
+}
+
+.global-search-reset {
+  justify-self: start;
 }
 
 .global-search-submit {
@@ -4925,6 +4990,11 @@ html:not(.js) .skill-random-button {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .global-search-query-row,
+  .global-search-filter-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .global-search-submit {
     width: 100%;
   }
@@ -5100,6 +5170,146 @@ html:not(.js) .skill-random-button {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 4px;
     width: 100%;
+  }
+}
+
+.walkthrough-review-notice {
+  display: grid;
+  gap: 3px;
+  margin: 4px 0 18px;
+  padding: 12px 14px;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-left: 4px solid var(--primary);
+  border-radius: 12px;
+  background: rgba(239, 246, 255, 0.72);
+  color: var(--text-soft);
+}
+
+.walkthrough-review-notice p {
+  margin: 0;
+}
+
+.walkthrough-self-assessment {
+  min-width: 0;
+  margin: 18px 0 0;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-soft);
+  background: #f8fbff;
+}
+
+.walkthrough-self-assessment legend {
+  padding: 0 6px;
+  color: var(--text);
+  font-weight: 750;
+}
+
+.walkthrough-assessment-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.walkthrough-assessment-option {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  min-height: 68px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.walkthrough-assessment-option:has(input:checked) {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+}
+
+.walkthrough-assessment-option input {
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  accent-color: var(--primary);
+}
+
+.walkthrough-assessment-option small {
+  display: block;
+  margin-top: 3px;
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+
+.walkthrough-assessment-option:focus-within {
+  outline: 3px solid rgba(37, 99, 235, 0.2);
+  outline-offset: 2px;
+}
+
+.walkthrough-sidebar-link.is-assessed::after,
+.walkthrough-sidebar-link.is-reviewed::after,
+.walkthrough-sidebar-link.is-solved-independently::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #60a5fa;
+}
+
+.walkthrough-sidebar-link.is-solved-independently::after {
+  background: #15803d;
+}
+
+.math-scroll-region {
+  position: relative;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+
+.math-scroll-region::after {
+  position: sticky;
+  right: 0;
+  display: block;
+  width: 38px;
+  height: 4px;
+  margin: -4px 0 0 auto;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.28));
+  pointer-events: none;
+}
+
+.math-scroll-hint {
+  margin: 4px 0 0;
+  color: var(--text-soft);
+  font-size: 0.78rem;
+  text-align: right;
+}
+
+html.exam-mode-pending #page-title,
+html.exam-mode-pending #page-subtitle,
+html.exam-mode-pending .static-walkthrough-support,
+html.exam-mode-pending .static-walkthrough-content,
+html.exam-mode-pending .seo-question-overview,
+html.exam-mode-pending .seo-learning-summary,
+html.exam-mode-pending [data-method-cue] {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  .walkthrough-assessment-options {
+    grid-template-columns: 1fr;
+  }
+
+  .walkthrough-review-notice,
+  .walkthrough-self-assessment {
+    padding: 14px;
   }
 }
 

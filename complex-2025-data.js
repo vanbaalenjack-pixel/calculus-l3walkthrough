@@ -177,14 +177,7 @@
     "1a": createConfig("1a", "2025 Paper — Polynomial division and remainder", {
       focus: raw`recognising a remainder-theorem question, substituting \(x=2\), and solving the resulting linear equation in \(p\).`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{When the polynomial }3x^4 + px^3 - 4x + 5\text{ is divided by }x-2,\text{ the remainder is }21.
-          \]
-          \[
-          \text{Find the value of }p.
-          \]
-        </div>
+        <p class="step-text question-instruction">When the polynomial \(3x^4+px^3-4x+5\) is divided by \(x-2\), the remainder is \(21\). Find the value of \(p\).</p>
       `,
       hints: [
         raw`Because the divisor is \(x-2\), the remainder theorem tells us to look at \(f(2)\).`,
@@ -990,11 +983,7 @@
       questionHtml: raw`
         <p class="step-text">The complex numbers \(u\) and \(w\) are represented on the Argand diagram below.</p>
         ${argandDiagramHtml()}
-        <div class="question-math">
-          \[
-          \text{If } z = 2u + 3w,\text{ find } z,\text{ and clearly show it on the Argand diagram above.}
-          \]
-        </div>
+        <p class="step-text">If \(z=2u+3w\), find \(z\), and clearly show it on the Argand diagram above.</p>
       `,
       questionNotes: [
         raw`Read each plotted point as \((\text{real part},\text{imaginary part})\), then convert back to \(a+bi\) when needed.`

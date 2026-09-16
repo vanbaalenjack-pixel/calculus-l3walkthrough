@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verified skill-page content and catalogue classification for Calc.nz.
+"""Curated skill-page content and catalogue classification for Calc.nz.
 
 This module deliberately classifies only skills that are well represented by
 the wording in ``question-catalogue.js``.  Classification is deterministic: a

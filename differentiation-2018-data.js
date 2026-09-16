@@ -506,11 +506,11 @@
         <p class="step-text">(i) What is the value of \(f(1)\)? State clearly if the value does not exist.</p>
         <p class="step-text">(ii) For what value(s) of \(x\) does \(f(x)\) not have a limit?</p>
         <p class="step-text">(iii) Find all values of \(x\) that meet each condition:</p>
-        <div class="question-math">
-          \[\text{(1) }f'(x)>0\]
-          \[\text{(2) }f'(x)=0\text{ and }f''(x)&lt;0\]
-          \[\text{(3) }f(x)\text{ is continuous but not differentiable}\]
-        </div>
+        <ol class="step-text question-conditions">
+          <li>\(f'(x)>0\)</li>
+          <li>\(f'(x)=0\) and \(f''(x)&lt;0\)</li>
+          <li>\(f(x)\) is continuous but not differentiable</li>
+        </ol>
       `,
       answerHtml: answerHighlight("Final answers", raw`
         <div class="math-block">

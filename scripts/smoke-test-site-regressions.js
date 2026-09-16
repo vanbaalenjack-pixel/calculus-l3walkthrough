@@ -101,7 +101,11 @@
     });
 
     checks.documentReady = document.readyState === "complete";
-    checks.katexAvailable = typeof window.katex === "object" || typeof window.katex === "function";
+    // Landing pages deliberately omit the KaTeX payload when they contain no
+    // maths. Require the runtime only when mathematical source is present.
+    checks.katexAvailable = typeof window.katex === "object"
+      || typeof window.katex === "function"
+      || unrenderedMath.length === 0;
     // Some generated landing pages contain no mathematical notation. In that
     // case, an empty KaTeX node set is valid provided no TeX source remains.
     checks.mathRendered = document.querySelectorAll(".katex").length > 0
@@ -158,12 +162,29 @@
 
     const storedProgress = JSON.parse(localStorage.getItem("calc.nz.walkthroughProgress") || "{}");
     const lastVisited = JSON.parse(localStorage.getItem("calc.nz.lastWalkthrough") || "null");
-    checks.completedProgress = Boolean(
-      storedProgress["level-3-integration-2021:1b"]
-      && storedProgress["level-3-integration-2021:1b"].completed
-      && currentLink.classList.contains("is-complete")
-      && /completed/.test(currentLink.getAttribute("aria-label"))
-      && progressText.textContent.trim() === "1 of 15 completed"
+    const progressState = storedProgress["level-3-integration-2021:1b"];
+    checks.reviewedProgress = Boolean(
+      progressState
+      && progressState.reviewed
+      && !progressState.assessment
+      && !Object.prototype.hasOwnProperty.call(progressState, "completed")
+      && currentLink.classList.contains("is-reviewed")
+      && /walkthrough reviewed/.test(currentLink.getAttribute("aria-label"))
+      && progressText.textContent.trim() === "0 of 15 attempted · 1 reviewed · 0 solved independently"
+    );
+    const legacyMigration = window.CalcNzWalkthrough.normaliseProgressMap({
+      "legacy-paper:1a": {
+        completed: true,
+        completedAt: "2025-01-01T00:00:00.000Z",
+        visited: true
+      }
+    }).map["legacy-paper:1a"];
+    checks.legacyCompletionMigrates = Boolean(
+      legacyMigration
+      && legacyMigration.assessment === "needed-walkthrough"
+      && legacyMigration.reviewed === true
+      && legacyMigration.legacyCompleted === true
+      && !Object.prototype.hasOwnProperty.call(legacyMigration, "completed")
     );
     checks.lastVisitedCustomLabel = Boolean(
       lastVisited
@@ -378,6 +399,9 @@
       const questionLabel = part && part.length === 2
         ? "Question " + part.charAt(0) + "(" + part.charAt(1) + ")"
         : "";
+      const compactQuestionLabel = part && part.length === 2
+        ? "Q" + part.charAt(0) + "(" + part.charAt(1) + ")"
+        : "";
       const expectedCanonical = "https://calc.nz" + window.location.pathname + "?q=" + part;
       const canonical = document.querySelector('link[rel="canonical"]');
       const ogUrl = document.querySelector('meta[property="og:url"]');
@@ -397,11 +421,17 @@
 
       checks.dynamicSeoCanonical = Boolean(canonical && canonical.href === expectedCanonical);
       checks.dynamicSeoOpenGraphUrl = Boolean(ogUrl && ogUrl.content === expectedCanonical);
-      checks.dynamicSeoTitle = document.title.indexOf(questionLabel) >= 0;
+      checks.dynamicSeoTitle = document.title.indexOf(questionLabel) >= 0
+        || document.title.indexOf(compactQuestionLabel) >= 0;
       checks.dynamicSeoHeading = Boolean(document.getElementById("page-title") && document.getElementById("page-title").textContent.indexOf(questionLabel) >= 0);
       checks.dynamicSeoBreadcrumb = Boolean(currentBreadcrumb && currentBreadcrumb.textContent.trim() === questionLabel);
-      checks.dynamicSeoVisibleOverview = Boolean(overview && isVisible(overview) && overview.textContent.trim().length > 80);
-      checks.dynamicSeoVisibleSummary = Boolean(summary && isVisible(summary) && summary.textContent.trim().length > 40);
+      checks.dynamicSeoOverviewCollapsed = Boolean(overview && !isVisible(overview) && overview.textContent.trim().length > 80);
+      checks.dynamicSeoSummaryCollapsed = Boolean(
+        overview
+        && !isVisible(overview)
+        && summary
+        && summary.textContent.trim().length > 40
+      );
       checks.dynamicSeoStructuredData = Boolean(learningResource && learningResource.url === expectedCanonical);
       debug.dynamicSeo = {
         expectedCanonical: expectedCanonical,
@@ -455,11 +485,21 @@
       checks.standardReasoningVisible = /Achieved/.test(document.body.textContent) && /Merit/.test(document.body.textContent) && /Excellence/.test(document.body.textContent);
     } else {
       const questionLinks = Array.from(document.querySelectorAll('a[href^="complex-2022.html?q="]'));
-      const officialLinks = Array.from(document.querySelectorAll('a[href*="nzqa.govt.nz"]'));
+      const officialLinks = Array.from(document.querySelectorAll('.official-resource-list a[href*="nzqa.govt.nz"]'));
+      const officialResourcePage = document.querySelector(
+        '.official-resource-group a[href*="view-detailed.do?standardNumber=91577"]'
+      );
       checks.yearEveryQuestionLinked = new Set(questionLinks.map(function (link) {
         return link.getAttribute("href");
       })).size === 15;
-      checks.yearOfficialSources = officialLinks.length >= 5;
+      checks.yearOfficialSources = officialLinks.length === 3
+        && new Set(officialLinks.map(function (link) {
+          return link.href;
+        })).size === 3
+        && officialLinks.every(function (link) {
+          return /^https:\/\/www\.nzqa\.govt\.nz\//.test(link.href);
+        })
+        && Boolean(officialResourcePage);
       checks.yearPriorityCopy = /2022 NCEA complex numbers worked answers/i.test(document.body.textContent);
     }
 

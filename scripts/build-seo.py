@@ -54,9 +54,9 @@ except ModuleNotFoundError:  # Supports import-based validators from the reposit
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://calc.nz/"
-CACHE_TOKEN = "20260809-1"
-REVIEW_DATE = "2026-08-09"
-WALKTHROUGH_CONTENT_RELEASE_DATE = "2026-08-09"
+CACHE_TOKEN = "20260916-2"
+REVIEW_DATE = "2026-09-02"
+WALKTHROUGH_CONTENT_RELEASE_DATE = "2026-09-02"
 SOCIAL_IMAGE_URL = f"{BASE_URL}assets/calc-nz-social.jpg"
 SOCIAL_IMAGE_ALT = "Calc.nz guided NCEA maths walkthroughs"
 EXPECTED_ROUTE_COUNT = 447
@@ -64,16 +64,43 @@ EXPECTED_YEAR_COUNT = 30
 CATALOGUE_FILE = ROOT / "question-catalogue.js"
 GUIDES_FILE = ROOT / "guides.json"
 WALKTHROUGH_EXTRACTOR = ROOT / "scripts" / "extract-walkthrough-content.swift"
+OFFICIAL_RESOURCES_FILE = ROOT / "official-resources.json"
 
 PAGE_MODIFIED_DATES = {
-    "index.html": "2026-08-09",
-    "standards.html": "2026-08-09",
-    "skills.html": "2026-08-09",
-    "search.html": "2026-08-09",
+    "index.html": "2026-09-02",
+    "standards.html": "2026-09-02",
+    "skills.html": "2026-09-02",
+    "search.html": "2026-09-02",
     # Navigation and icon chrome changed in the current release, but the
     # substantive About-page content did not. Keep its content date distinct.
     "about.html": "2026-07-19",
     "404.html": "2026-08-09",
+}
+
+AUDITED_WALKTHROUGH_KEYS = {
+    ("level-3-complex", 2025, "1e"),
+    ("level-3-integration", 2024, "2c"),
+    ("level-3-complex", 2023, "3c"),
+    ("level-3-complex", 2022, "1d"),
+    ("level-3-complex", 2020, "1c"),
+    ("level-3-complex", 2021, "3d"),
+    ("level-3-differentiation", 2024, "2e"),
+    ("level-3-integration", 2023, "3e"),
+    ("level-3-differentiation", 2023, "3e"),
+    ("level-3-integration", 2025, "1e"),
+    ("level-3-complex", 2020, "3d"),
+    ("level-3-complex", 2021, "2d"),
+    ("level-3-complex", 2022, "3c"),
+    ("level-3-complex", 2023, "2d"),
+    ("level-3-complex", 2024, "3d"),
+}
+
+AUDIT_REVIEW_STATUS = "awaiting-teacher-review"
+VALID_REVIEW_STATUSES = {
+    "unreviewed",
+    "internally-corrected",
+    "awaiting-teacher-review",
+    "teacher-reviewed",
 }
 
 REPOSITORY_URL = "https://github.com/vanbaalenjack-pixel/calculus-l3walkthrough"
@@ -257,7 +284,13 @@ STANDARDS: dict[str, Standard] = {
     ),
 }
 
-STANDARD_ORDER = tuple(STANDARDS)
+STANDARD_ORDER = (
+    "level-3-complex",
+    "level-3-differentiation",
+    "level-3-integration",
+    "level-2-calculus",
+    "level-2-algebra",
+)
 
 GRADE_REASONING = (
     (
@@ -489,6 +522,33 @@ def inject_site_shell(document: str, *, guides_published: bool | None = None) ->
         "",
         document,
     )
+    document = re.sub(
+        r'(?im)^[ \t]*<script\b(?=[^>\r\n]*\bsrc\s*=\s*["\']walkthrough-audit-data\.js(?:\?[^"\']*)?["\'])[^>]*>\s*</script>[ \t]*\n?',
+        "",
+        document,
+    )
+    document = re.sub(
+        r'(?ims)^[ \t]*<script\b[^>]*data-exam-mode-bootstrap[^>]*>.*?</script>[ \t]*\n?',
+        "",
+        document,
+    )
+    if re.search(r'\bsrc\s*=\s*["\']walkthrough-gate\.js', document, re.I):
+        exam_bootstrap = (
+            '<script data-exam-mode-bootstrap>'
+            'try{if(localStorage.getItem("calc.nz.examMode")==="true")'
+            '{document.documentElement.classList.add("exam-mode-pending");'
+            'document.title="Exam question | Calc.nz"}}catch(e){}'
+            '</script>\n'
+            f'<script defer src="walkthrough-audit-data.js?v={CACHE_TOKEN}"></script>\n'
+        )
+        document, audit_count = re.subn(
+            r'(?im)(^[ \t]*<script\b(?=[^>\r\n]*\bsrc\s*=\s*["\']walkthrough-gate\.js[^"\']*["\'])[^>]*>)',
+            lambda match: exam_bootstrap + match.group(1),
+            document,
+            count=1,
+        )
+        if audit_count != 1:
+            raise ValueError("Could not add walkthrough audit data before walkthrough runtime")
     document, count = re.subn(
         r"(?is)(</head>)",
         f'  <script defer src="site-shell.js?v={CACHE_TOKEN}"></script>\n\\1',
@@ -924,7 +984,7 @@ def group_routes(
 def catalogue_javascript(catalogue: Mapping[str, object]) -> str:
     payload = json.dumps(catalogue, ensure_ascii=False, indent=2).replace("</", "<\\/")
     return (
-        "/* Generated from the verified Calc.nz walkthrough catalogue. "
+        "/* Generated from the Calc.nz walkthrough catalogue. "
         "Keep this assignment JSON-compatible. */\n"
         f"window.CALC_NZ_QUESTION_CATALOGUE = {payload};\n"
     )
@@ -957,6 +1017,10 @@ def enrich_catalogue(
                     for question in questions
                 ]
                 for index, (question, route) in enumerate(zip(questions, paper_routes)):
+                    # `reviewedDate` previously implied a completed review that the
+                    # repository cannot substantiate. Keep the neutral content-update
+                    # date and explicit review status as the public trust model.
+                    question.pop("reviewedDate", None)
                     question.update(
                         {
                             "methodTitle": question_method_title(route),
@@ -971,9 +1035,12 @@ def enrich_catalogue(
                             "yearHref": route.year_file,
                             "previousHref": paper_routes[index - 1].href if index > 0 else None,
                             "nextHref": paper_routes[index + 1].href if index + 1 < len(paper_routes) else None,
-                            "reviewedDate": REVIEW_DATE,
+                            "updatedDate": REVIEW_DATE,
+                            "reviewStatus": "unreviewed",
                         }
                     )
+                    if (standard_key, year, str(question["id"])) in AUDITED_WALKTHROUGH_KEYS:
+                        question["reviewStatus"] = AUDIT_REVIEW_STATUS
     enriched["schemaVersion"] = 2
     enriched["generatedAt"] = REVIEW_DATE
     return enriched
@@ -1142,6 +1209,81 @@ def lower_sentence(value: str) -> str:
 def human_date(value: str) -> str:
     parsed = date.fromisoformat(value)
     return f"{parsed.day} {parsed.strftime('%B')} {parsed.year}"
+
+
+def official_resource_manifest() -> Mapping[str, object]:
+    """Load the manually checked NZQA resource inventory."""
+
+    try:
+        manifest = json.loads(OFFICIAL_RESOURCES_FILE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError(f"Could not read {OFFICIAL_RESOURCES_FILE.name}: {exc}") from exc
+    if not isinstance(manifest, dict) or not isinstance(manifest.get("standards"), dict):
+        raise ValueError(f"{OFFICIAL_RESOURCES_FILE.name} must contain a standards object")
+    return manifest
+
+
+def official_resources_for_year(standard: Standard, year: int) -> str:
+    """Render checked official links, formats, and explicit gaps for one paper."""
+
+    manifest = official_resource_manifest()
+    standards = manifest.get("standards", {})
+    standard_records = standards.get(standard.code, {}) if isinstance(standards, dict) else {}
+    record = standard_records.get(str(year), {}) if isinstance(standard_records, dict) else {}
+    if not isinstance(record, dict) or not record:
+        return f"""<section class="official-resource-group" aria-labelledby="official-{h(standard.code.lower())}-{year}-heading">
+  <h2 id="official-{h(standard.code.lower())}-{year}-heading">Official NZQA material</h2>
+  <p class="step-text">Use the <a href="{h(standard.official_url)}" target="_blank" rel="noopener noreferrer" aria-label="NZQA assessment resource page for {h(standard.code)} (opens in a new tab)">NZQA assessment-resource page for {h(standard.code)} <span aria-hidden="true">↗</span></a> to check the currently published material for this standard.</p>
+</section>"""
+    checked_date = str(manifest.get("checkedDate", REVIEW_DATE))
+    resources = record.get("resources", []) if isinstance(record, dict) else []
+    unavailable = record.get("unavailable", []) if isinstance(record, dict) else []
+
+    links: list[str] = []
+    if isinstance(resources, list):
+        for resource in resources:
+            if not isinstance(resource, dict):
+                continue
+            label = str(resource.get("label", "Official NZQA resource"))
+            resource_url = str(resource.get("url", ""))
+            resource_format = str(resource.get("format", "resource"))
+            if not resource_url.startswith("https://www.nzqa.govt.nz/"):
+                raise ValueError(
+                    f"Unchecked official resource URL for {standard.code} {year}: {resource_url}"
+                )
+            links.append(
+                '<li><a href="{url}" target="_blank" rel="noopener noreferrer" '
+                'aria-label="{label} ({format}, opens in a new tab)">{label} '
+                '<span aria-hidden="true">({format}) ↗</span></a></li>'.format(
+                    url=h(resource_url),
+                    label=h(label),
+                    format=h(resource_format),
+                )
+            )
+
+    if links:
+        availability_html = f'<ul class="step-text official-resource-list">{"".join(links)}</ul>'
+    else:
+        availability_html = (
+            '<p class="question-note">No directly downloadable paper, schedule, report, or exemplar '
+            'for this year remained available at the official NZQA locations when checked.</p>'
+        )
+
+    unavailable_html = ""
+    if isinstance(unavailable, list) and unavailable:
+        unavailable_labels = ", ".join(str(value) for value in unavailable)
+        unavailable_html = (
+            '<p class="question-note"><strong>Not currently available from the checked NZQA '
+            f'locations:</strong> {h(unavailable_labels)}. No replacement URL has been guessed.</p>'
+        )
+
+    return f"""<section class="official-resource-group" aria-labelledby="official-{h(standard.code.lower())}-{year}-heading">
+  <h2 id="official-{h(standard.code.lower())}-{year}-heading">Official NZQA material for {year}</h2>
+  {availability_html}
+  {unavailable_html}
+  <p class="step-text"><a href="{h(standard.official_url)}" target="_blank" rel="noopener noreferrer" aria-label="NZQA assessment resource page for {h(standard.code)} (opens in a new tab)">Open the NZQA assessment-resource page for {h(standard.code)} <span aria-hidden="true">↗</span></a>.</p>
+  <p class="question-note">Availability last checked <time datetime="{h(checked_date)}">{h(human_date(checked_date))}</time>. NZQA may move or remove older files.</p>
+</section>"""
 
 
 def question_method_title(route: QuestionRoute) -> str:
@@ -1440,6 +1582,18 @@ def question_structured_data(route: QuestionRoute, title: str, description: str)
 
 
 def infer_common_mistake(route: QuestionRoute) -> str:
+    polar_zero_case_keys = {
+        ("level-3-complex", 2020, "3d"),
+        ("level-3-complex", 2021, "2d"),
+        ("level-3-complex", 2022, "3c"),
+        ("level-3-complex", 2023, "2d"),
+        ("level-3-complex", 2024, "3d"),
+    }
+    if (route.standard_key, route.year, route.question_id) in polar_zero_case_keys:
+        return (
+            "Check whether the right-hand side is zero before using the polar-root rule; "
+            "only a non-zero right-hand side gives the listed distinct, equally spaced roots."
+        )
     focus = route.focus.lower()
     patterns = (
         ("factor theorem", "Match the factor to its root carefully: for a factor x − a, substitute x = a into the complete polynomial and keep every sign."),
@@ -1616,7 +1770,7 @@ def question_page_record(
         if guide.standard_key == route.standard_key
         and f"{route.year}:{route.question_id}" in guide.practice_question_ids
     ]
-    return {
+    record = {
         "level": {
             "id": f"level-{standard.level}",
             "label": f"Level {standard.level}",
@@ -1641,12 +1795,16 @@ def question_page_record(
             "summary": question_learning_summary(route),
             "commonMistake": infer_common_mistake(route),
             "skillSlugs": list(classify_question(route.focus, route.standard_key)),
+            "reviewStatus": "unreviewed",
             "guideLinks": [
                 {"href": guide.filename, "title": guide.title}
                 for guide in matching_guides
             ],
         },
     }
+    if (route.standard_key, route.year, route.question_id) in AUDITED_WALKTHROUGH_KEYS:
+        record["question"]["reviewStatus"] = AUDIT_REVIEW_STATUS
+    return record
 
 
 def inject_question_page_record(
@@ -1735,9 +1893,18 @@ def walkthrough_fallback(route: QuestionRoute, record: Mapping[str, object]) -> 
         )
     else:
         diagram_note = ""
+    review_notice = ""
+    if (route.standard_key, route.year, route.question_id) in AUDITED_WALKTHROUGH_KEYS:
+        review_notice = (
+            '<aside class="walkthrough-review-notice" aria-label="Review status">'
+            '<p class="question-label">Review status</p>'
+            '<p>This walkthrough has been corrected following an internal audit and is awaiting independent teacher review.</p>'
+            '</aside>'
+        )
     body = f"""
 <section id="question-card" class="question-card static-walkthrough-question" data-prerendered="true">
   <p class="question-label">Question</p>
+  {review_notice}
   {question_html}
   {diagram_note}
   <noscript><p class="question-note">Bookmarks, retry marks, exam mode, and the pinned-question setting need JavaScript. The question and first learning step remain available.</p></noscript>
@@ -1934,7 +2101,7 @@ def website_schema() -> dict[str, object]:
         "@id": f"{BASE_URL}#website",
         "url": BASE_URL,
         "name": "Calc.nz",
-        "description": "Free guided NCEA Level 2 and Level 3 maths worked answers and question walkthroughs.",
+        "description": "Free guided NCEA Level 3 Calculus worked answers for Complex Numbers, Differentiation, and Integration, with additional Level 2 practice.",
         "inLanguage": "en-NZ",
         "dateModified": REVIEW_DATE,
     }
@@ -1964,7 +2131,7 @@ def standards_directory(
     {' '.join(cards)}
   </div>
   <div class="nav-row">
-    <a class="nav-btn secondary" href="level-3-calculus.html">Level 3 Calculus: Differentiation and Integration</a>
+    <a class="nav-btn secondary" href="level-3-calculus.html">Level 3 Calculus: all three standards</a>
     <a class="nav-btn secondary" href="skills.html">Browse questions by skill</a>
   </div>
 </section>
@@ -1985,10 +2152,10 @@ def update_homepage(
     if html_count != 1:
         raise ValueError("Homepage must declare one language")
 
-    title = "Free NCEA Maths Worked Answers & Walkthroughs | Calc.nz"
+    title = "NCEA Level 3 Calculus Worked Answers & Walkthroughs | Calc.nz"
     description = (
-        "Free guided NCEA Level 2 and Level 3 maths worked answers. "
-        "Study Calculus, Algebra, Complex Numbers, Differentiation, and Integration step by step."
+        "Free guided NCEA Level 3 Calculus worked answers for AS91577 Complex Numbers, "
+        "AS91578 Differentiation, and AS91579 Integration."
     )
     original = replace_title(original, title)
     original = add_head_marker(
@@ -2000,7 +2167,7 @@ def update_homepage(
             structured_data=website_schema(),
         ),
     )
-    original = replace_first_h1(original, "Free NCEA maths worked answers and walkthroughs")
+    original = replace_first_h1(original, "Level 3 Calculus worked answers and walkthroughs")
 
     original = re.sub(
         r'(?im)^\s*<(?:link|script)\b[^>]*(?:katex|auto-render|walkthrough-gate\.js|question-catalogue\.js|index-page\.js|site-shell\.js|search-core\.js|index-loader\.js)[^>]*>(?:</script>)?\s*\n?',
@@ -2416,18 +2583,10 @@ def year_page(
         priority_note = (
             '<p class="question-note"><strong>Looking for 2022 NCEA complex numbers worked answers?</strong> '
             "Start with the question that matches your paper, attempt it first, and use each hint before opening the full working.</p>"
-            '<section class="attempt-note" aria-labelledby="official-2022-sources-heading">'
-            '<h2 id="official-2022-sources-heading">Official 2022 NZQA Complex Numbers material</h2>'
-            '<ul class="step-text">'
-            '<li><a href="https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2022/91577-exm-2022.pdf">2022 AS91577 examination paper (PDF)</a></li>'
-            '<li><a href="https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2022/91577-frm-2022.pdf">2022 AS91577 formulae sheet (PDF)</a></li>'
-            '<li><a href="https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2022/91577-ass-2022.pdf">2022 AS91577 assessment schedule (PDF)</a></li>'
-            '<li><a href="https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2022/level3/91577-report-2022.pdf">2022 AS91577 assessment report (PDF)</a></li>'
-            f'<li><a href="{h(standard.official_url)}">Durable NZQA standard and assessment-resource record for AS91577</a></li>'
-            "</ul></section>"
         )
 
     direct_skill_links = skill_navigation_for_routes(ordered)
+    official_resources = official_resources_for_year(standard, year)
 
     return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
 <body class="home-page has-site-header">
@@ -2452,7 +2611,8 @@ def year_page(
     <div class="paper-overview-body">
       <p class="step-text">This page contains {len(ordered)} independent worked question walkthroughs for NCEA Level {standard.level} {h(standard.topic)} ({h(standard.code)}). Each walkthrough offers hints, reveals the full working in a logical sequence, and focuses on the method described below.</p>
       {priority_note}
-      <p class="question-note">Calc.nz is independent of NZQA. Use the <a href="{h(standard.official_url)}">official NZQA {h(standard.code)} assessment resources</a> for the original paper, diagrams, assessment schedule, and authoritative standard information.</p>
+      {official_resources}
+      <p class="question-note">Calc.nz is independent of NZQA. Use official NZQA material for the original paper, diagrams, assessment schedule, and authoritative standard information.</p>
     </div>
   </details>
 
@@ -2483,14 +2643,20 @@ def level_three_calculus_page(
 ) -> str:
     filename = "level-3-calculus.html"
     canonical = absolute_url(filename)
+    complex_numbers = STANDARDS["level-3-complex"]
     differentiation = STANDARDS["level-3-differentiation"]
     integration = STANDARDS["level-3-integration"]
-    routes = list(by_standard[differentiation.key]) + list(by_standard[integration.key])
+    level_three_standards = (complex_numbers, differentiation, integration)
+    routes = [
+        route
+        for standard in level_three_standards
+        for route in by_standard[standard.key]
+    ]
     years = sorted({route.year for route in routes}, reverse=True)
     title = "NCEA Level 3 Calculus Worked Answers | Calc.nz"
     description = (
-        "Browse NCEA Level 3 Calculus worked answers for AS91578 Differentiation and "
-        "AS91579 Integration, organised by method and examination year."
+        "Prepare for NCEA Level 3 Calculus with AS91577 Complex Numbers, AS91578 "
+        "Differentiation, and AS91579 Integration walkthroughs."
     )
     structured = collection_schema(
         canonical=canonical,
@@ -2506,12 +2672,12 @@ def level_three_calculus_page(
   <span class="index-link-title">{h(standard.topic)} — {h(standard.code)}</span>
   <span class="index-link-copy">{h(standard.official_name)}. Browse {len(by_standard[standard.key])} walkthroughs.</span>
 </a>"""
-        for standard in (differentiation, integration)
+        for standard in level_three_standards
     )
     year_links = " ".join(
         f'<a class="nav-btn secondary" href="{h(year_file(standard.key, year))}">{year} {h(standard.topic)}</a>'
         for year in years
-        for standard in (differentiation, integration)
+        for standard in level_three_standards
         if any(route.year == year for route in by_standard[standard.key])
     )
 
@@ -2524,17 +2690,16 @@ def level_three_calculus_page(
     <div>
       <p class="eyebrow">NCEA Level 3 Calculus</p>
       <h1>NCEA Level 3 Calculus worked answers</h1>
-      <p class="subtitle">Practise Differentiation and Integration by method, paper year, or individual question.</p>
+      <p class="subtitle">Practise Complex Numbers, Differentiation, and Integration by standard, paper year, or question.</p>
     </div>
     <a class="ghost-link" href="standards.html">Browse all standards</a>
   </header>
 
   <section class="question-card" aria-labelledby="level-three-calculus-overview">
     <p class="question-label">Level 3 Calculus</p>
-    <h2 id="level-three-calculus-overview">Differentiation and Integration in one place</h2>
-    <p class="step-text">Students searching for Level 3 Calculus usually need two NCEA standards: <a href="{h(differentiation.landing_file)}">{h(differentiation.code)} Differentiation</a> and <a href="{h(integration.landing_file)}">{h(integration.code)} Integration</a>. Calc.nz keeps each standard and paper distinct while providing one route into both collections.</p>
-    <p class="step-text">Across {len(routes)} available walkthroughs, the verified catalogue includes derivative rules, related rates, stationary points and optimisation, parametric differentiation, antidifferentiation, integration techniques, and differential equations.</p>
-    <p class="question-note">Use the official NZQA pages for <a href="{h(differentiation.official_url)}">{h(differentiation.code)}</a> and <a href="{h(integration.official_url)}">{h(integration.code)}</a> for authoritative standard information and assessment material.</p>
+    <h2 id="level-three-calculus-overview">All three external Level 3 standards</h2>
+    <p class="step-text">This hub includes <a href="{h(complex_numbers.landing_file)}">{h(complex_numbers.code)} Complex Numbers</a>, <a href="{h(differentiation.landing_file)}">{h(differentiation.code)} Differentiation</a>, and <a href="{h(integration.landing_file)}">{h(integration.code)} Integration</a> — {len(routes)} walkthroughs in total.</p>
+    <p class="question-note">Calc.nz is independent. Use the linked official NZQA pages on each standard and paper page for authoritative assessment material.</p>
   </section>
 
   <section class="question-card" aria-labelledby="calculus-standard-heading">
@@ -2545,7 +2710,7 @@ def level_three_calculus_page(
 
   <section class="question-card" aria-labelledby="calculus-year-heading">
     <p class="question-label">Browse examination years</p>
-    <h2 id="calculus-year-heading">Differentiation and Integration papers</h2>
+    <h2 id="calculus-year-heading">Level 3 papers by standard and year</h2>
     <div class="nav-row">{year_links}</div>
   </section>
 
@@ -2614,7 +2779,7 @@ def skills_directory_page(routes: Sequence[QuestionRoute]) -> str:
     <div>
       <p class="eyebrow">Browse by skill</p>
       <h1>Browse NCEA maths questions by skill</h1>
-      <p class="subtitle">Collect questions using the same verified method from different papers and years.</p>
+      <p class="subtitle">Collect questions using the same method from different papers and years.</p>
     </div>
     <a class="ghost-link" href="standards.html">Browse standards</a>
   </header>
@@ -2648,7 +2813,7 @@ def skill_page(
     guides: Sequence[Guide] = (),
 ) -> str:
     # SkillSpec is imported from the dependency-free content module. Keeping
-    # this renderer structural lets the verified copy/classification stay data-driven.
+    # this renderer structural lets the curated copy/classification stay data-driven.
     slug = spec.slug
     matching = sorted(
         routes_for_skill(routes, slug),
@@ -2890,7 +3055,7 @@ def about_page() -> str:
     <p class="question-label">Project information</p>
     <h2 id="author-heading">Who made Calc.nz</h2>
     <p class="step-text">Calc.nz was created by {h(about_creator)} as part of a Year 13 extended learning project. Mathematical explanations and walkthrough design are by {h(about_creator)}. AI tools were used to assist with parts of the website implementation.</p>
-    <p class="question-note">The site does not claim that its walkthroughs are NZQA-verified, teacher-reviewed, or a replacement for official material.</p>
+    <p class="question-note">Calc.nz is independently published. The corrected audit questions are awaiting independent teacher review, and all walkthroughs should be compared with official NZQA material.</p>
   </section>
 
   <section class="question-card" aria-labelledby="sources-heading">
@@ -2928,6 +3093,14 @@ def static_search_records(
     records: list[dict[str, object]] = []
     for key in STANDARD_ORDER:
         standard = STANDARDS[key]
+        standard_routes = [route for route in routes if route.standard_key == key]
+        standard_skills = sorted(
+            {
+                skill
+                for route in standard_routes
+                for skill in classify_question(route.focus, route.standard_key)
+            }
+        )
         records.append(
             {
                 "type": "Standard",
@@ -2935,11 +3108,23 @@ def static_search_records(
                 "description": standard.summary,
                 "href": standard.landing_file,
                 "standard": standard.code,
+                "standardCode": standard.code,
+                "standardId": key,
+                "levelId": f"level-{standard.level}",
+                "skillSlugs": standard_skills,
                 "keywords": " ".join(standard.skills),
             }
         )
-        years = sorted({route.year for route in routes if route.standard_key == key}, reverse=True)
+        years = sorted({route.year for route in standard_routes}, reverse=True)
         for year in years:
+            paper_routes = [route for route in standard_routes if route.year == year]
+            paper_skills = sorted(
+                {
+                    skill
+                    for route in paper_routes
+                    for skill in classify_question(route.focus, route.standard_key)
+                }
+            )
             records.append(
                 {
                     "type": "Paper",
@@ -2948,6 +3133,10 @@ def static_search_records(
                     "href": year_file(key, year),
                     "year": year,
                     "standard": f"{standard.code} {standard.topic}",
+                    "standardCode": standard.code,
+                    "standardId": key,
+                    "levelId": f"level-{standard.level}",
+                    "skillSlugs": paper_skills,
                     "keywords": "paper exam questions",
                 }
             )
@@ -2960,6 +3149,10 @@ def static_search_records(
                 "description": spec.intro,
                 "href": spec.page_href,
                 "standard": " ".join(sorted({route.standard.code for route in matching})),
+                "standardCode": sorted({route.standard.code for route in matching}),
+                "standardId": sorted({route.standard_key for route in matching}),
+                "levelId": sorted({f"level-{route.standard.level}" for route in matching}),
+                "skillSlugs": [spec.slug],
                 "keywords": f"{spec.slug} {spec.explanation}",
             }
         )
@@ -2989,6 +3182,10 @@ def static_search_records(
                 "description": guide.summary,
                 "href": guide.filename,
                 "standard": f"{standard.code} {standard.topic}",
+                "standardCode": standard.code,
+                "standardId": guide.standard_key,
+                "levelId": f"level-{standard.level}",
+                "skillSlugs": list(guide.skill_slugs),
                 "keywords": normalise_space(guide_keywords),
             }
         )
@@ -3011,6 +3208,18 @@ def search_page(routes: Sequence[QuestionRoute], guides: Sequence[Guide]) -> str
     )
     breadcrumb = breadcrumb_nav((("Calc.nz", "index.html"), ("Search", None)))
     records = json.dumps(static_search_records(routes, guides), ensure_ascii=False).replace("</", "<\\/")
+    standard_options = "".join(
+        f'<option value="{h(STANDARDS[key].code)}">{h(STANDARDS[key].code)} · {h(STANDARDS[key].topic)}</option>'
+        for key in STANDARD_ORDER
+    )
+    year_options = "".join(
+        f'<option value="{year}">{year}</option>'
+        for year in sorted({route.year for route in routes}, reverse=True)
+    )
+    skill_options = "".join(
+        f'<option value="{h(spec.slug)}">{h(spec.short_label)}</option>'
+        for spec in sorted(SKILL_SPECS.values(), key=lambda item: item.short_label)
+    )
     scripts = "\n".join(
         (
             f'<script>window.CALC_NZ_STATIC_SEARCH_RECORDS = {records};</script>',
@@ -3035,8 +3244,20 @@ def search_page(routes: Sequence[QuestionRoute], guides: Sequence[Guide]) -> str
     <h2 id="global-search-heading">What do you want to practise?</h2>
     <form class="home-search-form" role="search" data-global-search-form>
       <label for="global-search-input">Search guides, skills, papers, and questions</label>
-      <input id="global-search-input" class="home-search-input" type="search" name="q" autocomplete="off" placeholder="Try conjugates, loci, De Moivre, or AS91577" data-global-search-input>
-      <button class="nav-btn global-search-submit" type="submit">Search</button>
+      <div class="global-search-query-row">
+        <input id="global-search-input" class="home-search-input" type="search" name="q" autocomplete="off" placeholder="Try natural log, turning point, or 91579 2024" data-global-search-input>
+        <button class="nav-btn global-search-submit" type="submit">Search</button>
+      </div>
+      <fieldset class="global-search-filters">
+        <legend>Filter results</legend>
+        <div class="global-search-filter-grid">
+          <label for="global-search-level">NCEA level<select id="global-search-level" name="level" data-search-filter="level"><option value="">All levels</option><option value="level-3">Level 3</option><option value="level-2">Level 2</option></select></label>
+          <label for="global-search-standard">Standard<select id="global-search-standard" name="standard" data-search-filter="standard"><option value="">All standards</option>{standard_options}</select></label>
+          <label for="global-search-year">Year<select id="global-search-year" name="year" data-search-filter="year"><option value="">All years</option>{year_options}</select></label>
+          <label for="global-search-skill">Skill or method<select id="global-search-skill" name="skill" data-search-filter="skill"><option value="">All skills</option>{skill_options}</select></label>
+        </div>
+        <button class="nav-btn secondary global-search-reset" type="reset" data-search-reset>Reset search and filters</button>
+      </fieldset>
     </form>
     <p class="search-status visually-hidden" aria-live="polite" aria-atomic="true" data-global-search-status>Enter a search term.</p>
     <div class="home-search-results" data-global-search-results hidden></div>

@@ -11,7 +11,14 @@
     lastVisited: "calc.nz.lastWalkthrough",
     bookmarks: "calc.nz.bookmarks",
     retry: "calc.nz.retryQuestions",
-    practiceSet: "calc.nz.practiceSet"
+    practiceSet: "calc.nz.practiceSet",
+    practiceScope: "calc.nz.practiceScope"
+  };
+  const assessmentOutcomes = {
+    "solved-independently": "Solved independently",
+    "solved-with-hint": "Solved with a hint",
+    "needed-walkthrough": "Needed the walkthrough",
+    "retry-later": "Retry later"
   };
   const memoryStorage = Object.create(null);
   const volatileStorageKeys = Object.create(null);
@@ -241,7 +248,9 @@
     try {
       return JSON.parse(raw);
     } catch (error) {
-      return fallbackValue;
+      const recovered = fallbackValue === null ? {} : fallbackValue;
+      writeRawStorage(key, JSON.stringify(recovered));
+      return recovered;
     }
   }
 
@@ -253,29 +262,27 @@
     description.textContent = "Browser storage is unavailable. These tools still work for this visit, but changes may not be saved.";
   }
 
-  function catalogueCounts() {
-    const years = Object.create(null);
-    papers.forEach(function (entry) {
-      years[String(entry.paper.year)] = true;
-    });
-    return {
-      questions: questions.length,
-      standards: standards.length,
-      papers: papers.length,
-      years: Object.keys(years).length
-    };
-  }
-
   function updateAvailabilityLine() {
     const target = document.getElementById("catalogue-availability");
     if (!target) {
       return;
     }
-    const counts = catalogueCounts();
-    const message = counts.questions + " walkthroughs across "
-      + counts.standards + " standards, "
-      + counts.papers + " papers, and "
-      + counts.years + " exam years.";
+    const levelThree = levelsById["level-3"];
+    const levelThreeStandards = levelThree ? levelThree.standards || [] : [];
+    const levelThreePapers = [];
+    const levelThreeQuestions = [];
+    const levelThreeYears = Object.create(null);
+    levelThreeStandards.forEach(function (standard) {
+      (standard.papers || []).forEach(function (paper) {
+        levelThreePapers.push(paper);
+        levelThreeYears[String(paper.year)] = true;
+        Array.prototype.push.apply(levelThreeQuestions, paper.questions || []);
+      });
+    });
+    const message = levelThreeQuestions.length + " Level 3 walkthroughs across "
+      + levelThreeStandards.length + " standards, "
+      + levelThreePapers.length + " papers, and "
+      + Object.keys(levelThreeYears).length + " exam years.";
     if (target.textContent.trim() !== message) {
       target.textContent = message;
     }
@@ -327,19 +334,88 @@
     syncDetails();
   }
 
+  function normaliseProgressMap(value) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) {
+      return { map: {}, migrated: false };
+    }
+    const map = {};
+    let migrated = false;
+    Object.keys(value).forEach(function (key) {
+      const source = value[key];
+      if (!source || typeof source !== "object" || Array.isArray(source)) {
+        migrated = true;
+        return;
+      }
+      const state = Object.assign({}, source);
+      const assessment = Object.prototype.hasOwnProperty.call(assessmentOutcomes, state.assessment)
+        ? state.assessment
+        : "";
+      if (state.completed === true && !assessment) {
+        state.assessment = "needed-walkthrough";
+        state.attempted = true;
+        state.reviewed = true;
+        state.migratedFromCompleted = true;
+        state.assessmentUpdatedAt = state.completedAt || state.visitedAt || String(Date.now());
+        state.attemptedAt = state.attemptedAt || state.assessmentUpdatedAt;
+        migrated = true;
+      } else if (assessment) {
+        state.assessment = assessment;
+      } else if (state.assessment) {
+        delete state.assessment;
+        migrated = true;
+      }
+      if (Object.prototype.hasOwnProperty.call(state, "completed")) {
+        state.legacyCompleted = Boolean(state.completed);
+        delete state.completed;
+        migrated = true;
+      }
+      state.attempted = Boolean(state.assessment);
+      if (state.assessment) {
+        state.attemptedAt = state.attemptedAt || state.assessmentUpdatedAt || state.visitedAt || String(Date.now());
+      } else if (state.attemptedAt) {
+        delete state.attemptedAt;
+        migrated = true;
+      }
+      state.reviewed = Boolean(state.reviewed);
+      map[key] = state;
+    });
+    return { map: map, migrated: migrated };
+  }
+
   function readProgressMap() {
     const progress = readStoredJson(storageKeys.progress, null);
     if (progress && typeof progress === "object" && !Array.isArray(progress)) {
-      return progress;
+      const normalised = normaliseProgressMap(progress);
+      if (normalised.migrated) {
+        writeRawStorage(storageKeys.progress, JSON.stringify(normalised.map));
+      }
+      return normalised.map;
+    }
+    if (progress !== null) {
+      writeRawStorage(storageKeys.progress, "{}");
+      return {};
     }
     const session = getSessionStorage();
     if (session) {
       try {
         const sessionProgress = JSON.parse(session.getItem(storageKeys.sessionProgress) || "{}");
         if (sessionProgress && typeof sessionProgress === "object" && !Array.isArray(sessionProgress)) {
-          return sessionProgress;
+          const normalised = normaliseProgressMap(sessionProgress);
+          if (normalised.migrated) {
+            try {
+              session.setItem(storageKeys.sessionProgress, JSON.stringify(normalised.map));
+            } catch (error) {
+              // Session progress remains usable in memory for this render.
+            }
+          }
+          return normalised.map;
         }
       } catch (error) {
+        try {
+          session.setItem(storageKeys.sessionProgress, "{}");
+        } catch (storageError) {
+          // Use the empty in-memory view when session storage cannot be repaired.
+        }
         return {};
       }
     }
@@ -348,29 +424,84 @@
 
   function progressForPaper(paper) {
     const map = readProgressMap();
-    let visited = 0;
-    let completed = 0;
+    let attempted = 0;
+    let reviewed = 0;
+    let solvedIndependent = 0;
     (paper.questions || []).forEach(function (question) {
       const state = map[paper.id + ":" + question.id] || {};
-      if (state.visited) {
-        visited += 1;
+      if (state.assessment) {
+        attempted += 1;
       }
-      if (state.completed) {
-        completed += 1;
+      if (state.reviewed) {
+        reviewed += 1;
+      }
+      if (state.assessment === "solved-independently") {
+        solvedIndependent += 1;
       }
     });
-    return { visited: visited, completed: completed, total: (paper.questions || []).length };
+    return {
+      attempted: attempted,
+      reviewed: reviewed,
+      solvedIndependent: solvedIndependent,
+      total: (paper.questions || []).length
+    };
   }
 
   function progressLabelForQuestion(entry) {
     const state = readProgressMap()[entry.key] || {};
-    if (state.completed) {
-      return "Completed";
+    if (state.assessment && assessmentOutcomes[state.assessment]) {
+      return assessmentOutcomes[state.assessment];
+    }
+    if (state.reviewed) {
+      return "Reviewed";
     }
     if (state.visited) {
-      return "Visited";
+      return "Opened";
     }
     return "";
+  }
+
+  function progressForStandard(standard) {
+    const summary = { attempted: 0, reviewed: 0, solvedIndependent: 0, total: 0 };
+    (standard && standard.papers || []).forEach(function (paper) {
+      const progress = progressForPaper(paper);
+      summary.attempted += progress.attempted;
+      summary.reviewed += progress.reviewed;
+      summary.solvedIndependent += progress.solvedIndependent;
+      summary.total += progress.total;
+    });
+    return summary;
+  }
+
+  function formatProgressSummary(progress) {
+    return progress.total + " walkthroughs · "
+      + progress.attempted + " attempted · "
+      + progress.reviewed + " reviewed · "
+      + progress.solvedIndependent + " solved independently";
+  }
+
+  function updateLevelThreeProgress() {
+    const level = levelsById["level-3"];
+    if (!level) {
+      return;
+    }
+    const total = { attempted: 0, reviewed: 0, solvedIndependent: 0, total: 0 };
+    (level.standards || []).forEach(function (standard) {
+      const progress = progressForStandard(standard);
+      total.attempted += progress.attempted;
+      total.reviewed += progress.reviewed;
+      total.solvedIndependent += progress.solvedIndependent;
+      total.total += progress.total;
+      document.querySelectorAll('[data-level-three-summary="' + standard.id + '"]').forEach(function (target) {
+        target.textContent = formatProgressSummary(progress);
+      });
+    });
+    const overall = document.querySelector("[data-home-progress-summary]");
+    if (overall) {
+      overall.textContent = "Level 3: " + total.attempted + " attempted · "
+        + total.reviewed + " reviewed · "
+        + total.solvedIndependent + " solved independently.";
+    }
   }
 
   function addGuidedModeToHref(href) {
@@ -428,7 +559,10 @@
 
   function selectionFromHash(rawHash) {
     const hash = String(rawHash || "").replace(/^#/, "");
-    if (!hash || hash === "choose-level") {
+    if (!hash) {
+      return null;
+    }
+    if (hash === "choose-level") {
       return makeSelection();
     }
     const questionMatch = hash.match(/^(.*)-questions$/);
@@ -486,9 +620,9 @@
 
   function renderLevelStage() {
     stageContainer.innerHTML = '<div class="home-dynamic-stage" data-stage-type="level">'
-      + '<p class="question-label home-step-label">Start here</p>'
-      + '<h2 id="selection-stage-heading" tabindex="-1">Step 1: Choose a level</h2>'
-      + '<p class="step-text home-level-intro">Choose Level 2 or Level 3 to browse the standards and papers available.</p>'
+      + '<p class="question-label home-step-label">Change study level</p>'
+      + '<h2 id="selection-stage-heading" tabindex="-1">Choose an NCEA level</h2>'
+      + '<p class="step-text home-level-intro">Level 3 is the main Calculus path. Level 2 Calculus and Algebra are also available.</p>'
       + '<div class="year-picker-grid">'
       + levels.map(function (level) {
         return choiceButton(
@@ -504,7 +638,7 @@
     const level = levelsById[selection.levelId];
     stageContainer.innerHTML = '<div id="' + escapeHomeHtml(level.id) + '" class="home-dynamic-stage paper-panel" data-level-panel="' + escapeHomeHtml(level.id) + '">'
       + '<p class="eyebrow">' + escapeHomeHtml(level.label) + '</p>'
-      + '<h2 id="selection-stage-heading" tabindex="-1">Step 2: Choose a standard</h2>'
+      + '<h2 id="selection-stage-heading" tabindex="-1">Choose a ' + escapeHomeHtml(level.label) + ' standard</h2>'
       + '<p class="step-text">Start with the ' + escapeHomeHtml(level.label) + ' standard you want to practise.</p>'
       + '<div class="year-picker-grid standard-picker-grid">'
       + (level.standards || []).map(function (standard) {
@@ -522,14 +656,14 @@
     const standard = context.standard;
     stageContainer.innerHTML = '<div id="' + escapeHomeHtml(standard.id) + '" class="home-dynamic-stage standard-section" data-standard-panel="' + escapeHomeHtml(standard.id) + '" data-parent-level="' + escapeHomeHtml(context.level.id) + '">'
       + '<p class="question-label">' + escapeHomeHtml(context.level.label + " · " + standard.code) + '</p>'
-      + '<h2 id="selection-stage-heading" tabindex="-1">Step 3: Choose a paper year</h2>'
+      + '<h2 id="selection-stage-heading" tabindex="-1">Choose a paper year</h2>'
       + '<p class="step-text">Select the ' + escapeHomeHtml(standard.label) + ' paper you want to open.</p>'
       + '<div class="year-picker-grid paper-picker-grid">'
       + (standard.papers || []).map(function (paper) {
         const progress = progressForPaper(paper);
-        const progressText = progress.completed
-          ? progress.completed + " of " + progress.total + " completed."
-          : "Open the " + paper.year + " question list.";
+        const progressText = progress.attempted + " of " + progress.total + " attempted · "
+          + progress.reviewed + " reviewed · "
+          + progress.solvedIndependent + " solved independently";
         return '<button class="nav-btn secondary year-option" type="button" data-paper="' + escapeHomeHtml(paper.id) + '" data-parent-standard="' + escapeHomeHtml(standard.id) + '">'
           + '<span class="year-option-title">' + escapeHomeHtml(paper.label) + '</span>'
           + '<span class="year-option-copy" data-paper-progress="' + escapeHomeHtml(paper.id) + '">' + escapeHomeHtml(progressText) + '</span></button>';
@@ -545,7 +679,7 @@
     stageContainer.innerHTML = '<div id="' + escapeHomeHtml(paper.id) + '" class="home-dynamic-stage paper-year-panel" data-paper-panel="' + escapeHomeHtml(paper.id) + '" data-parent-standard="' + escapeHomeHtml(context.standard.id) + '"><div class="paper-entry-choice">'
       + '<p class="question-label">' + escapeHomeHtml(context.standard.label + " · " + paper.year + " paper") + '</p>'
       + '<h2 id="selection-stage-heading" tabindex="-1">Where would you like to start?</h2>'
-      + '<p class="paper-progress-chip">' + progress.completed + " of " + progress.total + ' completed</p>'
+      + '<p class="paper-progress-chip">' + progress.attempted + " of " + progress.total + " attempted · " + progress.reviewed + " reviewed · " + progress.solvedIndependent + ' solved independently</p>'
       + '<p class="step-text paper-entry-intro">Begin with the first question, jump to a specific part, or browse the crawlable paper directory.</p>'
       + '<div class="year-picker-grid paper-entry-grid">'
       + '<a class="nav-btn secondary year-option paper-entry-option" data-paper-start-guided href="' + escapeHomeHtml(firstQuestion ? addGuidedModeToHref(firstQuestion.href) : context.standard.landingHref) + '"><span class="year-option-title">From the start</span><span class="year-option-copy">Begin with ' + escapeHomeHtml(firstQuestion ? firstQuestion.label : "the paper") + ' as a guided lesson.</span></a>'
@@ -856,7 +990,7 @@
   if (revealLevelPickerButton) {
     revealLevelPickerButton.addEventListener("click", function (event) {
       event.preventDefault();
-      navigateToSelection(makeSelection(), "push");
+      navigateToSelection(makeSelection(levelsById["level-3"] ? "level-3" : null), "push");
     });
   }
 
@@ -1109,6 +1243,23 @@
       return '<option value="' + escapeHomeHtml(scope.value) + '">' + escapeHomeHtml(scope.label + " (" + scope.questions.length + ")") + '</option>';
     }).join("");
 
+    const defaultScopeValue = scopes.some(function (scope) { return scope.value === "level:level-3"; })
+      ? "level:level-3"
+      : scopes[0].value;
+    const storedScopeValue = readRawStorage(storageKeys.practiceScope);
+    const initialScope = scopes.some(function (scope) { return scope.value === storedScopeValue; })
+      ? storedScopeValue
+      : defaultScopeValue;
+    scopeSelect.value = initialScope;
+    if (storedScopeValue !== initialScope) {
+      writeRawStorage(storageKeys.practiceScope, initialScope);
+    }
+    scopeSelect.addEventListener("change", function () {
+      const validScope = scopes.some(function (scope) { return scope.value === scopeSelect.value; });
+      scopeSelect.value = validScope ? scopeSelect.value : defaultScopeValue;
+      writeRawStorage(storageKeys.practiceScope, scopeSelect.value);
+    });
+
     function selectedScope() {
       return scopes.find(function (scope) { return scope.value === scopeSelect.value; }) || scopes[0];
     }
@@ -1145,6 +1296,9 @@
 
   function normaliseSavedCollection(key) {
     const raw = readStoredJson(key, {});
+    if (!Array.isArray(raw) && (!raw || typeof raw !== "object")) {
+      writeRawStorage(key, "{}");
+    }
     const records = Array.isArray(raw) ? raw : raw && typeof raw === "object" ? Object.keys(raw).map(function (recordKey) {
       const value = raw[recordKey];
       return value && typeof value === "object" ? Object.assign({ storageKey: recordKey }, value) : { storageKey: recordKey };
@@ -1238,7 +1392,7 @@
       if (!confirmed) {
         return;
       }
-      [storageKeys.progress, storageKeys.lastVisited, storageKeys.bookmarks, storageKeys.retry, storageKeys.practiceSet].forEach(removeStoredValue);
+      [storageKeys.progress, storageKeys.lastVisited, storageKeys.bookmarks, storageKeys.retry, storageKeys.practiceSet, storageKeys.practiceScope].forEach(removeStoredValue);
       const session = getSessionStorage();
       if (session) {
         try {
@@ -1260,8 +1414,13 @@
         practiceOutput.hidden = true;
         practiceOutput.innerHTML = "";
       }
+      const practiceScope = document.querySelector("[data-practice-scope]");
+      if (practiceScope && practiceScope.querySelector('option[value="level:level-3"]')) {
+        practiceScope.value = "level:level-3";
+      }
       updateCounts();
       updateContinueCard();
+      updateLevelThreeProgress();
       renderSelection(activeSelection, { focus: false });
     });
 
@@ -1277,9 +1436,21 @@
   setupPracticeTools();
   setupLocalLibrary();
   updateContinueCard();
+  updateLevelThreeProgress();
 
   window.addEventListener("pageshow", function () {
     updateContinueCard();
+    updateLevelThreeProgress();
+    if (activeSelection.standardId) {
+      renderSelection(activeSelection, { focus: false });
+    }
+  });
+
+  window.addEventListener("storage", function (event) {
+    if (event.key && event.key !== storageKeys.progress && event.key !== storageKeys.sessionProgress) {
+      return;
+    }
+    updateLevelThreeProgress();
     if (activeSelection.standardId) {
       renderSelection(activeSelection, { focus: false });
     }
@@ -1287,7 +1458,7 @@
 
   const initialHash = window.location.hash.replace(/^#/, "");
   const hashSelection = selectionFromHash(initialHash);
-  const initialSelection = hashSelection || makeSelection();
+  const initialSelection = hashSelection || makeSelection(levelsById["level-3"] ? "level-3" : null);
   renderSelection(initialSelection, { focus: false });
   if ((!initialHash || hashSelection) && window.history && typeof window.history.replaceState === "function") {
     window.history.replaceState(createHistoryState(initialSelection, null), "", window.location.href);

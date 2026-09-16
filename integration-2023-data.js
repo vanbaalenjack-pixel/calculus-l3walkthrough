@@ -1363,11 +1363,9 @@
   walkthroughs["2c"] = createConfig("2c", "2023 Paper — Definite integral with a parameter", {
     focus: raw`Rewrite the rational function into a constant plus a logarithmic term before applying the bounds.`,
     questionHtml: raw`
+      <p class="step-text question-instruction">Find the value of \(k\), given that</p>
       <div class="question-math">
-        \[
-        \text{Find the value of }k,\text{ given that }
-        \int_2^k \left(\frac{6x-3}{2x-3}\right)\,dx = 3k.
-        \]
+        \[\int_2^k \left(\frac{6x-3}{2x-3}\right)\,dx=3k.\]
       </div>
     `,
     hints: [

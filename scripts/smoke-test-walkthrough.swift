@@ -146,8 +146,17 @@ private final class Runner: NSObject, WKNavigationDelegate {
         }
 
         isEvaluating = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
-            self?.evaluate(test)
+        let evaluateAfterEnhancement = { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                self?.evaluate(test)
+            }
+        }
+        if webView.url?.lastPathComponent == "index.html" {
+            webView.evaluateJavaScript("window.loadCalcNzHomepageTools && window.loadCalcNzHomepageTools();") { _, _ in
+                evaluateAfterEnhancement()
+            }
+        } else {
+            evaluateAfterEnhancement()
         }
     }
 
@@ -188,10 +197,10 @@ private final class Runner: NSObject, WKNavigationDelegate {
               checks.homepageDirectoryRemoved = document.querySelector(".standard-directory") === null;
               checks.progressiveSelectorStartsCompact = Boolean(
                 selector
-                && selector.dataset.currentStage === "level"
+                && selector.dataset.currentStage === "standard"
                 && document.querySelectorAll(".home-dynamic-stage").length === 1
-                && document.querySelectorAll("[data-level]").length === 2
-                && document.querySelectorAll("[data-standard], [data-paper], [data-paper-panel]").length === 0
+                && document.querySelectorAll("[data-standard]").length === 3
+                && document.querySelectorAll("[data-level], [data-paper], [data-paper-panel]").length === 0
               );
               checks.headerStandardsLink = Boolean(standardsLink && standardsLink.textContent.trim() === "Standards");
               checks.sourcePageScrolled = Math.abs(window.scrollY - 640) <= 2;
@@ -220,10 +229,10 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 window.__genuineFragmentScrollY = window.scrollY;
                 checks.genuineFragmentStartsIntact = window.location.hash === "#main-content";
                 checks.levelChooserStartsVisible = isVisible(levelChooser)
-                  && levelChooser.dataset.currentStage === "level"
+                  && levelChooser.dataset.currentStage === "standard"
                   && stageCount() === 1
-                  && Boolean(document.querySelector('[data-stage-type="level"]'));
-                document.querySelector('[data-level="level-3"]').click();
+                  && Boolean(document.querySelector('[data-level-panel="level-3"]'));
+                document.querySelector("[data-reveal-level-picker]").click();
                 const maxScrollY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
                 const previousScrollBehavior = document.documentElement.style.scrollBehavior;
                 document.documentElement.style.scrollBehavior = "auto";
@@ -239,12 +248,12 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 checks.selectionScrollIsDistinct = Math.abs(window.__selectionFragmentScrollY - window.__genuineFragmentScrollY) >= 100;
               } else if (preferenceAction === "index-flow") {
                 checks.levelChooserStartsAlone = isVisible(levelChooser)
-                  && levelChooser.dataset.currentStage === "level"
+                  && levelChooser.dataset.currentStage === "standard"
                   && stageCount() === 1
-                  && document.querySelectorAll("[data-level]").length === 2
-                  && !isVisible(flowNavigation);
+                  && document.querySelectorAll("[data-standard]").length === 3
+                  && isVisible(flowNavigation);
 
-                document.querySelector('[data-level="level-3"]').click();
+                document.querySelector("[data-reveal-level-picker]").click();
                 checks.levelReplacesChooser = isVisible(levelChooser)
                   && levelChooser.dataset.currentStage === "standard"
                   && isVisible(document.querySelector('[data-level-panel="level-3"]'))
@@ -389,11 +398,11 @@ private final class Runner: NSObject, WKNavigationDelegate {
                 return Boolean(element && !element.hidden && !element.classList.contains("hidden") && getComputedStyle(element).display !== "none");
               };
               const expectedHrefs = [
-                "level-2-calculus.html",
-                "level-2-algebra.html",
                 "level-3-complex-numbers.html",
                 "level-3-differentiation.html",
-                "level-3-integration.html"
+                "level-3-integration.html",
+                "level-2-calculus.html",
+                "level-2-algebra.html"
               ];
               const cards = Array.from(document.querySelectorAll(".standard-directory a.index-link-card"));
               const activeHeaderLink = document.querySelector('.site-header-link[aria-current="page"]');
@@ -517,7 +526,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
 
             if (preferenceAction === "disable" && setting) {
               checks.defaultPreferenceMatchesCurrent = setting.checked === true;
-              checks.desktopQuestionStickyBeforeDisable = questionCard.classList.contains("sticky-question-card-enabled");
+              checks.desktopQuestionStickyBeforeDisable = questionCard.classList.contains("sticky-question-card");
               setting.checked = false;
               setting.dispatchEvent(new Event("change", { bubbles: true }));
               checks.preferenceSavedOff = localStorage.getItem("calc.nz.stickyQuestionCard") === "false";
@@ -527,7 +536,8 @@ private final class Runner: NSObject, WKNavigationDelegate {
               setting.checked = true;
               setting.dispatchEvent(new Event("change", { bubbles: true }));
               checks.preferenceRestored = localStorage.getItem("calc.nz.stickyQuestionCard") === "true";
-              checks.desktopQuestionStickyRestored = questionCard.classList.contains("sticky-question-card-enabled");
+              checks.desktopQuestionStickyRestored = questionCard.classList.contains("sticky-question-card")
+                && /On /.test(document.getElementById("sticky-question-setting-status").textContent);
             } else if (preferenceAction === "mobile-toggle" && setting) {
               setting.checked = false;
               setting.dispatchEvent(new Event("change", { bubbles: true }));
@@ -740,10 +750,10 @@ private final class Runner: NSObject, WKNavigationDelegate {
               homepageDirectoryStillRemoved: document.querySelector(".standard-directory") === null,
               progressiveSelectorRestored: Boolean(
                 selector
-                && selector.dataset.currentStage === "level"
+                && selector.dataset.currentStage === "standard"
                 && document.querySelectorAll(".home-dynamic-stage").length === 1
-                && document.querySelectorAll("[data-level]").length === 2
-                && document.querySelectorAll("[data-standard], [data-paper], [data-paper-panel]").length === 0
+                && document.querySelectorAll("[data-standard]").length === 3
+                && document.querySelectorAll("[data-level], [data-paper], [data-paper-panel]").length === 0
               ),
               standardsLinkPreserved: Boolean(document.querySelector('.site-header-link[href="/standards.html"]')),
               noConsoleErrors: (window.__walkthroughTestErrors || []).length === 0

@@ -1301,17 +1301,11 @@
         <div class="graph-frame question-graph-frame">
           <img class="graph-svg" src="assets/differentiation-2023/3b-graph.png" width="1060" height="620" alt="Graph of a piecewise function with open circles, turning points, and a V shape on the right" />
         </div>
-        <div class="question-math">
-          \[
-          \text{(i) Find the value(s) of }x\text{ where }f(x)\text{ is continuous but not differentiable.}
-          \]
-          \[
-          \text{(ii) Find the value(s) of }x\text{ where }f'(x)=0\text{ and }f''(x)&lt;0\text{ are both true.}
-          \]
-          \[
-          \text{(iii) What is the value of }\lim_{x\to 6}f(x)\text{?}
-          \]
-        </div>
+        <ol class="step-text question-parts" type="i">
+          <li>Find the value(s) of \(x\) where \(f(x)\) is continuous but not differentiable.</li>
+          <li>Find the value(s) of \(x\) where \(f'(x)=0\) and \(f''(x)&lt;0\) are both true.</li>
+          <li>What is the value of \(\lim_{x\to 6}f(x)\)?</li>
+        </ol>
       `,
       hints: [
         raw`Continuous but not differentiable means the graph is joined up but has a sharp corner.`,
@@ -1822,10 +1816,8 @@
           previewHtml: raw`Since the left-hand side and right-hand side simplify to the same expression, the function really does satisfy the given differential equation.`,
           workingHtml: raw`<p class="step-text">Since the left-hand side and right-hand side simplify to the same expression, the function really does satisfy the given differential equation.</p>
 <div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-                \text{The function satisfies the differential equation}
-              \]
+  <p class="question-label">Conclusion</p>
+  <p class="step-text">The function satisfies the differential equation.</p>
 </div>
 
         <p class="step-text">Differentiate once:</p>

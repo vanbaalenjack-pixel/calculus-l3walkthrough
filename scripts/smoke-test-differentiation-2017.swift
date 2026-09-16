@@ -357,9 +357,12 @@ private final class Runner: NSObject, WKNavigationDelegate {
               checks.finalNavigation = Boolean(document.querySelector("#walkthrough-final-nav:not(.hidden) a.nav-btn"));
 
               const progressMap = JSON.parse(localStorage.getItem("calc.nz.walkthroughProgress") || "{}");
-              checks.completionStored = Boolean(
-                progressMap["level-3-differentiation-2017:" + part]
-                && progressMap["level-3-differentiation-2017:" + part].completed
+              const progressState = progressMap["level-3-differentiation-2017:" + part];
+              checks.reviewStored = Boolean(
+                progressState
+                && progressState.reviewed
+                && !progressState.assessment
+                && !Object.prototype.hasOwnProperty.call(progressState, "completed")
               );
               checks.katex = document.querySelectorAll(".katex").length > 0 && !document.querySelector(".katex-error");
 

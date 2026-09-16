@@ -477,7 +477,13 @@ private final class Runner: NSObject, WKNavigationDelegate {
 
               const progressMap = JSON.parse(localStorage.getItem("calc.nz.walkthroughProgress") || "{}");
               const progressKey = "level-3-differentiation-2016:" + part;
-              checks.completionStored = Boolean(progressMap[progressKey] && progressMap[progressKey].completed);
+              const progressState = progressMap[progressKey];
+              checks.reviewStored = Boolean(
+                progressState
+                && progressState.reviewed
+                && !progressState.assessment
+                && !Object.prototype.hasOwnProperty.call(progressState, "completed")
+              );
               checks.progressIsYearSpecific = !progressMap["level-3-differentiation-2017:" + part];
               checks.katex = document.querySelectorAll(".katex").length > 0 && !document.querySelector(".katex-error");
 

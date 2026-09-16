@@ -139,9 +139,45 @@ function ensureWalkthroughMathRenderer() {
     }
 
     renderMathInElement(element, { delimiters: WALKTHROUGH_KATEX_DELIMITERS });
+    enhanceWalkthroughMathOverflow(element);
   };
 
   return window.renderMath;
+}
+
+function enhanceWalkthroughMathOverflow(root) {
+  const scope = root && typeof root.querySelectorAll === "function" ? root : document;
+
+  window.requestAnimationFrame(function () {
+    scope.querySelectorAll(".katex-display").forEach(function (display) {
+      const region = display.closest(".math-block, .question-math") || display.parentElement;
+      if (!region) {
+        return;
+      }
+
+      const overflows = display.scrollWidth > region.clientWidth + 2;
+      region.classList.toggle("math-scroll-region", overflows);
+      if (overflows) {
+        region.setAttribute("role", "region");
+        region.setAttribute("tabindex", "0");
+        region.setAttribute("aria-label", "Scrollable mathematical expression");
+        if (!region.querySelector(":scope > .math-scroll-hint")) {
+          const hint = document.createElement("span");
+          hint.className = "math-scroll-hint";
+          hint.textContent = "Scroll to see the full equation";
+          region.appendChild(hint);
+        }
+      } else {
+        region.removeAttribute("role");
+        region.removeAttribute("tabindex");
+        region.removeAttribute("aria-label");
+        const hint = region.querySelector(":scope > .math-scroll-hint");
+        if (hint) {
+          hint.remove();
+        }
+      }
+    });
+  });
 }
 
 function getWalkthroughFocusableElements(container) {
@@ -586,6 +622,24 @@ const WALKTHROUGH_LAST_VISITED_STORAGE_KEY = "calc.nz.lastWalkthrough";
 const WALKTHROUGH_EXAM_MODE_STORAGE_KEY = "calc.nz.examMode";
 const WALKTHROUGH_BOOKMARK_STORAGE_KEY = "calc.nz.bookmarks";
 const WALKTHROUGH_RETRY_STORAGE_KEY = "calc.nz.retryQuestions";
+const WALKTHROUGH_ASSESSMENT_OUTCOMES = Object.freeze({
+  "solved-independently": {
+    label: "Solved independently",
+    description: "I reached a correct solution without opening a hint or the walkthrough."
+  },
+  "solved-with-hint": {
+    label: "Solved with a hint",
+    description: "A hint helped me finish, but I did not need the full walkthrough."
+  },
+  "needed-walkthrough": {
+    label: "Needed the walkthrough",
+    description: "I used the worked steps to understand or finish the question."
+  },
+  "retry-later": {
+    label: "Retry later",
+    description: "I want another attempt before counting this as solved."
+  }
+});
 const WALKTHROUGH_NAV_PARTS = [
   "1a", "1b", "1c", "1d", "1e",
   "2a", "2b", "2c", "2d", "2e",
@@ -752,12 +806,68 @@ function readWalkthroughSessionProgressMap() {
     const storedProgress = window.sessionStorage.getItem(WALKTHROUGH_SESSION_PROGRESS_STORAGE_KEY);
     const parsedProgress = storedProgress ? JSON.parse(storedProgress) : {};
 
-    return parsedProgress && typeof parsedProgress === "object" && !Array.isArray(parsedProgress)
-      ? parsedProgress
-      : {};
+    if (parsedProgress && typeof parsedProgress === "object" && !Array.isArray(parsedProgress)) {
+      return parsedProgress;
+    }
+    window.sessionStorage.setItem(WALKTHROUGH_SESSION_PROGRESS_STORAGE_KEY, "{}");
+    return {};
   } catch (error) {
+    try {
+      window.sessionStorage.setItem(WALKTHROUGH_SESSION_PROGRESS_STORAGE_KEY, "{}");
+    } catch (storageError) {
+      // Keep the safe in-memory fallback when session storage cannot be repaired.
+    }
     return {};
   }
+}
+
+function normaliseWalkthroughProgressMap(value) {
+  const source = value && typeof value === "object" && !Array.isArray(value) ? value : {};
+  const output = {};
+  let changed = source !== value;
+
+  Object.keys(source).forEach(function (key) {
+    const rawState = source[key];
+    if (!rawState || typeof rawState !== "object" || Array.isArray(rawState)) {
+      changed = true;
+      return;
+    }
+
+    const state = Object.assign({}, rawState);
+    if (state.assessment && !WALKTHROUGH_ASSESSMENT_OUTCOMES[state.assessment]) {
+      delete state.assessment;
+      changed = true;
+    }
+
+    if (state.completed && !state.assessment) {
+      state.assessment = "needed-walkthrough";
+      state.attempted = true;
+      state.reviewed = true;
+      state.migratedFromCompleted = true;
+      state.assessmentUpdatedAt = state.completedAt || state.visitedAt || String(Date.now());
+      state.attemptedAt = state.attemptedAt || state.assessmentUpdatedAt;
+      changed = true;
+    }
+
+    if (state.assessment) {
+      state.attempted = true;
+      state.attemptedAt = state.attemptedAt || state.assessmentUpdatedAt || state.visitedAt || String(Date.now());
+    } else if (state.attempted) {
+      delete state.attempted;
+      delete state.attemptedAt;
+      changed = true;
+    }
+
+    if (Object.prototype.hasOwnProperty.call(state, "completed")) {
+      state.legacyCompleted = Boolean(state.completed);
+      delete state.completed;
+      changed = true;
+    }
+
+    output[key] = state;
+  });
+
+  return { map: output, changed: changed };
 }
 
 function readWalkthroughProgressMap() {
@@ -773,14 +883,21 @@ function readWalkthroughProgressMap() {
 
   try {
     const storedProgress = storage.getItem(WALKTHROUGH_PROGRESS_STORAGE_KEY);
-    const parsedProgress = storedProgress ? JSON.parse(storedProgress) : readWalkthroughSessionProgressMap();
+    let parsedProgress;
+    try {
+      parsedProgress = storedProgress ? JSON.parse(storedProgress) : readWalkthroughSessionProgressMap();
+    } catch (parseError) {
+      parsedProgress = {};
+      storage.setItem(WALKTHROUGH_PROGRESS_STORAGE_KEY, "{}");
+    }
 
     if (parsedProgress && typeof parsedProgress === "object" && !Array.isArray(parsedProgress)) {
-      walkthroughProgressFallback = parsedProgress;
-      if (!storedProgress && Object.keys(parsedProgress).length) {
-        writeWalkthroughProgressMap(parsedProgress);
+      const normalised = normaliseWalkthroughProgressMap(parsedProgress);
+      walkthroughProgressFallback = normalised.map;
+      if (normalised.changed || (!storedProgress && Object.keys(normalised.map).length)) {
+        writeWalkthroughProgressMap(normalised.map);
       }
-      return parsedProgress;
+      return normalised.map;
     }
   } catch (error) {
     markWalkthroughStorageKeyVolatile(WALKTHROUGH_PROGRESS_STORAGE_KEY);
@@ -828,8 +945,12 @@ function getWalkthroughPartProgressState(context, partId) {
 }
 
 function getWalkthroughPartProgressLabel(state) {
-  if (state && state.completed) {
-    return "Completed";
+  if (state && state.assessment && WALKTHROUGH_ASSESSMENT_OUTCOMES[state.assessment]) {
+    return WALKTHROUGH_ASSESSMENT_OUTCOMES[state.assessment].label;
+  }
+
+  if (state && state.reviewed) {
+    return "Walkthrough reviewed";
   }
 
   if (state && state.visited) {
@@ -840,8 +961,16 @@ function getWalkthroughPartProgressLabel(state) {
 }
 
 function getWalkthroughPartProgressClass(state) {
-  if (state && state.completed) {
-    return " is-complete";
+  if (state && state.assessment === "solved-independently") {
+    return " is-solved-independently";
+  }
+
+  if (state && state.assessment) {
+    return " is-assessed";
+  }
+
+  if (state && state.reviewed) {
+    return " is-reviewed";
   }
 
   if (state && state.visited) {
@@ -855,7 +984,9 @@ function getWalkthroughPaperProgress(context) {
   const paper = context && context.paper;
   const parts = paper && Array.isArray(paper.parts) ? paper.parts : [];
   let visited = 0;
-  let completed = 0;
+  let attempted = 0;
+  let reviewed = 0;
+  let solvedIndependently = 0;
 
   parts.forEach(function (partId) {
     const state = getWalkthroughPartProgressState(context, partId);
@@ -863,14 +994,22 @@ function getWalkthroughPaperProgress(context) {
     if (state && state.visited) {
       visited += 1;
     }
-    if (state && state.completed) {
-      completed += 1;
+    if (state && state.assessment) {
+      attempted += 1;
+    }
+    if (state && (state.reviewed || state.assessment === "needed-walkthrough")) {
+      reviewed += 1;
+    }
+    if (state && state.assessment === "solved-independently") {
+      solvedIndependently += 1;
     }
   });
 
   return {
     visited: visited,
-    completed: completed,
+    attempted: attempted,
+    reviewed: reviewed,
+    solvedIndependently: solvedIndependently,
     total: parts.length
   };
 }
@@ -879,7 +1018,9 @@ function getWalkthroughPaperProgressText(progress) {
   const state = progress || {};
   const total = state.total || 0;
 
-  return (state.completed || 0) + " of " + total + " completed";
+  return (state.attempted || 0) + " of " + total + " attempted · "
+    + (state.reviewed || 0) + " reviewed · "
+    + (state.solvedIndependently || 0) + " solved independently";
 }
 
 function getWalkthroughPaperProgressPercent(progress) {
@@ -889,7 +1030,7 @@ function getWalkthroughPaperProgressPercent(progress) {
     return 0;
   }
 
-  return Math.round(((state.completed || 0) / state.total) * 100);
+  return Math.round(((state.attempted || 0) / state.total) * 100);
 }
 
 function readLastWalkthrough() {
@@ -952,11 +1093,22 @@ function readWalkthroughCollection(storageKey, fallbackValue) {
 
   try {
     const storedValue = window.localStorage.getItem(storageKey);
-    const parsedValue = storedValue ? JSON.parse(storedValue) : fallbackValue;
+    if (!storedValue) {
+      return fallbackValue;
+    }
+    let parsedValue;
+    try {
+      parsedValue = JSON.parse(storedValue);
+    } catch (parseError) {
+      window.localStorage.setItem(storageKey, "{}");
+      return {};
+    }
 
     if (parsedValue && typeof parsedValue === "object" && !Array.isArray(parsedValue)) {
       return parsedValue;
     }
+    window.localStorage.setItem(storageKey, "{}");
+    return {};
   } catch (error) {
     markWalkthroughStorageKeyVolatile(storageKey);
     // The in-memory collection keeps the controls usable for this visit.
@@ -1058,9 +1210,13 @@ function applyWalkthroughProgressStateToLink(link, state) {
   const baseAriaLabel = link.dataset.baseAriaLabel || String(link.textContent || "").trim();
 
   link.classList.toggle("is-visited", Boolean(state && state.visited));
-  link.classList.toggle("is-complete", Boolean(state && state.completed));
-  link.dataset.progressState = state && state.completed
-    ? "complete"
+  link.classList.toggle("is-reviewed", Boolean(state && state.reviewed));
+  link.classList.toggle("is-assessed", Boolean(state && state.assessment));
+  link.classList.toggle("is-solved-independently", Boolean(state && state.assessment === "solved-independently"));
+  link.dataset.progressState = state && state.assessment
+    ? state.assessment
+    : state && state.reviewed
+      ? "reviewed"
     : state && state.visited
       ? "visited"
       : "";
@@ -1111,10 +1267,22 @@ function markWalkthroughPartProgress(context, partId, updates) {
     currentState.visitedAt = currentState.visitedAt || now;
   }
 
-  if (updates && updates.completed) {
+  if (updates && (updates.reviewed || updates.completed)) {
     currentState.visited = true;
-    currentState.completed = true;
-    currentState.completedAt = now;
+    currentState.reviewed = true;
+    currentState.reviewedAt = currentState.reviewedAt || now;
+  }
+
+  if (updates && updates.assessment && WALKTHROUGH_ASSESSMENT_OUTCOMES[updates.assessment]) {
+    currentState.visited = true;
+    currentState.attempted = true;
+    currentState.attemptedAt = currentState.attemptedAt || now;
+    currentState.assessment = updates.assessment;
+    currentState.assessmentUpdatedAt = now;
+    if (updates.assessment === "needed-walkthrough") {
+      currentState.reviewed = true;
+      currentState.reviewedAt = currentState.reviewedAt || now;
+    }
   }
 
   progressMap[key] = currentState;
@@ -1129,7 +1297,7 @@ function markCurrentWalkthroughPartComplete() {
   const context = window.__walkthroughCurrentContext || findCurrentWalkthroughContext(window.__walkthroughCurrentConfig);
 
   if (context) {
-    markWalkthroughPartProgress(context, context.partId, { visited: true, completed: true });
+    markWalkthroughPartProgress(context, context.partId, { visited: true, reviewed: true });
   }
 }
 
@@ -1544,7 +1712,7 @@ function buildWalkthroughSeoStructuredData(context, title, description, canonica
         learningResourceType: "Guided worked solution",
         educationalLevel: "NCEA " + context.level.label,
         mainEntityOfPage: canonicalUrl,
-        dateModified: "2026-08-09",
+        dateModified: "2026-09-02",
         publisher: {
           "@type": "Organization",
           name: "Calc.nz",
@@ -2028,7 +2196,15 @@ function renderWalkthroughSidebarLink(item) {
   const partAttributes = item.partId
     ? ' data-walkthrough-sidebar-part="' + escapeWalkthroughSidebarHtml(item.partId) + '"'
       + ' data-base-aria-label="' + escapeWalkthroughSidebarHtml(baseAriaLabel) + '"'
-      + ' data-progress-state="' + escapeWalkthroughSidebarHtml(item.progressState && item.progressState.completed ? "complete" : item.progressState && item.progressState.visited ? "visited" : "") + '"'
+      + ' data-progress-state="' + escapeWalkthroughSidebarHtml(
+        item.progressState && item.progressState.assessment
+          ? item.progressState.assessment
+          : item.progressState && item.progressState.reviewed
+            ? "reviewed"
+            : item.progressState && item.progressState.visited
+              ? "visited"
+              : ""
+      ) + '"'
     : "";
 
   return `<a class="${className}" href="${escapeWalkthroughSidebarHtml(item.href)}"${current}${ariaLabel}${partAttributes} data-close-walkthrough-sidebar>${escapeWalkthroughSidebarHtml(item.label)}</a>`;
@@ -2390,7 +2566,11 @@ function ensureExamModeSettingControl(questionCard) {
 function setupExamModeControls(options) {
   const settings = options || {};
   const questionCard = settings.questionCard;
-  const hiddenElements = (settings.hiddenElements || []).filter(Boolean);
+  const hiddenElements = Array.from(new Set((settings.hiddenElements || []).filter(Boolean)));
+  const accessibleHeading = settings.accessibleHeading || document.getElementById("page-title");
+  const originalHeading = accessibleHeading ? accessibleHeading.textContent : "";
+  const neutralHeading = settings.neutralHeading || "Exam question";
+  const originalDocumentTitle = document.title;
 
   if (!questionCard || questionCard.dataset.examModeSetup === "true") {
     return;
@@ -2446,7 +2626,13 @@ function setupExamModeControls(options) {
 
     checkbox.checked = isEnabled;
     document.body.classList.toggle("exam-mode-active", shouldHideWalkthrough);
+    document.documentElement.classList.remove("exam-mode-pending");
     revealPanel.hidden = !shouldHideWalkthrough;
+
+    if (accessibleHeading) {
+      accessibleHeading.textContent = shouldHideWalkthrough ? neutralHeading : originalHeading;
+    }
+    document.title = shouldHideWalkthrough ? neutralHeading + " | Calc.nz" : originalDocumentTitle;
 
     if (revealButton) {
       revealButton.setAttribute("aria-expanded", shouldHideWalkthrough ? "false" : "true");
@@ -2454,6 +2640,7 @@ function setupExamModeControls(options) {
 
     hiddenElements.forEach(function (element) {
       element.classList.toggle("exam-mode-hidden", shouldHideWalkthrough);
+      element.inert = shouldHideWalkthrough;
       if (shouldHideWalkthrough) {
         element.setAttribute("aria-hidden", "true");
       } else if (!element.classList.contains("hidden") && !element.hidden) {
@@ -2878,6 +3065,124 @@ function normaliseGuidedStep(step, stepIndex) {
   };
 }
 
+function normaliseAuditComparisonText(value) {
+  return getWalkthroughSeoPlainText(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function walkthroughAuditTextSimilarity(first, second) {
+  const firstTokens = normaliseAuditComparisonText(first).split(" ").filter(Boolean);
+  const secondTokens = normaliseAuditComparisonText(second).split(" ").filter(Boolean);
+  if (!firstTokens.length || !secondTokens.length) {
+    return 0;
+  }
+  const firstSet = new Set(firstTokens);
+  const secondSet = new Set(secondTokens);
+  let shared = 0;
+  firstSet.forEach(function (token) {
+    if (secondSet.has(token)) {
+      shared += 1;
+    }
+  });
+  return shared / Math.max(firstSet.size, secondSet.size);
+}
+
+function validateAuditedWalkthroughConfig(config) {
+  if (!config || config.auditSchemaVersion !== 1) {
+    return config;
+  }
+
+  const requiredHtmlFields = [
+    "questionHtml",
+    "checksHtml",
+    "markReasoningHtml",
+    "finalResultHtml",
+    "verificationHtml",
+    "commonMistakeHtml"
+  ];
+  const missingFields = requiredHtmlFields.filter(function (field) {
+    return !normaliseAuditComparisonText(config[field]);
+  });
+
+  if (config.reviewStatus !== "awaiting-teacher-review") {
+    throw new Error("Audited walkthrough has an invalid or missing review status: " + (config.auditKey || "unknown"));
+  }
+  if (missingFields.length) {
+    throw new Error("Audited walkthrough is missing required fields (" + missingFields.join(", ") + "): " + (config.auditKey || "unknown"));
+  }
+  if (!Array.isArray(config.hints) || config.hints.length !== 3) {
+    throw new Error("Audited walkthrough must contain exactly three progressive hints: " + (config.auditKey || "unknown"));
+  }
+  if (!Array.isArray(config.guidedSteps) || !config.guidedSteps.length) {
+    throw new Error("Audited walkthrough has no guided working: " + (config.auditKey || "unknown"));
+  }
+
+  config.guidedSteps.forEach(function (guidedStep, index) {
+    const idea = normaliseAuditComparisonText(guidedStep && guidedStep.previewHtml);
+    const working = normaliseAuditComparisonText(guidedStep && guidedStep.workingHtml);
+    if (!idea || !working || idea === working || walkthroughAuditTextSimilarity(idea, working) > 0.92) {
+      throw new Error("Audited walkthrough Idea and Working must be distinct at step " + (index + 1) + ": " + (config.auditKey || "unknown"));
+    }
+  });
+
+  return config;
+}
+
+function applyWalkthroughAuditRemediation(config) {
+  const context = findCurrentWalkthroughContext(config);
+  const key = context ? context.paper.id + ":" + context.partId : "";
+  const patches = window.CALC_NZ_AUDIT_WALKTHROUGHS;
+  const patch = key && patches && patches[key];
+
+  if (!patch) {
+    return config;
+  }
+
+  return validateAuditedWalkthroughConfig(Object.assign({}, config, patch, {
+    auditKey: key,
+    focus: "",
+    tips: [],
+    questionNotes: []
+  }));
+}
+
+function auditedStructureSteps(config) {
+  if (!config || config.auditSchemaVersion !== 1) {
+    return [];
+  }
+
+  return [
+    {
+      title: "Check the restrictions",
+      previewHtml: "Restore the domain, sign, parameter, cancellation, branch, or interval conditions before accepting the algebraic result.",
+      workingHtml: config.checksHtml
+    },
+    {
+      title: "Communicate the reasoning",
+      previewHtml: "State the mathematical justification that makes the conclusion complete.",
+      workingHtml: config.markReasoningHtml
+    },
+    {
+      title: "State the final result",
+      previewHtml: "Give the conclusion together with every condition that controls when it applies.",
+      workingHtml: config.finalResultHtml
+    },
+    {
+      title: "Verify the result",
+      previewHtml: "Check the conclusion against the original, unsimplified problem.",
+      workingHtml: config.verificationHtml
+    },
+    {
+      title: "Name the common mistake",
+      previewHtml: "Use this error check before moving to another question.",
+      workingHtml: config.commonMistakeHtml
+    }
+  ];
+}
+
 function buildWalkthroughTipItems(config) {
   const items = [];
 
@@ -2995,10 +3300,34 @@ function buildQuestionCardHtml(config) {
   const questionLabel = context
     ? walkthroughQuestionLabel(context.partId, context.paper)
     : "this question";
+  const reviewNotice = config.reviewStatus === "awaiting-teacher-review"
+    ? `<aside class="walkthrough-review-notice" aria-label="Review status">
+        <p class="question-label">Review status</p>
+        <p>${escapeWalkthroughSidebarHtml(config.reviewNotice || "This walkthrough has been corrected following an internal audit and is awaiting independent teacher review.")}</p>
+      </aside>`
+    : "";
+  const selfAssessment = context
+    ? `<fieldset class="walkthrough-self-assessment" data-self-assessment>
+        <legend>How did this attempt go?</legend>
+        <p class="step-text">Choose the option that best describes this attempt. You can change it whenever you return.</p>
+        <div class="walkthrough-assessment-options">
+          ${Object.keys(WALKTHROUGH_ASSESSMENT_OUTCOMES).map(function (value) {
+            const outcome = WALKTHROUGH_ASSESSMENT_OUTCOMES[value];
+            return `<label class="walkthrough-assessment-option">
+              <input type="radio" name="walkthrough-assessment" value="${escapeWalkthroughSidebarHtml(value)}">
+              <span><strong>${escapeWalkthroughSidebarHtml(outcome.label)}</strong><small>${escapeWalkthroughSidebarHtml(outcome.description)}</small></span>
+            </label>`;
+          }).join("")}
+        </div>
+        <p class="question-save-status" data-self-assessment-status aria-live="polite"></p>
+      </fieldset>`
+    : "";
 
   return `
     <p class="question-label">Question</p>
+    ${reviewNotice}
     ${config.questionHtml}
+    <p class="attempt-note">Try the original question independently before opening a hint or worked step.</p>
     <div class="question-personal-actions" role="group" aria-label="Save this question">
       <button
         id="bookmark-question-btn"
@@ -3016,7 +3345,42 @@ function buildQuestionCardHtml(config) {
       >Mark for retry</button>
       <span id="question-save-status" class="question-save-status" aria-live="polite"></span>
     </div>
+    ${selfAssessment}
   `;
+}
+
+function setupWalkthroughSelfAssessment(questionCard) {
+  const context = window.__walkthroughCurrentContext;
+  const fieldset = questionCard && questionCard.querySelector("[data-self-assessment]");
+  const status = fieldset && fieldset.querySelector("[data-self-assessment-status]");
+
+  if (!context || !fieldset) {
+    return;
+  }
+
+  function sync() {
+    const state = getWalkthroughPartProgressState(context, context.partId);
+    fieldset.querySelectorAll('input[name="walkthrough-assessment"]').forEach(function (radio) {
+      radio.checked = radio.value === state.assessment;
+    });
+  }
+
+  fieldset.addEventListener("change", function (event) {
+    const radio = event.target.closest('input[name="walkthrough-assessment"]');
+    if (!radio || !WALKTHROUGH_ASSESSMENT_OUTCOMES[radio.value]) {
+      return;
+    }
+    markWalkthroughPartProgress(context, context.partId, {
+      visited: true,
+      assessment: radio.value
+    });
+    sync();
+    if (status) {
+      status.textContent = WALKTHROUGH_ASSESSMENT_OUTCOMES[radio.value].label + " saved on this device.";
+    }
+  });
+
+  sync();
 }
 
 function setupWalkthroughQuestionSaveControls(questionCard) {
@@ -3198,7 +3562,8 @@ function buildProgressiveWalkthroughHtml(config) {
 }
 
 function normaliseProgressiveWalkthroughConfig(config) {
-  const sourceSteps = Array.isArray(config.guidedSteps) ? config.guidedSteps : [];
+  const sourceSteps = (Array.isArray(config.guidedSteps) ? config.guidedSteps : [])
+    .concat(auditedStructureSteps(config));
   const guidedSteps = sourceSteps.map(function (step, stepIndex) {
     return normaliseGuidedStep(step, stepIndex);
   });
@@ -3416,7 +3781,8 @@ function initializeProgressiveWalkthrough(config, options) {
   ensureWalkthroughMathRenderer();
 
   const pageOptions = options || {};
-  const normalisedConfig = normaliseProgressiveWalkthroughConfig(config);
+  const auditedConfig = applyWalkthroughAuditRemediation(config);
+  const normalisedConfig = normaliseProgressiveWalkthroughConfig(auditedConfig);
   const eyebrow = document.getElementById("page-eyebrow");
   const pageTitle = document.getElementById("page-title");
   const subtitle = document.getElementById("page-subtitle");
@@ -3432,6 +3798,7 @@ function initializeProgressiveWalkthrough(config, options) {
     return;
   }
   questionCard.dataset.walkthroughEnhanced = "true";
+  document.body.classList.add("walkthrough-runtime-ready");
 
   document.title = normalisedConfig.browserTitle || document.title;
   eyebrow.textContent = normalisedConfig.eyebrow || pageOptions.defaultEyebrow || eyebrow.textContent;
@@ -3443,6 +3810,7 @@ function initializeProgressiveWalkthrough(config, options) {
   questionCard.classList.add("sticky-question-card");
   questionCard.innerHTML = buildQuestionCardHtml(normalisedConfig);
   setupWalkthroughQuestionSaveControls(questionCard);
+  setupWalkthroughSelfAssessment(questionCard);
   renderPartNavigation(normalisedConfig, questionCard);
   setupQuestionImageZoom(questionCard);
 
@@ -3467,10 +3835,26 @@ function initializeProgressiveWalkthrough(config, options) {
   }
 
   window.renderMath(document.body);
+  if (document.body.dataset.mathOverflowSetup !== "true") {
+    document.body.dataset.mathOverflowSetup = "true";
+    window.addEventListener("resize", function () {
+      enhanceWalkthroughMathOverflow(document.body);
+    });
+  }
   attachProgressiveWalkthroughHandlers(normalisedConfig, walkthroughContent);
+  const examModeCueElements = Array.from(document.querySelectorAll([
+    "#page-subtitle",
+    ".seo-question-overview",
+    ".seo-learning-summary",
+    "[data-method-cue]"
+  ].join(", ")));
   setupExamModeControls({
     questionCard: questionCard,
-    hiddenElements: [tipsCard, walkthroughContent]
+    hiddenElements: [tipsCard, walkthroughContent].concat(examModeCueElements),
+    accessibleHeading: pageTitle,
+    neutralHeading: window.__walkthroughCurrentContext
+      ? getWalkthroughHeaderTitle(window.__walkthroughCurrentContext).replace(/\s+[—-]\s+.*/, " — Exam question")
+      : "Exam question"
   });
 }
 
@@ -3480,7 +3864,9 @@ function getWalkthroughPaperProgressById(paperId) {
   if (!entry) {
     return {
       visited: 0,
-      completed: 0,
+      attempted: 0,
+      reviewed: 0,
+      solvedIndependently: 0,
       total: 0
     };
   }
@@ -3494,7 +3880,9 @@ window.CalcNzWalkthrough = Object.assign(window.CalcNzWalkthrough || {}, {
   examModeStorageKey: WALKTHROUGH_EXAM_MODE_STORAGE_KEY,
   bookmarkStorageKey: WALKTHROUGH_BOOKMARK_STORAGE_KEY,
   retryStorageKey: WALKTHROUGH_RETRY_STORAGE_KEY,
+  assessmentOutcomes: WALKTHROUGH_ASSESSMENT_OUTCOMES,
   readProgressMap: readWalkthroughProgressMap,
+  normaliseProgressMap: normaliseWalkthroughProgressMap,
   readLastWalkthrough: readLastWalkthrough,
   getPaperProgressById: getWalkthroughPaperProgressById,
   getPaperProgressText: getWalkthroughPaperProgressText,

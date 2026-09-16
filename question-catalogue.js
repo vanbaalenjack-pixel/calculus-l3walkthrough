@@ -1,4 +1,4 @@
-/* Generated from the verified Calc.nz walkthrough catalogue. Keep this assignment JSON-compatible. */
+/* Generated from the Calc.nz walkthrough catalogue. Keep this assignment JSON-compatible. */
 window.CALC_NZ_QUESTION_CATALOGUE = {
   "schemaVersion": 2,
   "levels": [
@@ -36,8 +36,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": null,
                   "nextHref": "1b2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using the power rule term by term and evaluating the gradient at a point."
+                  "methodPlain": "Using the power rule term by term and evaluating the gradient at a point.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -55,8 +56,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "1a2025-l2.html",
                   "nextHref": "1c2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding the point of tangency, the gradient, and the tangent equation."
+                  "methodPlain": "Finding the point of tangency, the gradient, and the tangent equation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -76,8 +78,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "1b2025-l2.html",
                   "nextHref": "1d2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding critical points, identifying the minimum, and solving for the constant."
+                  "methodPlain": "Finding critical points, identifying the minimum, and solving for the constant.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -95,8 +98,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "1c2025-l2.html",
                   "nextHref": "2a2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Writing displacement equations, solving when they are equal, and answering in context."
+                  "methodPlain": "Writing displacement equations, solving when they are equal, and answering in context.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -116,8 +120,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "1d2025-l2.html",
                   "nextHref": "2b2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Sketching the derivative from stationary points, signs, and changes in concavity."
+                  "methodPlain": "Sketching the derivative from stationary points, signs, and changes in concavity.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -137,8 +142,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "2a2025-l2.html",
                   "nextHref": "2c2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Antidifferentiating and using a point on the graph to find the constant."
+                  "methodPlain": "Antidifferentiating and using a point on the graph to find the constant.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -158,8 +164,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "2b2025-l2.html",
                   "nextHref": "2d2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Differentiating, evaluating a rate, and using derivatives to justify the minimum turning point."
+                  "methodPlain": "Differentiating, evaluating a rate, and using derivatives to justify the minimum turning point.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -179,8 +186,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "2c2025-l2.html",
                   "nextHref": "3a2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using a stationary point and an x-intercept to find constants, then classifying the other stationary point."
+                  "methodPlain": "Using a stationary point and an x-intercept to find constants, then classifying the other stationary point.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -198,8 +206,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "2d2025-l2.html",
                   "nextHref": "3b2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Differentiating, solving for the given gradient, and finding the coordinate on the curve."
+                  "methodPlain": "Differentiating, solving for the given gradient, and finding the coordinate on the curve.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -217,8 +226,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "3a2025-l2.html",
                   "nextHref": "3c2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Forming an area expression, finding the height from the given area, and evaluating the rate of change."
+                  "methodPlain": "Forming an area expression, finding the height from the given area, and evaluating the rate of change.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -238,8 +248,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "3b2025-l2.html",
                   "nextHref": "3d2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using a surface-area constraint, writing volume in one variable, maximizing it, and proving the maximum."
+                  "methodPlain": "Using a surface-area constraint, writing volume in one variable, maximizing it, and proving the maximum.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -259,8 +270,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-calculus-2025.html",
                   "previousHref": "3c2025-l2.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Differentiating, factorising, classifying critical points, and finding where the function is decreasing."
+                  "methodPlain": "Differentiating, factorising, classifying critical points, and finding where the function is decreasing.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             }
@@ -295,8 +307,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": null,
                   "nextHref": "alg-1b2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Simplifying a radical expression."
+                  "methodPlain": "Simplifying a radical expression.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -314,8 +327,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-1a2025-l2.html",
                   "nextHref": "alg-1c2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rearranging an equation to make x the subject."
+                  "methodPlain": "Rearranging an equation to make x the subject.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -333,8 +347,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-1b2025-l2.html",
                   "nextHref": "alg-1d2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Building a quadratic from a root and a point on the graph."
+                  "methodPlain": "Building a quadratic from a root and a point on the graph.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -352,8 +367,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-1c2025-l2.html",
                   "nextHref": "alg-1e2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using Pythagoras to write area in terms of the radius."
+                  "methodPlain": "Using Pythagoras to write area in terms of the radius.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -371,8 +387,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-1d2025-l2.html",
                   "nextHref": "alg-2a2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving an exponential equation with a substitution."
+                  "methodPlain": "Solving an exponential equation with a substitution.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -390,8 +407,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-1e2025-l2.html",
                   "nextHref": "alg-2b2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Identifying the missing term in a perfect square."
+                  "methodPlain": "Identifying the missing term in a perfect square.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -409,8 +427,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-2a2025-l2.html",
                   "nextHref": "alg-2c2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Factorising and simplifying an algebraic fraction."
+                  "methodPlain": "Factorising and simplifying an algebraic fraction.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -428,8 +447,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-2b2025-l2.html",
                   "nextHref": "alg-2d2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a quadratic and matching it to a surd form."
+                  "methodPlain": "Solving a quadratic and matching it to a surd form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -447,8 +467,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-2c2025-l2.html",
                   "nextHref": "alg-2e2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Combining logarithms and solving the resulting equation."
+                  "methodPlain": "Combining logarithms and solving the resulting equation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -466,8 +487,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-2d2025-l2.html",
                   "nextHref": "alg-3a2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using the discriminant in simultaneous equations."
+                  "methodPlain": "Using the discriminant in simultaneous equations.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -485,8 +507,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-2e2025-l2.html",
                   "nextHref": "alg-3b2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a logarithm with a variable base."
+                  "methodPlain": "Solving a logarithm with a variable base.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -504,8 +527,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-3a2025-l2.html",
                   "nextHref": "alg-3c2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Forming a quadratic equation from its roots."
+                  "methodPlain": "Forming a quadratic equation from its roots.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -523,8 +547,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-3b2025-l2.html",
                   "nextHref": "alg-3d2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rewriting a logarithm in terms of given values."
+                  "methodPlain": "Rewriting a logarithm in terms of given values.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -542,8 +567,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-3c2025-l2.html",
                   "nextHref": "alg-3e2025-l2.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using root relationships to rewrite an expression."
+                  "methodPlain": "Using root relationships to rewrite an expression.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -561,8 +587,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-2-algebra-2025.html",
                   "previousHref": "alg-3d2025-l2.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Modelling a golf shot with a quadratic and interpreting the result."
+                  "methodPlain": "Modelling a golf shot with a quadratic and interpreting the result.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             }
@@ -606,8 +633,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": null,
                   "nextHref": "1b2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Chain rule differentiation of a composite polynomial."
+                  "methodPlain": "Chain rule differentiation of a composite polynomial.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -625,8 +653,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "1a2025.html",
                   "nextHref": "1c2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rewriting in power form and finding a rate of change."
+                  "methodPlain": "Rewriting in power form and finding a rate of change.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -646,8 +675,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "1b2025.html",
                   "nextHref": "1d2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product rule and the gradient of a normal."
+                  "methodPlain": "Product rule and the gradient of a normal.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -665,8 +695,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "1c2025.html",
                   "nextHref": "1e2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding a tangent and its x-intercept."
+                  "methodPlain": "Finding a tangent and its x-intercept.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -687,8 +718,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "1d2025.html",
                   "nextHref": "2a2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Parametric differentiation with stationary inflection points."
+                  "methodPlain": "Parametric differentiation with stationary inflection points.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -706,8 +738,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "1e2025.html",
                   "nextHref": "2b2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Differentiating reciprocal and logarithmic terms."
+                  "methodPlain": "Differentiating reciprocal and logarithmic terms.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -727,8 +760,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "2a2025.html",
                   "nextHref": "2c2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product rule and deciding whether a model is increasing or decreasing."
+                  "methodPlain": "Product rule and deciding whether a model is increasing or decreasing.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -748,8 +782,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "2b2025.html",
                   "nextHref": "2d2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Quotient rule and tangents with a given gradient."
+                  "methodPlain": "Quotient rule and tangents with a given gradient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -769,8 +804,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "2c2025.html",
                   "nextHref": "2e2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Parametric gradients and tangent equations."
+                  "methodPlain": "Parametric gradients and tangent equations.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -788,8 +824,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "2d2025.html",
                   "nextHref": "3a2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "First and second derivatives in a radius of curvature problem."
+                  "methodPlain": "First and second derivatives in a radius of curvature problem.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -809,8 +846,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "2e2025.html",
                   "nextHref": "3b2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reading differentiability, stationary points, and a limit from a graph."
+                  "methodPlain": "Reading differentiability, stationary points, and a limit from a graph.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -830,8 +868,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "3a2025.html",
                   "nextHref": "3c2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Stationary points on a logarithmic curve."
+                  "methodPlain": "Stationary points on a logarithmic curve.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -851,8 +890,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "3b2025.html",
                   "nextHref": "3d2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Related rates for the volume of a sphere."
+                  "methodPlain": "Related rates for the volume of a sphere.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -872,8 +912,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "3c2025.html",
                   "nextHref": "3e2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a parametric gradient condition."
+                  "methodPlain": "Solving a parametric gradient condition.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -893,8 +934,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2025.html",
                   "previousHref": "3d2025.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Maximising the area of a rectangle inside a curve."
+                  "methodPlain": "Maximising the area of a rectangle inside a curve.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -922,8 +964,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": null,
                   "nextHref": "1b2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rewriting a square root as a power and applying the chain rule."
+                  "methodPlain": "Rewriting a square root as a power and applying the chain rule.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -943,8 +986,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "1a2024.html",
                   "nextHref": "1c2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product rule differentiation and evaluating the gradient at x = 0."
+                  "methodPlain": "Product rule differentiation and evaluating the gradient at x = 0.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -962,8 +1006,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "1b2024.html",
                   "nextHref": "1d2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Differentiating, solving f'(x) = 0, and finding where a function is decreasing."
+                  "methodPlain": "Differentiating, solving f'(x) = 0, and finding where a function is decreasing.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -983,8 +1028,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "1c2024.html",
                   "nextHref": "1e2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Stationary points, the second derivative test, and classifying the point."
+                  "methodPlain": "Stationary points, the second derivative test, and classifying the point.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -1002,8 +1048,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "1d2024.html",
                   "nextHref": "2a2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Locating a point of inflection and finding the tangent there."
+                  "methodPlain": "Locating a point of inflection and finding the tangent there.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -1023,8 +1070,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "1e2024.html",
                   "nextHref": "2b2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Parametric differentiation using dy/dt divided by dx/dt."
+                  "methodPlain": "Parametric differentiation using dy/dt divided by dx/dt.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -1044,8 +1092,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "2a2024.html",
                   "nextHref": "2c2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Chain rule differentiation of a logarithmic displacement function."
+                  "methodPlain": "Chain rule differentiation of a logarithmic displacement function.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -1065,8 +1114,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "2b2024.html",
                   "nextHref": "2d2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "First and second derivatives in a proof-style differential-equation question."
+                  "methodPlain": "First and second derivatives in a proof-style differential-equation question.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -1084,8 +1134,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "2c2024.html",
                   "nextHref": "2e2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding a point of inflection on ln x divided by x."
+                  "methodPlain": "Finding a point of inflection on ln x divided by x.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -1105,8 +1156,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "2d2024.html",
                   "nextHref": "3a2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using a discriminant condition to force a single turning point."
+                  "methodPlain": "Using a discriminant condition to force a single turning point.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 },
                 {
                   "id": "3a",
@@ -1127,8 +1179,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "2e2024.html",
                   "nextHref": "3b2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product rule with square root of x and a trig chain rule."
+                  "methodPlain": "Product rule with square root of x and a trig chain rule.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -1146,8 +1199,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "3a2024.html",
                   "nextHref": "3c2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reading continuity, differentiability, and limits from a graph."
+                  "methodPlain": "Reading continuity, differentiability, and limits from a graph.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -1168,8 +1222,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "3b2024.html",
                   "nextHref": "3d2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Quotient rule differentiation and finding stationary points."
+                  "methodPlain": "Quotient rule differentiation and finding stationary points.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -1189,8 +1244,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "3c2024.html",
                   "nextHref": "3e2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Related rates for the height of a conical pile."
+                  "methodPlain": "Related rates for the height of a conical pile.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -1210,8 +1266,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2024.html",
                   "previousHref": "3d2024.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Forming an area function and proving its largest possible value."
+                  "methodPlain": "Forming an area function and proving its largest possible value.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -1239,8 +1296,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": null,
                   "nextHref": "1b2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rewriting a square root and applying the chain rule."
+                  "methodPlain": "Rewriting a square root and applying the chain rule.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -1260,8 +1318,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "1a2023.html",
                   "nextHref": "1c2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product rule differentiation and evaluating a rate of change."
+                  "methodPlain": "Product rule differentiation and evaluating a rate of change.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -1279,8 +1338,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "1b2023.html",
                   "nextHref": "1d2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using derivatives to find a parallel tangent on a rational curve."
+                  "methodPlain": "Using derivatives to find a parallel tangent on a rational curve.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -1300,8 +1360,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "1c2023.html",
                   "nextHref": "1e2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Parametric differentiation and building a tangent equation."
+                  "methodPlain": "Parametric differentiation and building a tangent equation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -1321,8 +1382,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "1d2023.html",
                   "nextHref": "2a2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Maximising a triangle area on the curve y = x(x - 2m) squared."
+                  "methodPlain": "Maximising a triangle area on the curve y = x(x - 2m) squared.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -1342,8 +1404,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "1e2023.html",
                   "nextHref": "2b2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rewriting x squared divided by cos x and using the product rule."
+                  "methodPlain": "Rewriting x squared divided by cos x and using the product rule.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -1363,8 +1426,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "2a2023.html",
                   "nextHref": "2c2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Chain rule differentiation of y = cot(2x)."
+                  "methodPlain": "Chain rule differentiation of y = cot(2x).",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -1384,8 +1448,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "2b2023.html",
                   "nextHref": "2d2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Quotient rule differentiation and horizontal tangents."
+                  "methodPlain": "Quotient rule differentiation and horizontal tangents.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -1403,8 +1468,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "2c2023.html",
                   "nextHref": "2e2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Second derivatives and finding a logarithmic point of inflection."
+                  "methodPlain": "Second derivatives and finding a logarithmic point of inflection.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -1424,8 +1490,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "2d2023.html",
                   "nextHref": "3a2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Related rates for a helicopter chasing a car."
+                  "methodPlain": "Related rates for a helicopter chasing a car.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -1445,8 +1512,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "2e2023.html",
                   "nextHref": "3b2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "The chain rule inside a logarithm."
+                  "methodPlain": "The chain rule inside a logarithm.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -1464,8 +1532,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "3a2023.html",
                   "nextHref": "3c2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reading continuity, concavity, and limits from a graph."
+                  "methodPlain": "Reading continuity, concavity, and limits from a graph.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -1485,8 +1554,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "3b2023.html",
                   "nextHref": "3d2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Parametric differentiation for a Ferris wheel model."
+                  "methodPlain": "Parametric differentiation for a Ferris wheel model.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -1506,8 +1576,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "3c2023.html",
                   "nextHref": "3e2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Stationary points and classifying them with the second derivative."
+                  "methodPlain": "Stationary points and classifying them with the second derivative.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -1527,8 +1598,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2023.html",
                   "previousHref": "3d2023.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Verifying a differential equation from a catenary model."
+                  "methodPlain": "Verifying a differential equation from a catenary model.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 }
               ]
             },
@@ -1554,8 +1626,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": null,
                   "nextHref": "1b2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Differentiation of the function."
+                  "methodPlain": "Differentiation of the function.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -1575,8 +1648,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "1a2022.html",
                   "nextHref": "1c2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding and interpreting stationary points."
+                  "methodPlain": "Finding and interpreting stationary points.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -1594,8 +1668,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "1b2022.html",
                   "nextHref": "1d2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "The normal line and its x-intercept."
+                  "methodPlain": "The normal line and its x-intercept.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -1615,8 +1690,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "1c2022.html",
                   "nextHref": "1e2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Parametric differentiation."
+                  "methodPlain": "Parametric differentiation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -1634,8 +1710,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "1d2022.html",
                   "nextHref": "2a2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving there are no points of inflection."
+                  "methodPlain": "Proving there are no points of inflection.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -1656,8 +1733,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "1e2022.html",
                   "nextHref": "2b2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product rule with a trig chain rule."
+                  "methodPlain": "Product rule with a trig chain rule.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -1677,8 +1755,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "2a2022.html",
                   "nextHref": "2c2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Chain rule and finding a tangent gradient."
+                  "methodPlain": "Chain rule and finding a tangent gradient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -1699,8 +1778,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "2b2022.html",
                   "nextHref": "2d2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Quotient rule and finding when motion is stationary."
+                  "methodPlain": "Quotient rule and finding when motion is stationary.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -1720,8 +1800,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "2c2022.html",
                   "nextHref": "2e2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Forming an area function and maximising it."
+                  "methodPlain": "Forming an area function and maximising it.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -1739,8 +1820,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "2d2022.html",
                   "nextHref": "3a2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Implicit differentiation and tangent-line distance."
+                  "methodPlain": "Implicit differentiation and tangent-line distance.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -1760,8 +1842,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "2e2022.html",
                   "nextHref": "3b2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rewriting radicals and using the chain rule."
+                  "methodPlain": "Rewriting radicals and using the chain rule.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -1779,8 +1862,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "3a2022.html",
                   "nextHref": "3c2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reading differentiability, derivatives, and limits from a graph."
+                  "methodPlain": "Reading differentiability, derivatives, and limits from a graph.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -1800,8 +1884,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "3b2022.html",
                   "nextHref": "3d2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Related rates using volume and height."
+                  "methodPlain": "Related rates using volume and height.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -1821,8 +1906,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "3c2022.html",
                   "nextHref": "3e2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding stationary points and classifying them."
+                  "methodPlain": "Finding stationary points and classifying them.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -1842,8 +1928,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2022.html",
                   "previousHref": "3d2022.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Building a time function and minimising it."
+                  "methodPlain": "Building a time function and minimising it.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -1872,8 +1959,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": null,
                   "nextHref": "1b2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product rule with exponential and trigonometric chain rules."
+                  "methodPlain": "Product rule with exponential and trigonometric chain rules.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -1893,8 +1981,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "1a2021.html",
                   "nextHref": "1c2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reading stationary points, concavity, and limits from a graph."
+                  "methodPlain": "Reading stationary points, concavity, and limits from a graph.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -1916,8 +2005,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "1b2021.html",
                   "nextHref": "1d2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product and chain rules for stationary points."
+                  "methodPlain": "Product and chain rules for stationary points.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -1937,8 +2027,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "1c2021.html",
                   "nextHref": "1e2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Parametric differentiation and evaluating a tangent gradient."
+                  "methodPlain": "Parametric differentiation and evaluating a tangent gradient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -1958,8 +2049,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "1d2021.html",
                   "nextHref": "2a2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Cone and cylinder optimisation with a maximum-volume proof."
+                  "methodPlain": "Cone and cylinder optimisation with a maximum-volume proof.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -1979,8 +2071,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "1e2021.html",
                   "nextHref": "2b2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Chain rule differentiation of a composite polynomial."
+                  "methodPlain": "Chain rule differentiation of a composite polynomial.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -2001,8 +2094,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "2a2021.html",
                   "nextHref": "2c2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Quotient rule and stationary points."
+                  "methodPlain": "Quotient rule and stationary points.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -2022,8 +2116,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "2b2021.html",
                   "nextHref": "2d2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product rule and finding the equation of a normal."
+                  "methodPlain": "Product rule and finding the equation of a normal.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -2043,8 +2138,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "2c2021.html",
                   "nextHref": "2e2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Related rates for the volume and radius of a sphere."
+                  "methodPlain": "Related rates for the volume and radius of a sphere.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -2062,8 +2158,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "2d2021.html",
                   "nextHref": "3a2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Tangent geometry on y = square root of (2x - 4)."
+                  "methodPlain": "Tangent geometry on y = square root of (2x - 4).",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -2083,8 +2180,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "2e2021.html",
                   "nextHref": "3b2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Quotient rule with cot x and csc squared x."
+                  "methodPlain": "Quotient rule with cot x and csc squared x.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -2104,8 +2202,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "3a2021.html",
                   "nextHref": "3c2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Stationary point on a radical function."
+                  "methodPlain": "Stationary point on a radical function.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -2123,8 +2222,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "3b2021.html",
                   "nextHref": "3d2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using the derivative sign to find where a function is increasing."
+                  "methodPlain": "Using the derivative sign to find where a function is increasing.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -2144,8 +2244,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "3c2021.html",
                   "nextHref": "3e2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Quotient rule with a parameter and a given tangent gradient."
+                  "methodPlain": "Quotient rule with a parameter and a given tangent gradient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -2167,8 +2268,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2021.html",
                   "previousHref": "3d2021.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Lamp and table optimisation using product and chain rules."
+                  "methodPlain": "Lamp and table optimisation using product and chain rules.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -2196,8 +2298,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": null,
                   "nextHref": "1b2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Chain rule differentiation of a fifth power."
+                  "methodPlain": "Chain rule differentiation of a fifth power.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -2215,8 +2318,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "1a2020.html",
                   "nextHref": "1c2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Trig derivatives and evaluating a tangent gradient."
+                  "methodPlain": "Trig derivatives and evaluating a tangent gradient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -2237,8 +2341,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "1b2020.html",
                   "nextHref": "1d2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Quotient rule and a stationary point on a logarithmic function."
+                  "methodPlain": "Quotient rule and a stationary point on a logarithmic function.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -2258,8 +2363,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "1c2020.html",
                   "nextHref": "1e2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product rule and proving a tangent equation."
+                  "methodPlain": "Product rule and proving a tangent equation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -2279,8 +2385,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "1d2020.html",
                   "nextHref": "2a2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Maximising a cylinder volume inside a sphere."
+                  "methodPlain": "Maximising a cylinder volume inside a sphere.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -2300,8 +2407,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "1e2020.html",
                   "nextHref": "2b2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Quotient rule differentiation of a trigonometric fraction."
+                  "methodPlain": "Quotient rule differentiation of a trigonometric fraction.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -2319,8 +2427,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "2a2020.html",
                   "nextHref": "2c2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Differentiating an exponential depreciation model."
+                  "methodPlain": "Differentiating an exponential depreciation model.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -2342,8 +2451,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "2b2020.html",
                   "nextHref": "2d2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product and chain rules for stationary points."
+                  "methodPlain": "Product and chain rules for stationary points.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -2363,8 +2473,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "2c2020.html",
                   "nextHref": "2e2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Related rates for an angle of elevation."
+                  "methodPlain": "Related rates for an angle of elevation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -2384,8 +2495,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "2d2020.html",
                   "nextHref": "3a2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Parametric first and second derivatives."
+                  "methodPlain": "Parametric first and second derivatives.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -2405,8 +2517,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "2e2020.html",
                   "nextHref": "3b2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Chain rule differentiation of a logarithm."
+                  "methodPlain": "Chain rule differentiation of a logarithm.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -2424,8 +2537,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "3a2020.html",
                   "nextHref": "3c2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding where a tangent has a given gradient."
+                  "methodPlain": "Finding where a tangent has a given gradient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -2443,8 +2557,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "3b2020.html",
                   "nextHref": "3d2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Normal gradient and an x-intercept."
+                  "methodPlain": "Normal gradient and an x-intercept.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -2464,8 +2579,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "3c2020.html",
                   "nextHref": "3e2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Stationary points and second derivative classification."
+                  "methodPlain": "Stationary points and second derivative classification.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -2485,8 +2601,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2020.html",
                   "previousHref": "3d2020.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving a differential equation using first and second derivatives."
+                  "methodPlain": "Proving a differential equation using first and second derivatives.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -2514,8 +2631,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": null,
                   "nextHref": "1b2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Chain rule differentiation of a square root."
+                  "methodPlain": "Chain rule differentiation of a square root.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -2533,8 +2651,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "1a2019.html",
                   "nextHref": "1c2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Differentiating a logarithm and evaluating a rate at t = 4."
+                  "methodPlain": "Differentiating a logarithm and evaluating a rate at t = 4.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -2554,8 +2673,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "1b2019.html",
                   "nextHref": "1d2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Quotient rule differentiation and tangent gradient."
+                  "methodPlain": "Quotient rule differentiation and tangent gradient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -2575,8 +2695,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "1c2019.html",
                   "nextHref": "1e2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product rule and finding where a function is decreasing."
+                  "methodPlain": "Product rule and finding where a function is decreasing.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -2596,8 +2717,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "1d2019.html",
                   "nextHref": "2a2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Related rates for the volume and surface area of a sphere."
+                  "methodPlain": "Related rates for the volume and surface area of a sphere.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -2617,8 +2739,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "1e2019.html",
                   "nextHref": "2b2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Chain rule differentiation of a fourth power."
+                  "methodPlain": "Chain rule differentiation of a fourth power.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -2636,8 +2759,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "2a2019.html",
                   "nextHref": "2c2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Differentiating y = tan(2x) and evaluating a tangent gradient."
+                  "methodPlain": "Differentiating y = tan(2x) and evaluating a tangent gradient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -2657,8 +2781,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "2b2019.html",
                   "nextHref": "2d2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Parametric differentiation and evaluating the gradient."
+                  "methodPlain": "Parametric differentiation and evaluating the gradient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -2678,8 +2803,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "2c2019.html",
                   "nextHref": "2e2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Related rates for the height of a rising bridge arm."
+                  "methodPlain": "Related rates for the height of a rising bridge arm.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -2699,8 +2825,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "2d2019.html",
                   "nextHref": "3a2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving a second-derivative chain rule identity."
+                  "methodPlain": "Proving a second-derivative chain rule identity.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -2718,8 +2845,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "2e2019.html",
                   "nextHref": "3b2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Differentiating a cosecant form."
+                  "methodPlain": "Differentiating a cosecant form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -2737,8 +2865,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "3a2019.html",
                   "nextHref": "3c2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reading derivative conditions and limits from a graph."
+                  "methodPlain": "Reading derivative conditions and limits from a graph.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -2758,8 +2887,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "3b2019.html",
                   "nextHref": "3d2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Maximising a rectangle area under y = 4 - square root of x."
+                  "methodPlain": "Maximising a rectangle area under y = 4 - square root of x.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -2777,8 +2907,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "3c2019.html",
                   "nextHref": "3e2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding when acceleration is zero from a velocity model."
+                  "methodPlain": "Finding when acceleration is zero from a velocity model.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -2796,8 +2927,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2019.html",
                   "previousHref": "3d2019.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using a tangent intercept to find the coordinate of P."
+                  "methodPlain": "Using a tangent intercept to find the coordinate of P.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -2825,8 +2957,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": null,
                   "nextHref": "1b2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Negative powers with the power and chain rules."
+                  "methodPlain": "Negative powers with the power and chain rules.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -2844,8 +2977,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "1a2018.html",
                   "nextHref": "1c2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Second derivatives and proving an identity."
+                  "methodPlain": "Second derivatives and proving an identity.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -2863,8 +2997,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "1b2018.html",
                   "nextHref": "1d2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Logarithmic and trigonometric differentiation."
+                  "methodPlain": "Logarithmic and trigonometric differentiation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -2884,8 +3019,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "1c2018.html",
                   "nextHref": "1e2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Related rates for a car, rope, and pulley."
+                  "methodPlain": "Related rates for a car, rope, and pulley.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -2905,8 +3041,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "1d2018.html",
                   "nextHref": "2a2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Parametric first and second derivatives."
+                  "methodPlain": "Parametric first and second derivatives.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -2924,8 +3061,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "1e2018.html",
                   "nextHref": "2b2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Differentiating a radical and a cosecant."
+                  "methodPlain": "Differentiating a radical and a cosecant.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -2943,8 +3081,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "2a2018.html",
                   "nextHref": "2c2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding velocity from a logarithmic distance function."
+                  "methodPlain": "Finding velocity from a logarithmic distance function.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -2962,8 +3101,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "2b2018.html",
                   "nextHref": "2d2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Function values, limits, derivatives, and continuity from a graph."
+                  "methodPlain": "Function values, limits, derivatives, and continuity from a graph.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -2984,8 +3124,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "2c2018.html",
                   "nextHref": "2e2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product rule and stationary points of an exponential function."
+                  "methodPlain": "Product rule and stationary points of an exponential function.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -3005,8 +3146,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "2d2018.html",
                   "nextHref": "3a2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Related rates for surface area in a conical tank."
+                  "methodPlain": "Related rates for surface area in a conical tank.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -3026,8 +3168,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "2e2018.html",
                   "nextHref": "3b2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Quotient rule with an exponential numerator."
+                  "methodPlain": "Quotient rule with an exponential numerator.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -3047,8 +3190,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "3a2018.html",
                   "nextHref": "3c2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding a parametric gradient."
+                  "methodPlain": "Finding a parametric gradient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -3068,8 +3212,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "3b2018.html",
                   "nextHref": "3d2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Maximising the area of a triangle inside a parabola."
+                  "methodPlain": "Maximising the area of a triangle inside a parabola.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -3089,8 +3234,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "3c2018.html",
                   "nextHref": "3e2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product rule and the equation of a tangent."
+                  "methodPlain": "Product rule and the equation of a tangent.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -3110,8 +3256,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2018.html",
                   "previousHref": "3d2018.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Building and minimising a symmetric wire-length model."
+                  "methodPlain": "Building and minimising a symmetric wire-length model.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -3139,8 +3286,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": null,
                   "nextHref": "1b2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Power and chain rules for a square root and trigonometric function."
+                  "methodPlain": "Power and chain rules for a square root and trigonometric function.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -3160,8 +3308,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "1a2017.html",
                   "nextHref": "1c2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Quotient and chain rules, then evaluating a gradient."
+                  "methodPlain": "Quotient and chain rules, then evaluating a gradient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -3179,8 +3328,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "1b2017.html",
                   "nextHref": "1d2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding a normal and its second intersection with a parabola."
+                  "methodPlain": "Finding a normal and its second intersection with a parabola.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -3200,8 +3350,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "1c2017.html",
                   "nextHref": "1e2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Parametric differentiation and evaluating the gradient."
+                  "methodPlain": "Parametric differentiation and evaluating the gradient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -3221,8 +3372,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "1d2017.html",
                   "nextHref": "2a2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Combining point and turning-point conditions to find parameters."
+                  "methodPlain": "Combining point and turning-point conditions to find parameters.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -3242,8 +3394,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "1e2017.html",
                   "nextHref": "2b2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Chain rule differentiation of a composite fifth power."
+                  "methodPlain": "Chain rule differentiation of a composite fifth power.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -3263,8 +3416,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "2a2017.html",
                   "nextHref": "2c2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Maximising a logarithmic germination model over its domain."
+                  "methodPlain": "Maximising a logarithmic germination model over its domain.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -3282,8 +3436,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "2b2017.html",
                   "nextHref": "2d2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "A tangent to a square-root curve and its x-intercept."
+                  "methodPlain": "A tangent to a square-root curve and its x-intercept.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -3303,8 +3458,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "2c2017.html",
                   "nextHref": "2e2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Minimising squared distance from a point to a curve."
+                  "methodPlain": "Minimising squared distance from a point to a curve.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -3324,8 +3480,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "2d2017.html",
                   "nextHref": "3a2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Maximising the area of a rectangle in a semicircle."
+                  "methodPlain": "Maximising the area of a rectangle in a semicircle.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -3346,8 +3503,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "2e2017.html",
                   "nextHref": "3b2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product and chain rules for a logarithmic function."
+                  "methodPlain": "Product and chain rules for a logarithmic function.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -3365,8 +3523,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "3a2017.html",
                   "nextHref": "3c2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Negative powers and evaluating a gradient at a point."
+                  "methodPlain": "Negative powers and evaluating a gradient at a point.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -3384,8 +3543,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "3b2017.html",
                   "nextHref": "3d2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Derivatives, continuity, limits, and concavity from a piecewise graph."
+                  "methodPlain": "Derivatives, continuity, limits, and concavity from a piecewise graph.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -3405,8 +3565,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "3c2017.html",
                   "nextHref": "3e2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Related rates for an elevator and a changing viewing angle."
+                  "methodPlain": "Related rates for an elevator and a changing viewing angle.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -3426,8 +3587,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2017.html",
                   "previousHref": "3d2017.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Second derivatives and a differential-equation parameter."
+                  "methodPlain": "Second derivatives and a differential-equation parameter.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -3453,8 +3615,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": null,
                   "nextHref": "1b2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Power rule differentiation with negative exponents."
+                  "methodPlain": "Power rule differentiation with negative exponents.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -3474,8 +3637,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "1a2016.html",
                   "nextHref": "1c2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Trigonometric chain rule and evaluating a tide-height rate."
+                  "methodPlain": "Trigonometric chain rule and evaluating a tide-height rate.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -3495,8 +3659,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "1b2016.html",
                   "nextHref": "1d2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Parametric differentiation and a tangent gradient."
+                  "methodPlain": "Parametric differentiation and a tangent gradient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -3514,8 +3679,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "1c2016.html",
                   "nextHref": "1e2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Perpendicular tangent gradients on a parabola."
+                  "methodPlain": "Perpendicular tangent gradients on a parabola.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -3535,8 +3701,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "1d2016.html",
                   "nextHref": "2a2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "First and second chain-rule derivatives of an exponential."
+                  "methodPlain": "First and second chain-rule derivatives of an exponential.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -3557,8 +3724,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "1e2016.html",
                   "nextHref": "2b2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product and chain rules with a logarithm."
+                  "methodPlain": "Product and chain rules with a logarithm.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -3578,8 +3746,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "2a2016.html",
                   "nextHref": "2c2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Chain rule differentiation of a square-root function."
+                  "methodPlain": "Chain rule differentiation of a square-root function.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -3599,8 +3768,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "2b2016.html",
                   "nextHref": "2d2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Continuity, differentiability, stationary points, concavity, and limits from a graph."
+                  "methodPlain": "Continuity, differentiability, stationary points, concavity, and limits from a graph.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -3620,8 +3790,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "2c2016.html",
                   "nextHref": "2e2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Related rates for the radius of an inflating sphere."
+                  "methodPlain": "Related rates for the radius of an inflating sphere.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -3641,8 +3812,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "2d2016.html",
                   "nextHref": "3a2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Maximising the volume of a cone inside a sphere."
+                  "methodPlain": "Maximising the volume of a cone inside a sphere.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -3662,8 +3834,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "2e2016.html",
                   "nextHref": "3b2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Chain rule differentiation of a fourth root."
+                  "methodPlain": "Chain rule differentiation of a fourth root.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -3681,8 +3854,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "3a2016.html",
                   "nextHref": "3c2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a horizontal-tangent condition with an exponential."
+                  "methodPlain": "Solving a horizontal-tangent condition with an exponential.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -3702,8 +3876,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "3b2016.html",
                   "nextHref": "3d2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Maximising a rectangle area beneath a parabola."
+                  "methodPlain": "Maximising a rectangle area beneath a parabola.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -3723,8 +3898,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "3c2016.html",
                   "nextHref": "3e2016.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Quotient rule proof with exponential and trigonometric functions."
+                  "methodPlain": "Quotient rule proof with exponential and trigonometric functions.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -3744,8 +3920,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-differentiation-2016.html",
                   "previousHref": "3d2016.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Maximising a rugby conversion angle using trigonometry and calculus."
+                  "methodPlain": "Maximising a rugby conversion angle using trigonometry and calculus.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             }
@@ -3782,8 +3959,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": null,
                   "nextHref": "int-1b2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Recognising a reverse derivative with a sec-tan pattern."
+                  "methodPlain": "Recognising a reverse derivative with a sec-tan pattern.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -3803,8 +3981,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-1a2025.html",
                   "nextHref": "int-1c2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating a derivative and using an initial condition."
+                  "methodPlain": "Integrating a derivative and using an initial condition.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -3822,8 +4001,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-1b2025.html",
                   "nextHref": "int-1d2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Linking two definite integrals to solve for constants."
+                  "methodPlain": "Linking two definite integrals to solve for constants.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -3843,8 +4023,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-1c2025.html",
                   "nextHref": "int-1e2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using product-to-sum before integrating a shaded trig area."
+                  "methodPlain": "Using product-to-sum before integrating a shaded trig area.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -3864,8 +4045,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-1d2025.html",
                   "nextHref": "int-2a2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Separating variables and evaluating the resulting model."
+                  "methodPlain": "Separating variables and evaluating the resulting model.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 },
                 {
                   "id": "2a",
@@ -3885,8 +4067,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-1e2025.html",
                   "nextHref": "int-2b2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reverse chain rule integration of a linear power."
+                  "methodPlain": "Reverse chain rule integration of a linear power.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -3906,8 +4089,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-2a2025.html",
                   "nextHref": "int-2c2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating a rate function and fitting the constant."
+                  "methodPlain": "Integrating a rate function and fitting the constant.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -3925,8 +4109,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-2b2025.html",
                   "nextHref": "int-2d2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using a definite integral to determine a constant."
+                  "methodPlain": "Using a definite integral to determine a constant.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -3946,8 +4131,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-2c2025.html",
                   "nextHref": "int-2e2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Building velocity and displacement from acceleration with initial conditions."
+                  "methodPlain": "Building velocity and displacement from acceleration with initial conditions.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -3967,8 +4153,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-2d2025.html",
                   "nextHref": "int-3a2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Substitution in a shaded trigonometric area problem."
+                  "methodPlain": "Substitution in a shaded trigonometric area problem.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -3988,8 +4175,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-2e2025.html",
                   "nextHref": "int-3b2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Estimating cross-sectional area with the trapezium rule."
+                  "methodPlain": "Estimating cross-sectional area with the trapezium rule.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -4010,8 +4198,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-3a2025.html",
                   "nextHref": "int-3c2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Logarithmic antiderivatives with a linear inside."
+                  "methodPlain": "Logarithmic antiderivatives with a linear inside.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -4031,8 +4220,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-3b2025.html",
                   "nextHref": "int-3d2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a separable differential equation with a radical."
+                  "methodPlain": "Solving a separable differential equation with a radical.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -4050,8 +4240,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-3c2025.html",
                   "nextHref": "int-3e2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving a cubic relation from a shaded area."
+                  "methodPlain": "Proving a cubic relation from a shaded area.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -4069,8 +4260,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2025.html",
                   "previousHref": "int-3d2025.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using weighted-average integrals to find a balance point."
+                  "methodPlain": "Using weighted-average integrals to find a balance point.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -4098,8 +4290,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": null,
                   "nextHref": "int-1b2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Recognising a reverse sec-tan derivative pattern."
+                  "methodPlain": "Recognising a reverse sec-tan derivative pattern.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -4117,8 +4310,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-1a2024.html",
                   "nextHref": "int-1c2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Setting up and evaluating a shaded polynomial area."
+                  "methodPlain": "Setting up and evaluating a shaded polynomial area.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -4138,8 +4332,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-1b2024.html",
                   "nextHref": "int-1d2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating velocity and using a position condition."
+                  "methodPlain": "Integrating velocity and using a position condition.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -4160,8 +4355,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-1c2024.html",
                   "nextHref": "int-1e2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product-to-sum before integrating a differential equation."
+                  "methodPlain": "Product-to-sum before integrating a differential equation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -4179,8 +4375,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-1d2024.html",
                   "nextHref": "int-2a2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding area between sec² and tan² curves."
+                  "methodPlain": "Finding area between sec² and tan² curves.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -4200,8 +4397,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-1e2024.html",
                   "nextHref": "int-2b2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Expanding a square before integrating term by term."
+                  "methodPlain": "Expanding a square before integrating term by term.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -4219,8 +4417,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-2a2024.html",
                   "nextHref": "int-2c2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving for a lower limit from a definite integral."
+                  "methodPlain": "Solving for a lower limit from a definite integral.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -4240,8 +4439,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-2b2024.html",
                   "nextHref": "int-2d2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Separating variables with an exponential model."
+                  "methodPlain": "Separating variables with an exponential model.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 },
                 {
                   "id": "2d",
@@ -4261,8 +4461,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-2c2024.html",
                   "nextHref": "int-2e2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using trig identities in a shaded sin squared x area."
+                  "methodPlain": "Using trig identities in a shaded sin squared x area.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -4282,8 +4483,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-2d2024.html",
                   "nextHref": "int-3a2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Logarithmic substitution in a spherical mass model."
+                  "methodPlain": "Logarithmic substitution in a spherical mass model.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -4303,8 +4505,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-2e2024.html",
                   "nextHref": "int-3b2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating exponential terms with different inside coefficients."
+                  "methodPlain": "Integrating exponential terms with different inside coefficients.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -4324,8 +4527,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-3a2024.html",
                   "nextHref": "int-3c2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a logarithmic differential equation using a condition."
+                  "methodPlain": "Solving a logarithmic differential equation using a condition.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -4345,8 +4549,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-3b2024.html",
                   "nextHref": "int-3d2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Decomposing a rational integrand before solving for a parameter."
+                  "methodPlain": "Decomposing a rational integrand before solving for a parameter.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -4364,8 +4569,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-3c2024.html",
                   "nextHref": "int-3e2024.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Splitting a cosine area into two equal parts."
+                  "methodPlain": "Splitting a cosine area into two equal parts.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -4383,8 +4589,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2024.html",
                   "previousHref": "int-3d2024.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Building and solving a Newton's law of cooling model."
+                  "methodPlain": "Building and solving a Newton's law of cooling model.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -4413,8 +4620,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": null,
                   "nextHref": "int-1b2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Splitting an integral into three familiar antiderivatives."
+                  "methodPlain": "Splitting an integral into three familiar antiderivatives.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -4434,8 +4642,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-1a2023.html",
                   "nextHref": "int-1c2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating velocity to get position, then using the starting distance."
+                  "methodPlain": "Integrating velocity to get position, then using the starting distance.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -4453,8 +4662,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-1b2023.html",
                   "nextHref": "int-1d2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding intersections and the area between square root of x and x squared divided by 8."
+                  "methodPlain": "Finding intersections and the area between square root of x and x squared divided by 8.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -4474,8 +4684,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-1c2023.html",
                   "nextHref": "int-1e2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Separating variables and using a condition to keep the correct solution branch."
+                  "methodPlain": "Separating variables and using a condition to keep the correct solution branch.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -4493,8 +4704,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-1d2023.html",
                   "nextHref": "int-2a2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Combining curve intersections with a subtract-a-cap area strategy."
+                  "methodPlain": "Combining curve intersections with a subtract-a-cap area strategy.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -4512,8 +4724,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-1e2023.html",
                   "nextHref": "int-2b2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reversing a linear exponential chain rule."
+                  "methodPlain": "Reversing a linear exponential chain rule.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -4533,8 +4746,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-2a2023.html",
                   "nextHref": "int-2c2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating a radical differential equation and fitting the constant."
+                  "methodPlain": "Integrating a radical differential equation and fitting the constant.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -4554,8 +4768,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-2b2023.html",
                   "nextHref": "int-2d2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rewriting a rational integrand before solving for k."
+                  "methodPlain": "Rewriting a rational integrand before solving for k.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -4573,8 +4788,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-2c2023.html",
                   "nextHref": "int-2e2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Spotting a logarithmic quotient by differentiating the denominator."
+                  "methodPlain": "Spotting a logarithmic quotient by differentiating the denominator.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -4592,8 +4808,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-2d2023.html",
                   "nextHref": "int-3a2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Building and solving a quadratic decay model for volume."
+                  "methodPlain": "Building and solving a quadratic decay model for volume.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -4613,8 +4830,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-2e2023.html",
                   "nextHref": "int-3b2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using Simpson’s Rule with measured garden ordinates."
+                  "methodPlain": "Using Simpson’s Rule with measured garden ordinates.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -4634,8 +4852,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-3a2023.html",
                   "nextHref": "int-3c2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Simplifying radicals before integrating term by term."
+                  "methodPlain": "Simplifying radicals before integrating term by term.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -4655,8 +4874,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-3b2023.html",
                   "nextHref": "int-3d2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using product-to-sum in a shaded trigonometric area."
+                  "methodPlain": "Using product-to-sum in a shaded trigonometric area.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -4676,8 +4896,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-3c2023.html",
                   "nextHref": "int-3e2023.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating acceleration to velocity with an initial condition."
+                  "methodPlain": "Integrating acceleration to velocity with an initial condition.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -4698,8 +4919,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2023.html",
                   "previousHref": "int-3d2023.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Factor cancellation in a separable differential equation."
+                  "methodPlain": "Factor cancellation in a separable differential equation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 }
               ]
             },
@@ -4727,8 +4949,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": null,
                   "nextHref": "int-1b2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Splitting an integral into logarithm and trig parts."
+                  "methodPlain": "Splitting an integral into logarithm and trig parts.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -4746,8 +4969,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-1a2022.html",
                   "nextHref": "int-1c2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using symmetry and signed area on a graph with no formula."
+                  "methodPlain": "Using symmetry and signed area on a graph with no formula.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -4767,8 +4991,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-1b2022.html",
                   "nextHref": "int-1d2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rewriting sin squared (2x) before integrating exactly."
+                  "methodPlain": "Rewriting sin squared (2x) before integrating exactly.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -4786,8 +5011,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-1c2022.html",
                   "nextHref": "int-1e2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Setting up a shaded-area equation to solve for k."
+                  "methodPlain": "Setting up a shaded-area equation to solve for k.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -4805,8 +5031,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-1d2022.html",
                   "nextHref": "int-2a2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding exact area between exponential curves."
+                  "methodPlain": "Finding exact area between exponential curves.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -4826,8 +5053,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-1e2022.html",
                   "nextHref": "int-2b2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating an exponential term and a square-root term."
+                  "methodPlain": "Integrating an exponential term and a square-root term.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -4845,8 +5073,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-2a2022.html",
                   "nextHref": "int-2c2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving for an upper limit from a definite integral."
+                  "methodPlain": "Solving for an upper limit from a definite integral.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -4866,8 +5095,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-2b2022.html",
                   "nextHref": "int-2d2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Separating variables and using a condition in a log model."
+                  "methodPlain": "Separating variables and using a condition in a log model.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -4885,8 +5115,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-2c2022.html",
                   "nextHref": "int-2e2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Turning acceleration into velocity, then distance over one second."
+                  "methodPlain": "Turning acceleration into velocity, then distance over one second.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -4904,8 +5135,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-2d2022.html",
                   "nextHref": "int-3a2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a separable leakage model for the required time."
+                  "methodPlain": "Solving a separable leakage model for the required time.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -4925,8 +5157,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-2e2022.html",
                   "nextHref": "int-3b2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reverse chain rule on a linear power."
+                  "methodPlain": "Reverse chain rule on a linear power.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -4946,8 +5179,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-3a2022.html",
                   "nextHref": "int-3c2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Applying the Trapezium Rule from tabulated values."
+                  "methodPlain": "Applying the Trapezium Rule from tabulated values.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -4967,8 +5201,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-3b2022.html",
                   "nextHref": "int-3d2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Simplifying a rational integrand before evaluating it."
+                  "methodPlain": "Simplifying a rational integrand before evaluating it.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -4986,8 +5221,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-3c2022.html",
                   "nextHref": "int-3e2022.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Identifying top-minus-bottom for an area between a curve and a line."
+                  "methodPlain": "Identifying top-minus-bottom for an area between a curve and a line.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -5005,8 +5241,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2022.html",
                   "previousHref": "int-3d2022.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Expressing a shaded region as rectangle minus logarithmic curve area."
+                  "methodPlain": "Expressing a shaded region as rectangle minus logarithmic curve area.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -5034,8 +5271,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": null,
                   "nextHref": "int-1b2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating a linear term and a reciprocal term."
+                  "methodPlain": "Integrating a linear term and a reciprocal term.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -5055,8 +5293,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-1a2021.html",
                   "nextHref": "int-1c2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating a gradient function and fitting the constant."
+                  "methodPlain": "Integrating a gradient function and fitting the constant.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -5074,8 +5313,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-1b2021.html",
                   "nextHref": "int-1d2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using the curve equation to find the area between x = 1 and x = 2."
+                  "methodPlain": "Using the curve equation to find the area between x = 1 and x = 2.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -5095,8 +5335,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-1c2021.html",
                   "nextHref": "int-1e2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating acceleration twice with initial conditions."
+                  "methodPlain": "Integrating acceleration twice with initial conditions.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -5114,8 +5355,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-1d2021.html",
                   "nextHref": "int-2a2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a square-root leakage model from two volume readings."
+                  "methodPlain": "Solving a square-root leakage model from two volume readings.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -5133,8 +5375,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-1e2021.html",
                   "nextHref": "int-2b2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating exponential and radical terms."
+                  "methodPlain": "Integrating exponential and radical terms.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -5152,8 +5395,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-2a2021.html",
                   "nextHref": "int-2c2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Adding a constant inside a definite integral."
+                  "methodPlain": "Adding a constant inside a definite integral.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -5173,8 +5417,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-2b2021.html",
                   "nextHref": "int-2d2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using product-to-sum before integrating a trig product."
+                  "methodPlain": "Using product-to-sum before integrating a trig product.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -5192,8 +5437,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-2c2021.html",
                   "nextHref": "int-2e2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Setting a shaded logarithmic area equal to 4 and solving for k."
+                  "methodPlain": "Setting a shaded logarithmic area equal to 4 and solving for k.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -5213,8 +5459,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-2d2021.html",
                   "nextHref": "int-3a2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a separable differential equation to find a vertical distance."
+                  "methodPlain": "Solving a separable differential equation to find a vertical distance.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -5234,8 +5481,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-2e2021.html",
                   "nextHref": "int-3b2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Expanding (x + square root of x) squared before integrating."
+                  "methodPlain": "Expanding (x + square root of x) squared before integrating.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -5255,8 +5503,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-3a2021.html",
                   "nextHref": "int-3c2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Applying the Trapezium Rule with a width of 0.25."
+                  "methodPlain": "Applying the Trapezium Rule with a width of 0.25.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -5276,8 +5525,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-3b2021.html",
                   "nextHref": "int-3d2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Separating a trigonometric differential equation and using a condition."
+                  "methodPlain": "Separating a trigonometric differential equation and using a condition.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -5295,8 +5545,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-3c2021.html",
                   "nextHref": "int-3e2021.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding graph limits and integrating a rational curve."
+                  "methodPlain": "Finding graph limits and integrating a rational curve.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -5314,8 +5565,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2021.html",
                   "previousHref": "int-3d2021.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving an exponential shaded-area formula in terms of k."
+                  "methodPlain": "Proving an exponential shaded-area formula in terms of k.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -5344,8 +5596,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": null,
                   "nextHref": "int-1b2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Power, constant, and logarithmic antiderivatives."
+                  "methodPlain": "Power, constant, and logarithmic antiderivatives.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -5365,8 +5618,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-1a2020.html",
                   "nextHref": "int-1c2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating velocity and using the initial displacement."
+                  "methodPlain": "Integrating velocity and using the initial displacement.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -5386,8 +5640,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-1b2020.html",
                   "nextHref": "int-1d2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rewriting a rational integrand before evaluating it."
+                  "methodPlain": "Rewriting a rational integrand before evaluating it.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -5405,8 +5660,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-1c2020.html",
                   "nextHref": "int-1e2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding intersections and the area between a curve and a line."
+                  "methodPlain": "Finding intersections and the area between a curve and a line.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -5426,8 +5682,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-1d2020.html",
                   "nextHref": "int-2a2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Separating a logarithmic trigonometric differential equation."
+                  "methodPlain": "Separating a logarithmic trigonometric differential equation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -5447,8 +5704,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-1e2020.html",
                   "nextHref": "int-2b2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating a reciprocal-square term."
+                  "methodPlain": "Integrating a reciprocal-square term.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -5468,8 +5726,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-2a2020.html",
                   "nextHref": "int-2c2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Applying Simpson’s Rule to tabulated values."
+                  "methodPlain": "Applying Simpson’s Rule to tabulated values.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -5489,8 +5748,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-2b2020.html",
                   "nextHref": "int-2d2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reverse chain-rule integration of a square root."
+                  "methodPlain": "Reverse chain-rule integration of a square root.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -5510,8 +5770,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-2c2020.html",
                   "nextHref": "int-2e2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "A separable radical and trigonometric differential equation."
+                  "methodPlain": "A separable radical and trigonometric differential equation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -5529,8 +5790,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-2d2020.html",
                   "nextHref": "int-3a2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Splitting geometric area where a curve crosses the axis."
+                  "methodPlain": "Splitting geometric area where a curve crosses the axis.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -5550,8 +5812,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-2e2020.html",
                   "nextHref": "int-3b2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Recognising the reverse sec-tan derivative."
+                  "methodPlain": "Recognising the reverse sec-tan derivative.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -5571,8 +5834,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-3a2020.html",
                   "nextHref": "int-3c2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating a gradient and using an initial condition."
+                  "methodPlain": "Integrating a gradient and using an initial condition.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -5592,8 +5856,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-3b2020.html",
                   "nextHref": "int-3d2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating acceleration to find velocity."
+                  "methodPlain": "Integrating acceleration to find velocity.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -5611,8 +5876,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-3c2020.html",
                   "nextHref": "int-3e2020.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving an exponential radioactive-decay model."
+                  "methodPlain": "Solving an exponential radioactive-decay model.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -5632,8 +5898,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2020.html",
                   "previousHref": "int-3d2020.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product-to-sum in an area between cosine curves."
+                  "methodPlain": "Product-to-sum in an area between cosine curves.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -5661,8 +5928,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": null,
                   "nextHref": "int-1b2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rewriting a radical denominator and integrating a power."
+                  "methodPlain": "Rewriting a radical denominator and integrating a power.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -5682,8 +5950,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-1a2019.html",
                   "nextHref": "int-1c2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Applying the Trapezium Rule to tabulated values."
+                  "methodPlain": "Applying the Trapezium Rule to tabulated values.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -5703,8 +5972,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-1b2019.html",
                   "nextHref": "int-1d2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using product-to-sum before evaluating a trig integral."
+                  "methodPlain": "Using product-to-sum before evaluating a trig integral.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -5722,8 +5992,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-1c2019.html",
                   "nextHref": "int-1e2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving equal areas under a reciprocal-root curve."
+                  "methodPlain": "Proving equal areas under a reciprocal-root curve.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -5743,8 +6014,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-1d2019.html",
                   "nextHref": "int-2a2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving an exponential-growth relation from a differential equation."
+                  "methodPlain": "Proving an exponential-growth relation from a differential equation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -5764,8 +6036,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-1e2019.html",
                   "nextHref": "int-2b2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reversing the chain rule for an exponential term."
+                  "methodPlain": "Reversing the chain rule for an exponential term.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -5783,8 +6056,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-2a2019.html",
                   "nextHref": "int-2c2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using signed areas and symmetry on a graph."
+                  "methodPlain": "Using signed areas and symmetry on a graph.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -5802,8 +6076,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-2b2019.html",
                   "nextHref": "int-2d2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving for an upper limit from a logarithmic integral."
+                  "methodPlain": "Solving for an upper limit from a logarithmic integral.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -5821,8 +6096,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-2c2019.html",
                   "nextHref": "int-2e2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using the cos squared x identity to find shaded area."
+                  "methodPlain": "Using the cos squared x identity to find shaded area.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -5840,8 +6116,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-2d2019.html",
                   "nextHref": "int-3a2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding area between two exponential curves."
+                  "methodPlain": "Finding area between two exponential curves.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -5861,8 +6138,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-2e2019.html",
                   "nextHref": "int-3b2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reverse chain rule integration of a cubic power."
+                  "methodPlain": "Reverse chain rule integration of a cubic power.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -5882,8 +6160,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-3a2019.html",
                   "nextHref": "int-3c2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating a sec squared (2x) differential equation."
+                  "methodPlain": "Integrating a sec squared (2x) differential equation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -5903,8 +6182,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-3b2019.html",
                   "nextHref": "int-3d2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rewriting a rational integrand before evaluating it."
+                  "methodPlain": "Rewriting a rational integrand before evaluating it.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -5924,8 +6204,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-3c2019.html",
                   "nextHref": "int-3e2019.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating a derivative and using an initial condition."
+                  "methodPlain": "Integrating a derivative and using an initial condition.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -5943,8 +6224,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2019.html",
                   "previousHref": "int-3d2019.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Pumping energy with similar triangles and a definite integral."
+                  "methodPlain": "Pumping energy with similar triangles and a definite integral.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -5972,8 +6254,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": null,
                   "nextHref": "int-1b2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Negative powers and the integration constant."
+                  "methodPlain": "Negative powers and the integration constant.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -5993,8 +6276,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-1a2018.html",
                   "nextHref": "int-1c2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating a differential equation and using an initial condition."
+                  "methodPlain": "Integrating a differential equation and using an initial condition.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -6014,8 +6298,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-1b2018.html",
                   "nextHref": "int-1d2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Algebraic division before logarithmic integration."
+                  "methodPlain": "Algebraic division before logarithmic integration.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -6035,8 +6320,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-1c2018.html",
                   "nextHref": "int-1e2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Separating variables and applying an initial condition."
+                  "methodPlain": "Separating variables and applying an initial condition.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -6054,8 +6340,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-1d2018.html",
                   "nextHref": "int-2a2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using a point on an exponential curve to prove an area result."
+                  "methodPlain": "Using a point on an exponential curve to prove an area result.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -6075,8 +6362,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-1e2018.html",
                   "nextHref": "int-2b2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reverse trigonometric derivative patterns."
+                  "methodPlain": "Reverse trigonometric derivative patterns.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -6094,8 +6382,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-2a2018.html",
                   "nextHref": "int-2c2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding an upper limit from a radical integral."
+                  "methodPlain": "Finding an upper limit from a radical integral.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -6115,8 +6404,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-2b2018.html",
                   "nextHref": "int-2d2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "A double-angle identity and the first positive trig solution."
+                  "methodPlain": "A double-angle identity and the first positive trig solution.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -6136,8 +6426,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-2c2018.html",
                   "nextHref": "int-2e2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Building velocity and distance from acceleration."
+                  "methodPlain": "Building velocity and distance from acceleration.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -6155,8 +6446,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-2d2018.html",
                   "nextHref": "int-3a2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving and fitting an exponential candle-mass model."
+                  "methodPlain": "Solving and fitting an exponential candle-mass model.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -6176,8 +6468,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-2e2018.html",
                   "nextHref": "int-3b2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Expansion, the power rule, and logarithmic integration."
+                  "methodPlain": "Expansion, the power rule, and logarithmic integration.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -6197,8 +6490,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-3a2018.html",
                   "nextHref": "int-3c2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Simpson's Rule and its alternating coefficients."
+                  "methodPlain": "Simpson's Rule and its alternating coefficients.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -6216,8 +6510,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-3b2018.html",
                   "nextHref": "int-3d2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving an exponential definite integral for its limit."
+                  "methodPlain": "Solving an exponential definite integral for its limit.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -6235,8 +6530,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-3c2018.html",
                   "nextHref": "int-3e2018.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Intersections and area between a cube-root curve and a parabola."
+                  "methodPlain": "Intersections and area between a cube-root curve and a parabola.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -6254,8 +6550,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2018.html",
                   "previousHref": "int-3d2018.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Subtracting the tangent area from the area under a quartic."
+                  "methodPlain": "Subtracting the tangent area from the area under a quartic.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -6281,8 +6578,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": null,
                   "nextHref": "int-1b2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reversing the derivative of a tangent function."
+                  "methodPlain": "Reversing the derivative of a tangent function.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -6300,8 +6598,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-1a2017.html",
                   "nextHref": "int-1c2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using a definite integral to find an enclosed area."
+                  "methodPlain": "Using a definite integral to find an enclosed area.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -6321,8 +6620,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-1b2017.html",
                   "nextHref": "int-1d2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Building velocity and displacement from acceleration."
+                  "methodPlain": "Building velocity and displacement from acceleration.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -6340,8 +6640,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-1c2017.html",
                   "nextHref": "int-1e2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving for an unknown limit in an exponential integral."
+                  "methodPlain": "Solving for an unknown limit in an exponential integral.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -6361,8 +6662,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-1d2017.html",
                   "nextHref": "int-2a2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding a mean value using a squared-trigonometric identity."
+                  "methodPlain": "Finding a mean value using a squared-trigonometric identity.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -6382,8 +6684,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-1e2017.html",
                   "nextHref": "int-2b2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Logarithmic integration with a linear denominator."
+                  "methodPlain": "Logarithmic integration with a linear denominator.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -6403,8 +6706,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-2a2017.html",
                   "nextHref": "int-2c2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Reversing the chain rule for a linear power."
+                  "methodPlain": "Reversing the chain rule for a linear power.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -6422,8 +6726,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-2b2017.html",
                   "nextHref": "int-2d2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding the shaded area between a parabola and its tangent."
+                  "methodPlain": "Finding the shaded area between a parabola and its tangent.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -6443,8 +6748,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-2c2017.html",
                   "nextHref": "int-2e2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Product-to-sum before integrating a trigonometric area."
+                  "methodPlain": "Product-to-sum before integrating a trigonometric area.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -6462,8 +6768,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-2d2017.html",
                   "nextHref": "int-3a2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating logarithmic acceleration to find velocity."
+                  "methodPlain": "Integrating logarithmic acceleration to find velocity.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -6483,8 +6790,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-2e2017.html",
                   "nextHref": "int-3b2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Integrating polynomial and exponential terms."
+                  "methodPlain": "Integrating polynomial and exponential terms.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -6504,8 +6812,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-3a2017.html",
                   "nextHref": "int-3c2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Applying the Trapezium Rule to courtyard measurements."
+                  "methodPlain": "Applying the Trapezium Rule to courtyard measurements.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -6525,8 +6834,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-3b2017.html",
                   "nextHref": "int-3d2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rewriting a rational function to find the exact courtyard area."
+                  "methodPlain": "Rewriting a rational function to find the exact courtyard area.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -6546,8 +6856,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-3c2017.html",
                   "nextHref": "int-3e2017.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a separable differential equation with a condition."
+                  "methodPlain": "Solving a separable differential equation with a condition.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -6568,8 +6879,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-integration-2017.html",
                   "previousHref": "int-3d2017.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Substitution in a parameterised differential equation."
+                  "methodPlain": "Substitution in a parameterised differential equation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             }
@@ -6606,8 +6918,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": null,
                   "nextHref": "complex-1b2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Polynomial division and using the remainder to find p."
+                  "methodPlain": "Polynomial division and using the remainder to find p.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -6627,8 +6940,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-1a2025.html",
                   "nextHref": "complex-1c2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Completing the square and solving in terms of k."
+                  "methodPlain": "Completing the square and solving in terms of k.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -6646,8 +6960,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-1b2025.html",
                   "nextHref": "complex-1d2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Discriminants and proving real roots for every real k."
+                  "methodPlain": "Discriminants and proving real roots for every real k.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -6667,8 +6982,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-1c2025.html",
                   "nextHref": "complex-1e2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Writing cube roots in polar form."
+                  "methodPlain": "Writing cube roots in polar form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -6686,8 +7002,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-1d2025.html",
                   "nextHref": "complex-2a2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Converting a modulus locus into a Cartesian equation."
+                  "methodPlain": "Converting a modulus locus into a Cartesian equation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 },
                 {
                   "id": "2a",
@@ -6707,8 +7024,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-1e2025.html",
                   "nextHref": "complex-2b2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Combining complex numbers from an Argand diagram."
+                  "methodPlain": "Combining complex numbers from an Argand diagram.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -6728,8 +7046,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-2a2025.html",
                   "nextHref": "complex-2c2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "De Moivre’s Theorem and converting to a + bi."
+                  "methodPlain": "De Moivre’s Theorem and converting to a + bi.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -6747,8 +7066,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-2b2025.html",
                   "nextHref": "complex-2d2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a modulus equation with a real parameter."
+                  "methodPlain": "Solving a modulus equation with a real parameter.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -6768,8 +7088,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-2c2025.html",
                   "nextHref": "complex-2e2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Matching real and imaginary parts after expansion."
+                  "methodPlain": "Matching real and imaginary parts after expansion.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -6789,8 +7110,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-2d2025.html",
                   "nextHref": "complex-3a2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using an argument condition to solve for a real constant."
+                  "methodPlain": "Using an argument condition to solve for a real constant.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -6810,8 +7132,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-2e2025.html",
                   "nextHref": "complex-3b2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Conjugate roots and forming a quadratic with real coefficients."
+                  "methodPlain": "Conjugate roots and forming a quadratic with real coefficients.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -6831,8 +7154,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-3a2025.html",
                   "nextHref": "complex-3c2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Squaring and simplifying a complex expression."
+                  "methodPlain": "Squaring and simplifying a complex expression.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -6852,8 +7176,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-3b2025.html",
                   "nextHref": "complex-3d2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a radical equation with the substitution square root of x = u."
+                  "methodPlain": "Solving a radical equation with the substitution square root of x = u.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -6873,8 +7198,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-3c2025.html",
                   "nextHref": "complex-3e2025.html",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Factorising a cubic and matching coefficients."
+                  "methodPlain": "Factorising a cubic and matching coefficients.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -6894,8 +7220,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2025.html",
                   "previousHref": "complex-3d2025.html",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving simultaneous equations with complex numbers."
+                  "methodPlain": "Solving simultaneous equations with complex numbers.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -6923,8 +7250,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": null,
                   "nextHref": "complex-2024.html?q=1b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using the factor theorem to find p."
+                  "methodPlain": "Using the factor theorem to find p.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -6944,8 +7272,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=1a",
                   "nextHref": "complex-2024.html?q=1c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "De Moivre’s Theorem in polar form."
+                  "methodPlain": "De Moivre’s Theorem in polar form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -6965,8 +7294,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=1b",
                   "nextHref": "complex-2024.html?q=1d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a surd equation in terms of k."
+                  "methodPlain": "Solving a surd equation in terms of k.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -6984,8 +7314,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=1c",
                   "nextHref": "complex-2024.html?q=1e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Turning a modulus locus into a line."
+                  "methodPlain": "Turning a modulus locus into a line.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -7005,8 +7336,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=1d",
                   "nextHref": "complex-2024.html?q=2a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Showing a complex quotient cannot lie on y = x."
+                  "methodPlain": "Showing a complex quotient cannot lie on y = x.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -7026,8 +7358,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=1e",
                   "nextHref": "complex-2024.html?q=2b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rewriting a complex fraction as a + bi."
+                  "methodPlain": "Rewriting a complex fraction as a + bi.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -7047,8 +7380,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=2a",
                   "nextHref": "complex-2024.html?q=2c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Equal roots and the discriminant."
+                  "methodPlain": "Equal roots and the discriminant.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -7066,8 +7400,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=2b",
                   "nextHref": "complex-2024.html?q=2d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving for w before finding |w|."
+                  "methodPlain": "Solving for w before finding |w|.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -7087,8 +7422,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=2c",
                   "nextHref": "complex-2024.html?q=2e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Conjugate roots, factorisation, and finding d."
+                  "methodPlain": "Conjugate roots, factorisation, and finding d.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -7108,8 +7444,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=2d",
                   "nextHref": "complex-2024.html?q=3a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding a circle locus and the matching complex numbers."
+                  "methodPlain": "Finding a circle locus and the matching complex numbers.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -7129,8 +7466,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=2e",
                   "nextHref": "complex-2024.html?q=3b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising a surd denominator."
+                  "methodPlain": "Rationalising a surd denominator.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -7150,8 +7488,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=3a",
                   "nextHref": "complex-2024.html?q=3c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Squaring a plotted complex number on an Argand diagram."
+                  "methodPlain": "Squaring a plotted complex number on an Argand diagram.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -7169,8 +7508,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=3b",
                   "nextHref": "complex-2024.html?q=3d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using z, conjugate of (z), and z to the power (-1) to solve for d."
+                  "methodPlain": "Using z, conjugate of (z), and z to the power (-1) to solve for d.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -7182,7 +7522,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "title": "Polar Form Worked Solution – 2024 NCEA Level 3 Q3(d) (AS91577) | Calc.nz",
                   "description": "2024 NCEA Level 3 Complex Numbers AS91577 Question 3(d) worked solution: fourth roots in polar form. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise fourth roots in polar form. Use the hints to plan the method, then repeat the question without hints and check each step.",
-                  "commonMistake": "List all four distinct roots with the correct angular spacing and in the form the question requests.",
+                  "commonMistake": "Check whether the right-hand side is zero before using the polar-root rule; only a non-zero right-hand side gives the listed distinct, equally spaced roots.",
                   "skillSlugs": [
                     "polar-form-de-moivre"
                   ],
@@ -7190,8 +7530,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=3c",
                   "nextHref": "complex-2024.html?q=3e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Fourth roots in polar form."
+                  "methodPlain": "Fourth roots in polar form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 },
                 {
                   "id": "3e",
@@ -7209,8 +7550,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2024.html",
                   "previousHref": "complex-2024.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Cubing x + 1 divided by x to find x cubed + 1 divided by x cubed."
+                  "methodPlain": "Cubing x + 1 divided by x to find x cubed + 1 divided by x cubed.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -7238,8 +7580,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": null,
                   "nextHref": "complex-2023.html?q=1b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Expanding a surd binomial into the form a + bp + c square root of p."
+                  "methodPlain": "Expanding a surd binomial into the form a + bp + c square root of p.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -7259,8 +7602,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=1a",
                   "nextHref": "complex-2023.html?q=1c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using the discriminant to find when a quadratic has no real roots."
+                  "methodPlain": "Using the discriminant to find when a quadratic has no real roots.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -7280,8 +7624,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=1b",
                   "nextHref": "complex-2023.html?q=1d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising a quotient and reading its real part."
+                  "methodPlain": "Rationalising a quotient and reading its real part.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -7301,8 +7646,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=1c",
                   "nextHref": "complex-2023.html?q=1e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Conjugate roots and factorising a cubic with a real constant."
+                  "methodPlain": "Conjugate roots and factorising a cubic with a real constant.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -7320,8 +7666,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=1d",
                   "nextHref": "complex-2023.html?q=2a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Simplifying u divided by v and solving a modulus equation in k."
+                  "methodPlain": "Simplifying u divided by v and solving a modulus equation in k.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -7342,8 +7689,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=1e",
                   "nextHref": "complex-2023.html?q=2b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Dividing complex numbers in polar form."
+                  "methodPlain": "Dividing complex numbers in polar form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -7361,8 +7709,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=2a",
                   "nextHref": "complex-2023.html?q=2c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding a modulus in terms of a real parameter."
+                  "methodPlain": "Finding a modulus in terms of a real parameter.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -7382,8 +7731,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=2b",
                   "nextHref": "complex-2023.html?q=2d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving for z before finding its argument."
+                  "methodPlain": "Solving for z before finding its argument.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -7395,7 +7745,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "title": "Polar Form Worked Solution – 2023 NCEA Level 3 Q2(d) (AS91577) | Calc.nz",
                   "description": "2023 NCEA Level 3 Complex Numbers AS91577 Question 2(d) worked solution: writing all cube roots in polar form. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise writing all cube roots in polar form. Use the hints to plan the method, then repeat the question without hints and check each step.",
-                  "commonMistake": "List all three distinct roots with the correct angular spacing and in the form the question requests.",
+                  "commonMistake": "Check whether the right-hand side is zero before using the polar-root rule; only a non-zero right-hand side gives the listed distinct, equally spaced roots.",
                   "skillSlugs": [
                     "polar-form-de-moivre"
                   ],
@@ -7403,8 +7753,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=2c",
                   "nextHref": "complex-2023.html?q=2e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Writing all cube roots in polar form."
+                  "methodPlain": "Writing all cube roots in polar form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 },
                 {
                   "id": "2e",
@@ -7422,8 +7773,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=2d",
                   "nextHref": "complex-2023.html?q=3a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Turning a locus into a circle and using tangency."
+                  "methodPlain": "Turning a locus into a circle and using tangency.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -7443,8 +7795,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=2e",
                   "nextHref": "complex-2023.html?q=3b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using the remainder theorem to find p."
+                  "methodPlain": "Using the remainder theorem to find p.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -7464,8 +7817,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=3a",
                   "nextHref": "complex-2023.html?q=3c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Multiplying by a complex number to solve for n."
+                  "methodPlain": "Multiplying by a complex number to solve for n.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -7485,8 +7839,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=3b",
                   "nextHref": "complex-2023.html?q=3d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a surd equation for x in terms of w."
+                  "methodPlain": "Solving a surd equation for x in terms of w.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 },
                 {
                   "id": "3d",
@@ -7506,8 +7861,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=3c",
                   "nextHref": "complex-2023.html?q=3e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Simplifying reciprocal complex expressions to find x and y."
+                  "methodPlain": "Simplifying reciprocal complex expressions to find x and y.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -7525,8 +7881,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2023.html",
                   "previousHref": "complex-2023.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding z, then w, and using Im(w)."
+                  "methodPlain": "Finding z, then w, and using Im(w).",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -7554,8 +7911,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": null,
                   "nextHref": "complex-2022.html?q=1b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising a surd denominator into the required exact form."
+                  "methodPlain": "Rationalising a surd denominator into the required exact form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -7576,8 +7934,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=1a",
                   "nextHref": "complex-2022.html?q=1c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Dividing complex numbers in polar form."
+                  "methodPlain": "Dividing complex numbers in polar form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -7598,8 +7957,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=1b",
                   "nextHref": "complex-2022.html?q=1d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using an argument condition to match real and imaginary parts."
+                  "methodPlain": "Using an argument condition to match real and imaginary parts.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -7619,8 +7979,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=1c",
                   "nextHref": "complex-2022.html?q=1e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Isolating a surd and using the discriminant to find p."
+                  "methodPlain": "Isolating a surd and using the discriminant to find p.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 },
                 {
                   "id": "1e",
@@ -7638,8 +7999,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=1d",
                   "nextHref": "complex-2022.html?q=2a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving an identity involving moduli and real parts."
+                  "methodPlain": "Proving an identity involving moduli and real parts.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -7659,8 +8021,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=1e",
                   "nextHref": "complex-2022.html?q=2b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using the remainder theorem to find b."
+                  "methodPlain": "Using the remainder theorem to find b.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -7678,8 +8041,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=2a",
                   "nextHref": "complex-2022.html?q=2c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving for z using z and conjugate of (z)."
+                  "methodPlain": "Solving for z using z and conjugate of (z).",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -7699,8 +8063,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=2b",
                   "nextHref": "complex-2022.html?q=2d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Factorising a cubic with a known root and finding h."
+                  "methodPlain": "Factorising a cubic with a known root and finding h.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -7721,8 +8086,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=2c",
                   "nextHref": "complex-2022.html?q=2e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising first, then finding the principal argument."
+                  "methodPlain": "Rationalising first, then finding the principal argument.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -7740,8 +8106,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=2d",
                   "nextHref": "complex-2022.html?q=3a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Turning a modulus locus into a circle equation."
+                  "methodPlain": "Turning a modulus locus into a circle equation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -7759,8 +8126,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=2e",
                   "nextHref": "complex-2022.html?q=3b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Combining Argand-diagram points and plotting the result."
+                  "methodPlain": "Combining Argand-diagram points and plotting the result.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -7780,8 +8148,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=3a",
                   "nextHref": "complex-2022.html?q=3c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Completing the square to solve in terms of k."
+                  "methodPlain": "Completing the square to solve in terms of k.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -7793,7 +8162,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "title": "Polar Form Worked Solution – 2022 NCEA Level 3 Q3(c) (AS91577) | Calc.nz",
                   "description": "2022 NCEA Level 3 Complex Numbers AS91577 Question 3(c) worked solution: finding the three cube roots in polar form. Use guided hints and step-by-step…",
                   "summary": "This walkthrough helps you practise finding the three cube roots in polar form. Use the hints to plan the method, then repeat the question without hints and check each step.",
-                  "commonMistake": "List all three distinct roots with the correct angular spacing and in the form the question requests.",
+                  "commonMistake": "Check whether the right-hand side is zero before using the polar-root rule; only a non-zero right-hand side gives the listed distinct, equally spaced roots.",
                   "skillSlugs": [
                     "polar-form-de-moivre"
                   ],
@@ -7801,8 +8170,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=3b",
                   "nextHref": "complex-2022.html?q=3d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding the three cube roots in polar form."
+                  "methodPlain": "Finding the three cube roots in polar form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 },
                 {
                   "id": "3d",
@@ -7822,8 +8192,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=3c",
                   "nextHref": "complex-2022.html?q=3e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving that a complex equation has no solution."
+                  "methodPlain": "Proving that a complex equation has no solution.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -7841,8 +8212,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2022.html",
                   "previousHref": "complex-2022.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving for a and b from z and conjugate of (z)."
+                  "methodPlain": "Solving for a and b from z and conjugate of (z).",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -7870,8 +8242,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": null,
                   "nextHref": "complex-2021.html?q=1b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Multiplying complex numbers and matching real or imaginary parts."
+                  "methodPlain": "Multiplying complex numbers and matching real or imaginary parts.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -7891,8 +8264,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=1a",
                   "nextHref": "complex-2021.html?q=1c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising 26 divided by z and plotting 4 - 6i on an Argand diagram."
+                  "methodPlain": "Rationalising 26 divided by z and plotting 4 - 6i on an Argand diagram.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -7912,8 +8286,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=1b",
                   "nextHref": "complex-2021.html?q=1d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using the remainder theorem and factor theorem to find a and b."
+                  "methodPlain": "Using the remainder theorem and factor theorem to find a and b.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -7931,8 +8306,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=1c",
                   "nextHref": "complex-2021.html?q=1e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Converting a quotient to a + bi and reading its argument."
+                  "methodPlain": "Converting a quotient to a + bi and reading its argument.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -7950,8 +8326,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=1d",
                   "nextHref": "complex-2021.html?q=2a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving a circular locus in Cartesian form."
+                  "methodPlain": "Proving a circular locus in Cartesian form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -7972,8 +8349,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=1e",
                   "nextHref": "complex-2021.html?q=2b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Dividing complex numbers in cis form."
+                  "methodPlain": "Dividing complex numbers in cis form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -7993,8 +8371,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=2a",
                   "nextHref": "complex-2021.html?q=2c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Completing the square to solve a quadratic in terms of q."
+                  "methodPlain": "Completing the square to solve a quadratic in terms of q.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -8014,8 +8393,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=2b",
                   "nextHref": "complex-2021.html?q=2d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using conjugate multiplication to prove a quotient is purely imaginary."
+                  "methodPlain": "Using conjugate multiplication to prove a quotient is purely imaginary.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -8027,7 +8407,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "title": "Complex Roots Worked Solution – 2021 NCEA Level 3 Q2(d) (AS91577) | Calc.nz",
                   "description": "2021 NCEA Level 3 Complex Numbers AS91577 Question 2(d) worked solution: finding cube roots in cis form. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise finding cube roots in \\(\\operatorname{cis}\\) form. Use the hints to plan the method, then repeat the question without hints and check each step.",
-                  "commonMistake": "List all three distinct roots with the correct angular spacing and in the form the question requests.",
+                  "commonMistake": "Check whether the right-hand side is zero before using the polar-root rule; only a non-zero right-hand side gives the listed distinct, equally spaced roots.",
                   "skillSlugs": [
                     "polar-form-de-moivre"
                   ],
@@ -8035,8 +8415,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=2c",
                   "nextHref": "complex-2021.html?q=2e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding cube roots in cis form."
+                  "methodPlain": "Finding cube roots in cis form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 },
                 {
                   "id": "2e",
@@ -8054,8 +8435,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=2d",
                   "nextHref": "complex-2021.html?q=3a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Turning a modulus equation into the circle |z| = 4."
+                  "methodPlain": "Turning a modulus equation into the circle |z| = 4.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -8075,8 +8457,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=2e",
                   "nextHref": "complex-2021.html?q=3b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using modulus and argument to choose the correct value of m."
+                  "methodPlain": "Using modulus and argument to choose the correct value of m.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -8096,8 +8479,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=3a",
                   "nextHref": "complex-2021.html?q=3c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising a surd denominator into a + b square root of 3."
+                  "methodPlain": "Rationalising a surd denominator into a + b square root of 3.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -8117,8 +8501,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=3b",
                   "nextHref": "complex-2021.html?q=3d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Conjugate roots, cubic factorisation, and finding A."
+                  "methodPlain": "Conjugate roots, cubic factorisation, and finding A.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -8138,8 +8523,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=3c",
                   "nextHref": "complex-2021.html?q=3e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a radical equation in terms of m."
+                  "methodPlain": "Solving a radical equation in terms of m.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 },
                 {
                   "id": "3e",
@@ -8159,8 +8545,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2021.html",
                   "previousHref": "complex-2021.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a complex equation by equating real and imaginary parts."
+                  "methodPlain": "Solving a complex equation by equating real and imaginary parts.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -8188,8 +8575,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": null,
                   "nextHref": "complex-2020.html?q=1b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Multiplying complex numbers and matching corresponding parts."
+                  "methodPlain": "Multiplying complex numbers and matching corresponding parts.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -8209,8 +8597,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=1a",
                   "nextHref": "complex-2020.html?q=1c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using a zero discriminant to find a repeated root."
+                  "methodPlain": "Using a zero discriminant to find a repeated root.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -8230,8 +8619,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=1b",
                   "nextHref": "complex-2020.html?q=1d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a surd equation in terms of g."
+                  "methodPlain": "Solving a surd equation in terms of g.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 },
                 {
                   "id": "1d",
@@ -8251,8 +8641,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=1c",
                   "nextHref": "complex-2020.html?q=1e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising and simplifying complex fractions."
+                  "methodPlain": "Rationalising and simplifying complex fractions.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -8272,8 +8663,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=1d",
                   "nextHref": "complex-2020.html?q=2a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving an identity involving a complex quotient."
+                  "methodPlain": "Proving an identity involving a complex quotient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -8293,8 +8685,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=1e",
                   "nextHref": "complex-2020.html?q=2b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Applying the factor theorem to find q."
+                  "methodPlain": "Applying the factor theorem to find q.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -8312,8 +8705,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=2a",
                   "nextHref": "complex-2020.html?q=2c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a modulus equation for all real values of k."
+                  "methodPlain": "Solving a modulus equation for all real values of k.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -8333,8 +8727,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=2b",
                   "nextHref": "complex-2020.html?q=2d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Conjugate roots, cubic factorisation, and coefficient matching."
+                  "methodPlain": "Conjugate roots, cubic factorisation, and coefficient matching.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -8354,8 +8749,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=2c",
                   "nextHref": "complex-2020.html?q=2e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding the principal argument of a quotient."
+                  "methodPlain": "Finding the principal argument of a quotient.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -8373,8 +8769,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=2d",
                   "nextHref": "complex-2020.html?q=3a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Converting a modulus locus into a Cartesian circle."
+                  "methodPlain": "Converting a modulus locus into a Cartesian circle.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -8395,8 +8792,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=2e",
                   "nextHref": "complex-2020.html?q=3b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Dividing complex numbers in polar form."
+                  "methodPlain": "Dividing complex numbers in polar form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -8414,8 +8812,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=3a",
                   "nextHref": "complex-2020.html?q=3c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Comparing squared moduli directly."
+                  "methodPlain": "Comparing squared moduli directly.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -8435,8 +8834,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=3b",
                   "nextHref": "complex-2020.html?q=3d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using conjugates to prove a quotient is real."
+                  "methodPlain": "Using conjugates to prove a quotient is real.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -8448,7 +8848,7 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "title": "Polar Form Worked Solution – 2020 NCEA Level 3 Q3(d) (AS91577) | Calc.nz",
                   "description": "2020 NCEA Level 3 Complex Numbers AS91577 Question 3(d) worked solution: finding all fourth roots in polar form. Use guided hints and step-by-step reasoning.",
                   "summary": "This walkthrough helps you practise finding all fourth roots in polar form. Use the hints to plan the method, then repeat the question without hints and check each step.",
-                  "commonMistake": "List all four distinct roots with the correct angular spacing and in the form the question requests.",
+                  "commonMistake": "Check whether the right-hand side is zero before using the polar-root rule; only a non-zero right-hand side gives the listed distinct, equally spaced roots.",
                   "skillSlugs": [
                     "polar-form-de-moivre"
                   ],
@@ -8456,8 +8856,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=3c",
                   "nextHref": "complex-2020.html?q=3e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding all fourth roots in polar form."
+                  "methodPlain": "Finding all fourth roots in polar form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "awaiting-teacher-review"
                 },
                 {
                   "id": "3e",
@@ -8475,8 +8876,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2020.html",
                   "previousHref": "complex-2020.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving a quotient is purely imaginary from equal moduli."
+                  "methodPlain": "Proving a quotient is purely imaginary from equal moduli.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -8504,8 +8906,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": null,
                   "nextHref": "complex-2019.html?q=1b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Completing the square to solve a complex quadratic."
+                  "methodPlain": "Completing the square to solve a complex quadratic.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -8525,8 +8928,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=1a",
                   "nextHref": "complex-2019.html?q=1c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Applying the Remainder Theorem to find p."
+                  "methodPlain": "Applying the Remainder Theorem to find p.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -8546,8 +8950,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=1b",
                   "nextHref": "complex-2019.html?q=1d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising a complex quotient and applying its modulus."
+                  "methodPlain": "Rationalising a complex quotient and applying its modulus.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -8567,8 +8972,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=1c",
                   "nextHref": "complex-2019.html?q=1e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Conjugate roots, cubic factorisation, and coefficient matching."
+                  "methodPlain": "Conjugate roots, cubic factorisation, and coefficient matching.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -8588,8 +8994,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=1d",
                   "nextHref": "complex-2019.html?q=2a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Equating real and imaginary parts after clearing denominators."
+                  "methodPlain": "Equating real and imaginary parts after clearing denominators.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -8609,8 +9016,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=1e",
                   "nextHref": "complex-2019.html?q=2b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using a conjugate and collecting complex-number terms."
+                  "methodPlain": "Using a conjugate and collecting complex-number terms.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -8630,8 +9038,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=2a",
                   "nextHref": "complex-2019.html?q=2c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising a surd denominator into a + b√5."
+                  "methodPlain": "Rationalising a surd denominator into a + b√5.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -8651,8 +9060,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=2b",
                   "nextHref": "complex-2019.html?q=2d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding fourth roots in polar form for every real p."
+                  "methodPlain": "Finding fourth roots in polar form for every real p.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -8672,8 +9082,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=2c",
                   "nextHref": "complex-2019.html?q=2e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Making a rationalised complex quotient purely real."
+                  "methodPlain": "Making a rationalised complex quotient purely real.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -8691,8 +9102,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=2d",
                   "nextHref": "complex-2019.html?q=3a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving a unit-circle quotient is purely imaginary."
+                  "methodPlain": "Proving a unit-circle quotient is purely imaginary.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -8712,8 +9124,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=2e",
                   "nextHref": "complex-2019.html?q=3b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Dividing moduli and subtracting arguments in polar form."
+                  "methodPlain": "Dividing moduli and subtracting arguments in polar form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -8733,8 +9146,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=3a",
                   "nextHref": "complex-2019.html?q=3c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving for real x and y by matching complex parts."
+                  "methodPlain": "Solving for real x and y by matching complex parts.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -8754,8 +9168,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=3b",
                   "nextHref": "complex-2019.html?q=3d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a radical equation with real-domain checks."
+                  "methodPlain": "Solving a radical equation with real-domain checks.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -8775,8 +9190,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=3c",
                   "nextHref": "complex-2019.html?q=3e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using an argument condition and verifying the quadrant."
+                  "methodPlain": "Using an argument condition and verifying the quadrant.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -8796,8 +9212,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2019.html",
                   "previousHref": "complex-2019.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving a discriminant is always positive."
+                  "methodPlain": "Proving a discriminant is always positive.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -8825,8 +9242,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": null,
                   "nextHref": "complex-2018.html?q=1b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Applying the Remainder Theorem to evaluate f(2)."
+                  "methodPlain": "Applying the Remainder Theorem to evaluate f(2).",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -8846,8 +9264,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=1a",
                   "nextHref": "complex-2018.html?q=1c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Multiplying moduli and adding arguments in cis form."
+                  "methodPlain": "Multiplying moduli and adding arguments in cis form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -8867,8 +9286,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=1b",
                   "nextHref": "complex-2018.html?q=1d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a radical equation in terms of k with real-domain checks."
+                  "methodPlain": "Solving a radical equation in terms of k with real-domain checks.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -8888,8 +9308,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=1c",
                   "nextHref": "complex-2018.html?q=1e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using a zero discriminant to find when a quadratic has a repeated root."
+                  "methodPlain": "Using a zero discriminant to find when a quadratic has a repeated root.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -8909,8 +9330,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=1d",
                   "nextHref": "complex-2018.html?q=2a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising z/ overline z and proving its modulus is 1."
+                  "methodPlain": "Rationalising z/ overline z and proving its modulus is 1.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -8930,8 +9352,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=1e",
                   "nextHref": "complex-2018.html?q=2b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Conjugating v, adding complex numbers, and plotting w on an Argand diagram."
+                  "methodPlain": "Conjugating v, adding complex numbers, and plotting w on an Argand diagram.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -8951,8 +9374,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=2a",
                   "nextHref": "complex-2018.html?q=2c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising a surd denominator into a + b square root of 7."
+                  "methodPlain": "Rationalising a surd denominator into a + b square root of 7.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -8972,8 +9396,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=2b",
                   "nextHref": "complex-2018.html?q=2d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using conjugate roots and cubic factorisation to find A and the remaining roots."
+                  "methodPlain": "Using conjugate roots and cubic factorisation to find A and the remaining roots.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -8993,8 +9418,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=2c",
                   "nextHref": "complex-2018.html?q=2e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising a complex fraction and finding its modulus."
+                  "methodPlain": "Rationalising a complex fraction and finding its modulus.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -9012,8 +9438,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=2d",
                   "nextHref": "complex-2018.html?q=3a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Using an equidistant locus to find the imaginary coordinate m."
+                  "methodPlain": "Using an equidistant locus to find the imaginary coordinate m.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -9033,8 +9460,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=2e",
                   "nextHref": "complex-2018.html?q=3b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Expanding a complex product and matching real and imaginary parts."
+                  "methodPlain": "Expanding a complex product and matching real and imaginary parts.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -9054,8 +9482,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=3a",
                   "nextHref": "complex-2018.html?q=3c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Completing the square to solve a quadratic in terms of p."
+                  "methodPlain": "Completing the square to solve a quadratic in terms of p.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -9075,8 +9504,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=3b",
                   "nextHref": "complex-2018.html?q=3d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding all cube roots in polar form with De Moivre's theorem."
+                  "methodPlain": "Finding all cube roots in polar form with De Moivre's theorem.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -9096,8 +9526,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=3c",
                   "nextHref": "complex-2018.html?q=3e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Combining an argument condition with w overline w = |w|^2."
+                  "methodPlain": "Combining an argument condition with w overline w = |w|^2.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -9117,8 +9548,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2018.html",
                   "previousHref": "complex-2018.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising a radical quotient and checking the real domain."
+                  "methodPlain": "Rationalising a radical quotient and checking the real domain.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             },
@@ -9146,8 +9578,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": null,
                   "nextHref": "complex-2017.html?q=1b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Conjugating a complex number, distributing a real factor, and collecting parts."
+                  "methodPlain": "Conjugating a complex number, distributing a real factor, and collecting parts.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1b",
@@ -9167,8 +9600,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=1a",
                   "nextHref": "complex-2017.html?q=1c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising a surd denominator with a difference of two squares."
+                  "methodPlain": "Rationalising a surd denominator with a difference of two squares.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1c",
@@ -9188,8 +9622,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=1b",
                   "nextHref": "complex-2017.html?q=1d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving a radical equation with domain and parameter restrictions."
+                  "methodPlain": "Solving a radical equation with domain and parameter restrictions.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1d",
@@ -9209,8 +9644,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=1c",
                   "nextHref": "complex-2017.html?q=1e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Conjugate roots, Vieta's formula, and cubic factorisation."
+                  "methodPlain": "Conjugate roots, Vieta's formula, and cubic factorisation.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "1e",
@@ -9228,8 +9664,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=1d",
                   "nextHref": "complex-2017.html?q=2a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Converting a modulus locus into the Cartesian equation of a circle."
+                  "methodPlain": "Converting a modulus locus into the Cartesian equation of a circle.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2a",
@@ -9249,8 +9686,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=1e",
                   "nextHref": "complex-2017.html?q=2b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Applying the Remainder Theorem to find a constant."
+                  "methodPlain": "Applying the Remainder Theorem to find a constant.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2b",
@@ -9268,8 +9706,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=2a",
                   "nextHref": "complex-2017.html?q=2c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Simplifying radical products with a real-domain check."
+                  "methodPlain": "Simplifying radical products with a real-domain check.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2c",
@@ -9290,8 +9729,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=2b",
                   "nextHref": "complex-2017.html?q=2d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Exact complex division and choosing the principal argument."
+                  "methodPlain": "Exact complex division and choosing the principal argument.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2d",
@@ -9311,8 +9751,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=2c",
                   "nextHref": "complex-2017.html?q=2e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Finding and listing all four fourth roots in polar form."
+                  "methodPlain": "Finding and listing all four fourth roots in polar form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "2e",
@@ -9332,8 +9773,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=2d",
                   "nextHref": "complex-2017.html?q=3a",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Rationalising a complex quotient and making it purely real."
+                  "methodPlain": "Rationalising a complex quotient and making it purely real.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3a",
@@ -9353,8 +9795,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=2e",
                   "nextHref": "complex-2017.html?q=3b",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Dividing moduli and subtracting arguments in polar form."
+                  "methodPlain": "Dividing moduli and subtracting arguments in polar form.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3b",
@@ -9374,8 +9817,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=3a",
                   "nextHref": "complex-2017.html?q=3c",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Completing the square to find complex quadratic roots."
+                  "methodPlain": "Completing the square to find complex quadratic roots.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3c",
@@ -9395,8 +9839,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=3b",
                   "nextHref": "complex-2017.html?q=3d",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Complete polynomial long division with quotient and remainder."
+                  "methodPlain": "Complete polynomial long division with quotient and remainder.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3d",
@@ -9416,8 +9861,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=3c",
                   "nextHref": "complex-2017.html?q=3e",
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Solving and rationalising an equation with square root of 3."
+                  "methodPlain": "Solving and rationalising an equation with square root of 3.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 },
                 {
                   "id": "3e",
@@ -9437,8 +9883,9 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
                   "yearHref": "level-3-complex-numbers-2017.html",
                   "previousHref": "complex-2017.html?q=3d",
                   "nextHref": null,
-                  "reviewedDate": "2026-08-09",
-                  "methodPlain": "Proving a complex fraction identity step by step."
+                  "methodPlain": "Proving a complex fraction identity step by step.",
+                  "updatedDate": "2026-09-02",
+                  "reviewStatus": "unreviewed"
                 }
               ]
             }
@@ -9447,5 +9894,5 @@ window.CALC_NZ_QUESTION_CATALOGUE = {
       ]
     }
   ],
-  "generatedAt": "2026-08-09"
+  "generatedAt": "2026-09-02"
 };

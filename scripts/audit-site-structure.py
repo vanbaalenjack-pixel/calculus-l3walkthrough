@@ -40,6 +40,7 @@ EXPECTED_PHYSICAL_WALKTHROUGH_COUNT = 335
 EXPECTED_STANDARD_COUNT = 5
 EXPECTED_YEAR_PAGE_COUNT = 30
 EXPECTED_DATA_FILE_COUNT = 28
+AUDIT_OVERLAY_FILE = "walkthrough-audit-data.js"
 
 FULL_PARTS = tuple(f"{number}{letter}" for number in "123" for letter in "abcde")
 L2_CALCULUS_PARTS = tuple(f"{number}{letter}" for number in "123" for letter in "abcd")
@@ -773,7 +774,11 @@ FORBIDDEN_DATA_STEP_TYPE = re.compile(
 
 
 def audit_data_files(failures: Failures) -> set[str]:
-    paths = sorted(path for path in ROOT.glob("*-data.js") if path.is_file())
+    paths = sorted(
+        path
+        for path in ROOT.glob("*-data.js")
+        if path.is_file() and path.name != AUDIT_OVERLAY_FILE
+    )
     failures.check(
         len(paths) == EXPECTED_DATA_FILE_COUNT,
         f"data audit: expected {EXPECTED_DATA_FILE_COUNT} *-data.js files, found {len(paths)}",

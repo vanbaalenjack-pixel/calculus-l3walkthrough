@@ -749,12 +749,7 @@
     "2b": createConfig("2b", "Question Two - adding a constant inside an integral", {
       focus: raw`Split the integral: \(\int(h(x)+2)\,dx=\int h(x)\,dx+\int 2\,dx\).`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{If } \int_{1}^{5}h(x)\,dx=6,\text{ what is the value of }
-          \int_{1}^{5}\left(h(x)+2\right)\,dx?
-          \]
-        </div>
+        <p class="step-text question-instruction">If \(\int_{1}^{5}h(x)\,dx=6\), what is the value of \(\int_{1}^{5}\left(h(x)+2\right)\,dx\)?</p>
       `,
       answerHtml: answerHighlight("Final answer", raw`
         <div class="math-block">

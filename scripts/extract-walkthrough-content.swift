@@ -10,6 +10,7 @@ private let expectedQueryRouteCount = 120
 private let expectedExternalRouteCount = 420
 private let expectedInlineRouteCount = 27
 private let expectedExternalDataFileCount = 28
+private let sharedAuditOverlayFile = "walkthrough-audit-data.js"
 
 private enum ExtractorError: Error, CustomStringConvertible {
     case message(String)
@@ -214,7 +215,7 @@ private func pageSource(pageFile: String, root: URL) throws -> PageSource {
             let rawSource = String(attributes[valueRange])
             let sourceWithoutQuery = rawSource.split(whereSeparator: { $0 == "?" || $0 == "#" }).first.map(String.init) ?? ""
             let fileName = URL(fileURLWithPath: sourceWithoutQuery).lastPathComponent
-            if fileName.hasSuffix("-data.js") {
+            if fileName.hasSuffix("-data.js") && fileName != sharedAuditOverlayFile {
                 dataFiles.append(fileName)
             }
             continue
@@ -612,7 +613,7 @@ private func run() throws {
     let referencedDataFiles = Set(externalRoutes.compactMap { pageSources[$0.pageFile]?.dataFile })
     let onDiskDataFiles = Set(
         try FileManager.default.contentsOfDirectory(atPath: root.path)
-            .filter { $0.hasSuffix("-data.js") }
+            .filter { $0.hasSuffix("-data.js") && $0 != sharedAuditOverlayFile }
     )
     guard referencedDataFiles == onDiskDataFiles else {
         try fail("Walkthrough data-file coverage mismatch (\(symmetricDifference(referencedDataFiles, onDiskDataFiles))).")

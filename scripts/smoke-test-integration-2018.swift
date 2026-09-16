@@ -268,7 +268,13 @@ private final class Runner: NSObject, WKNavigationDelegate {
               checks.finalRevealed = isVisible(stepCards[stepCards.length - 1].querySelector(".walkthrough-answer-highlight"));
               checks.completedState = nextButton.disabled && /Question complete/.test(nextButton.textContent);
               const progress = JSON.parse(localStorage.getItem("calc.nz.walkthroughProgress") || "{}");
-              checks.progressKey = Boolean(progress["level-3-integration-2018:" + part] && progress["level-3-integration-2018:" + part].completed);
+              const progressState = progress["level-3-integration-2018:" + part];
+              checks.reviewStateStored = Boolean(
+                progressState
+                && progressState.reviewed
+                && !progressState.assessment
+                && !Object.prototype.hasOwnProperty.call(progressState, "completed")
+              );
 
               const finalPrimary = document.querySelector("#walkthrough-final-nav .nav-btn:not(.secondary)");
               const partIndex = \#(parts).indexOf(part);

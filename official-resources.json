@@ -1,0 +1,174 @@
+{
+  "checkedDate": "2026-08-28",
+  "source": "Official NZQA standard pages and directly checked NZQA files",
+  "standards": {
+    "AS91577": {
+      "2017": {
+        "resources": [
+          {"kind": "exemplar", "label": "2017 exemplar package", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exemplars/2017/91577-exp-2017.zip", "format": "ZIP"}
+        ],
+        "unavailable": ["examination paper", "assessment schedule", "assessment report"]
+      },
+      "2018": {"resources": [], "unavailable": ["examination paper", "assessment schedule", "assessment report", "exemplars"]},
+      "2019": {"resources": [], "unavailable": ["examination paper", "assessment schedule", "assessment report", "exemplars"]},
+      "2020": {"resources": [], "unavailable": ["examination paper", "assessment schedule", "assessment report", "exemplars"]},
+      "2021": {
+        "resources": [
+          {"kind": "paper", "label": "2021 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2021/91577-exm-2021.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2021 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2021/91577-ass-2021.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2021 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2021/level3/91577-report-2021.pdf", "format": "PDF"}
+        ],
+        "unavailable": ["exemplars"]
+      },
+      "2022": {
+        "resources": [
+          {"kind": "paper", "label": "2022 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2022/91577-exm-2022.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2022 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2022/91577-ass-2022.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2022 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2022/level3/91577-report-2022.pdf", "format": "PDF"}
+        ],
+        "unavailable": ["exemplars"]
+      },
+      "2023": {
+        "resources": [
+          {"kind": "paper", "label": "2023 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2023/91577-exm-2023.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2023 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2023/91577-ass-2023.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2023 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2023/level3/91577-report-2023.pdf", "format": "PDF"}
+        ],
+        "unavailable": ["exemplars"]
+      },
+      "2024": {
+        "resources": [
+          {"kind": "paper", "label": "2024 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2024/91577-exm-2024.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2024 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2024/91577-ass-2024.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2024 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2024/91577-report-2024.pdf", "format": "PDF"},
+          {"kind": "exemplar", "label": "2024 Achievement exemplar", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exemplars/2024/91577-exp-2024-achievement.pdf", "format": "PDF"},
+          {"kind": "exemplar", "label": "2024 Merit exemplar", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exemplars/2024/91577-exp-2024-merit.pdf", "format": "PDF"},
+          {"kind": "exemplar", "label": "2024 Excellence exemplar", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exemplars/2024/91577-exp-2024-excellence.pdf", "format": "PDF"}
+        ],
+        "unavailable": []
+      },
+      "2025": {
+        "resources": [
+          {"kind": "paper", "label": "2025 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2025/91577-exm-2025.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2025 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2025/91577-ass-2025.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2025 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2025/91577-report-2025.pdf", "format": "PDF"}
+        ],
+        "unavailable": ["exemplars"]
+      }
+    },
+    "AS91578": {
+      "2016": {
+        "resources": [
+          {"kind": "exemplar", "label": "2016 exemplar package", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exemplars/2016/91578-exp-2016.zip", "format": "ZIP"}
+        ],
+        "unavailable": ["examination paper", "assessment schedule", "assessment report"]
+      },
+      "2017": {
+        "resources": [
+          {"kind": "exemplar", "label": "2017 exemplar package", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exemplars/2017/91578-exp-2017.zip", "format": "ZIP"}
+        ],
+        "unavailable": ["examination paper", "assessment schedule", "assessment report"]
+      },
+      "2018": {"resources": [], "unavailable": ["examination paper", "assessment schedule", "assessment report", "exemplars"]},
+      "2019": {"resources": [], "unavailable": ["examination paper", "assessment schedule", "assessment report", "exemplars"]},
+      "2020": {"resources": [], "unavailable": ["examination paper", "assessment schedule", "assessment report", "exemplars"]},
+      "2021": {
+        "resources": [
+          {"kind": "paper", "label": "2021 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2021/91578-exm-2021.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2021 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2021/91578-ass-2021.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2021 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2021/level3/91578-report-2021.pdf", "format": "PDF"}
+        ],
+        "unavailable": ["exemplars"]
+      },
+      "2022": {
+        "resources": [
+          {"kind": "paper", "label": "2022 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2022/91578-exm-2022.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2022 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2022/91578-ass-2022.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2022 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2022/level3/91578-report-2022.pdf", "format": "PDF"}
+        ],
+        "unavailable": ["exemplars"]
+      },
+      "2023": {
+        "resources": [
+          {"kind": "paper", "label": "2023 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2023/91578-exm-2023.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2023 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2023/91578-ass-2023.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2023 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2023/level3/91578-report-2023.pdf", "format": "PDF"}
+        ],
+        "unavailable": ["exemplars"]
+      },
+      "2024": {
+        "resources": [
+          {"kind": "paper", "label": "2024 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2024/91578-exm-2024.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2024 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2024/91578-ass-2024.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2024 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2024/91578-report-2024.pdf", "format": "PDF"},
+          {"kind": "exemplar", "label": "2024 Achievement exemplar", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exemplars/2024/91578-exp-2024-achievement.pdf", "format": "PDF"},
+          {"kind": "exemplar", "label": "2024 Merit exemplar", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exemplars/2024/91578-exp-2024-merit.pdf", "format": "PDF"},
+          {"kind": "exemplar", "label": "2024 Excellence exemplar", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exemplars/2024/91578-exp-2024-excellence.pdf", "format": "PDF"}
+        ],
+        "unavailable": []
+      },
+      "2025": {
+        "resources": [
+          {"kind": "paper", "label": "2025 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2025/91578-exm-2025.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2025 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2025/91578-ass-2025.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2025 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2025/91578-report-2025.pdf", "format": "PDF"}
+        ],
+        "unavailable": ["exemplars"]
+      }
+    },
+    "AS91579": {
+      "2017": {
+        "resources": [
+          {"kind": "exemplar", "label": "2017 exemplar package", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exemplars/2017/91579-exp-2017.zip", "format": "ZIP"}
+        ],
+        "unavailable": ["examination paper", "assessment schedule", "assessment report"]
+      },
+      "2018": {"resources": [], "unavailable": ["examination paper", "assessment schedule", "assessment report", "exemplars"]},
+      "2019": {"resources": [], "unavailable": ["examination paper", "assessment schedule", "assessment report", "exemplars"]},
+      "2020": {"resources": [], "unavailable": ["examination paper", "assessment schedule", "assessment report", "exemplars"]},
+      "2021": {
+        "resources": [
+          {"kind": "paper", "label": "2021 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2021/91579-exm-2021.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2021 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2021/91579-ass-2021.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2021 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2021/level3/91579-report-2021.pdf", "format": "PDF"}
+        ],
+        "unavailable": ["exemplars"]
+      },
+      "2022": {
+        "resources": [
+          {"kind": "paper", "label": "2022 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2022/91579-exm-2022.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2022 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2022/91579-ass-2022.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2022 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2022/level3/91579-report-2022.pdf", "format": "PDF"}
+        ],
+        "unavailable": ["exemplars"]
+      },
+      "2023": {
+        "resources": [
+          {"kind": "paper", "label": "2023 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2023/91579-exm-2023.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2023 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2023/91579-ass-2023.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2023 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2023/level3/91579-report-2023.pdf", "format": "PDF"}
+        ],
+        "unavailable": ["exemplars"]
+      },
+      "2024": {
+        "resources": [
+          {"kind": "paper", "label": "2024 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2024/91579-exm-2024.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2024 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2024/91579-ass-2024.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2024 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2024/91579-report-2024.pdf", "format": "PDF"},
+          {"kind": "exemplar", "label": "2024 Achievement exemplar", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exemplars/2024/91579-exp-2024-achievement.pdf", "format": "PDF"},
+          {"kind": "exemplar", "label": "2024 Merit exemplar", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exemplars/2024/91579-exp-2024-merit.pdf", "format": "PDF"},
+          {"kind": "exemplar", "label": "2024 Excellence exemplar", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exemplars/2024/91579-exp-2024-excellence.pdf", "format": "PDF"}
+        ],
+        "unavailable": []
+      },
+      "2025": {
+        "resources": [
+          {"kind": "paper", "label": "2025 examination paper", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/exams/2025/91579-exm-2025.pdf", "format": "PDF"},
+          {"kind": "schedule", "label": "2025 assessment schedule", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/schedules/2025/91579-ass-2025.pdf", "format": "PDF"},
+          {"kind": "report", "label": "2025 assessment report", "url": "https://www.nzqa.govt.nz/nqfdocs/ncea-resource/reports/2025/91579-report-2025.pdf", "format": "PDF"}
+        ],
+        "unavailable": ["exemplars"]
+      }
+    }
+  }
+}

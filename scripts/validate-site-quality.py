@@ -1483,7 +1483,7 @@ def validate_common_mistake_semantics(record: QuestionRecord, failures: Failures
     # legitimately overlap: for example, solving a differential equation uses
     # antidifferentiation, and an integration technique may still need the
     # constant of integration. Generic neutral advice has no category and is
-    # deliberately accepted when no verified specific warning is available.
+    # deliberately accepted when no curated route-specific warning is available.
     incompatible_pairs = {
         frozenset(("complex-polynomial", "complex-polar")),
         frozenset(("complex-polynomial", "chain-rule")),
@@ -1713,7 +1713,7 @@ def question_configuration_source(
     for script in parser.find("script"):
         src = script.attrs.get("src", "")
         local_name = unquote(urlsplit(src).path).split("/")[-1]
-        if not local_name.endswith("-data.js"):
+        if not local_name.endswith("-data.js") or local_name == "walkthrough-audit-data.js":
             continue
         if local_name not in cache:
             try:
@@ -2030,20 +2030,38 @@ def validate_walkthroughs(
                         f"{field_name} is {record.raw.get(field_name)!r}, "
                         f"expected {expected!r}"
                     )
-            reviewed = normalise_space(record.raw.get("reviewedDate"))
+            if "reviewedDate" in record.raw:
+                failures.add(
+                    f"{CATALOGUE_FILE}: {paper_id}/{record.question_id} retains obsolete "
+                    "reviewedDate; use updatedDate plus reviewStatus"
+                )
+            reviewed = normalise_space(record.raw.get("updatedDate"))
             try:
                 reviewed_date = date.fromisoformat(reviewed)
             except ValueError:
                 failures.add(
                     f"{CATALOGUE_FILE}: {paper_id}/{record.question_id} has invalid "
-                    f"reviewedDate {reviewed!r}"
+                    f"updatedDate {reviewed!r}"
                 )
             else:
                 if reviewed_date > date.today():
                     failures.add(
-                        f"{CATALOGUE_FILE}: {paper_id}/{record.question_id} reviewedDate "
+                        f"{CATALOGUE_FILE}: {paper_id}/{record.question_id} updatedDate "
                         f"is in the future"
                     )
+
+            review_status = normalise_space(record.raw.get("reviewStatus"))
+            valid_review_statuses = {
+                "unreviewed",
+                "internally-corrected",
+                "awaiting-teacher-review",
+                "teacher-reviewed",
+            }
+            if review_status not in valid_review_statuses:
+                failures.add(
+                    f"{CATALOGUE_FILE}: {paper_id}/{record.question_id} has invalid "
+                    f"reviewStatus {review_status!r}"
+                )
 
     data_cache: dict[str, str] = {}
     for source_file, source_records in sorted(by_source.items()):
@@ -2053,11 +2071,21 @@ def validate_walkthroughs(
         configuration = question_configuration_source(
             root, source_file, parser, data_cache, failures
         )
+        has_external_question_data = any(
+            (
+                unquote(urlsplit(script.attrs.get("src", "")).path)
+                .split("/")[-1]
+                .endswith("-data.js")
+                and unquote(urlsplit(script.attrs.get("src", "")).path).split("/")[-1]
+                != "walkthrough-audit-data.js"
+            )
+            for script in parser.find("script")
+        )
         for record in source_records:
             # Inline Level 2 Calculus pages do not define a keyed config because
             # one file contains exactly one question. Other shared data sources
             # must expose a config for every logical route.
-            if len(source_records) > 1 or "-data.js" in configuration:
+            if len(source_records) > 1 or has_external_question_data:
                 if not config_source_defines_question(configuration, record.question_id):
                     failures.add(
                         f"{record.href}: walkthrough data has no keyed config for "
@@ -2291,7 +2319,7 @@ def validate_discovery_pages(
             if count < spec.min_count:
                 failures.add(
                     f"{CATALOGUE_FILE}: skill {slug!r} has {count} questions, "
-                    f"below verified minimum {spec.min_count}"
+                    f"below configured minimum {spec.min_count}"
                 )
 
     skills_index = pages.get("skills.html")
@@ -2826,7 +2854,10 @@ def validate_search_and_guides(
             "cataloguePromise = null",
             "requestCatalogue",
             "searchRequestId",
-            "input.value.trim() !== query",
+            "stateSignature() !== signature",
+            'writeUrl("replaceState")',
+            'writeUrl("pushState")',
+            'window.addEventListener("popstate"',
         ):
             if token not in search_runtime:
                 failures.add(f"search-page.js: missing lazy question contract {token!r}")

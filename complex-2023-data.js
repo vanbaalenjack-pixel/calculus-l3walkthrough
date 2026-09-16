@@ -160,11 +160,7 @@
     "1a": createConfig("1a", "2023 Paper — Expanding a surd binomial", {
       focus: raw`expanding a binomial square and collecting the constant, \(p\), and \(\sqrt{p}\) terms into the requested form.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{Write }(5-2\sqrt{p})^2\text{ in the form }a+bp+c\sqrt{p}\text{ where }a,\ b,\ \text{and }c\text{ are integers.}
-          \]
-        </div>
+        <p class="step-text question-instruction">Write \((5-2\sqrt{p})^2\) in the form \(a+bp+c\sqrt{p}\), where \(a\), \(b\), and \(c\) are integers.</p>
       `,
       hints: [
         raw`Use the identity \((a-b)^2=a^2-2ab+b^2\).`,
@@ -255,10 +251,9 @@
     "1b": createConfig("1b", "2023 Paper — No real roots and the discriminant", {
       focus: raw`using the discriminant condition \(b^2-4ac<0\) to decide when a quadratic has no real roots.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{Find the value(s) of }r\text{ so that the quadratic equation }4x^2-4x+3r-2=0\text{ has no real roots.}
-          \]
+        <p class="step-text question-instruction">Find the value(s) of \(r\) for which the following quadratic equation has no real roots.</p>
+        <div class="question-math" aria-label="Quadratic equation">
+          \[4x^2-4x+3r-2=0\]
         </div>
       `,
       hints: [
@@ -362,11 +357,7 @@
     "1c": createConfig("1c", "2023 Paper — Using the real part of a quotient", {
       focus: raw`rewriting \(\frac{z}{w}\) by multiplying by the conjugate of the denominator, then reading the real part to prove the required result.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{If }z=p+qi\text{ and }w=a+bi\text{ and }\operatorname{Re}\left(\frac{z}{w}\right)=0,\text{ then show that }ap=-bq.
-          \]
-        </div>
+        <p class="step-text question-instruction">If \(z=p+qi\), \(w=a+bi\), and \(\operatorname{Re}\left(\frac{z}{w}\right)=0\), show that \(ap=-bq\).</p>
       `,
       hints: [
         raw`To find the real part of a fraction, make the denominator real first.`,
@@ -482,14 +473,13 @@
     "1d": createConfig("1d", "2023 Paper — Conjugate roots in a cubic", {
       focus: raw`using the conjugate-root rule for real coefficients, then factorising the cubic to find the third root and the real constant \(d\).`,
       questionHtml: raw`
+        <p class="step-text">One solution of the following equation is \(z=5-i\).</p>
         <div class="question-math">
           \[
-          \text{One solution of the equation }z^3-8z^2+26z+d=0\text{ is }z=5-i.
-          \]
-          \[
-          \text{If }d\text{ is real, find the value of }d\text{ and the other two solutions of the equation.}
+          z^3-8z^2+26z+d=0
           \]
         </div>
+        <p class="step-text">If \(d\) is real, find the value of \(d\) and the other two solutions of the equation.</p>
       `,
       hints: [
         raw`Real coefficients force non-real roots to occur in conjugate pairs.`,
@@ -597,12 +587,16 @@
     "1e": createConfig("1e", "2023 Paper — Modulus equation with a complex quotient", {
       focus: raw`simplifying \(\frac{u}{v}\), rewriting the modulus equation, then squaring to solve for the real parameter \(k\).`,
       questionHtml: raw`
+        <p class="step-text">The complex numbers \(u\) and \(v\) are</p>
         <div class="question-math">
           \[
-          \text{The complex numbers }u\text{ and }v\text{ are }u=3+i\text{ and }v=1+2i.
+          u=3+i,\qquad v=1+2i
           \]
+        </div>
+        <p class="step-text">Determine the possible value(s) of the real constant \(k\) if</p>
+        <div class="question-math">
           \[
-          \text{Determine the possible value(s) of the real constant }k\text{ if }\left|\frac{u}{v}+k\right|=\sqrt{k+2}.
+          \left|\frac{u}{v}+k\right|=\sqrt{k+2}.
           \]
         </div>
       `,
@@ -736,11 +730,7 @@
     "2a": createConfig("2a", "2023 Paper — Dividing in polar form", {
       focus: raw`dividing complex numbers written in polar form by dividing the moduli and subtracting the arguments.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{If }u=q^6\operatorname{cis}\frac{5\pi}{8}\text{ and }v=q^2\operatorname{cis}\frac{2\pi}{5},\text{ write }\frac{u}{v}\text{ in the form }r\operatorname{cis}\theta.
-          \]
-        </div>
+        <p class="step-text question-instruction">If \(u=q^6\operatorname{cis}\frac{5\pi}{8}\) and \(v=q^2\operatorname{cis}\frac{2\pi}{5}\), write \(\frac{u}{v}\) in the form \(r\operatorname{cis}\theta\).</p>
       `,
       hints: [
         raw`For a quotient in polar form, divide the moduli and subtract the arguments.`,
@@ -829,11 +819,7 @@
     "2b": createConfig("2b", "2023 Paper — Modulus in terms of k", {
       focus: raw`subtracting two complex numbers and then using the modulus formula \(|a+bi|=\sqrt{a^2+b^2}\).`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{If }z=1+ki\text{ and }w=7-ki,\text{ then find }|z-w|,\text{ giving your answer in terms of }k.
-          \]
-        </div>
+        <p class="step-text question-instruction">If \(z=1+ki\) and \(w=7-ki\), find \(|z-w|\), giving your answer in terms of \(k\).</p>
       `,
       hints: [
         raw`Find \(z-w\) first, not the two moduli separately.`,
@@ -1046,14 +1032,13 @@
     "2d": createConfig("2d", "2023 Paper — Cube roots in polar form", {
       focus: raw`rewriting a real negative number in polar form and then using the cube-root rule to list all solutions.`,
       questionHtml: raw`
+        <p class="step-text question-instruction">Solve the equation, where \(m\) is a real constant.</p>
         <div class="question-math">
           \[
-          \text{Solve the equation }z^3+64m^{12}=0,\text{ where }m\text{ is a real constant.}
-          \]
-          \[
-          \text{Write your solution(s) in polar form, in terms of }m.
+          z^3+64m^{12}=0
           \]
         </div>
+        <p class="step-text question-instruction">Write your solution(s) in polar form, in terms of \(m\).</p>
       `,
       hints: [
         raw`Rearrange first so the right-hand side is one complex number.`,
@@ -1167,17 +1152,13 @@
     "2e": createConfig("2e", "2023 Paper — Circle locus and tangency", {
       focus: raw`converting a modulus locus into a Cartesian circle, substituting the line, and using the discriminant to enforce tangency.`,
       questionHtml: raw`
+        <p class="step-text">The straight line \(y=mx-1\), where \(m\) is a real constant and \(m&gt;0\), is tangent to the locus described by</p>
         <div class="question-math">
           \[
-          \text{The straight line with equation }y=mx-1,\text{ where }m\text{ is a real constant and }m>0,
-          \]
-          \[
-          \text{is a tangent to the locus described by }|z-2+i|=3.
-          \]
-          \[
-          \text{Find the Cartesian equation of the locus AND the value of }m.
+          |z-2+i|=3.
           \]
         </div>
+        <p class="step-text">Find the Cartesian equation of the locus and the value of \(m\).</p>
         ${locusDiagramHtml()}
       `,
       hints: [
@@ -1320,14 +1301,7 @@
     "3a": createConfig("3a", "2023 Paper — Remainder theorem", {
       focus: raw`using the remainder theorem by substituting \(x=-3\) into the polynomial.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{When the polynomial }2x^3+px^2+7x-3\text{ is divided by }x+3,\text{ the remainder is }30.
-          \]
-          \[
-          \text{Find the value of }p.
-          \]
-        </div>
+        <p class="step-text question-instruction">When the polynomial \(2x^3+px^2+7x-3\) is divided by \(x+3\), the remainder is \(30\). Find the value of \(p\).</p>
       `,
       hints: [
         raw`If the divisor is \(x+3\), use \(x=-3\).`,
@@ -1430,14 +1404,7 @@
     "3b": createConfig("3b", "2023 Paper — Solving for n from a quotient", {
       focus: raw`rewriting a complex quotient as a multiplication problem and then expanding carefully to find the real parameter \(n\).`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{The complex numbers }u\text{ and }v\text{ are }u=n-i\text{ and }v=2-3i.
-          \]
-          \[
-          \text{Given that }\frac{u}{v}=3+4i,\text{ find the value of }n.
-          \]
-        </div>
+        <p class="step-text question-instruction">The complex numbers \(u\) and \(v\) are \(u=n-i\) and \(v=2-3i\). Given that \(\frac{u}{v}=3+4i\), find the value of \(n\).</p>
       `,
       hints: [
         raw`Multiply both sides by \(v\) to remove the denominator.`,
@@ -1534,10 +1501,8 @@
     "3c": createConfig("3c", "2023 Paper — Solving a surd equation in terms of w", {
       focus: raw`squaring a surd equation carefully, isolating \(\sqrt{x}\), and then squaring again to write \(x\) in terms of \(w\).`,
       questionHtml: raw`
+        <p class="step-text question-instruction">Solve the following equation for \(x\), in terms of the real parameter \(w\).</p>
         <div class="question-math">
-          \[
-          \text{Solve the following equation for }x,\text{ in terms of }w.
-          \]
           \[
           4\sqrt{4x-w}=5-8\sqrt{x}
           \]
@@ -1649,17 +1614,11 @@
     "3d": createConfig("3d", "2023 Paper — Simplifying a reciprocal complex equation", {
       focus: raw`combining the right-hand side into one fraction, then inverting to recover \(x+yi\) and reading off \(x\) and \(y\).`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{Find the values of }x\text{ and }y,\text{ given that }x\text{ and }y\text{ are real, and}
-          \]
-          \[
-          \frac{1}{x+yi}=1-\frac{1}{1+pi}
-          \]
-          \[
-          \text{giving your answers in terms of }p,\text{ where }p\text{ is a positive, real constant.}
-          \]
+        <p class="step-text question-instruction">Find the real values of \(x\) and \(y\) in the following equation.</p>
+        <div class="question-math" aria-label="Reciprocal complex equation">
+          \[\frac{1}{x+yi}=1-\frac{1}{1+pi}\]
         </div>
+        <p class="step-text">Give your answers in terms of \(p\), where \(p\) is a positive real constant.</p>
       `,
       hints: [
         raw`Simplify the right-hand side first.`,
@@ -1773,14 +1732,11 @@
     "3e": createConfig("3e", "2023 Paper — Finding k from z and w", {
       focus: raw`solving for \(z\), using \(\frac{w}{z}=2+2i\) to build \(w\), and then applying the imaginary-part condition.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{If }z+2i=iz+k,\text{ where }k\text{ is a real number, and }\frac{w}{z}=2+2i,
-          \]
-          \[
-          \text{where }\operatorname{Im}(w)=8,\text{ find the value of }k.
-          \]
+        <p class="step-text question-instruction">Let \(k\) be real and suppose that</p>
+        <div class="question-math" aria-label="Two complex equations">
+          \[z+2i=iz+k,\qquad \frac{w}{z}=2+2i.\]
         </div>
+        <p class="step-text">Given that \(\operatorname{Im}(w)=8\), find the value of \(k\).</p>
       `,
       hints: [
         raw`Rearrange the first equation to make \(z\) the subject.`,

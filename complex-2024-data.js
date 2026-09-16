@@ -186,11 +186,7 @@
     "1a": createConfig("1a", "2024 Paper — Factor theorem", {
       focus: raw`using the factor theorem by substituting the root \(x=-3\).`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{Given that }x+3\text{ is a factor of }x^3+px^2+5x-12,\text{ find the value of }p.
-          \]
-        </div>
+        <p class="step-text question-instruction">Given that \(x+3\) is a factor of \(x^3+px^2+5x-12\), find the value of \(p\).</p>
       `,
       hints: [
         raw`If \(x+3\) is a factor, then \(x=-3\) makes the polynomial equal to \(0\).`,
@@ -294,12 +290,7 @@
     "1b": createConfig("1b", "2024 Paper — De Moivre in polar form", {
       focus: raw`raising a complex number in polar form to a power with De Moivre’s Theorem.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{If }z=m\operatorname{cis}\left(\frac{n\pi}{5}\right),\text{ where }m\text{ and }n\text{ are positive real constants, find }z^{15},
-          \]
-        </div>
-        <p class="step-text">giving your answer in polar form, in terms of \(m\) and \(n\).</p>
+        <p class="step-text question-instruction">If \(z=m\operatorname{cis}\left(\frac{n\pi}{5}\right)\), where \(m\) and \(n\) are positive real constants, find \(z^{15}\), giving your answer in polar form in terms of \(m\) and \(n\).</p>
       `,
       hints: [
         raw`De Moivre says you raise the modulus to the power and multiply the argument by the power.`,

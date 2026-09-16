@@ -85,14 +85,17 @@
       const card = document.getElementById("homepage-continue-card");
       const link = card && card.querySelector("a");
       const progress = JSON.parse(localStorage.getItem("calc.nz.walkthroughProgress") || "{}");
-      const completed2017 = Object.keys(progress).filter(function (key) {
-        return key.indexOf("level-3-integration-2017:") === 0 && progress[key].completed;
+      const reviewed2017 = Object.keys(progress).filter(function (key) {
+        return key.indexOf("level-3-integration-2017:") === 0
+          && progress[key].reviewed
+          && !progress[key].assessment
+          && !Object.prototype.hasOwnProperty.call(progress[key], "completed");
       });
 
       checks.continueVisible = isVisible(card);
       checks.continuePaper = Boolean(card && /2017 Integration/.test(card.textContent));
       checks.continueRoute = Boolean(link && /int-3e2017\.html/.test(link.getAttribute("href")));
-      checks.allPartsCompleted = completed2017.length === 15;
+      checks.allPartsReviewed = reviewed2017.length === 15;
       checks.noPageOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
     } else {
       const questionCard = document.getElementById("question-card");
@@ -180,12 +183,15 @@
       checks.finalNavigation = isVisible(document.getElementById("walkthrough-final-nav"));
 
       const progress = JSON.parse(localStorage.getItem("calc.nz.walkthroughProgress") || "{}");
-      checks.progressKey = Boolean(
-        progress["level-3-integration-2017:" + part]
-        && progress["level-3-integration-2017:" + part].completed
+      const progressState = progress["level-3-integration-2017:" + part];
+      checks.reviewStateStored = Boolean(
+        progressState
+        && progressState.reviewed
+        && !progressState.assessment
+        && !Object.prototype.hasOwnProperty.call(progressState, "completed")
       );
-      checks.sidebarPartCompleted = Boolean(
-        document.querySelector('[data-walkthrough-sidebar-part="' + part + '"].is-complete')
+      checks.sidebarPartReviewed = Boolean(
+        document.querySelector('[data-walkthrough-sidebar-part="' + part + '"].is-reviewed')
       );
 
       const finalPrimary = document.querySelector("#walkthrough-final-nav .nav-btn:not(.secondary)");

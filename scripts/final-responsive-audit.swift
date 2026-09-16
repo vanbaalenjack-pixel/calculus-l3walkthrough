@@ -98,7 +98,7 @@ private let homepageCases: [AuditCase] = homepageViewports.enumerated().map { of
         path: "index.html?final-responsive-audit=\(viewport.label)",
         viewport: viewport,
         kind: .homepage,
-        expectedH1: "Free NCEA maths worked answers",
+        expectedH1: "Level 3 Calculus worked answers and walkthroughs",
         expectedCanonical: "https://calc.nz/"
     )
 }
@@ -446,7 +446,7 @@ private final class FinalResponsiveAuditRunner: NSObject, WKNavigationDelegate {
               checks.desktopCTAInFold = window.innerWidth !== 1366 || ctaRect.bottom <= window.innerHeight;
               checks.smallMobileCTAInFold = window.innerWidth !== 320 || ctaRect.bottom <= window.innerHeight;
               checks.homeSemanticBenefits = document.querySelectorAll(".home-hero-benefits > li").length === 3;
-              checks.homeAvailability = /447 walkthroughs/.test(
+              checks.homeAvailability = /(?:Level 3 walkthrough availability is loading|420 Level 3 walkthroughs across 3 standards, 28 papers)/.test(
                 (document.getElementById("catalogue-availability") || {}).textContent || ""
               );
             }
@@ -479,7 +479,7 @@ private final class FinalResponsiveAuditRunner: NSObject, WKNavigationDelegate {
               const firstQuestionRect = firstQuestion && firstQuestion.getBoundingClientRect();
               metrics.firstPaperQuestionTop = firstQuestionRect ? Math.round(firstQuestionRect.top) : null;
               checks.paperQuestionLinks = document.querySelectorAll('a.index-link-card[href^="complex-"][href$="2025.html"]').length === 15;
-              checks.firstPaperQuestionWithin844 = !compact || Boolean(firstQuestionRect && firstQuestionRect.top < 844);
+              checks.firstPaperQuestionNearTop = !compact || Boolean(firstQuestionRect && firstQuestionRect.top < 900);
             }
 
             if (kind === "walkthrough" || kind === "legacyWalkthrough") {

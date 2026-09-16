@@ -781,10 +781,9 @@
     "2b": createConfig("2b", "2022 Paper — Solving for a limit from a definite integral", {
       focus: raw`Turn the radical into a negative power, evaluate the definite integral, then solve the resulting equation for \(k\).`,
       questionHtml: raw`
+        <p class="step-text question-instruction">Find the value of \(k\), given that</p>
         <div class="question-math">
-          \[
-          \text{Find the value of }k,\text{ given that }\int_{1}^{k}\frac{2}{\sqrt{x}}\,dx=8.
-          \]
+          \[\int_{1}^{k}\frac{2}{\sqrt{x}}\,dx=8.\]
         </div>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
       `,

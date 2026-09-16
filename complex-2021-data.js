@@ -606,9 +606,10 @@
     "2b": createConfig("2b", "2021 Paper - solving a quadratic in q", {
       focus: raw`Complete the square, then take the positive and negative square roots.`,
       questionHtml: raw`
+        <p class="step-text">Solve the following equation for \(x\) in terms of \(q\), expressing any solutions in their simplest form.</p>
         <div class="question-math">
           \[
-          \text{Solve }x^2-12qx+20q^2=0\text{ for }x\text{ in terms of }q,\text{ expressing any solutions in their simplest form.}
+          x^2-12qx+20q^2=0
           \]
         </div>
       `,
@@ -655,11 +656,7 @@
     "2c": createConfig("2c", "2021 Paper - proving a quotient is imaginary", {
       focus: raw`Multiply by the conjugate of the denominator and show the real terms cancel.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{Prove that }\frac{a+bi}{b-ai}\text{ is purely imaginary, where }a\text{ and }b\text{ are real constants.}
-          \]
-        </div>
+        <p class="step-text question-instruction">Prove that \(\frac{a+bi}{b-ai}\) is purely imaginary, where \(a\) and \(b\) are real constants.</p>
       `,
       answerHtml: answerBox(raw`
         <div class="math-block">
@@ -714,9 +711,10 @@
     "2d": createConfig("2d", "2021 Paper - cube roots in cis form", {
       focus: raw`Write the right-hand side in polar form, then use De Moivre's theorem for cube roots.`,
       questionHtml: raw`
+        <p class="step-text question-instruction">Solve the equation, where \(k\) is a real constant.</p>
         <div class="question-math">
           \[
-          \text{Solve the equation }z^3=k^6+k^6i,\text{ where }k\text{ is a real constant.}
+          z^3=k^6+k^6i
           \]
         </div>
       `,
@@ -894,11 +892,7 @@
     "3b": createConfig("3b", "2021 Paper - rationalising a surd denominator", {
       focus: raw`Multiply by the conjugate \(4+2\sqrt{3}\), then simplify.`,
       questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{Write }\frac{18}{4-2\sqrt{3}}\text{ in the form }a+b\sqrt{3},\text{ where }a\text{ and }b\text{ are integers.}
-          \]
-        </div>
+        <p class="step-text question-instruction">Write \(\frac{18}{4-2\sqrt{3}}\) in the form \(a+b\sqrt{3}\), where \(a\) and \(b\) are integers.</p>
       `,
       answerHtml: answerBox(raw`
         <div class="math-block">

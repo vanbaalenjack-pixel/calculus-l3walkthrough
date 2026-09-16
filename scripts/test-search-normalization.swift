@@ -43,14 +43,29 @@ let harness = #"""
             title: question.label + " · " + (question.methodTitle || question.method),
             description: question.methodPlain || question.method,
             href: question.href,
+            levelId: level.id,
             year: paper.year,
             standard: standard.code + " " + standard.label,
+            standardCode: standard.code,
+            standardId: standard.id,
+            skillSlugs: Array.isArray(question.skillSlugs) ? question.skillSlugs : [],
             keywords: Array.isArray(question.skillSlugs) ? question.skillSlugs.join(" ") : ""
           }));
         });
       });
     });
   });
+  records.push(window.CalcNzSearch.prepareRecord({
+    type: "Synthetic technique fixture",
+    title: "Integration by parts",
+    description: "A focused synonym fixture for a method not currently catalogued as a walkthrough.",
+    href: "synthetic-integration-by-parts.html",
+    levelId: "level-3",
+    standardCode: "AS91579",
+    standard: "AS91579 Integration",
+    year: 2024,
+    skillSlugs: ["integration-techniques"]
+  }));
 
   function hrefs(query) {
     return window.CalcNzSearch.search(records, query, 1000)
@@ -64,6 +79,20 @@ let harness = #"""
     ["De Moivre", "de-moivre's"],
     ["De Moivre", "demoivre"],
     ["polar", "cis"],
+    ["natural log", "ln"],
+    ["ln", "logarithm"],
+    ["partial fractions", "rational-function integration"],
+    ["roots of unity", "complex roots"],
+    ["complex roots", "De Moivre"],
+    ["stationary point", "turning point"],
+    ["turning point", "optimisation"],
+    ["derivative", "differentiation"],
+    ["antiderivative", "integration"],
+    ["product rule", "Leibniz rule"],
+    ["integration by parts", "product-rule integration"],
+    ["chain rule", "composite function differentiation"],
+    ["implicit differentiation", "implicit derivative"],
+    ["parametric differentiation", "parametric derivative"],
     ["  CONJUGATE!!  ", "conjugate"]
   ];
   const pairResults = pairs.map(function (pair) {
@@ -84,9 +113,21 @@ let harness = #"""
     description: "Using a formula",
     href: "synthetic.html"
   });
+  const crossField = window.CalcNzSearch.search(records, "91579 2024", 1000);
+  const filtered = window.CalcNzSearch.search(records, "", 1000, {
+    level: "level-3",
+    standard: "AS91579",
+    year: "2024"
+  });
   return JSON.stringify({
     pairs: pairResults,
-    avoidsSubstringMatch: window.CalcNzSearch.search([fuzzyOnly], "sin", 10).length === 0
+    avoidsSubstringMatch: window.CalcNzSearch.search([fuzzyOnly], "sin", 10).length === 0,
+    crossField: crossField.length > 0 && crossField.every(function (record) {
+      return String(record.year) === "2024" && /AS91579/.test(record.standard);
+    }),
+    filtersUseAnd: filtered.length > 0 && filtered.every(function (record) {
+      return record.levelId === "level-3" && record.standardCode === "AS91579" && String(record.year) === "2024";
+    })
   });
 }());
 """#
@@ -99,11 +140,17 @@ guard let encoded = context.evaluateScript(harness)?.toString(),
     exit(1)
 }
 
+var failures: [String] = []
+
 if payload["avoidsSubstringMatch"] as? Bool != true {
     failures.append("search matched the token sin inside the unrelated word using")
 }
-
-var failures: [String] = []
+if payload["crossField"] as? Bool != true {
+    failures.append("multi-token search did not require 91579 and 2024 across record fields")
+}
+if payload["filtersUseAnd"] as? Bool != true {
+    failures.append("level, standard, and year filters did not use AND semantics")
+}
 for result in results {
     let first = result["firstQuery"] as? String ?? "?"
     let second = result["secondQuery"] as? String ?? "?"
@@ -122,4 +169,4 @@ if !failures.isEmpty {
     exit(1)
 }
 
-print("Search normalization passed: \(results.count) equivalent non-empty query pairs and exact-token matching.")
+print("Search normalization passed: \(results.count) equivalent non-empty query pairs, cross-field tokens, AND filters, and exact-token matching.")

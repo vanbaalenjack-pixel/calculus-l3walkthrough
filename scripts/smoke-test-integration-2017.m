@@ -81,7 +81,7 @@
     @"mode": @"redirect"
   }];
   [tests addObject:@{
-    @"name": @"2017 continue card and completed progress",
+    @"name": @"2017 continue card and reviewed progress",
     @"path": @"index.html",
     @"width": @1280,
     @"height": @900,

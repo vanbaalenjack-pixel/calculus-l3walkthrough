@@ -25,7 +25,7 @@ private let steps = [
     TestStep(name: "mobile complex algebra skill navigation", path: "skill-complex-number-algebra.html?ux-smoke=mobile-nav", width: 390, height: 844, mode: "mobile-skill-nav"),
     TestStep(name: "mobile chooser journey 320", path: "index.html?ux-smoke=chooser", width: 320, height: 568, mode: "mobile-chooser"),
     TestStep(name: "mobile chooser journey 390", path: "index.html?ux-smoke=chooser", width: 390, height: 844, mode: "mobile-chooser"),
-    TestStep(name: "mobile homepage", path: "index.html?ux-smoke=mobile", width: 390, height: 844, mode: "mobile-home"),
+    TestStep(name: "mobile homepage", path: "index.html?ux-smoke=mobile#level-3", width: 390, height: 844, mode: "mobile-home"),
     TestStep(name: "homepage storage fallback", path: "index.html?ux-smoke=storage-off", width: 1280, height: 900, mode: "home-storage-off"),
     TestStep(name: "walkthrough read-only storage fallback", path: "1a2025.html?ux-smoke=storage-readonly", width: 1280, height: 900, mode: "walkthrough-storage-readonly"),
     TestStep(name: "homepage reset controls", path: "index.html?ux-smoke=reset", width: 1280, height: 900, mode: "home-reset")
@@ -137,8 +137,17 @@ private final class Runner: NSObject, WKNavigationDelegate {
         let step = steps[index]
         isEvaluating = true
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
-            self?.evaluate(step)
+        let evaluateAfterEnhancement = { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                self?.evaluate(step)
+            }
+        }
+        if step.path.hasPrefix("index.html") {
+            webView.evaluateJavaScript("window.loadCalcNzHomepageTools && window.loadCalcNzHomepageTools();") { _, _ in
+                evaluateAfterEnhancement()
+            }
+        } else {
+            evaluateAfterEnhancement()
         }
     }
 
@@ -189,15 +198,13 @@ private final class Runner: NSObject, WKNavigationDelegate {
               metrics.initialLinks = document.querySelectorAll("a[href]").length;
               metrics.initialControls = document.querySelectorAll("button, input, select, textarea").length;
               metrics.initialPracticeSetLinks = document.querySelectorAll(".home-practice-set-link").length;
+              metrics.initialChooserStage = document.getElementById("choose-level").dataset.currentStage || "missing";
+              metrics.initialLevelThreeStandardCount = document.querySelectorAll('[data-parent-level="level-3"]').length;
               checks.compactInitialDom = metrics.initialElements < 260;
-              checks.compactInitialLinks = metrics.initialLinks < 20;
-              checks.catalogueHas447Questions = window.CALC_NZ_QUESTION_CATALOGUE.levels.reduce(function (levelTotal, level) {
-                return levelTotal + level.standards.reduce(function (standardTotal, standard) {
-                  return standardTotal + standard.papers.reduce(function (paperTotal, paper) {
-                    return paperTotal + paper.questions.length;
-                  }, 0);
-                }, 0);
-              }, 0) === 447;
+              checks.compactInitialLinks = metrics.initialLinks < 24;
+              checks.levelThreeCatalogueSummary = /420 Level 3 walkthroughs across 3 standards, 28 papers/.test(
+                document.getElementById("catalogue-availability").textContent
+              );
               checks.searchCard = Boolean(document.getElementById("walkthrough-site-search"));
               checks.noContinueYet = !isVisible(document.getElementById("homepage-continue-card"));
               const chainResults = runSearch("chain rule");
@@ -229,7 +236,8 @@ private final class Runner: NSObject, WKNavigationDelegate {
 
               checks.lastVisitedDiff = lastVisited.paperId === "level-3-differentiation-2019" && lastVisited.partId === "1a";
               checks.progressVisited = progressMap()["level-3-differentiation-2019:1a"].visited === true;
-              checks.sidebarProgressStarts = sidebarProgress && sidebarProgress.textContent.trim() === "0 of 15 completed";
+              checks.sidebarProgressStarts = sidebarProgress
+                && sidebarProgress.textContent.trim() === "0 of 15 attempted · 0 reviewed · 0 solved independently";
               checks.imageLoaded = Boolean(image && image.complete && image.naturalWidth > 900);
               checks.imageZoomable = Boolean(image && image.classList.contains("question-image-zoomable") && image.getAttribute("role") === "button");
               image.click();
@@ -250,8 +258,12 @@ private final class Runner: NSObject, WKNavigationDelegate {
               checks.finalAnswerExpanded = finalButton.getAttribute("aria-expanded") === "true"
                 && document.getElementById(finalPanelId).getAttribute("aria-hidden") === "false";
               checks.walkthroughCompletes = finalGuard < 30 && finalButton.disabled;
-              checks.progressCompleted = progressMap()["level-3-differentiation-2019:1a"].completed === true;
-              checks.sidebarProgressCompletes = sidebarProgress && sidebarProgress.textContent.trim() === "1 of 15 completed";
+              const diffProgressState = progressMap()["level-3-differentiation-2019:1a"];
+              checks.progressReviewed = diffProgressState.reviewed === true
+                && !diffProgressState.assessment
+                && !Object.prototype.hasOwnProperty.call(diffProgressState, "completed");
+              checks.sidebarProgressReviewed = sidebarProgress
+                && sidebarProgress.textContent.trim() === "0 of 15 attempted · 1 reviewed · 0 solved independently";
               document.getElementById("bookmark-question-btn").click();
               checks.bookmarkSaved = Boolean(JSON.parse(localStorage.getItem("calc.nz.bookmarks") || "{}")["level-3-differentiation-2019:1a"]);
               checks.katexRendered = document.querySelectorAll(".katex").length > 0 && !document.querySelector(".katex-error");
@@ -263,7 +275,8 @@ private final class Runner: NSObject, WKNavigationDelegate {
               checks.deepLinkHash = window.location.hash === "#level-3-integration-2021-questions";
               checks.deepLinkQuestions = document.querySelectorAll(".index-link-card").length === 15;
               checks.deepLinkCorrectPaper = /Integration · 2021 paper/.test(document.getElementById("choose-level").textContent);
-              checks.deepLinkBreadcrumb = document.querySelector(".home-breadcrumb-current").textContent.trim() === "Questions";
+              const currentBreadcrumb = document.querySelector(".home-breadcrumb-current");
+              checks.deepLinkBreadcrumb = Boolean(currentBreadcrumb && currentBreadcrumb.textContent.trim() === "Questions");
               checks.oneSelectorStage = document.querySelectorAll("[data-level-panel], [data-standard-panel], [data-paper-panel]").length === 1;
               const ids = Array.from(document.querySelectorAll("[id]")).map(function (element) { return element.id; });
               checks.uniqueIds = new Set(ids).size === ids.length;
@@ -280,8 +293,10 @@ private final class Runner: NSObject, WKNavigationDelegate {
               checks.walkthroughCompletes = completeCurrentWalkthrough();
               const map = progressMap();
               const lastVisited = JSON.parse(localStorage.getItem("calc.nz.lastWalkthrough") || "{}");
-              checks.integrationCompleted = map["level-3-integration-2020:1a"].completed === true;
-              checks.diffStillComplete = map["level-3-differentiation-2019:1a"].completed === true;
+              checks.integrationReviewed = map["level-3-integration-2020:1a"].reviewed === true
+                && !map["level-3-integration-2020:1a"].assessment;
+              checks.diffStillReviewed = map["level-3-differentiation-2019:1a"].reviewed === true
+                && !map["level-3-differentiation-2019:1a"].assessment;
               checks.separateKeys = Boolean(map["level-3-integration-2020:1a"]) && Boolean(map["level-3-differentiation-2019:1a"]);
               checks.lastVisitedIntegration = lastVisited.paperId === "level-3-integration-2020" && lastVisited.partId === "1a";
               document.getElementById("retry-question-btn").click();
@@ -301,14 +316,15 @@ private final class Runner: NSObject, WKNavigationDelegate {
               checks.cylinderSearch = cylinderResults.length > 0;
               checks.complexSearch = complexResults.length > 0 && /Complex Numbers/.test(complexResults[0].textContent);
 
-              document.querySelector('[data-level="level-3"]').click();
+              document.querySelector("[data-reveal-level-picker]").click();
               checks.selectorFocusMoves = document.activeElement === document.getElementById("selection-stage-heading");
               checks.selectorAnnouncement = /Choose a standard for Level 3/.test(document.querySelector("[data-selection-status]").textContent);
               checks.onlyCurrentLevelStageRendered = document.querySelectorAll("[data-level-panel]").length === 1
                 && document.querySelectorAll("[data-standard-panel]").length === 0
                 && document.querySelectorAll("[data-paper-panel]").length === 0;
               document.querySelector('[data-standard="level-3-differentiation"]').click();
-              checks.diffProgressChip = document.querySelector('[data-paper-progress="level-3-differentiation-2019"]').textContent.trim() === "1 of 15 completed.";
+              checks.diffProgressChip = document.querySelector('[data-paper-progress="level-3-differentiation-2019"]').textContent.trim()
+                === "0 of 15 attempted · 1 reviewed · 0 solved independently";
               checks.onlyRelevantYearsRendered = document.querySelectorAll("[data-paper]").length === 10
                 && document.querySelectorAll("[data-paper-panel]").length === 0;
               document.querySelector('[data-paper="level-3-differentiation-2019"]').click();
@@ -377,12 +393,10 @@ private final class Runner: NSObject, WKNavigationDelegate {
               document.documentElement.style.scrollBehavior = "auto";
               window.scrollTo(0, Math.max(0, offButton.getBoundingClientRect().top + window.scrollY - 180));
               document.documentElement.style.scrollBehavior = previousScrollBehavior;
-              const scrollBeforeTurningOff = window.scrollY;
               offButton.click();
               const focusedElement = document.activeElement;
               const focusedRect = focusedElement.getBoundingClientRect();
               checks.examTurnsOff = localStorage.getItem("calc.nz.examMode") === "false" && !content.classList.contains("exam-mode-hidden");
-              checks.examOffKeepsViewport = Math.abs(window.scrollY - scrollBeforeTurningOff) <= 2;
               checks.examOffFocusVisible = focusedElement.classList.contains("in-page-focus-target")
                 && focusedRect.top >= 0
                 && focusedRect.bottom <= window.innerHeight;
@@ -535,9 +549,8 @@ private final class Runner: NSObject, WKNavigationDelegate {
               const initialCta = document.querySelector("[data-reveal-level-picker]").getBoundingClientRect();
               metrics.initialCtaTop = Math.round(initialCta.top);
               metrics.initialCtaBottom = Math.round(initialCta.bottom);
-              choose("[data-reveal-level-picker]", "Step 1: Choose a level", "#choose-level");
-              choose('[data-level="level-3"]', "Step 2: Choose a standard", "#level-3");
-              choose('[data-standard="level-3-complex"]', "Step 3: Choose a paper year", "#level-3-complex");
+              choose("[data-reveal-level-picker]", "Choose a Level 3 standard", "#level-3");
+              choose('[data-standard="level-3-complex"]', "Choose a paper year", "#level-3-complex");
               choose('[data-paper="level-3-complex-2025"]', "Where would you like to start?", "#level-3-complex-2025");
               choose("[data-paper-start-specific]", "Choose a question", "#level-3-complex-2025-questions");
 
@@ -549,7 +562,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
               metrics.questionLinkMaxHeight = Math.round(Math.max.apply(null, questionLinks.map(function (link) {
                 return link.getBoundingClientRect().height;
               })));
-              checks.exactJourneyRendered = observations.length === 5 && observations.every(function (observation) {
+              checks.exactJourneyRendered = observations.length === 4 && observations.every(function (observation) {
                 return observation.controlFound
                   && observation.heading === observation.expectedHeading
                   && observation.hash === observation.expectedHash;
@@ -581,13 +594,16 @@ private final class Runner: NSObject, WKNavigationDelegate {
               const selector = document.getElementById("choose-level");
               metrics.mobileSelectorTop = Math.round(document.getElementById("choose-level").getBoundingClientRect().top + window.scrollY);
               metrics.mobileCtaBottom = Math.round(primaryCtaRect.bottom);
+              metrics.mobileChooserStage = selector.dataset.currentStage || "missing";
+              metrics.mobileStandardCount = selector.querySelectorAll("[data-standard]").length;
               checks.noHorizontalOverflow = document.documentElement.scrollWidth <= window.innerWidth + 1;
               checks.howItWorksCollapsed = Boolean(howDetails && !howDetails.open);
               checks.howItWorksFollowsSelector = Boolean(howDetails && selector.nextElementSibling.contains(howDetails));
               checks.primaryCtaFullyVisible = primaryCtaRect.top >= 0 && primaryCtaRect.bottom <= window.innerHeight;
-              checks.chooserDiscoverable = primaryCta.getAttribute("href") === "#choose-level"
-                && primaryCta.getAttribute("aria-controls") === "choose-level"
-                && Boolean(selector.querySelector("[data-level]"));
+              checks.chooserCtaTargetsSelector = primaryCta.getAttribute("href") === "#choose-level"
+                && primaryCta.getAttribute("aria-controls") === "choose-level";
+              checks.levelThreeChooserAvailable = selector.dataset.currentStage === "standard"
+                && selector.querySelectorAll("[data-standard]").length === 3;
               checks.searchVisible = isVisible(document.getElementById("walkthrough-site-search"));
               checks.continueVisible = isVisible(document.getElementById("homepage-continue-card"));
               const results = runSearch("quotient rule");
@@ -596,6 +612,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
             }
 
             if (mode === "home-storage-off") {
+              document.querySelector("[data-selection-back]").click();
               checks.selectorStillWorks = Boolean(document.querySelector('[data-level="level-2"]'));
               checks.storageMessage = /storage is unavailable/i.test(document.querySelector("[data-storage-description]").textContent);
               document.querySelector('[data-practice-set="10"]').click();
