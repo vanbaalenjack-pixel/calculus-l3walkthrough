@@ -122,6 +122,20 @@ class BuildSeoContractTests(unittest.TestCase):
             BUILD_SEO.about_page(),
         )
 
+    def test_public_attribution_distinguishes_content_and_code_authorship(self) -> None:
+        about = BUILD_SEO.about_page()
+        footer = BUILD_SEO.site_footer()
+        self.assertIn(BUILD_SEO.FULL_PROJECT_ATTRIBUTION, about)
+        self.assertIn(BUILD_SEO.SHORT_PROJECT_ATTRIBUTION, footer)
+        self.assertNotIn(BUILD_SEO.SHORT_PROJECT_ATTRIBUTION, about)
+        self.assertIn("rather than written by me personally", about)
+        self.assertRegex(footer, r"Walkthroughs and project direction by [^.]+\.")
+        self.assertNotRegex(
+            about + footer,
+            r"(?i)(artificial intelligence|\bAI\b|ChatGPT|OpenAI|Codex|"
+            r"\bGPT\b|\bLLMs?\b|language models?|machine-generated)",
+        )
+
     def test_empty_registry_publishes_search_but_no_guides(self) -> None:
         guides = BUILD_SEO.load_guides('{"schemaVersion":1,"guides":[]}')
         self.assertEqual(guides, [])

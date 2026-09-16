@@ -1021,6 +1021,16 @@ def about_generator_span(source: str) -> tuple[int, int]:
     return match.start(), end
 
 
+def footer_attribution_spans(source: str) -> tuple[tuple[int, int], ...]:
+    return tuple(
+        match.span()
+        for match in re.finditer(
+            r'(?is)<p\b(?=[^>]*\bclass=["\'][^"\']*\bsite-footer-attribution\b)[^>]*>.*?</p>',
+            source,
+        )
+    )
+
+
 def validate_personal_name(root: Path, failures: Failures) -> None:
     findings: list[str] = []
     for directory, dirnames, filenames in os.walk(root):
@@ -1035,10 +1045,13 @@ def validate_personal_name(root: Path, failures: Failures) -> None:
                 continue
             relative = path.relative_to(root).as_posix()
             allowed_span = about_generator_span(source) if relative == "scripts/build-seo.py" else (-1, -1)
+            footer_spans = footer_attribution_spans(source) if path.suffix.casefold() == ".html" else ()
             for pattern in PERSONAL_NAME_PATTERNS:
                 for match in pattern.finditer(source):
                     allowed = relative == "about.html" or (
                         allowed_span[0] <= match.start() < allowed_span[1]
+                    ) or any(
+                        start <= match.start() < end for start, end in footer_spans
                     )
                     if not allowed:
                         line = source.count("\n", 0, match.start()) + 1

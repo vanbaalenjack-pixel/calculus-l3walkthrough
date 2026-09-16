@@ -92,7 +92,7 @@ This document tracks the internal audit remediation requested for Calc.nz. Mathe
 - Site validators: 447 logical walkthroughs, 391 physical HTML pages, and 498 canonical sitemap URLs passed; all 498 local URLs returned HTTP 200.
 - Resource and asset checks: 58/58 official NZQA URLs resolved when checked, and 391 HTML files, 95 PNG assets, 154 graph SVG templates, and 86 authored image templates passed the visual-asset audit.
 - Syntax/type checks passed for the modified Python, Swift, Objective-C, and JavaScript test paths; `git diff --check` passed.
-- The Codex in-app browser had no connected browser surface. Repository-native WKWebView/WebKit runners performed the required rendered-browser, interaction, console-error, overflow, accessibility, and screenshot checks instead.
+- The in-app browser had no connected browser surface. Repository-native WKWebView/WebKit runners performed the required rendered-browser, interaction, console-error, overflow, accessibility, and screenshot checks instead.
 
 ## Teacher-review checklist
 

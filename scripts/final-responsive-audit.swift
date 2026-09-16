@@ -45,6 +45,7 @@ private enum PageKind: String {
     case legacyWalkthrough
     case search
     case notFound
+    case about
 }
 
 private struct AuditCase {
@@ -203,7 +204,28 @@ private let legacyCases: [AuditCase] = Array(2017...2024).enumerated().map { off
     )
 }
 
-private let auditCases = homepageCases + representativeCases + legacyCases
+private let aboutCases: [AuditCase] = [
+    AuditCase(
+        slug: "23-about-mobile",
+        name: "About page — mobile",
+        path: "about.html?final-responsive-audit=mobile",
+        viewport: phone390,
+        kind: .about,
+        expectedH1: "About Calc.nz",
+        expectedCanonical: "https://calc.nz/about.html"
+    ),
+    AuditCase(
+        slug: "24-about-desktop",
+        name: "About page — desktop",
+        path: "about.html?final-responsive-audit=desktop",
+        viewport: desktop1440,
+        kind: .about,
+        expectedH1: "About Calc.nz",
+        expectedCanonical: "https://calc.nz/about.html"
+    )
+]
+
+private let auditCases = homepageCases + representativeCases + legacyCases + aboutCases
 
 private final class ConsoleCollector: NSObject, WKScriptMessageHandler {
     var messages: [String] = []
@@ -400,6 +422,30 @@ private final class FinalResponsiveAuditRunner: NSObject, WKNavigationDelegate {
             checks.naturalMobileNavBasis = !compact || navChildren.every(function (element) {
               return getComputedStyle(element).flexBasis !== "220px";
             });
+            const publicCopy = [
+              document.body.textContent,
+              document.title,
+              meta('meta[name="description"]'),
+              meta('meta[property="og:title"]'),
+              meta('meta[property="og:description"]'),
+              meta('meta[name="twitter:title"]'),
+              meta('meta[name="twitter:description"]')
+            ].join(" ");
+            checks.noExplicitAutomationTerminology = !/(artificial intelligence|ChatGPT|OpenAI|Codex|\bGPT\b|\bLLMs?\b|language models?|machine-generated|generated with AI|built with AI)/i.test(publicCopy)
+              && !/\bAI\b/.test(publicCopy);
+            checks.noFalsePersonalCodingClaim = !/(coded by me|hand-coded|developed entirely by|built entirely by me|code is my original work)/i.test(publicCopy);
+
+            const footerAttribution = document.querySelector(".site-footer-attribution");
+            const creatorName = ["Jack", "van", "Baa" + "len"].join(" ");
+            const expectsFooterAttribution = !["walkthrough", "legacyWalkthrough", "about"].includes(kind);
+            if (expectsFooterAttribution) {
+              const attributionRect = footerAttribution && footerAttribution.getBoundingClientRect();
+              checks.shortFooterAttribution = Boolean(footerAttribution)
+                && footerAttribution.textContent.trim() === "Walkthroughs and project direction by " + creatorName + ". Technical implementation created with software-development tools.";
+              checks.footerAttributionLayout = Boolean(attributionRect)
+                && footerAttribution.scrollWidth <= footerAttribution.clientWidth + 1
+                && attributionRect.height <= (compact ? 130 : 80);
+            }
 
             const menuToggle = document.querySelector(".site-menu-toggle");
             if (compact) {
@@ -538,6 +584,17 @@ private final class FinalResponsiveAuditRunner: NSObject, WKNavigationDelegate {
                 && Boolean(document.querySelector('a[href="standards.html"]'))
                 && Boolean(document.querySelector('a[href="skills.html"]'))
                 && Boolean(document.querySelector('a[href="search.html"]'));
+            }
+
+            if (kind === "about") {
+              const authorSection = document.getElementById("author-heading")?.closest("section");
+              const authorCopy = authorSection ? authorSection.textContent : "";
+              checks.fullAuthorshipAttribution = authorCopy.includes(creatorName)
+                && /created and curated the mathematical walkthroughs and learning content/.test(authorCopy)
+                && /chose the site’s purpose, structure, features, and presentation/.test(authorCopy)
+                && /directed the project/.test(authorCopy);
+              checks.codeAuthorshipDistinction = /underlying code was generated and refined using software-development tools rather than written by me personally/.test(authorCopy);
+              checks.aboutAvoidsDuplicateShortAttribution = !footerAttribution;
             }
 
             return JSON.stringify({

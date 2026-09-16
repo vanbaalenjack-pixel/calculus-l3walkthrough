@@ -458,7 +458,9 @@ private final class VisualAuditRunner: NSObject, WKNavigationDelegate {
               const bodyText = document.body.textContent;
               const creatorName = ["Jack", "van", "Baa" + "len"].join(" ");
               checks.creatorExplained = bodyText.includes(creatorName);
-              checks.aiExplained = /AI tools were used/.test(bodyText);
+              checks.authorshipExplained = /created and curated the mathematical walkthroughs and learning content/.test(bodyText)
+                && /directed the project/.test(bodyText);
+              checks.implementationExplained = /underlying code was generated and refined using software-development tools rather than written by me personally/.test(bodyText);
               checks.independenceExplained = /not affiliated with or endorsed by NZQA/.test(bodyText);
               checks.localStorageExplained = /stored only in the browser/.test(bodyText);
               checks.correctionsLink = Boolean(document.querySelector('a[href*="docs.google.com/forms"]'));

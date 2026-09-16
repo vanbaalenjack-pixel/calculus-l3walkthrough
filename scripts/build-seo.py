@@ -67,13 +67,11 @@ WALKTHROUGH_EXTRACTOR = ROOT / "scripts" / "extract-walkthrough-content.swift"
 OFFICIAL_RESOURCES_FILE = ROOT / "official-resources.json"
 
 PAGE_MODIFIED_DATES = {
-    "index.html": "2026-09-02",
+    "index.html": "2026-09-16",
     "standards.html": "2026-09-02",
     "skills.html": "2026-09-02",
     "search.html": "2026-09-02",
-    # Navigation and icon chrome changed in the current release, but the
-    # substantive About-page content did not. Keep its content date distinct.
-    "about.html": "2026-07-19",
+    "about.html": "2026-09-16",
     "404.html": "2026-08-09",
 }
 
@@ -108,6 +106,18 @@ ERROR_REPORT_URL = (
     "https://docs.google.com/forms/d/e/"
     "1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/"
     "viewform?usp=publish-editor"
+)
+PROJECT_CREATOR = "Jack " + "van " + "Baalen"
+FULL_PROJECT_ATTRIBUTION = (
+    f"I, {PROJECT_CREATOR}, created and curated the mathematical walkthroughs and "
+    "learning content, chose the site’s purpose, structure, features, and "
+    "presentation, and directed the project. The underlying code was "
+    "generated and refined using software-development tools rather than written "
+    "by me personally."
+)
+SHORT_PROJECT_ATTRIBUTION = (
+    f"Walkthroughs and project direction by {PROJECT_CREATOR}. Technical "
+    "implementation created with software-development tools."
 )
 
 # Internal panel ids pre-date the public, descriptive complex-numbers slug.
@@ -2224,6 +2234,7 @@ def update_homepage(
             raise ValueError("Could not update the homepage footer navigation")
 
     footer = f"""
+<p class="site-footer-text site-footer-attribution">{h(SHORT_PROJECT_ATTRIBUTION)}</p>
 <p class="site-footer-text site-footer-disclaimer">Calc.nz is an independent learning resource and is not affiliated with or endorsed by NZQA. Check questions and assessment information against the <a class="site-footer-link" href="https://www2.nzqa.govt.nz/ncea/subjects/select-subject/mathematics-and-statistics/">official NZQA Mathematics and Statistics material</a>.</p>
 """.strip()
     original, count = re.subn(
@@ -2318,12 +2329,21 @@ def collection_schema(
     }
 
 
-def site_footer(*, guides_published: bool | None = None) -> str:
+def site_footer(
+    *,
+    guides_published: bool | None = None,
+    include_attribution: bool = True,
+) -> str:
     if guides_published is None:
         guides_published = bool(load_guides())
     guides_link = (
         '<a class="site-footer-link" href="/guides.html">Guides</a>'
         if guides_published
+        else ""
+    )
+    attribution = (
+        f'  <p class="site-footer-text site-footer-attribution">{h(SHORT_PROJECT_ATTRIBUTION)}</p>\n'
+        if include_attribution
         else ""
     )
     return f"""
@@ -2337,7 +2357,7 @@ def site_footer(*, guides_published: bool | None = None) -> str:
     <a class="site-footer-link" href="/search.html">Search</a>
     <a class="site-footer-link" href="about.html">About</a>
   </nav>
-  <p class="site-footer-text site-footer-disclaimer">Calc.nz is independent and is not affiliated with or endorsed by NZQA.</p>
+{attribution}  <p class="site-footer-text site-footer-disclaimer">Calc.nz is independent and is not affiliated with or endorsed by NZQA.</p>
   <p class="site-footer-text report-issue-text"><a class="report-issue-link" href="{h(ERROR_REPORT_URL)}" target="_blank" rel="noopener noreferrer">Report an error or issue</a></p>
 </footer>""".strip()
 
@@ -3000,10 +3020,6 @@ def skill_page(
 
 
 def about_page() -> str:
-    # Keep personal attribution scoped to this page. Splitting the source
-    # literal also makes whole-repository audits report only the generated
-    # About page, where the name is intentionally visible.
-    about_creator = "Jack " + "van " + "Baalen"
     filename = "about.html"
     canonical = absolute_url(filename)
     title = "About Calc.nz | Independent NCEA Maths Walkthroughs"
@@ -3022,7 +3038,7 @@ def about_page() -> str:
     if isinstance(page_node, dict):
         page_node["creator"] = {
             "@type": "Person",
-            "name": about_creator,
+            "name": PROJECT_CREATOR,
         }
     breadcrumb = breadcrumb_nav((("Calc.nz", "index.html"), ("About Calc.nz", None)))
     standard_links = "\n".join(
@@ -3054,7 +3070,7 @@ def about_page() -> str:
   <section class="question-card" aria-labelledby="author-heading">
     <p class="question-label">Project information</p>
     <h2 id="author-heading">Who made Calc.nz</h2>
-    <p class="step-text">Calc.nz was created by {h(about_creator)} as part of a Year 13 extended learning project. Mathematical explanations and walkthrough design are by {h(about_creator)}. AI tools were used to assist with parts of the website implementation.</p>
+    <p class="step-text">{h(FULL_PROJECT_ATTRIBUTION)}</p>
     <p class="question-note">Calc.nz is independently published. The corrected audit questions are awaiting independent teacher review, and all walkthroughs should be compared with official NZQA material.</p>
   </section>
 
@@ -3080,7 +3096,7 @@ def about_page() -> str:
   </section>
   <p class="page-updated">Page updated <time datetime="{PAGE_MODIFIED_DATES[filename]}">{human_date(PAGE_MODIFIED_DATES[filename])}</time>.</p>
 </main>
-{site_footer()}
+{site_footer(include_attribution=False)}
 </body>
 </html>
 """
