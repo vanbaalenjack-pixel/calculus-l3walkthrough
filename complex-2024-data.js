@@ -1682,7 +1682,7 @@
       ]
     }),
     "3a": createConfig("3a", "2024 Paper — Rationalising a surd denominator", {
-      focus: raw`multiplying by the conjugate and simplifying everything cleanly.`,
+      focus: raw`factoring a common radical, recording the domain, and rationalising the remaining denominator.`,
       questionHtml: raw`
         <div class="question-math">
           \[
@@ -1692,106 +1692,14 @@
         <p class="step-text">Write the expression in the form \(a+\sqrt{a}\), where \(p\) and \(a\) are real constants.</p>
       `,
       hints: [
-        raw`Multiply top and bottom by the conjugate \(\sqrt{2p}+\sqrt{p}\).`,
-        raw`The denominator becomes \(2p-p\), which is just \(p\).`,
-        raw`After simplifying, the \(p\) cancels out completely.`
+        raw`Check when the denominator is zero.`,
+        raw`Use \(\sqrt{2p}=\sqrt2\sqrt p\) and cancel the nonzero common factor.`,
+        raw`Rationalise \(\sqrt2/(\sqrt2-1)\).`
       ],
-      answerHtml: raw`
-        <p class="step-text">Multiply by the conjugate of the denominator:</p>
-        <div class="math-block">
-          \[
-          \frac{\sqrt{2p}}{\sqrt{2p}-\sqrt{p}}\cdot\frac{\sqrt{2p}+\sqrt{p}}{\sqrt{2p}+\sqrt{p}}
-          \]
-          \[
-          =\frac{\sqrt{2p}(\sqrt{2p}+\sqrt{p})}{(\sqrt{2p})^2-(\sqrt{p})^2}
-          \]
-          \[
-          =\frac{2p+\sqrt{2p^2}}{p}
-          \]
-        </div>
-        <p class="step-text">Now simplify:</p>
-        <div class="math-block">
-          \[
-          \frac{2p}{p}+\frac{p\sqrt{2}}{p}=2+\sqrt{2}
-          \]
-        </div>
-        ${answerBox(raw`
-          \[
-          2+\sqrt{2}
-          \]
-        `)}
-        ${tipBox(raw`This is one of those nice ones where the parameter disappears completely after rationalising.`)}
-      `,
+      answerHtml: raw`<p class="step-text">The original expression is undefined at \(p=0\). For real square roots its domain is \(p&gt;0\). With principal complex roots, the same calculation also holds for real \(p\ne0\).</p><div class="math-block">\[\frac{\sqrt{2p}}{\sqrt{2p}-\sqrt p}=\frac{\sqrt2\sqrt p}{(\sqrt2-1)\sqrt p}=\frac{\sqrt2}{\sqrt2-1}=\frac{\sqrt2(\sqrt2+1)}{2-1}=2+\sqrt2.\]</div><p class="step-text">The cancellation is valid because \(\sqrt p\ne0\). Thus \(a=2\). At \(p=-1\), both original radicals are imaginary and their common factor \(i\) cancels; at \(p=0\), no value is defined.</p>`,
       guidedSteps: [
-        {
-          title: raw`Identify the conjugate`,
-          previewHtml: raw`That conjugate removes the surd from the denominator.`,
-          workingHtml: raw`<p class="step-text">That conjugate removes the surd from the denominator.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-                \sqrt{2p}+\sqrt{p}
-              \]
-</div>`
-        },
-        {
-          title: raw`Simplify the denominator`,
-          previewHtml: raw`\((\sqrt{2p})^2-(\sqrt{p})^2=2p-p=p\).`,
-          workingHtml: raw`<p class="step-text">\((\sqrt{2p})^2-(\sqrt{p})^2=2p-p=p\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-                p
-              \]
-</div>`
-        },
-        {
-          title: raw`Finish the simplification`,
-          previewHtml: raw`The whole expression simplifies to \(2+\sqrt{2}\).`,
-          workingHtml: raw`<p class="step-text">The whole expression simplifies to \(2+\sqrt{2}\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-                2+\sqrt{2}
-              \]
-</div>
-
-        <p class="step-text">Multiply by the conjugate of the denominator:</p>
-        <div class="math-block">
-          \[
-          \frac{\sqrt{2p}}{\sqrt{2p}-\sqrt{p}}\cdot\frac{\sqrt{2p}+\sqrt{p}}{\sqrt{2p}+\sqrt{p}}
-          \]
-          \[
-          =\frac{\sqrt{2p}(\sqrt{2p}+\sqrt{p})}{(\sqrt{2p})^2-(\sqrt{p})^2}
-          \]
-          \[
-          =\frac{2p+\sqrt{2p^2}}{p}
-          \]
-        </div>
-        <p class="step-text">Now simplify:</p>
-        <div class="math-block">
-          \[
-          \frac{2p}{p}+\frac{p\sqrt{2}}{p}=2+\sqrt{2}
-          \]
-        </div>
-
-      <div class="answer-highlight">
-        <p class="question-label">Final Answer</p>
-
-          \[
-          2+\sqrt{2}
-          \]
-
-      </div>
-
-
-      <div class="callout-card tip">
-        <p class="callout-title">Exam Tip</p>
-        <p class="step-text">This is one of those nice ones where the parameter disappears completely after rationalising.</p>
-      </div>
-
-      `
-        }
+        {title: raw`Check the domain`, previewHtml: raw`Which value makes both radicals zero?`, workingHtml: raw`<p class="step-text">Exclude \(p=0\). Use \(p&gt;0\) for real radicals, or principal complex roots for real \(p\ne0\).</p>`},
+        {title: raw`Cancel and rationalise`, previewHtml: raw`Predict what remains after the common radical cancels.`, workingHtml: raw`<p class="step-text">The original expression is undefined at \(p=0\). For real square roots its domain is \(p&gt;0\). With principal complex roots, the same calculation also holds for real \(p\ne0\).</p><div class="math-block">\[\frac{\sqrt{2p}}{\sqrt{2p}-\sqrt p}=\frac{\sqrt2\sqrt p}{(\sqrt2-1)\sqrt p}=\frac{\sqrt2}{\sqrt2-1}=\frac{\sqrt2(\sqrt2+1)}{2-1}=2+\sqrt2.\]</div><p class="step-text">The cancellation is valid because \(\sqrt p\ne0\). Thus \(a=2\). At \(p=-1\), both original radicals are imaginary and their common factor \(i\) cancels; at \(p=0\), no value is defined.</p>`}
       ]
     }),
     "3b": createConfig("3b", "2024 Paper — Squaring a plotted complex number", {
@@ -2083,146 +1991,26 @@
         }
       ]
     }),
-    "3d": createConfig("3d", "2024 Paper — Fourth roots in polar form", {
-      focus: raw`writing a negative real number in polar form and then taking the fourth roots.`,
-      questionHtml: raw`
-        <div class="question-math">
-          \[
-          z^4+81k^8=0
-          \]
-        </div>
-        <p class="step-text">Solve the equation, where \(k\) is a real constant.</p>
-        <p class="step-text">Give your solution(s) in polar form in terms of \(k\).</p>
-      `,
-      hints: [
-        raw`Move \(81k^8\) to the other side first.`,
-        raw`A negative real number has argument \(\pi\), so start with \(81k^8\operatorname{cis}(\pi)\).`,
-        raw`When you take fourth roots, the modulus becomes \(3k^2\) and the arguments differ by \(\frac{\pi}{2}\).`
-      ],
-      answerHtml: raw`
-        <p class="step-text">Rewrite the equation first:</p>
-        <div class="math-block">
-          \[
-          z^4=-81k^8
-          \]
-          \[
-          z^4=81k^8\operatorname{cis}((2n+1)\pi)
-          \]
-        </div>
-        <p class="step-text">Now take fourth roots:</p>
-        <div class="math-block">
-          \[
-          z=3k^2\operatorname{cis}\left(\frac{(2n+1)\pi}{4}\right)
-          \]
-          \[
-          z=3k^2\operatorname{cis}\left(\frac{\pi}{4}+n\frac{\pi}{2}\right),\qquad n=0,1,2,3
-          \]
-        </div>
-        <p class="step-text">So the four solutions are:</p>
-        <div class="math-block">
-          \[
-          3k^2\operatorname{cis}\left(\frac{\pi}{4}\right),\;
-          3k^2\operatorname{cis}\left(\frac{3\pi}{4}\right),\;
-          3k^2\operatorname{cis}\left(-\frac{3\pi}{4}\right),\;
-          3k^2\operatorname{cis}\left(-\frac{\pi}{4}\right)
-          \]
-        </div>
-        ${answerBox(raw`
-          \[
-          z=3k^2\operatorname{cis}\left(\frac{\pi}{4}\right),\;
-          3k^2\operatorname{cis}\left(\frac{3\pi}{4}\right),\;
-          3k^2\operatorname{cis}\left(-\frac{3\pi}{4}\right),\;
-          3k^2\operatorname{cis}\left(-\frac{\pi}{4}\right)
-          \]
-        `)}
-        ${tipBox(raw`Make sure to use a different letter for your root counter so it does not get confused with the real constant \(k\).`)}
-      `,
-      guidedSteps: [
-        {
-          title: raw`Rewrite the right-hand side`,
-          previewHtml: raw`The modulus is \(81k^8\).`,
-          workingHtml: raw`<p class="step-text">The modulus is \(81k^8\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-                81k^8
-              \]
-</div>`
-        },
-        {
-          title: raw`General argument form`,
-          previewHtml: raw`The arguments are \(\frac{\pi}{4}+n\frac{\pi}{2}\).`,
-          workingHtml: raw`<p class="step-text">The arguments are \(\frac{\pi}{4}+n\frac{\pi}{2}\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-                \frac{\pi}{4}+n\frac{\pi}{2}
-              \]
-</div>`
-        },
-        {
-          title: raw`List the four arguments`,
-          previewHtml: raw`Those give the four fourth roots in polar form.`,
-          workingHtml: raw`<p class="step-text">Those give the four fourth roots in polar form.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  <div class="math-block">
-  \[
-  \frac{\pi}{4},\ \frac{3 \pi}{4},\ \frac{-3 \pi}{4},\ \frac{-\pi}{4}
-  \]
-</div>
-</div>
-
-        <p class="step-text">Rewrite the equation first:</p>
-        <div class="math-block">
-          \[
-          z^4=-81k^8
-          \]
-          \[
-          z^4=81k^8\operatorname{cis}((2n+1)\pi)
-          \]
-        </div>
-        <p class="step-text">Now take fourth roots:</p>
-        <div class="math-block">
-          \[
-          z=3k^2\operatorname{cis}\left(\frac{(2n+1)\pi}{4}\right)
-          \]
-          \[
-          z=3k^2\operatorname{cis}\left(\frac{\pi}{4}+n\frac{\pi}{2}\right),\qquad n=0,1,2,3
-          \]
-        </div>
-        <p class="step-text">So the four solutions are:</p>
-        <div class="math-block">
-          \[
-          3k^2\operatorname{cis}\left(\frac{\pi}{4}\right),\;
-          3k^2\operatorname{cis}\left(\frac{3\pi}{4}\right),\;
-          3k^2\operatorname{cis}\left(-\frac{3\pi}{4}\right),\;
-          3k^2\operatorname{cis}\left(-\frac{\pi}{4}\right)
-          \]
-        </div>
-
-      <div class="answer-highlight">
-        <p class="question-label">Final Answer</p>
-
-          \[
-          z=3k^2\operatorname{cis}\left(\frac{\pi}{4}\right),\;
-          3k^2\operatorname{cis}\left(\frac{3\pi}{4}\right),\;
-          3k^2\operatorname{cis}\left(-\frac{3\pi}{4}\right),\;
-          3k^2\operatorname{cis}\left(-\frac{\pi}{4}\right)
-          \]
-
-      </div>
-
-
-      <div class="callout-card tip">
-        <p class="callout-title">Exam Tip</p>
-        <p class="step-text">Make sure to use a different letter for your root counter so it does not get confused with the real constant \(k\).</p>
-      </div>
-
-      `
-        }
-      ]
-    }),
+    "3d": Object.assign({
+  "browserTitle": "2024 Level 3 Complex Numbers Paper — Question 3(d)",
+  "eyebrow": "Level 3 Complex Numbers Walkthrough",
+  "title": "Question 3(d)",
+  "subtitle": "2024 Paper — Fourth roots in polar form",
+  "backHref": "level-3-complex-numbers-2024.html",
+  "nextHref": "complex-2024.html?q=3e",
+  "nextLabel": "Next question →",
+  "finalNav": {
+    "secondary": {
+      "href": "complex-2024.html?q=3c",
+      "label": "← Back to Question 3(c)"
+    },
+    "primary": {
+      "href": "complex-2024.html?q=3e",
+      "label": "Next question →"
+    }
+  },
+  "answerButtonLabel": "Show full solution"
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-complex-2024:3d"]),
     "3e": createConfig("3e", "2024 Paper — Using a cube expansion", {
       focus: raw`cubing \(x+\frac{1}{x}\), then rearranging to isolate \(x^3+\frac{1}{x^3}\).`,
       questionHtml: raw`

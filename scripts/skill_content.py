@@ -387,6 +387,8 @@ _SKILL_SPEC_SEQUENCE = (
         ),
         standard_ids=("level-2-calculus", "level-3-integration"),
         classification_patterns=(
+            r"reversing (?:a |the )?(?:linear exponential chain rule|derivative)",
+            r"displacement equations|turning acceleration|integrating (?:exponential|logarithmic acceleration)",
             r"\bantidifferentiat",
             r"\bantiderivatives?\b",
             r"\bintegration constant\b",
@@ -454,7 +456,7 @@ _SKILL_SPEC_SEQUENCE = (
             r"\bsubstitution\b",
             r"\bproduct-to-sum\b",
             r"\b(?:trig(?:onometric)?|double-angle|squared-trigonometric) identit",
-            r"\blogarithmic (?:antiderivatives?|integration|substitution)",
+            r"\blogarithmic (?:antiderivatives?|integration|substitution|quotient)",
             r"\brational integrand\b",
             r"\brational function\b",
             r"\balgebraic division\b",
@@ -528,6 +530,7 @@ _SKILL_SPEC_SEQUENCE = (
         ),
         standard_ids=("level-3-differentiation", "level-3-integration"),
         classification_patterns=(
+            r"\b(?:cooling|decay|leakage|candle.mass) (?:model|law)\b",
             r"\bdifferential[- ]equation\b",
             r"\bseparat(?:ing|able)\b",
         ),
@@ -581,6 +584,7 @@ _SKILL_SPEC_SEQUENCE = (
         ),
         standard_ids=("level-3-complex",),
         classification_patterns=(
+            r"discriminants|radical products|overline|operatorname|cubing|purely imaginary|a\+bi",
             r"\bcomplex\b",
             r"\bconjugat",
             r"\breal and imaginary parts\b",
@@ -707,6 +711,27 @@ _SKILL_SPEC_SEQUENCE = (
         min_count=12,
         related_skill_slugs=("complex-number-algebra",),
     ),
+)
+
+
+# Additional categories discovered during the catalogue review.
+def _review_skill(slug, title, label, standards, patterns, check):
+    return SkillSpec(slug=slug, title_label=title, short_label=label,
+        intro="Practise " + label.lower() + " using the existing NCEA question bank.",
+        explanation="Choose a question, attempt it independently, then compare the reasoning and restrictions in its walkthrough.",
+        meta_description="NCEA practice questions for " + label.lower() + ". Find worked examples, hints and related questions.",
+        standard_ids=standards, classification_patterns=patterns,
+        common_mistake_guidance=check, mistake_rules=(_mistake(patterns, check),),
+        neutral_common_mistake=check, min_count=1, related_skill_slugs=())
+
+_SKILL_SPEC_SEQUENCE += (
+    _review_skill('differentiation-basics', 'Differentiation Rules', 'Differentiation rules', ('level-2-calculus', 'level-3-differentiation'), ('power rule', 'negative (?:powers|exponents)', 'differentiating (?:reciprocal|a logarithm|an exponential|a cosecant|a radical)', 'trig derivatives', 'logarithmic and trigonometric differentiation', 'second derivatives?', 'radius of curvature', 'dA/dh', 'finding (?:velocity|acceleration)', 'when acceleration', 'rewriting in power form'), 'Differentiate the whole expression, including any inner function, and check the variable and units of the derivative.'),
+    _review_skill('tangents-normals', 'Tangents and Normals', 'Tangents and normals', ('level-2-calculus', 'level-3-differentiation'), ('tangent', 'normal', 'given gradient', 'gradient at a point'), 'Use the original function for the point and its derivative for the tangent gradient. A finite nonzero tangent gradient gives the negative reciprocal for the normal.'),
+    _review_skill('graphs-and-derivatives', 'Graphs, Signs and Limits', 'Graphs, signs and limits', ('level-2-calculus', 'level-3-differentiation'), ('inflection', 'continuity', 'differentiability', 'concavity', 'decreasing', 'increasing', 'derivative conditions', 'from a (?:piecewise )?graph'), 'Check one-sided behaviour at joins and excluded points. The sign of the derivative describes increasing or decreasing, not the sign of the function.'),
+    _review_skill('implicit-differentiation', 'Implicit Differentiation', 'Implicit differentiation', ('level-3-differentiation',), ('implicit differentiation',), 'When differentiating a term containing y with respect to x, include dy/dx and check before dividing by a possibly zero factor.'),
+    _review_skill('definite-integrals-area', 'Definite Integrals and Area', 'Definite integrals and area', ('level-3-integration',), ('area', 'definite integral', 'upper limit', 'graph limits', 'lower limit', 'unknown limit', 'balance point', 'pumping energy'), 'Find the correct bounds and distinguish signed integrals from geometric area. Differentiate your antiderivative before evaluating it.'),
+    _review_skill('algebraic-methods', 'Algebraic Methods', 'Algebraic methods', ('level-2-algebra',), ('radical', 'rearrang', 'quadratic', 'pythagoras', 'exponential', 'perfect square', 'factoris', 'logarithm', 'discriminant', 'root relationships'), 'Keep the domain of the original expression. Check roots in the original equation after squaring, cancelling, or using logarithms.'),
+    _review_skill('complex-loci-modulus', 'Complex Loci and Modulus', 'Complex loci and modulus', ('level-3-complex',), ('locus', 'loci', 'modul', 'argand', 'circular', 'unit.circle', 'finding.*\\\\\\(\\|w\\|'), 'A modulus is a nonnegative distance. Translate the original distance statement carefully and check any sign restriction introduced by squaring.'),
 )
 
 # Public, ordered mapping used by generators.  Dict insertion order is stable

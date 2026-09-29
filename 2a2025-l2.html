@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91262 — Apply calculus methods in solving problems"
       },
-      "dateModified": "2026-09-02",
+      "dateModified": "2026-09-24",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,18 +91,18 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260916-2" />
+<link rel="stylesheet" href="style.css?v=20260924-1" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20260916-2"></script>
-  <script defer src="walkthrough-gate.js?v=20260916-2"></script>
+<script defer src="walkthrough-audit-data.js?v=20260924-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260924-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-2", "label": "Level 2"}, "paper": {"id": "level-2-calculus-2025", "year": 2025}, "question": {"canonical": "https://calc.nz/2a2025-l2.html", "commonMistake": "After solving the derivative condition, check the point's nature and answer the conclusion the question actually asks for.", "description": "2025 NCEA Level 2 Calculus AS91262 Question 2(a) worked solution: sketching the derivative from stationary points, signs, and changes in concavity. Use…", "guideLinks": [], "id": "2a", "label": "Question 2(a)", "method": "sketching the derivative from stationary points, signs, and changes in concavity.", "methodTitle": "Stationary Points and Optimisation", "reviewStatus": "unreviewed", "skillSlugs": ["stationary-points-optimisation"], "summary": "This walkthrough helps you practise sketching the derivative from stationary points, signs, and changes in concavity. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Stationary Points and Optimisation Worked Solution – 2025 NCEA Level 2 Q2(a) (AS91262) | Calc.nz"}, "standard": {"code": "AS91262", "id": "level-2-calculus", "label": "Calculus"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-2", "label": "Level 2"}, "paper": {"id": "level-2-calculus-2025", "year": 2025}, "question": {"canonical": "https://calc.nz/2a2025-l2.html", "commonMistake": "After solving the derivative condition, check the point's nature and answer the conclusion the question actually asks for.", "description": "2025 NCEA Level 2 Calculus AS91262 Question 2(a) worked solution: sketching the derivative from stationary points, signs, and changes in concavity. Use…", "guideLinks": [], "id": "2a", "label": "Question 2(a)", "method": "sketching the derivative from stationary points, signs, and changes in concavity.", "methodTitle": "Stationary Points and Optimisation", "relatedPractice": {"href": "3d2025-l2.html", "label": "2025 Calculus · Q3(d)"}, "reviewStatus": "unreviewed", "skillSlugs": ["stationary-points-optimisation", "graphs-and-derivatives"], "summary": "This walkthrough helps you practise sketching the derivative from stationary points, signs, and changes in concavity. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Stationary Points and Optimisation Worked Solution – 2025 NCEA Level 2 Q2(a) (AS91262) | Calc.nz"}, "standard": {"code": "AS91262", "id": "level-2-calculus", "label": "Calculus"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20260916-2"></script>
+  <script defer src="site-shell.js?v=20260924-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -139,7 +139,7 @@
 <header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 2 Calculus Walkthrough</p>
-        <h1 id="page-title">2025 NCEA Level 2 Calculus Question 2(a)</h1>
+        <h1 id="page-title">2025 Calculus · Q2(a)</h1>
         <p id="page-subtitle" class="subtitle">2025 Paper — Sketching \(f'(x)\) from the graph of \(f(x)\)</p>
       </div>
       <a id="back-link" class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
@@ -152,8 +152,9 @@
       <p class="step-text">
             The graph below shows \(y=f(x)\). Use it to sketch a possible graph of \(y=f'(x)\).
           </p>
+          <p class="step-text question-note">Diagram redrawn for practice with an added numerical axis scale.</p>
           <div class="graph-frame question-graph-frame">
-            <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of f of x with two local minima and one local maximum" role="img">
+            <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="A smooth W-shaped graph falls to a flat-bottomed turning point at x approximately -3, rises to a flat-topped turning point at x approximately 0, falls to another flat-bottomed turning point at x approximately 4, then rises. The graph is smooth through each turn." role="img">
             <rect x="0" y="0" width="420" height="320" rx="18" class="graph-bg"></rect>
             <line x1="42.796747967479675" y1="28" x2="42.796747967479675" y2="292" class="graph-grid-line" /><line x1="72.39024390243902" y1="28" x2="72.39024390243902" y2="292" class="graph-grid-line" /><line x1="101.98373983739837" y1="28" x2="101.98373983739837" y2="292" class="graph-grid-line" /><line x1="131.5772357723577" y1="28" x2="131.5772357723577" y2="292" class="graph-grid-line" /><line x1="161.17073170731706" y1="28" x2="161.17073170731706" y2="292" class="graph-grid-line" /><line x1="190.7642276422764" y1="28" x2="190.7642276422764" y2="292" class="graph-grid-line" /><line x1="220.35772357723576" y1="28" x2="220.35772357723576" y2="292" class="graph-grid-line" /><line x1="249.9512195121951" y1="28" x2="249.9512195121951" y2="292" class="graph-grid-line" /><line x1="279.54471544715443" y1="28" x2="279.54471544715443" y2="292" class="graph-grid-line" /><line x1="309.1382113821138" y1="28" x2="309.1382113821138" y2="292" class="graph-grid-line" /><line x1="338.7317073170732" y1="28" x2="338.7317073170732" y2="292" class="graph-grid-line" /><line x1="368.3252032520325" y1="28" x2="368.3252032520325" y2="292" class="graph-grid-line" /><line x1="28" y1="292" x2="392" y2="292" class="graph-grid-line" /><line x1="28" y1="278.10526315789474" x2="392" y2="278.10526315789474" class="graph-grid-line" /><line x1="28" y1="264.2105263157895" x2="392" y2="264.2105263157895" class="graph-grid-line" /><line x1="28" y1="250.31578947368422" x2="392" y2="250.31578947368422" class="graph-grid-line" /><line x1="28" y1="236.42105263157896" x2="392" y2="236.42105263157896" class="graph-grid-line" /><line x1="28" y1="222.5263157894737" x2="392" y2="222.5263157894737" class="graph-grid-line" /><line x1="28" y1="208.63157894736844" x2="392" y2="208.63157894736844" class="graph-grid-line" /><line x1="28" y1="194.73684210526318" x2="392" y2="194.73684210526318" class="graph-grid-line" /><line x1="28" y1="180.84210526315792" x2="392" y2="180.84210526315792" class="graph-grid-line" /><line x1="28" y1="166.94736842105266" x2="392" y2="166.94736842105266" class="graph-grid-line" /><line x1="28" y1="153.05263157894737" x2="392" y2="153.05263157894737" class="graph-grid-line" /><line x1="28" y1="139.1578947368421" x2="392" y2="139.1578947368421" class="graph-grid-line" /><line x1="28" y1="125.26315789473685" x2="392" y2="125.26315789473685" class="graph-grid-line" /><line x1="28" y1="111.36842105263156" x2="392" y2="111.36842105263156" class="graph-grid-line" /><line x1="28" y1="97.47368421052633" x2="392" y2="97.47368421052633" class="graph-grid-line" /><line x1="28" y1="83.57894736842104" x2="392" y2="83.57894736842104" class="graph-grid-line" /><line x1="28" y1="69.68421052631581" x2="392" y2="69.68421052631581" class="graph-grid-line" /><line x1="28" y1="55.78947368421052" x2="392" y2="55.78947368421052" class="graph-grid-line" /><line x1="28" y1="41.89473684210529" x2="392" y2="41.89473684210529" class="graph-grid-line" /><line x1="28" y1="28" x2="392" y2="28" class="graph-grid-line" />
             <line x1="28" y1="166.94736842105266" x2="392" y2="166.94736842105266" class="graph-axis" />
@@ -178,9 +179,6 @@
             <text class="graph-label" x="184.7642276422764" y="20">f'(x)</text>
           </svg>
           </div>
-          <p class="step-text question-note">
-            The key idea is that stationary points of \(f\) become x-intercepts of \(f'\). Then use where \(f\) is increasing, decreasing, and changing concavity to shape the derivative.
-          </p>
       <p class="question-note static-diagram-note">The diagram is shown in its initial state. JavaScript adds any interactive controls and later walkthrough visuals.</p>
       <noscript><p class="question-note">Bookmarks, retry marks, exam mode, and the pinned-question setting need JavaScript. The question and first learning step remain available.</p></noscript>
     </section>
@@ -221,7 +219,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Sketching the derivative from stationary points, signs, and changes in concavity.</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 2(a)</span> from the <a href="level-2-calculus-2025.html" data-seo-year-link>2025 NCEA Level 2 Calculus paper</a> for <a href="level-2-calculus.html" data-seo-standard-link>AS91262 — Apply calculus methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91262">official NZQA resources for AS91262</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-09-02">2 September 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-09-24">24 September 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -230,9 +228,11 @@
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
       <p class="step-text" data-seo-summary>This walkthrough helps you practise sketching the derivative from stationary points, signs, and changes in concavity. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Common mistake to avoid</h3>
+      <h3>Check</h3>
       <p class="step-text" data-seo-mistake>After solving the derivative condition, check the point&#x27;s nature and answer the conclusion the question actually asks for.</p>
+      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
       <h3>Continue practising</h3>
+      <p class="step-text" data-related-practice>Try a related question: <a href="3d2025-l2.html">2025 Calculus · Q3(d)</a>. Attempt it before opening working, then return to this question later.</p>
       <div class="nav-row">
         <a class="nav-btn secondary" href="1d2025-l2.html" data-seo-related="previous">← Question 1(d)</a>
         <a class="nav-btn secondary" href="2b2025-l2.html" data-seo-related="next">Question 2(b) →</a>
@@ -240,7 +240,7 @@
       <ul class="step-text">
         <li><a href="level-2-calculus-2025.html" data-seo-related-year>All 2025 Calculus walkthroughs</a></li>
         <li><a href="level-2-calculus.html" data-seo-standard-link>All AS91262 Calculus years</a></li>
-        <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-stationary-points-optimisation.html">Stationary points and optimisation</a></li>
+        <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-stationary-points-optimisation.html">Stationary points and optimisation</a>, <a href="skill-graphs-and-derivatives.html">Graphs, signs and limits</a></li>
         <li data-seo-related-guides hidden></li>
       </ul>
     </section>
@@ -362,9 +362,9 @@
           \]
         </div>
         <ul class="step-text">
-          <li>\(f'(x)&lt;0\) before the first turning point of \(f\)</li>
+          <li>\(f'(x)\lt 0\) before the first turning point of \(f\)</li>
           <li>\(f'(x)&gt;0\) between the first minimum and the maximum of \(f\)</li>
-          <li>\(f'(x)&lt;0\) between the maximum and the second minimum of \(f\)</li>
+          <li>\(f'(x)\lt 0\) between the maximum and the second minimum of \(f\)</li>
           <li>\(f'(x)&gt;0\) after the second minimum of \(f\)</li>
         </ul>
 
@@ -403,8 +403,9 @@
 <p class="step-text">
         The graph below shows \(y=f(x)\). Use it to sketch a possible graph of \(y=f'(x)\).
       </p>
+      <p class="step-text question-note">Diagram redrawn for practice with an added numerical axis scale.</p>
       <div class="graph-frame question-graph-frame">
-        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Graph of f of x with two local minima and one local maximum" role="img"></svg>
+        <svg id="question-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="A smooth W-shaped graph falls to a flat-bottomed turning point at x approximately -3, rises to a flat-topped turning point at x approximately 0, falls to another flat-bottomed turning point at x approximately 4, then rises. The graph is smooth through each turn." role="img"></svg>
       </div>
       <p class="step-text">
         Sketch \(f'(x)\) here:
@@ -412,9 +413,7 @@
       <div class="graph-frame question-graph-frame">
         <svg id="blank-derivative-graph" class="graph-svg" viewBox="0 0 420 320" aria-label="Blank axes for sketching the derivative of f of x" role="img"></svg>
       </div>
-      <p class="step-text question-note">
-        The key idea is that stationary points of \(f\) become x-intercepts of \(f'\). Then use where \(f\) is increasing, decreasing, and changing concavity to shape the derivative.
-      </p>
+
         `,
         tips: hintContent,
         answerHtml: answerHtml,

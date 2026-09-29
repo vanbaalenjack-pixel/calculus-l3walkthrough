@@ -576,7 +576,7 @@
       `)
     ]),
 
-    "3a": createConfig("3a", raw`When dividing polar forms, divide the moduli and subtract the arguments.`, raw`
+    "3a": Object.assign(createConfig("3a", raw`When dividing polar forms, divide the moduli and subtract the arguments.`, raw`
       <div class="math-block">
         \[
         \boxed{\frac uv=\frac1q\operatorname{cis}\!\left(\frac{5\pi}{12}\right)}
@@ -594,7 +594,7 @@
         </div>
         <p class="step-text question-note">The quotient requires \(q\ne0\). The displayed polar radius assumes the paper's intended \(q>0\).</p>
       `)
-    ]),
+    ]), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The displayed polar modulus \\(1/q\\) assumes \\(q>0\\). Exclude \\(q=0\\), which makes \\(v=0\\). If negative real \\(q\\) is allowed, use the nonnegative modulus \\(1/|q|\\) and principal argument \\(-7\\pi/12\\). The algebraic expression \\(q^{-1}\\operatorname{cis}(5\\pi/12)\\) represents the same value but has a negative polar coefficient when \\(q\\lt0\\).</p></details>"}),
 
     "3b": createConfig("3b", raw`Expand the product and equate its real and imaginary parts with \(3-i\).`, raw`
       <div class="math-block">
@@ -650,7 +650,7 @@
     "3c": createConfig("3c", raw`Isolate the radical term and square both sides, then check the result in the original equation because squaring can introduce invalid solutions.`, raw`
       <div class="math-block">
         \[
-        \boxed{x=\frac{12}{4-w^2}\quad\text{for }0\le w<2}
+        \boxed{x=\frac{12}{4-w^2}\quad\text{for }0\le w\lt 2}
         \]
         <p class="step-text">For real \(x,w\), there is no real solution outside this range.</p>
       </div>
@@ -681,10 +681,10 @@
           \]
         </div>
       `),
-      guidedStep("Check the real-domain restrictions", raw`The original left side is nonnegative and \(\sqrt x>0\) for \(x\ge3\), so \(w\ge0\). The candidate is real with \(x\ge3\) only when \(|w|<2\).`, raw`
+      guidedStep("Check the real-domain restrictions", raw`The original left side is nonnegative and \(\sqrt x>0\) for \(x\ge3\), so \(w\ge0\). The candidate is real with \(x\ge3\) only when \(|w|\lt 2\).`, raw`
         <div class="math-block">
           \[
-          0\le w<2
+          0\le w\lt 2
           \]
           <p class="step-text">Substituting the candidate into the original equation verifies it throughout this interval.</p>
           \[

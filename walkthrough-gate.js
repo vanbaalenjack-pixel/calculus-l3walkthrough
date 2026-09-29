@@ -77,6 +77,25 @@ const WALKTHROUGH_KATEX_DELIMITERS = [
   { left: "\\[", right: "\\]", display: true },
   { left: "\\(", right: "\\)", display: false }
 ];
+
+// Escape text within TeX delimiters before the browser parses authored HTML.
+// Escaping only these spans preserves intentional paragraphs, diagrams and links.
+function escapeWalkthroughMathMarkup(value) {
+  return String(value || "").replace(/\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]|\$\$[\s\S]*?\$\$/g, function (math) {
+    return math.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  });
+}
+
+function protectWalkthroughMath(value) {
+  if (typeof value === "string") return escapeWalkthroughMathMarkup(value);
+  if (Array.isArray(value)) return value.map(protectWalkthroughMath);
+  if (value && typeof value === "object") {
+    const copy = {};
+    Object.keys(value).forEach(function (key) { copy[key] = protectWalkthroughMath(value[key]); });
+    return copy;
+  }
+  return value;
+}
 const WALKTHROUGH_FOCUSABLE_SELECTOR = [
   "a[href]",
   "button:not([disabled])",
@@ -88,7 +107,7 @@ const WALKTHROUGH_FOCUSABLE_SELECTOR = [
 
 const STICKY_QUESTION_STORAGE_KEY = "calc.nz.stickyQuestionCard";
 const walkthroughVolatileStorageKeys = Object.create(null);
-let stickyQuestionPreferenceFallback = true;
+let stickyQuestionPreferenceFallback = false;
 
 function isWalkthroughStorageKeyVolatile(storageKey) {
   return walkthroughVolatileStorageKeys[storageKey] === true;
@@ -488,6 +507,7 @@ function syncQuestionCardStickyState(questionCard) {
   questionCard.classList.toggle("question-card-with-visual", containsVisual);
   questionCard.classList.toggle("question-card-multi-visual", hasMultipleVisuals);
   questionCard.classList.toggle("sticky-question-card-enabled", enableSticky);
+  document.documentElement.style.setProperty("--question-obscured-height", enableSticky ? questionCardHeight + "px" : "0px");
 
   const preferenceControl = document.getElementById("sticky-question-setting");
   const preferenceStatus = document.getElementById("sticky-question-setting-status");
@@ -1432,13 +1452,8 @@ function getWalkthroughHeaderTitle(context) {
     return "";
   }
 
-  return context.paper.year
-    + " NCEA "
-    + context.level.label
-    + " "
-    + context.standard.label
-    + " \u2014 "
-    + walkthroughQuestionLabel(context.partId, context.paper);
+  return context.paper.year + " " + context.standard.label + " · "
+    + walkthroughQuestionLabel(context.partId, context.paper).replace("Question ", "Q");
 }
 
 function getWalkthroughHeaderSubtitle(context, sourceSubtitle) {
@@ -1595,7 +1610,7 @@ function ensureWalkthroughSeoCanonical(canonicalUrl) {
 
 function getWalkthroughSeoPlainText(value) {
   const container = document.createElement("div");
-  container.innerHTML = String(value || "");
+  container.innerHTML = escapeWalkthroughMathMarkup(value);
 
   return String(container.textContent || "")
     .replace(/\\[()[\]]/g, "")
@@ -1712,7 +1727,7 @@ function buildWalkthroughSeoStructuredData(context, title, description, canonica
         learningResourceType: "Guided worked solution",
         educationalLevel: "NCEA " + context.level.label,
         mainEntityOfPage: canonicalUrl,
-        dateModified: "2026-09-02",
+        dateModified: "2026-09-24",
         publisher: {
           "@type": "Organization",
           name: "Calc.nz",
@@ -1892,6 +1907,21 @@ function syncWalkthroughSeo(context, config) {
       link.textContent = slug ? (skillLabels[slug] || slug.replace(/-/g, " ")) : "all skills";
       relatedSkills.appendChild(link);
     });
+  }
+
+  const relatedPractice = document.querySelector("[data-related-practice]");
+  if (relatedPractice) {
+    const related = catalogueEntry && catalogueEntry.question.relatedPractice;
+    relatedPractice.hidden = !related;
+    relatedPractice.replaceChildren();
+    if (related) {
+      relatedPractice.appendChild(document.createTextNode("Try a related question: "));
+      const link = document.createElement("a");
+      link.href = related.href;
+      link.textContent = related.label;
+      relatedPractice.appendChild(link);
+      relatedPractice.appendChild(document.createTextNode(". Attempt it before opening working, then return to this question later."));
+    }
   }
 
   const relatedGuides = document.querySelector("[data-seo-related-guides]");
@@ -3166,7 +3196,7 @@ function auditedStructureSteps(config) {
       workingHtml: config.markReasoningHtml
     },
     {
-      title: "State the final result",
+      title: "Final answer",
       previewHtml: "Give the conclusion together with every condition that controls when it applies.",
       workingHtml: config.finalResultHtml
     },
@@ -3186,46 +3216,43 @@ function auditedStructureSteps(config) {
 function buildWalkthroughTipItems(config) {
   const items = [];
 
+  if (Array.isArray(config.hints) && config.hints.length) {
+    return config.hints.map(function (hint, index) {
+      return { label: "Hint " + (index + 1), html: hint };
+    });
+  }
+
   if (Array.isArray(config.tips) && config.tips.length) {
     config.tips.forEach(function (tip, index) {
       if (tip && typeof tip === "object" && !Array.isArray(tip)) {
         items.push({
-          label: tip.label || "Tip " + (index + 1),
+          label: tip.label || "Hint " + (index + 1),
           html: tip.html || tip.text || ""
         });
         return;
       }
 
       items.push({
-        label: "Tip " + (index + 1),
+        label: "Hint " + (index + 1),
         html: tip
       });
     });
   }
 
-  if (config.focus) {
-    items.unshift({
-      label: "Focus",
-      html: config.focus
+  // Reuse the authored early step cues as progressively more specific hints.
+  // A short one-step problem can legitimately have just one useful hint.
+  if (!items.length && Array.isArray(config.guidedSteps)) {
+    const seen = new Set();
+    config.guidedSteps.slice(0, 3).forEach(function (step) {
+      const cue = String(step.previewHtml || "").trim();
+      if (cue && !seen.has(cue)) {
+        seen.add(cue);
+        items.push({ label: "Hint " + (items.length + 1), html: cue });
+      }
     });
   }
-
-  if (Array.isArray(config.questionNotes)) {
-    config.questionNotes.forEach(function (note, index) {
-      items.push({
-        label: "Note " + (index + 1),
-        html: note
-      });
-    });
-  }
-
-  if (Array.isArray(config.hints) && config.hints.length) {
-    config.hints.forEach(function (hint, index) {
-      items.push({
-        label: "Hint " + (index + 1),
-        html: hint
-      });
-    });
+  if (!items.length && config.focus) {
+    items.push({ label: "Hint", html: config.focus });
   }
 
   return items.filter(function (item) {
@@ -3239,8 +3266,8 @@ function buildTipsCardHtml(config, tipItems) {
   }
 
   return `
-    <p class="question-label">${config.tipsTitle || "Before You Reveal"}</p>
-    <p class="step-text">Try the question yourself first, then reveal one idea at a time and open the working only when you need it.</p>
+    <p class="question-label">${config.tipsTitle || "Hints"}</p>
+    <p class="step-text">Attempt → Hint → predict your next step → Working → Check → related practice → retry later. Opening working records a review, not an independent solution.</p>
     <div class="walkthrough-tip-list">
       ${tipItems.map(function (item, index) {
         const tipNumber = index + 1;
@@ -3345,7 +3372,7 @@ function buildQuestionCardHtml(config) {
       >Mark for retry</button>
       <span id="question-save-status" class="question-save-status" aria-live="polite"></span>
     </div>
-    ${selfAssessment}
+    <details class="attempt-record"><summary>Record this attempt</summary>${selfAssessment}</details>
   `;
 }
 
@@ -3514,6 +3541,7 @@ function renderProgressiveStep(step, index) {
         >
           ${step.workingButtonLabel}
         </button>
+        <p class="question-note">Predict the next expression and its reason before opening the working.</p>
       </div>
       <div
         id="walkthrough-step-${stepNumber}-working"
@@ -3563,7 +3591,12 @@ function buildProgressiveWalkthroughHtml(config) {
 
 function normaliseProgressiveWalkthroughConfig(config) {
   const sourceSteps = (Array.isArray(config.guidedSteps) ? config.guidedSteps : [])
-    .concat(auditedStructureSteps(config));
+    .concat(auditedStructureSteps(config))
+    .concat(config.examNoteHtml ? [{
+      title: "Check",
+      previewHtml: "Check the original conditions and the meaning of your answer.",
+      workingHtml: config.examNoteHtml
+    }] : []);
   const guidedSteps = sourceSteps.map(function (step, stepIndex) {
     return normaliseGuidedStep(step, stepIndex);
   });
@@ -3781,7 +3814,7 @@ function initializeProgressiveWalkthrough(config, options) {
   ensureWalkthroughMathRenderer();
 
   const pageOptions = options || {};
-  const auditedConfig = applyWalkthroughAuditRemediation(config);
+  const auditedConfig = protectWalkthroughMath(applyWalkthroughAuditRemediation(config));
   const normalisedConfig = normaliseProgressiveWalkthroughConfig(auditedConfig);
   const eyebrow = document.getElementById("page-eyebrow");
   const pageTitle = document.getElementById("page-title");
@@ -3853,7 +3886,7 @@ function initializeProgressiveWalkthrough(config, options) {
     hiddenElements: [tipsCard, walkthroughContent].concat(examModeCueElements),
     accessibleHeading: pageTitle,
     neutralHeading: window.__walkthroughCurrentContext
-      ? getWalkthroughHeaderTitle(window.__walkthroughCurrentContext).replace(/\s+[—-]\s+.*/, " — Exam question")
+      ? getWalkthroughHeaderTitle(window.__walkthroughCurrentContext) + " · Exam question"
       : "Exam question"
   });
 }

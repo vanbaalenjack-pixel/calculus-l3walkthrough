@@ -469,7 +469,7 @@
       ]
     }),
 
-    "1d": createConfig("1d", "Question One - separating variables", {
+    "1d": Object.assign(createConfig("1d", "Question One - separating variables", {
       focus: raw`Move \(e^y\) beside \(dy\), then integrate both sides before applying the condition.`,
       questionHtml: raw`
         <p class="step-text">Solve the differential equation</p>
@@ -521,7 +521,7 @@
           </div>
         `)
       ]
-    }),
+    }), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The logarithm requires \\(1+\\sin 2x>0\\). The solution interval containing \\(x=\\pi/4\\) is \\(-\\pi/4\\lt x\\lt3\\pi/4\\); the endpoints would require \\(e^y=0\\), which is impossible for finite real \\(y\\).</p></details>"}),
 
     "1e": createConfig("1e", "Question One - an exponential area proof", {
       focus: raw`Find the area in terms of \(e^k\), then use the fact that \(Q(k,k)\) lies on the curve.`,
@@ -1069,7 +1069,7 @@
             \]
           </div>
         `),
-        guidedStep("Set up top minus bottom", raw`On \(0<x<1\), the cube-root curve lies above the parabola.`, raw`
+        guidedStep("Set up top minus bottom", raw`On \(0\lt x\lt 1\), the cube-root curve lies above the parabola.`, raw`
           <div class="math-block">
             \[
             A=\int_0^1\left(x^{1/3}-x^2\right)\,dx.

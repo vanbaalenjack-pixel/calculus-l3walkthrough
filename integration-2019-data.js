@@ -427,7 +427,7 @@
       `)
     ]),
 
-    "1e": createConfig("1e", raw`Separate the differential equation, integrate logarithmically, then compare the two given positive values of \(N\).`, raw`
+    "1e": Object.assign(createConfig("1e", raw`Separate the differential equation, integrate logarithmically, then compare the two given positive values of \(N\).`, raw`
       <div class="math-block">
         \[
         \boxed{k=\frac{1}{t_1}\ln\left(\frac{N_2}{N_1}\right)}
@@ -500,7 +500,7 @@
           \]
         </div>
       `)
-    ], { finalLabel: "Proof complete" }),
+    ], { finalLabel: "Proof complete" }), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The two observation times must be distinct: \\(t_1\\ne0\\). If both times are zero, the observations cannot determine \\(k\\).</p></details>"}),
 
     "2a": createConfig("2a", raw`Integrate the constant term and reverse the derivative of \(e^{4x}\).`, raw`
       <div class="math-block">
@@ -825,7 +825,7 @@
       `)
     ]),
 
-    "3b": createConfig("3b", raw`Integrate \(4\sec^2(2x)\), then use the given point to find the constant.`, raw`
+    "3b": Object.assign(createConfig("3b", raw`Integrate \(4\sec^2(2x)\), then use the given point to find the constant.`, raw`
       <div class="math-block">
         \[
         \boxed{y=2\tan(2x)+3}
@@ -867,7 +867,7 @@
           \]
         </div>
       `)
-    ]),
+    ]), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The formula applies on intervals avoiding \\(\\cos2x=0\\). The initial condition selects the interval \\(-\\pi/4\\lt x\\lt\\pi/4\\).</p></details>"}),
 
     "3c": createConfig("3c", raw`Rewrite \(\frac{x}{x+1}\) as \(1-\frac{1}{x+1}\), then integrate term by term.`, raw`
       <div class="math-block">
@@ -1030,7 +1030,7 @@
       `)
     ]),
 
-    "3e": createConfig("3e", raw`Use similar triangles to express the water-surface area \(A(h)\), then substitute it into the supplied pumping-energy integral.`, raw`
+    "3e": Object.assign(createConfig("3e", raw`Use similar triangles to express the water-surface area \(A(h)\), then substitute it into the supplied pumping-energy integral.`, raw`
       <div class="math-block">
         \[
         \boxed{1323\text{ J}}
@@ -1131,6 +1131,6 @@
           \]
         </div>
       `)
-    ])
+    ]), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The examination calculation above uses the printed limits \\(H-d\\) to \\(H\\), giving \\(1323\\text{ J}\\). With \\(h\\) measured upwards from the pyramid tip as defined in the question, the water actually occupies \\(0\\le h\\le1\\). A physical slice calculation would therefore give \\(9800\\int_0^1(1.5-h)(0.36h^2)\\,dh=882\\text{ J}\\). The printed limits and the stated meaning of \\(h\\) are inconsistent; keep the supplied-formula calculation separate from this modelling qualification.</p></details>"})
   };
 }());

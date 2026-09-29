@@ -387,7 +387,7 @@
       ]
     }),
     "1c": createConfig("1c", "2024 Paper — Find where the function is decreasing", {
-      focus: raw`differentiating first, then solving \(\frac{dy}{dx}<0\) to locate the interval where the graph is falling.`,
+      focus: raw`differentiating first, then solving \(\frac{dy}{dx}\lt 0\) to locate the interval where the graph is falling.`,
       questionHtml: raw`
         <p class="step-text">
           For the function below, find the range of values of \(x\) for which the function is decreasing.
@@ -427,7 +427,7 @@
         <p class="step-text">So the critical values are \(x=1\) and \(x=\frac{5}{2}\). Testing \(x=2\) gives a negative derivative, so the function is decreasing for</p>
         <div class="math-block">
           \[
-          1&lt;x&lt;\frac{5}{2}.
+          1\lt x\lt \frac{5}{2}.
           \]
         </div>
       `,
@@ -463,7 +463,7 @@
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
-                1&lt;x&lt;\frac{5}{2}
+                1\lt x\lt \frac{5}{2}
               \]
 </div>
 
@@ -491,7 +491,7 @@
         <p class="step-text">So the critical values are \(x=1\) and \(x=\frac{5}{2}\). Testing \(x=2\) gives a negative derivative, so the function is decreasing for</p>
         <div class="math-block">
           \[
-          1&lt;x&lt;\frac{5}{2}.
+          1\lt x\lt \frac{5}{2}.
           \]
         </div>
       `
@@ -535,7 +535,7 @@
           \frac{d^2y}{dx^2}=e^{-2x}(8x-12)
           \]
           \[
-          \frac{d^2y}{dx^2}\bigg|_{x=1}=-4e^{-2}&lt;0
+          \frac{d^2y}{dx^2}\bigg|_{x=1}=-4e^{-2}\lt 0
           \]
         </div>
         <p class="step-text">So there is a stationary point at \(x=1\), and it is a maximum.</p>
@@ -595,7 +595,7 @@
           \frac{d^2y}{dx^2}=e^{-2x}(8x-12)
           \]
           \[
-          \frac{d^2y}{dx^2}\bigg|_{x=1}=-4e^{-2}&lt;0
+          \frac{d^2y}{dx^2}\bigg|_{x=1}=-4e^{-2}\lt 0
           \]
         </div>
         <p class="step-text">So there is a stationary point at \(x=1\), and it is a maximum.</p>
@@ -741,7 +741,7 @@
         }
       ]
     }),
-    "2a": createConfig("2a", "2024 Paper — Parametric derivative", {
+    "2a": Object.assign(createConfig("2a", "2024 Paper — Parametric derivative", {
       questionHtml: raw`
         <p class="step-text">
           A function is defined parametrically by the pair of equations
@@ -825,7 +825,7 @@
       `
         }
       ]
-    }),
+    }), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The parametric quotient \\(-\\sin t/(6t)\\) requires \\(t\\ne0\\). At \\(t=0\\), both parameter derivatives vanish. Expressing the curve as \\(y=\\cos\\sqrt{(x-1)/3}\\) for \\(x\\ge1\\) gives a right-hand endpoint slope of \\(-1/6\\), the limit of the quotient.</p></details>"}),
     "2b": createConfig("2b", "2024 Paper — Velocity from a logarithmic displacement", {
       questionHtml: raw`
         <p class="step-text">
@@ -1158,149 +1158,25 @@
         }
       ]
     }),
-    "2e": createConfig("2e", "2024 Paper — A single turning point via the discriminant", {
-      focus: raw`differentiating to get the turning-point equation, then using the discriminant to force one repeated solution.`,
-      questionHtml: raw`
-        <p class="step-text">
-          The graph of the function
-          \[
-          y=\frac{xe^{3x}}{2x+k},
-          \]
-          where \(k\) is a non-zero constant, has a single turning point at \(Q\).
-        </p>
-        <p class="step-text">Find the \(x\)-coordinate of the point \(Q\).</p>
-        <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
-      `,
-      hints: [
-        raw`Yes, this one is long. Start by differentiating carefully.`,
-        raw`A single turning point means the derivative equation has one repeated solution.`,
-        raw`That is why the discriminant gets set to zero.`
-      ],
-      answerHtml: raw`
-        <p class="step-text">Differentiate:</p>
-        <div class="math-block">
-          \[
-          \frac{dy}{dx}=\frac{e^{3x}(6x^2+3kx+k)}{(2x+k)^2}
-          \]
-        </div>
-        <p class="step-text">Turning points happen when the derivative is zero, so</p>
-        <div class="math-block">
-          \[
-          6x^2+3kx+k=0
-          \]
-        </div>
-        <p class="step-text">For a single turning point, this quadratic must have one repeated root, so</p>
-        <div class="math-block">
-          \[
-          (3k)^2-4(6)(k)=0
-          \]
-          \[
-          9k^2-24k=0
-          \]
-          \[
-          k=\frac{8}{3}
-          \]
-        </div>
-        <p class="step-text">Substitute back into the quadratic:</p>
-        <div class="math-block">
-          \[
-          6x^2+8x+\frac{8}{3}=0
-          \]
-          \[
-          (3x+2)^2=0
-          \]
-          \[
-          x=-\frac{2}{3}
-          \]
-        </div>
-        <p class="step-text">So the \(x\)-coordinate of \(Q\) is \(-\frac{2}{3}\).</p>
-      `,
-      guidedSteps: [
-        {
-          title: raw`Differentiate the function`,
-          previewHtml: raw`The derivative tidies up to a nice quadratic factor on top.`,
-          workingHtml: raw`<p class="step-text">The derivative tidies up to a nice quadratic factor on top.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  <div class="math-block">
-  \[
-  \frac{e^{\left(3 x\right)} \left(6 x^{2} + 3 k x + k\right)}{\left(2 x + k\right)^{2}}
-  \]
-</div>
-</div>`
-        },
-        {
-          title: raw`Use the single-turning-point idea`,
-          previewHtml: raw`One turning point means one repeated solution when you solve the derivative equation.`,
-          workingHtml: raw`<p class="step-text">One turning point means one repeated solution when you solve the derivative equation.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  Because the quadratic for the turning points must have one repeated root
-</div>`
-        },
-        {
-          title: raw`Find \(k\)`,
-          previewHtml: raw`The valid non-zero constant is \(k=\frac{8}{3}\).`,
-          workingHtml: raw`<p class="step-text">The valid non-zero constant is \(k=\frac{8}{3}\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-                \frac{8}{3}
-              \]
-</div>`
-        },
-        {
-          title: raw`Find the turning-point \(x\)-coordinate`,
-          previewHtml: raw`That repeated root gives the single turning point at \(x=-\frac{2}{3}\).`,
-          workingHtml: raw`<p class="step-text">That repeated root gives the single turning point at \(x=-\frac{2}{3}\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-                -\frac{2}{3}
-              \]
-</div>
-
-        <p class="step-text">Differentiate:</p>
-        <div class="math-block">
-          \[
-          \frac{dy}{dx}=\frac{e^{3x}(6x^2+3kx+k)}{(2x+k)^2}
-          \]
-        </div>
-        <p class="step-text">Turning points happen when the derivative is zero, so</p>
-        <div class="math-block">
-          \[
-          6x^2+3kx+k=0
-          \]
-        </div>
-        <p class="step-text">For a single turning point, this quadratic must have one repeated root, so</p>
-        <div class="math-block">
-          \[
-          (3k)^2-4(6)(k)=0
-          \]
-          \[
-          9k^2-24k=0
-          \]
-          \[
-          k=\frac{8}{3}
-          \]
-        </div>
-        <p class="step-text">Substitute back into the quadratic:</p>
-        <div class="math-block">
-          \[
-          6x^2+8x+\frac{8}{3}=0
-          \]
-          \[
-          (3x+2)^2=0
-          \]
-          \[
-          x=-\frac{2}{3}
-          \]
-        </div>
-        <p class="step-text">So the \(x\)-coordinate of \(Q\) is \(-\frac{2}{3}\).</p>
-      `
-        }
-      ]
-    }),
+    "2e": Object.assign({
+  "browserTitle": "2024 Differentiation Paper — Question 2(e)",
+  "eyebrow": "Level 3 Differentiation Walkthrough",
+  "title": "Question 2(e)",
+  "subtitle": "2024 Paper — A single turning point via the discriminant",
+  "backHref": "level-3-differentiation-2024.html",
+  "nextHref": "3a2024.html",
+  "nextLabel": "Next question →",
+  "finalNav": {
+    "secondary": {
+      "href": "2d2024.html",
+      "label": "← Back to Question 2(d)"
+    },
+    "primary": {
+      "href": "3a2024.html",
+      "label": "Next question →"
+    }
+  }
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-differentiation-2024:2e"]),
     "3a": createConfig("3a", raw`2024 Paper — Differentiate \(\sqrt{x}\sec(6x)\)`, {
       questionHtml: raw`
         <div class="question-math">
@@ -1381,7 +1257,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows the function \(y=f(x)\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3b-2024" class="graph-svg" viewBox="0 0 560 360" aria-label="Graph of a piecewise function with open and closed points" role="img"></svg>
+          <svg id="question-graph-3b-2024" class="graph-svg" viewBox="0 0 560 360" aria-label="Graph: a decreasing straight ray meets an open point at (-1,1). A smooth downward-curving arc starts at that open point, peaks at (1,6), and ends filled at (3,1). A separate horizontal segment starts open at (3,-1), runs to (5,-1), and joins an increasing straight ray at a sharp corner." role="img"></svg>
         </div>
         <p class="step-text">(i) Find the value(s) of \(x\) where \(f(x)\) is continuous but not differentiable.</p>
         <p class="step-text">(ii) Find the value(s) of \(x\) where \(f'(x)=0\).</p>
@@ -1399,7 +1275,7 @@
           \text{(i) } x=5
           \]
           \[
-          \text{(ii) } x=1 \text{ and } 3&lt;x&lt;5
+          \text{(ii) } x=1 \text{ and } 3\lt x\lt 5
           \]
           \[
           \text{(iii) } \lim_{x\to -1}f(x)=1
@@ -1422,12 +1298,12 @@
         },
         {
           title: raw`Find where the graph is horizontal`,
-          previewHtml: raw`There is a turning point at \(x=1\), and the graph is flat all the way across the horizontal segment for \(3&lt;x&lt;5\).`,
-          workingHtml: raw`<p class="step-text">There is a turning point at \(x=1\), and the graph is flat all the way across the horizontal segment for \(3&lt;x&lt;5\).</p>
+          previewHtml: raw`There is a turning point at \(x=1\), and the graph is flat all the way across the horizontal segment for \(3\lt x\lt 5\).`,
+          workingHtml: raw`<p class="step-text">There is a turning point at \(x=1\), and the graph is flat all the way across the horizontal segment for \(3\lt x\lt 5\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
-                x=1 \text{ and } 3&lt;x&lt;5
+                x=1 \text{ and } 3\lt x\lt 5
               \]
 </div>`
         },
@@ -1448,7 +1324,7 @@
           \text{(i) } x=5
           \]
           \[
-          \text{(ii) } x=1 \text{ and } 3&lt;x&lt;5
+          \text{(ii) } x=1 \text{ and } 3\lt x\lt 5
           \]
           \[
           \text{(iii) } \lim_{x\to -1}f(x)=1
@@ -1459,7 +1335,7 @@
         }
       ]
     }),
-    "3c": createConfig("3c", "2024 Paper — Stationary points of a quotient", {
+    "3c": Object.assign(createConfig("3c", "2024 Paper — Stationary points of a quotient", {
       questionHtml: raw`
         <p class="step-text">
           Find the \(x\)-value(s) of any stationary point(s) on the graph of the function
@@ -1563,7 +1439,7 @@
       `
         }
       ]
-    }),
+    }), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The original denominator excludes \\(x=-1\\) and \\(x=-4\\). Both stationary values \\(x=\\pm2\\) lie in the domain.</p></details>"}),
     "3d": createConfig("3d", "2024 Paper — Related rates with a conical pile of flour", {
       questionHtml: raw`
         <p class="step-text">Jamie is doing some baking and pouring the flour to form a conical pile.</p>

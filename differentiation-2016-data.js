@@ -693,7 +693,7 @@
           <p class="step-text">(a) \(f\) is not continuous.</p>
           <p class="step-text">(b) \(f\) is not differentiable.</p>
           <p class="step-text">(c) \(f'(x)=0\).</p>
-          <p class="step-text">(d) \(f''(x)&lt;0\).</p>
+          <p class="step-text">(d) \(f''(x)\lt 0\).</p>
         </div>
         <p class="step-text">(e) What is the value of \(\displaystyle\lim_{x\to-1}f(x)\)? State clearly if the value of the limit does not exist.</p>
       `,
@@ -707,7 +707,7 @@
           <p class="step-text"><strong>Not continuous:</strong> \(x=-1,1\).</p>
           <p class="step-text"><strong>Not differentiable:</strong> \(x=-2,-1,1,4\).</p>
           <p class="step-text"><strong>Zero gradient:</strong> \(x=-4\), \(x=3\), and \(x>4\).</p>
-          <p class="step-text"><strong>Concave down:</strong> \(1&lt;x&lt;4\).</p>
+          <p class="step-text"><strong>Concave down:</strong> \(1\lt x\lt 4\).</p>
           \[\lim_{x\to-1}f(x)=1\]
         </div>
       `),
@@ -726,7 +726,7 @@
         `),
         guidedStep("Read the concavity", raw`Concave down means the gradient decreases as x increases.`, raw`
           <p class="step-text">The right-hand curved branch bends like an upside-down bowl from just after \(x=1\) until the corner at \(x=4\).</p>
-          <div class="math-block">\[\boxed{f''(x)&lt;0\text{ for }1&lt;x&lt;4}\]</div>
+          <div class="math-block">\[\boxed{f''(x)\lt 0\text{ for }1\lt x\lt 4}\]</div>
         `),
         guidedStep("Evaluate the limit at negative one", raw`A limit follows the nearby branch rather than the isolated filled value.`, raw`
           <p class="step-text">From both sides of \(x=-1\), the descending line approaches the open point \((-1,1)\).</p>
@@ -739,7 +739,7 @@
               <p class="step-text"><strong>Not continuous:</strong> \(x=-1,1\).</p>
               <p class="step-text"><strong>Not differentiable:</strong> \(x=-2,-1,1,4\).</p>
               <p class="step-text"><strong>Zero gradient:</strong> \(x=-4\), \(x=3\), and \(x>4\).</p>
-              <p class="step-text"><strong>Concave down:</strong> \(1&lt;x&lt;4\).</p>
+              <p class="step-text"><strong>Concave down:</strong> \(1\lt x\lt 4\).</p>
               \[\boxed{\lim_{x\to-1}f(x)=1}\]
             </div>
           `)}
@@ -821,7 +821,7 @@
             \[s^2+r^2=6^2=36\]
             \[r^2=36-s^2.\]
           </div>
-          <p class="step-text">For the configuration shown, \(0\le s<6\).</p>
+          <p class="step-text">For the configuration shown, \(0\le s\lt 6\).</p>
         `),
         guidedStep("Write the volume as a function of s", raw`Substitute the height and squared radius into the cone-volume formula.`, raw`
           <div class="math-block">
@@ -925,7 +925,7 @@
       tags: tags.concat(["optimisation", "rectangle area", "parabola", "product rule", "Question 3(c)"]),
       questionHtml: raw`
         <p class="step-text">A rectangle has one vertex at \((0,0)\) and the opposite vertex on the curve</p>
-        <div class="question-math">\[y=(x-6)^2,\qquad 0&lt;x&lt;6,\]</div>
+        <div class="question-math">\[y=(x-6)^2,\qquad 0\lt x\lt 6,\]</div>
         <p class="step-text">as shown on the graph below.</p>
         ${rectangleParabolaDiagramHtml()}
         <p class="step-text">Find the maximum possible area of the rectangle.</p>
@@ -935,7 +935,7 @@
       hints: [
         raw`The rectangle has width \(x\) and height \(y=(x-6)^2\).`,
         raw`Differentiate \(A(x)=x(x-6)^2\) using the product rule or by expanding first.`,
-        raw`Use the restriction \(0&lt;x&lt;6\) when choosing a stationary point.`
+        raw`Use the restriction \(0\lt x\lt 6\) when choosing a stationary point.`
       ],
       answerHtml: answerHighlight("Final answer", raw`
         <div class="math-block">\[x=2,\qquad A_{\max}=32\text{ units}^2\]</div>
@@ -961,7 +961,7 @@
             \[3(x-6)(x-2)=0\]
             \[x=6\quad\text{or}\quad x=2.\]
           </div>
-          <p class="step-text">The value \(x=6\) is excluded by \(0&lt;x&lt;6\) and would give a degenerate rectangle. Therefore the usable stationary value is \(x=2\).</p>
+          <p class="step-text">The value \(x=6\) is excluded by \(0\lt x\lt 6\) and would give a degenerate rectangle. Therefore the usable stationary value is \(x=2\).</p>
         `),
         guidedStep("Calculate the area", raw`Substitute the valid x-value into the original area function.`, raw`
           <div class="math-block">
@@ -1057,7 +1057,7 @@
             \]
             \[=\frac{5.4/d}{1+306/d^2}=\frac{5.4d}{306+d^2}.\]
           </div>
-          <p class="step-text">For this geometry, \(0<\theta<\tfrac\pi2\), so tangent is increasing. Maximising \(\tan\theta\) therefore maximises \(\theta\).</p>
+          <p class="step-text">For this geometry, \(0\lt \theta\lt \tfrac\pi2\), so tangent is increasing. Maximising \(\tan\theta\) therefore maximises \(\theta\).</p>
         `),
         guidedStep("Differentiate the angle function", raw`Use the quotient rule on \(T(d)=\tan\theta\).`, raw`
           <div class="math-block">

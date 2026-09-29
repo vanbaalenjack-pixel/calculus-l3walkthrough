@@ -1,0 +1,16 @@
+# Defence in depth for legacy branch-based Pages publishing.
+# The release workflow publishes only the explicit _site artifact.
+exclude:
+  - scripts
+  - tmp
+  - .review
+  - .github
+  - _site
+  - AUDIT_REMEDIATION.md
+  - HOSTING_MIGRATION.md
+  - RELEASE.md
+  - package.json
+  - package-lock.json
+  - node_modules
+  - guides.json
+  - official-resources.json

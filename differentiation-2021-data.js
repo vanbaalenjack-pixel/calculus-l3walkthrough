@@ -174,7 +174,7 @@
 
     return raw`
       <div class="graph-frame question-graph-frame">
-        <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Piecewise graph of y equals f of x">
+        <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Graph: a horizontal ray at y = 1 runs to (2,1), then a rising line ends open at (3,2). A separate upward-curving arc starts filled at (3,3), has a smooth minimum at (4,2), and reaches (6,6). A descending straight ray continues from (6,6), with an open point at (7,3); the separate filled point is (7,5).">
           <defs>
             <marker id="diff-2021-1b-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
               <path d="M 0 0 L 10 5 L 0 10 Z" fill="#111827"></path>
@@ -210,7 +210,7 @@
   function coneCylinderDiagramHtml() {
     return raw`
       <div class="graph-frame question-graph-frame">
-        <svg class="graph-svg" viewBox="0 0 560 420" role="img" aria-label="Cone with an inscribed cylinder">
+        <svg class="graph-svg" viewBox="0 0 560 420" role="img" aria-label="A vertical cone has height 3 m and base radius 1.5 m. An upright cylinder rests on the same base plane, shares its centre and axis, and its top circular rim touches the cone. The cylinder radius is r and height is h.">
           <defs>
             <marker id="diff-2021-cone-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
               <path d="M 0 0 L 10 5 L 0 10 Z" fill="#111827"></path>
@@ -271,7 +271,7 @@
   function lampTableDiagramHtml() {
     return raw`
       <div class="graph-frame question-graph-frame">
-        <svg class="graph-svg" viewBox="0 0 640 420" role="img" aria-label="Lamp above the centre of a round table">
+        <svg class="graph-svg" viewBox="0 0 640 420" role="img" aria-label="A lamp is h vertically above the table centre. P is on the rim, horizontal distance r from the centre. S is the sloping distance from lamp to P; theta is the angle at the lamp between this sloping line and the vertical.">
           <rect class="graph-bg" x="0" y="0" width="640" height="420"></rect>
           <ellipse class="question-shade" cx="330" cy="305" rx="255" ry="56"></ellipse>
           <ellipse class="question-curve" cx="330" cy="305" rx="255" ry="56"></ellipse>
@@ -368,10 +368,10 @@
       answerHtml: answerHighlight("Final answers", raw`
         <div class="math-block">
           \[
-          f'(x)=0 \text{ at } x=4
+          f'(x)=0 \text{ for } x\lt2 \text{ or } x=4
           \]
           \[
-          f(x)\text{ is concave upwards for }3<x<6
+          f(x)\text{ is concave upwards for }3\lt x\lt 6
           \]
           \[
           \lim_{x\to7}f(x)=3
@@ -379,11 +379,11 @@
         </div>
       `),
       guidedSteps: [
-        guidedStep("Find where the gradient is zero", raw`Look for a smooth point where the tangent would be horizontal.`, raw`
-          <p class="step-text">The curve has a smooth minimum at \(x=4\). The tangent there is horizontal.</p>
+        guidedStep("Find where the gradient is zero", raw`Look for horizontal straight sections as well as smooth points with horizontal tangents.`, raw`
+          <p class="step-text">The straight section is horizontal for \(x\lt2\), and the curve has a smooth minimum at \(x=4\). Both have zero gradient. At \(x=2\), the corner has no derivative.</p>
           <div class="math-block">
             \[
-            f'(4)=0
+            f'(x)=0\quad\text{for }x\lt2\text{ or }x=4
             \]
           </div>
         `),
@@ -391,7 +391,7 @@
           <p class="step-text">The curved part from \(x=3\) to \(x=6\) bends upwards. The endpoints are not included because the graph changes piece there.</p>
           <div class="math-block">
             \[
-            3<x<6
+            3\lt x\lt 6
             \]
           </div>
         `),
@@ -400,10 +400,10 @@
           ${answerHighlight("Final answers", raw`
             <div class="math-block">
               \[
-              f'(x)=0\text{ at }x=4
+              f'(x)=0\text{ for }x\lt2\text{ or }x=4
               \]
               \[
-              f(x)\text{ is concave upwards for }3<x<6
+              f(x)\text{ is concave upwards for }3\lt x\lt 6
               \]
               \[
               \lim_{x\to7}f(x)=3
@@ -488,6 +488,8 @@
           \]
         </div>
         <p class="step-text">Find the gradient of the tangent to the curve at the point \((10,0)\).</p>
+
+        <p class="question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
       `,
       answerHtml: answerHighlight("Final answer", raw`
         <div class="math-block">
@@ -616,7 +618,7 @@
             \frac{d^2V}{dr^2}=6\pi-12\pi r
             \]
             \[
-            \left.\frac{d^2V}{dr^2}\right|_{r=1}=6\pi-12\pi=-6\pi<0
+            \left.\frac{d^2V}{dr^2}\right|_{r=1}=6\pi-12\pi=-6\pi\lt 0
             \]
           </div>
           <p class="step-text">So \(r=1\) gives a maximum volume.</p>
@@ -1110,7 +1112,7 @@
       answerHtml: answerHighlight("Final answer", raw`
         <div class="math-block">
           \[
-          -2<x<2
+          -2\lt x\lt 2
           \]
         </div>
       `),
@@ -1145,16 +1147,16 @@
         guidedStep("Solve the inequality", raw`Factor or recognise the square inequality.`, raw`
           <div class="math-block">
             \[
-            x^2<4
+            x^2\lt 4
             \]
             \[
-            -2<x<2
+            -2\lt x\lt 2
             \]
           </div>
           ${answerHighlight("Final answer", raw`
             <div class="math-block">
               \[
-              \text{The function is increasing for }-2<x<2.
+              \text{The function is increasing for }-2\lt x\lt 2.
               \]
             </div>
           `)}
@@ -1174,6 +1176,8 @@
         <p class="step-text">The point \(P\) lies on the curve and has an \(x\)-coordinate of \(3\).</p>
         <p class="step-text">The gradient of the tangent to the curve at \(P\) is \(-\frac{8}{27}\).</p>
         <p class="step-text">Find the possible value(s) of \(k\).</p>
+
+        <p class="question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
       `,
       answerHtml: answerHighlight("Final answer", raw`
         <div class="math-block">

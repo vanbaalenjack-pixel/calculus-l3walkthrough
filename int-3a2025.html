@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91579 — Apply integration methods in solving problems"
       },
-      "dateModified": "2026-09-02",
+      "dateModified": "2026-09-24",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,20 +91,20 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260916-2" />
+<link rel="stylesheet" href="style.css?v=20260924-1" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20260916-2"></script>
-  <script defer src="walkthrough-gate.js?v=20260916-2"></script>
-<script defer src="differentiation-walkthrough.js?v=20260916-2"></script>
-  <script defer src="integration-2025-data.js?v=20260916-2"></script>
+<script defer src="walkthrough-audit-data.js?v=20260924-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260924-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20260924-1"></script>
+  <script defer src="integration-2025-data.js?v=20260924-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-integration-2025", "year": 2025}, "question": {"canonical": "https://calc.nz/int-3a2025.html", "commonMistake": "Check intersections, signs, and whether the question asks for signed area or total geometric area.", "description": "2025 NCEA Level 3 Integration AS91579 Question 3(a) worked solution: estimating cross-sectional area with the trapezium rule. Use guided hints and…", "guideLinks": [], "id": "3a", "label": "Question 3(a)", "method": "estimating cross-sectional area with the trapezium rule.", "methodTitle": "Numerical Integration", "reviewStatus": "unreviewed", "skillSlugs": ["integration-techniques"], "summary": "This walkthrough helps you practise estimating cross-sectional area with the trapezium rule. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Numerical Integration Worked Solution – 2025 NCEA Level 3 Q3(a) (AS91579) | Calc.nz"}, "standard": {"code": "AS91579", "id": "level-3-integration", "label": "Integration"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-integration-2025", "year": 2025}, "question": {"canonical": "https://calc.nz/int-3a2025.html", "commonMistake": "Count intervals, not ordinates, for the width. The first and last ordinates have half the weight of the interior ones.", "description": "2025 NCEA Level 3 Integration AS91579 Question 3(a) worked solution: estimating cross-sectional area with the trapezium rule. Use guided hints and…", "guideLinks": [], "id": "3a", "label": "Question 3(a)", "method": "estimating cross-sectional area with the trapezium rule.", "methodTitle": "Numerical Integration", "relatedPractice": {"href": "int-1c2021.html", "label": "2021 Integration · Q1(b)(ii)"}, "reviewStatus": "unreviewed", "skillSlugs": ["integration-techniques", "definite-integrals-area"], "summary": "This walkthrough helps you practise estimating cross-sectional area with the trapezium rule. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Numerical Integration Worked Solution – 2025 NCEA Level 3 Q3(a) (AS91579) | Calc.nz"}, "standard": {"code": "AS91579", "id": "level-3-integration", "label": "Integration"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20260916-2"></script>
+  <script defer src="site-shell.js?v=20260924-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -141,7 +141,7 @@
 <header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 3 Integration Walkthrough</p>
-        <h1 id="page-title">2025 NCEA Level 3 Integration Question 3(a)</h1>
+        <h1 id="page-title">2025 Integration · Q3(a)</h1>
         <p id="page-subtitle" class="subtitle">2025 Paper</p>
       </div>
       <a id="back-link" class="ghost-link" href="level-3-integration-2025.html">← Back to paper</a>
@@ -154,7 +154,7 @@
       <p class="step-text">The diagram below shows the cross-section of a hole dug in the ground.</p>
             <p class="step-text">The depth of the hole is measured every \(5\) metres across the top of the hole.</p>
             <div class="graph-frame question-graph-frame">
-              <svg id="question-graph-3a-int" class="graph-svg" viewBox="0 0 520 280" aria-label="Hole cross-section with depths measured every five metres" role="img">
+              <svg id="question-graph-3a-int" class="graph-svg" viewBox="0 0 520 280" aria-label="Hole cross-section: at distances 0, 5, 10, 15, and 20 metres, depths are 2.12, 2.32, 2.65, 2.54, and 1.88 metres respectively" role="img">
           <rect class="graph-bg" x="0" y="0" width="520" height="280"></rect>
           <path class="graph-soil" d="M 0 76 L 520 76 L 520 252 L 0 252 Z"></path>
           <path class="graph-hole" d="M 64 96 L 64 180.8 Q 112 190.8 164 188.8 Q 214 216.8 264 202 Q 314 194 364 197.6 Q 414 191.6 464 171.2 L 464 96 Z"></path>
@@ -208,7 +208,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Estimating cross-sectional area with the trapezium rule.</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 3(a)</span> from the <a href="level-3-integration-2025.html" data-seo-year-link>2025 NCEA Level 3 Integration paper</a> for <a href="level-3-integration.html" data-seo-standard-link>AS91579 — Apply integration methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91579">official NZQA resources for AS91579</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-09-02">2 September 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-09-24">24 September 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -217,9 +217,11 @@
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
       <p class="step-text" data-seo-summary>This walkthrough helps you practise estimating cross-sectional area with the trapezium rule. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Check intersections, signs, and whether the question asks for signed area or total geometric area.</p>
+      <h3>Check</h3>
+      <p class="step-text" data-seo-mistake>Count intervals, not ordinates, for the width. The first and last ordinates have half the weight of the interior ones.</p>
+      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
       <h3>Continue practising</h3>
+      <p class="step-text" data-related-practice>Try a related question: <a href="int-1c2021.html">2021 Integration · Q1(b)(ii)</a>. Attempt it before opening working, then return to this question later.</p>
       <div class="nav-row">
         <a class="nav-btn secondary" href="int-2e2025.html" data-seo-related="previous">← Question 2(e)</a>
         <a class="nav-btn secondary" href="int-3b2025.html" data-seo-related="next">Question 3(b) →</a>
@@ -227,7 +229,7 @@
       <ul class="step-text">
         <li><a href="level-3-integration-2025.html" data-seo-related-year>All 2025 Integration walkthroughs</a></li>
         <li><a href="level-3-integration.html" data-seo-standard-link>All AS91579 Integration years</a></li>
-        <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-integration-techniques.html">Integration techniques</a></li>
+        <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-integration-techniques.html">Integration techniques</a>, <a href="skill-definite-integrals-area.html">Definite integrals and area</a></li>
         <li data-seo-related-guides hidden></li>
       </ul>
     </section>

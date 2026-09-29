@@ -211,10 +211,10 @@
           workingHtml: raw`
             <div class="math-block">
               \[
-              f(x)=x^2\sec x
+              f(t)=t^2e^{2t}
               \]
               \[
-              \frac{df}{dx}=(x^2)'\sec x+x^2(\sec x)'
+              f'(t)=(t^2)'e^{2t}+t^2(e^{2t})'
               \]
             </div>
 
@@ -437,7 +437,7 @@
       hints: [
         raw`Differentiate both parametric equations with respect to \(\theta\).`,
         raw`Use \(\frac{dy}{dx}=\frac{dy/d\theta}{dx/d\theta}\).`,
-        raw`At the point \(P(p,q)\), replace \(x\) and \(y\) in the gradient by \(p\) and \(q\), then use point-gradient form.`
+        raw`At the point \(P(p,q)\), first handle \(q=0\) as a vertical tangent; otherwise replace \(x\) and \(y\) in the gradient by \(p\) and \(q\), then use point-gradient form.`
       ],
       answerHtml: raw`
         <p class="step-text">Differentiate with respect to \(\theta\):</p>
@@ -452,7 +452,7 @@
           \frac{dy}{dx}=\frac{4\cos\theta}{-4\sin\theta}=-\frac{x}{y}
           \]
         </div>
-        <p class="step-text">At the point \(P(p,q)\), the gradient is \(-\frac{p}{q}\), so</p>
+        <p class="step-text">For \(q\ne0\), at the point \(P(p,q)\), the gradient is \(-\frac{p}{q}\), so</p>
         <div class="math-block">
           \[
           y-q=-\frac{p}{q}(x-p)
@@ -520,7 +520,7 @@
           \frac{dy}{dx}=\frac{4\cos\theta}{-4\sin\theta}=-\frac{x}{y}
           \]
         </div>
-        <p class="step-text">At the point \(P(p,q)\), the gradient is \(-\frac{p}{q}\), so</p>
+        <p class="step-text">For \(q\ne0\), at the point \(P(p,q)\), the gradient is \(-\frac{p}{q}\), so</p>
         <div class="math-block">
           \[
           y-q=-\frac{p}{q}(x-p)
@@ -534,7 +534,8 @@
         </div>
       `
         }
-      ]
+      ],
+      examNoteHtml: raw`<p class="step-text">The gradient calculation above assumes \(q\ne0\). If \(q=0\), then \(p=\pm4\). The radius is horizontal, so the tangent is the vertical line \(x=p\). The required equation becomes \(px=p^2\), which also gives \(x=p\), since \(p\ne0\). This covers the omitted case.</p>`
     }),
     "1e": createConfig("1e", "2023 Paper — Maximum triangle area on \\(y=x(x-2m)^2\\)", {
       questionHtml: raw`
@@ -550,7 +551,7 @@
           A=\frac{4m^4}{3}.
           \]
         </div>
-        <p class="step-text">A right-angled triangle is constructed with one vertex at \((0,0)\) and another on the curve.</p>
+        <p class="step-text">A right-angled triangle is constructed with one vertex at \((0,0)\) and another on the curve.</p><p class="step-text">As shown in the diagram, its base lies on the \(x\)-axis, with the right angle directly below the point on the curve, between \(x=0\) and \(x=2m\).</p><div class="graph-frame question-graph-frame"><svg class="graph-svg" viewBox="0 0 380 260" role="img" aria-label="Redrawn diagram: the pale region is the whole area between the curve y equals x times x minus 2m squared and the x-axis from 0 to 2m. The darker right triangle has a horizontal base from the origin to a point between 0 and 2m, and a vertical side to the curve. The curve touches the x-axis at 2m."><path d="M40.0,220.0 L41.3,214.1 L42.6,208.2 L43.9,202.5 L45.2,197.0 L46.5,191.5 L47.8,186.1 L49.1,180.9 L50.4,175.8 L51.7,170.8 L53.0,165.8 L54.3,161.1 L55.6,156.4 L56.9,151.8 L58.2,147.3 L59.5,143.0 L60.8,138.7 L62.1,134.6 L63.4,130.6 L64.7,126.6 L66.0,122.8 L67.3,119.1 L68.6,115.4 L69.9,111.9 L71.2,108.5 L72.5,105.2 L73.8,101.9 L75.1,98.8 L76.4,95.7 L77.7,92.8 L79.0,90.0 L80.3,87.2 L81.6,84.5 L82.9,81.9 L84.2,79.5 L85.5,77.1 L86.8,74.8 L88.1,72.5 L89.4,70.4 L90.7,68.4 L92.0,66.4 L93.3,64.5 L94.6,62.7 L95.9,61.0 L97.2,59.4 L98.5,57.8 L99.8,56.4 L101.1,55.0 L102.4,53.7 L103.7,52.4 L105.0,51.2 L106.3,50.2 L107.6,49.1 L108.9,48.2 L110.2,47.3 L111.5,46.5 L112.8,45.8 L114.1,45.2 L115.4,44.6 L116.7,44.1 L118.0,43.6 L119.3,43.2 L120.6,42.9 L121.9,42.6 L123.2,42.4 L124.5,42.3 L125.8,42.2 L127.1,42.2 L128.4,42.3 L129.7,42.4 L131.0,42.5 L132.3,42.8 L133.6,43.1 L134.9,43.4 L136.2,43.8 L137.5,44.2 L138.8,44.7 L140.1,45.3 L141.4,45.9 L142.7,46.5 L144.0,47.2 L145.3,47.9 L146.6,48.7 L147.9,49.6 L149.2,50.5 L150.5,51.4 L151.8,52.4 L153.1,53.4 L154.4,54.4 L155.7,55.5 L157.0,56.6 L158.3,57.8 L159.6,59.0 L160.9,60.3 L162.2,61.6 L163.5,62.9 L164.8,64.2 L166.1,65.6 L167.4,67.1 L168.7,68.5 L170.0,70.0 L171.3,71.5 L172.6,73.1 L173.9,74.6 L175.2,76.2 L176.5,77.9 L177.8,79.5 L179.1,81.2 L180.4,82.9 L181.7,84.6 L183.0,86.4 L184.3,88.1 L185.6,89.9 L186.9,91.7 L188.2,93.5 L189.5,95.4 L190.8,97.2 L192.1,99.1 L193.4,101.0 L194.7,102.9 L196.0,104.8 L197.3,106.7 L198.6,108.7 L199.9,110.6 L201.2,112.6 L202.5,114.5 L203.8,116.5 L205.1,118.5 L206.4,120.5 L207.7,122.5 L209.0,124.5 L210.3,126.4 L211.6,128.4 L212.9,130.4 L214.2,132.4 L215.5,134.4 L216.8,136.4 L218.1,138.4 L219.4,140.4 L220.7,142.4 L222.0,144.4 L223.3,146.4 L224.6,148.3 L225.9,150.3 L227.2,152.3 L228.5,154.2 L229.8,156.1 L231.1,158.1 L232.4,160.0 L233.7,161.9 L235.0,163.8 L236.3,165.6 L237.6,167.5 L238.9,169.3 L240.2,171.1 L241.5,172.9 L242.8,174.7 L244.1,176.5 L245.4,178.2 L246.7,179.9 L248.0,181.6 L249.3,183.3 L250.6,184.9 L251.9,186.5 L253.2,188.1 L254.5,189.7 L255.8,191.2 L257.1,192.7 L258.4,194.2 L259.7,195.6 L261.0,197.0 L262.3,198.4 L263.6,199.8 L264.9,201.1 L266.2,202.4 L267.5,203.6 L268.8,204.8 L270.1,206.0 L271.4,207.1 L272.7,208.2 L274.0,209.2 L275.3,210.2 L276.6,211.2 L277.9,212.1 L279.2,212.9 L280.5,213.8 L281.8,214.5 L283.1,215.3 L284.4,215.9 L285.7,216.6 L287.0,217.2 L288.3,217.7 L289.6,218.2 L290.9,218.6 L292.2,219.0 L293.5,219.3 L294.8,219.5 L296.1,219.7 L297.4,219.9 L298.7,220.0 L300.0,220.0 Z" fill="#eef2f7"/><path d="M20 220H355 M40 240V20" fill="none" stroke="#475569"/><path d="M40.0,220.0 L41.3,214.1 L42.6,208.2 L43.9,202.5 L45.2,197.0 L46.5,191.5 L47.8,186.1 L49.1,180.9 L50.4,175.8 L51.7,170.8 L53.0,165.8 L54.3,161.1 L55.6,156.4 L56.9,151.8 L58.2,147.3 L59.5,143.0 L60.8,138.7 L62.1,134.6 L63.4,130.6 L64.7,126.6 L66.0,122.8 L67.3,119.1 L68.6,115.4 L69.9,111.9 L71.2,108.5 L72.5,105.2 L73.8,101.9 L75.1,98.8 L76.4,95.7 L77.7,92.8 L79.0,90.0 L80.3,87.2 L81.6,84.5 L82.9,81.9 L84.2,79.5 L85.5,77.1 L86.8,74.8 L88.1,72.5 L89.4,70.4 L90.7,68.4 L92.0,66.4 L93.3,64.5 L94.6,62.7 L95.9,61.0 L97.2,59.4 L98.5,57.8 L99.8,56.4 L101.1,55.0 L102.4,53.7 L103.7,52.4 L105.0,51.2 L106.3,50.2 L107.6,49.1 L108.9,48.2 L110.2,47.3 L111.5,46.5 L112.8,45.8 L114.1,45.2 L115.4,44.6 L116.7,44.1 L118.0,43.6 L119.3,43.2 L120.6,42.9 L121.9,42.6 L123.2,42.4 L124.5,42.3 L125.8,42.2 L127.1,42.2 L128.4,42.3 L129.7,42.4 L131.0,42.5 L132.3,42.8 L133.6,43.1 L134.9,43.4 L136.2,43.8 L137.5,44.2 L138.8,44.7 L140.1,45.3 L141.4,45.9 L142.7,46.5 L144.0,47.2 L145.3,47.9 L146.6,48.7 L147.9,49.6 L149.2,50.5 L150.5,51.4 L151.8,52.4 L153.1,53.4 L154.4,54.4 L155.7,55.5 L157.0,56.6 L158.3,57.8 L159.6,59.0 L160.9,60.3 L162.2,61.6 L163.5,62.9 L164.8,64.2 L166.1,65.6 L167.4,67.1 L168.7,68.5 L170.0,70.0 L171.3,71.5 L172.6,73.1 L173.9,74.6 L175.2,76.2 L176.5,77.9 L177.8,79.5 L179.1,81.2 L180.4,82.9 L181.7,84.6 L183.0,86.4 L184.3,88.1 L185.6,89.9 L186.9,91.7 L188.2,93.5 L189.5,95.4 L190.8,97.2 L192.1,99.1 L193.4,101.0 L194.7,102.9 L196.0,104.8 L197.3,106.7 L198.6,108.7 L199.9,110.6 L201.2,112.6 L202.5,114.5 L203.8,116.5 L205.1,118.5 L206.4,120.5 L207.7,122.5 L209.0,124.5 L210.3,126.4 L211.6,128.4 L212.9,130.4 L214.2,132.4 L215.5,134.4 L216.8,136.4 L218.1,138.4 L219.4,140.4 L220.7,142.4 L222.0,144.4 L223.3,146.4 L224.6,148.3 L225.9,150.3 L227.2,152.3 L228.5,154.2 L229.8,156.1 L231.1,158.1 L232.4,160.0 L233.7,161.9 L235.0,163.8 L236.3,165.6 L237.6,167.5 L238.9,169.3 L240.2,171.1 L241.5,172.9 L242.8,174.7 L244.1,176.5 L245.4,178.2 L246.7,179.9 L248.0,181.6 L249.3,183.3 L250.6,184.9 L251.9,186.5 L253.2,188.1 L254.5,189.7 L255.8,191.2 L257.1,192.7 L258.4,194.2 L259.7,195.6 L261.0,197.0 L262.3,198.4 L263.6,199.8 L264.9,201.1 L266.2,202.4 L267.5,203.6 L268.8,204.8 L270.1,206.0 L271.4,207.1 L272.7,208.2 L274.0,209.2 L275.3,210.2 L276.6,211.2 L277.9,212.1 L279.2,212.9 L280.5,213.8 L281.8,214.5 L283.1,215.3 L284.4,215.9 L285.7,216.6 L287.0,217.2 L288.3,217.7 L289.6,218.2 L290.9,218.6 L292.2,219.0 L293.5,219.3 L294.8,219.5 L296.1,219.7 L297.4,219.9 L298.7,220.0 L300.0,220.0 L301.3,220.0 L302.6,219.9 L303.9,219.7 L305.2,219.5 L306.5,219.2 L307.8,218.9 L309.1,218.5 L310.4,218.0 L311.7,217.5 L313.0,216.8 L314.3,216.2 L315.6,215.4 L316.9,214.6 L318.2,213.7 L319.5,212.7 L320.8,211.7 L322.1,210.6 L323.4,209.4 L324.7,208.1 L326.0,206.8 L327.3,205.4 L328.6,203.9 L329.9,202.3 L331.2,200.6 L332.5,198.9" fill="none" stroke="#1d4ed8" stroke-width="2.5"/><path d="M40 220 L133.6 220 L133.6 43.1 Z" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.5"/><path d="M124 220V210.4H133.6" fill="none" stroke="#475569"/><text x="32" y="240">0</text><text x="292" y="240">2m</text><text x="357" y="225">x</text><text x="27" y="20">y</text></svg></div><p class="step-text question-note">Redrawn diagram: the pale region is the total area under the curve; the darker region is the triangle.</p>
         <p class="step-text">Show that the maximum area of such a triangle is \(\frac{3}{8}\) of the total shaded area.</p>
         <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem. You do not have to prove that the area you found is a maximum.</p>
       `,
@@ -1303,13 +1304,13 @@
         </div>
         <ol class="step-text question-parts" type="i">
           <li>Find the value(s) of \(x\) where \(f(x)\) is continuous but not differentiable.</li>
-          <li>Find the value(s) of \(x\) where \(f'(x)=0\) and \(f''(x)&lt;0\) are both true.</li>
+          <li>Find the value(s) of \(x\) where \(f'(x)=0\) and \(f''(x)\lt 0\) are both true.</li>
           <li>What is the value of \(\lim_{x\to 6}f(x)\)?</li>
         </ol>
       `,
       hints: [
         raw`Continuous but not differentiable means the graph is joined up but has a sharp corner.`,
-        raw`The conditions \(f'(x)=0\) and \(f''(x)&lt;0\) describe a local maximum.`,
+        raw`The conditions \(f'(x)=0\) and \(f''(x)\lt 0\) describe a local maximum.`,
         raw`For the limit at \(x=6\), compare the left-hand and right-hand behaviour from the graph.`
       ],
       answerHtml: raw`
@@ -1325,7 +1326,7 @@
           \text{(iii) }\lim_{x\to 6}f(x)\text{ does not exist}
           \]
         </div>
-        <p class="step-text">At \(x=8\) the graph is continuous but has a sharp corner, so it is not differentiable there. At \(x=-4\) there is a smooth local maximum, so \(f'(x)=0\) and \(f''(x)&lt;0\). The left- and right-hand values near \(x=6\) approach different numbers, so the limit does not exist.</p>
+        <p class="step-text">At \(x=8\) the graph is continuous but has a sharp corner, so it is not differentiable there. At \(x=-4\) there is a smooth local maximum, so \(f'(x)=0\) and \(f''(x)\lt 0\). The left- and right-hand values near \(x=6\) approach different numbers, so the limit does not exist.</p>
       `,
       guidedSteps: [
         {
@@ -1373,7 +1374,7 @@
           \text{(iii) }\lim_{x\to 6}f(x)\text{ does not exist}
           \]
         </div>
-        <p class="step-text">At \(x=8\) the graph is continuous but has a sharp corner, so it is not differentiable there. At \(x=-4\) there is a smooth local maximum, so \(f'(x)=0\) and \(f''(x)&lt;0\). The left- and right-hand values near \(x=6\) approach different numbers, so the limit does not exist.</p>
+        <p class="step-text">At \(x=8\) the graph is continuous but has a sharp corner, so it is not differentiable there. At \(x=-4\) there is a smooth local maximum, so \(f'(x)=0\) and \(f''(x)\lt 0\). The left- and right-hand values near \(x=6\) approach different numbers, so the limit does not exist.</p>
       `
         }
       ]
@@ -1567,7 +1568,7 @@
           f''(x)=2x^{-3}-24x^{-5}
           \]
           \[
-          f''(\sqrt{6})&lt;0 \Rightarrow \text{local maximum}
+          f''(\sqrt{6})\lt 0 \Rightarrow \text{local maximum}
           \]
           \[
           f''(-\sqrt{6})&gt;0 \Rightarrow \text{local minimum}
@@ -1611,7 +1612,7 @@
               f''(x)=2x^{-3}-24x^{-5}
               \]
               \[
-              f''(\sqrt{6})&lt;0,\qquad f''(-\sqrt{6})&gt;0
+              f''(\sqrt{6})\lt 0,\qquad f''(-\sqrt{6})&gt;0
               \]
             </div>
 
@@ -1671,7 +1672,7 @@
           f''(x)=2x^{-3}-24x^{-5}
           \]
           \[
-          f''(\sqrt{6})&lt;0 \Rightarrow \text{local maximum}
+          f''(\sqrt{6})\lt 0 \Rightarrow \text{local maximum}
           \]
           \[
           f''(-\sqrt{6})&gt;0 \Rightarrow \text{local minimum}
@@ -1697,169 +1698,24 @@
         }
       ]
     }),
-    "3e": createConfig("3e", "2023 Paper — Verify a catenary differential equation", {
-      questionHtml: raw`
-        <p class="step-text">A power line hangs between two poles. The equation of the curve \(y=f(x)\) that models the shape of the power line can be found by solving the differential equation</p>
-        <div class="question-math">
-          \[
-          a\frac{d^2y}{dx^2}=\sqrt{1+\left(\frac{dy}{dx}\right)^2}
-          \]
-        </div>
-        <p class="step-text">Use differentiation to verify that the function</p>
-        <div class="question-math">
-          \[
-          y=\frac{a}{2}\left(e^{x/a}+e^{-x/a}\right)
-          \]
-        </div>
-        <p class="step-text">satisfies the above differential equation, where \(a\) is a positive constant.</p>
-      `,
-      hints: [
-        raw`Differentiate once to find \(y'\), then again to find \(y''\).`,
-        raw`Multiply the second derivative by \(a\) so it looks like the left-hand side of the equation.`,
-        raw`To match the square root expression, square both sides after you substitute \(y'\) and \(y''\).`
-      ],
-      answerHtml: raw`
-        <p class="step-text">Differentiate once:</p>
-        <div class="math-block">
-          \[
-          y'=\frac{1}{2}e^{x/a}-\frac{1}{2}e^{-x/a}
-          \]
-        </div>
-        <p class="step-text">Differentiate again:</p>
-        <div class="math-block">
-          \[
-          y''=\frac{1}{2a}e^{x/a}+\frac{1}{2a}e^{-x/a}
-          \]
-          \[
-          ay''=\frac{1}{2}\left(e^{x/a}+e^{-x/a}\right)
-          \]
-        </div>
-        <p class="step-text">Now compare with the right-hand side by squaring:</p>
-        <div class="math-block">
-          \[
-          (ay'')^2=\left(\frac{e^{x/a}+e^{-x/a}}{2}\right)^2
-          \]
-          \[
-          (ay'')^2=\frac{e^{2x/a}}{4}+\frac{2e^{x/a}e^{-x/a}}{4}+\frac{e^{-2x/a}}{4}
-          \]
-          \[
-          (ay'')^2=\frac{e^{2x/a}}{4}+\frac{1}{2}+\frac{e^{-2x/a}}{4}
-          \]
-          \[
-          1+(y')^2=1+\left(\frac{e^{x/a}-e^{-x/a}}{2}\right)^2
-          \]
-          \[
-          1+(y')^2=1+\frac{e^{2x/a}}{4}-\frac{2e^{x/a}e^{-x/a}}{4}+\frac{e^{-2x/a}}{4}
-          \]
-          \[
-          1+(y')^2=\frac{e^{2x/a}}{4}+\frac{1}{2}+\frac{e^{-2x/a}}{4}
-          \]
-        </div>
-        <p class="step-text">So \((ay'')^2=1+(y')^2\), which verifies the required differential equation.</p>
-      `,
-      guidedSteps: [
-        {
-          title: raw`Differentiate once`,
-          previewHtml: raw`The factors of \(a\) cancel when differentiating each exponential term.`,
-          workingHtml: raw`<p class="step-text">The factors of \(a\) cancel when differentiating each exponential term.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-                y'=\frac{e^{x/a}}{2}-\frac{e^{-x/a}}{2}
-              \]
-</div>`
-        },
-        {
-          title: raw`Differentiate a second time`,
-          previewHtml: raw`Differentiating the negative exponential again makes the second term positive.`,
-          workingHtml: raw`<p class="step-text">Differentiating the negative exponential again makes the second term positive.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-                y''=\frac{e^{x/a}}{2a}+\frac{e^{-x/a}}{2a}
-              \]
-</div>`
-        },
-        {
-          title: raw`Substitute and expand both sides`,
-          previewHtml: raw`Expanding both squares and using \(e^{x/a}e^{-x/a}=1\) gives the same expression on both sides:
-                \[
-                \frac{e^{2x/a}}{4}+\frac{e^{-2x/a}}{4}+\frac{1}{2}.
-                \]`,
-          workingHtml: raw`
-            <div class="math-block">
-              \[
-              ay''=\frac{e^{x/a}+e^{-x/a}}{2}
-              \qquad
-              y'=\frac{e^{x/a}-e^{-x/a}}{2}
-              \]
-              \[
-              (ay'')^2=\left(\frac{e^{x/a}+e^{-x/a}}{2}\right)^2
-              \qquad
-              1+(y')^2=1+\left(\frac{e^{x/a}-e^{-x/a}}{2}\right)^2
-              \]
-            </div>
-
-<p class="step-text">Expanding both squares and using \(e^{x/a}e^{-x/a}=1\) gives the same expression on both sides:
-                \[
-                \frac{e^{2x/a}}{4}+\frac{e^{-2x/a}}{4}+\frac{1}{2}.
-                \]</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-                \frac{e^{2x/a}}{4}+\frac{e^{-2x/a}}{4}+\frac{1}{2}
-              \]
-</div>`
-        },
-        {
-          title: raw`Finish the verification`,
-          previewHtml: raw`Since the left-hand side and right-hand side simplify to the same expression, the function really does satisfy the given differential equation.`,
-          workingHtml: raw`<p class="step-text">Since the left-hand side and right-hand side simplify to the same expression, the function really does satisfy the given differential equation.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Conclusion</p>
-  <p class="step-text">The function satisfies the differential equation.</p>
-</div>
-
-        <p class="step-text">Differentiate once:</p>
-        <div class="math-block">
-          \[
-          y'=\frac{1}{2}e^{x/a}-\frac{1}{2}e^{-x/a}
-          \]
-        </div>
-        <p class="step-text">Differentiate again:</p>
-        <div class="math-block">
-          \[
-          y''=\frac{1}{2a}e^{x/a}+\frac{1}{2a}e^{-x/a}
-          \]
-          \[
-          ay''=\frac{1}{2}\left(e^{x/a}+e^{-x/a}\right)
-          \]
-        </div>
-        <p class="step-text">Now compare with the right-hand side by squaring:</p>
-        <div class="math-block">
-          \[
-          (ay'')^2=\left(\frac{e^{x/a}+e^{-x/a}}{2}\right)^2
-          \]
-          \[
-          (ay'')^2=\frac{e^{2x/a}}{4}+\frac{2e^{x/a}e^{-x/a}}{4}+\frac{e^{-2x/a}}{4}
-          \]
-          \[
-          (ay'')^2=\frac{e^{2x/a}}{4}+\frac{1}{2}+\frac{e^{-2x/a}}{4}
-          \]
-          \[
-          1+(y')^2=1+\left(\frac{e^{x/a}-e^{-x/a}}{2}\right)^2
-          \]
-          \[
-          1+(y')^2=1+\frac{e^{2x/a}}{4}-\frac{2e^{x/a}e^{-x/a}}{4}+\frac{e^{-2x/a}}{4}
-          \]
-          \[
-          1+(y')^2=\frac{e^{2x/a}}{4}+\frac{1}{2}+\frac{e^{-2x/a}}{4}
-          \]
-        </div>
-        <p class="step-text">So \((ay'')^2=1+(y')^2\), which verifies the required differential equation.</p>
-      `
-        }
-      ]
-    })
+    "3e": Object.assign({
+  "browserTitle": "2023 Differentiation Paper — Question 3(e)",
+  "eyebrow": "Level 3 Differentiation Walkthrough",
+  "title": "Question 3(e)",
+  "subtitle": "2023 Paper — Verify a catenary differential equation",
+  "backHref": "level-3-differentiation-2023.html",
+  "nextHref": "level-3-differentiation-2023.html",
+  "nextLabel": "Back to paper",
+  "finalNav": {
+    "secondary": {
+      "href": "3d2023.html",
+      "label": "← Back to Question 3(d)"
+    },
+    "primary": {
+      "href": "level-3-differentiation-2023.html",
+      "label": "Back to paper"
+    }
+  }
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-differentiation-2023:3e"])
   };
 }());

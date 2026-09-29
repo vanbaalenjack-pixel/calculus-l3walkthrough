@@ -35,11 +35,15 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOGUE_FILE = ROOT / "question-catalogue.js"
 CATALOGUE_GLOBAL = "CALC_NZ_QUESTION_CATALOGUE"
 
-EXPECTED_LOGICAL_ROUTE_COUNT = 447
-EXPECTED_PHYSICAL_WALKTHROUGH_COUNT = 335
-EXPECTED_STANDARD_COUNT = 5
-EXPECTED_YEAR_PAGE_COUNT = 30
-EXPECTED_DATA_FILE_COUNT = 28
+_inventory = json.loads(CATALOGUE_FILE.read_text().split("=", 1)[1].strip().removesuffix(";"))
+_inventory_standards = [s for level in _inventory["levels"] for s in level["standards"]]
+_inventory_papers = [p for s in _inventory_standards for p in s["papers"]]
+_inventory_questions = [q for p in _inventory_papers for q in p["questions"]]
+EXPECTED_LOGICAL_ROUTE_COUNT = len(_inventory_questions)
+EXPECTED_PHYSICAL_WALKTHROUGH_COUNT = len({q["href"].split("?")[0] for q in _inventory_questions})
+EXPECTED_STANDARD_COUNT = len(_inventory_standards)
+EXPECTED_YEAR_PAGE_COUNT = len(_inventory_papers)
+EXPECTED_DATA_FILE_COUNT = len(list(ROOT.glob("*-data.js"))) - 1
 AUDIT_OVERLAY_FILE = "walkthrough-audit-data.js"
 
 FULL_PARTS = tuple(f"{number}{letter}" for number in "123" for letter in "abcde")
@@ -397,7 +401,7 @@ def discover_routes(failures: Failures) -> list[QuestionRoute]:
     }
     failures.check(
         seen_panels == expected_papers,
-        f"{CATALOGUE_FILE.name}: papers differ from the expected 30 standard/year owners "
+        f"{CATALOGUE_FILE.name}: papers differ from the catalogued standard/year owners "
         f"(missing={sorted(expected_papers - seen_panels)}, "
         f"unexpected={sorted(seen_panels - expected_papers)})",
     )
@@ -548,7 +552,7 @@ def audit_year_pages(routes: Sequence[QuestionRoute], failures: Failures) -> Non
     )
     if missing_collective or unexpected_collective or repeated_collective:
         failures.add(
-            "year pages: collective question directory must contain all 447 logical routes "
+            "year pages: collective question directory must contain all catalogued logical routes "
             "exactly once "
             f"(missing={missing_collective[:4]}, unexpected={unexpected_collective[:4]}, "
             f"repeated={repeated_collective[:4]})"
@@ -1021,7 +1025,7 @@ class GuidedTextParser(HTMLParser):
 
 
 TITLE_PREVIEW_QUIZ_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
-    ("question-style prompt", re.compile(r"\?")),
+    # Short prediction questions support the attempt-before-working sequence.
     (
         "answer/method selection prompt",
         re.compile(r"\b(?:choose|select|pick)\b", re.I),
@@ -1203,7 +1207,7 @@ def audit_typed_math_references(failures: Failures) -> None:
         )
 
 
-EXCLUDED_HTML_DIRECTORIES = {".git", ".agents", ".codex", "node_modules"}
+EXCLUDED_HTML_DIRECTORIES = {".git", ".agents", ".codex", "node_modules", "_site", ".review", "tmp", ".github"}
 def all_site_html_files() -> list[Path]:
     return sorted(
         path

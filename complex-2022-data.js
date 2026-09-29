@@ -179,7 +179,7 @@
     return argandPlotHtml({
       ariaLabel: settings.includeV
         ? "Argand diagram showing the points r, s, and v"
-        : "Argand diagram showing the points r and s",
+        : "Argand diagram with r at (3,2) and s at (2,-5), using equal unit scales on the real and imaginary axes.",
       xMin: -10.5,
       xMax: 10.5,
       yMin: -10.5,
@@ -303,11 +303,11 @@
       `,
       hints: [
         raw`When you divide complex numbers in polar form, divide the moduli and subtract the arguments.`,
-        raw`The new modulus is \(m^{5-2}\).`,
+        raw`For \(m&gt;0\), the new modulus is \(m^{5-2}\).`,
         raw`For the argument, simplify \(\frac{\pi}{3}-\frac{\pi}{5}\).`
       ],
       answerHtml: raw`
-        <p class="step-text">Divide the moduli and subtract the arguments:</p>
+        <p class="step-text">For \(m&gt;0\), divide the moduli and subtract the arguments:</p>
         <div class="math-block">
           \[
           \frac{u}{v}
@@ -327,8 +327,8 @@
       guidedSteps: [
         {
           title: raw`Divide the moduli`,
-          previewHtml: raw`Moduli divide, so the powers subtract.`,
-          workingHtml: raw`<p class="step-text">Moduli divide, so the powers subtract.</p>
+          previewHtml: raw`Assuming \(m&gt;0\), moduli divide, so the powers subtract.`,
+          workingHtml: raw`<p class="step-text">Assuming \(m&gt;0\), moduli divide, so the powers subtract.</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,m^{5-2}=m^3\)
@@ -345,14 +345,14 @@
         },
         {
           title: raw`Write the final polar form`,
-          previewHtml: raw`The modulus is \(m^3\) and the argument is \(\frac{2\pi}{15}\).`,
-          workingHtml: raw`<p class="step-text">The modulus is \(m^3\) and the argument is \(\frac{2\pi}{15}\).</p>
+          previewHtml: raw`For \(m&gt;0\), the modulus is \(m^3\) and the argument is \(\frac{2\pi}{15}\).`,
+          workingHtml: raw`<p class="step-text">For \(m&gt;0\), the modulus is \(m^3\) and the argument is \(\frac{2\pi}{15}\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,m^3\operatorname{cis}\left(\frac{2\pi}{15}\right)\)
 </div>
 
-        <p class="step-text">Divide the moduli and subtract the arguments:</p>
+        <p class="step-text">For \(m&gt;0\), divide the moduli and subtract the arguments:</p>
         <div class="math-block">
           \[
           \frac{u}{v}
@@ -375,7 +375,8 @@
 
       `
         }
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note: parameter and modulus</summary><p class="step-text">Exclude \(m=0\), because then \(v=0\). The displayed modulus \(m^3\) assumes \(m&gt;0\). If arbitrary real \(m\lt0\) is allowed, the same complex value has nonnegative modulus \(|m|^3\) and principal argument \(-13\pi/15\): \(u/v=|m|^3\operatorname{cis}(-13\pi/15)\). Multiplying a polar coefficient by a negative sign changes its angle by \(\pi\).</p></details>`
     }),
     "1c": createConfig("1c", "2022 Paper — Argument condition after expansion", {
       focus: raw`expanding the product carefully and using \(\arg(uvw)=\frac{\pi}{4}\) to match the real and imaginary parts.`,
@@ -511,155 +512,26 @@
         }
       ]
     }),
-    "1d": createConfig("1d", "2022 Paper — One real solution via the discriminant", {
-      focus: raw`isolating the surd, squaring carefully, and using the discriminant to force exactly one real solution.`,
-      questionHtml: raw`
-        <p class="step-text question-instruction">Find the value(s) of \(p\) for which the following equation has exactly one real solution.</p>
-        <div class="question-math" aria-label="Radical equation">
-          \[x-2\sqrt{x+p}=-5\]
-        </div>
-      `,
-      hints: [
-        raw`Move the surd to one side first so you can square cleanly.`,
-        raw`After squaring, collect the terms into a quadratic in \(x\).`,
-        raw`For a quadratic to have one real solution, its discriminant must be \(0\).`
-      ],
-      answerHtml: raw`
-        <p class="step-text">Isolate the surd first:</p>
-        <div class="math-block">
-          \[
-          x+5=2\sqrt{x+p}
-          \]
-        </div>
-        <p class="step-text">Now square both sides:</p>
-        <div class="math-block">
-          \[
-          (x+5)^2=4(x+p)
-          \]
-          \[
-          x^2+10x+25=4x+4p
-          \]
-          \[
-          x^2+6x+(25-4p)=0
-          \]
-        </div>
-        <p class="step-text">For exactly one real solution, the discriminant is \(0\):</p>
-        <div class="math-block">
-          \[
-          b^2-4ac=0
-          \]
-          \[
-          36-4(1)(25-4p)=0
-          \]
-          \[
-          36-100+16p=0
-          \]
-          \[
-          16p=64
-          \]
-          \[
-          p=4
-          \]
-        </div>
-        <p class="step-text">That gives the repeated root \(x=-3\), which does satisfy the original equation.</p>
-        ${answerBox(raw`
-          \[
-          p=4
-          \]
-        `)}
-      `,
-      guidedSteps: [
-        {
-          title: raw`Isolate the surd`,
-          previewHtml: raw`Put the surd on one side before you square.`,
-          workingHtml: raw`<p class="step-text">Put the surd on one side before you square.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,x+5=2\sqrt{x+p}\)
-</div>`
-        },
-        {
-          title: raw`Square carefully`,
-          previewHtml: raw`Squaring gives \((x+5)^2=4(x+p)\), then everything moves to one side.`,
-          workingHtml: raw`<p class="step-text">Squaring gives \((x+5)^2=4(x+p)\), then everything moves to one side.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,x^2+6x+(25-4p)=0\)
-</div>`
-        },
-        {
-          title: raw`Set the discriminant to zero`,
-          previewHtml: raw`That is the discriminant condition that forces one repeated real root.`,
-          workingHtml: raw`<p class="step-text">That is the discriminant condition that forces one repeated real root.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  <div class="math-block">
-  \[
-  36 - 4 \left(25 - 4 p\right) = 0
-  \]
-</div>
-</div>`
-        },
-        {
-          title: raw`Find \(p\)`,
-          previewHtml: raw`Solving the discriminant equation gives \(p=4\).`,
-          workingHtml: raw`<p class="step-text">Solving the discriminant equation gives \(p=4\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,4\)
-</div>
-
-        <p class="step-text">Isolate the surd first:</p>
-        <div class="math-block">
-          \[
-          x+5=2\sqrt{x+p}
-          \]
-        </div>
-        <p class="step-text">Now square both sides:</p>
-        <div class="math-block">
-          \[
-          (x+5)^2=4(x+p)
-          \]
-          \[
-          x^2+10x+25=4x+4p
-          \]
-          \[
-          x^2+6x+(25-4p)=0
-          \]
-        </div>
-        <p class="step-text">For exactly one real solution, the discriminant is \(0\):</p>
-        <div class="math-block">
-          \[
-          b^2-4ac=0
-          \]
-          \[
-          36-4(1)(25-4p)=0
-          \]
-          \[
-          36-100+16p=0
-          \]
-          \[
-          16p=64
-          \]
-          \[
-          p=4
-          \]
-        </div>
-        <p class="step-text">That gives the repeated root \(x=-3\), which does satisfy the original equation.</p>
-
-      <div class="answer-highlight">
-        <p class="question-label">Final Answer</p>
-
-          \[
-          p=4
-          \]
-
-      </div>
-
-      `
-        }
-      ]
-    }),
+    "1d": Object.assign({
+  "browserTitle": "2022 Level 3 Complex Numbers Paper — Question 1(d)",
+  "eyebrow": "Level 3 Complex Numbers Walkthrough",
+  "title": "Question 1(d)",
+  "subtitle": "2022 Paper — One real solution via the discriminant",
+  "backHref": "level-3-complex-numbers-2022.html",
+  "nextHref": "complex-2022.html?q=1e",
+  "nextLabel": "Next question →",
+  "finalNav": {
+    "secondary": {
+      "href": "complex-2022.html?q=1c",
+      "label": "← Back to Question 1(c)"
+    },
+    "primary": {
+      "href": "complex-2022.html?q=1e",
+      "label": "Next question →"
+    }
+  },
+  "answerButtonLabel": "Show full solution"
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-complex-2022:1d"]),
     "1e": createConfig("1e", "2022 Paper — Moduli and real parts proof", {
       focus: raw`rewriting the complex numbers in \(a+bi\) form and simplifying both modulus-squared expressions side by side.`,
       questionHtml: raw`
@@ -1711,147 +1583,26 @@
         }
       ]
     }),
-    "3c": createConfig("3c", "2022 Paper — Cube roots in polar form", {
-      focus: raw`isolating \(z^3\), rewriting the right-hand side in polar form, and then taking the three cube roots using De Moivre's Theorem.`,
-      questionHtml: raw`
-        <p class="step-text question-instruction">Solve the equation, where \(k\) is a real constant.</p>
-        <div class="question-math">
-          \[
-          z^3+k^6i=0
-          \]
-        </div>
-        <p class="step-text">Give your solution(s) in polar form in terms of \(k\).</p>
-      `,
-      hints: [
-        raw`Start by isolating \(z^3\).`,
-        raw`The number \(-i\) points straight down the imaginary axis, so its principal argument is \(-\frac{\pi}{2}\).`,
-        raw`Cube roots divide the argument by \(3\) and use the pattern \(\frac{2n\pi}{3}\) for \(n=0,1,2\).`
-      ],
-      answerHtml: raw`
-        <p class="step-text">Isolate \(z^3\) and write the right-hand side in polar form:</p>
-        <div class="math-block">
-          \[
-          z^3=-k^6i
-          \]
-          \[
-          z^3=k^6\operatorname{cis}\left(-\frac{\pi}{2}+2n\pi\right)
-          \]
-        </div>
-        <p class="step-text">Now take the cube roots:</p>
-        <div class="math-block">
-          \[
-          z=k^2\operatorname{cis}\left(-\frac{\pi}{6}+\frac{2n\pi}{3}\right),\qquad n=0,1,2
-          \]
-        </div>
-        <p class="step-text">So the three solutions are</p>
-        <div class="math-block">
-          \[
-          z_1=k^2\operatorname{cis}\left(-\frac{\pi}{6}\right)
-          \]
-          \[
-          z_2=k^2\operatorname{cis}\left(\frac{\pi}{2}\right)
-          \]
-          \[
-          z_3=k^2\operatorname{cis}\left(\frac{7\pi}{6}\right)
-          \]
-        </div>
-        ${answerBox(raw`
-          \[
-          z=k^2\operatorname{cis}\left(-\frac{\pi}{6}\right),\;
-          k^2\operatorname{cis}\left(\frac{\pi}{2}\right),\;
-          k^2\operatorname{cis}\left(\frac{7\pi}{6}\right)
-          \]
-        `)}
-      `,
-      guidedSteps: [
-        {
-          title: raw`Isolate the cubic`,
-          previewHtml: raw`Move \(k^6i\) to the other side first.`,
-          workingHtml: raw`<p class="step-text">Move \(k^6i\) to the other side first.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,z^3=-k^6i\)
-</div>`
-        },
-        {
-          title: raw`Read the modulus`,
-          previewHtml: raw`The modulus is the size of the number, and \(k^6\) is non-negative.`,
-          workingHtml: raw`<p class="step-text">The modulus is the size of the number, and \(k^6\) is non-negative.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,k^6\)
-</div>`
-        },
-        {
-          title: raw`Identify the argument`,
-          previewHtml: raw`\(-i\) points straight down the negative imaginary axis.`,
-          workingHtml: raw`<p class="step-text">\(-i\) points straight down the negative imaginary axis.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,-\frac{\pi}{2}\)
-</div>`
-        },
-        {
-          title: raw`Take the cube roots`,
-          previewHtml: raw`The modulus becomes \(k^2\), and the angle is divided by \(3\) with the usual cube-root spacing.`,
-          workingHtml: raw`<p class="step-text">The modulus becomes \(k^2\), and the angle is divided by \(3\) with the usual cube-root spacing.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,z=k^2\operatorname{cis}\left(-\frac{\pi}{6}+\frac{2n\pi}{3}\right),\ n=0,1,2\)
-</div>`
-        },
-        {
-          title: raw`List the three roots`,
-          previewHtml: raw`Those are the three cube roots when \(n=0,1,2\).`,
-          workingHtml: raw`<p class="step-text">Those are the three cube roots when \(n=0,1,2\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,k^2\operatorname{cis}\left(-\frac{\pi}{6}\right),\ k^2\operatorname{cis}\left(\frac{\pi}{2}\right),\ k^2\operatorname{cis}\left(\frac{7\pi}{6}\right)\)
-</div>
-
-        <p class="step-text">Isolate \(z^3\) and write the right-hand side in polar form:</p>
-        <div class="math-block">
-          \[
-          z^3=-k^6i
-          \]
-          \[
-          z^3=k^6\operatorname{cis}\left(-\frac{\pi}{2}+2n\pi\right)
-          \]
-        </div>
-        <p class="step-text">Now take the cube roots:</p>
-        <div class="math-block">
-          \[
-          z=k^2\operatorname{cis}\left(-\frac{\pi}{6}+\frac{2n\pi}{3}\right),\qquad n=0,1,2
-          \]
-        </div>
-        <p class="step-text">So the three solutions are</p>
-        <div class="math-block">
-          \[
-          z_1=k^2\operatorname{cis}\left(-\frac{\pi}{6}\right)
-          \]
-          \[
-          z_2=k^2\operatorname{cis}\left(\frac{\pi}{2}\right)
-          \]
-          \[
-          z_3=k^2\operatorname{cis}\left(\frac{7\pi}{6}\right)
-          \]
-        </div>
-
-      <div class="answer-highlight">
-        <p class="question-label">Final Answer</p>
-
-          \[
-          z=k^2\operatorname{cis}\left(-\frac{\pi}{6}\right),\;
-          k^2\operatorname{cis}\left(\frac{\pi}{2}\right),\;
-          k^2\operatorname{cis}\left(\frac{7\pi}{6}\right)
-          \]
-
-      </div>
-
-      `
-        }
-      ]
-    }),
+    "3c": Object.assign({
+  "browserTitle": "2022 Level 3 Complex Numbers Paper — Question 3(c)",
+  "eyebrow": "Level 3 Complex Numbers Walkthrough",
+  "title": "Question 3(c)",
+  "subtitle": "2022 Paper — Cube roots in polar form",
+  "backHref": "level-3-complex-numbers-2022.html",
+  "nextHref": "complex-2022.html?q=3d",
+  "nextLabel": "Next question →",
+  "finalNav": {
+    "secondary": {
+      "href": "complex-2022.html?q=3b",
+      "label": "← Back to Question 3(b)"
+    },
+    "primary": {
+      "href": "complex-2022.html?q=3d",
+      "label": "Next question →"
+    }
+  },
+  "answerButtonLabel": "Show full solution"
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-complex-2022:3c"]),
     "3d": createConfig("3d", "2022 Paper — Proving impossibility", {
       focus: raw`using the fact that \(|z|\) is real, equating real and imaginary parts, and deriving a contradiction.`,
       questionHtml: raw`

@@ -489,12 +489,12 @@
           (x-2)^2+(y-1)^2=5.
           \]
         </div>
-        ${circleLocusDiagram(2, 1, Math.sqrt(5), "centre (2, 1)", "Circle locus with centre two one and radius root five", { x: 4, y: 0, label: "z=4 excluded" })}
+        <details class="authored-support"><summary>Supporting sketch (added for practice)</summary>${circleLocusDiagram(2, 1, Math.sqrt(5), "centre (2, 1)", "Circle locus with centre two one and radius root five", { x: 4, y: 0, label: "z=4 excluded" })}</details>
       `,
       answerHtml: answerBox(raw`
         <div class="math-block">
           \[
-          (x-2)^2+(y-1)^2=5
+          (x-2)^2+(y-1)^2=5,\qquad (x,y)\ne(4,0)
           \]
         </div>
       `),
@@ -543,11 +543,12 @@
             (x-2)^2-4+(y-1)^2-1=0
             \]
             \[
-            (x-2)^2+(y-1)^2=5
+            (x-2)^2+(y-1)^2=5,\qquad (x,y)\ne(4,0)
             \]
           </div>
         `)
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note</summary><p class="step-text">The original quotient excludes \(z=4\). The locus is this circle with the point \((4,0)\) removed; that point satisfies the circle equation but makes the original expression undefined.</p></details>`
     }),
     "2a": createConfig("2a", "2021 Paper - dividing in cis form", {
       focus: raw`Convert \(u=2i\) into cis form, then divide moduli and subtract arguments.`,
@@ -664,7 +665,7 @@
           \frac{a+bi}{b-ai}=i
           \]
         </div>
-        <p class="step-text">So the expression is purely imaginary, provided the denominator is defined.</p>
+        <p class="step-text">So the expression is purely imaginary, provided the denominator is nonzero, so \(a\) and \(b\) are not both zero.</p>
       `),
       guidedSteps: [
         guidedStep("Use the conjugate", raw`The conjugate of \(b-ai\) is \(b+ai\).`, raw`
@@ -708,64 +709,31 @@
         `)
       ]
     }),
-    "2d": createConfig("2d", "2021 Paper - cube roots in cis form", {
-      focus: raw`Write the right-hand side in polar form, then use De Moivre's theorem for cube roots.`,
-      questionHtml: raw`
-        <p class="step-text question-instruction">Solve the equation, where \(k\) is a real constant.</p>
-        <div class="question-math">
-          \[
-          z^3=k^6+k^6i
-          \]
-        </div>
-      `,
-      answerHtml: answerBox(raw`
-        <div class="math-block">
-          \[
-          z=\sqrt[6]{2}\,k^2\operatorname{cis}\left(\frac{\pi}{12}\right),\quad
-          \sqrt[6]{2}\,k^2\operatorname{cis}\left(\frac{3\pi}{4}\right),\quad
-          \sqrt[6]{2}\,k^2\operatorname{cis}\left(-\frac{7\pi}{12}\right)
-          \]
-        </div>
-      `),
-      guidedSteps: [
-        guidedStep("Write the number in cis form", raw`The real and imaginary parts are both \(k^6\), so the argument is \(\frac{\pi}{4}\).`, raw`
-          <div class="math-block">
-            \[
-            k^6+k^6i
-            =
-            \sqrt{2}\,k^6\operatorname{cis}\left(\frac{\pi}{4}\right)
-            \]
-          </div>
-        `),
-        guidedStep("Set up all cube roots", raw`Add \(2n\pi\) before dividing the argument by \(3\).`, raw`
-          <div class="math-block">
-            \[
-            z^3=\sqrt{2}\,k^6\operatorname{cis}\left(\frac{\pi}{4}+2n\pi\right)
-            \]
-            \[
-            z=\sqrt[6]{2}\,k^2
-            \operatorname{cis}\left(\frac{\pi}{12}+\frac{2n\pi}{3}\right),
-            \qquad n=0,1,2
-            \]
-          </div>
-        `),
-        guidedStep("List the three roots", raw`Substitute \(n=0,1,2\).`, raw`
-          <div class="math-block">
-            \[
-            n=0:\quad z_1=\sqrt[6]{2}\,k^2\operatorname{cis}\left(\frac{\pi}{12}\right)
-            \]
-            \[
-            n=1:\quad z_2=\sqrt[6]{2}\,k^2\operatorname{cis}\left(\frac{3\pi}{4}\right)
-            \]
-            \[
-            n=2:\quad z_3=\sqrt[6]{2}\,k^2\operatorname{cis}\left(\frac{17\pi}{12}\right)
-            =
-            \sqrt[6]{2}\,k^2\operatorname{cis}\left(-\frac{7\pi}{12}\right)
-            \]
-          </div>
-        `)
-      ]
-    }),
+    "2d": Object.assign({
+  "browserTitle": "2021 Level 3 Complex Numbers Paper - Question 2(d)",
+  "eyebrow": "Level 3 Complex Numbers Walkthrough",
+  "title": "Question 2(d)",
+  "subtitle": "2021 Paper - cube roots in cis form",
+  "backHref": "level-3-complex-numbers-2021.html",
+  "nextHref": "complex-2021.html?q=2e",
+  "nextLabel": "Next question →",
+  "finalNav": {
+    "secondary": {
+      "href": "complex-2021.html?q=2c",
+      "label": "← Back to Question 2(c)"
+    },
+    "primary": {
+      "href": "complex-2021.html?q=2e",
+      "label": "Next question →"
+    }
+  },
+  "metadata": {
+    "topic": "Complex Numbers",
+    "year": 2021,
+    "standard": "NCEA Level 3 Calculus",
+    "difficulty": "mixed / Excellence-style"
+  }
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-complex-2021:2d"]),
     "2e": createConfig("2e", "2021 Paper - modulus locus", {
       focus: raw`Let \(z=x+yi\), translate each modulus into a distance expression, then simplify.`,
       questionHtml: raw`
@@ -776,7 +744,7 @@
           \]
         </div>
         <p class="step-text">find the value of \(|z|\).</p>
-        ${modulusCircleDiagram()}
+        <details class="authored-support"><summary>Supporting sketch (added for practice)</summary>${modulusCircleDiagram()}</details>
       `,
       answerHtml: answerBox(raw`
         <div class="math-block">
@@ -844,7 +812,7 @@
       focus: raw`Use \(|u|^2=5^2+m^2\), then use the argument condition to choose the positive root.`,
       questionHtml: raw`
         <p class="step-text">The complex number \(u=5+mi\) has \(|u|=6\).</p>
-        <p class="step-text">Given that \(0<\arg(u)<\frac{\pi}{2}\), find the exact value of the real number \(m\).</p>
+        <p class="step-text">Given that \(0\lt \arg(u)\lt \frac{\pi}{2}\), find the exact value of the real number \(m\).</p>
       `,
       answerHtml: answerBox(raw`
         <div class="math-block">
@@ -877,7 +845,7 @@
             \]
           </div>
         `),
-        guidedStep("Use the argument condition", raw`The condition \(0<\arg(u)<\frac{\pi}{2}\) puts \(u\) in quadrant one, so the imaginary part must be positive.`, raw`
+        guidedStep("Use the argument condition", raw`The condition \(0\lt \arg(u)\lt \frac{\pi}{2}\) puts \(u\) in quadrant one, so the imaginary part must be positive.`, raw`
           <div class="math-block">
             \[
             m>0
@@ -1019,61 +987,31 @@
         `)
       ]
     }),
-    "3d": createConfig("3d", "2021 Paper - solving a radical equation", {
-      focus: raw`Isolate the remaining square root after squaring, then square again.`,
-      questionHtml: raw`
-        <div class="question-math">
-          \[
-          \text{Solve }6\sqrt{2x}-5=6\sqrt{2x+m}\text{ for }x\text{ in terms of }m.
-          \]
-        </div>
-      `,
-      answerHtml: answerBox(raw`
-        <div class="math-block">
-          \[
-          x=\frac{1}{2}\left(\frac{25-36m}{60}\right)^2
-          \]
-        </div>
-        <p class="step-text">For a real solution in the original equation, the sign conditions require \(m\le -\frac{25}{36}\).</p>
-      `),
-      guidedSteps: [
-        guidedStep("Square both sides", raw`This removes the square root on the right, but leaves one root term from the left expansion.`, raw`
-          <div class="math-block">
-            \[
-            \left(6\sqrt{2x}-5\right)^2
-            =
-            \left(6\sqrt{2x+m}\right)^2
-            \]
-            \[
-            36(2x)+25-60\sqrt{2x}
-            =
-            36(2x+m)
-            \]
-          </div>
-        `),
-        guidedStep("Isolate the remaining root", raw`The \(36(2x)\) terms cancel from both sides.`, raw`
-          <div class="math-block">
-            \[
-            25-60\sqrt{2x}=36m
-            \]
-            \[
-            25-36m=60\sqrt{2x}
-            \]
-          </div>
-        `),
-        guidedStep("Square again and solve", raw`Now the remaining square root is isolated.`, raw`
-          <div class="math-block">
-            \[
-            \left(\frac{25-36m}{60}\right)^2=2x
-            \]
-            \[
-            x=\frac{1}{2}\left(\frac{25-36m}{60}\right)^2
-            \]
-          </div>
-          <p class="step-text">Because we squared, check the original equation if a value of \(m\) is supplied.</p>
-        `)
-      ]
-    }),
+    "3d": Object.assign({
+  "browserTitle": "2021 Level 3 Complex Numbers Paper - Question 3(d)",
+  "eyebrow": "Level 3 Complex Numbers Walkthrough",
+  "title": "Question 3(d)",
+  "subtitle": "2021 Paper - solving a radical equation",
+  "backHref": "level-3-complex-numbers-2021.html",
+  "nextHref": "complex-2021.html?q=3e",
+  "nextLabel": "Next question →",
+  "finalNav": {
+    "secondary": {
+      "href": "complex-2021.html?q=3c",
+      "label": "← Back to Question 3(c)"
+    },
+    "primary": {
+      "href": "complex-2021.html?q=3e",
+      "label": "Next question →"
+    }
+  },
+  "metadata": {
+    "topic": "Complex Numbers",
+    "year": 2021,
+    "standard": "NCEA Level 3 Calculus",
+    "difficulty": "mixed / Excellence-style"
+  }
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-complex-2021:3d"]),
     "3e": createConfig("3e", "2021 Paper - solving an equation with modulus", {
       focus: raw`Let \(z=x+yi\), then equate real and imaginary parts.`,
       questionHtml: raw`

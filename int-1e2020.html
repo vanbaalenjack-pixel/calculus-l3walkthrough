@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91579 — Apply integration methods in solving problems"
       },
-      "dateModified": "2026-09-02",
+      "dateModified": "2026-09-24",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,20 +91,20 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260916-2" />
+<link rel="stylesheet" href="style.css?v=20260924-1" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20260916-2"></script>
-  <script defer src="walkthrough-gate.js?v=20260916-2"></script>
-<script defer src="differentiation-walkthrough.js?v=20260916-2"></script>
-  <script defer src="integration-2020-data.js?v=20260916-2"></script>
+<script defer src="walkthrough-audit-data.js?v=20260924-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260924-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20260924-1"></script>
+  <script defer src="integration-2020-data.js?v=20260924-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-integration-2020", "year": 2020}, "question": {"canonical": "https://calc.nz/int-1e2020.html", "commonMistake": "Keep logarithm domain restrictions and any inner-function factor visible throughout the working.", "description": "2020 NCEA Level 3 Integration AS91579 Question 1(e) worked solution: separating a logarithmic trigonometric differential equation. Use guided hints and…", "guideLinks": [], "id": "1e", "label": "Question 1(e)", "method": "separating a logarithmic trigonometric differential equation.", "methodTitle": "Differential Equations", "reviewStatus": "unreviewed", "skillSlugs": ["differential-equations"], "summary": "This walkthrough helps you practise separating a logarithmic trigonometric differential equation. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Differential Equations Worked Solution – 2020 NCEA Level 3 Q1(e) (AS91579) | Calc.nz"}, "standard": {"code": "AS91579", "id": "level-3-integration", "label": "Integration"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-integration-2020", "year": 2020}, "question": {"canonical": "https://calc.nz/int-1e2020.html", "commonMistake": "State the factors divided out and check the resulting branch against the initial condition and singularities of the original differential equation.", "description": "2020 NCEA Level 3 Integration AS91579 Question 1(e) worked solution: separating a logarithmic trigonometric differential equation. Use guided hints and…", "guideLinks": [], "id": "1e", "label": "Question 1(e)", "method": "separating a logarithmic trigonometric differential equation.", "methodTitle": "Differential Equations", "relatedPractice": {"href": "int-2c2022.html", "label": "2022 Integration · Q2(c)"}, "reviewStatus": "unreviewed", "skillSlugs": ["differential-equations"], "summary": "This walkthrough helps you practise separating a logarithmic trigonometric differential equation. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Differential Equations Worked Solution – 2020 NCEA Level 3 Q1(e) (AS91579) | Calc.nz"}, "standard": {"code": "AS91579", "id": "level-3-integration", "label": "Integration"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20260916-2"></script>
+  <script defer src="site-shell.js?v=20260924-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -141,7 +141,7 @@
 <header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 3 Integration Walkthrough</p>
-        <h1 id="page-title">2020 NCEA Level 3 Integration Question 1(e)</h1>
+        <h1 id="page-title">2020 Integration · Q1(e)</h1>
         <p id="page-subtitle" class="subtitle">2020 Paper</p>
       </div>
       <a id="back-link" class="ghost-link" href="level-3-integration-2020.html">← Back to paper</a>
@@ -154,7 +154,7 @@
       <img class="question-screenshot" src="assets/integration-2020/1e-question.png" width="2844" height="719" alt="Question 1(e) original exam prompt; text transcription follows" />
             <div class="visually-hidden question-transcription" data-question-transcription>
 
-          <p>Consider the differential equation \(\tan x\,\frac{dy}{dx}=\frac{\sec^2x}{y}\), where \(0&lt;x&lt;\frac{\pi}{2}\).</p>
+          <p>Consider the differential equation \(\tan x\,\frac{dy}{dx}=\frac{\sec^2x}{y}\), where \(0\lt x\lt \frac{\pi}{2}\).</p>
           <p>Given that \(y=2\) when \(x=\frac{\pi}{4}\), find the value or values of \(y\) when \(x=\frac{\pi}{3}\).</p>
           <p>You must use calculus and give the results of any integration needed to solve this problem.</p>
 
@@ -199,7 +199,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Separating a logarithmic trigonometric differential equation.</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 1(e)</span> from the <a href="level-3-integration-2020.html" data-seo-year-link>2020 NCEA Level 3 Integration paper</a> for <a href="level-3-integration.html" data-seo-standard-link>AS91579 — Apply integration methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91579">official NZQA resources for AS91579</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-09-02">2 September 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-09-24">24 September 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -208,9 +208,11 @@
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
       <p class="step-text" data-seo-summary>This walkthrough helps you practise separating a logarithmic trigonometric differential equation. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Keep logarithm domain restrictions and any inner-function factor visible throughout the working.</p>
+      <h3>Check</h3>
+      <p class="step-text" data-seo-mistake>State the factors divided out and check the resulting branch against the initial condition and singularities of the original differential equation.</p>
+      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
       <h3>Continue practising</h3>
+      <p class="step-text" data-related-practice>Try a related question: <a href="int-2c2022.html">2022 Integration · Q2(c)</a>. Attempt it before opening working, then return to this question later.</p>
       <div class="nav-row">
         <a class="nav-btn secondary" href="int-1d2020.html" data-seo-related="previous">← Question 1(d)</a>
         <a class="nav-btn secondary" href="int-2a2020.html" data-seo-related="next">Question 2(a) →</a>

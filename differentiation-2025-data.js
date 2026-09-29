@@ -395,7 +395,7 @@
           \[
           C=\frac{60}{\sqrt{t}}+5\sqrt{t}+15,
           \]
-          where \(C\) is the temperature of the oven, in \(^\circ\text{C}\), and \(t\) is the time, in minutes, after the oven has been switched off.
+          given that \(0\lt t\le12\), where \(C\) is the temperature of the oven, in \(^\circ\text{C}\), and \(t\) is the time, in minutes, after the oven has been switched off.
         </p>
         <p class="step-text">Find the rate of change of the temperature of the oven \(4\) minutes after the oven was switched off.</p>
         <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
@@ -910,7 +910,7 @@
           \[
           P=(30t-5t^2)e^{-t},
           \]
-          where \(t\) is measured in hours and \(0&lt;t\le4\).
+          where \(t\) is measured in hours and \(0\lt t\le4\).
         </p>
         <p class="step-text">Show whether the depth of the water in the harbour is increasing or decreasing after \(2\) hours.</p>
         <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
@@ -933,7 +933,7 @@
           P'(2)=-30e^{-2}
           \]
         </div>
-        <p class="step-text">Since \(P'(2)&lt;0\), the depth is <strong>decreasing</strong> after \(2\) hours.</p>
+        <p class="step-text">Since \(P'(2)\lt 0\), the depth is <strong>decreasing</strong> after \(2\) hours.</p>
       `,
       guidedSteps: [
         {
@@ -987,7 +987,7 @@
           P'(2)=-30e^{-2}
           \]
         </div>
-        <p class="step-text">Since \(P'(2)&lt;0\), the depth is <strong>decreasing</strong> after \(2\) hours.</p>
+        <p class="step-text">Since \(P'(2)\lt 0\), the depth is <strong>decreasing</strong> after \(2\) hours.</p>
       `
         }
       ]
@@ -999,7 +999,7 @@
           \[
           y=f(x)=\frac{x^2}{x+4}
           \]
-          that have the equation tangents of the form \(y=-3x+c\).
+          that have equations of the form \(y=-3x+c\).
         </p>
         <div class="graph-frame question-graph-frame">
           <svg id="question-graph-2c" class="graph-svg" viewBox="0 0 420 280" aria-label="Graph of y equals x squared over x plus 4 with two tangents of gradient negative 3" role="img"></svg>
@@ -1311,13 +1311,14 @@
         </div>
       `
         }
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note: nonnegative radius</summary><p class="step-text">The question quotes a formula with \(y^{\prime\prime}\) in the denominator. In general the nonnegative radius of curvature is \(R=(1+(y^\prime)^2)^{3/2}/|y^{\prime\prime}|\). Here \(y^{\prime\prime}(\pi/3)=4&gt;0\), so the quoted formula and the general formula both give \(R=2\).</p></details>`
     }),
     "3a": createConfig("3a", "2025 Paper — Reading derivatives and limits from a graph", {
       questionHtml: raw`
         <p class="step-text">The graph below shows the function \(y=f(x)\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3a" class="graph-svg" viewBox="0 0 460 320" aria-label="Graph of a piecewise function with a horizontal ray, two holes, and turning points" role="img"></svg>
+          <svg id="question-graph-3a" class="graph-svg" viewBox="0 0 460 320" aria-label="Graph: a horizontal ray y = -2 ends filled at (-6,-2). A separate smooth arc starts open at (-6,2), peaks at (-4,9), and ends open at (-2,2); a separate filled point is (-2,7). A rising line joins the open points (-2,2) and (3,5). From the open point (3,5), a smooth upward-curving arc falls to (6,-3), then rises." role="img"></svg>
         </div>
         <ol class="step-text question-parts" type="i">
           <li>Find the value(s) of \(x\) where \(f(x)\) is not differentiable.</li>
@@ -1337,7 +1338,7 @@
           \text{(i) }x=-6,\,-2,\text{ and }3
           \]
           \[
-          \text{(ii) }x&lt;-6,\ x=-4,\text{ and }x=6
+          \text{(ii) }x\lt -6,\ x=-4,\text{ and }x=6
           \]
           \[
           \text{(iii) }\lim_{x\to -2}f(x)=2
@@ -1359,12 +1360,12 @@
         },
         {
           title: raw`Find where \(f'(x)=0\)`,
-          previewHtml: raw`The left ray is horizontal for every \(x&lt;-6\), and the two smooth turning points occur at \(x=-4\) and \(x=6\).`,
-          workingHtml: raw`<p class="step-text">The left ray is horizontal for every \(x&lt;-6\), and the two smooth turning points occur at \(x=-4\) and \(x=6\).</p>
+          previewHtml: raw`The left ray is horizontal for every \(x\lt -6\), and the two smooth turning points occur at \(x=-4\) and \(x=6\).`,
+          workingHtml: raw`<p class="step-text">The left ray is horizontal for every \(x\lt -6\), and the two smooth turning points occur at \(x=-4\) and \(x=6\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
-                x&lt;-6,\ x=-4,\text{ and }x=6
+                x\lt -6,\ x=-4,\text{ and }x=6
               \]
 </div>`
         },
@@ -1385,7 +1386,7 @@
           \text{(i) }x=-6,\,-2,\text{ and }3
           \]
           \[
-          \text{(ii) }x&lt;-6,\ x=-4,\text{ and }x=6
+          \text{(ii) }x\lt -6,\ x=-4,\text{ and }x=6
           \]
           \[
           \text{(iii) }\lim_{x\to -2}f(x)=2
@@ -1563,8 +1564,8 @@
         },
         {
           title: raw`Find the rate of change of volume`,
-          previewHtml: raw`The volume is decreasing at \(-\frac{36\pi}{5}\text{ cm}^3\text{s}^{-1}\).`,
-          workingHtml: raw`<p class="step-text">The volume is decreasing at \(-\frac{36\pi}{5}\text{ cm}^3\text{s}^{-1}\).</p>
+          previewHtml: raw`The volume is decreasing at \(\frac{36\pi}{5}\text{ cm}^3\text{s}^{-1}\).`,
+          workingHtml: raw`<p class="step-text">The volume is decreasing at \(\frac{36\pi}{5}\text{ cm}^3\text{s}^{-1}\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1753,7 +1754,7 @@
           x=8-4\sqrt{2}
           \]
         </div>
-        <p class="step-text">So the maximum width is:</p>
+        <p class="step-text">So the length AD when the area is maximum is:</p>
         <div class="math-block">
           \[
           AD=16-2x=8\sqrt{2}
@@ -1794,9 +1795,9 @@
 </div>`
         },
         {
-          title: raw`Find the maximum length \(AD\)`,
-          previewHtml: raw`Follow the working to find the maximum length \(AD\).`,
-          workingHtml: raw`<p class="step-text">The rectangle has maximum length \(AD=8\sqrt{2}\), which is about \(11.314\) units.</p>
+          title: raw`Find the length when the area is maximum: \(AD\)`,
+          previewHtml: raw`Follow the working to find the length when the area is maximum: \(AD\).`,
+          workingHtml: raw`<p class="step-text">When the rectangle’s area is maximum, its length is \(AD=8\sqrt{2}\), which is about \(11.314\) units.</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1822,7 +1823,7 @@
           x=8-4\sqrt{2}
           \]
         </div>
-        <p class="step-text">So the maximum width is:</p>
+        <p class="step-text">So the length AD when the area is maximum is:</p>
         <div class="math-block">
           \[
           AD=16-2x=8\sqrt{2}

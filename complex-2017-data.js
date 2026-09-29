@@ -281,7 +281,7 @@
             p=5\sqrt{\frac{x}{x-2}}.
             \]
           </div>
-          <p class="step-text">Here \(\frac{x}{x-2}>1\), so every real solution must satisfy \(p>5\). This proves that \(p\le5\) gives no real solution. It also explains why squaring would produce false candidates when \(p<-5\).</p>
+          <p class="step-text">Here \(\frac{x}{x-2}>1\), so every real solution must satisfy \(p>5\). This proves that \(p\le5\) gives no real solution. It also explains why squaring would produce false candidates when \(p\lt -5\).</p>
         `),
         guidedStep("Check the candidate for p > 5", raw`For \(p>5\), verify that the formula lies in the domain and satisfies the original signs.`, raw`
           <p class="step-text">If \(p>5\), then \(p^2-25>0\), and</p>
@@ -789,7 +789,7 @@
       ]
     ),
 
-    "3a": createConfig(
+    "3a": Object.assign(createConfig(
       "3a",
       raw`For division in polar form, divide the moduli and subtract the arguments.`,
       raw`
@@ -840,7 +840,7 @@
           </div>
         `)
       ]
-    ),
+    ), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">Exclude \\(p=0\\), since the original denominator would be zero. The quotient has positive modulus \\(p^2\\) for either sign of nonzero real \\(p\\).</p></details>"}),
 
     "3b": createConfig(
       "3b",
@@ -896,7 +896,7 @@
       ]
     ),
 
-    "3c": createConfig(
+    "3c": Object.assign(createConfig(
       "3c",
       raw`Use the divide-multiply-subtract-bring-down cycle, keeping like powers aligned throughout the polynomial long division.`,
       raw`
@@ -1034,7 +1034,7 @@
           <p class="step-text">Comparing term by term with \(3x^2+Ax+B+\frac{C}{x+2}\) gives \(A=2\), \(B=-6\), and \(C=23\).</p>
         `)
       ]
-    ),
+    ), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The original equation requires \\(x\\ne-2\\). Polynomial division does not remove that restriction from the quotient.</p></details>"}),
 
     "3d": createConfig(
       "3d",
@@ -1110,7 +1110,7 @@
       ]
     ),
 
-    "3e": createConfig(
+    "3e": Object.assign(createConfig(
       "3e",
       raw`Substitute into the numerator and denominator separately, divide by the resulting fraction, then expand the conjugate squares.`,
       raw`
@@ -1216,6 +1216,6 @@
           <p class="step-text">This is the required result.</p>
         `)
       ]
-    )
+    ), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The definition of \\(z\\) requires \\(a\\) and \\(b\\) not both zero. Then both \\(z\\) and \\(a^2+b^2\\) are nonzero, which justifies the divisions.</p></details>"})
   };
 }());

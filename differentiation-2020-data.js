@@ -89,11 +89,33 @@
     };
   }
 
+  const accessibleQuestions = {
+    "1a": raw`<p class="step-text">Differentiate \(y=(3x-x^2)^5\).</p><p class="step-text">You do not need to simplify your answer.</p>`,
+    "1b": raw`<p class="step-text">Find the gradient of the tangent to \(y=3\sin2x+\cos2x\) at the point where \(x=\pi/4\).</p><p class="step-text">You must use calculus and show any derivatives that you need to find when solving this problem.</p>`,
+    "1c": raw`<p class="step-text">Find the value of \(x\) for which the graph of \(y=\dfrac{x}{1+\ln x}\) has a stationary point.</p><p class="step-text">You must use calculus and show any derivatives that you need to find when solving this problem.</p>`,
+    "1d": raw`<p class="step-text">A curve has equation \(y=x^2\cos x\). Show that its tangent at \((\pi,-\pi^2)\) has equation \(y+2\pi x=\pi^2\).</p><p class="step-text">You must use calculus and show any derivatives that you need to find when solving this problem.</p>`,
+    "1e": raw`<p class="step-text">A cylinder of height \(h\) and radius \(r\) is inscribed inside a sphere of radius \(20\text{ cm}\), as shown. Find the maximum possible volume of the cylinder.</p><p class="step-text">You do not need to prove that the volume you have found is a maximum.</p><div class="graph-frame question-graph-frame"><svg class="graph-svg" viewBox="0 0 440 320" role="img" aria-label="A cylinder is centred inside a sphere of radius 20 cm. Its top and bottom circular rims touch the sphere. Cylinder height is h and base radius is r."><rect width="440" height="320" fill="white"/><circle cx="220" cy="156" r="135" fill="none" stroke="#244c76" stroke-width="2"/><rect x="112" y="75" width="216" height="162" fill="#dbeafe" stroke="#244c76"/><ellipse cx="220" cy="75" rx="108" ry="16" fill="#bfdbfe" stroke="#244c76"/><path d="M112 237Q220 267 328 237" fill="none" stroke="#244c76"/><text x="333" y="160" fill="#172d45" font-size="15">h</text><path d="M220 75L328 75" fill="none" stroke="#244c76" stroke-width="2"/><text x="269" y="67" fill="#172d45" font-size="15">r</text><text x="156" y="307" fill="#172d45" font-size="15">Sphere radius 20 cm</text></svg></div><p class="step-text">You must use calculus and show any derivatives that you need to find when solving this problem.</p>`,
+    "2a": raw`<p class="step-text">Differentiate \(y=\dfrac{\tan x}{x^3}\).</p><p class="step-text">You do not need to simplify your answer.</p>`,
+    "2b": raw`<p class="step-text">The value of a car is modelled by</p><div class="question-math">\[V=17000e^{-0.25t}+2000e^{-0.5t}+500,\qquad 0\le t\le20.\]</div><p class="step-text">Here \(V\) is the value in dollars and \(t\) is the age of the car in years. Calculate the rate at which its value is changing when it is 8 years old.</p><p class="step-text">You must use calculus and show any derivatives that you need to find when solving this problem.</p>`,
+    "2c": raw`<p class="step-text">Find the \(x\)-coordinates of any stationary points of \(f(x)=(2x-3)e^{x^2+k}\).</p><p class="step-text">You must use calculus and show any derivatives that you need to find when solving this problem.</p>`,
+    "2d": raw`<p class="step-text">A rocket is fired vertically upwards. Its height above the launch point is \(h(t)=4.8t^2\), where \(h\) is in metres and \(t\) is the time in seconds from firing.</p><p class="step-text">An observer at A watches the rocket from the same level as the launch point, \(500\text{ m}\) away. Find the rate at which the angle of elevation at A is increasing when the rocket is \(480\text{ m}\) above the launch point.</p><div class="graph-frame question-graph-frame"><svg class="graph-svg" viewBox="0 0 440 320" role="img" aria-label="Right triangle: horizontal ground from observer A to launch point is 500 m. Rocket is vertically above the launch point. The line of sight is the hypotenuse; the angle at A is the angle of elevation."><rect width="440" height="320" fill="white"/><path d="M40 268L378 268" fill="none" stroke="#244c76" stroke-width="2"/><path d="M378 268L378 45" fill="none" stroke="#244c76" stroke-width="2"/><path d="M40 268L378 45" fill="none" stroke="#244c76" stroke-width="2"/><text x="24" y="291" fill="#172d45" font-size="15">A</text><text x="173" y="291" fill="#172d45" font-size="15">500 m</text><text x="381" y="164" fill="#172d45" font-size="15">h(t)</text><text x="85" y="257" fill="#172d45" font-size="15">θ</text></svg></div><p class="step-text">You must use calculus and show any derivatives that you need to find when solving this problem.</p>`,
+    "2e": raw`<p class="step-text">A curve is defined by \(x=\ln t\) and \(y=6t^3\), where \(t&gt;0\). At a point P on the curve, \(\dfrac{d^2y}{dx^2}=2\). Find the exact coordinates of P.</p><p class="step-text">You must use calculus and show any derivatives that you need to find when solving this problem.</p>`,
+    "3a": raw`<p class="step-text">Differentiate \(y=3\ln(x^2-1)\).</p><p class="step-text">You do not need to simplify your answer.</p>`,
+    "3b": raw`<p class="step-text">For what value(s) of \(x\) does the tangent to \(f(x)=2x-2\sqrt x\), \(x&gt;0\), have a gradient of 1?</p><p class="step-text">You must use calculus and show any derivatives that you need to find when solving this problem.</p>`,
+    "3c": raw`<p class="step-text">The normal to \(y=\sqrt{2x+1}\) at \((4,3)\) intersects the \(x\)-axis at P. Find the \(x\)-coordinate of P.</p><div class="graph-frame question-graph-frame"><svg class="graph-svg" viewBox="0 0 440 320" role="img" aria-label="Curve y = √(2x + 1). The normal passes through (4,3) and slopes down to meet the positive x-axis at P."><rect width="440" height="320" fill="white"/><path d="M32.0 248.29L407.0 248.29" fill="none" stroke="#244c76" stroke-width="2"/><path d="M73.67 284.0L73.67 34.0" fill="none" stroke="#244c76" stroke-width="2"/><text x="408" y="240.29" fill="#172d45" font-size="15">x</text><text x="81.67" y="27" fill="#172d45" font-size="15">y</text><path d="M52.83 248.29 L54.6 237.87 L56.38 233.56 L58.15 230.25 L59.92 227.46 L61.69 225.0 L63.46 222.78 L65.23 220.74 L67.0 218.83 L68.77 217.05 L70.54 215.36 L72.31 213.75 L74.08 212.22 L75.85 210.74 L77.62 209.33 L79.4 207.96 L81.17 206.64 L82.94 205.35 L84.71 204.11 L86.48 202.9 L88.25 201.72 L90.02 200.57 L91.79 199.45 L93.56 198.35 L95.33 197.28 L97.1 196.22 L98.88 195.19 L100.65 194.18 L102.42 193.19 L104.19 192.21 L105.96 191.25 L107.73 190.31 L109.5 189.38 L111.27 188.47 L113.04 187.57 L114.81 186.69 L116.58 185.81 L118.35 184.95 L120.12 184.1 L121.9 183.26 L123.67 182.43 L125.44 181.61 L127.21 180.81 L128.98 180.01 L130.75 179.22 L132.52 178.44 L134.29 177.67 L136.06 176.9 L137.83 176.15 L139.6 175.4 L141.38 174.66 L143.15 173.93 L144.92 173.2 L146.69 172.48 L148.46 171.77 L150.23 171.07 L152.0 170.37 L153.77 169.67 L155.54 168.99 L157.31 168.31 L159.08 167.63 L160.85 166.96 L162.62 166.3 L164.4 165.64 L166.17 164.99 L167.94 164.34 L169.71 163.69 L171.48 163.06 L173.25 162.42 L175.02 161.79 L176.79 161.17 L178.56 160.55 L180.33 159.93 L182.1 159.32 L183.88 158.71 L185.65 158.11 L187.42 157.51 L189.19 156.92 L190.96 156.33 L192.73 155.74 L194.5 155.15 L196.27 154.57 L198.04 154.0 L199.81 153.42 L201.58 152.85 L203.35 152.29 L205.12 151.72 L206.9 151.17 L208.67 150.61 L210.44 150.06 L212.21 149.5 L213.98 148.96 L215.75 148.41 L217.52 147.87 L219.29 147.33 L221.06 146.8 L222.83 146.27 L224.6 145.74 L226.38 145.21 L228.15 144.68 L229.92 144.16 L231.69 143.64 L233.46 143.13 L235.23 142.61 L237.0 142.1 L238.77 141.59 L240.54 141.08 L242.31 140.58 L244.08 140.08 L245.85 139.58 L247.62 139.08 L249.4 138.58 L251.17 138.09 L252.94 137.6 L254.71 137.11 L256.48 136.63 L258.25 136.14 L260.02 135.66 L261.79 135.18 L263.56 134.7 L265.33 134.22 L267.1 133.75 L268.88 133.28 L270.65 132.81 L272.42 132.34 L274.19 131.87 L275.96 131.41 L277.73 130.94 L279.5 130.48 L281.27 130.02 L283.04 129.57 L284.81 129.11 L286.58 128.66 L288.35 128.2 L290.12 127.75 L291.9 127.3 L293.67 126.86 L295.44 126.41 L297.21 125.97 L298.98 125.53 L300.75 125.08 L302.52 124.65 L304.29 124.21 L306.06 123.77 L307.83 123.34 L309.6 122.9 L311.38 122.47 L313.15 122.04 L314.92 121.61 L316.69 121.19 L318.46 120.76 L320.23 120.34 L322.0 119.91 L323.77 119.49 L325.54 119.07 L327.31 118.65 L329.08 118.23 L330.85 117.82 L332.62 117.4 L334.4 116.99 L336.17 116.58 L337.94 116.17 L339.71 115.76 L341.48 115.35 L343.25 114.94 L345.02 114.54 L346.79 114.13 L348.56 113.73 L350.33 113.33 L352.1 112.92 L353.88 112.52 L355.65 112.13 L357.42 111.73 L359.19 111.33 L360.96 110.94 L362.73 110.54 L364.5 110.15 L366.27 109.76 L368.04 109.37 L369.81 108.98 L371.58 108.59 L373.35 108.2 L375.12 107.81 L376.9 107.43 L378.67 107.04 L380.44 106.66 L382.21 106.28 L383.98 105.9 L385.75 105.52 L387.52 105.14 L389.29 104.76 L391.06 104.38 L392.83 104.01 L394.6 103.63 L396.37 103.26 L398.15 102.88 L399.92 102.51 L401.69 102.14 L403.46 101.77 L405.23 101.4 L407.0 101.03" stroke="#2563aa" stroke-width="2.5" fill="none"/><path d="M207.0 55.43L294.5 280.43" fill="none" stroke="#244c76" stroke-width="2"/><text x="248.33" y="133.14" fill="#172d45" font-size="15">(4,3)</text><text x="290.0" y="240.29" fill="#172d45" font-size="15">P</text></svg></div><p class="step-text">You must use calculus and show any derivatives that you need to find when solving this problem.</p>`,
+    "3d": raw`<p class="step-text">The graph of \(y=\dfrac1{x-3}+x\), \(x\ne3\), has two stationary points. Find their \(x\)-coordinates and determine whether each is a local maximum or a local minimum.</p><p class="step-text">You must use calculus and show any derivatives that you need to find when solving this problem.</p>`,
+    "3e": raw`<p class="step-text">A curve has equation \(y=(3x+2)e^{-2x}\). Prove that</p><div class="question-math">\[\frac{d^2y}{dx^2}+4\frac{dy}{dx}+4y=0.\]</div>`
+  };
+
+  const scanDimensions = {"1e": [3125, 938], "1b": [3125, 594], "3a": [3125, 550], "2d": [3125, 2100], "2c": [3125, 563], "1c": [3125, 557], "1d": [3125, 788], "2b": [3125, 888], "2e": [3125, 863], "1a": [3125, 563], "3e": [3125, 763], "3b": [3125, 607], "3c": [3125, 2125], "3d": [3125, 763], "2a": [3125, 632]};
+
+  function questionImage(id) {
+    return accessibleQuestions[id] + `<details class="original-scan"><summary>Original question scan</summary><img class="question-screenshot" width="${scanDimensions[id][0]}" height="${scanDimensions[id][1]}" loading="lazy" src="assets/differentiation-2020/${id}-question.png" alt="Original scan of the question transcribed above" /></details>`;
+  }
+
   window.Differentiation2020Walkthroughs = {
     "1a": createConfig("1a", raw`Chain rule differentiation of a fifth power.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/1a-question.png" width="3125" height="563" alt="Scanned exam prompt asking for the derivative of a fifth power using the chain rule." />
-      `,
+      questionHtml: questionImage("1a"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -161,9 +183,7 @@
       ]
     }),
     "1b": createConfig("1b", raw`Trig derivatives and evaluating a tangent gradient.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/1b-question.png" width="3125" height="594" alt="Scanned exam prompt asking for the tangent gradient of a trigonometric function at a specified point." />
-      `,
+      questionHtml: questionImage("1b"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -224,9 +244,7 @@
       ]
     }),
     "1c": createConfig("1c", raw`Quotient rule and a stationary point on a logarithmic function.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/1c-question.png" width="3125" height="557" alt="Scanned exam prompt asking for the stationary point of a logarithmic quotient." />
-      `,
+      questionHtml: questionImage("1c"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -284,9 +302,7 @@
       ]
     }),
     "1d": createConfig("1d", raw`Product rule and proving a tangent equation.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/1d-question.png" width="3125" height="788" alt="Scanned exam prompt asking for a tangent equation to a polynomial-times-cosine curve using the product rule." />
-      `,
+      questionHtml: questionImage("1d"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -361,9 +377,7 @@
       ]
     }),
     "1e": createConfig("1e", raw`Maximising a cylinder volume inside a sphere.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/1e-question.png" width="3125" height="938" alt="Scanned exam prompt asking for the maximum volume of a cylinder inscribed in a sphere of radius 20 centimetres; includes a diagram." />
-      `,
+      questionHtml: questionImage("1e"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -456,9 +470,7 @@
       ]
     }),
     "2a": createConfig("2a", raw`Quotient rule differentiation of a trigonometric fraction.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/2a-question.png" width="3125" height="632" alt="Scanned exam prompt asking for the derivative of a trigonometric quotient." />
-      `,
+      questionHtml: questionImage("2a"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -497,9 +509,7 @@
       ]
     }),
     "2b": createConfig("2b", raw`Differentiating an exponential depreciation model.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/2b-question.png" width="3125" height="888" alt="Scanned exam prompt asking for the rate of change of an exponential car-depreciation model at 8 years." />
-      `,
+      questionHtml: questionImage("2b"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -558,9 +568,7 @@
       ]
     }),
     "2c": createConfig("2c", raw`Product and chain rules for stationary points.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/2c-question.png" width="3125" height="563" alt="Scanned exam prompt asking for the stationary points of a function using product and chain rules." />
-      `,
+      questionHtml: questionImage("2c"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -620,9 +628,7 @@
       ]
     }),
     "2d": createConfig("2d", raw`Related rates for an angle of elevation.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/2d-question.png" width="3125" height="2100" alt="Scanned exam prompt asking for the changing angle of elevation of a rocket from an observer 500 metres away; includes a diagram." />
-      `,
+      questionHtml: questionImage("2d"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -718,9 +724,7 @@
       ]
     }),
     "2e": createConfig("2e", raw`Parametric first and second derivatives.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/2e-question.png" width="3125" height="863" alt="Scanned exam prompt asking for exact coordinates on a parametrically defined curve using first and second derivatives." />
-      `,
+      questionHtml: questionImage("2e"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -803,9 +807,7 @@
       ]
     }),
     "3a": createConfig("3a", raw`Chain rule differentiation of a logarithm.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/3a-question.png" width="3125" height="550" alt="Scanned exam prompt asking for the derivative of a logarithmic function using the chain rule." />
-      `,
+      questionHtml: questionImage("3a"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -845,9 +847,7 @@
       ]
     }),
     "3b": createConfig("3b", raw`Finding where a tangent has a given gradient.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/3b-question.png" width="3125" height="607" alt="Scanned exam prompt asking where the tangent to a square-root function has gradient 1." />
-      `,
+      questionHtml: questionImage("3b"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -904,9 +904,7 @@
       ]
     }),
     "3c": createConfig("3c", raw`Normal gradient and an x-intercept.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/3c-question.png" width="3125" height="2125" alt="Scanned exam prompt asking where a normal to a square-root curve meets the x axis; includes a graph." />
-      `,
+      questionHtml: questionImage("3c"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -982,9 +980,7 @@
       ]
     }),
     "3d": createConfig("3d", raw`Stationary points and second derivative classification.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/3d-question.png" width="3125" height="763" alt="Scanned exam prompt asking for stationary points and their classification as local maxima or minima." />
-      `,
+      questionHtml: questionImage("3d"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>
@@ -1067,9 +1063,7 @@
       ]
     }),
     "3e": createConfig("3e", raw`Proving a differential equation using first and second derivatives.`, {
-      questionHtml: raw`
-        <img class="question-screenshot" src="assets/differentiation-2020/3e-question.png" width="3125" height="763" alt="Scanned exam prompt asking for proof that a polynomial-times-exponential curve satisfies a stated differential equation." />
-      `,
+      questionHtml: questionImage("3e"),
       answerHtml: raw`
         <div class="answer-highlight">
             <p class="question-label">Final Answer</p>

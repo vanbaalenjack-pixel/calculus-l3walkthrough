@@ -126,7 +126,7 @@
     const yMax = 3;
     const scale = createScale(width, height, padding, xMin, xMax, yMin, yMax);
     const gridLines = [];
-    const radius = Math.abs(scale.x(5) - scale.x(2));
+    const radius = Math.abs(scale.x(2 + Math.sqrt(3)) - scale.x(2));
     const m = Math.sqrt(3);
 
     for (let x = Math.ceil(xMin); x <= Math.floor(xMax); x += 1) {
@@ -139,7 +139,7 @@
 
     return `
       <div class="graph-frame question-graph-frame">
-        <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Argand diagram of the circle locus and tangent line">
+        <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Argand diagram with equal unit scales: circle centred at (2, −1), radius square root of 3, and the tangent of positive slope through (0, −1).">
           <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
           ${gridLines.join("")}
           ${lineMarkup(scale, xMin, 0, xMax, 0, "graph-axis")}
@@ -148,6 +148,8 @@
           <circle class="graph-curve-secondary" cx="${scale.x(2)}" cy="${scale.y(-1)}" r="${radius}"></circle>
           ${lineMarkup(scale, -0.5, m * -0.5 - 1, 2.3, m * 2.3 - 1, "graph-curve")}
           ${circleMarkup(scale, 2, -1, 5, "graph-point")}
+          ${textMarkup(scale, 1, -0.35, "1", "graph-label")}
+          ${textMarkup(scale, -0.15, 1, "1", "graph-label", ' text-anchor="end"')}
           ${textMarkup(scale, 2.24, -0.72, "C(2,-1)", "graph-label")}
           ${textMarkup(scale, 5.8, -0.22, "Real", "graph-label", ' text-anchor="end"')}
           ${textMarkup(scale, -0.18, 2.72, "Imaginary", "graph-label", ' text-anchor="middle"')}
@@ -249,7 +251,7 @@
     }),
 
     "1b": createConfig("1b", "2023 Paper — No real roots and the discriminant", {
-      focus: raw`using the discriminant condition \(b^2-4ac<0\) to decide when a quadratic has no real roots.`,
+      focus: raw`using the discriminant condition \(b^2-4ac\lt 0\) to decide when a quadratic has no real roots.`,
       questionHtml: raw`
         <p class="step-text question-instruction">Find the value(s) of \(r\) for which the following quadratic equation has no real roots.</p>
         <div class="question-math" aria-label="Quadratic equation">
@@ -265,16 +267,16 @@
         <p class="step-text">A quadratic has no real roots exactly when its discriminant is negative.</p>
         <div class="math-block">
           \[
-          b^2-4ac<0
+          b^2-4ac\lt 0
           \]
           \[
-          (-4)^2-4(4)(3r-2)<0
+          (-4)^2-4(4)(3r-2)\lt 0
           \]
           \[
-          16-48r+32<0
+          16-48r+32\lt 0
           \]
           \[
-          48-48r<0
+          48-48r\lt 0
           \]
           \[
           r>1
@@ -294,7 +296,7 @@
           workingHtml: raw`<p class="step-text">A negative discriminant means the roots are complex, not real.</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
-  \(\,b^2-4ac<0\)
+  \(\,b^2-4ac\lt 0\)
 </div>`
         },
         {
@@ -303,7 +305,7 @@
           workingHtml: raw`<p class="step-text">Here \(a=4\), \(b=-4\), and \(c=3r-2\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
-  \(\,16-4(4)(3r-2)<0\)
+  \(\,16-4(4)(3r-2)\lt 0\)
 </div>`
         },
         {
@@ -318,16 +320,16 @@
         <p class="step-text">A quadratic has no real roots exactly when its discriminant is negative.</p>
         <div class="math-block">
           \[
-          b^2-4ac<0
+          b^2-4ac\lt 0
           \]
           \[
-          (-4)^2-4(4)(3r-2)<0
+          (-4)^2-4(4)(3r-2)\lt 0
           \]
           \[
-          16-48r+32<0
+          16-48r+32\lt 0
           \]
           \[
-          48-48r<0
+          48-48r\lt 0
           \]
           \[
           r>1
@@ -467,7 +469,8 @@
 
       `
         }
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note</summary><p class="step-text">The quotient is defined only when \(w\ne0\), so \(a^2+b^2>0\). This justifies clearing its real denominator.</p></details>`
     }),
 
     "1d": createConfig("1d", "2023 Paper — Conjugate roots in a cubic", {
@@ -476,7 +479,7 @@
         <p class="step-text">One solution of the following equation is \(z=5-i\).</p>
         <div class="question-math">
           \[
-          z^3-8z^2+26z+d=0
+          z^3-8z^2+6z+d=0
           \]
         </div>
         <p class="step-text">If \(d\) is real, find the value of \(d\) and the other two solutions of the equation.</p>
@@ -502,7 +505,7 @@
           (z+2)(z^2-10z+26)=z^3-8z^2+6z+52
           \]
         </div>
-        <p class="step-text">Matching this with \(z^3-8z^2+26z+d\) gives the third root and the constant.</p>
+        <p class="step-text">Matching this with \(z^3-8z^2+6z+d\) gives the third root and the constant.</p>
         ${answerBox(raw`
           \[
           d=52,\qquad z=5+i,\qquad z=-2
@@ -562,7 +565,7 @@
           (z+2)(z^2-10z+26)=z^3-8z^2+6z+52
           \]
         </div>
-        <p class="step-text">Matching this with \(z^3-8z^2+26z+d\) gives the third root and the constant.</p>
+        <p class="step-text">Matching this with \(z^3-8z^2+6z+d\) gives the third root and the constant.</p>
 
       <div class="answer-highlight">
         <p class="question-label">Final Answer</p>
@@ -813,7 +816,8 @@
 
       `
         }
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note</summary><p class="step-text">Exclude \(q=0\): it makes \(v=0\), so the original quotient is undefined. For any other real \(q\), \(q^4>0\) is a valid modulus.</p></details>`
     }),
 
     "2b": createConfig("2b", "2023 Paper — Modulus in terms of k", {
@@ -1029,125 +1033,26 @@
       ]
     }),
 
-    "2d": createConfig("2d", "2023 Paper — Cube roots in polar form", {
-      focus: raw`rewriting a real negative number in polar form and then using the cube-root rule to list all solutions.`,
-      questionHtml: raw`
-        <p class="step-text question-instruction">Solve the equation, where \(m\) is a real constant.</p>
-        <div class="question-math">
-          \[
-          z^3+64m^{12}=0
-          \]
-        </div>
-        <p class="step-text question-instruction">Write your solution(s) in polar form, in terms of \(m\).</p>
-      `,
-      hints: [
-        raw`Rearrange first so the right-hand side is one complex number.`,
-        raw`\(-64m^{12}\) lies on the negative real axis.`,
-        raw`For cube roots, take the cube root of the modulus and divide the arguments by \(3\).`
-      ],
-      answerHtml: raw`
-        <p class="step-text">Rearrange first, then write the right-hand side in polar form.</p>
-        <div class="math-block">
-          \[
-          z^3=-64m^{12}=64m^{12}\operatorname{cis}\pi
-          \]
-        </div>
-        <p class="step-text">The cube roots have modulus \(\sqrt[3]{64m^{12}}=4m^4\) and arguments \(\frac{\pi+2k\pi}{3}\).</p>
-        <div class="math-block">
-          \[
-          \theta_1=\frac{\pi}{3},\qquad \theta_2=\pi,\qquad \theta_3=\frac{5\pi}{3}
-          \]
-          \[
-          z_1=4m^4\operatorname{cis}\frac{\pi}{3},\quad
-          z_2=4m^4\operatorname{cis}\pi,\quad
-          z_3=4m^4\operatorname{cis}\frac{5\pi}{3}
-          \]
-        </div>
-        ${answerBox(raw`
-          \[
-          z=4m^4\operatorname{cis}\frac{\pi}{3},\quad
-          4m^4\operatorname{cis}\pi,\quad
-          4m^4\operatorname{cis}\frac{5\pi}{3}
-          \]
-        `)}
-        ${tipBox(raw`A negative real number is often easiest to write as \(r\operatorname{cis}\pi\). Then the root arguments follow straight from \(\frac{\theta+2k\pi}{n}\).`)}
-      `,
-      guidedSteps: [
-        {
-          title: raw`Rearrange the equation`,
-          previewHtml: raw`Now the right-hand side is a single complex number on the negative real axis.`,
-          workingHtml: raw`<p class="step-text">Now the right-hand side is a single complex number on the negative real axis.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,z^3=-64m^{12}\)
-</div>`
-        },
-        {
-          title: raw`Write the RHS in polar form`,
-          previewHtml: raw`A negative real number has argument \(\pi\) (or an equivalent angle).`,
-          workingHtml: raw`<p class="step-text">A negative real number has argument \(\pi\) (or an equivalent angle).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,64m^{12}\operatorname{cis}\pi\)
-</div>`
-        },
-        {
-          title: raw`Take the cube roots`,
-          previewHtml: raw`\(\sqrt[3]{64m^{12}}=4m^4\).`,
-          workingHtml: raw`<p class="step-text">\(\sqrt[3]{64m^{12}}=4m^4\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,4m^4\)
-</div>`
-        },
-        {
-          title: raw`List the three arguments`,
-          previewHtml: raw`These are \(\frac{\pi+2k\pi}{3}\) for \(k=0,1,2\).`,
-          workingHtml: raw`<p class="step-text">These are \(\frac{\pi+2k\pi}{3}\) for \(k=0,1,2\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,\frac{\pi}{3},\ \pi,\ \frac{5\pi}{3}\)
-</div>
-
-        <p class="step-text">Rearrange first, then write the right-hand side in polar form.</p>
-        <div class="math-block">
-          \[
-          z^3=-64m^{12}=64m^{12}\operatorname{cis}\pi
-          \]
-        </div>
-        <p class="step-text">The cube roots have modulus \(\sqrt[3]{64m^{12}}=4m^4\) and arguments \(\frac{\pi+2k\pi}{3}\).</p>
-        <div class="math-block">
-          \[
-          \theta_1=\frac{\pi}{3},\qquad \theta_2=\pi,\qquad \theta_3=\frac{5\pi}{3}
-          \]
-          \[
-          z_1=4m^4\operatorname{cis}\frac{\pi}{3},\quad
-          z_2=4m^4\operatorname{cis}\pi,\quad
-          z_3=4m^4\operatorname{cis}\frac{5\pi}{3}
-          \]
-        </div>
-
-      <div class="answer-highlight">
-        <p class="question-label">Final Answer</p>
-
-          \[
-          z=4m^4\operatorname{cis}\frac{\pi}{3},\quad
-          4m^4\operatorname{cis}\pi,\quad
-          4m^4\operatorname{cis}\frac{5\pi}{3}
-          \]
-
-      </div>
-
-
-      <div class="callout-card tip">
-        <p class="callout-title">Keep Thinking</p>
-        <p class="step-text">A negative real number is often easiest to write as \(r\operatorname{cis}\pi\). Then the root arguments follow straight from \(\frac{\theta+2k\pi}{n}\).</p>
-      </div>
-
-      `
-        }
-      ]
-    }),
+    "2d": Object.assign({
+  "browserTitle": "2023 Level 3 Complex Numbers Paper — Question 2(d)",
+  "eyebrow": "Level 3 Complex Numbers Walkthrough",
+  "title": "Question 2(d)",
+  "subtitle": "2023 Paper — Cube roots in polar form",
+  "backHref": "level-3-complex-numbers-2023.html",
+  "nextHref": "complex-2023.html?q=2e",
+  "nextLabel": "Next question →",
+  "finalNav": {
+    "secondary": {
+      "href": "complex-2023.html?q=2c",
+      "label": "← Back to Question 2(c)"
+    },
+    "primary": {
+      "href": "complex-2023.html?q=2e",
+      "label": "Next question →"
+    }
+  },
+  "answerButtonLabel": "Show full solution"
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-complex-2023:2d"]),
 
     "2e": createConfig("2e", "2023 Paper — Circle locus and tangency", {
       focus: raw`converting a modulus locus into a Cartesian circle, substituting the line, and using the discriminant to enforce tangency.`,
@@ -1155,34 +1060,34 @@
         <p class="step-text">The straight line \(y=mx-1\), where \(m\) is a real constant and \(m&gt;0\), is tangent to the locus described by</p>
         <div class="question-math">
           \[
-          |z-2+i|=3.
+          |z-2+i|=\sqrt{3}.
           \]
         </div>
         <p class="step-text">Find the Cartesian equation of the locus and the value of \(m\).</p>
-        ${locusDiagramHtml()}
+        <details class="authored-support"><summary>Supporting sketch (added for practice)</summary>${locusDiagramHtml()}</details>
       `,
       hints: [
         raw`Write \(z=x+yi\).`,
-        raw`The equation \(|z-(2-i)|=3\) is a circle with centre \((2,-1)\) and radius \(3\).`,
+        raw`The equation \(|z-(2-i)|=\sqrt{3}\) is a circle with centre \((2,-1)\) and radius \(\sqrt{3}\).`,
         raw`A tangent means the line and circle meet once, so the resulting quadratic has discriminant \(0\).`
       ],
       answerHtml: raw`
         <p class="step-text">Let \(z=x+yi\). Then the locus becomes</p>
         <div class="math-block">
           \[
-          |x+yi-2+i|=3
+          |x+yi-2+i|=\sqrt{3}
           \]
           \[
-          |(x-2)+(y+1)i|=3
+          |(x-2)+(y+1)i|=\sqrt{3}
           \]
           \[
-          (x-2)^2+(y+1)^2=9
+          (x-2)^2+(y+1)^2=3
           \]
         </div>
         <p class="step-text">Now substitute the tangent line \(y=mx-1\).</p>
         <div class="math-block">
           \[
-          (x-2)^2+(mx)^2=9
+          (x-2)^2+(mx)^2=3
           \]
           \[
           (1+m^2)x^2-4x+1=0
@@ -1202,7 +1107,7 @@
         </div>
         ${answerBox(raw`
           \[
-          (x-2)^2+(y+1)^2=9,\qquad m=\sqrt{3}
+          (x-2)^2+(y+1)^2=3,\qquad m=\sqrt{3}
           \]
         `)}
         ${tipBox(raw`A modulus equation of the form \(|z-a-bi|=r\) is a distance statement, so it almost always turns into a circle on the Argand diagram.`)}
@@ -1214,7 +1119,7 @@
           workingHtml: raw`<p class="step-text">The centre is \((2,-1)\) and the radius is \(3\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
-  \(\,(x-2)^2+(y+1)^2=9\)
+  \(\,(x-2)^2+(y+1)^2=3\)
 </div>`
         },
         {
@@ -1247,19 +1152,19 @@
         <p class="step-text">Let \(z=x+yi\). Then the locus becomes</p>
         <div class="math-block">
           \[
-          |x+yi-2+i|=3
+          |x+yi-2+i|=\sqrt{3}
           \]
           \[
-          |(x-2)+(y+1)i|=3
+          |(x-2)+(y+1)i|=\sqrt{3}
           \]
           \[
-          (x-2)^2+(y+1)^2=9
+          (x-2)^2+(y+1)^2=3
           \]
         </div>
         <p class="step-text">Now substitute the tangent line \(y=mx-1\).</p>
         <div class="math-block">
           \[
-          (x-2)^2+(mx)^2=9
+          (x-2)^2+(mx)^2=3
           \]
           \[
           (1+m^2)x^2-4x+1=0
@@ -1282,7 +1187,7 @@
         <p class="question-label">Final Answer</p>
 
           \[
-          (x-2)^2+(y+1)^2=9,\qquad m=\sqrt{3}
+          (x-2)^2+(y+1)^2=3,\qquad m=\sqrt{3}
           \]
 
       </div>
@@ -1498,118 +1403,26 @@
       ]
     }),
 
-    "3c": createConfig("3c", "2023 Paper — Solving a surd equation in terms of w", {
-      focus: raw`squaring a surd equation carefully, isolating \(\sqrt{x}\), and then squaring again to write \(x\) in terms of \(w\).`,
-      questionHtml: raw`
-        <p class="step-text question-instruction">Solve the following equation for \(x\), in terms of the real parameter \(w\).</p>
-        <div class="question-math">
-          \[
-          4\sqrt{4x-w}=5-8\sqrt{x}
-          \]
-        </div>
-      `,
-      hints: [
-        raw`Square both sides first to remove the outer square root.`,
-        raw`The \(64x\) terms cancel after expansion.`,
-        raw`That leaves a linear equation in \(\sqrt{x}\), which you can square one more time.`
-      ],
-      answerHtml: raw`
-        <p class="step-text">Square both sides first.</p>
-        <div class="math-block">
-          \[
-          16(4x-w)=(5-8\sqrt{x})^2
-          \]
-          \[
-          64x-16w=25-80\sqrt{x}+64x
-          \]
-          \[
-          80\sqrt{x}=25+16w
-          \]
-          \[
-          \sqrt{x}=\frac{25+16w}{80}
-          \]
-        </div>
-        <p class="step-text">Square once more to isolate \(x\).</p>
-        ${answerBox(raw`
-          \[
-          x=\left(\frac{25+16w}{80}\right)^2
-          \]
-        `)}
-        ${tipBox(raw`After squaring, pause and simplify before you square again. Here the \(64x\) terms cancelling is the key simplification.`)}
-      `,
-      guidedSteps: [
-        {
-          title: raw`Square the equation`,
-          previewHtml: raw`That is the clean first step.`,
-          workingHtml: raw`<p class="step-text">That is the clean first step.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,16(4x-w)=(5-8\sqrt{x})^2\)
-</div>`
-        },
-        {
-          title: raw`Simplify after expansion`,
-          previewHtml: raw`Once the \(64x\) terms cancel, the equation becomes linear in \(\sqrt{x}\).`,
-          workingHtml: raw`<p class="step-text">Once the \(64x\) terms cancel, the equation becomes linear in \(\sqrt{x}\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,80\sqrt{x}=25+16w\)
-</div>`
-        },
-        {
-          title: raw`Isolate the surd`,
-          previewHtml: raw`Divide both sides by \(80\).`,
-          workingHtml: raw`<p class="step-text">Divide both sides by \(80\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,\frac{25+16w}{80}\)
-</div>`
-        },
-        {
-          title: raw`Solve for x`,
-          previewHtml: raw`Square both sides to finish.`,
-          workingHtml: raw`<p class="step-text">Square both sides to finish.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,\left(\frac{25+16w}{80}\right)^2\)
-</div>
-
-        <p class="step-text">Square both sides first.</p>
-        <div class="math-block">
-          \[
-          16(4x-w)=(5-8\sqrt{x})^2
-          \]
-          \[
-          64x-16w=25-80\sqrt{x}+64x
-          \]
-          \[
-          80\sqrt{x}=25+16w
-          \]
-          \[
-          \sqrt{x}=\frac{25+16w}{80}
-          \]
-        </div>
-        <p class="step-text">Square once more to isolate \(x\).</p>
-
-      <div class="answer-highlight">
-        <p class="question-label">Final Answer</p>
-
-          \[
-          x=\left(\frac{25+16w}{80}\right)^2
-          \]
-
-      </div>
-
-
-      <div class="callout-card tip">
-        <p class="callout-title">Keep Thinking</p>
-        <p class="step-text">After squaring, pause and simplify before you square again. Here the \(64x\) terms cancelling is the key simplification.</p>
-      </div>
-
-      `
-        }
-      ]
-    }),
+    "3c": Object.assign({
+  "browserTitle": "2023 Level 3 Complex Numbers Paper — Question 3(c)",
+  "eyebrow": "Level 3 Complex Numbers Walkthrough",
+  "title": "Question 3(c)",
+  "subtitle": "2023 Paper — Solving a surd equation in terms of w",
+  "backHref": "level-3-complex-numbers-2023.html",
+  "nextHref": "complex-2023.html?q=3d",
+  "nextLabel": "Next question →",
+  "finalNav": {
+    "secondary": {
+      "href": "complex-2023.html?q=3b",
+      "label": "← Back to Question 3(b)"
+    },
+    "primary": {
+      "href": "complex-2023.html?q=3d",
+      "label": "Next question →"
+    }
+  },
+  "answerButtonLabel": "Show full solution"
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-complex-2023:3c"]),
 
     "3d": createConfig("3d", "2023 Paper — Simplifying a reciprocal complex equation", {
       focus: raw`combining the right-hand side into one fraction, then inverting to recover \(x+yi\) and reading off \(x\) and \(y\).`,

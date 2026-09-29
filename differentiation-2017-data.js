@@ -671,7 +671,7 @@
         guidedStep("Check the domain and maximum", raw`A stationary point is only usable if it lies in the model's domain, and it still needs a maximum justification.`, raw`
           <p class="step-text">The value satisfies \(0\le4.75\le15\). Also, throughout this domain,</p>
           <div class="math-block">
-            \[P''(w)=-\frac{96}{(w+1.25)^2}<0.\]
+            \[P''(w)=-\frac{96}{(w+1.25)^2}\lt 0.\]
           </div>
           <p class="step-text">Therefore the model is concave down and its stationary point is the maximum. Equivalently, \(P'(w)\) changes from positive to negative there.</p>
           ${answerHighlight("Final answer", raw`
@@ -808,7 +808,7 @@
           </div>
         `),
         guidedStep("Solve the stationary equation", raw`Work in the interior of the domain, set the derivative to zero, and clear the square-root denominator carefully.`, raw`
-          <p class="step-text">For an interior rectangle, \(0&lt;x&lt;r\), so \(\sqrt{r^2-x^2}>0\) and the displayed derivative is defined.</p>
+          <p class="step-text">For an interior rectangle, \(0\lt x\lt r\), so \(\sqrt{r^2-x^2}>0\) and the displayed derivative is defined.</p>
           <div class="math-block">
             \[0=2\sqrt{r^2-x^2}-\frac{2x^2}{\sqrt{r^2-x^2}}\]
             \[0=2(r^2-x^2)-2x^2\]
@@ -892,13 +892,13 @@
           \[\text{(1) }f'(x)=0\]
           <p class="step-text">(2) \(f(x)\) is continuous but not differentiable</p>
           <p class="step-text">(3) \(f(x)\) is not continuous</p>
-          \[\text{(4) }f''(x)&lt;0\]
+          \[\text{(4) }f''(x)\lt 0\]
         </div>
         <p class="step-text">(ii) What is the value of \(\displaystyle\lim_{x\to-1}f(x)\)? State clearly if the value does not exist.</p>
       `,
       answerHtml: answerHighlight("Final answers", raw`
         <div class="math-block">
-          <p class="step-text"><strong>Zero gradient:</strong> \(-4&lt;x&lt;-2\) and \(x=2\).</p>
+          <p class="step-text"><strong>Zero gradient:</strong> \(-4\lt x\lt -2\) and \(x=2\).</p>
           <p class="step-text"><strong>Continuous but not differentiable:</strong> \(x=-2\) and \(x=1\).</p>
           <p class="step-text"><strong>Not continuous:</strong> \(x=-1\) and \(x=0\).</p>
           <p class="step-text"><strong>Concave down:</strong> \(x>1\).</p>
@@ -907,9 +907,9 @@
       `),
       guidedSteps: [
         guidedStep("Find where the gradient is zero", raw`Look for horizontal pieces or smooth turning points, but exclude corners and endpoints where the derivative does not exist.`, raw`
-          <p class="step-text">On the interval shown, the left branch is horizontal for \(-4&lt;x&lt;-2\). At \(x=-2\) the graph has a corner, so there is no single gradient there.</p>
+          <p class="step-text">On the interval shown, the left branch is horizontal for \(-4\lt x\lt -2\). At \(x=-2\) the graph has a corner, so there is no single gradient there.</p>
           <p class="step-text">The right-hand arch has a smooth maximum at \(x=2\), so its tangent is horizontal.</p>
-          <div class="math-block">\[f'(x)=0\quad\text{for}\quad -4&lt;x&lt;-2\quad\text{and}\quad x=2.\]</div>
+          <div class="math-block">\[f'(x)=0\quad\text{for}\quad -4\lt x\lt -2\quad\text{and}\quad x=2.\]</div>
           <div class="callout-card mistake">
             <p class="callout-title">Common error</p>
             <p class="step-text">A corner may have a horizontal branch on one side, but it is not differentiable unless the gradients from both sides agree.</p>
@@ -925,7 +925,7 @@
         `),
         guidedStep("Read the concavity", raw`Concave up means the gradient increases as \(x\) increases; concave down means it decreases.`, raw`
           <p class="step-text">Concave up curves bend like a cup and have increasing gradients; concave down curves bend like an upside-down bowl and have decreasing gradients. The branch between \(0\) and \(1\) is concave up. After the corner at \(x=1\), the entire arch bends down.</p>
-          <div class="math-block">\[f''(x)&lt;0\quad\text{for}\quad x>1.\]</div>
+          <div class="math-block">\[f''(x)\lt 0\quad\text{for}\quad x>1.\]</div>
         `),
         guidedStep("Evaluate the limit at negative one", raw`A limit follows the nearby line; it does not use the isolated filled value.`, raw`
           <p class="step-text">From both the left and the right, points on the sloping line approach the open point \((-1,2)\).</p>
@@ -935,7 +935,7 @@
           </div>
           ${answerHighlight("Final answers", raw`
             <div class="math-block">
-              <p class="step-text"><strong>Zero gradient:</strong> \(-4&lt;x&lt;-2\) and \(x=2\).</p>
+              <p class="step-text"><strong>Zero gradient:</strong> \(-4\lt x\lt -2\) and \(x=2\).</p>
               <p class="step-text"><strong>Continuous but not differentiable:</strong> \(x=-2\) and \(x=1\).</p>
               <p class="step-text"><strong>Not continuous:</strong> \(x=-1\) and \(x=0\).</p>
               <p class="step-text"><strong>Concave down:</strong> \(x>1\).</p>

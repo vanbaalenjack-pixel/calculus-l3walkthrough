@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91578 — Apply differentiation methods in solving problems"
       },
-      "dateModified": "2026-09-02",
+      "dateModified": "2026-09-24",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,20 +91,20 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260916-2" />
+<link rel="stylesheet" href="style.css?v=20260924-1" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20260916-2"></script>
-  <script defer src="walkthrough-gate.js?v=20260916-2"></script>
-<script defer src="differentiation-walkthrough.js?v=20260916-2"></script>
-  <script defer src="differentiation-2024-data.js?v=20260916-2"></script>
+<script defer src="walkthrough-audit-data.js?v=20260924-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260924-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20260924-1"></script>
+  <script defer src="differentiation-2024-data.js?v=20260924-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-differentiation-2024", "year": 2024}, "question": {"canonical": "https://calc.nz/3b2024.html", "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.", "description": "2024 NCEA Level 3 Differentiation AS91578 Question 3(b) worked solution: reading continuity, differentiability, and limits from a graph. Use guided hints…", "guideLinks": [], "id": "3b", "label": "Question 3(b)", "method": "reading continuity, differentiability, and limits from a graph.", "methodTitle": "Graph Analysis", "reviewStatus": "unreviewed", "skillSlugs": [], "summary": "This walkthrough helps you practise reading continuity, differentiability, and limits from a graph. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Graph Analysis Worked Solution – 2024 NCEA Level 3 Q3(b) (AS91578) | Calc.nz"}, "standard": {"code": "AS91578", "id": "level-3-differentiation", "label": "Differentiation"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-differentiation-2024", "year": 2024}, "question": {"canonical": "https://calc.nz/3b2024.html", "commonMistake": "Distinguish the plotted function value from its limit and gradient. Open circles, jumps and corners affect these questions in different ways.", "description": "2024 NCEA Level 3 Differentiation AS91578 Question 3(b) worked solution: reading continuity, differentiability, and limits from a graph. Use guided hints…", "guideLinks": [], "id": "3b", "label": "Question 3(b)", "method": "reading continuity, differentiability, and limits from a graph.", "methodTitle": "Graph Analysis", "relatedPractice": {"href": "1c2024.html", "label": "2024 Differentiation · Q1(c)"}, "reviewStatus": "unreviewed", "skillSlugs": ["graphs-and-derivatives"], "summary": "This walkthrough helps you practise reading continuity, differentiability, and limits from a graph. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Graph Analysis Worked Solution – 2024 NCEA Level 3 Q3(b) (AS91578) | Calc.nz"}, "standard": {"code": "AS91578", "id": "level-3-differentiation", "label": "Differentiation"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20260916-2"></script>
+  <script defer src="site-shell.js?v=20260924-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -141,7 +141,7 @@
 <header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1 id="page-title">2024 NCEA Level 3 Differentiation Question 3(b)</h1>
+        <h1 id="page-title">2024 Differentiation · Q3(b)</h1>
         <p id="page-subtitle" class="subtitle">2024 Paper</p>
       </div>
       <a id="back-link" class="ghost-link" href="level-3-differentiation-2024.html">← Back to paper</a>
@@ -153,7 +153,7 @@
 
       <p class="step-text">The graph below shows the function \(y=f(x)\).</p>
             <div class="graph-frame question-graph-frame">
-              <svg id="question-graph-3b-2024" class="graph-svg" viewBox="0 0 560 360" aria-label="Graph of a piecewise function with open and closed points" role="img">
+              <svg id="question-graph-3b-2024" class="graph-svg" viewBox="0 0 560 360" aria-label="Graph: a decreasing straight ray meets an open point at (-1,1). A smooth downward-curving arc starts at that open point, peaks at (1,6), and ends filled at (3,1). A separate horizontal segment starts open at (3,-1), runs to (5,-1), and joins an increasing straight ray at a sharp corner." role="img">
           <rect class="graph-bg" x="0" y="0" width="560" height="360"></rect>
           <line class="graph-grid-line" x1="34" y1="326" x2="34" y2="34"></line><line class="graph-grid-line" x1="66.8" y1="326" x2="66.8" y2="34"></line><line class="graph-grid-line" x1="99.6" y1="326" x2="99.6" y2="34"></line><line class="graph-grid-line" x1="132.4" y1="326" x2="132.4" y2="34"></line><line class="graph-grid-line" x1="165.2" y1="326" x2="165.2" y2="34"></line><line class="graph-grid-line" x1="198" y1="326" x2="198" y2="34"></line><line class="graph-grid-line" x1="230.8" y1="326" x2="230.8" y2="34"></line><line class="graph-grid-line" x1="263.6" y1="326" x2="263.6" y2="34"></line><line class="graph-grid-line" x1="296.4" y1="326" x2="296.4" y2="34"></line><line class="graph-grid-line" x1="329.2" y1="326" x2="329.2" y2="34"></line><line class="graph-grid-line" x1="362" y1="326" x2="362" y2="34"></line><line class="graph-grid-line" x1="394.8" y1="326" x2="394.8" y2="34"></line><line class="graph-grid-line" x1="427.6" y1="326" x2="427.6" y2="34"></line><line class="graph-grid-line" x1="460.4" y1="326" x2="460.4" y2="34"></line><line class="graph-grid-line" x1="493.2" y1="326" x2="493.2" y2="34"></line><line class="graph-grid-line" x1="526" y1="326" x2="526" y2="34"></line><line class="graph-grid-line" x1="34" y1="326" x2="526" y2="326"></line><line class="graph-grid-line" x1="34" y1="293.56" x2="526" y2="293.56"></line><line class="graph-grid-line" x1="34" y1="261.11" x2="526" y2="261.11"></line><line class="graph-grid-line" x1="34" y1="228.67" x2="526" y2="228.67"></line><line class="graph-grid-line" x1="34" y1="196.22" x2="526" y2="196.22"></line><line class="graph-grid-line" x1="34" y1="163.78" x2="526" y2="163.78"></line><line class="graph-grid-line" x1="34" y1="131.33" x2="526" y2="131.33"></line><line class="graph-grid-line" x1="34" y1="98.89" x2="526" y2="98.89"></line><line class="graph-grid-line" x1="34" y1="66.44" x2="526" y2="66.44"></line><line class="graph-grid-line" x1="34" y1="34" x2="526" y2="34"></line>
           <line class="graph-axis" x1="34" y1="261.11" x2="526" y2="261.11"></line>
@@ -209,7 +209,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Reading continuity, differentiability, and limits from a graph.</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 3(b)</span> from the <a href="level-3-differentiation-2024.html" data-seo-year-link>2024 NCEA Level 3 Differentiation paper</a> for <a href="level-3-differentiation.html" data-seo-standard-link>AS91578 — Apply differentiation methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91578">official NZQA resources for AS91578</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-09-02">2 September 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-09-24">24 September 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -218,9 +218,11 @@
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
       <p class="step-text" data-seo-summary>This walkthrough helps you practise reading continuity, differentiability, and limits from a graph. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.</p>
+      <h3>Check</h3>
+      <p class="step-text" data-seo-mistake>Distinguish the plotted function value from its limit and gradient. Open circles, jumps and corners affect these questions in different ways.</p>
+      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
       <h3>Continue practising</h3>
+      <p class="step-text" data-related-practice>Try a related question: <a href="1c2024.html">2024 Differentiation · Q1(c)</a>. Attempt it before opening working, then return to this question later.</p>
       <div class="nav-row">
         <a class="nav-btn secondary" href="3a2024.html" data-seo-related="previous">← Question 3(a)</a>
         <a class="nav-btn secondary" href="3c2024.html" data-seo-related="next">Question 3(c) →</a>
@@ -228,7 +230,7 @@
       <ul class="step-text">
         <li><a href="level-3-differentiation-2024.html" data-seo-related-year>All 2024 Differentiation walkthroughs</a></li>
         <li><a href="level-3-differentiation.html" data-seo-standard-link>All AS91578 Differentiation years</a></li>
-        <li data-seo-related-skills><a href="skills.html">Browse more questions by skill</a></li>
+        <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-graphs-and-derivatives.html">Graphs, signs and limits</a></li>
         <li data-seo-related-guides hidden></li>
       </ul>
     </section>

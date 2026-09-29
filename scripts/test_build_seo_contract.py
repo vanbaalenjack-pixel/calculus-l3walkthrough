@@ -128,8 +128,8 @@ class BuildSeoContractTests(unittest.TestCase):
         self.assertIn(BUILD_SEO.FULL_PROJECT_ATTRIBUTION, about)
         self.assertIn(BUILD_SEO.SHORT_PROJECT_ATTRIBUTION, footer)
         self.assertNotIn(BUILD_SEO.SHORT_PROJECT_ATTRIBUTION, about)
-        self.assertIn("rather than written by me personally", about)
-        self.assertRegex(footer, r"Walkthroughs and project direction by [^.]+\.")
+        self.assertIn("curates its walkthroughs", about)
+        self.assertRegex(footer, r"A learning project by [^.]+\.")
         self.assertNotRegex(
             about + footer,
             r"(?i)(artificial intelligence|\bAI\b|ChatGPT|OpenAI|Codex|"
@@ -232,8 +232,8 @@ class BuildSeoContractTests(unittest.TestCase):
         self.assertIn("2025 Question 1(a)", page)
         self.assertIn("Sources and review", page)
         self.assertIn('href="guides.html"', page)
-        self.assertIn("katex@0.16.11/dist/katex.min.css", page)
-        self.assertIn("katex@0.16.11/dist/contrib/auto-render.min.js", page)
+        self.assertIn("assets/katex/katex.min.css", page)
+        self.assertIn("assets/katex/auto-render.min.js", page)
         self.assertIn("renderMathInElement", page)
         self.assertNotRegex(page, r'\boutput\s*:\s*["\']html["\']')
         guide_record = next(
@@ -359,7 +359,8 @@ class BuildSeoContractTests(unittest.TestCase):
                 for child in url_element
             }
             entries.append((values.get("loc", ""), values.get("lastmod", "")))
-        self.assertEqual(len(entries), 498)
+        self.assertEqual(len(entries), len({url for url, _ in entries}))
+        self.assertTrue({route.canonical for route in self.routes}.issubset({url for url, _ in entries}))
         self.assertTrue(all(re.fullmatch(r"20\d{2}-\d{2}-\d{2}", date_value) for _, date_value in entries))
         self.assertGreater(len({date_value for _, date_value in entries}), 1)
         urls = {url for url, _date_value in entries}
@@ -396,7 +397,7 @@ class BuildSeoContractTests(unittest.TestCase):
             )
             for url_element in guide_document
         }
-        self.assertEqual(len(guide_entries), 500)
+        self.assertEqual(len(guide_entries), len(entries) + len(guides) + 1)
         self.assertEqual(
             guide_entries["https://calc.nz/guides.html"], "2026-08-08"
         )

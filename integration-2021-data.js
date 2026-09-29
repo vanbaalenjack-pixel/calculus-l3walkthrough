@@ -309,8 +309,6 @@
       ${textMarkup(scale, -0.08, 3.02, "y", "question-axis-label", ' text-anchor="middle"')}
       ${textMarkup(scale, -0.12, 1, "1", "graph-label", ' text-anchor="end"')}
       ${textMarkup(scale, -0.12, 2, "2", "graph-label", ' text-anchor="end"')}
-      ${textMarkup(scale, 2, -0.22, "2", "graph-label", ' text-anchor="middle"')}
-      ${textMarkup(scale, 6, -0.22, "6", "graph-label", ' text-anchor="middle"')}
       ${textMarkup(scale, 4.7, 2.45, "y = (3x - 2) / (x + 2)", "graph-equation-label", ' text-anchor="middle"')}
     `;
   }
@@ -471,6 +469,7 @@
     "1c": createConfig("1c", "Question One - area under the curve", {
       focus: raw`Use the curve from the previous part and integrate it between \(x=1\) and \(x=2\).`,
       questionHtml: raw`
+        <p class="step-text">Context from <a href="int-1b2021.html">Q1(b)(i)</a>: the curve has \(dy/dx=8/x^3\) and passes through \((1,3)\).</p>
         <p class="step-text">Using the curve from the previous part, find the area enclosed by the curve, the \(x\)-axis, and the lines \(x=1\) and \(x=2\).</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
       `,
@@ -526,7 +525,7 @@
         <p class="step-text">where \(a\) is the acceleration of the object in \(\text{m s}^{-2}\), and \(t\) is time in seconds.</p>
         <p class="step-text">At \(t=0\), the object has a velocity of \(1\text{ m s}^{-1}\) and a displacement of \(3\text{ m}\).</p>
         <p class="step-text">What is the displacement of the object at time \(t=5\)?</p>
-        <p class="step-text question-note">Angles are in radians.</p>
+        <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
       `,
       answerHtml: answerHighlight("Final answer", raw`
         <div class="math-block">
@@ -927,7 +926,7 @@
           \]
         </div>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-2e-int-2021" class="graph-svg" viewBox="0 0 520 360" aria-label="Curve with points P and Q at x equals 3" role="img"></svg>
+          <svg id="question-graph-2e-int-2021" class="graph-svg" viewBox="0 0 520 360" aria-label="The implicit curve has an upper and lower branch. It crosses the y-axis at (0,1) and (0,-1). P and Q are the upper and lower points respectively on the vertical line x = 3." role="img"></svg>
         </div>
         <p class="step-text">Points P and Q are the points on the graph of the curve that have \(x\)-coordinates of \(3\). What is the vertical distance between points P and Q?</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
@@ -1212,7 +1211,8 @@
             \]
           </div>
         `)
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note: interval of the solution</summary><p class="step-text">The schedule substitutes into the implicit relation \(y^2=\tan(2x)+5\) to obtain \(y=\pm\sqrt5\) at \(x=\pi\). Locally, \(y(3\pi/8)=2\) selects the positive branch. Its maximal interval is \(( (\pi-\arctan5)/2,\,3\pi/4 )\): the left endpoint has \(y=0\), and \(\sec^2(2x)\) is undefined at \(3\pi/4\). Therefore no classical initial-value solution spans both the given point and \(\pi\). The formal substitution is not continuation across that singularity.</p></details>`
     }),
     "3d": createConfig("3d", "Question Three - shaded area under a rational curve", {
       focus: raw`Find the \(x\)-limits from the \(y\)-values shown on the graph, then integrate the curve above the \(x\)-axis.`,
@@ -1224,7 +1224,7 @@
           \]
         </div>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3d-int-2021" class="graph-svg" viewBox="0 0 540 330" aria-label="Shaded area under y equals three x minus two over x plus two from x equals two to x equals six" role="img"></svg>
+          <svg id="question-graph-3d-int-2021" class="graph-svg" viewBox="0 0 540 330" aria-label="Shaded area between the curve y = (3x − 2)/(x + 2) and the x-axis. Its vertical boundaries meet the curve at heights y = 1 and y = 2." role="img"></svg>
         </div>
         <p class="step-text">Find the shaded area.</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
@@ -1315,7 +1315,7 @@
         </div>
         <p class="step-text">where \(k\) is a constant greater than \(1\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3e-int-2021" class="graph-svg" viewBox="0 0 500 360" aria-label="Shaded area between y equals k squared e to the two x and y equals k" role="img"></svg>
+          <svg id="question-graph-3e-int-2021" class="graph-svg" viewBox="0 0 500 360" aria-label="The shaded region is enclosed between y = k squared times e to the power 2x and the horizontal line y = k, from their intersection to the y-axis. The intersection lies to the left of the y-axis because k is greater than 1." role="img"></svg>
         </div>
         <p class="step-text">Show that the shaded area is \(\frac{k}{2}\left(k-1+\ln\frac{1}{k}\right)\).</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem. Clearly show each step of your working.</p>

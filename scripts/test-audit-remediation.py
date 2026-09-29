@@ -234,7 +234,7 @@ class AuditSchemaSourceTests(unittest.TestCase):
             "level-3-complex-2025:1e": ("21y^2-4x^2=84", r"y\le-2"),
             "level-3-integration-2024:2c": (
                 r"y=\frac{1}{6-4e^{3x}}",
-                r"x<\frac{\ln(3/2)}3",
+                r"x\lt \frac{\ln(3/2)}3",
             ),
             "level-3-complex-2023:3c": (
                 r"-\frac{25}{16}\le w\le\frac{25}{16}",
@@ -249,7 +249,7 @@ class AuditSchemaSourceTests(unittest.TestCase):
             ),
             "level-3-integration-2023:3e": (
                 r"y(6)=-\frac43",
-                "not uniquely forced",
+                "that join is not differentiable",
             ),
             "level-3-differentiation-2023:3e": (
                 r"ay''=\sqrt{1+(y')^2}",
@@ -351,9 +351,9 @@ class TrustAndQuestionRenderingTests(unittest.TestCase):
         self.assertEqual(violations, [])
 
     def test_named_mobile_regression_uses_semantic_instruction_prose(self) -> None:
-        source = read_text(ROOT / "complex-2023-data.js")
-        start = source.index('"3c": createConfig(')
-        end = source.index('"3d": createConfig(', start)
+        source = read_text(ROOT / "walkthrough-audit-data.js")
+        start = source.index('"level-3-complex-2023:3c": audited(')
+        end = source.index('"level-3-complex-', start + 40)
         block = source[start:end]
         self.assertIn("question-instruction", block)
         match = re.search(
@@ -499,7 +499,7 @@ class CorrectedMathematicsTests(unittest.TestCase):
             0,
         )
 
-    def test_2023_implicit_equation_accepts_but_does_not_force_smooth_continuation(self) -> None:
+    def test_2023_implicit_equation_has_smooth_continuation_and_rejects_constant_join(self) -> None:
         def branch(x: float) -> float:
             return (2 - x) / 3
 
@@ -510,6 +510,10 @@ class CorrectedMathematicsTests(unittest.TestCase):
             self.assertAlmostEqual(residual(x, branch(x), -1 / 3), 0)
         self.assertAlmostEqual(branch(6), -4 / 3)
         self.assertEqual(branch(5), -1)
+        # A constant continuation has right derivative zero and fails differentiability.
+        incoming_slope = (branch(5) - branch(5 - 1e-5)) / 1e-5
+        self.assertAlmostEqual(incoming_slope, -1 / 3)
+        self.assertNotAlmostEqual(incoming_slope, 0)
         for arbitrary_slope in (-100.0, 0.0, 37.0):
             self.assertAlmostEqual(residual(5, -1, arbitrary_slope), 0)
 
@@ -611,17 +615,18 @@ class OfficialResourceManifestTests(unittest.TestCase):
         cls.manifest = json.loads(read_text(RESOURCE_MANIFEST_PATH))
 
     def test_manifest_has_all_and_only_supported_standard_year_groups(self) -> None:
+        catalogue = json.loads(read_text(CATALOGUE_PATH).split("=", 1)[1].strip().rstrip(";"))
         expected_years = {
-            "AS91577": {str(year) for year in range(2017, 2026)},
-            "AS91578": {str(year) for year in range(2016, 2026)},
-            "AS91579": {str(year) for year in range(2017, 2026)},
+            standard["code"]: {str(paper["year"]) for paper in standard["papers"]}
+            for level in catalogue["levels"] for standard in level["standards"]
         }
         standards = self.manifest.get("standards")
         self.assertIsInstance(standards, dict)
         self.assertEqual(set(standards), set(expected_years))
         for standard, years in expected_years.items():
             self.assertEqual(set(standards[standard]), years)
-        self.assertEqual(sum(len(years) for years in standards.values()), 28)
+        self.assertEqual(sum(len(years) for years in standards.values()),
+                         sum(len(years) for years in expected_years.values()))
 
     def test_manifest_check_date_source_and_availability_status_are_explicit(self) -> None:
         checked = date.fromisoformat(self.manifest["checkedDate"])
@@ -677,7 +682,7 @@ class OfficialResourceManifestTests(unittest.TestCase):
 
     def test_recent_years_have_paper_schedule_and_report_and_2024_exemplars(self) -> None:
         for standard, years in self.manifest["standards"].items():
-            for year in ("2021", "2022", "2023", "2024", "2025"):
+            for year in sorted(set(years) & {"2021", "2022", "2023", "2024", "2025"}):
                 kinds = [resource["kind"] for resource in years[year]["resources"]]
                 with self.subTest(standard=standard, year=year):
                     self.assertTrue({"paper", "schedule", "report"} <= set(kinds))

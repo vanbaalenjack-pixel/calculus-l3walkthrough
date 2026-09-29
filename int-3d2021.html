@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91579 — Apply integration methods in solving problems"
       },
-      "dateModified": "2026-09-02",
+      "dateModified": "2026-09-24",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,20 +91,20 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260916-2" />
+<link rel="stylesheet" href="style.css?v=20260924-1" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20260916-2"></script>
-  <script defer src="walkthrough-gate.js?v=20260916-2"></script>
-<script defer src="differentiation-walkthrough.js?v=20260916-2"></script>
-  <script defer src="integration-2021-data.js?v=20260916-2"></script>
+<script defer src="walkthrough-audit-data.js?v=20260924-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260924-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20260924-1"></script>
+  <script defer src="integration-2021-data.js?v=20260924-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-integration-2021", "year": 2021}, "question": {"canonical": "https://calc.nz/int-3d2021.html", "commonMistake": "Check the antiderivative by differentiating it, and handle constants and bounds explicitly.", "description": "2021 NCEA Level 3 Integration AS91579 Question 3(d) worked solution: finding graph limits and integrating a rational curve. Use guided hints and…", "guideLinks": [], "id": "3d", "label": "Question 3(d)", "method": "finding graph limits and integrating a rational curve.", "methodTitle": "Rational-function Integration", "reviewStatus": "unreviewed", "skillSlugs": [], "summary": "This walkthrough helps you practise finding graph limits and integrating a rational curve. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Rational-function Integration Worked Solution – 2021 NCEA Level 3 Q3(d) (AS91579) | Calc.nz"}, "standard": {"code": "AS91579", "id": "level-3-integration", "label": "Integration"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-integration-2021", "year": 2021}, "question": {"canonical": "https://calc.nz/int-3d2021.html", "commonMistake": "Keep the unknown bound in the evaluation step, then check each candidate against the integrand's domain and the requested interval.", "description": "2021 NCEA Level 3 Integration AS91579 Question 3(d) worked solution: finding graph limits and integrating a rational curve. Use guided hints and…", "guideLinks": [], "id": "3d", "label": "Question 3(d)", "method": "finding graph limits and integrating a rational curve.", "methodTitle": "Rational-function Integration", "relatedPractice": {"href": "int-1c2021.html", "label": "2021 Integration · Q1(b)(ii)"}, "reviewStatus": "unreviewed", "skillSlugs": ["definite-integrals-area"], "summary": "This walkthrough helps you practise finding graph limits and integrating a rational curve. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Rational-function Integration Worked Solution – 2021 NCEA Level 3 Q3(d) (AS91579) | Calc.nz"}, "standard": {"code": "AS91579", "id": "level-3-integration", "label": "Integration"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20260916-2"></script>
+  <script defer src="site-shell.js?v=20260924-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -141,7 +141,7 @@
 <header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 3 Integration Walkthrough</p>
-        <h1 id="page-title">2021 NCEA Level 3 Integration Question 3(d)</h1>
+        <h1 id="page-title">2021 Integration · Q3(d)</h1>
         <p id="page-subtitle" class="subtitle">2021 Integration</p>
       </div>
       <a id="back-link" class="ghost-link" href="level-3-integration-2021.html">← Back to paper</a>
@@ -158,7 +158,7 @@
               \]
             </div>
             <div class="graph-frame question-graph-frame">
-              <svg id="question-graph-3d-int-2021" class="graph-svg" viewBox="0 0 540 330" aria-label="Shaded area under y equals three x minus two over x plus two from x equals two to x equals six" role="img">
+              <svg id="question-graph-3d-int-2021" class="graph-svg" viewBox="0 0 540 330" aria-label="Shaded area between the curve y = (3x − 2)/(x + 2) and the x-axis. Its vertical boundaries meet the curve at heights y = 1 and y = 2." role="img">
           <rect class="graph-bg" x="0" y="0" width="540" height="330"></rect>
           <line class="graph-axis" x1="34" y1="164" x2="506" y2="164"></line>
           <line class="graph-axis" x1="79.1" y1="296" x2="79.1" y2="34"></line>
@@ -173,8 +173,6 @@
           <text class="question-axis-label" x="74.29" y="43.2" text-anchor="middle">y</text>
           <text class="graph-label" x="71.88" y="124" text-anchor="end">1</text>
           <text class="graph-label" x="71.88" y="84" text-anchor="end">2</text>
-          <text class="graph-label" x="199.35" y="172.8" text-anchor="middle">2</text>
-          <text class="graph-label" x="439.86" y="172.8" text-anchor="middle">6</text>
           <text class="graph-equation-label" x="361.69" y="66" text-anchor="middle">y = (3x - 2) / (x + 2)</text>
         </svg>
             </div>
@@ -225,7 +223,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Finding graph limits and integrating a rational curve.</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 3(d)</span> from the <a href="level-3-integration-2021.html" data-seo-year-link>2021 NCEA Level 3 Integration paper</a> for <a href="level-3-integration.html" data-seo-standard-link>AS91579 — Apply integration methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91579">official NZQA resources for AS91579</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-09-02">2 September 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-09-24">24 September 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -234,9 +232,11 @@
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
       <p class="step-text" data-seo-summary>This walkthrough helps you practise finding graph limits and integrating a rational curve. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Check the antiderivative by differentiating it, and handle constants and bounds explicitly.</p>
+      <h3>Check</h3>
+      <p class="step-text" data-seo-mistake>Keep the unknown bound in the evaluation step, then check each candidate against the integrand&#x27;s domain and the requested interval.</p>
+      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
       <h3>Continue practising</h3>
+      <p class="step-text" data-related-practice>Try a related question: <a href="int-1c2021.html">2021 Integration · Q1(b)(ii)</a>. Attempt it before opening working, then return to this question later.</p>
       <div class="nav-row">
         <a class="nav-btn secondary" href="int-3c2021.html" data-seo-related="previous">← Question 3(c)</a>
         <a class="nav-btn secondary" href="int-3e2021.html" data-seo-related="next">Question 3(e) →</a>
@@ -244,7 +244,7 @@
       <ul class="step-text">
         <li><a href="level-3-integration-2021.html" data-seo-related-year>All 2021 Integration walkthroughs</a></li>
         <li><a href="level-3-integration.html" data-seo-standard-link>All AS91579 Integration years</a></li>
-        <li data-seo-related-skills><a href="skills.html">Browse more questions by skill</a></li>
+        <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-definite-integrals-area.html">Definite integrals and area</a></li>
         <li data-seo-related-guides hidden></li>
       </ul>
     </section>

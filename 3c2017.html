@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91578 — Apply differentiation methods in solving problems"
       },
-      "dateModified": "2026-09-02",
+      "dateModified": "2026-09-24",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,20 +91,20 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260916-2" />
+<link rel="stylesheet" href="style.css?v=20260924-1" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20260916-2"></script>
-  <script defer src="walkthrough-gate.js?v=20260916-2"></script>
-<script defer src="differentiation-walkthrough.js?v=20260916-2"></script>
-  <script defer src="differentiation-2017-data.js?v=20260916-2"></script>
+<script defer src="walkthrough-audit-data.js?v=20260924-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260924-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20260924-1"></script>
+  <script defer src="differentiation-2017-data.js?v=20260924-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-differentiation-2017", "year": 2017}, "question": {"canonical": "https://calc.nz/3c2017.html", "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.", "description": "2017 NCEA Level 3 Differentiation AS91578 Question 3(c) worked solution: derivatives, continuity, limits, and concavity from a piecewise graph. Use guided…", "guideLinks": [], "id": "3c", "label": "Question 3(c)", "method": "derivatives, continuity, limits, and concavity from a piecewise graph.", "methodTitle": "Graph Analysis", "reviewStatus": "unreviewed", "skillSlugs": [], "summary": "This walkthrough helps you practise derivatives, continuity, limits, and concavity from a piecewise graph. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Graph Analysis Worked Solution – 2017 NCEA Level 3 Q3(c) (AS91578) | Calc.nz"}, "standard": {"code": "AS91578", "id": "level-3-differentiation", "label": "Differentiation"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-differentiation-2017", "year": 2017}, "question": {"canonical": "https://calc.nz/3c2017.html", "commonMistake": "Distinguish the plotted function value from its limit and gradient. Open circles, jumps and corners affect these questions in different ways.", "description": "2017 NCEA Level 3 Differentiation AS91578 Question 3(c) worked solution: derivatives, continuity, limits, and concavity from a piecewise graph. Use guided…", "guideLinks": [], "id": "3c", "label": "Question 3(c)", "method": "derivatives, continuity, limits, and concavity from a piecewise graph.", "methodTitle": "Graph Analysis", "relatedPractice": {"href": "3b2024.html", "label": "2024 Differentiation · Q3(b)"}, "reviewStatus": "unreviewed", "skillSlugs": ["graphs-and-derivatives"], "summary": "This walkthrough helps you practise derivatives, continuity, limits, and concavity from a piecewise graph. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Graph Analysis Worked Solution – 2017 NCEA Level 3 Q3(c) (AS91578) | Calc.nz"}, "standard": {"code": "AS91578", "id": "level-3-differentiation", "label": "Differentiation"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20260916-2"></script>
+  <script defer src="site-shell.js?v=20260924-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -141,7 +141,7 @@
 <header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1 id="page-title">2017 NCEA Level 3 Differentiation Question 3(c)</h1>
+        <h1 id="page-title">2017 Differentiation · Q3(c)</h1>
         <p id="page-subtitle" class="subtitle">2017 Paper</p>
       </div>
       <a id="back-link" class="ghost-link" href="level-3-differentiation-2017.html">← Back to paper</a>
@@ -186,7 +186,7 @@
               \[\text{(1) }f'(x)=0\]
               <p class="step-text">(2) \(f(x)\) is continuous but not differentiable</p>
               <p class="step-text">(3) \(f(x)\) is not continuous</p>
-              \[\text{(4) }f''(x)&lt;0\]
+              \[\text{(4) }f''(x)\lt 0\]
             </div>
             <p class="step-text">(ii) What is the value of \(\displaystyle\lim_{x\to-1}f(x)\)? State clearly if the value does not exist.</p>
 
@@ -204,9 +204,9 @@
         <p class="step-text">Look for horizontal pieces or smooth turning points, but exclude corners and endpoints where the derivative does not exist.</p>
         <details class="static-first-step-working">
           <summary>Show the first step’s working</summary>
-          <div class="walkthrough-step-working"><p class="step-text">On the interval shown, the left branch is horizontal for \(-4&lt;x&lt;-2\). At \(x=-2\) the graph has a corner, so there is no single gradient there.</p>
+          <div class="walkthrough-step-working"><p class="step-text">On the interval shown, the left branch is horizontal for \(-4\lt x\lt -2\). At \(x=-2\) the graph has a corner, so there is no single gradient there.</p>
               <p class="step-text">The right-hand arch has a smooth maximum at \(x=2\), so its tangent is horizontal.</p>
-              <div class="math-block">\[f'(x)=0\quad\text{for}\quad -4&lt;x&lt;-2\quad\text{and}\quad x=2.\]</div>
+              <div class="math-block">\[f'(x)=0\quad\text{for}\quad -4\lt x\lt -2\quad\text{and}\quad x=2.\]</div>
               <div class="callout-card mistake">
                 <p class="callout-title">Common error</p>
                 <p class="step-text">A corner may have a horizontal branch on one side, but it is not differentiable unless the gradients from both sides agree.</p>
@@ -225,7 +225,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Derivatives, continuity, limits, and concavity from a piecewise graph.</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 3(c)</span> from the <a href="level-3-differentiation-2017.html" data-seo-year-link>2017 NCEA Level 3 Differentiation paper</a> for <a href="level-3-differentiation.html" data-seo-standard-link>AS91578 — Apply differentiation methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91578">official NZQA resources for AS91578</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-09-02">2 September 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-09-24">24 September 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -234,9 +234,11 @@
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
       <p class="step-text" data-seo-summary>This walkthrough helps you practise derivatives, continuity, limits, and concavity from a piecewise graph. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.</p>
+      <h3>Check</h3>
+      <p class="step-text" data-seo-mistake>Distinguish the plotted function value from its limit and gradient. Open circles, jumps and corners affect these questions in different ways.</p>
+      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
       <h3>Continue practising</h3>
+      <p class="step-text" data-related-practice>Try a related question: <a href="3b2024.html">2024 Differentiation · Q3(b)</a>. Attempt it before opening working, then return to this question later.</p>
       <div class="nav-row">
         <a class="nav-btn secondary" href="3b2017.html" data-seo-related="previous">← Question 3(b)</a>
         <a class="nav-btn secondary" href="3d2017.html" data-seo-related="next">Question 3(d) →</a>
@@ -244,7 +246,7 @@
       <ul class="step-text">
         <li><a href="level-3-differentiation-2017.html" data-seo-related-year>All 2017 Differentiation walkthroughs</a></li>
         <li><a href="level-3-differentiation.html" data-seo-standard-link>All AS91578 Differentiation years</a></li>
-        <li data-seo-related-skills><a href="skills.html">Browse more questions by skill</a></li>
+        <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-graphs-and-derivatives.html">Graphs, signs and limits</a></li>
         <li data-seo-related-guides hidden></li>
       </ul>
     </section>

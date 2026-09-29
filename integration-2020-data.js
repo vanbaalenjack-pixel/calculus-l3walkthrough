@@ -29,7 +29,7 @@
       <p>You must use calculus and show the results of any integration needed to solve the problem.</p>
     `,
     "1e": raw`
-      <p>Consider the differential equation \(\tan x\,\frac{dy}{dx}=\frac{\sec^2x}{y}\), where \(0&lt;x&lt;\frac{\pi}{2}\).</p>
+      <p>Consider the differential equation \(\tan x\,\frac{dy}{dx}=\frac{\sec^2x}{y}\), where \(0\lt x\lt \frac{\pi}{2}\).</p>
       <p>Given that \(y=2\) when \(x=\frac{\pi}{4}\), find the value or values of \(y\) when \(x=\frac{\pi}{3}\).</p>
       <p>You must use calculus and give the results of any integration needed to solve this problem.</p>
     `,
@@ -348,10 +348,10 @@
     "1e": createConfig("1e", raw`Separate \(x\) and \(y\), integrate \(\frac{\sec^2x}{\tan x}\) as \(\ln|\tan x|\), then use the initial condition.`, raw`
       <div class="math-block">
         \[
-        \boxed{y=\pm\sqrt{4+\ln3}\approx\pm2.26}
+        \boxed{y=\sqrt{4+\ln3}\approx2.26}
         \]
       </div>
-      <p class="step-text question-note">The PDF gives both algebraic roots. For the continuous solution through \(y=2\), the positive branch gives \(y\approx2.26\).</p>
+      <p class="step-text question-note">The initial value \(y=2\) selects the positive branch.</p>
     `, [
       guidedStep("Separate and integrate", raw`Move \(y\) to the left and divide by \(\tan x\) before integrating.`, raw`
         <div class="math-block">
@@ -390,12 +390,12 @@
           y^2=4+\ln3
           \]
           \[
-          y=\pm\sqrt{4+\ln3}\approx\pm2.26
+          y=\sqrt{4+\ln3}\approx2.26
           \]
         </div>
-        <p class="step-text question-note"><strong>Branch note:</strong> the source PDF reports \(\pm2.26\). Since the specified solution begins at \(y=2\), continuity selects the positive branch unless the question is interpreted as asking only for algebraic roots of the implicit relation.</p>
+        <details class="exam-note"><summary>Exam note</summary><p class="step-text">The source PDF reports \(\pm2.26\). Since the specified solution begins at \(y=2\), continuity selects the positive branch unless the question is interpreted as asking only for algebraic roots of the implicit relation.</p></details>
       `)
-    ], { finalLabel: "PDF final answer and branch note" }),
+    ], { finalLabel: "Final answer" }),
 
     "2a": createConfig("2a", raw`Rewrite the reciprocal square as \(x^{-2}\), then apply the power rule.`, raw`
       <div class="math-block">

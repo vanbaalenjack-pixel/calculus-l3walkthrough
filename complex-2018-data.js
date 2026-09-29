@@ -270,8 +270,8 @@
       ]
     }),
 
-    "1b": createConfig("1b", "2018 Complex Numbers", {
-      focus: raw`When multiplying polar forms, multiply moduli and add arguments.`,
+    "1b": Object.assign(createConfig("1b", "2018 Complex Numbers", {
+      focus: raw`Multiply the real coefficients and use the angle-addition identity for cis. The product coefficient is nonnegative.`,
       questionHtml: raw`
         <div class="question-math">
           <p class="step-text">If</p>
@@ -291,22 +291,21 @@
         </div>
       `),
       guidedSteps: [
-        guidedStep("Identify modulus and argument", raw`Read the radius and angle from each polar form before combining them.`, raw`
+        guidedStep("Keep coefficients separate from cis", raw`The given coefficients may be negative, so do not identify them as moduli without a sign assumption.`, raw`
           <div class="math-block">
             \[
-            |u|=m,\quad \arg(u)=\frac{\pi}{3},\qquad
-            |v|=m^3,\quad \arg(v)=\frac{2\pi}{5}.
+            uv=(m\cdot m^3)\operatorname{cis}\left(\frac{\pi}{3}+\frac{2\pi}{5}\right).
             \]
           </div>
         `),
-        guidedStep("Multiply the moduli", raw`Polar multiplication multiplies the two radii.`, raw`
+        guidedStep("Multiply the coefficients", raw`The product coefficient is m to the fourth power; it is positive whenever m is nonzero.`, raw`
           <div class="math-block">
             \[
             m\cdot m^3=m^{1+3}=m^4.
             \]
           </div>
         `),
-        guidedStep("Add the arguments", raw`Use a common denominator of \(15\), then attach the result to the new modulus.`, raw`
+        guidedStep("Combine the cis angles", raw`Use a common denominator of \(15\), then attach the result to the new modulus.`, raw`
           <div class="math-block">
             \[
             \frac{\pi}{3}+\frac{2\pi}{5}
@@ -319,7 +318,7 @@
           </div>
         `)
       ]
-    }),
+    }), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">For \\(m\\ne0\\), the product has positive modulus \\(m^4\\), including for negative real \\(m\\). At \\(m=0\\), the product is zero, with no unique polar argument.</p></details>"}),
 
     "1c": createConfig("1c", "2018 Complex Numbers", {
       focus: raw`Square once, isolate \(\sqrt{x}\), and retain the real-domain condition.`,
@@ -337,7 +336,7 @@
           \[
           \boxed{x=\frac{(k-4)^2}{16}\text{ for }k\ge 4}
           \]
-          <p class="step-text">There is no real solution when \(k&lt;4\).</p>
+          <p class="step-text">There is no real solution when \(k\lt 4\).</p>
         </div>
       `),
       guidedSteps: [
@@ -390,7 +389,7 @@
             =\frac{k+4}{4}.
             \]
           </div>
-          <p class="step-text">The two sides agree. If \(k&lt;4\), the equation \(4\sqrt{x}=k-4\) would equate a nonnegative number with a negative one, so no real solution exists.</p>
+          <p class="step-text">The two sides agree. If \(k\lt 4\), the equation \(4\sqrt{x}=k-4\) would equate a nonnegative number with a negative one, so no real solution exists.</p>
         `)
       ]
     }),
@@ -1154,7 +1153,7 @@
             4k-x=4k-\frac{17k}{8}=\frac{15k}{8}\ge0.
             \]
           </div>
-          <p class="step-text">If \(k&lt;0\), the candidate \(17k/8\) is negative and cannot satisfy \(x\ge|k|\). The case \(k=0\) is undefined. Thus only \(k&gt;0\) remains.</p>
+          <p class="step-text">If \(k\lt 0\), the candidate \(17k/8\) is negative and cannot satisfy \(x\ge|k|\). The case \(k=0\) is undefined. Thus only \(k&gt;0\) remains.</p>
           <p class="step-text">For \(k&gt;0\), substitute \(x=17k/8\) into the original radicals:</p>
           <div class="math-block">
             \[

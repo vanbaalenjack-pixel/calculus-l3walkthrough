@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91579 — Apply integration methods in solving problems"
       },
-      "dateModified": "2026-09-02",
+      "dateModified": "2026-09-24",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,20 +91,20 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260916-2" />
+<link rel="stylesheet" href="style.css?v=20260924-1" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20260916-2"></script>
-  <script defer src="walkthrough-gate.js?v=20260916-2"></script>
-<script defer src="differentiation-walkthrough.js?v=20260916-2"></script>
-  <script defer src="integration-2025-data.js?v=20260916-2"></script>
+<script defer src="walkthrough-audit-data.js?v=20260924-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260924-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20260924-1"></script>
+  <script defer src="integration-2025-data.js?v=20260924-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-integration-2025", "year": 2025}, "question": {"canonical": "https://calc.nz/int-2d2025.html", "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.", "description": "2025 NCEA Level 3 Integration AS91579 Question 2(d) worked solution: building velocity and displacement from acceleration with initial conditions. Use…", "guideLinks": [], "id": "2d", "label": "Question 2(d)", "method": "building velocity and displacement from acceleration with initial conditions.", "methodTitle": "Integration and Kinematics", "reviewStatus": "unreviewed", "skillSlugs": ["antidifferentiation"], "summary": "This walkthrough helps you practise building velocity and displacement from acceleration with initial conditions. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Integration and Kinematics Worked Solution – 2025 NCEA Level 3 Q2(d) (AS91579) | Calc.nz"}, "standard": {"code": "AS91579", "id": "level-3-integration", "label": "Integration"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-integration-2025", "year": 2025}, "question": {"canonical": "https://calc.nz/int-2d2025.html", "commonMistake": "Integrate acceleration to obtain velocity and use the velocity condition. If displacement is also needed, integrate again with a separate constant; check velocity signs for distance travelled.", "description": "2025 NCEA Level 3 Integration AS91579 Question 2(d) worked solution: building velocity and displacement from acceleration with initial conditions. Use…", "guideLinks": [], "id": "2d", "label": "Question 2(d)", "method": "building velocity and displacement from acceleration with initial conditions.", "methodTitle": "Integration and Kinematics", "relatedPractice": {"href": "int-1b2021.html", "label": "2021 Integration · Q1(b)(i)"}, "reviewStatus": "unreviewed", "skillSlugs": ["antidifferentiation"], "summary": "This walkthrough helps you practise building velocity and displacement from acceleration with initial conditions. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Integration and Kinematics Worked Solution – 2025 NCEA Level 3 Q2(d) (AS91579) | Calc.nz"}, "standard": {"code": "AS91579", "id": "level-3-integration", "label": "Integration"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20260916-2"></script>
+  <script defer src="site-shell.js?v=20260924-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -141,7 +141,7 @@
 <header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 3 Integration Walkthrough</p>
-        <h1 id="page-title">2025 NCEA Level 3 Integration Question 2(d)</h1>
+        <h1 id="page-title">2025 Integration · Q2(d)</h1>
         <p id="page-subtitle" class="subtitle">2025 Paper</p>
       </div>
       <a id="back-link" class="ghost-link" href="level-3-integration-2025.html">← Back to paper</a>
@@ -197,7 +197,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Building velocity and displacement from acceleration with initial conditions.</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 2(d)</span> from the <a href="level-3-integration-2025.html" data-seo-year-link>2025 NCEA Level 3 Integration paper</a> for <a href="level-3-integration.html" data-seo-standard-link>AS91579 — Apply integration methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91579">official NZQA resources for AS91579</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-09-02">2 September 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-09-24">24 September 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -206,9 +206,11 @@
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
       <p class="step-text" data-seo-summary>This walkthrough helps you practise building velocity and displacement from acceleration with initial conditions. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.</p>
+      <h3>Check</h3>
+      <p class="step-text" data-seo-mistake>Integrate acceleration to obtain velocity and use the velocity condition. If displacement is also needed, integrate again with a separate constant; check velocity signs for distance travelled.</p>
+      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
       <h3>Continue practising</h3>
+      <p class="step-text" data-related-practice>Try a related question: <a href="int-1b2021.html">2021 Integration · Q1(b)(i)</a>. Attempt it before opening working, then return to this question later.</p>
       <div class="nav-row">
         <a class="nav-btn secondary" href="int-2c2025.html" data-seo-related="previous">← Question 2(c)</a>
         <a class="nav-btn secondary" href="int-2e2025.html" data-seo-related="next">Question 2(e) →</a>

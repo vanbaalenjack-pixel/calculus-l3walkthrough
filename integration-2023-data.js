@@ -493,7 +493,8 @@
       <p class="step-text">where \(v\) is measured in km hr\(^{-1}\) and \(t\) is the time in hours from the start of timing.</p>
       <p class="step-text">Initially the object was \(3\) km from a point \(P\).</p>
       <p class="step-text">Find the distance of this object from the point \(P\) after \(\frac{\pi}{4}\) hours.</p>
-    `,
+            <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
+      `,
     questionNotes: [
       raw`Use calculus and show the integration needed to solve the problem.`
     ],
@@ -637,7 +638,8 @@
         <svg id="question-graph-1c-int-2023" class="graph-svg" viewBox="0 0 460 300" aria-label="Shaded region between y equals square root x and 8y equals x squared" role="img"></svg>
       </div>
       <p class="step-text">Find the shaded area.</p>
-    `,
+            <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
+      `,
     questionNotes: [
       raw`Use calculus and show the integration needed to solve the problem.`
     ],
@@ -790,7 +792,8 @@
         \]
       </div>
       <p class="step-text">Given that \(y=1\) when \(x=2\), find the value of \(y\) when \(x=1\).</p>
-    `,
+            <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
+      `,
     questionNotes: [
       raw`Use calculus and show the integration needed to solve the problem.`
     ],
@@ -946,10 +949,11 @@
         \]
       </div>
       <div class="graph-frame question-graph-frame">
-        <svg id="question-graph-1e-int-2023" class="graph-svg" viewBox="0 0 520 320" aria-label="Shaded region bounded by y squared equals 10 minus x, y equals 3x, and y equals negative sine of pi x over 10" role="img"></svg>
+        <svg id="question-graph-1e-int-2023" class="graph-svg" viewBox="0 0 520 320" aria-label="The shaded region is above y = −sin(πx/10). Its upper boundary follows y = 3x from the origin to its first-quadrant intersection with y squared = 10 − x, then the positive branch of that parabola to the common x-intercept." role="img"></svg>
       </div>
       <p class="step-text">Find the area of the shaded region.</p>
-    `,
+            <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
+      `,
     questionNotes: [
       raw`Use calculus and show the integration needed to solve the problem.`
     ],
@@ -1238,7 +1242,8 @@
         \]
       </div>
       <p class="step-text">where \(x\ge 0\), given that when \(x=6\), \(y=7.5\).</p>
-    `,
+            <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
+      `,
     questionNotes: [
       raw`Use calculus and show the integration needed to solve the problem.`
     ],
@@ -2014,7 +2019,8 @@
         <svg id="question-graph-3c-int-2023" class="graph-svg" viewBox="0 0 470 300" aria-label="Shaded region under y equals 5 sine 3x times sine x from x equals 0 to pi over 3" role="img"></svg>
       </div>
       <p class="step-text">Find the shaded area.</p>
-    `,
+            <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
+      `,
     questionNotes: [
       raw`Use calculus and show the integration needed to solve the problem.`
     ],
@@ -2313,202 +2319,25 @@
     ]
   });
 
-  walkthroughs["3e"] = createConfig("3e", "2023 Paper — Separable equation with factor cancellation", {
-    focus: raw`Factor both \(1-x^2\) and \(1-y^2\), cancel the common factors carefully, then use the initial condition to choose the correct branch.`,
-    questionHtml: raw`
-      <p class="step-text">Consider the differential equation</p>
-      <div class="question-math">
-        \[
-        (1-x^2)(1+y)\frac{dy}{dx}+(1-x)(1-y^2)=0.
-        \]
-      </div>
-      <p class="step-text">Given that \(y=0\) when \(x=2\), find the value of \(y\) when \(x=6\).</p>
-    `,
-    questionNotes: [
-      raw`Use calculus and show the integration needed to solve the problem.`
-    ],
-    hints: [
-      raw`Factor \(1-x^2=(1-x)(1+x)\) and \(1-y^2=(1-y)(1+y)\).`,
-      raw`After cancelling, the equation becomes \(\frac{dy}{dx}=-\frac{1-y}{1+x}\).`,
-      raw`When you solve the logarithmic equation, use the initial condition to decide the sign of \(1-y\).`
-    ],
-    answerHtml: raw`
-      <p class="step-text">Factor the quadratic terms:</p>
-      <div class="math-block">
-        \[
-        (1-x)(1+x)(1+y)\frac{dy}{dx}+(1-x)(1-y)(1+y)=0
-        \]
-      </div>
-      <p class="step-text">On the interval we care about, we can cancel the common factors and simplify:</p>
-      <div class="math-block">
-        \[
-        (1+x)\frac{dy}{dx}+(1-y)=0
-        \]
-        \[
-        \frac{dy}{dx}=-\frac{1-y}{1+x}
-        \]
-      </div>
-      <p class="step-text">Separate variables:</p>
-      <div class="math-block">
-        \[
-        \frac{1}{1-y}\,dy=-\frac{1}{1+x}\,dx
-        \]
-      </div>
-      <p class="step-text">Integrate both sides:</p>
-      <div class="math-block">
-        \[
-        -\ln|1-y|=-\ln|1+x|+C
-        \]
-      </div>
-      <p class="step-text">Use the initial condition \(y=0\) when \(x=2\):</p>
-      <div class="math-block">
-        \[
-        -\ln|1|=-\ln|3|+C
-        \]
-        \[
-        C=\ln 3
-        \]
-      </div>
-      <p class="step-text">So</p>
-      <div class="math-block">
-        \[
-        -\ln|1-y|=-\ln|1+x|+\ln 3
-        \]
-        \[
-        \ln|1-y|=\ln\left(\frac{1+x}{3}\right)
-        \]
-        \[
-        |1-y|=\frac{1+x}{3}
-        \]
-      </div>
-      <p class="step-text">At \(x=2\), \(1-y=1\) is positive, so we keep the positive branch:</p>
-      <div class="math-block">
-        \[
-        1-y=\frac{1+x}{3}
-        \]
-      </div>
-      <p class="step-text">Now substitute \(x=6\):</p>
-      <div class="math-block">
-        \[
-        1-y=\frac{7}{3}
-        \]
-        \[
-        y=1-\frac{7}{3}=-\frac{4}{3}
-        \]
-      </div>
-    `,
-    guidedSteps: [
-      {
-        title: raw`Simplify the differential equation`,
-        previewHtml: raw`Factoring \(1-x^2\) and \(1-y^2\) lets the common factors cancel cleanly.`,
-        workingHtml: raw`<p class="step-text">Factoring \(1-x^2\) and \(1-y^2\) lets the common factors cancel cleanly.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-          \frac{dy}{dx}=-\frac{1-y}{1+x}
-        \]
-</div>`
-      },
-      {
-        title: raw`Separate the variables`,
-        previewHtml: raw`Now each side depends on just one variable.`,
-        workingHtml: raw`<p class="step-text">Now each side depends on just one variable.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-          \frac{1}{1-y}\,dy=-\frac{1}{1+x}\,dx
-        \]
-</div>`
-      },
-      {
-        title: raw`Use the initial condition`,
-        previewHtml: raw`Substituting \(x=2\) and \(y=0\) gives \(0=-\ln 3 + C\).`,
-        workingHtml: raw`<p class="step-text">Substituting \(x=2\) and \(y=0\) gives \(0=-\ln 3 + C\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-          \ln 3
-        \]
-</div>`
-      },
-      {
-        title: raw`Find y when x = 6`,
-        previewHtml: raw`\(1-y=\frac{7}{3}\) gives \(y=1-\frac{7}{3}=-\frac{4}{3}\).`,
-        workingHtml: raw`<p class="step-text">\(1-y=\frac{7}{3}\) gives \(y=1-\frac{7}{3}=-\frac{4}{3}\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-          -\frac{4}{3}
-        \]
-</div>
-
-      <p class="step-text">Factor the quadratic terms:</p>
-      <div class="math-block">
-        \[
-        (1-x)(1+x)(1+y)\frac{dy}{dx}+(1-x)(1-y)(1+y)=0
-        \]
-      </div>
-      <p class="step-text">On the interval we care about, we can cancel the common factors and simplify:</p>
-      <div class="math-block">
-        \[
-        (1+x)\frac{dy}{dx}+(1-y)=0
-        \]
-        \[
-        \frac{dy}{dx}=-\frac{1-y}{1+x}
-        \]
-      </div>
-      <p class="step-text">Separate variables:</p>
-      <div class="math-block">
-        \[
-        \frac{1}{1-y}\,dy=-\frac{1}{1+x}\,dx
-        \]
-      </div>
-      <p class="step-text">Integrate both sides:</p>
-      <div class="math-block">
-        \[
-        -\ln|1-y|=-\ln|1+x|+C
-        \]
-      </div>
-      <p class="step-text">Use the initial condition \(y=0\) when \(x=2\):</p>
-      <div class="math-block">
-        \[
-        -\ln|1|=-\ln|3|+C
-        \]
-        \[
-        C=\ln 3
-        \]
-      </div>
-      <p class="step-text">So</p>
-      <div class="math-block">
-        \[
-        -\ln|1-y|=-\ln|1+x|+\ln 3
-        \]
-        \[
-        \ln|1-y|=\ln\left(\frac{1+x}{3}\right)
-        \]
-        \[
-        |1-y|=\frac{1+x}{3}
-        \]
-      </div>
-      <p class="step-text">At \(x=2\), \(1-y=1\) is positive, so we keep the positive branch:</p>
-      <div class="math-block">
-        \[
-        1-y=\frac{1+x}{3}
-        \]
-      </div>
-      <p class="step-text">Now substitute \(x=6\):</p>
-      <div class="math-block">
-        \[
-        1-y=\frac{7}{3}
-        \]
-        \[
-        y=1-\frac{7}{3}=-\frac{4}{3}
-        \]
-      </div>
-    `
-      }
-    ]
-  });
+  walkthroughs["3e"] = Object.assign({
+  "browserTitle": "2023 Integration Paper — Question 3(e)",
+  "eyebrow": "Level 3 Integration Walkthrough",
+  "title": "Question 3(e)",
+  "subtitle": "2023 Paper — Separable equation with factor cancellation",
+  "backHref": "level-3-integration-2023.html",
+  "nextHref": "level-3-integration-2023.html",
+  "nextLabel": "Back to paper",
+  "finalNav": {
+    "secondary": {
+      "href": "int-3d2023.html",
+      "label": "← Back to Question 3(d)"
+    },
+    "primary": {
+      "href": "level-3-integration-2023.html",
+      "label": "Back to paper"
+    }
+  }
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-integration-2023:3e"]);
 
   window.Integration2023Walkthroughs = walkthroughs;
 }());

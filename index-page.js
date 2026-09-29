@@ -680,7 +680,7 @@
       + '<p class="question-label">' + escapeHomeHtml(context.standard.label + " · " + paper.year + " paper") + '</p>'
       + '<h2 id="selection-stage-heading" tabindex="-1">Where would you like to start?</h2>'
       + '<p class="paper-progress-chip">' + progress.attempted + " of " + progress.total + " attempted · " + progress.reviewed + " reviewed · " + progress.solvedIndependent + ' solved independently</p>'
-      + '<p class="step-text paper-entry-intro">Begin with the first question, jump to a specific part, or browse the crawlable paper directory.</p>'
+      + '<p class="step-text paper-entry-intro">Begin with the first question, jump to a specific part, or view all questions in this paper.</p>'
       + '<div class="year-picker-grid paper-entry-grid">'
       + '<a class="nav-btn secondary year-option paper-entry-option" data-paper-start-guided href="' + escapeHomeHtml(firstQuestion ? addGuidedModeToHref(firstQuestion.href) : context.standard.landingHref) + '"><span class="year-option-title">From the start</span><span class="year-option-copy">Begin with ' + escapeHomeHtml(firstQuestion ? firstQuestion.label : "the paper") + ' as a guided lesson.</span></a>'
       + '<button class="nav-btn secondary year-option paper-entry-option" data-paper-start-specific type="button"><span class="year-option-title">A specific question</span><span class="year-option-copy">Open only this paper’s question menu.</span></button>'
@@ -1123,19 +1123,25 @@
     }
   }
 
+  function hasStandaloneContext(entry) {
+    return !Array.isArray(entry.question.dependencies)
+      || entry.question.dependencies.every(function (dependency) { return dependency.contextProvided === true; });
+  }
+
   function practiceScopes() {
-    const scopes = [{ value: "all", label: "All available questions", questions: questions }];
+    const standalone = questions.filter(hasStandaloneContext);
+    const scopes = [{ value: "all", label: "All available questions", questions: standalone }];
     levels.forEach(function (level) {
       scopes.push({
         value: "level:" + level.id,
         label: level.label + " · all standards",
-        questions: questions.filter(function (entry) { return entry.level.id === level.id; })
+        questions: standalone.filter(function (entry) { return entry.level.id === level.id; })
       });
       (level.standards || []).forEach(function (standard) {
         scopes.push({
           value: "standard:" + standard.id,
           label: level.label + " · " + standard.label + " · " + standard.code,
-          questions: questions.filter(function (entry) { return entry.standard.id === standard.id; })
+          questions: standalone.filter(function (entry) { return entry.standard.id === standard.id; })
         });
       });
     });
@@ -1222,7 +1228,7 @@
 
   function renderPracticeSet(output, practiceSet, status) {
     output.hidden = false;
-    output.innerHTML = '<div class="home-practice-result-heading"><p class="question-label">' + practiceSet.minutes + '-minute set</p><h3>Your ' + practiceSet.entries.length + '-question practice set</h3><p class="step-text">Work at your own pace or use your own timer. The set uses available questions only; it does not infer difficulty or grade level.</p></div><ol class="home-practice-set-list">'
+    output.innerHTML = '<div class="home-practice-result-heading"><p class="question-label">' + practiceSet.minutes + '-minute self-timed set</p><h3>Your ' + practiceSet.entries.length + '-question practice set</h3><p class="step-text">Work at your own pace or use your own timer. The durations are suggestions, not calibrated estimates. Choose your own timer; the set does not infer difficulty or grade level.</p></div><ol class="home-practice-set-list">'
       + practiceSet.entries.map(function (entry, index) {
         return '<li><a class="home-practice-set-link" href="' + escapeHomeHtml(entry.question.href) + '"><span>' + (index + 1) + '. ' + escapeHomeHtml(entry.paper.year + " " + entry.standard.label + " · " + entry.question.label) + '</span><small>' + escapeHomeHtml(entry.question.methodPlain || capitaliseSentence(entry.question.method)) + '</small></a></li>';
       }).join("") + '</ol>';
@@ -1258,6 +1264,8 @@
       const validScope = scopes.some(function (scope) { return scope.value === scopeSelect.value; });
       scopeSelect.value = validScope ? scopeSelect.value : defaultScopeValue;
       writeRawStorage(storageKeys.practiceScope, scopeSelect.value);
+      output.hidden = true;
+      if (status) status.textContent = "Topic changed. Make a new set for this scope.";
     });
 
     function selectedScope() {
@@ -1265,7 +1273,7 @@
     }
 
     const savedSet = normalisePracticeSet(readStoredJson(storageKeys.practiceSet, null));
-    if (savedSet) {
+    if (savedSet && savedSet.scope === initialScope && savedSet.entries.every(hasStandaloneContext)) {
       renderPracticeSet(output, savedSet, status);
     }
 

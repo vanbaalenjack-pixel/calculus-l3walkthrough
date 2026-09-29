@@ -754,110 +754,25 @@
         }
       ]
     }),
-    "1e": createConfig("1e", "2025 Paper — Separable differential equation with a logarithm", {
-      questionHtml: raw`
-        <p class="step-text">
-          Consider the differential equation
-          \[
-          y-xy-(1+x)\frac{dy}{dx}=0.
-          \]
-        </p>
-        <p class="step-text">Given that \(y=3\) when \(x=0\), find the value(s) of \(y\) when \(x=2\).</p>
-        <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
-      `,
-      hints: [
-        raw`Rearrange first so all the \(y\)-terms are on one side and all the \(x\)-terms are on the other.`,
-        raw`The right-hand side simplifies nicely if you split \(\frac{1-x}{1+x}\) into \(-1+\frac{2}{1+x}\).`,
-        raw`Use the condition \(y=3\) when \(x=0\), then substitute \(x=2\).`
-      ],
-      answerHtml: raw`
-        <p class="step-text">Separate the variables:</p>
-        <div class="math-block">
-          \[
-          y(1-x)=(1+x)\frac{dy}{dx}
-          \]
-          \[
-          \frac{1}{y}\,dy=\frac{1-x}{1+x}\,dx=\left(-1+\frac{2}{1+x}\right)dx
-          \]
-        </div>
-        <p class="step-text">Integrate and use the condition:</p>
-        <div class="math-block">
-          \[
-          \ln|y|=-x+2\ln|1+x|+C
-          \]
-          \[
-          \ln 3=C
-          \]
-          \[
-          \ln|y|=-2+2\ln 3+\ln 3
-          \]
-          \[
-          y=\frac{27}{e^2}\approx 3.654
-          \]
-        </div>
-      `,
-      guidedSteps: [
-        {
-          title: raw`Separate the variables`,
-          previewHtml: raw`This is the separated form, and the right-hand side is ready to integrate.`,
-          workingHtml: raw`<p class="step-text">This is the separated form, and the right-hand side is ready to integrate.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-            \frac{1}{y}\,dy=\left(-1+\frac{2}{1+x}\right)dx
-          \]
-</div>`
-        },
-        {
-          title: raw`Integrate both sides`,
-          previewHtml: raw`This is the natural logarithm result from integrating \(\frac{1}{y}\,dy\).`,
-          workingHtml: raw`<p class="step-text">This is the natural logarithm result from integrating \(\frac{1}{y}\,dy\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-            \ln|y|=-x+2\ln|1+x|+C
-          \]
-</div>`
-        },
-        {
-          title: raw`Evaluate at \(x=2\)`,
-          previewHtml: raw`This matches the integrated model and the initial condition.`,
-          workingHtml: raw`<p class="step-text">This matches the integrated model and the initial condition.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-            y=\frac{27}{e^2}\approx 3.654
-          \]
-</div>
-
-        <p class="step-text">Separate the variables:</p>
-        <div class="math-block">
-          \[
-          y(1-x)=(1+x)\frac{dy}{dx}
-          \]
-          \[
-          \frac{1}{y}\,dy=\frac{1-x}{1+x}\,dx=\left(-1+\frac{2}{1+x}\right)dx
-          \]
-        </div>
-        <p class="step-text">Integrate and use the condition:</p>
-        <div class="math-block">
-          \[
-          \ln|y|=-x+2\ln|1+x|+C
-          \]
-          \[
-          \ln 3=C
-          \]
-          \[
-          \ln|y|=-2+2\ln 3+\ln 3
-          \]
-          \[
-          y=\frac{27}{e^2}\approx 3.654
-          \]
-        </div>
-      `
-        }
-      ]
-    }),
+    "1e": Object.assign({
+  "browserTitle": "2025 Integration Paper — Question 1(e)",
+  "eyebrow": "Level 3 Integration Walkthrough",
+  "title": "Question 1(e)",
+  "subtitle": "2025 Paper — Separable differential equation with a logarithm",
+  "backHref": "level-3-integration-2025.html",
+  "nextHref": "int-2a2025.html",
+  "nextLabel": "Next question →",
+  "finalNav": {
+    "secondary": {
+      "href": "int-1d2025.html",
+      "label": "← Back to Question 1(d)"
+    },
+    "primary": {
+      "href": "int-2a2025.html",
+      "label": "Next question →"
+    }
+  }
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-integration-2025:1e"]),
     "2a": createConfig("2a", "2025 Paper — Reverse chain rule with a linear power", {
       questionHtml: raw`
         <div class="question-math">
@@ -1396,7 +1311,7 @@
         <p class="step-text">The diagram below shows the cross-section of a hole dug in the ground.</p>
         <p class="step-text">The depth of the hole is measured every \(5\) metres across the top of the hole.</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3a-int" class="graph-svg" viewBox="0 0 520 280" aria-label="Hole cross-section with depths measured every five metres" role="img"></svg>
+          <svg id="question-graph-3a-int" class="graph-svg" viewBox="0 0 520 280" aria-label="Hole cross-section: at distances 0, 5, 10, 15, and 20 metres, depths are 2.12, 2.32, 2.65, 2.54, and 1.88 metres respectively" role="img"></svg>
         </div>
         <p class="step-text">Using the trapezium rule, find an estimate for the area of the cross-section of the hole.</p>
       `,
@@ -1481,6 +1396,8 @@
           \]
           giving your answer in terms of \(k\), where \(k\) is a constant and \(k&gt;1\).
         </p>
+
+        <p class="question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
       `,
       hints: [
         raw`This is a \(\frac{1}{\text{linear}}\) integral, so a logarithm should appear.`,

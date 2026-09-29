@@ -5325,3 +5325,45 @@ html.exam-mode-pending [data-method-cue] {
     transition: none !important;
   }
 }
+
+/* Compact question layout and subordinate mathematical qualifications. */
+body main.app:not(.home-app) .topbar {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+body main.app:not(.home-app) .topbar h1 {
+  font-size: clamp(1.35rem, 3.2vw, 2rem);
+  line-height: 1.2;
+  margin-bottom: .45rem;
+}
+.exam-note, .original-scan {
+  margin: .85rem 0;
+  padding: .65rem .8rem;
+  border: 1px solid #c4d7ed;
+  border-radius: .6rem;
+  background: #f5f9ff;
+  font-size: .95rem;
+}
+.exam-note summary, .original-scan summary {
+  min-height: 2.25rem;
+  cursor: pointer;
+  color: #234d7a;
+  font-weight: 650;
+}
+.question-graph-frame { max-width: 38rem; margin-inline: auto; }
+.original-scan img { max-width: 100%; height: auto; }
+.graph-svg { height: auto; }
+body :focus-visible { outline: 3px solid #175fc4; outline-offset: 3px; }
+
+.attempt-record { margin-top: .75rem; }
+.attempt-record > summary { cursor: pointer; min-height: 44px; padding: .7rem 0; color: #234d7a; font-weight: 650; }
+
+/* Keep native scrolling and keyboard focus clear of the optional pinned card. */
+html { scroll-padding-top: calc(var(--site-header-height, 0px) + var(--question-obscured-height, 0px) + 40px); }
+body.exam-mode-active .authored-support, html.exam-mode-pending .authored-support { display: none !important; }
+.authored-support { margin-block: .9rem; }
+.authored-support > summary { cursor: pointer; padding: .75rem; color: #244c76; }
+.home-hero h1 { font-size: clamp(1.8rem, 3.2vw, 2.75rem); }
+
+.walkthrough-setting-switch { pointer-events: none; }

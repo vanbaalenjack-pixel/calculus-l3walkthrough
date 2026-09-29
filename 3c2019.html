@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91578 — Apply differentiation methods in solving problems"
       },
-      "dateModified": "2026-09-02",
+      "dateModified": "2026-09-24",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,20 +91,20 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260916-2" />
+<link rel="stylesheet" href="style.css?v=20260924-1" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20260916-2"></script>
-  <script defer src="walkthrough-gate.js?v=20260916-2"></script>
-<script defer src="differentiation-walkthrough.js?v=20260916-2"></script>
-  <script defer src="differentiation-2019-data.js?v=20260916-2"></script>
+<script defer src="walkthrough-audit-data.js?v=20260924-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260924-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20260924-1"></script>
+  <script defer src="differentiation-2019-data.js?v=20260924-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-differentiation-2019", "year": 2019}, "question": {"canonical": "https://calc.nz/3c2019.html", "commonMistake": "Finding a stationary value is only part of an optimisation argument; justify that it is the required maximum and respect the domain.", "description": "2019 NCEA Level 3 Differentiation AS91578 Question 3(c) worked solution: maximising a rectangle area under y = 4 - square root of x. Use guided hints and…", "guideLinks": [], "id": "3c", "label": "Question 3(c)", "method": "maximising a rectangle area under \\(y=4-\\sqrt{x}\\).", "methodTitle": "Stationary Points and Optimisation", "reviewStatus": "unreviewed", "skillSlugs": ["stationary-points-optimisation"], "summary": "This walkthrough helps you practise maximising a rectangle area under \\(y=4-\\sqrt{x}\\). Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Stationary Points and Optimisation Worked Solution – 2019 NCEA Level 3 Q3(c) (AS91578) | Calc.nz"}, "standard": {"code": "AS91578", "id": "level-3-differentiation", "label": "Differentiation"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-differentiation-2019", "year": 2019}, "question": {"canonical": "https://calc.nz/3c2019.html", "commonMistake": "Check the feasible domain. Justify a maximum using derivative signs, concavity or endpoints unless the question explicitly says a proof is unnecessary.", "description": "2019 NCEA Level 3 Differentiation AS91578 Question 3(c) worked solution: maximising a rectangle area under y = 4 - square root of x. Use guided hints and…", "guideLinks": [], "id": "3c", "label": "Question 3(c)", "method": "maximising a rectangle area under \\(y=4-\\sqrt{x}\\).", "methodTitle": "Stationary Points and Optimisation", "relatedPractice": {"href": "1d2024.html", "label": "2024 Differentiation · Q1(d)"}, "reviewStatus": "unreviewed", "skillSlugs": ["stationary-points-optimisation"], "summary": "This walkthrough helps you practise maximising a rectangle area under \\(y=4-\\sqrt{x}\\). Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Stationary Points and Optimisation Worked Solution – 2019 NCEA Level 3 Q3(c) (AS91578) | Calc.nz"}, "standard": {"code": "AS91578", "id": "level-3-differentiation", "label": "Differentiation"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20260916-2"></script>
+  <script defer src="site-shell.js?v=20260924-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -141,7 +141,7 @@
 <header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1 id="page-title">2019 NCEA Level 3 Differentiation Question 3(c)</h1>
+        <h1 id="page-title">2019 Differentiation · Q3(c)</h1>
         <p id="page-subtitle" class="subtitle">2019 Paper</p>
       </div>
       <a id="back-link" class="ghost-link" href="level-3-differentiation-2019.html">← Back to paper</a>
@@ -151,7 +151,7 @@
     <section id="question-card" class="question-card static-walkthrough-question" data-prerendered="true">
       <p class="question-label">Question</p>
 
-      <img class="question-screenshot" src="assets/differentiation-2019/3c-question.png" width="2938" height="2125" alt="Scanned exam prompt asking for the maximum area of a rectangle under y equals 4 minus the square root of x; includes a graph." />
+      <p class="step-text">A rectangle has one vertex at \((0,0)\) and the opposite vertex on the curve \(y=4-\sqrt x\), where \(0\lt x\lt16\). Its sides lie along the axes, as in the diagram. Find the maximum possible area of the rectangle.</p><p class="step-text">You do not need to prove that the area you have found is a maximum.</p><div class="graph-frame question-graph-frame"><svg class="graph-svg" viewBox="0 0 440 320" role="img" aria-label="Rectangle in the first quadrant with horizontal and vertical sides, bottom-left corner at the origin and top-right corner on y = 4 − √x. Curve intercepts: (0,4) and (16,0)."><rect width="440" height="320" fill="white"/><path d="M32.0 284.0L407.0 284.0" fill="none" stroke="#244c76" stroke-width="2"/><path d="M32.0 284.0L32.0 34.0" fill="none" stroke="#244c76" stroke-width="2"/><text x="408" y="276.0" fill="#172d45" font-size="15">x</text><text x="40.0" y="27" fill="#172d45" font-size="15">y</text><path d="M32.0 84.0 L33.67 98.14 L35.33 104.0 L37.0 108.49 L38.67 112.28 L40.33 115.62 L42.0 118.64 L43.67 121.42 L45.33 124.0 L47.0 126.43 L48.67 128.72 L50.33 130.9 L52.0 132.99 L53.67 134.99 L55.33 136.92 L57.0 138.77 L58.67 140.57 L60.33 142.31 L62.0 144.0 L63.67 145.64 L65.33 147.25 L67.0 148.81 L68.67 150.33 L70.33 151.82 L72.0 153.28 L73.67 154.71 L75.33 156.11 L77.0 157.48 L78.67 158.83 L80.33 160.16 L82.0 161.46 L83.67 162.74 L85.33 164.0 L87.0 165.24 L88.67 166.46 L90.33 167.67 L92.0 168.85 L93.67 170.02 L95.33 171.18 L97.0 172.32 L98.67 173.44 L100.33 174.55 L102.0 175.65 L103.67 176.74 L105.33 177.81 L107.0 178.87 L108.67 179.92 L110.33 180.95 L112.0 181.98 L113.67 182.99 L115.33 184.0 L117.0 185.0 L118.67 185.98 L120.33 186.96 L122.0 187.92 L123.67 188.88 L125.33 189.83 L127.0 190.77 L128.67 191.7 L130.33 192.63 L132.0 193.54 L133.67 194.45 L135.33 195.36 L137.0 196.25 L138.67 197.14 L140.33 198.02 L142.0 198.89 L143.67 199.76 L145.33 200.62 L147.0 201.47 L148.67 202.32 L150.33 203.16 L152.0 204.0 L153.67 204.83 L155.33 205.66 L157.0 206.47 L158.67 207.29 L160.33 208.1 L162.0 208.9 L163.67 209.7 L165.33 210.49 L167.0 211.28 L168.67 212.06 L170.33 212.84 L172.0 213.61 L173.67 214.38 L175.33 215.15 L177.0 215.91 L178.67 216.66 L180.33 217.42 L182.0 218.16 L183.67 218.91 L185.33 219.65 L187.0 220.38 L188.67 221.11 L190.33 221.84 L192.0 222.56 L193.67 223.28 L195.33 224.0 L197.0 224.71 L198.67 225.42 L200.33 226.13 L202.0 226.83 L203.67 227.53 L205.33 228.22 L207.0 228.91 L208.67 229.6 L210.33 230.29 L212.0 230.97 L213.67 231.65 L215.33 232.32 L217.0 233.0 L218.67 233.67 L220.33 234.33 L222.0 235.0 L223.67 235.66 L225.33 236.32 L227.0 236.97 L228.67 237.62 L230.33 238.27 L232.0 238.92 L233.67 239.56 L235.33 240.2 L237.0 240.84 L238.67 241.48 L240.33 242.11 L242.0 242.75 L243.67 243.37 L245.33 244.0 L247.0 244.62 L248.67 245.25 L250.33 245.86 L252.0 246.48 L253.67 247.1 L255.33 247.71 L257.0 248.32 L258.67 248.92 L260.33 249.53 L262.0 250.13 L263.67 250.73 L265.33 251.33 L267.0 251.93 L268.67 252.52 L270.33 253.12 L272.0 253.71 L273.67 254.29 L275.33 254.88 L277.0 255.46 L278.67 256.05 L280.33 256.63 L282.0 257.21 L283.67 257.78 L285.33 258.36 L287.0 258.93 L288.67 259.5 L290.33 260.07 L292.0 260.64 L293.67 261.2 L295.33 261.76 L297.0 262.33 L298.67 262.89 L300.33 263.44 L302.0 264.0 L303.67 264.55 L305.33 265.11 L307.0 265.66 L308.67 266.21 L310.33 266.76 L312.0 267.3 L313.67 267.85 L315.33 268.39 L317.0 268.93 L318.67 269.47 L320.33 270.01 L322.0 270.55 L323.67 271.08 L325.33 271.62 L327.0 272.15 L328.67 272.68 L330.33 273.21 L332.0 273.74 L333.67 274.26 L335.33 274.79 L337.0 275.31 L338.67 275.83 L340.33 276.35 L342.0 276.87 L343.67 277.39 L345.33 277.91 L347.0 278.42 L348.67 278.94 L350.33 279.45 L352.0 279.96 L353.67 280.47 L355.33 280.98 L357.0 281.48 L358.67 281.99 L360.33 282.49 L362.0 283.0 L363.67 283.5 L365.33 284.0" stroke="#2563aa" stroke-width="2.5" fill="none"/><rect x="32.0" y="184.0" width="83.33" height="100.0" fill="#dbeafe" stroke="#244c76"/><text x="357.33" y="304.0" fill="#172d45" font-size="15">16</text><text x="12.0" y="84.0" fill="#172d45" font-size="15">4</text></svg></div><p class="step-text">You must use calculus and show any derivatives that you need to find when solving this problem.</p><details class="original-scan"><summary>Original question scan</summary><img class="question-screenshot" width="2938" height="2125" loading="lazy" src="assets/differentiation-2019/3c-question.png" alt="Original scan of the question transcribed above" /></details>
 
       <noscript><p class="question-note">Bookmarks, retry marks, exam mode, and the pinned-question setting need JavaScript. The question and first learning step remain available.</p></noscript>
     </section>
@@ -192,7 +192,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Maximising a rectangle area under \(y=4-\sqrt{x}\).</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 3(c)</span> from the <a href="level-3-differentiation-2019.html" data-seo-year-link>2019 NCEA Level 3 Differentiation paper</a> for <a href="level-3-differentiation.html" data-seo-standard-link>AS91578 — Apply differentiation methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91578">official NZQA resources for AS91578</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-09-02">2 September 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-09-24">24 September 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -201,9 +201,11 @@
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
       <p class="step-text" data-seo-summary>This walkthrough helps you practise maximising a rectangle area under \(y=4-\sqrt{x}\). Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Finding a stationary value is only part of an optimisation argument; justify that it is the required maximum and respect the domain.</p>
+      <h3>Check</h3>
+      <p class="step-text" data-seo-mistake>Check the feasible domain. Justify a maximum using derivative signs, concavity or endpoints unless the question explicitly says a proof is unnecessary.</p>
+      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
       <h3>Continue practising</h3>
+      <p class="step-text" data-related-practice>Try a related question: <a href="1d2024.html">2024 Differentiation · Q1(d)</a>. Attempt it before opening working, then return to this question later.</p>
       <div class="nav-row">
         <a class="nav-btn secondary" href="3b2019.html" data-seo-related="previous">← Question 3(b)</a>
         <a class="nav-btn secondary" href="3d2019.html" data-seo-related="next">Question 3(d) →</a>

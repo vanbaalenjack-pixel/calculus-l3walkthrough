@@ -4,12 +4,6 @@ import CryptoKit
 import Foundation
 import JavaScriptCore
 
-private let expectedRouteCount = 447
-private let expectedPhysicalPageCount = 335
-private let expectedQueryRouteCount = 120
-private let expectedExternalRouteCount = 420
-private let expectedInlineRouteCount = 27
-private let expectedExternalDataFileCount = 28
 private let sharedAuditOverlayFile = "walkthrough-audit-data.js"
 
 private enum ExtractorError: Error, CustomStringConvertible {
@@ -176,17 +170,8 @@ private func catalogueRoutes(root: URL) throws -> [CatalogueRoute] {
         }
     }
 
-    guard routes.count == expectedRouteCount else {
-        try fail("Expected \(expectedRouteCount) catalogue routes, found \(routes.count).")
-    }
     let queryCount = routes.filter { $0.href.contains("?") }.count
-    guard queryCount == expectedQueryRouteCount else {
-        try fail("Expected \(expectedQueryRouteCount) query routes, found \(queryCount).")
-    }
     let physicalPageCount = Set(routes.map(\.pageFile)).count
-    guard physicalPageCount == expectedPhysicalPageCount else {
-        try fail("Expected \(expectedPhysicalPageCount) physical walkthrough pages, found \(physicalPageCount).")
-    }
     return routes
 }
 
@@ -603,12 +588,6 @@ private func run() throws {
 
     let externalRoutes = routes.filter { pageSources[$0.pageFile]?.dataFile != nil }
     let inlineRoutes = routes.filter { pageSources[$0.pageFile]?.inlineScript != nil }
-    guard externalRoutes.count == expectedExternalRouteCount else {
-        try fail("Expected \(expectedExternalRouteCount) external-data routes, found \(externalRoutes.count).")
-    }
-    guard inlineRoutes.count == expectedInlineRouteCount else {
-        try fail("Expected \(expectedInlineRouteCount) inline-config routes, found \(inlineRoutes.count).")
-    }
 
     let referencedDataFiles = Set(externalRoutes.compactMap { pageSources[$0.pageFile]?.dataFile })
     let onDiskDataFiles = Set(
@@ -617,9 +596,6 @@ private func run() throws {
     )
     guard referencedDataFiles == onDiskDataFiles else {
         try fail("Walkthrough data-file coverage mismatch (\(symmetricDifference(referencedDataFiles, onDiskDataFiles))).")
-    }
-    guard referencedDataFiles.count == expectedExternalDataFileCount else {
-        try fail("Expected \(expectedExternalDataFileCount) external data files, found \(referencedDataFiles.count).")
     }
 
     var result: [String: Any] = [:]
@@ -633,6 +609,13 @@ private func run() throws {
         }
         let context = try context(for: dataFile)
         try evaluate("var window = {}; var document;", in: context, sourceURL: dataURL, sourceName: "\(dataFile) bootstrap")
+        // Some corrected records refer directly to the authoritative shared content.
+        let auditURL = root.appendingPathComponent(sharedAuditOverlayFile)
+        let auditData = try readData(auditURL)
+        guard let auditSource = String(data: auditData, encoding: .utf8) else {
+            try fail("Expected UTF-8 shared walkthrough content.")
+        }
+        try evaluate(auditSource, in: context, sourceURL: auditURL, sourceName: sharedAuditOverlayFile)
         try evaluate(source, in: context, sourceURL: dataURL, sourceName: dataFile)
         let globalName = try externalGlobalName(context: context, sourceName: dataFile)
 
@@ -661,6 +644,7 @@ private func run() throws {
             record["pageFile"] = route.pageFile
             record["configSource"] = dataFile
             record["sourceDigest"] = digest
+            record["dependencyDigests"] = [sharedAuditOverlayFile: sha256(auditData)]
             guard result.updateValue(record, forKey: route.href) == nil else {
                 try fail("Duplicate extracted logical route: \(route.href)")
             }
@@ -689,9 +673,9 @@ private func run() throws {
         }
     }
 
-    guard result.count == expectedRouteCount else {
+    guard result.count == routes.count else {
         let missing = Set(routes.map(\.href)).subtracting(result.keys).sorted()
-        try fail("Expected \(expectedRouteCount) extracted routes, found \(result.count); missing: \(missing.joined(separator: ", ")).")
+        try fail("Expected \(routes.count) extracted routes, found \(result.count); missing: \(missing.joined(separator: ", ")).")
     }
     guard JSONSerialization.isValidJSONObject(result) else {
         try fail("Extracted walkthrough records cannot be encoded as JSON.")

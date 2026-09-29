@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91578 — Apply differentiation methods in solving problems"
       },
-      "dateModified": "2026-09-02",
+      "dateModified": "2026-09-24",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,20 +91,20 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260916-2" />
+<link rel="stylesheet" href="style.css?v=20260924-1" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20260916-2"></script>
-  <script defer src="walkthrough-gate.js?v=20260916-2"></script>
-<script defer src="differentiation-walkthrough.js?v=20260916-2"></script>
-  <script defer src="differentiation-2024-data.js?v=20260916-2"></script>
+<script defer src="walkthrough-audit-data.js?v=20260924-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260924-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20260924-1"></script>
+  <script defer src="differentiation-2024-data.js?v=20260924-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-differentiation-2024", "year": 2024}, "question": {"canonical": "https://calc.nz/2e2024.html", "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.", "description": "2024 NCEA Level 3 Differentiation AS91578 Question 2(e) worked solution: using a discriminant condition to force a single turning point. Use guided hints…", "guideLinks": [], "id": "2e", "label": "Question 2(e)", "method": "using a discriminant condition to force a single turning point.", "methodTitle": "Stationary Points and Optimisation", "reviewStatus": "awaiting-teacher-review", "skillSlugs": ["stationary-points-optimisation"], "summary": "This walkthrough helps you practise using a discriminant condition to force a single turning point. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Stationary Points and Optimisation Worked Solution – 2024 NCEA Level 3 Q2(e) (AS91578) | Calc.nz"}, "standard": {"code": "AS91578", "id": "level-3-differentiation", "label": "Differentiation"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-differentiation-2024", "year": 2024}, "question": {"canonical": "https://calc.nz/2e2024.html", "commonMistake": "Check the leading coefficient is nonzero before applying the quadratic discriminant, then interpret its sign for the required number and type of roots.", "description": "2024 NCEA Level 3 Differentiation AS91578 Question 2(e) worked solution: using a discriminant condition to force a single turning point. Use guided hints…", "guideLinks": [], "id": "2e", "label": "Question 2(e)", "method": "using a discriminant condition to force a single turning point.", "methodTitle": "Stationary Points and Optimisation", "relatedPractice": {"href": "3e2025.html", "label": "2025 Differentiation · Q3(e)"}, "reviewStatus": "awaiting-teacher-review", "skillSlugs": ["stationary-points-optimisation"], "summary": "This walkthrough helps you practise using a discriminant condition to force a single turning point. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Stationary Points and Optimisation Worked Solution – 2024 NCEA Level 3 Q2(e) (AS91578) | Calc.nz"}, "standard": {"code": "AS91578", "id": "level-3-differentiation", "label": "Differentiation"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20260916-2"></script>
+  <script defer src="site-shell.js?v=20260924-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -141,7 +141,7 @@
 <header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1 id="page-title">2024 NCEA Level 3 Differentiation Question 2(e)</h1>
+        <h1 id="page-title">2024 Differentiation · Q2(e)</h1>
         <p id="page-subtitle" class="subtitle">2024 Paper</p>
       </div>
       <a id="back-link" class="ghost-link" href="level-3-differentiation-2024.html">← Back to paper</a>
@@ -151,39 +151,25 @@
     <section id="question-card" class="question-card static-walkthrough-question" data-prerendered="true">
       <p class="question-label">Question</p>
       <aside class="walkthrough-review-notice" aria-label="Review status"><p class="question-label">Review status</p><p>This walkthrough has been corrected following an internal audit and is awaiting independent teacher review.</p></aside>
-      <p class="step-text">
-              The graph of the function
-              \[
-              y=\frac{xe^{3x}}{2x+k},
-              \]
-              where \(k\) is a non-zero constant, has a single turning point at \(Q\).
-            </p>
-            <p class="step-text">Find the \(x\)-coordinate of the point \(Q\).</p>
-            <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
+      <p class="step-text">The assessment question describes the graph as having a single “turning point” \(Q\), where \(k\ne0\).</p>
+            <div role="group" class="question-math" aria-label="Function">\[y=\frac{xe^{3x}}{2x+k}.\]</div>
+            <p class="step-text">Find the \(x\)-coordinate of \(Q\), showing the derivatives used.</p>
 
       <noscript><p class="question-note">Bookmarks, retry marks, exam mode, and the pinned-question setting need JavaScript. The question and first learning step remain available.</p></noscript>
     </section>
     <section id="hints-card" class="question-card tips-card static-walkthrough-support" data-prerendered="true">
       <p class="question-label">First walkthrough idea</p>
-      <h2 id="static-first-idea-heading">Focus to try first</h2>
-      <p class="step-text">differentiating to get the turning-point equation, then using the discriminant to force one repeated solution.</p>
+      <h2 id="static-first-idea-heading">Hint to try first</h2>
+      <p class="step-text">Differentiate and identify the quadratic factor in the numerator.</p>
     </section>
     <div id="walkthrough-content" class="static-walkthrough-content" data-prerendered="true">
       <section class="step-card static-first-step" aria-labelledby="static-first-step-heading">
         <p class="step-number">Step 1</p>
-        <h2 id="static-first-step-heading">Differentiate the function</h2>
-        <p class="step-text">The derivative tidies up to a nice quadratic factor on top.</p>
+        <h2 id="static-first-step-heading">Differentiate</h2>
+        <p class="step-text">The exponential and squared denominator stay positive on the function’s domain, so stationary values come from the quadratic numerator.</p>
         <details class="static-first-step-working">
           <summary>Show the first step’s working</summary>
-          <div class="walkthrough-step-working"><p class="step-text">The derivative tidies up to a nice quadratic factor on top.</p>
-    <div class="answer-highlight walkthrough-answer-highlight">
-      <p class="question-label">Key result</p>
-      <div class="math-block">
-      \[
-      \frac{e^{\left(3 x\right)} \left(6 x^{2} + 3 k x + k\right)}{\left(2 x + k\right)^{2}}
-      \]
-    </div>
-    </div></div>
+          <div class="walkthrough-step-working"><div class="math-block">\[y'=\frac{e^{3x}(6x^2+3kx+k)}{(2x+k)^2}.\]</div></div>
         </details>
       </section>
       <noscript><p class="question-note">This no-JavaScript view shows the question, the first idea, and the first worked step. Enable JavaScript for all reveals, progress controls, and saved practice features.</p></noscript>
@@ -198,7 +184,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Using a discriminant condition to force a single turning point.</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 2(e)</span> from the <a href="level-3-differentiation-2024.html" data-seo-year-link>2024 NCEA Level 3 Differentiation paper</a> for <a href="level-3-differentiation.html" data-seo-standard-link>AS91578 — Apply differentiation methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91578">official NZQA resources for AS91578</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-09-02">2 September 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-09-24">24 September 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -207,9 +193,11 @@
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
       <p class="step-text" data-seo-summary>This walkthrough helps you practise using a discriminant condition to force a single turning point. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.</p>
+      <h3>Check</h3>
+      <p class="step-text" data-seo-mistake>Check the leading coefficient is nonzero before applying the quadratic discriminant, then interpret its sign for the required number and type of roots.</p>
+      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
       <h3>Continue practising</h3>
+      <p class="step-text" data-related-practice>Try a related question: <a href="3e2025.html">2025 Differentiation · Q3(e)</a>. Attempt it before opening working, then return to this question later.</p>
       <div class="nav-row">
         <a class="nav-btn secondary" href="2d2024.html" data-seo-related="previous">← Question 2(d)</a>
         <a class="nav-btn secondary" href="3a2024.html" data-seo-related="next">Question 3(a) →</a>

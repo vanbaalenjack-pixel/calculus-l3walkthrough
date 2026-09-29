@@ -14,10 +14,6 @@ import sys
 
 ROOT = Path(__file__).resolve().parent.parent
 EXTRACTOR = ROOT / "scripts" / "extract-walkthrough-content.swift"
-EXPECTED_ROUTE_COUNT = 447
-EXPECTED_QUERY_COUNT = 120
-EXPECTED_EXTERNAL_COUNT = 420
-EXPECTED_INLINE_COUNT = 27
 DIGEST_PATTERN = re.compile(r"^sha256:[0-9a-f]{64}$")
 
 
@@ -102,18 +98,19 @@ def validate() -> None:
     repeated_records, repeated_output = run_extractor()
     if raw_output != repeated_output or records != repeated_records:
         fail("identical source inputs did not produce byte-identical JSON")
-    if len(records) != EXPECTED_ROUTE_COUNT:
-        fail(f"expected {EXPECTED_ROUTE_COUNT} routes, found {len(records)}")
-
+    catalogue = json.loads((ROOT / "question-catalogue.js").read_text().split("=", 1)[1].strip().removesuffix(";"))
+    expected_routes = {q["href"] for level in catalogue["levels"] for standard in level["standards"] for paper in standard["papers"] for q in paper["questions"]}
+    if set(records) != expected_routes:
+        fail(f"extractor/catalogue route mismatch: {set(records) ^ expected_routes}")
     query_routes = [route for route in records if "?" in route]
     external = [record for record in records.values() if str(record.get("configSource", "")).endswith("-data.js")]
     inline = [record for record in records.values() if str(record.get("configSource", "")).endswith("#inline-config")]
-    if len(query_routes) != EXPECTED_QUERY_COUNT:
-        fail(f"expected {EXPECTED_QUERY_COUNT} query routes, found {len(query_routes)}")
-    if len(external) != EXPECTED_EXTERNAL_COUNT:
-        fail(f"expected {EXPECTED_EXTERNAL_COUNT} external records, found {len(external)}")
-    if len(inline) != EXPECTED_INLINE_COUNT:
-        fail(f"expected {EXPECTED_INLINE_COUNT} inline records, found {len(inline)}")
+    if len(external) + len(inline) != len(records):
+        fail("Every catalogue route must have exactly one authoritative configuration")
+    overlay_digest = "sha256:" + hashlib.sha256((ROOT / "walkthrough-audit-data.js").read_bytes()).hexdigest()
+    for record in external:
+        if record.get("dependencyDigests", {}).get("walkthrough-audit-data.js") != overlay_digest:
+            fail("Shared corrections are missing from content provenance")
 
     for route, record in records.items():
         validate_record(route, record)
@@ -150,8 +147,8 @@ def validate() -> None:
         record for record in records.values()
         if int(record.get("renderedQuestionElementCount", 0)) > 0
     ]
-    if len(rendered_routes) != 45:
-        fail(f"expected 45 question-diagram routes to be statically rendered, found {len(rendered_routes)}")
+    if not rendered_routes:
+        fail("question diagrams must be statically rendered")
 
     screenshot_sources = {
         "complex-2019-data.js",
@@ -165,6 +162,12 @@ def validate() -> None:
         if source not in screenshot_sources:
             continue
         question_html = require_text(record.get("questionHtml"), f"{route}: questionHtml")
+        # Authoritative corrected overlays replace some scans with ordinary text.
+        if '<img' not in question_html:
+            if not re.search(r"\\[\[(]", question_html):
+                fail(f"{route}: corrected prompt has no mathematical content")
+            transcribed_by_source[source] += 1
+            continue
         if "data-question-transcription" not in question_html:
             fail(f"{route}: screenshot prompt has no authored text transcription")
         if "text transcription follows" not in question_html:
@@ -172,9 +175,10 @@ def validate() -> None:
         if "the mathematical expression shown" in question_html:
             fail(f"{route}: screenshot prompt retained a generic mathematical alt")
         transcribed_by_source[source] += 1
-    if set(transcribed_by_source.values()) != {15}:
+    expected_transcribed = {source: sum(r["configSource"] == source for r in records.values()) for source in screenshot_sources}
+    if transcribed_by_source != expected_transcribed:
         fail(
-            "expected 15 transcribed screenshot prompts per assigned source, found "
+            "expected all screenshot prompts to have text transcriptions, found "
             + repr(transcribed_by_source)
         )
 

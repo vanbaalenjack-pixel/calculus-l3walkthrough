@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91578 — Apply differentiation methods in solving problems"
       },
-      "dateModified": "2026-09-02",
+      "dateModified": "2026-09-24",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,20 +91,20 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260916-2" />
+<link rel="stylesheet" href="style.css?v=20260924-1" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20260916-2"></script>
-  <script defer src="walkthrough-gate.js?v=20260916-2"></script>
-<script defer src="differentiation-walkthrough.js?v=20260916-2"></script>
-  <script defer src="differentiation-2025-data.js?v=20260916-2"></script>
+<script defer src="walkthrough-audit-data.js?v=20260924-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260924-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20260924-1"></script>
+  <script defer src="differentiation-2025-data.js?v=20260924-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-differentiation-2025", "year": 2025}, "question": {"canonical": "https://calc.nz/3a2025.html", "commonMistake": "After solving the derivative condition, check the point's nature and answer the conclusion the question actually asks for.", "description": "2025 NCEA Level 3 Differentiation AS91578 Question 3(a) worked solution: reading differentiability, stationary points, and a limit from a graph. Use guided…", "guideLinks": [], "id": "3a", "label": "Question 3(a)", "method": "reading differentiability, stationary points, and a limit from a graph.", "methodTitle": "Stationary Points and Optimisation", "reviewStatus": "unreviewed", "skillSlugs": ["stationary-points-optimisation"], "summary": "This walkthrough helps you practise reading differentiability, stationary points, and a limit from a graph. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Stationary Points and Optimisation Worked Solution – 2025 NCEA Level 3 Q3(a) (AS91578) | Calc.nz"}, "standard": {"code": "AS91578", "id": "level-3-differentiation", "label": "Differentiation"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-differentiation-2025", "year": 2025}, "question": {"canonical": "https://calc.nz/3a2025.html", "commonMistake": "After solving the derivative condition, check the point's nature and answer the conclusion the question actually asks for.", "description": "2025 NCEA Level 3 Differentiation AS91578 Question 3(a) worked solution: reading differentiability, stationary points, and a limit from a graph. Use guided…", "guideLinks": [], "id": "3a", "label": "Question 3(a)", "method": "reading differentiability, stationary points, and a limit from a graph.", "methodTitle": "Stationary Points and Optimisation", "relatedPractice": {"href": "1d2024.html", "label": "2024 Differentiation · Q1(d)"}, "reviewStatus": "unreviewed", "skillSlugs": ["stationary-points-optimisation", "graphs-and-derivatives"], "summary": "This walkthrough helps you practise reading differentiability, stationary points, and a limit from a graph. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Stationary Points and Optimisation Worked Solution – 2025 NCEA Level 3 Q3(a) (AS91578) | Calc.nz"}, "standard": {"code": "AS91578", "id": "level-3-differentiation", "label": "Differentiation"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20260916-2"></script>
+  <script defer src="site-shell.js?v=20260924-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -141,7 +141,7 @@
 <header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1 id="page-title">2025 NCEA Level 3 Differentiation Question 3(a)</h1>
+        <h1 id="page-title">2025 Differentiation · Q3(a)</h1>
         <p id="page-subtitle" class="subtitle">2025 Paper</p>
       </div>
       <a id="back-link" class="ghost-link" href="level-3-differentiation-2025.html">← Back to paper</a>
@@ -153,7 +153,7 @@
 
       <p class="step-text">The graph below shows the function \(y=f(x)\).</p>
             <div class="graph-frame question-graph-frame">
-              <svg id="question-graph-3a" class="graph-svg" viewBox="0 0 460 320" aria-label="Graph of a piecewise function with a horizontal ray, two holes, and turning points" role="img">
+              <svg id="question-graph-3a" class="graph-svg" viewBox="0 0 460 320" aria-label="Graph: a horizontal ray y = -2 ends filled at (-6,-2). A separate smooth arc starts open at (-6,2), peaks at (-4,9), and ends open at (-2,2); a separate filled point is (-2,7). A rising line joins the open points (-2,2) and (3,5). From the open point (3,5), a smooth upward-curving arc falls to (6,-3), then rises." role="img">
           <rect class="graph-bg" x="0" y="0" width="460" height="320"></rect>
           <line class="graph-grid-line" x1="28" y1="292" x2="28" y2="28"></line><line class="graph-grid-line" x1="48.2" y1="292" x2="48.2" y2="28"></line><line class="graph-grid-line" x1="68.4" y1="292" x2="68.4" y2="28"></line><line class="graph-grid-line" x1="88.6" y1="292" x2="88.6" y2="28"></line><line class="graph-grid-line" x1="108.8" y1="292" x2="108.8" y2="28"></line><line class="graph-grid-line" x1="129" y1="292" x2="129" y2="28"></line><line class="graph-grid-line" x1="149.2" y1="292" x2="149.2" y2="28"></line><line class="graph-grid-line" x1="169.4" y1="292" x2="169.4" y2="28"></line><line class="graph-grid-line" x1="189.6" y1="292" x2="189.6" y2="28"></line><line class="graph-grid-line" x1="209.8" y1="292" x2="209.8" y2="28"></line><line class="graph-grid-line" x1="230" y1="292" x2="230" y2="28"></line><line class="graph-grid-line" x1="250.2" y1="292" x2="250.2" y2="28"></line><line class="graph-grid-line" x1="270.4" y1="292" x2="270.4" y2="28"></line><line class="graph-grid-line" x1="290.6" y1="292" x2="290.6" y2="28"></line><line class="graph-grid-line" x1="310.8" y1="292" x2="310.8" y2="28"></line><line class="graph-grid-line" x1="331" y1="292" x2="331" y2="28"></line><line class="graph-grid-line" x1="351.2" y1="292" x2="351.2" y2="28"></line><line class="graph-grid-line" x1="371.4" y1="292" x2="371.4" y2="28"></line><line class="graph-grid-line" x1="391.6" y1="292" x2="391.6" y2="28"></line><line class="graph-grid-line" x1="411.8" y1="292" x2="411.8" y2="28"></line><line class="graph-grid-line" x1="432" y1="292" x2="432" y2="28"></line><line class="graph-grid-line" x1="28" y1="292" x2="432" y2="292"></line><line class="graph-grid-line" x1="28" y1="274.4" x2="432" y2="274.4"></line><line class="graph-grid-line" x1="28" y1="256.8" x2="432" y2="256.8"></line><line class="graph-grid-line" x1="28" y1="239.2" x2="432" y2="239.2"></line><line class="graph-grid-line" x1="28" y1="221.6" x2="432" y2="221.6"></line><line class="graph-grid-line" x1="28" y1="204" x2="432" y2="204"></line><line class="graph-grid-line" x1="28" y1="186.4" x2="432" y2="186.4"></line><line class="graph-grid-line" x1="28" y1="168.8" x2="432" y2="168.8"></line><line class="graph-grid-line" x1="28" y1="151.2" x2="432" y2="151.2"></line><line class="graph-grid-line" x1="28" y1="133.6" x2="432" y2="133.6"></line><line class="graph-grid-line" x1="28" y1="116" x2="432" y2="116"></line><line class="graph-grid-line" x1="28" y1="98.4" x2="432" y2="98.4"></line><line class="graph-grid-line" x1="28" y1="80.8" x2="432" y2="80.8"></line><line class="graph-grid-line" x1="28" y1="63.2" x2="432" y2="63.2"></line><line class="graph-grid-line" x1="28" y1="45.6" x2="432" y2="45.6"></line><line class="graph-grid-line" x1="28" y1="28" x2="432" y2="28"></line>
           <line class="graph-axis" x1="28" y1="204" x2="432" y2="204"></line>
@@ -212,7 +212,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Reading differentiability, stationary points, and a limit from a graph.</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 3(a)</span> from the <a href="level-3-differentiation-2025.html" data-seo-year-link>2025 NCEA Level 3 Differentiation paper</a> for <a href="level-3-differentiation.html" data-seo-standard-link>AS91578 — Apply differentiation methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91578">official NZQA resources for AS91578</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-09-02">2 September 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-09-24">24 September 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -221,9 +221,11 @@
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
       <p class="step-text" data-seo-summary>This walkthrough helps you practise reading differentiability, stationary points, and a limit from a graph. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Common mistake to avoid</h3>
+      <h3>Check</h3>
       <p class="step-text" data-seo-mistake>After solving the derivative condition, check the point&#x27;s nature and answer the conclusion the question actually asks for.</p>
+      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
       <h3>Continue practising</h3>
+      <p class="step-text" data-related-practice>Try a related question: <a href="1d2024.html">2024 Differentiation · Q1(d)</a>. Attempt it before opening working, then return to this question later.</p>
       <div class="nav-row">
         <a class="nav-btn secondary" href="2e2025.html" data-seo-related="previous">← Question 2(e)</a>
         <a class="nav-btn secondary" href="3b2025.html" data-seo-related="next">Question 3(b) →</a>
@@ -231,7 +233,7 @@
       <ul class="step-text">
         <li><a href="level-3-differentiation-2025.html" data-seo-related-year>All 2025 Differentiation walkthroughs</a></li>
         <li><a href="level-3-differentiation.html" data-seo-standard-link>All AS91578 Differentiation years</a></li>
-        <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-stationary-points-optimisation.html">Stationary points and optimisation</a></li>
+        <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-stationary-points-optimisation.html">Stationary points and optimisation</a>, <a href="skill-graphs-and-derivatives.html">Graphs, signs and limits</a></li>
         <li data-seo-related-guides hidden></li>
       </ul>
     </section>

@@ -33,72 +33,14 @@
         </div>
       `,
       hints: [
-        raw`Simplify the square root first. Split it into \(\sqrt{y^6}\) and \(\sqrt{64}\).`,
-        raw`\(\sqrt{y^6}=y^3\) and \(\sqrt{64}=8\), so the radical becomes \(\frac{y^3}{8}\).`,
-        raw`Multiply \(5y\) by \(\frac{y^3}{8}\) and combine the powers of \(y\).`
+        raw`Write \(y^6\) as the square of \(y^3\).`,
+        raw`Use \(\sqrt{u^2}=|u|\) for real \(u\), and \(\sqrt{64}=8\).`,
+        raw`Multiply by \(5y\); check a negative value of \(y\).`
       ],
-      answerHtml: raw`
-        <p class="step-text">Simplify the radical first:</p>
-        <div class="math-block">
-          \[
-          \sqrt{\frac{y^6}{64}}=\frac{y^3}{8}
-          \]
-        </div>
-        <p class="step-text">Then multiply by \(5y\):</p>
-        <div class="math-block">
-          \[
-          5y\times\frac{y^3}{8}=\frac{5y^4}{8}
-          \]
-        </div>
-      `,
+      answerHtml: raw`<p class="step-text">For real \(y\), a principal square root is nonnegative: \(\sqrt{(y^3)^2}=|y^3|\).</p><div class="math-block">\[5y\sqrt{\frac{y^6}{64}}=5y\frac{|y^3|}{8}=\frac{5y|y^3|}{8}.\]</div><p class="step-text">Check \(y=-1\): the original expression and this result are both \(-5/8\).</p><details class="exam-note"><summary>Exam note</summary><p class="step-text">The schedule gives \(5y^4/8\). This is the form obtained if \(y\ge0\) is intended. Without that assumption, retain the absolute value; for \(y\lt0\), the result is \(-5y^4/8\).</p></details>`,
       guidedSteps: [
-        {
-          title: raw`Simplify the square root`,
-          previewHtml: raw`The square root halves the power on \(y^6\) and turns \(64\) into \(8\).`,
-          workingHtml: raw`
-            <div class="math-block">
-              \[
-              \sqrt{\frac{y^6}{64}}=\frac{\sqrt{y^6}}{\sqrt{64}}
-              \]
-            </div>
-
-<p class="step-text">The square root halves the power on \(y^6\) and turns \(64\) into \(8\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  <div class="math-block">
-  \[
-  \frac{y^{3}}{8}
-  \]
-</div>
-</div>`
-        },
-        {
-          title: raw`Multiply through`,
-          previewHtml: raw`\(5y\times\frac{y^3}{8}=\frac{5y^4}{8}\).`,
-          workingHtml: raw`<p class="step-text">\(5y\times\frac{y^3}{8}=\frac{5y^4}{8}\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  <div class="math-block">
-  \[
-  \frac{5 y^{4}}{8}
-  \]
-</div>
-</div>
-
-        <p class="step-text">Simplify the radical first:</p>
-        <div class="math-block">
-          \[
-          \sqrt{\frac{y^6}{64}}=\frac{y^3}{8}
-          \]
-        </div>
-        <p class="step-text">Then multiply by \(5y\):</p>
-        <div class="math-block">
-          \[
-          5y\times\frac{y^3}{8}=\frac{5y^4}{8}
-          \]
-        </div>
-      `
-        }
+        {title: raw`Simplify the principal root`, previewHtml: raw`What must be true of the sign of a square root?`, workingHtml: raw`<p class="step-text">\(\sqrt{y^6/64}=|y^3|/8\), because the square root is nonnegative.</p>`},
+        {title: raw`Multiply and check the sign`, previewHtml: raw`Try \(y=-1\) as a check on your expression.`, workingHtml: raw`<p class="step-text">For real \(y\), a principal square root is nonnegative: \(\sqrt{(y^3)^2}=|y^3|\).</p><div class="math-block">\[5y\sqrt{\frac{y^6}{64}}=5y\frac{|y^3|}{8}=\frac{5y|y^3|}{8}.\]</div><p class="step-text">Check \(y=-1\): the original expression and this result are both \(-5/8\).</p><details class="exam-note"><summary>Exam note</summary><p class="step-text">The schedule gives \(5y^4/8\). This is the form obtained if \(y\ge0\) is intended. Without that assumption, retain the absolute value; for \(y\lt0\), the result is \(-5y^4/8\).</p></details>`}
       ]
     },
     "1b": {
@@ -509,12 +451,12 @@
           \]
         </div>
         <p class="step-text">Solve the equation.</p>
-        <p class="step-text"><strong>Hint:</strong> Let \(u=5^x\).</p>
+        <p class="step-text"><strong>Hint:</strong> Let \(n=5^x\).</p>
       `,
       hints: [
         raw`Rewrite \(5^{2x+1}\) as \(5(5^x)^2\) and \(5^{x+2}\) as \(25(5^x)\).`,
-        raw`Let \(u=5^x\), divide through by \(5\), and solve the quadratic \(u^2-5u-24=0\).`,
-        raw`Use the positive value of \(u\), then solve \(5^x=8\).`
+        raw`Let \(n=5^x\), divide through by \(5\), and solve the quadratic \(n^2-5n-24=0\).`,
+        raw`Use the positive value of \(n\), then solve \(5^x=8\).`
       ],
       answerHtml: raw`
         <p class="step-text">Rewrite the powers of \(5\):</p>
@@ -526,16 +468,16 @@
           (5^x)^2-5(5^x)-24=0
           \]
         </div>
-        <p class="step-text">Let \(u=5^x\):</p>
+        <p class="step-text">Let \(n=5^x\):</p>
         <div class="math-block">
           \[
-          u^2-5u-24=0
+          n^2-5n-24=0
           \]
           \[
-          (u-8)(u+3)=0
+          (n-8)(n+3)=0
           \]
           \[
-          u=8
+          n=8
           \]
         </div>
         <p class="step-text">Now solve for \(x\):</p>
@@ -551,8 +493,8 @@
       guidedSteps: [
         {
           title: raw`Rewrite using 5 to the x`,
-          previewHtml: raw`That makes the substitution \(u=5^x\) straightforward.`,
-          workingHtml: raw`<p class="step-text">That makes the substitution \(u=5^x\) straightforward.</p>
+          previewHtml: raw`That makes the substitution \(n=5^x\) straightforward.`,
+          workingHtml: raw`<p class="step-text">That makes the substitution \(n=5^x\) straightforward.</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -562,25 +504,25 @@
         },
         {
           title: raw`Form the quadratic`,
-          previewHtml: raw`The substitution gives \(u^2-5u-24=0\).`,
-          workingHtml: raw`<p class="step-text">The substitution gives \(u^2-5u-24=0\).</p>
+          previewHtml: raw`The substitution gives \(n^2-5n-24=0\).`,
+          workingHtml: raw`<p class="step-text">The substitution gives \(n^2-5n-24=0\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
   \[
-  u^{2} - 5 u - 24 = 0
+  n^{2} - 5 n - 24 = 0
   \]
 </div>
 </div>`
         },
         {
-          title: raw`Identify the valid value of u`,
-          previewHtml: raw`The quadratic roots are \(8\) and \(-3\), but \(u=5^x\) must be positive, so \(u=8\).`,
-          workingHtml: raw`<p class="step-text">The quadratic roots are \(8\) and \(-3\), but \(u=5^x\) must be positive, so \(u=8\).</p>
+          title: raw`Identify the valid value of n`,
+          previewHtml: raw`The quadratic roots are \(8\) and \(-3\), but \(n=5^x\) must be positive, so \(n=8\).`,
+          workingHtml: raw`<p class="step-text">The quadratic roots are \(8\) and \(-3\), but \(n=5^x\) must be positive, so \(n=8\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
-                u=8
+                n=8
               \]
 </div>`
         },
@@ -606,16 +548,16 @@
           (5^x)^2-5(5^x)-24=0
           \]
         </div>
-        <p class="step-text">Let \(u=5^x\):</p>
+        <p class="step-text">Let \(n=5^x\):</p>
         <div class="math-block">
           \[
-          u^2-5u-24=0
+          n^2-5n-24=0
           \]
           \[
-          (u-8)(u+3)=0
+          (n-8)(n+3)=0
           \]
           \[
-          u=8
+          n=8
           \]
         </div>
         <p class="step-text">Now solve for \(x\):</p>
@@ -748,7 +690,7 @@
           =\frac{2x(3x-2)}{5x-2}
           \]
         </div>
-        <p class="step-text">Because \((x+5)\) was cancelled, state \(x\neq -5\).</p>
+        <p class="step-text">The original denominator is zero at \(x=-5\) and \(x=2/5\). Retain both restrictions: \(x\ne-5,\;x\ne2/5\), including after cancellation.</p>
       `,
       guidedSteps: [
         {
@@ -797,7 +739,7 @@
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
-                x\neq -5
+                x\neq -5,\quad x\neq\frac25
               \]
 </div>
 
@@ -817,10 +759,11 @@
           =\frac{2x(3x-2)}{5x-2}
           \]
         </div>
-        <p class="step-text">Because \((x+5)\) was cancelled, state \(x\neq -5\).</p>
+        <p class="step-text">The original denominator is zero at \(x=-5\) and \(x=2/5\). Retain both restrictions: \(x\ne-5,\;x\ne2/5\), including after cancellation.</p>
       `
         }
-      ]
+      ],
+      examNoteHtml: raw`<p class="step-text">Original domain: \(x\ne-5\) and \(x\ne2/5\). These restrictions remain after cancelling factors.</p>`
     },
     "2c": {
       browserTitle: "2025 Level 2 Algebra Paper — Question 2(c)",
@@ -1064,7 +1007,8 @@
         <p class="step-text">So the solutions are \(x=4\) and \(x=9\).</p>
       `
         }
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note</summary><p class="step-text">The original real logarithms require \(x>0\). Both candidates, \(4\) and \(9\), satisfy this domain and the original equation.</p></details>`
     },
     "2e": {
       browserTitle: "2025 Level 2 Algebra Paper — Question 2(e)",
@@ -1323,7 +1267,8 @@
         <p class="step-text">So \(x=2\).</p>
       `
         }
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note</summary><p class="step-text">A real logarithm base must be positive and unequal to 1: here \(x>0\) and \(x\ne1\). The result \(x=2\) meets both conditions.</p></details>`
     },
     "3b": {
       browserTitle: "2025 Level 2 Algebra Paper — Question 3(b)",
@@ -1421,7 +1366,8 @@
         <p class="step-text">So \(a=15\), \(b=7\), and \(c=-2\).</p>
       `
         }
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note</summary><p class="step-text">The displayed integers are the simplest set with positive leading coefficient. Multiplying all three coefficients by the same nonzero integer gives the same roots, so the root information alone does not select a unique triple.</p></details>`
     },
     "3c": {
       browserTitle: "2025 Level 2 Algebra Paper — Question 3(c)",
@@ -1513,7 +1459,8 @@
         </div>
       `
         }
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note</summary><p class="step-text">The real logarithms require \(a>0\), \(a\ne1\). These conditions are implicit in the given definitions of \(p\) and \(q\).</p></details>`
     },
     "3d": {
       browserTitle: "2025 Level 2 Algebra Paper — Question 3(d)",

@@ -1165,139 +1165,25 @@
         }
       ]
     }),
-    "2c": createConfig("2c", "2024 Paper — Separable differential equation with an exponential", {
-      questionHtml: raw`
-        <p class="step-text">
-          Consider the differential equation
-          \[
-          \frac{dy}{dx}=12y^2e^{3x}.
-          \]
-        </p>
-        <p class="step-text">Given that \(y=0.5\) when \(x=0\), find the value of \(y\) when \(x=\frac{1}{3}\).</p>
-        <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>
-      `,
-      hints: [
-        raw`This equation is separable because the \(y\)-part and the \(x\)-part can be moved onto opposite sides.`,
-        raw`Dividing by \(y^2\) gives \(y^{-2}\,dy=12e^{3x}\,dx\).`,
-        raw`Use the initial condition to find \(C\) before substituting \(x=\frac{1}{3}\).`
-      ],
-      answerHtml: raw`
-        <p class="step-text">Separate the variables:</p>
-        <div class="math-block">
-          \[
-          y^{-2}\,dy=12e^{3x}\,dx
-          \]
-        </div>
-        <p class="step-text">Integrate both sides:</p>
-        <div class="math-block">
-          \[
-          \int y^{-2}\,dy=\int 12e^{3x}\,dx
-          \]
-          \[
-          -\frac{1}{y}=4e^{3x}+C
-          \]
-        </div>
-        <p class="step-text">Use \(y=0.5\) when \(x=0\):</p>
-        <div class="math-block">
-          \[
-          -2=4+C
-          \]
-          \[
-          C=-6
-          \]
-        </div>
-        <p class="step-text">Now substitute \(x=\frac{1}{3}\):</p>
-        <div class="math-block">
-          \[
-          -\frac{1}{y}=4e-6
-          \]
-          \[
-          y=\frac{1}{6-4e}\approx -0.2052
-          \]
-        </div>
-      `,
-      guidedSteps: [
-        {
-          title: raw`Separate the variables`,
-          previewHtml: raw`This puts all the \(y\)-terms on one side and all the \(x\)-terms on the other.`,
-          workingHtml: raw`<p class="step-text">This puts all the \(y\)-terms on one side and all the \(x\)-terms on the other.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-            y^{-2}\,dy=12e^{3x}\,dx
-          \]
-</div>`
-        },
-        {
-          title: raw`Integrate both sides`,
-          previewHtml: raw`The exponential side integrates cleanly to \(4e^{3x}\).`,
-          workingHtml: raw`<p class="step-text">The exponential side integrates cleanly to \(4e^{3x}\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-            -\frac{1}{y}=4e^{3x}+C
-          \]
-</div>`
-        },
-        {
-          title: raw`Use the initial condition`,
-          previewHtml: raw`Substituting the condition gives \(C=-6\).`,
-          workingHtml: raw`<p class="step-text">Substituting the condition gives \(C=-6\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-            -6
-          \]
-</div>`
-        },
-        {
-          title: raw`Evaluate at \(x=\frac{1}{3}\)`,
-          previewHtml: raw`This is equivalent to \(-\frac{1}{4e-6}\).`,
-          workingHtml: raw`<p class="step-text">This is equivalent to \(-\frac{1}{4e-6}\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \[
-            \frac{1}{6-4e}\approx -0.2052
-          \]
-</div>
-
-        <p class="step-text">Separate the variables:</p>
-        <div class="math-block">
-          \[
-          y^{-2}\,dy=12e^{3x}\,dx
-          \]
-        </div>
-        <p class="step-text">Integrate both sides:</p>
-        <div class="math-block">
-          \[
-          \int y^{-2}\,dy=\int 12e^{3x}\,dx
-          \]
-          \[
-          -\frac{1}{y}=4e^{3x}+C
-          \]
-        </div>
-        <p class="step-text">Use \(y=0.5\) when \(x=0\):</p>
-        <div class="math-block">
-          \[
-          -2=4+C
-          \]
-          \[
-          C=-6
-          \]
-        </div>
-        <p class="step-text">Now substitute \(x=\frac{1}{3}\):</p>
-        <div class="math-block">
-          \[
-          -\frac{1}{y}=4e-6
-          \]
-          \[
-          y=\frac{1}{6-4e}\approx -0.2052
-          \]
-        </div>
-      `
-        }
-      ]
-    }),
+    "2c": Object.assign({
+  "browserTitle": "2024 Integration Paper — Question 2(c)",
+  "eyebrow": "Level 3 Integration Walkthrough",
+  "title": "Question 2(c)",
+  "subtitle": "2024 Paper — Separable differential equation with an exponential",
+  "backHref": "level-3-integration-2024.html",
+  "nextHref": "int-2d2024.html",
+  "nextLabel": "Next question →",
+  "finalNav": {
+    "secondary": {
+      "href": "int-2b2024.html",
+      "label": "← Back to Question 2(b)"
+    },
+    "primary": {
+      "href": "int-2d2024.html",
+      "label": "Next question →"
+    }
+  }
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-integration-2024:2c"]),
     "2d": createConfig("2d", raw`2024 Paper — Shaded area between \(y=\sin^2x\) and \(y=1\)`, {
       questionHtml: raw`
         <p class="step-text">The graph below shows part of the graph of the function \(y=\sin^2x\).</p>
@@ -1638,7 +1524,7 @@
         }
       ]
     }),
-    "3b": createConfig("3b", "2024 Paper — Solving a logarithmic differential equation", {
+    "3b": Object.assign(createConfig("3b", "2024 Paper — Solving a logarithmic differential equation", {
       questionHtml: raw`
         <p class="step-text">
           Solve the differential equation
@@ -1756,7 +1642,7 @@
       `
         }
       ]
-    }),
+    }), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The logarithm is defined only away from \\(4x-3=0\\). Use the connected interval containing the initial point, \\(x>3/4\\), for this initial-value solution.</p></details>"}),
     "3c": createConfig("3c", "2024 Paper — Definite integral with a logarithmic parameter", {
       questionHtml: raw`
         <p class="step-text">
@@ -1950,7 +1836,7 @@
           \sin\left(\frac{k}{2}\right)=\frac{1}{2}
           \]
         </div>
-        <p class="step-text">Because \(0&lt;k&lt;\pi\), we have \(0&lt;\frac{k}{2}&lt;\frac{\pi}{2}\), so</p>
+        <p class="step-text">Because \(0\lt k\lt \pi\), we have \(0\lt \frac{k}{2}\lt \frac{\pi}{2}\), so</p>
         <div class="math-block">
           \[
           \frac{k}{2}=\frac{\pi}{6}
@@ -1997,8 +1883,8 @@
         },
         {
           title: raw`Identify the valid value`,
-          previewHtml: raw`Since \(0&lt;\frac{k}{2}&lt;\frac{\pi}{2}\), the valid angle is \(\frac{\pi}{6}\).`,
-          workingHtml: raw`<p class="step-text">Since \(0&lt;\frac{k}{2}&lt;\frac{\pi}{2}\), the valid angle is \(\frac{\pi}{6}\).</p>
+          previewHtml: raw`Since \(0\lt \frac{k}{2}\lt \frac{\pi}{2}\), the valid angle is \(\frac{\pi}{6}\).`,
+          workingHtml: raw`<p class="step-text">Since \(0\lt \frac{k}{2}\lt \frac{\pi}{2}\), the valid angle is \(\frac{\pi}{6}\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -2032,7 +1918,7 @@
           \sin\left(\frac{k}{2}\right)=\frac{1}{2}
           \]
         </div>
-        <p class="step-text">Because \(0&lt;k&lt;\pi\), we have \(0&lt;\frac{k}{2}&lt;\frac{\pi}{2}\), so</p>
+        <p class="step-text">Because \(0\lt k\lt \pi\), we have \(0\lt \frac{k}{2}\lt \frac{\pi}{2}\), so</p>
         <div class="math-block">
           \[
           \frac{k}{2}=\frac{\pi}{6}

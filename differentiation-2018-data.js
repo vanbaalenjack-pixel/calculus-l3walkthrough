@@ -406,7 +406,7 @@
         <p class="step-text">At what speed is the car moving when the length \(L\) between the tow-bar and pulley is \(5.4\text{ m}\)?</p>
         <p class="step-text question-note">You must use calculus and show any derivatives that you need to find when solving this problem.</p>
       `,
-      answerHtml: answerHighlight("Final answer", raw`<div class="math-block">\[\text{Car speed}=0.72\text{ m s}^{-1}\]</div>`),
+      answerHtml: answerHighlight("Final answer", raw`<div class="math-block">\[\text{Car speed}\approx0.72\text{ m s}^{-1}\]</div>`),
       guidedSteps: [
         guidedStep("Write the geometric relationship", raw`Apply Pythagoras to the right triangle.`, raw`
           <div class="math-block">\[L^2=x^2+3^2=x^2+9\]</div>
@@ -420,16 +420,16 @@
           <div class="math-block">
             \[2L\frac{dL}{dt}=2x\frac{dx}{dt}\]
             \[\frac{dx}{dt}=\frac{L}{x}\frac{dL}{dt}\]
-            \[\frac{dx}{dt}=\frac{5.4}{6\sqrt{14}/5}(-0.6)=-0.72\text{ m s}^{-1}\]
+            \[\frac{dx}{dt}=\frac{5.4}{6\sqrt{14}/5}(-0.6)\approx-0.72\text{ m s}^{-1}\]
           </div>
         `),
         guidedStep("Interpret the sign", raw`The negative sign says the horizontal separation is decreasing; speed is its magnitude.`, raw`
-          ${answerHighlight("Final answer", raw`<div class="math-block">\[\text{Car speed}=\left|\frac{dx}{dt}\right|=0.72\text{ m s}^{-1}\]</div>`)}
+          ${answerHighlight("Final answer", raw`<div class="math-block">\[\text{Car speed}=\left|\frac{dx}{dt}\right|\approx0.72\text{ m s}^{-1}\]</div>`)}
         `)
       ]
     }),
 
-    "1e": createConfig("1e", "Question One - parametric higher derivatives", {
+    "1e": Object.assign(createConfig("1e", "Question One - parametric higher derivatives", {
       focus: raw`First form \(dy/dx\). For the second derivative, differentiate that result with respect to \(t\), then divide by \(dx/dt\).`,
       questionHtml: raw`
         <p class="step-text">A curve is defined by the parametric equations</p>
@@ -460,7 +460,7 @@
           ${answerHighlight("Constant value", raw`<div class="math-block">\[-\frac98\]</div>`)}
         `)
       ]
-    }),
+    }), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The calculation divides by \\(t\\), so it requires \\(t\\ne0\\). At \\(t=0\\), the curve has a cusp at \\((1,1)\\), and the displayed quotient of derivatives is not defined.</p></details>"}),
 
     "2a": createConfig("2a", "Question Two - radical and cosecant differentiation", {
       focus: raw`Rewrite \(\sqrt{x}\) as \(x^{1/2}\), and remember the chain-rule factor from \(\operatorname{cosec}(5x)\).`,
@@ -508,7 +508,7 @@
         <p class="step-text">(iii) Find all values of \(x\) that meet each condition:</p>
         <ol class="step-text question-conditions">
           <li>\(f'(x)>0\)</li>
-          <li>\(f'(x)=0\) and \(f''(x)&lt;0\)</li>
+          <li>\(f'(x)=0\) and \(f''(x)\lt 0\)</li>
           <li>\(f(x)\) is continuous but not differentiable</li>
         </ol>
       `,
@@ -516,8 +516,8 @@
         <div class="math-block">
           \[f(1)=5\]
           \[\text{No limit at }x=-3\text{ and }x=1\]
-          \[f'(x)>0:\ 1&lt;x&lt;3\text{ and }x>7\]
-          \[f'(x)=0\text{ and }f''(x)&lt;0:\ x=3\]
+          \[f'(x)>0:\ 1\lt x\lt 3\text{ and }x>7\]
+          \[f'(x)=0\text{ and }f''(x)\lt 0:\ x=3\]
           \[\text{Continuous but not differentiable: }x=7\]
         </div>
       `),
@@ -532,17 +532,17 @@
         `),
         guidedStep("Locate increasing pieces", raw`A positive derivative means the graph rises as \(x\) increases.`, raw`
           <p class="step-text">The upper curve rises from \(x=1\) to \(x=3\), and the right ray rises after the corner at \(x=7\).</p>
-          <div class="math-block">\[f'(x)>0\text{ for }1&lt;x&lt;3\text{ and }x>7.\]</div>
+          <div class="math-block">\[f'(x)>0\text{ for }1\lt x\lt 3\text{ and }x>7.\]</div>
         `),
         guidedStep("Identify the smooth maximum and corner", raw`A smooth maximum has zero gradient and negative concavity; a corner is continuous but has no single tangent gradient.`, raw`
           <div class="math-block">
-            \[f'(x)=0\text{ and }f''(x)&lt;0\text{ at }x=3\]
+            \[f'(x)=0\text{ and }f''(x)\lt 0\text{ at }x=3\]
             \[f(x)\text{ is continuous but not differentiable at }x=7\]
           </div>
           ${answerHighlight("Final answers", raw`
             <div class="math-block">
               \[f(1)=5;\quad \text{no limit at }x=-3,1\]
-              \[f'(x)>0:\ 1&lt;x&lt;3\text{ or }x>7\]
+              \[f'(x)>0:\ 1\lt x\lt 3\text{ or }x>7\]
               \[\text{smooth maximum at }x=3;\quad \text{corner at }x=7\]
             </div>
           `)}

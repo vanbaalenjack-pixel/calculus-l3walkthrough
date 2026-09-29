@@ -156,7 +156,7 @@
 
     return `
       <div class="graph-frame question-graph-frame">
-        <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Argand diagram showing the points u and w${settings.includeZ ? ", and z" : ""}">
+        <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Argand diagram: u is at (4,2) and w is at (-2,-3)${settings.includeZ ? "; the worked result z is at (2,-5)" : ""}. Real and imaginary axes have equal unit scales.">
           <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
           ${gridLines.join("")}
           ${lineMarkup(scale, -6, 0, 6, 0, "graph-axis")}
@@ -437,7 +437,8 @@
         </div>
       `
         }
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note</summary><p class="step-text">For real \(k\), the principal square root of \(10k^2\) is \(|k|\sqrt{10}\). The two-value set \(3k\pm|k|\sqrt{10}\) equals \(3k\pm k\sqrt{10}\), because changing the sign of \(k\) only exchanges the two roots. At \(k=0\), there is one repeated root.</p></details>`
     }),
     "1c": createConfig("1c", "2025 Paper — Discriminant proof", {
       focus: raw`turning the equation into a quadratic in \(x\), finding its discriminant, and justifying why it is always positive.`,
@@ -731,253 +732,25 @@
         }
       ]
     }),
-    "1e": createConfig("1e", "2025 Paper — Locus to Cartesian form", {
-      focus: raw`recognising a restricted-modulus locus, rewriting \(z=x+yi\), isolating surds carefully, and simplifying to the required Cartesian form.`,
-      questionHtml: raw`
-        <div class="question-math">
-          \[
-          \left|z-5i\right|-\left|z+5i\right|=4
-          \]
-        </div>
-        <p class="step-text">Find the Cartesian equation of the locus of \(z\), giving your answer in the form \(ay^2-bx^2=k\), where \(a\), \(b\), and \(k\) are constants.</p>
-      `,
-      hints: [
-        raw`Start by recognising the question type, then let \(z=x+yi\).`,
-        raw`Turn each modulus into a square root using Pythagoras.`,
-        raw`Before you square, isolate one surd. After the first squaring, simplify before doing the second one.`
-      ],
-      answerHtml: raw`
-        <p class="step-text">Let \(z=x+yi\), then separate the real and imaginary parts inside each modulus:</p>
-        <div class="math-block">
-          \[
-          |x+yi-5i|-|x+yi+5i|=4
-          \]
-          \[
-          |x+(y-5)i|-|x+(y+5)i|=4
-          \]
-        </div>
-        <p class="step-text">Now turn the moduli into distances:</p>
-        <div class="math-block">
-          \[
-          \sqrt{x^2+(y-5)^2}-\sqrt{x^2+(y+5)^2}=4
-          \]
-          \[
-          \sqrt{x^2+(y-5)^2}=4+\sqrt{x^2+(y+5)^2}
-          \]
-        </div>
-        <p class="step-text">Square once, but square whole sides:</p>
-        <div class="math-block">
-          \[
-          x^2+(y-5)^2 = 16+8\sqrt{x^2+(y+5)^2}+x^2+(y+5)^2
-          \]
-          \[
-          (y-5)^2-(y+5)^2 = 16+8\sqrt{x^2+(y+5)^2}
-          \]
-          \[
-          -20y = 16+8\sqrt{x^2+(y+5)^2}
-          \]
-          \[
-          -5y-4=2\sqrt{x^2+(y+5)^2}
-          \]
-        </div>
-        <p class="step-text">Square again and expand the remaining bracket carefully:</p>
-        <div class="math-block">
-          \[
-          (-5y-4)^2=4\left(x^2+(y+5)^2\right)
-          \]
-          \[
-          16+25y^2+40y=4x^2+4(y^2+10y+25)
-          \]
-          \[
-          16+25y^2+40y=4x^2+4y^2+40y+100
-          \]
-          \[
-          21y^2-4x^2=84
-          \]
-        </div>
-        ${answerBox(raw`
-          \[
-          21y^2-4x^2=84
-          \]
-        `)}
-      `,
-      guidedSteps: [
-        {
-          title: raw`Identify the question type`,
-          previewHtml: raw`The modulus signs tell us this is a locus built from distances in the Argand plane.`,
-          workingHtml: raw`<p class="step-text">The modulus signs tell us this is a locus built from distances in the Argand plane.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  A restricted-modulus locus.
-</div>`
-        },
-        {
-          title: raw`Rewrite \(z\)`,
-          previewHtml: raw`Writing \(z=x+yi\) lets us turn each modulus into a distance formula.`,
-          workingHtml: raw`<p class="step-text">Writing \(z=x+yi\) lets us turn each modulus into a distance formula.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,z=x+yi\)
-</div>`
-        },
-        {
-          title: raw`Substitute into the locus`,
-          previewHtml: raw`That is the direct substitution before we tidy the imaginary parts.`,
-          workingHtml: raw`<p class="step-text">That is the direct substitution before we tidy the imaginary parts.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,|x+yi-5i|-|x+yi+5i|=4\)
-</div>`
-        },
-        {
-          title: raw`Separate real and imaginary parts`,
-          previewHtml: raw`Now the real distance is \(x\) and the imaginary distances are \(y-5\) and \(y+5\).`,
-          workingHtml: raw`<p class="step-text">Now the real distance is \(x\) and the imaginary distances are \(y-5\) and \(y+5\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,|x+(y-5)i|-|x+(y+5)i|=4\)
-</div>`
-        },
-        {
-          title: raw`Turn moduli into square roots`,
-          previewHtml: raw`Each modulus becomes a distance from the origin in terms of \(x\) and \(y\).`,
-          workingHtml: raw`<p class="step-text">Each modulus becomes a distance from the origin in terms of \(x\) and \(y\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,\sqrt{x^2+(y-5)^2}-\sqrt{x^2+(y+5)^2}=4\)
-</div>`
-        },
-        {
-          title: raw`Prepare for squaring`,
-          previewHtml: raw`Isolating one surd keeps the next line much cleaner.`,
-          workingHtml: raw`
-            <div class="math-block">
-              \[
-              \sqrt{x^2+(y-5)^2}-\sqrt{x^2+(y+5)^2}=4
-              \]
-            </div>
-
-<p class="step-text">Isolating one surd keeps the next line much cleaner.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  Move one surd to the other side.
-</div>`
-        },
-        {
-          title: raw`Square whole sides`,
-          previewHtml: raw`The whole right-hand side is a binomial, so it squares to \(4^2+2\cdot 4\cdot \sqrt{\cdots}+(\sqrt{\cdots})^2\).`,
-          workingHtml: raw`
-            <div class="math-block">
-              \[
-              \sqrt{x^2+(y-5)^2}=4+\sqrt{x^2+(y+5)^2}
-              \]
-            </div>
-
-<p class="step-text">The whole right-hand side is a binomial, so it squares to \(4^2+2\cdot 4\cdot \sqrt{\cdots}+(\sqrt{\cdots})^2\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,x^2+(y-5)^2=16+8\sqrt{x^2+(y+5)^2}+x^2+(y+5)^2\)
-</div>`
-        },
-        {
-          title: raw`Simplify before the second squaring`,
-          previewHtml: raw`Subtracting \((y+5)^2\) is the smart move, because \((y-5)^2-(y+5)^2=-20y\).`,
-          workingHtml: raw`<p class="step-text">Subtracting \((y+5)^2\) is the smart move, because \((y-5)^2-(y+5)^2=-20y\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,-20y=16+8\sqrt{x^2+(y+5)^2}\)
-</div>`
-        },
-        {
-          title: raw`Square a second time`,
-          previewHtml: raw`Dividing by \(4\) and isolating the surd first keeps the second squaring tidy.`,
-          workingHtml: raw`
-            <div class="math-block">
-              \[
-              -20y=16+8\sqrt{x^2+(y+5)^2}
-              \]
-              \[
-              -5y-4=2\sqrt{x^2+(y+5)^2}
-              \]
-            </div>
-
-<p class="step-text">Dividing by \(4\) and isolating the surd first keeps the second squaring tidy.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,16+25y^2+40y=4\left(x^2+(y+5)^2\right)\)
-</div>`
-        },
-        {
-          title: raw`Finish in Cartesian form`,
-          previewHtml: raw`Expanding the final bracket and cancelling the common \(40y\) terms gives \(21y^2-4x^2=84\).`,
-          workingHtml: raw`<p class="step-text">Expanding the final bracket and cancelling the common \(40y\) terms gives \(21y^2-4x^2=84\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,21y^2-4x^2=84\)
-</div>
-
-        <p class="step-text">Let \(z=x+yi\), then separate the real and imaginary parts inside each modulus:</p>
-        <div class="math-block">
-          \[
-          |x+yi-5i|-|x+yi+5i|=4
-          \]
-          \[
-          |x+(y-5)i|-|x+(y+5)i|=4
-          \]
-        </div>
-        <p class="step-text">Now turn the moduli into distances:</p>
-        <div class="math-block">
-          \[
-          \sqrt{x^2+(y-5)^2}-\sqrt{x^2+(y+5)^2}=4
-          \]
-          \[
-          \sqrt{x^2+(y-5)^2}=4+\sqrt{x^2+(y+5)^2}
-          \]
-        </div>
-        <p class="step-text">Square once, but square whole sides:</p>
-        <div class="math-block">
-          \[
-          x^2+(y-5)^2 = 16+8\sqrt{x^2+(y+5)^2}+x^2+(y+5)^2
-          \]
-          \[
-          (y-5)^2-(y+5)^2 = 16+8\sqrt{x^2+(y+5)^2}
-          \]
-          \[
-          -20y = 16+8\sqrt{x^2+(y+5)^2}
-          \]
-          \[
-          -5y-4=2\sqrt{x^2+(y+5)^2}
-          \]
-        </div>
-        <p class="step-text">Square again and expand the remaining bracket carefully:</p>
-        <div class="math-block">
-          \[
-          (-5y-4)^2=4\left(x^2+(y+5)^2\right)
-          \]
-          \[
-          16+25y^2+40y=4x^2+4(y^2+10y+25)
-          \]
-          \[
-          16+25y^2+40y=4x^2+4y^2+40y+100
-          \]
-          \[
-          21y^2-4x^2=84
-          \]
-        </div>
-
-      <div class="answer-highlight">
-        <p class="question-label">Final Answer</p>
-
-          \[
-          21y^2-4x^2=84
-          \]
-
-      </div>
-
-      `
-        }
-      ]
-    }),
+    "1e": Object.assign({
+  "browserTitle": "2025 Level 3 Complex Numbers Paper — Question 1(e)",
+  "eyebrow": "Level 3 Complex Numbers Walkthrough",
+  "title": "Question 1(e)",
+  "subtitle": "2025 Paper — Locus to Cartesian form",
+  "backHref": "level-3-complex-numbers-2025.html",
+  "nextHref": "complex-2a2025.html",
+  "nextLabel": "Next question →",
+  "finalNav": {
+    "secondary": {
+      "href": "complex-1d2025.html",
+      "label": "← Back to Question 1(d)"
+    },
+    "primary": {
+      "href": "complex-2a2025.html",
+      "label": "Next question →"
+    }
+  }
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-complex-2025:1e"]),
     "2a": createConfig("2a", "2025 Paper — Argand diagram combinations", {
       focus: raw`reading complex numbers from an Argand diagram, scaling them, and adding them to find a new point.`,
       questionHtml: raw`
@@ -1636,7 +1409,8 @@
         </div>
       `
         }
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note</summary><p class="step-text">Equal real and imaginary parts could also describe the opposite ray. Here the imaginary part \((6+d^2)/(1+d^2)\) is positive, so both candidates lie in quadrant one and have argument \(\pi/4\).</p></details>`
     }),
     "3a": createConfig("3a", "2025 Paper — Conjugate roots and a quadratic", {
       focus: raw`using the conjugate-root rule for real coefficients and building the quadratic equation from the two roots.`,
@@ -1655,7 +1429,7 @@
         raw`Multiply \((x-(2+\sqrt{p}\,i))(x-(2-\sqrt{p}\,i))\).`
       ],
       answerHtml: raw`
-        <p class="step-text">Because the coefficients are real, the conjugate root must also be a solution:</p>
+        <p class="step-text">For \(p>0\), the given root is non-real. Real coefficients then require its conjugate as the other root:</p>
         <div class="math-block">
           \[
           x = 2 - \sqrt{p}\,i
@@ -1680,8 +1454,8 @@
       guidedSteps: [
         {
           title: raw`Find the other root`,
-          previewHtml: raw`Real-coefficient quadratics have complex roots in conjugate pairs.`,
-          workingHtml: raw`<p class="step-text">Real-coefficient quadratics have complex roots in conjugate pairs.</p>
+          previewHtml: raw`For \(p>0\), real coefficients require this non-real root and its conjugate. For other real \(p\), the quadratic below is one valid choice; see the Exam note.`,
+          workingHtml: raw`<p class="step-text">For \(p>0\), real coefficients require this non-real root and its conjugate. For other real \(p\), the quadratic below is one valid choice; see the Exam note.</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,x=2-\sqrt{p}\,i\)
@@ -1705,7 +1479,7 @@
   \(\,x^2-4x+4+p=0\)
 </div>
 
-        <p class="step-text">Because the coefficients are real, the conjugate root must also be a solution:</p>
+        <p class="step-text">For \(p>0\), the given root is non-real. Real coefficients then require its conjugate as the other root:</p>
         <div class="math-block">
           \[
           x = 2 - \sqrt{p}\,i
@@ -1728,7 +1502,8 @@
         </div>
       `
         }
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note</summary><p class="step-text">For the intended real-radical reading, \(p\ge0\). If \(p>0\), the non-real conjugate pair forces this quadratic up to a nonzero constant multiple. At \(p=0\), this is a valid quadratic with a repeated root, but one real root alone does not determine the second root. With principal complex roots and \(p\lt0\), the given root is real, so the conjugate-root argument no longer determines a second root; the displayed quadratic is still one valid choice.</p></details>`
     }),
     "3b": createConfig("3b", "2025 Paper — Squaring a complex expression", {
       focus: raw`squaring a binomial with a complex term and keeping track of the effect of \(i^2=-1\).`,
@@ -1741,68 +1516,14 @@
         <p class="step-text">Expand and simplify, giving your answer in terms of \(a\), where \(a\) is a real number.</p>
       `,
       hints: [
-        raw`Use \((A-B)^2=A^2-2AB+B^2\).`,
-        raw`The middle term simplifies to \(-12ai\).`,
-        raw`The last term contains \(i^2\), so it changes sign.`
+        raw`Look for a common radical factor before expanding.`,
+        raw`With principal roots, \(\sqrt{12a}=2\sqrt{3a}\) for every real \(a\).`,
+        raw`Square both factors and use \(i^2=-1\).`
       ],
-      answerHtml: raw`
-        <p class="step-text">Expand using \((A-B)^2=A^2-2AB+B^2\):</p>
-        <div class="math-block">
-          \[
-          \left(\sqrt{3a}-\sqrt{12a}\,i\right)^2
-          =3a-2\sqrt{36a^2}\,i+12ai^2
-          \]
-          \[
-          =3a-12ai-12a
-          \]
-          \[
-          =-9a-12ai
-          \]
-        </div>
-      `,
+      answerHtml: raw`<p class="step-text">Use principal complex square roots. Multiplying a radicand by the positive number 4 gives \(\sqrt{12a}=2\sqrt{3a}\), including when \(a\lt0\).</p><div class="math-block">\[[\sqrt{3a}-i\sqrt{12a}]^2=[\sqrt{3a}(1-2i)]^2=3a(1-4i+4i^2)=-9a-12ai.\]</div><p class="step-text">Check: at \(a=-1\), the original bracket is \(2\sqrt3+i\sqrt3\); its square is \(9+12i\), as required. Do not use \(\sqrt{36a^2}=6a\) for arbitrary real \(a\): that real square root is \(6|a|\).</p>`,
       guidedSteps: [
-        {
-          title: raw`Identify the expansion rule`,
-          previewHtml: raw`Here the second term already contains the negative sign, so this rule still fits.`,
-          workingHtml: raw`<p class="step-text">Here the second term already contains the negative sign, so this rule still fits.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,(A+B)^2=A^2+2AB+B^2\)
-</div>`
-        },
-        {
-          title: raw`Apply the rule`,
-          previewHtml: raw`That is the full expansion before we simplify \(i^2\) and the square root.`,
-          workingHtml: raw`<p class="step-text">That is the full expansion before we simplify \(i^2\) and the square root.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,3a+12ai^2-2\sqrt{36a^2}\,i\)
-</div>`
-        },
-        {
-          title: raw`Simplify fully`,
-          previewHtml: raw`Since \(i^2=-1\) and \(\sqrt{36a^2}=6a\), the expression simplifies to \(-9a-12ai\).`,
-          workingHtml: raw`<p class="step-text">Since \(i^2=-1\) and \(\sqrt{36a^2}=6a\), the expression simplifies to \(-9a-12ai\).</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  \(\,-9a-12ai\)
-</div>
-
-        <p class="step-text">Expand using \((A-B)^2=A^2-2AB+B^2\):</p>
-        <div class="math-block">
-          \[
-          \left(\sqrt{3a}-\sqrt{12a}\,i\right)^2
-          =3a-2\sqrt{36a^2}\,i+12ai^2
-          \]
-          \[
-          =3a-12ai-12a
-          \]
-          \[
-          =-9a-12ai
-          \]
-        </div>
-      `
-        }
+        {title: raw`Factor the radical`, previewHtml: raw`Can you write both terms using the same square root?`, workingHtml: raw`<p class="step-text">Using principal roots, \(\sqrt{12a}=2\sqrt{3a}\), so the bracket is \(\sqrt{3a}(1-2i)\).</p>`},
+        {title: raw`Square and check`, previewHtml: raw`Predict the real and imaginary terms before expanding.`, workingHtml: raw`<p class="step-text">Use principal complex square roots. Multiplying a radicand by the positive number 4 gives \(\sqrt{12a}=2\sqrt{3a}\), including when \(a\lt0\).</p><div class="math-block">\[[\sqrt{3a}-i\sqrt{12a}]^2=[\sqrt{3a}(1-2i)]^2=3a(1-4i+4i^2)=-9a-12ai.\]</div><p class="step-text">Check: at \(a=-1\), the original bracket is \(2\sqrt3+i\sqrt3\); its square is \(9+12i\), as required. Do not use \(\sqrt{36a^2}=6a\) for arbitrary real \(a\): that real square root is \(6|a|\).</p>`}
       ]
     }),
     "3c": createConfig("3c", "2025 Paper — Solving with \u221ax substitution", {

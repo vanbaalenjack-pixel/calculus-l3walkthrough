@@ -248,37 +248,115 @@
       `)
     ]),
 
-    "1c": createConfig("1c", raw`Square once, isolate the remaining \(\sqrt{x}\) term, then square again.`, raw`
-      <div class="math-block">
-        \[
-        \boxed{x=\left(\frac{25+g}{20}\right)^2}
-        \]
-      </div>
-    `, [
-      guidedStep("Square both sides", raw`Expand the squared binomial carefully; its middle term is \(-20\sqrt{x}\).`, raw`
-        <div class="math-block">
-          \[
-          (2\sqrt{x}-5)^2=4x-g
-          \]
-          \[
-          4x-20\sqrt{x}+25=4x-g
-          \]
-        </div>
-      `),
-      guidedStep("Isolate the surd and solve", raw`Cancel \(4x\), rearrange for \(\sqrt{x}\), then square.`, raw`
-        <div class="math-block">
-          \[
-          20\sqrt{x}=25+g
-          \]
-          \[
-          \sqrt{x}=\frac{25+g}{20}
-          \]
-          \[
-          x=\left(\frac{25+g}{20}\right)^2
-          \]
-        </div>
-      `)
-    ]),
+    "1c": Object.assign({
+  "browserTitle": "2020 Complex Numbers Paper — Question 1(c)",
+  "eyebrow": "Level 3 Complex Numbers Walkthrough",
+  "title": "Question 1(c)",
+  "subtitle": "2020 Paper",
+  "backHref": "level-3-complex-numbers-2020.html",
+  "nextHref": "complex-2020.html?q=1d",
+  "nextLabel": "Next question →",
+  "finalNav": {
+    "secondary": {
+      "href": "complex-2020.html?q=1b",
+      "label": "← Back to Question 1(b)"
+    },
+    "primary": {
+      "href": "complex-2020.html?q=1d",
+      "label": "Next question →"
+    }
+  },
+  "partNavigation": [
+    {
+      "href": "complex-2020.html?q=1a",
+      "label": "1(a)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=1b",
+      "label": "1(b)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=1c",
+      "label": "1(c)",
+      "current": true
+    },
+    {
+      "href": "complex-2020.html?q=1d",
+      "label": "1(d)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=1e",
+      "label": "1(e)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=2a",
+      "label": "2(a)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=2b",
+      "label": "2(b)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=2c",
+      "label": "2(c)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=2d",
+      "label": "2(d)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=2e",
+      "label": "2(e)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=3a",
+      "label": "3(a)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=3b",
+      "label": "3(b)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=3c",
+      "label": "3(c)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=3d",
+      "label": "3(d)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=3e",
+      "label": "3(e)",
+      "current": false
+    }
+  ],
+  "partNavigationTitle": "2020 paper questions",
+  "metadata": {
+    "topic": "Complex Numbers",
+    "year": 2020,
+    "standard": "NCEA Level 3 Calculus",
+    "difficulty": "mixed / Excellence-style"
+  },
+  "tags": [
+    "Complex Numbers",
+    "2020",
+    "NCEA Level 3 Calculus",
+    "mixed / Excellence-style"
+  ]
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-complex-2020:1c"]),
 
     "1d": createConfig("1d", raw`Rationalise each denominator with its conjugate, then combine the results.`, raw`
       <div class="math-block">
@@ -360,7 +438,7 @@
           \]
         </div>
       `)
-    ]),
+    ], {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The definition of \\(T\\) requires \\(a\\) and \\(b\\) not both zero. Then \\(T\\ne0\\), so division by \\(2T\\) is valid.</p></details>"}),
 
     "2a": createConfig("2a", raw`Use the factor theorem: if \(x-2\) is a factor, then the polynomial is zero at \(x=2\).`, raw`
       <div class="math-block">
@@ -572,7 +650,7 @@
           \]
         </div>
       `)
-    ]),
+    ], {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">Exclude \\(k=0\\), which makes the original denominator zero. For either sign of nonzero real \\(k\\), the resulting modulus \\(6k^2\\) is positive.</p></details>"}),
 
     "3b": createConfig("3b", raw`Compute each squared modulus directly from its real and imaginary parts.`, raw`
       <div class="math-block">
@@ -626,53 +704,115 @@
       `)
     ]),
 
-    "3d": createConfig("3d", raw`Write the negative real number in polar form, then take all four fourth roots.`, raw`
-      <div class="math-block">
-        \[
-        \boxed{
-          2k^2\operatorname{cis}\left(\frac{\pi}{4}\right),\ 
-          2k^2\operatorname{cis}\left(\frac{3\pi}{4}\right),\ 
-          2k^2\operatorname{cis}\left(-\frac{3\pi}{4}\right),\ 
-          2k^2\operatorname{cis}\left(-\frac{\pi}{4}\right)
-        }
-        \]
-      </div>
-    `, [
-      guidedStep("Write the right-hand side in polar form", raw`A negative real number has argument \(\pi+2n\pi\).`, raw`
-        <div class="math-block">
-          \[
-          -16k^8=16k^8\operatorname{cis}(\pi+2n\pi)
-          \]
-          \[
-          z^4=16k^8\operatorname{cis}(\pi+2n\pi)
-          \]
-        </div>
-      `),
-      guidedStep("Take the fourth roots", raw`Take the fourth root of the modulus and divide the general argument by \(4\).`, raw`
-        <div class="math-block">
-          \[
-          z=2k^2\operatorname{cis}\left(\frac{\pi+2n\pi}{4}\right),
-          \qquad n=0,1,2,3
-          \]
-        </div>
-      `),
-      guidedStep("List the four solutions", raw`Substitute the four consecutive values of \(n\) and use principal-angle equivalents where convenient.`, raw`
-        <div class="math-block">
-          \[
-          z_1=2k^2\operatorname{cis}\left(\frac{\pi}{4}\right)
-          \]
-          \[
-          z_2=2k^2\operatorname{cis}\left(\frac{3\pi}{4}\right)
-          \]
-          \[
-          z_3=2k^2\operatorname{cis}\left(-\frac{3\pi}{4}\right)
-          \]
-          \[
-          z_4=2k^2\operatorname{cis}\left(-\frac{\pi}{4}\right)
-          \]
-        </div>
-      `)
-    ]),
+    "3d": Object.assign({
+  "browserTitle": "2020 Complex Numbers Paper — Question 3(d)",
+  "eyebrow": "Level 3 Complex Numbers Walkthrough",
+  "title": "Question 3(d)",
+  "subtitle": "2020 Paper",
+  "backHref": "level-3-complex-numbers-2020.html",
+  "nextHref": "complex-2020.html?q=3e",
+  "nextLabel": "Next question →",
+  "finalNav": {
+    "secondary": {
+      "href": "complex-2020.html?q=3c",
+      "label": "← Back to Question 3(c)"
+    },
+    "primary": {
+      "href": "complex-2020.html?q=3e",
+      "label": "Next question →"
+    }
+  },
+  "partNavigation": [
+    {
+      "href": "complex-2020.html?q=1a",
+      "label": "1(a)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=1b",
+      "label": "1(b)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=1c",
+      "label": "1(c)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=1d",
+      "label": "1(d)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=1e",
+      "label": "1(e)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=2a",
+      "label": "2(a)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=2b",
+      "label": "2(b)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=2c",
+      "label": "2(c)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=2d",
+      "label": "2(d)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=2e",
+      "label": "2(e)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=3a",
+      "label": "3(a)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=3b",
+      "label": "3(b)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=3c",
+      "label": "3(c)",
+      "current": false
+    },
+    {
+      "href": "complex-2020.html?q=3d",
+      "label": "3(d)",
+      "current": true
+    },
+    {
+      "href": "complex-2020.html?q=3e",
+      "label": "3(e)",
+      "current": false
+    }
+  ],
+  "partNavigationTitle": "2020 paper questions",
+  "metadata": {
+    "topic": "Complex Numbers",
+    "year": 2020,
+    "standard": "NCEA Level 3 Calculus",
+    "difficulty": "mixed / Excellence-style"
+  },
+  "tags": [
+    "Complex Numbers",
+    "2020",
+    "NCEA Level 3 Calculus",
+    "mixed / Excellence-style"
+  ]
+}, window.CALC_NZ_AUDIT_WALKTHROUGHS["level-3-complex-2020:3d"]),
 
     "3e": createConfig("3e", raw`Write \(u\) and \(v\) in Cartesian form, use the equal moduli to eliminate the quotient’s real part, then rationalise.`, raw`
       <div class="math-block">
@@ -727,6 +867,6 @@
           <p class="step-text">The coefficient \(\frac{bc-ad}{c^2+d^2}\) is real, so \(\frac uv\) is purely imaginary.</p>
         </div>
       `)
-    ])
+    ], {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">This conclusion requires \\(v\\ne0\\), because \\(u/v\\) must be defined. The distance condition alone also allows \\(v=0\\), when the quotient has no meaning. For \\(v\\ne0\\), the proof shows that the quotient has real part zero, including the possible value zero.</p></details>"})
   };
 }());

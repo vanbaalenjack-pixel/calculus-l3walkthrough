@@ -194,7 +194,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
               return parseFloat(getComputedStyle(equation).fontSize) >= 12;
             });
             checks.touchTargets = tips.every(function (button) { return button.getBoundingClientRect().height >= 43; });
-            checks.headingAndStandard = Boolean(document.getElementById("page-title") && /Question/.test(document.getElementById("page-title").textContent)
+            checks.headingAndStandard = Boolean(document.getElementById("page-title") && /\bQ[123]\([a-e]\)/.test(document.getElementById("page-title").textContent)
               && /AS9157[789]/.test(document.body.textContent));
             if (mode === "walkthrough-prose") {
               const instruction = question && Array.from(question.querySelectorAll("p")).find(function (paragraph) {
@@ -208,7 +208,7 @@ private final class Runner: NSObject, WKNavigationDelegate {
           } else if (mode === "home") {
             const scope = document.querySelector("[data-practice-scope]");
             checks.levelThreeHero = /Level 3 Calculus/.test(document.querySelector("h1").textContent);
-            checks.threePrimaryStandards = document.querySelectorAll("[data-level-three-standard]").length === 3;
+            checks.threePrimaryStandards = document.querySelectorAll('[data-parent-level="level-3"][data-standard]').length === 3;
             checks.levelTwoSecondary = /More maths/.test(document.body.textContent) && Boolean(document.querySelector('a[href="level-2-calculus.html"]'));
             checks.levelThreeChooserDefault = document.getElementById("choose-level").dataset.currentStage === "standard"
               && document.querySelectorAll('[data-parent-level="level-3"]').length === 3;

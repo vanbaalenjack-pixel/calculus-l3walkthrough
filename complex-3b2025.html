@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91577 — Apply the algebra of complex numbers in solving problems"
       },
-      "dateModified": "2026-09-02",
+      "dateModified": "2026-09-24",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,20 +91,20 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260916-2" />
+<link rel="stylesheet" href="style.css?v=20260924-1" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20260916-2"></script>
-  <script defer src="walkthrough-gate.js?v=20260916-2"></script>
-<script defer src="complex-walkthrough.js?v=20260916-2"></script>
-  <script defer src="complex-2025-data.js?v=20260916-2"></script>
+<script defer src="walkthrough-audit-data.js?v=20260924-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260924-1"></script>
+<script defer src="complex-walkthrough.js?v=20260924-1"></script>
+  <script defer src="complex-2025-data.js?v=20260924-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-complex-2025", "year": 2025}, "question": {"canonical": "https://calc.nz/complex-3b2025.html", "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.", "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 3(b) worked solution: squaring and simplifying a complex expression. Use guided hints and step-by-step…", "guideLinks": [], "id": "3b", "label": "Question 3(b)", "method": "squaring and simplifying a complex expression.", "methodTitle": "Squaring a Complex Expression", "reviewStatus": "unreviewed", "skillSlugs": ["complex-number-algebra"], "summary": "This walkthrough helps you practise squaring and simplifying a complex expression. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Squaring a Complex Expression Worked Solution – 2025 NCEA Level 3 Q3(b) (AS91577) | Calc.nz"}, "standard": {"code": "AS91577", "id": "level-3-complex", "label": "Complex Numbers"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-complex-2025", "year": 2025}, "question": {"canonical": "https://calc.nz/complex-3b2025.html", "commonMistake": "For real negative a, the radicals are complex. Factor √(3a) before squaring; do not replace √(36a²) by 6a.", "description": "2025 NCEA Level 3 Complex Numbers AS91577 Question 3(b) worked solution: squaring and simplifying a complex expression. Use guided hints and step-by-step…", "guideLinks": [], "id": "3b", "label": "Question 3(b)", "method": "squaring and simplifying a complex expression.", "methodTitle": "Squaring a Complex Expression", "relatedPractice": {"href": "complex-2023.html?q=1a", "label": "2023 Complex Numbers · Q1(a)"}, "reviewStatus": "unreviewed", "skillSlugs": ["complex-number-algebra"], "summary": "This walkthrough helps you practise squaring and simplifying a complex expression. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Squaring a Complex Expression Worked Solution – 2025 NCEA Level 3 Q3(b) (AS91577) | Calc.nz"}, "standard": {"code": "AS91577", "id": "level-3-complex", "label": "Complex Numbers"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20260916-2"></script>
+  <script defer src="site-shell.js?v=20260924-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -141,7 +141,7 @@
 <header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 3 Complex Numbers Walkthrough</p>
-        <h1 id="page-title">2025 NCEA Level 3 Complex Numbers Question 3(b)</h1>
+        <h1 id="page-title">2025 Complex Numbers · Q3(b)</h1>
         <p id="page-subtitle" class="subtitle">2025 Paper</p>
       </div>
       <a id="back-link" class="ghost-link" href="level-3-complex-numbers-2025.html">← Back to paper</a>
@@ -168,15 +168,11 @@
     <div id="walkthrough-content" class="static-walkthrough-content" data-prerendered="true">
       <section class="step-card static-first-step" aria-labelledby="static-first-step-heading">
         <p class="step-number">Step 1</p>
-        <h2 id="static-first-step-heading">Identify the expansion rule</h2>
-        <p class="step-text">Here the second term already contains the negative sign, so this rule still fits.</p>
+        <h2 id="static-first-step-heading">Factor the radical</h2>
+        <p class="step-text">Can you write both terms using the same square root?</p>
         <details class="static-first-step-working">
           <summary>Show the first step’s working</summary>
-          <div class="walkthrough-step-working"><p class="step-text">Here the second term already contains the negative sign, so this rule still fits.</p>
-    <div class="answer-highlight walkthrough-answer-highlight">
-      <p class="question-label">Key result</p>
-      \(\,(A+B)^2=A^2+2AB+B^2\)
-    </div></div>
+          <div class="walkthrough-step-working"><p class="step-text">Using principal roots, \(\sqrt{12a}=2\sqrt{3a}\), so the bracket is \(\sqrt{3a}(1-2i)\).</p></div>
         </details>
       </section>
       <noscript><p class="question-note">This no-JavaScript view shows the question, the first idea, and the first worked step. Enable JavaScript for all reveals, progress controls, and saved practice features.</p></noscript>
@@ -191,7 +187,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Squaring and simplifying a complex expression.</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 3(b)</span> from the <a href="level-3-complex-numbers-2025.html" data-seo-year-link>2025 NCEA Level 3 Complex Numbers paper</a> for <a href="level-3-complex-numbers.html" data-seo-standard-link>AS91577 — Apply the algebra of complex numbers in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91577">official NZQA resources for AS91577</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-09-02">2 September 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-09-24">24 September 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -200,9 +196,11 @@
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
       <p class="step-text" data-seo-summary>This walkthrough helps you practise squaring and simplifying a complex expression. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.</p>
+      <h3>Check</h3>
+      <p class="step-text" data-seo-mistake>For real negative a, the radicals are complex. Factor √(3a) before squaring; do not replace √(36a²) by 6a.</p>
+      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
       <h3>Continue practising</h3>
+      <p class="step-text" data-related-practice>Try a related question: <a href="complex-2023.html?q=1a">2023 Complex Numbers · Q1(a)</a>. Attempt it before opening working, then return to this question later.</p>
       <div class="nav-row">
         <a class="nav-btn secondary" href="complex-3a2025.html" data-seo-related="previous">← Question 3(a)</a>
         <a class="nav-btn secondary" href="complex-3c2025.html" data-seo-related="next">Question 3(c) →</a>

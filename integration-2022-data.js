@@ -409,7 +409,7 @@
       questionHtml: raw`
         <p class="step-text">The graph of the function \(y=f(x)\) below is symmetrical about the \(y\)-axis. The shaded areas are given.</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-1b-int-2022" class="graph-svg" viewBox="0 0 460 320" aria-label="Symmetrical graph of y equals f of x with shaded areas 4.4 and 1.2" role="img"></svg>
+          <svg id="question-graph-1b-int-2022" class="graph-svg" viewBox="0 0 460 320" aria-label="The graph is symmetric about the y-axis. Between x = -3 and x = 3 there are two central regions above the x-axis, one on each side of the y-axis, and two outer regions below it. The right central region has area 4.4 and the left outer region has area 1.2." role="img"></svg>
         </div>
         <div class="question-math">
           \[
@@ -944,7 +944,8 @@
             \]
           </div>
         `)
-      ]
+      ],
+      examNoteHtml: raw`<details class="exam-note"><summary>Exam note: interval of the solution</summary><p class="step-text">The schedule’s algebraic result is \(x=1+e^2\). The implicit relation \(y^3=\ln(x-1)-1\) reaches \(y=0\) at \(x=1+e\), where the original equation is undefined. The differentiable solution through \((2,-1)\) is on \(1\lt x\lt1+e\) and cannot reach \(y=1\) on that interval. Substitution into the implicit relation gives the examination result, not a differentiable continuation through \(y=0\).</p></details>`
     }),
     "2d": createConfig("2d", "2022 Paper — Velocity and distance from an acceleration model", {
       focus: raw`Integrate acceleration to get velocity, use the given velocity to fix the constant, then integrate velocity from \(t=4\) to \(t=5\).`,
@@ -1380,7 +1381,7 @@
       questionHtml: raw`
         <p class="step-text">The graph below shows part of the curve \(y=x+\cos x\) and the line \(y=x\).</p>
         <div class="graph-frame question-graph-frame">
-          <svg id="question-graph-3d-int-2022" class="graph-svg" viewBox="0 0 470 320" aria-label="Shaded region between y equals x plus cosine x and y equals x" role="img"></svg>
+          <svg id="question-graph-3d-int-2022" class="graph-svg" viewBox="0 0 470 320" aria-label="The shaded region lies between y = x + cos x and y = x, between their nearest intersections on either side of the y-axis." role="img"></svg>
         </div>
         <p class="step-text">Find the shaded area.</p>
         <p class="step-text question-note">You must use calculus and show the results of any integration needed to solve the problem.</p>

@@ -2,7 +2,7 @@
 """Build the static SEO layer for Calc.nz.
 
 The question catalogue in ``index.html`` remains the source of truth.  This
-script reads its 447 crawlable question cards, derives the supported standards
+script discovers its current question records, derives the supported standards
 and paper years, and then makes deterministic, marker-delimited updates.
 
 Run from any directory::
@@ -17,6 +17,7 @@ makes it suitable for a small CI check.
 
 from __future__ import annotations
 
+from functools import lru_cache
 import argparse
 import copy
 import html
@@ -54,15 +55,16 @@ except ModuleNotFoundError:  # Supports import-based validators from the reposit
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://calc.nz/"
-CACHE_TOKEN = "20260916-2"
-REVIEW_DATE = "2026-09-02"
-WALKTHROUGH_CONTENT_RELEASE_DATE = "2026-09-02"
+CACHE_TOKEN = "20260924-1"
+REVIEW_DATE = "2026-09-24"
+WALKTHROUGH_CONTENT_RELEASE_DATE = "2026-09-24"
 SOCIAL_IMAGE_URL = f"{BASE_URL}assets/calc-nz-social.jpg"
 SOCIAL_IMAGE_ALT = "Calc.nz guided NCEA maths walkthroughs"
-EXPECTED_ROUTE_COUNT = 447
-EXPECTED_YEAR_COUNT = 30
 CATALOGUE_FILE = ROOT / "question-catalogue.js"
 GUIDES_FILE = ROOT / "guides.json"
+_INVENTORY = json.loads(CATALOGUE_FILE.read_text().split("=", 1)[1].strip().rstrip(";"))
+EXPECTED_ROUTE_COUNT = len(catalogue_questions(_INVENTORY))
+EXPECTED_YEAR_COUNT = sum(len(s["papers"]) for l in _INVENTORY["levels"] for s in l["standards"])
 WALKTHROUGH_EXTRACTOR = ROOT / "scripts" / "extract-walkthrough-content.swift"
 OFFICIAL_RESOURCES_FILE = ROOT / "official-resources.json"
 
@@ -108,17 +110,8 @@ ERROR_REPORT_URL = (
     "viewform?usp=publish-editor"
 )
 PROJECT_CREATOR = "Jack " + "van " + "Baalen"
-FULL_PROJECT_ATTRIBUTION = (
-    f"I, {PROJECT_CREATOR}, created and curated the mathematical walkthroughs and "
-    "learning content, chose the site’s purpose, structure, features, and "
-    "presentation, and directed the project. The underlying code was "
-    "generated and refined using software-development tools rather than written "
-    "by me personally."
-)
-SHORT_PROJECT_ATTRIBUTION = (
-    f"Walkthroughs and project direction by {PROJECT_CREATOR}. Technical "
-    "implementation created with software-development tools."
-)
+FULL_PROJECT_ATTRIBUTION = f"Calc.nz is a learning project by {PROJECT_CREATOR}, who directs the project and curates its walkthroughs and learning content."
+SHORT_PROJECT_ATTRIBUTION = f"A learning project by {PROJECT_CREATOR}."
 
 # Internal panel ids pre-date the public, descriptive complex-numbers slug.
 # Keep discovery keyed to the existing panel id while generating stable public
@@ -871,7 +864,15 @@ def load_walkthrough_content() -> dict[str, Mapping[str, object]]:
             f"Expected {EXPECTED_ROUTE_COUNT} walkthrough fallback records, found "
             f"{len(payload) if isinstance(payload, dict) else 'a non-object'}"
         )
-    return payload
+    def protect(value):
+        if isinstance(value, str):
+            return re.sub(r"\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]", lambda m: m[0].replace("<", "&lt;").replace(">", "&gt;"), value)
+        if isinstance(value, dict):
+            return {k: protect(v) for k, v in value.items()}
+        if isinstance(value, list):
+            return [protect(v) for v in value]
+        return value
+    return protect(payload)
 
 
 def discover_routes(catalogue: Mapping[str, object]) -> list[QuestionRoute]:
@@ -960,7 +961,7 @@ def discover_routes(catalogue: Mapping[str, object]) -> list[QuestionRoute]:
     if len(panels) != EXPECTED_YEAR_COUNT:
         raise ValueError(f"Expected {EXPECTED_YEAR_COUNT} standard/year groups, found {len(panels)}")
 
-    dynamic_expected = {f"complex-{year}.html" for year in range(2017, 2025)}
+    dynamic_expected = {route.source_file for route in routes if "?" in route.href}
     by_source: dict[str, list[QuestionRoute]] = defaultdict(list)
     for route in routes:
         by_source[route.source_file].append(route)
@@ -1040,6 +1041,7 @@ def enrich_catalogue(
                             "description": question_description(route),
                             "summary": question_learning_summary(route),
                             "commonMistake": infer_common_mistake(route),
+                            "relatedPractice": related_practice(route),
                             "skillSlugs": list(classify_question(route.focus, route.standard_key)),
                             "standardHref": route.standard.landing_file,
                             "yearHref": route.year_file,
@@ -1592,6 +1594,51 @@ def question_structured_data(route: QuestionRoute, title: str, description: str)
 
 
 def infer_common_mistake(route: QuestionRoute) -> str:
+    specific = {
+        "3b2025-l2.html": "Use the base–height relationship before differentiating. This asks for dA/dh in cm² per cm, not dA/dt in cm² per second.",
+        "1b2022.html": "Simplify (x² + 1)/x to x + 1/x first, keeping x ≠ 0. The quotient rule is a valid alternative.",
+        "3e2025.html": "Maximise the area, then report the corresponding length AD. The question lets you assume the area found is a maximum.",
+        "alg-1a2025-l2.html": "The principal square root of y⁶ is |y³|. Test y = −1 before removing an absolute value.",
+        "alg-2b2025-l2.html": "Retain both original exclusions x ≠ −5 and x ≠ 2/5 after cancelling.",
+        "complex-3b2025.html": "For real negative a, the radicals are complex. Factor √(3a) before squaring; do not replace √(36a²) by 6a.",
+        "complex-2023.html?q=1d": "Check all coefficients by expanding (z + 2)(z² − 10z + 26), including the coefficient of z.",
+        "complex-2023.html?q=2e": "The radius is √3, so its square is 3. Check that the line meets the circle at exactly one point.",
+        "alg-1c2025-l2.html": "A given root makes the quadratic zero; a given point supplies a separate equation. Substitute both into the final model.",
+        "complex-2024.html?q=2c": "After solving for w, check the modulus using the sum of the squares of its real and imaginary parts.",
+        "complex-2023.html?q=3e": "Substitute the calculated z into the definition of w, then take the imaginary coefficient, not the whole imaginary term.",
+        "complex-2022.html?q=3a": "Read horizontal coordinates as real parts and vertical coordinates as imaginary parts. Apply the factor 2 to both coordinates of r before subtracting s.",
+        "1d2023.html": "Division by q assumes q ≠ 0. Handle q = 0 with the vertical tangent x = p.",
+    }
+    if route.href in specific:
+        return specific[route.href]
+    if route.standard_key == "level-3-integration":
+        focus = meta_plain(route.focus).lower()
+        checks = (
+            ("simpson", "Use equally spaced ordinates and the 1, 4, 2, …, 4, 1 weights; multiply the sum by one-third of the interval width."),
+            ("trapezium", "Count intervals, not ordinates, for the width. The first and last ordinates have half the weight of the interior ones."),
+            ("acceleration", "Integrate acceleration to obtain velocity and use the velocity condition. If displacement is also needed, integrate again with a separate constant; check velocity signs for distance travelled."),
+            ("velocity", "Integrate velocity to find displacement and use the given position to fix the constant. Check velocity signs before treating displacement as distance travelled."),
+            ("separat", "State the factors divided out and check the resulting branch against the initial condition and singularities of the original differential equation."),
+            ("differential equation", "Differentiate the proposed solution and substitute into the original equation, then check the initial condition and the interval on which it is defined."),
+            ("model", "Use every initial measurement to determine constants. Check that the time, volume or mass stays in the physical domain of the model."),
+            ("mean", "Divide the definite integral by the interval length; the integral alone is not the mean value."),
+            ("balance", "Keep the weighted integral and the area integral separate; their quotient must place the hanging point within the object's horizontal extent."),
+            ("pumping", "Check the vertical coordinate, limits and lifting distance together before integrating. State any difference between a supplied formula and the physical model."),
+            ("area", "Find the boundaries and check the integrand's sign on each interval. Split the integral when needed to obtain geometric area."),
+            ("limit", "Keep the unknown bound in the evaluation step, then check each candidate against the integrand's domain and the requested interval."),
+            ("two definite", "Treat each constant consistently in both integrals and substitute the candidate values back into both given equations."),
+            ("determine a constant", "Keep the unknown constant while evaluating the definite integral, then substitute the result back into the given condition."),
+            ("constant inside", "The integral of a constant over an interval is the constant times the interval length."),
+            ("fitting the constant", "Integrate first, then substitute the given point or measurement to determine the integration constant."),
+            ("reverse", "Differentiate your antiderivative to check the inner-function scale factor, and include a constant for an indefinite integral."),
+            ("sec-tan", "Differentiate your secant antiderivative to check both the trigonometric pattern and the inner-function scale factor."),
+            ("integr", "Differentiate the antiderivative as a check. For definite integrals, substitute both bounds in the correct order."),
+            ("trig", "Keep angles in radians and use an identity valid over the whole integration interval; check the requested branch or first positive solution."),
+        )
+        for keyword, note in checks:
+            if keyword in focus:
+                return note
+
     polar_zero_case_keys = {
         ("level-3-complex", 2020, "3d"),
         ("level-3-complex", 2021, "2d"),
@@ -1611,11 +1658,11 @@ def infer_common_mistake(route: QuestionRoute) -> str:
         ("chain rule", "Do not stop after differentiating the outside function; include the derivative of the inside function as a factor."),
         ("product rule", "Differentiate both factors in turn and keep both product-rule terms."),
         ("quotient rule", "Use brackets carefully and retain the squared denominator when applying the quotient rule."),
-        ("point of inflection", "A zero second derivative alone is not enough; check the required change in concavity or other supporting evidence."),
+        ("point of inflection", "A zero second derivative alone is not enough; check a change in concavity unless the question explicitly lets you assume the point is an inflection."),
         ("stationary", "After solving the derivative condition, check the point's nature and answer the conclusion the question actually asks for."),
         ("related rates", "Differentiate with respect to time consistently, then include the correct units and contextual interpretation."),
-        ("maxim", "Finding a stationary value is only part of an optimisation argument; justify that it is the required maximum and respect the domain."),
-        ("minimum", "Finding a stationary value is only part of the argument; justify that it is the required minimum and respect the domain."),
+        ("maxim", "Check the feasible domain. Justify a maximum using derivative signs, concavity or endpoints unless the question explicitly says a proof is unnecessary."),
+        ("minimum", "Check the feasible domain. Justify a minimum using derivative signs, concavity or endpoints unless the question explicitly says a proof is unnecessary."),
         ("argument", "Check the complex number's quadrant and the argument range before selecting the final angle."),
         ("roots of unity", "List every distinct root and check that the arguments have the required equal angular spacing."),
         ("complex roots", "Check whether the equation requires every root, and list distinct roots with the correct angular spacing."),
@@ -1635,6 +1682,49 @@ def infer_common_mistake(route: QuestionRoute) -> str:
     for keyword, note in patterns:
         if keyword in focus:
             return note
+    focus = meta_plain(route.focus).lower()
+    targeted_checks = (
+        ("parametric", "Use (dy/dt)/(dx/dt), checking dx/dt before dividing. For a second derivative, differentiate dy/dx with respect to t and divide by dx/dt again."),
+        ("discriminant", "Check the leading coefficient is nonzero before applying the quadratic discriminant, then interpret its sign for the required number and type of roots."),
+        ("turning-point", "Use the point condition in the original function and the stationary condition in its derivative; they give different equations."),
+        ("turning point", "A stationary point need not be a turning point. Check the derivative sign on both sides before calling it a maximum or minimum."),
+        ("points of inflection", "Check the sign of the second derivative throughout the stated domain; positivity everywhere rules out a change of concavity."),
+        ("curvature", "For a nonnegative radius use the absolute value of the second derivative. Check its sign before applying a supplied signed formula."),
+        ("graph", "Distinguish the plotted function value from its limit and gradient. Open circles, jumps and corners affect these questions in different ways."),
+        ("decreasing", "Solve the derivative inequality on the original domain, including intervals between critical and excluded values."),
+        ("increasing", "Check the derivative's sign on each allowed interval; a stationary point alone does not describe all increasing values."),
+        ("differential", "Compute both derivatives independently, substitute into the original equation and check signs when taking square roots."),
+        ("second derivative", "Differentiate the first derivative completely and verify the requested identity by substitution rather than by squaring alone."),
+        ("minimis", "Use the feasible domain and compare derivative signs or endpoints. If minimising squared distance, explain why this also minimises distance."),
+        ("displacement", "Use the same time origin for both boats and retain the initial displacement. Reject negative meeting times and report distance from the dock."),
+        ("acceleration", "Acceleration is the derivative of velocity; zero acceleration does not necessarily mean the object is stationary."),
+        ("power", "Rewrite roots and reciprocals as powers carefully. Multiply by the exponent and then subtract one from it."),
+        ("depreciation", "Include each exponential's inner constant. A negative derivative describes loss of value, with units of dollars per year."),
+        ("cosecant", "The derivative of cosecant has a minus sign; include the inner derivative when its argument is not x."),
+        ("gradient", "Evaluate the derivative for the gradient, and use the original function when coordinates are requested."),
+        ("rearrang", "Apply inverse operations to both sides and substitute the rearranged expression back into the original equation."),
+        ("exponential", "After substituting an exponential as a new variable, keep that variable positive and reject inadmissible roots before taking logarithms."),
+        ("perfect square", "Expand the proposed squared binomial: its middle coefficient is twice the product of its two terms."),
+        ("root relationships", "For a monic quadratic, check the signs of the root sum and root product before substituting into the requested identity."),
+        ("quadratic", "Expand the proposed factors or model and check it against every given root, point and coefficient."),
+        ("modul", "A modulus is nonnegative. Square real and imaginary parts carefully, and retain denominator exclusions and any restrictions introduced by squaring."),
+        ("locus", "Translate both real and imaginary coordinates carefully and retain any points excluded by the original expression."),
+        ("conjugate roots", "A non-real root has its conjugate as a root only when the polynomial has real coefficients. Expand the resulting factors to check all coefficients."),
+        ("conjugat", "Conjugate every imaginary term and use i² = −1. Check that any divisor is nonzero before rationalising."),
+        ("completing", "Balance any term added to complete the square. Keep both square roots, while using a nonnegative principal real square root."),
+        ("division", "Multiply the quotient by the divisor and add the remainder to recover the original polynomial; retain excluded divisor zeros."),
+        ("cis", "Divide the moduli and subtract the arguments, then put the argument into the required range."),
+        ("complex", "Expand with i² = −1, then equate real parts and imaginary parts separately. Substitute the result back into the original equation."),
+        ("imaginary", "A purely imaginary number has real part zero; its imaginary coefficient need not be zero."),
+        ("rationalis", "Multiply every numerator term by the conjugate and check that the denominator is real and nonzero. Separate the real and imaginary coefficients carefully."),
+        ("reciprocal", "Keep the nonzero-denominator condition while multiplying out, and check the result in the original reciprocal expression."),
+        ("cubing", "Expand the full cube including both cross terms before isolating the required sum of cubes."),
+        ("cubic", "Expand the proposed factors to check every coefficient, including the constant term."),
+    )
+    for keyword, note in targeted_checks:
+        if keyword in focus:
+            return note
+
     return (
         "Check each step against the original condition, preserve signs and restrictions, "
         "and confirm that the final result answers the question asked."
@@ -1719,6 +1809,31 @@ def skill_navigation_for_routes(routes: Sequence[QuestionRoute]) -> str:
     )
 
 
+@lru_cache(maxsize=1)
+def reviewed_practice_routes() -> tuple[QuestionRoute, ...]:
+    registry = json.loads((ROOT / "scripts/reviewed-practice.json").read_text())
+    eligible = set(registry["routes"])
+    return tuple(r for r in discover_routes(load_catalogue()) if r.href in eligible)
+
+
+def related_practice(route: QuestionRoute) -> dict[str, str] | None:
+    skills = set(classify_question(route.focus, route.standard_key))
+    candidates = [r for r in reviewed_practice_routes() if r.href != route.href
+                  and r.standard_key == route.standard_key
+                  and skills.intersection(classify_question(r.focus, r.standard_key))]
+    if not candidates:
+        return None
+    candidates.sort(key=lambda r: (question_method_title(r) != question_method_title(route), -len(skills.intersection(classify_question(r.focus, r.standard_key))), r.year == route.year, r.href))
+    other = candidates[0]
+    return {"href": other.href, "label": f"{other.year} {other.standard.topic} · Q{other.display_number}"}
+
+
+def related_practice_html(route: QuestionRoute) -> str:
+    related = related_practice(route)
+    return (f'<p class="step-text" data-related-practice>Try a related question: <a href="{h(related["href"])}">{h(related["label"])}</a>. Attempt it before opening working, then return to this question later.</p>'
+            if related else '<p class="step-text" data-related-practice hidden></p>')
+
+
 def question_summary(
     route: QuestionRoute,
     siblings: Sequence[QuestionRoute],
@@ -1752,9 +1867,11 @@ def question_summary(
   <p class="question-label">Learning summary</p>
   <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
   <p class="step-text" data-seo-summary>{h(question_learning_summary(route))}</p>
-  <h3>Common mistake to avoid</h3>
+  <h3>Check</h3>
   <p class="step-text" data-seo-mistake>{h(infer_common_mistake(route))}</p>
+  <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
   <h3>Continue practising</h3>
+  {related_practice_html(route)}
   <div class="nav-row">
     <a class="nav-btn secondary" href="{h(previous_href)}" data-seo-related="previous"{previous_hidden}>{h(previous_label)}</a>
     <a class="nav-btn secondary" href="{h(following_href)}" data-seo-related="next"{following_hidden}>{h(following_label)}</a>
@@ -1806,6 +1923,7 @@ def question_page_record(
             "commonMistake": infer_common_mistake(route),
             "skillSlugs": list(classify_question(route.focus, route.standard_key)),
             "reviewStatus": "unreviewed",
+            "relatedPractice": related_practice(route),
             "guideLinks": [
                 {"href": guide.filename, "title": guide.title}
                 for guide in matching_guides
@@ -1966,6 +2084,7 @@ def update_question_page(
     siblings: Sequence[QuestionRoute],
     fallback_record: Mapping[str, object],
     guides: Sequence[Guide] = (),
+    paper_fallbacks: Mapping[str, Mapping[str, object]] | None = None,
 ) -> str:
     for name in ("HEAD", "BREADCRUMBS", "OVERVIEW", "SUMMARY", "SITE_HEADER", "PAGE_RECORD", "WALKTHROUGH_FALLBACK"):
         original = remove_marker(original, name)
@@ -2000,8 +2119,7 @@ def update_question_page(
     )
 
     heading = (
-        f"{route.year} NCEA Level {route.standard.level} {route.standard.topic} "
-        f"Question {route.display_number}"
+        f"{route.year} {route.standard.topic} · Q{route.display_number}"
     )
     original = replace_first_h1(original, heading)
     original = replace_back_to_paper(original, route.year_file)
@@ -2039,6 +2157,18 @@ def update_question_page(
 
     original = remove_legacy_walkthrough_mounts(original, route.source_file)
     fallback = walkthrough_fallback(route, fallback_record)
+    if "?" in route.href and paper_fallbacks:
+        choices = []
+        for sibling in siblings:
+            if sibling.question_id == route.question_id:
+                continue
+            content = paper_fallbacks[sibling.route_path]
+            prompt = re.sub(r'\s+id="[^"]*"', '', str(content["questionHtml"]))
+            prompt = re.sub(r'<div(?=[^>]*\baria-label=)(?![^>]*\brole=)', '<div role="group"', prompt)
+            first = content["firstGuidedStep"]
+            choices.append(f'<details class="question-card" id="text-{sibling.question_id}"><summary>Question {h(sibling.display_number)}</summary>{prompt}<details><summary>First worked step</summary>{first["workingHtml"]}</details></details>')
+        text_view = '<noscript><section class="paper-text-fallback"><h2>Other questions in this paper</h2><p>The question selected by the URL needs JavaScript. The default question above is Question ' + h(route.display_number) + '. Without JavaScript, open the numbered prompt below. Mathematical source notation is provided in this text view.</p>' + ''.join(choices) + '</section></noscript>'
+        fallback = fallback.replace('<!-- SEO:WALKTHROUGH_FALLBACK:END -->', text_view + '\n    <!-- SEO:WALKTHROUGH_FALLBACK:END -->')
     original, fallback_count = re.subn(
         r"(?is)(</header>)",
         lambda match: f"{match.group(1)}\n\n{fallback}\n",
@@ -2177,7 +2307,7 @@ def update_homepage(
             structured_data=website_schema(),
         ),
     )
-    original = replace_first_h1(original, "Level 3 Calculus worked answers and walkthroughs")
+    original = replace_first_h1(original, "Practise Level 3 Calculus")
 
     original = re.sub(
         r'(?im)^\s*<(?:link|script)\b[^>]*(?:katex|auto-render|walkthrough-gate\.js|question-catalogue\.js|index-page\.js|site-shell\.js|search-core\.js|index-loader\.js)[^>]*>(?:</script>)?\s*\n?',
@@ -3019,6 +3149,30 @@ def skill_page(
 """
 
 
+def prerequisite_page() -> str:
+    title = "Calculus essentials | Calc.nz"
+    description = "Short reminders for algebra, logarithms, calculus rules, radians, signs, constants and domains."
+    canonical = absolute_url("prerequisites.html")
+    sections = [
+        ("algebra", "Rearrange without changing the equation", r"Apply the same operation to both sides. For \(3(y-2)=x\), divide by 3, then add 2: \(y=x/3+2\). Before cancelling a factor, state when it is nonzero. Cancelling \(x\) from \(x(x-1)=0\) would lose \(x=0\)."),
+        ("logs", "Use logarithm laws with their domains", r"For positive \(a,b\), \(\ln(ab)=\ln a+\ln b\) and \(\ln(a/b)=\ln a-\ln b\). A real logarithm needs a positive argument. In integration, \(\int 1/x\,dx=\ln|x|+C\), on an interval avoiding zero."),
+        ("rules", "Choose a differentiation rule", r"Simplify first when helpful: \((x^2+1)/x=x+1/x\), for \(x\ne0\). A composition needs the chain rule; a product needs \((uv)'=u'v+uv'\); a quotient needs \((u/v)'=(u'v-uv')/v^2\). For \((3x+1)^2\), include the inner derivative 3."),
+        ("radians", "Use radians in calculus", r"The formulas \((\sin x)'=\cos x\) and \((\tan x)'=\sec^2x\) assume radians. Convert degrees with \(\theta_{\rm rad}=\theta_{\rm deg}\pi/180\). Check the calculator mode when evaluating a derivative at \(\pi/3\)."),
+        ("signs", "Read a derivative’s sign", r"On an interval, \(f'>0\) means increasing and \(f'\lt0\) means decreasing. It does not tell you whether \(f\) itself is positive. For classification, check signs on both sides of a stationary point; a zero derivative alone does not prove a maximum."),
+        ("constants", "Keep the integration constant", r"An indefinite integral represents a family: \(\int 2x\,dx=x^2+C\). If the curve passes through \((1,3)\), then \(C=2\). Use a fresh constant when integrating a second time. Differentiate your result to check the integrand."),
+        ("domains", "Check restrictions and branches", r"A denominator cannot be zero. Real square roots need a nonnegative radicand, and \(\sqrt{u^2}=|u|\). Squaring may add roots, so substitute back. A differential-equation solution must stay on an interval where the original equation is defined; an algebraic formula on the other side of a singularity is not automatically the same initial-value solution."),
+    ]
+    cards = "".join(f'<section id="{key}" class="question-card"><h2>{heading}</h2><p class="step-text">{body}</p></section>' for key, heading, body in sections)
+    return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=collection_schema(canonical=canonical,title=title,description=description,crumbs=(("Calc.nz",BASE_URL),("Calculus essentials",canonical)),date_modified=REVIEW_DATE))}
+<body class="home-page has-site-header">{site_header()}<main id="main-content" class="app home-app" tabindex="-1">
+{breadcrumb_nav((("Calc.nz", "index.html"), ("Calculus essentials", None)))}
+<header class="topbar"><h1>Calculus essentials</h1><p class="subtitle">A short reminder, then back to your question.</p></header>
+<nav class="question-card" aria-label="Essential topics">{' · '.join(f'<a href="#{key}">{heading}</a>' for key,heading,_ in sections)}</nav>
+{cards}
+<section class="question-card"><h2>What needs to be shown?</h2><p class="step-text">Show the derivatives, antiderivatives or equations the question asks for, and connect the steps that lead to your conclusion. A final number alone may leave the required reasoning unshown. In an optimisation problem, state your variable and constraint, find an admissible candidate, and justify its nature unless the question says you may assume it. Keep exact values until rounding is needed.</p><p class="step-text">Check the <a href="https://www.nzqa.govt.nz/nqfdocs/ncea-resource/specifications/2026/91578-spc-2026.pdf">official 2026 Level 3 Calculus assessment specifications</a> for current requirements.</p></section>
+<p><a href="skills.html">Choose a skill to practise</a> · <a href="index.html#saved-practice">Return to saved practice</a></p></main>{site_footer()}</body></html>"""
+
+
 def about_page() -> str:
     filename = "about.html"
     canonical = absolute_url(filename)
@@ -3281,7 +3435,7 @@ def search_page(routes: Sequence[QuestionRoute], guides: Sequence[Guide]) -> str
   </section>
   <nav class="question-card" aria-labelledby="search-browse-heading">
     <p class="question-label">Browse instead</p>
-    <h2 id="search-browse-heading">Explore crawlable directories</h2>
+    <h2 id="search-browse-heading">Browse standards, papers and skills</h2>
     <div class="nav-row">
       <a class="nav-btn secondary" href="standards.html">Standards and papers</a>
       <a class="nav-btn secondary" href="skills.html">Skills</a>
@@ -3350,9 +3504,9 @@ def guide_requires_katex(guide: Guide) -> bool:
 def guide_katex_assets() -> str:
     """Load and run accessible KaTeX only for guides that contain maths."""
 
-    return r"""  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+    return r"""  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if (typeof window.renderMathInElement !== "function") return;
@@ -3564,6 +3718,7 @@ def sitemap_xml(routes: Sequence[QuestionRoute], guides: Sequence[Guide]) -> str
     calculus_routes = [route for route in routes if route.standard_key in {"level-3-differentiation", "level-3-integration"}]
     add("level-3-calculus.html", max(question_dates[route.route_path] for route in calculus_routes))
     add("skills.html", PAGE_MODIFIED_DATES["skills.html"])
+    add("prerequisites.html", REVIEW_DATE)
     add("search.html", PAGE_MODIFIED_DATES["search.html"])
     for spec in SKILL_SPECS.values():
         matching = routes_for_skill(routes, spec.slug)
@@ -3583,7 +3738,7 @@ def sitemap_xml(routes: Sequence[QuestionRoute], guides: Sequence[Guide]) -> str
             add(guide.filename, guide.reviewed_date)
     entries.extend((route.canonical, question_dates[route.route_path]) for route in routes)
 
-    expected_count = 1 + 1 + 1 + 1 + 1 + len(SKILL_SPECS) + len(STANDARDS) + EXPECTED_YEAR_COUNT + 1 + EXPECTED_ROUTE_COUNT
+    expected_count = 1 + 1 + 1 + 1 + 1 + 1 + len(SKILL_SPECS) + len(STANDARDS) + EXPECTED_YEAR_COUNT + 1 + EXPECTED_ROUTE_COUNT
     expected_count += (1 + len(guides)) if guides else 0
     if len(entries) != expected_count:
         raise ValueError(f"Unexpected sitemap URL count: expected {expected_count}, found {len(entries)}")
@@ -3680,6 +3835,7 @@ def build_outputs() -> dict[Path, str]:
             by_year[(default.standard_key, default.year)],
             walkthrough_content[default.route_path],
             guides,
+            walkthrough_content,
         )
 
     for source, target in LEGACY_REDIRECTS.items():
@@ -3695,6 +3851,7 @@ def build_outputs() -> dict[Path, str]:
     outputs[ROOT / "standards.html"] = standards_page(by_standard)
     outputs[ROOT / "level-3-calculus.html"] = level_three_calculus_page(by_standard)
     outputs[ROOT / "skills.html"] = skills_directory_page(routes)
+    outputs[ROOT / "prerequisites.html"] = prerequisite_page()
     outputs[ROOT / "search.html"] = search_page(routes, guides)
     for spec in SKILL_SPECS.values():
         outputs[ROOT / spec.page_href] = skill_page(spec, routes, guides)

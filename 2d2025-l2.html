@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91262 — Apply calculus methods in solving problems"
       },
-      "dateModified": "2026-09-02",
+      "dateModified": "2026-09-24",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,18 +91,18 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260916-2" />
+<link rel="stylesheet" href="style.css?v=20260924-1" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20260916-2"></script>
-  <script defer src="walkthrough-gate.js?v=20260916-2"></script>
+<script defer src="walkthrough-audit-data.js?v=20260924-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260924-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-2", "label": "Level 2"}, "paper": {"id": "level-2-calculus-2025", "year": 2025}, "question": {"canonical": "https://calc.nz/2d2025-l2.html", "commonMistake": "After solving the derivative condition, check the point's nature and answer the conclusion the question actually asks for.", "description": "2025 NCEA Level 2 Calculus AS91262 Question 2(d) worked solution: using a stationary point and an x-intercept to find constants, then classifying the other…", "guideLinks": [], "id": "2d", "label": "Question 2(d)", "method": "using a stationary point and an x-intercept to find constants, then classifying the other stationary point.", "methodTitle": "Stationary Points and Optimisation", "reviewStatus": "unreviewed", "skillSlugs": ["stationary-points-optimisation"], "summary": "This walkthrough helps you practise using a stationary point and an x-intercept to find constants, then classifying the other stationary point. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Stationary Points and Optimisation Worked Solution – 2025 NCEA Level 2 Q2(d) (AS91262) | Calc.nz"}, "standard": {"code": "AS91262", "id": "level-2-calculus", "label": "Calculus"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-2", "label": "Level 2"}, "paper": {"id": "level-2-calculus-2025", "year": 2025}, "question": {"canonical": "https://calc.nz/2d2025-l2.html", "commonMistake": "After solving the derivative condition, check the point's nature and answer the conclusion the question actually asks for.", "description": "2025 NCEA Level 2 Calculus AS91262 Question 2(d) worked solution: using a stationary point and an x-intercept to find constants, then classifying the other…", "guideLinks": [], "id": "2d", "label": "Question 2(d)", "method": "using a stationary point and an x-intercept to find constants, then classifying the other stationary point.", "methodTitle": "Stationary Points and Optimisation", "relatedPractice": {"href": "1c2025-l2.html", "label": "2025 Calculus · Q1(c)"}, "reviewStatus": "unreviewed", "skillSlugs": ["stationary-points-optimisation"], "summary": "This walkthrough helps you practise using a stationary point and an x-intercept to find constants, then classifying the other stationary point. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Stationary Points and Optimisation Worked Solution – 2025 NCEA Level 2 Q2(d) (AS91262) | Calc.nz"}, "standard": {"code": "AS91262", "id": "level-2-calculus", "label": "Calculus"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20260916-2"></script>
+  <script defer src="site-shell.js?v=20260924-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -139,7 +139,7 @@
 <header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 2 Calculus Walkthrough</p>
-        <h1 id="page-title">2025 NCEA Level 2 Calculus Question 2(d)</h1>
+        <h1 id="page-title">2025 Calculus · Q2(d)</h1>
         <p id="page-subtitle" class="subtitle">2025 Paper — Find constants from calculus conditions</p>
       </div>
       <a id="back-link" class="ghost-link" href="level-2-calculus-2025.html">← Back to paper</a>
@@ -158,13 +158,10 @@
             The graph intersects the x-axis at \(x=1\) and has a stationary point at \(x=-1\).
           </p>
           <p class="step-text">
-            (i) Find the x-coordinate of the other stationary point.
+            (i) Use calculus to find the x-coordinate of the other stationary point.
           </p>
           <p class="step-text">
-            (ii) Determine what type of stationary point this is.
-          </p>
-          <p class="step-text question-note">
-            Differentiate first, use \(f'(-1)=0\) to link \(a\) and \(b\), then use \(f(1)=0\) to solve for the constants before classifying the other stationary point with the second derivative.
+            (ii) Use calculus methods to determine what type of stationary point this is.
           </p>
 
       <noscript><p class="question-note">Bookmarks, retry marks, exam mode, and the pinned-question setting need JavaScript. The question and first learning step remain available.</p></noscript>
@@ -207,7 +204,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Using a stationary point and an x-intercept to find constants, then classifying the other stationary point.</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 2(d)</span> from the <a href="level-2-calculus-2025.html" data-seo-year-link>2025 NCEA Level 2 Calculus paper</a> for <a href="level-2-calculus.html" data-seo-standard-link>AS91262 — Apply calculus methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91262">official NZQA resources for AS91262</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-09-02">2 September 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-09-24">24 September 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -216,9 +213,11 @@
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
       <p class="step-text" data-seo-summary>This walkthrough helps you practise using a stationary point and an x-intercept to find constants, then classifying the other stationary point. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Common mistake to avoid</h3>
+      <h3>Check</h3>
       <p class="step-text" data-seo-mistake>After solving the derivative condition, check the point&#x27;s nature and answer the conclusion the question actually asks for.</p>
+      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
       <h3>Continue practising</h3>
+      <p class="step-text" data-related-practice>Try a related question: <a href="1c2025-l2.html">2025 Calculus · Q1(c)</a>. Attempt it before opening working, then return to this question later.</p>
       <div class="nav-row">
         <a class="nav-btn secondary" href="2c2025-l2.html" data-seo-related="previous">← Question 2(c)</a>
         <a class="nav-btn secondary" href="3a2025-l2.html" data-seo-related="next">Question 3(a) →</a>
@@ -406,7 +405,7 @@
           f''(x)=6ax+2b=-3x-2
           \]
           \[
-          f''\left(-\frac{1}{3}\right)=1-2=-1&lt;0
+          f''\left(-\frac{1}{3}\right)=1-2=-1\lt 0
           \]
           \[
           \text{So it is a local maximum.}
@@ -431,14 +430,12 @@
         The graph intersects the x-axis at \(x=1\) and has a stationary point at \(x=-1\).
       </p>
       <p class="step-text">
-        (i) Find the x-coordinate of the other stationary point.
+        (i) Use calculus to find the x-coordinate of the other stationary point.
       </p>
       <p class="step-text">
-        (ii) Determine what type of stationary point this is.
+        (ii) Use calculus methods to determine what type of stationary point this is.
       </p>
-      <p class="step-text question-note">
-        Differentiate first, use \(f'(-1)=0\) to link \(a\) and \(b\), then use \(f(1)=0\) to solve for the constants before classifying the other stationary point with the second derivative.
-      </p>
+
         `,
         tips: hintContent,
         answerHtml: answerHtml,

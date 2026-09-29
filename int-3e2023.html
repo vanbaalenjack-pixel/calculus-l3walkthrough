@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91579 — Apply integration methods in solving problems"
       },
-      "dateModified": "2026-09-02",
+      "dateModified": "2026-09-24",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,20 +91,20 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20260916-2" />
+<link rel="stylesheet" href="style.css?v=20260924-1" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20260916-2"></script>
-  <script defer src="walkthrough-gate.js?v=20260916-2"></script>
-<script defer src="differentiation-walkthrough.js?v=20260916-2"></script>
-  <script defer src="integration-2023-data.js?v=20260916-2"></script>
+<script defer src="walkthrough-audit-data.js?v=20260924-1"></script>
+  <script defer src="walkthrough-gate.js?v=20260924-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20260924-1"></script>
+  <script defer src="integration-2023-data.js?v=20260924-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-integration-2023", "year": 2023}, "question": {"canonical": "https://calc.nz/int-3e2023.html", "commonMistake": "Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.", "description": "2023 NCEA Level 3 Integration AS91579 Question 3(e) worked solution: factor cancellation in a separable differential equation. Use guided hints and…", "guideLinks": [], "id": "3e", "label": "Question 3(e)", "method": "factor cancellation in a separable differential equation.", "methodTitle": "Differential Equations", "reviewStatus": "awaiting-teacher-review", "skillSlugs": ["integration-techniques", "differential-equations"], "summary": "This walkthrough helps you practise factor cancellation in a separable differential equation. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Differential Equations Worked Solution – 2023 NCEA Level 3 Q3(e) (AS91579) | Calc.nz"}, "standard": {"code": "AS91579", "id": "level-3-integration", "label": "Integration"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-integration-2023", "year": 2023}, "question": {"canonical": "https://calc.nz/int-3e2023.html", "commonMistake": "Differentiate the proposed solution and substitute into the original equation, then check the initial condition and the interval on which it is defined.", "description": "2023 NCEA Level 3 Integration AS91579 Question 3(e) worked solution: factor cancellation in a separable differential equation. Use guided hints and…", "guideLinks": [], "id": "3e", "label": "Question 3(e)", "method": "factor cancellation in a separable differential equation.", "methodTitle": "Differential Equations", "relatedPractice": {"href": "int-1e2020.html", "label": "2020 Integration · Q1(e)"}, "reviewStatus": "awaiting-teacher-review", "skillSlugs": ["integration-techniques", "differential-equations"], "summary": "This walkthrough helps you practise factor cancellation in a separable differential equation. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Differential Equations Worked Solution – 2023 NCEA Level 3 Q3(e) (AS91579) | Calc.nz"}, "standard": {"code": "AS91579", "id": "level-3-integration", "label": "Integration"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20260916-2"></script>
+  <script defer src="site-shell.js?v=20260924-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -141,7 +141,7 @@
 <header class="topbar">
       <div>
         <p id="page-eyebrow" class="eyebrow">Level 3 Integration Walkthrough</p>
-        <h1 id="page-title">2023 NCEA Level 3 Integration Question 3(e)</h1>
+        <h1 id="page-title">2023 Integration · Q3(e)</h1>
         <p id="page-subtitle" class="subtitle">2023 Paper</p>
       </div>
       <a id="back-link" class="ghost-link" href="level-3-integration-2023.html">← Back to paper</a>
@@ -151,35 +151,25 @@
     <section id="question-card" class="question-card static-walkthrough-question" data-prerendered="true">
       <p class="question-label">Question</p>
       <aside class="walkthrough-review-notice" aria-label="Review status"><p class="question-label">Review status</p><p>This walkthrough has been corrected following an internal audit and is awaiting independent teacher review.</p></aside>
-      <p class="step-text">Consider the differential equation</p>
-          <div class="question-math">
-            \[
-            (1-x^2)(1+y)\frac{dy}{dx}+(1-x)(1-y^2)=0.
-            \]
-          </div>
-          <p class="step-text">Given that \(y=0\) when \(x=2\), find the value of \(y\) when \(x=6\).</p>
+      <p class="step-text">Consider the implicit differential equation</p>
+            <div role="group" class="question-math" aria-label="Implicit differential equation">\[(1-x^2)(1+y)y'+(1-x)(1-y^2)=0.\]</div>
+            <p class="step-text">Given \(y=0\) when \(x=2\), find \(y\) when \(x=6\), showing the integration used.</p>
 
       <noscript><p class="question-note">Bookmarks, retry marks, exam mode, and the pinned-question setting need JavaScript. The question and first learning step remain available.</p></noscript>
     </section>
     <section id="hints-card" class="question-card tips-card static-walkthrough-support" data-prerendered="true">
       <p class="question-label">First walkthrough idea</p>
-      <h2 id="static-first-idea-heading">Focus to try first</h2>
-      <p class="step-text">Factor both \(1-x^2\) and \(1-y^2\), cancel the common factors carefully, then use the initial condition to choose the correct branch.</p>
+      <h2 id="static-first-idea-heading">Hint to try first</h2>
+      <p class="step-text">Factor \(1-x^2\) and \(1-y^2\), then list every factor you cancel.</p>
     </section>
     <div id="walkthrough-content" class="static-walkthrough-content" data-prerendered="true">
       <section class="step-card static-first-step" aria-labelledby="static-first-step-heading">
         <p class="step-number">Step 1</p>
-        <h2 id="static-first-step-heading">Simplify the differential equation</h2>
-        <p class="step-text">Factoring \(1-x^2\) and \(1-y^2\) lets the common factors cancel cleanly.</p>
+        <h2 id="static-first-step-heading">Factor and record exclusions</h2>
+        <p class="step-text">Cancellation simplifies the equation but can discard singular states.</p>
         <details class="static-first-step-working">
           <summary>Show the first step’s working</summary>
-          <div class="walkthrough-step-working"><p class="step-text">Factoring \(1-x^2\) and \(1-y^2\) lets the common factors cancel cleanly.</p>
-    <div class="answer-highlight walkthrough-answer-highlight">
-      <p class="question-label">Key result</p>
-      \[
-              \frac{dy}{dx}=-\frac{1-y}{1+x}
-            \]
-    </div></div>
+          <div class="walkthrough-step-working"><div class="math-block">\[(1-x)(1+y)\bigl((1+x)y'+1-y\bigr)=0.\]</div><p class="step-text">Cancelling assumes \(x\ne1\) and \(y\ne-1\). On that regular branch, \((1+x)y'+1-y=0\).</p></div>
         </details>
       </section>
       <noscript><p class="question-note">This no-JavaScript view shows the question, the first idea, and the first worked step. Enable JavaScript for all reveals, progress controls, and saved practice features.</p></noscript>
@@ -194,7 +184,7 @@
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Factor cancellation in a separable differential equation.</span></p>
       <p class="step-text">This is <span data-seo-overview-question>Question 3(e)</span> from the <a href="level-3-integration-2023.html" data-seo-year-link>2023 NCEA Level 3 Integration paper</a> for <a href="level-3-integration.html" data-seo-standard-link>AS91579 — Apply integration methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91579">official NZQA resources for AS91579</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-09-02">2 September 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-09-24">24 September 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 
@@ -203,9 +193,11 @@
       <p class="question-label">Learning summary</p>
       <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
       <p class="step-text" data-seo-summary>This walkthrough helps you practise factor cancellation in a separable differential equation. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Common mistake to avoid</h3>
-      <p class="step-text" data-seo-mistake>Check each step against the original condition, preserve signs and restrictions, and confirm that the final result answers the question asked.</p>
+      <h3>Check</h3>
+      <p class="step-text" data-seo-mistake>Differentiate the proposed solution and substitute into the original equation, then check the initial condition and the interval on which it is defined.</p>
+      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
       <h3>Continue practising</h3>
+      <p class="step-text" data-related-practice>Try a related question: <a href="int-1e2020.html">2020 Integration · Q1(e)</a>. Attempt it before opening working, then return to this question later.</p>
       <div class="nav-row">
         <a class="nav-btn secondary" href="int-3d2023.html" data-seo-related="previous">← Question 3(d)</a>
         <a class="nav-btn secondary" href="int-3e2023.html" data-seo-related="next" hidden>Next question</a>
