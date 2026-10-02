@@ -2,8 +2,10 @@
 """Focused regression tests for the dormant Complex URL migration contract."""
 
 from pathlib import Path
+import json
 import sys
 import unittest
+from urllib.parse import parse_qsl, urlsplit
 
 
 SCRIPT_DIRECTORY = Path(__file__).resolve().parent
@@ -24,6 +26,33 @@ REPOSITORY_ROOT = SCRIPT_DIRECTORY.parent
 
 
 class LegacyComplexRedirectTests(unittest.TestCase):
+    def test_every_mapping_preserves_parameters_and_cannot_loop(self) -> None:
+        for mapping in LEGACY_COMPLEX_REDIRECTS:
+            with self.subTest(source=mapping.source_url):
+                request = (f'https://calc.nz{mapping.source_path}?q={mapping.part.upper()}'
+                           '&mode=guided&tag=a%2Bb&tag=&name=M%C4%81ori&q=3a#working')
+                target = redirect_target(request)
+                parsed = urlsplit(target)
+                self.assertEqual(parsed.path, mapping.destination_path)
+                self.assertEqual(parsed.fragment, 'working')
+                self.assertEqual(parse_qsl(parsed.query, keep_blank_values=True),
+                                 [('mode', 'guided'), ('tag', 'a+b'), ('tag', ''), ('name', 'Māori')])
+                self.assertIsNone(redirect_target(target))
+
+    def test_all_saved_identities_and_public_routes_stay_legacy_until_cutover(self) -> None:
+        source = (REPOSITORY_ROOT / 'question-catalogue.js').read_text()
+        catalogue = json.loads(source.split('=', 1)[1].strip().rstrip(';'))
+        records = {q['href']: (p['id'], q['id'])
+                   for level in catalogue['levels'] for s in level['standards']
+                   for p in s['papers'] for q in p['questions']}
+        sitemap = (REPOSITORY_ROOT / 'sitemap.xml').read_text()
+        for mapping in LEGACY_COMPLEX_REDIRECTS:
+            with self.subTest(source=mapping.source_url):
+                self.assertEqual(records[mapping.source_url.lstrip('/')],
+                                 (f'level-3-complex-{mapping.year}', mapping.part))
+                self.assertIn('https://calc.nz' + mapping.source_url, sitemap)
+                self.assertNotIn('https://calc.nz' + mapping.destination_path, sitemap)
+
     def test_contract_is_complete_unique_and_inactive(self) -> None:
         self.assertFalse(EDGE_REDIRECTS_ACTIVE)
         self.assertEqual(len(LEGACY_COMPLEX_REDIRECTS), 120)

@@ -90,3 +90,19 @@ or a different host; HTML should remain revalidatable.
 References: [GitHub Pages overview](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages),
 [publishing sources](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site),
 and [Jekyll Redirect From behaviour](https://github.com/jekyll/jekyll-redirect-from#how-it-works).
+
+## Readiness recheck — 2 October 2026
+
+Still **pending**: `.github/workflows/pages.yml` publishes `_site` directly to
+GitHub Pages; no query-aware redirect layer is configured in this repository.
+The public build retains all 120 existing query routes and their stable
+`paperId:partId` identities. No clean destinations or redirect claims are exposed.
+The regression suite now exercises every mapping for repeated/blank/encoded
+unrelated parameters, case-insensitive question values, duplicate `q` removal,
+fragment retention, loop prevention, and unchanged catalogue/sitemap identities.
+
+The minimum decision is approval of a host or edge that can issue query-aware
+HTTP 301/308 responses, plus permission to prepare a preview on that platform.
+The atomic rollout above remains required. Destination generation, raw metadata,
+HTTP status/destination availability and saved-state cutover tests must run in
+that preview before activation; the dormant mapping tests do not certify them.

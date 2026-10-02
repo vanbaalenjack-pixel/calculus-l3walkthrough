@@ -1786,6 +1786,22 @@
               \]
             </div>
 
+<p class="step-text">For a non-degenerate rectangle, the left corner has \(0&lt;x&lt;8\): its height and width \(16-2x\) must both be positive. Thus \(2\sqrt{16x-x^2}>0\), so multiplying \(A'(x)=0\) by it is valid.</p>
+<div class="math-block">
+  \[
+  -4(16x-x^2)+(16-2x)^2=0
+  \]
+  \[
+  8x^2-128x+256=0
+  \]
+  \[
+  x^2-16x+32=0\quad\Longrightarrow\quad (x-8)^2=32
+  \]
+  \[
+  x=8\pm4\sqrt{2}
+  \]
+</div>
+<p class="step-text">Reject \(8+4\sqrt{2}>8\), which would give a negative width. The prompt permits us to assume the valid stationary value gives a maximum.</p>
 <p class="step-text">The valid value is \(x=8-4\sqrt{2}\), which is about \(2.343\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>

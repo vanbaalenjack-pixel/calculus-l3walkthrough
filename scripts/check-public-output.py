@@ -7,7 +7,7 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / '_site'
 TEXT = {'.html', '.js', '.css', '.json', '.svg', '.xml', '.txt', '.map'}
-TERMS = re.compile(r'\b(?:artificial intelligence|AI[ -](?:assistant|generated|powered)|OpenAI|ChatGPT|Codex|Anthropic|Claude|Gemini|Copilot|GPT(?:-?\d+)?|large language model|language model provider)\b', re.I)
+TERMS = re.compile(r'\b(?:artificial intelligence|AI[ -](?:assistant|assisted|generated|powered)|OpenAI|ChatGPT|Codex|Anthropic|Claude|Gemini|Copilot|GPT(?:-?\d+)?|large language model|language model provider|software[ -]development tools|technical implementation created with|development prompt)\b', re.I)
 UPPER_AI = re.compile(r'\bAI\b')
 DEV_REFERENCE = re.compile(r'/Users/|/home/|\.codex/|\.agents/')
 FORBIDDEN_PATHS = re.compile(r'(^|/)(?:scripts|tests?|\.review|tmp|node_modules|\.github)(/|$)|\.(?:swift|py|m|md|ya?ml|toml|map)$')

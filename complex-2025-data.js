@@ -1351,8 +1351,8 @@
         },
         {
           title: raw`Rationalise the fraction`,
-          previewHtml: raw`The real part is \(-5d\) and the imaginary coefficient is \(6+d^2\).`,
-          workingHtml: raw`<p class="step-text">The real part is \(-5d\) and the imaginary coefficient is \(6+d^2\).</p>
+          previewHtml: raw`The real part is \(\frac{-5d}{1+d^2}\) and the imaginary part is \(\frac{6+d^2}{1+d^2}\). Since \(1+d^2>0\) for real \(d\), the common denominator can be cancelled when equating these parts. Argument \(\pi/4\) also requires the first quadrant; we check this after solving.`,
+          workingHtml: raw`<p class="step-text">The real part is \(\frac{-5d}{1+d^2}\) and the imaginary part is \(\frac{6+d^2}{1+d^2}\). Since \(1+d^2>0\) for real \(d\), the common denominator can be cancelled when equating these parts. Argument \(\pi/4\) also requires the first quadrant; we check this after solving.</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,\frac{-5d+(6+d^2)i}{1+d^2}\)

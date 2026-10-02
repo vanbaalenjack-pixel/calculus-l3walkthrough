@@ -546,7 +546,7 @@ h1 {
   position: absolute;
   inset: 1px;
   border-radius: inherit;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 48%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 48%);
   pointer-events: none;
 }
 
@@ -3416,14 +3416,14 @@ body.question-image-lightbox-open {
 }
 
 .nav-btn:not(.secondary):not(.index-link-card) {
-  background: linear-gradient(180deg, #5b86f5 0%, var(--primary) 100%);
+  background: linear-gradient(180deg, #315bb5 0%, #254994 100%);
   color: white;
   border-color: transparent;
   box-shadow: 0 12px 24px rgba(75, 116, 230, 0.22);
 }
 
 .nav-btn:not(.secondary):not(.index-link-card):hover {
-  background: linear-gradient(180deg, #4e7ef2 0%, var(--primary-dark) 100%);
+  background: linear-gradient(180deg, #294f9f 0%, #1f3e80 100%);
   border-color: transparent;
   box-shadow: 0 16px 30px rgba(75, 116, 230, 0.26);
 }
@@ -3495,6 +3495,9 @@ body.question-image-lightbox-open {
 }
 
 @media (min-width: 961px) {
+  .home-how-details::details-content {
+    content-visibility: visible;
+  }
   .home-how-details:not([open]) > .home-hero-visual {
     display: block;
   }

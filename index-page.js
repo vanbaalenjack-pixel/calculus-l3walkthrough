@@ -288,51 +288,6 @@
     }
   }
 
-  function setupHowItWorksDetails() {
-    const details = document.querySelector("[data-home-how-details]");
-    const aside = details ? details.closest(".home-hero-aside") : null;
-    const hero = document.querySelector(".home-hero");
-    const chooser = document.getElementById("choose-level");
-    if (!details || !aside || !hero || !chooser || !window.matchMedia) {
-      return;
-    }
-    const mobileQuery = window.matchMedia("(max-width: 960px)");
-    let syncing = false;
-
-    function syncDetails() {
-      syncing = true;
-      if (mobileQuery.matches) {
-        chooser.insertAdjacentElement("afterend", aside);
-        aside.dataset.mobilePlacement = "true";
-      } else {
-        hero.appendChild(aside);
-        delete aside.dataset.mobilePlacement;
-      }
-      details.open = !mobileQuery.matches;
-      window.setTimeout(function () {
-        syncing = false;
-      }, 0);
-    }
-
-    details.addEventListener("toggle", function () {
-      if (!syncing && mobileQuery.matches) {
-        details.dataset.userToggled = "true";
-      }
-    });
-
-    function handleViewportChange() {
-      if (!mobileQuery.matches || details.dataset.userToggled !== "true") {
-        syncDetails();
-      }
-    }
-
-    if (typeof mobileQuery.addEventListener === "function") {
-      mobileQuery.addEventListener("change", handleViewportChange);
-    } else if (typeof mobileQuery.addListener === "function") {
-      mobileQuery.addListener(handleViewportChange);
-    }
-    syncDetails();
-  }
 
   function normaliseProgressMap(value) {
     if (!value || typeof value !== "object" || Array.isArray(value)) {
@@ -889,7 +844,10 @@
   function renderSelection(selection, options) {
     const next = normaliseSelection(selection);
     const settings = options || {};
-    if (next.paperView === "questions") {
+    if (settings.hydrate && next.levelId === "level-3" && !next.standardId
+        && stageContainer.querySelector('[data-level-panel="level-3"]')) {
+      // Keep the server-rendered, usable links and their layout.
+    } else if (next.paperView === "questions") {
       renderQuestionStage(next);
     } else if (next.paperId) {
       renderPaperEntryStage(next);
@@ -927,7 +885,8 @@
       });
     });
     stageContainer.querySelectorAll("[data-standard]").forEach(function (button) {
-      button.addEventListener("click", function () {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
         navigateToSelection(makeSelection(button.dataset.parentLevel, button.dataset.standard));
       });
     });
@@ -1439,7 +1398,6 @@
 
   updateAvailabilityLine();
   updateStorageDescription();
-  setupHowItWorksDetails();
   setupSearch();
   setupPracticeTools();
   setupLocalLibrary();
@@ -1467,7 +1425,7 @@
   const initialHash = window.location.hash.replace(/^#/, "");
   const hashSelection = selectionFromHash(initialHash);
   const initialSelection = hashSelection || makeSelection(levelsById["level-3"] ? "level-3" : null);
-  renderSelection(initialSelection, { focus: false });
+  renderSelection(initialSelection, { focus: false, hydrate: true });
   if ((!initialHash || hashSelection) && window.history && typeof window.history.replaceState === "function") {
     window.history.replaceState(createHistoryState(initialSelection, null), "", window.location.href);
   }

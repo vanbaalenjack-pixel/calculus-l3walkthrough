@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");</script>
+<noscript><style>#selection-flow-nav { display: none; }</style></noscript>
 <title>NCEA Level 3 Calculus Worked Answers &amp; Walkthroughs | Calc.nz</title>
 <!-- SEO:HEAD:START -->
 <meta name="description" content="Free guided NCEA Level 3 Calculus worked answers for AS91577 Complex Numbers, AS91578 Differentiation, and AS91579 Integration.">
@@ -81,7 +83,7 @@
         <a class="ghost-link home-skill-link" href="skills.html">Browse by skill</a>
       </div>
       <p class="step-text">Attempt a question, reveal a hint, check your reasoning, then save it to retry.</p>
-      <p id="catalogue-availability" class="home-availability" aria-live="polite">Level 3 walkthrough availability is loading.</p>
+      <p id="catalogue-availability" class="home-availability" aria-live="polite">420 Level 3 walkthroughs across 3 standards, 28 papers, and 10 exam years.</p>
     </div>
     <aside class="home-hero-aside" aria-label="How the walkthroughs work">
       <details class="home-how-details" data-home-how-details>
@@ -123,51 +125,21 @@
     </aside>
   </header>
 
-  <noscript>  <section id="level-3-pathways" class="question-card home-browse-card" aria-labelledby="level-3-pathways-heading">
-    <div class="home-card-heading">
-      <p class="question-label">Start with your standard</p>
-      <h2 id="level-3-pathways-heading">NCEA Level 3 Calculus</h2>
-      <p class="step-text">Open a standard directly. Your progress summary is calculated from the work saved in this browser.</p>
-    </div>
-    <nav class="year-picker-grid standard-picker-grid" aria-label="Level 3 Calculus standards">
-      <a class="nav-btn year-option" href="level-3-complex-numbers.html" data-level-three-standard="level-3-complex">
-        <span class="year-option-title">Complex Numbers · AS91577</span>
-        <span class="year-option-copy">Apply the algebra of complex numbers in solving problems.</span>
-        <span class="year-option-copy" data-level-three-summary="level-3-complex">Loading your progress…</span>
-      </a>
-      <a class="nav-btn year-option" href="level-3-differentiation.html" data-level-three-standard="level-3-differentiation">
-        <span class="year-option-title">Differentiation · AS91578</span>
-        <span class="year-option-copy">Apply differentiation methods in solving problems.</span>
-        <span class="year-option-copy" data-level-three-summary="level-3-differentiation">Loading your progress…</span>
-      </a>
-      <a class="nav-btn year-option" href="level-3-integration.html" data-level-three-standard="level-3-integration">
-        <span class="year-option-title">Integration · AS91579</span>
-        <span class="year-option-copy">Apply integration methods in solving problems.</span>
-        <span class="year-option-copy" data-level-three-summary="level-3-integration">Loading your progress…</span>
-      </a>
-    </nav>
-  </section></noscript>
-
-
-  <section id="homepage-continue-card" class="question-card home-continue-card" hidden aria-labelledby="homepage-continue-heading">
-    <div class="home-continue-copy">
-      <p class="question-label">Continue where you left off</p>
-      <h2 id="homepage-continue-heading">Continue your latest walkthrough</h2>
-      <p class="step-text">Your most recent question will appear here.</p>
-    </div>
-  </section>
-
-  <nav id="selection-flow-nav" class="home-flow-nav hidden" aria-label="Practice selection path" hidden>
+  <nav id="selection-flow-nav" class="home-flow-nav" aria-label="Practice selection path">
     <button class="nav-btn secondary home-flow-back" type="button" data-selection-back>
       <span aria-hidden="true">←</span>
-      <span data-selection-back-label>Back</span>
+      <span data-selection-back-label>Back to level choice</span>
     </button>
-    <ol class="home-breadcrumb" data-selection-breadcrumb></ol>
+    <ol class="home-breadcrumb" data-selection-breadcrumb><li><span class="home-breadcrumb-current" aria-current="step">Level 3</span></li></ol>
   </nav>
   <p class="home-flow-status" data-selection-status role="status" aria-live="polite" aria-atomic="true"></p>
 
   <section id="choose-level" class="question-card year-picker-card home-level-card" aria-label="Practice chooser">
-    <div data-selection-stage></div>
+    <div data-selection-stage>
+<!-- SEO:HOME_CHOOSER:START -->
+<div id="level-3" class="home-dynamic-stage paper-panel" data-level-panel="level-3"><p class="eyebrow">Level 3</p><h2 id="selection-stage-heading" tabindex="-1">Choose a Level 3 standard</h2><p class="step-text">Start with the Level 3 standard you want to practise.</p><div class="year-picker-grid standard-picker-grid"><a class="nav-btn secondary year-option" href="level-3-differentiation.html" data-standard="level-3-differentiation" data-parent-level="level-3"><span class="year-option-title">Differentiation · AS91578</span><span class="year-option-copy">Use derivatives to reason about graphs, motion, related rates, optimisation, and models.</span></a><a class="nav-btn secondary year-option" href="level-3-integration.html" data-standard="level-3-integration" data-parent-level="level-3"><span class="year-option-title">Integration · AS91579</span><span class="year-option-copy">Use integration for functions, areas, volumes, models, and differential equations.</span></a><a class="nav-btn secondary year-option" href="level-3-complex-numbers.html" data-standard="level-3-complex" data-parent-level="level-3"><span class="year-option-title">Complex Numbers · AS91577</span><span class="year-option-copy">Connect complex-number algebra, polar form, loci, polynomials, and De Moivre’s theorem.</span></a></div><p class="step-text question-note">Choose a standard to show its paper years.</p></div>
+<!-- SEO:HOME_CHOOSER:END -->
+    </div>
   </section>
 
   <section class="question-card home-practice-card" aria-labelledby="quick-practice-heading">
@@ -200,6 +172,14 @@
     </form>
     <p class="visually-hidden" data-search-status role="status" aria-live="polite"></p>
     <div class="home-search-results" data-search-results hidden></div>
+  </section>
+
+  <section id="homepage-continue-card" class="question-card home-continue-card" hidden aria-labelledby="homepage-continue-heading">
+    <div class="home-continue-copy">
+      <p class="question-label">Continue where you left off</p>
+      <h2 id="homepage-continue-heading">Continue your latest walkthrough</h2>
+      <p class="step-text">Your most recent question will appear here.</p>
+    </div>
   </section>
 
   <section id="saved-practice" class="question-card home-library-card" aria-labelledby="saved-practice-heading">

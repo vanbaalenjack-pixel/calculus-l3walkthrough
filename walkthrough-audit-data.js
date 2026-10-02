@@ -411,10 +411,10 @@
         )
       ],
       checksHtml: raw`<p class="step-text">For the separated explicit equation, the relevant interval containing the initial point is (x&gt;-1). On this interval the chosen solution is positive, so it neither crosses (y=0) nor changes logarithmic branch.</p>`,
-      markReasoningHtml: raw`<p class="step-text">Show (ln|y|), write the absolute-value equation after exponentiating, and explain how the initial condition selects the positive branch.</p>`,
+      markReasoningHtml: raw`<p class="step-text">Show \(\ln|y|\), write the absolute-value equation after exponentiating, and explain how the initial condition selects the positive branch.</p>`,
       finalResultHtml: raw`<div class="answer-highlight walkthrough-answer-highlight"><p class="question-label">Final answer</p>\[y(2)=3e^{-2}(3)^2=\frac{27}{e^2}\approx3.654.\]</div>`,
       verificationHtml: raw`<p class="step-text">Differentiating (y=3e^{-x}(1+x)^2) gives (y'=3e^{-x}(1+x)(1-x)). Therefore ((1+x)y'=y(1-x)), which is the original equation, and (y(0)=3).</p>`,
-      commonMistakeHtml: raw`<p class="step-text">Replacing (ln|y|) immediately by (ln y) without explaining the sign, or forgetting that division by (y) excluded the zero solution.</p>`
+      commonMistakeHtml: raw`<p class="step-text">Replacing \(\ln|y|\) immediately by \(\ln y\) without explaining the sign, or forgetting that division by (y) excluded the zero solution.</p>`
     })
   };
 

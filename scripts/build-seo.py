@@ -2281,6 +2281,29 @@ def standards_directory(
 def update_homepage(
     original: str,
 ) -> str:
+    catalogue = load_catalogue()
+    level = next(level for level in catalogue["levels"] if level["id"] == "level-3")
+    papers = [paper for standard in level["standards"] for paper in standard["papers"]]
+    count = sum(len(paper["questions"]) for paper in papers)
+    availability = (f'{count} Level 3 walkthroughs across {len(level["standards"])} standards, '
+                    f'{len(papers)} papers, and {len({paper["year"] for paper in papers})} exam years.')
+    original = re.sub(r'(<p id="catalogue-availability"[^>]*>).*?(</p>)',
+                      lambda m: m[1] + availability + m[2], original)
+    cards = ''.join(
+        f'<a class="nav-btn secondary year-option" href="{h(standard["landingHref"])}" '
+        f'data-standard="{h(standard["id"])}" data-parent-level="level-3">'
+        f'<span class="year-option-title">{h(standard["label"])} · {h(standard["code"])}</span>'
+        f'<span class="year-option-copy">{h(standard["description"])}</span></a>'
+        for standard in level['standards']
+    )
+    chooser = ('<div id="level-3" class="home-dynamic-stage paper-panel" data-level-panel="level-3">'
+               '<p class="eyebrow">Level 3</p>'
+               '<h2 id="selection-stage-heading" tabindex="-1">Choose a Level 3 standard</h2>'
+               '<p class="step-text">Start with the Level 3 standard you want to practise.</p>'
+               f'<div class="year-picker-grid standard-picker-grid">{cards}</div>'
+               '<p class="step-text question-note">Choose a standard to show its paper years.</p></div>')
+    original = re.sub(r'<!-- SEO:HOME_CHOOSER:START -->.*?<!-- SEO:HOME_CHOOSER:END -->',
+                      lambda _: marker('HOME_CHOOSER', chooser), original, flags=re.S)
     for name in ("HEAD", "DIRECTORY", "FOOTER", "SITE_HEADER"):
         original = remove_marker(original, name)
     original, html_count = re.subn(

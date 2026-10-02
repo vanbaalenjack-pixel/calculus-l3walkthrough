@@ -39,6 +39,19 @@ LEGACY_COMPLEX = load_script_module(
 
 
 class BuildSeoContractTests(unittest.TestCase):
+    def test_homepage_initial_content_tracks_authoritative_catalogue(self):
+        catalogue = BUILD_SEO.load_catalogue()
+        original = (ROOT / 'index.html').read_text()
+        rendered = BUILD_SEO.update_homepage(original)
+        self.assertIn('420 Level 3 walkthroughs across 3 standards, 28 papers, and 10 exam years.', rendered)
+        self.assertIn('href="level-3-integration.html" data-standard="level-3-integration"', rendered)
+        level = next(l for l in catalogue['levels'] if l['id'] == 'level-3')
+        level['standards'][0]['papers'][0]['questions'].pop()
+        with mock.patch.object(BUILD_SEO, 'load_catalogue', return_value=catalogue):
+            changed = BUILD_SEO.update_homepage(original)
+        self.assertIn('419 Level 3 walkthroughs', changed)
+        self.assertNotIn('availability is loading', changed)
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.routes = BUILD_SEO.discover_routes(BUILD_SEO.load_catalogue())

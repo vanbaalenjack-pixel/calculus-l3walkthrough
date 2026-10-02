@@ -56,8 +56,9 @@ async function inspect(page, record) {
       const brokenImages=[...scope.querySelectorAll('img')].filter(i=>i.loading!=='lazy'&&(!i.complete||!i.naturalWidth)).map(i=>i.src);
       const mathErrors=[...scope.querySelectorAll('.katex-error')].map(e=>e.textContent);
       const links=[...scope.querySelectorAll('a[href]')].map(e=>e.getAttribute('href'));
-      return {title:document.title,canonical:document.querySelector('link[rel=canonical]').href,h1:document.querySelector('h1').textContent,steps:config.guidedSteps.length,hints:config.tips.length,expectedMath:expected.length,actualMath:actual.length,missing,raw,malformed,brokenImages,mathErrors,links,questionText:document.querySelector('#question-card').textContent};
+      return {title:document.title,canonical:document.querySelector('link[rel=canonical]').href,h1:document.querySelector('h1').textContent,overflow:document.documentElement.scrollWidth>innerWidth+2,steps:config.guidedSteps.length,hints:config.tips.length,expectedMath:expected.length,actualMath:actual.length,missing,raw,malformed,brokenImages,mathErrors,links,questionText:document.querySelector('#question-card').textContent};
     });
+    assert(!result.overflow, "Page-wide horizontal overflow");
     assert.equal(result.canonical, record.canonical);
     assert(result.h1.includes('Q'+record.label.replace('Question ','')), 'wrong question label');
     for(const link of result.links){const url=new URL(link,origin);if(url.origin===new URL(origin).origin){const f=path.join(root,'_site',decodeURIComponent(url.pathname)==='/'?'index.html':decodeURIComponent(url.pathname));assert(fs.existsSync(f),'missing local link '+link);}}
@@ -72,7 +73,7 @@ async function inspect(page, record) {
   let next=0, done=0;
   const selected=process.env.CALC_ROUTES ? inventory.filter(q=>process.env.CALC_ROUTES.split(',').includes(q.href)) : inventory;
   await Promise.all(Array.from({length:4},async()=>{
-    const context=await browser.newContext({viewport:{width:1280,height:900},reducedMotion:'reduce'});
+    const context=await browser.newContext({viewport:{width:Number(process.env.CALC_WIDTH)||390,height:900},reducedMotion:'reduce'});
     await context.addInitScript(()=>{localStorage.setItem('calc.nz.examMode','false');});
     await context.route('**/walkthrough-gate.js*', route=>route.fulfill({contentType:'text/javascript',body:runtime}));
     const page=await context.newPage();page.setDefaultTimeout(10000);

@@ -47,6 +47,7 @@
 
   const activationRoots = Array.from(document.querySelectorAll([
     "[data-reveal-level-picker]",
+    "#selection-flow-nav",
     "#choose-level",
     ".home-practice-card",
     "#walkthrough-site-search",
@@ -80,7 +81,7 @@
         return;
       }
       const eventTarget = event.target instanceof Element ? event.target : null;
-      const control = eventTarget && eventTarget.closest("[data-reveal-level-picker], button");
+      const control = eventTarget && eventTarget.closest("[data-reveal-level-picker], [data-standard], button");
       if (!control || !root.contains(control)) {
         return;
       }

@@ -21,6 +21,7 @@ jobs:
       - name: Check mathematics and content contracts
         run: |
           python3 scripts/test-mathematical-corrections.py
+          python3 scripts/test-readiness-fixes.py
           python3 scripts/test-catalogue-mathematics.py
           python3 scripts/test-audit-remediation.py
           python3 scripts/test_build_seo_contract.py
