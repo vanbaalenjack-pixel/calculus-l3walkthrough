@@ -5,6 +5,7 @@ const assert = require('assert');
 const { chromium } = require('playwright');
 const root = path.resolve(__dirname, '..');
 const origin = process.env.CALC_PREVIEW || 'http://127.0.0.1:8004/';
+const reviewDir = process.env.CALC_REVIEW_DIR || path.join(root,'.review/2026-10-12');
 const catalogue = JSON.parse(fs.readFileSync(path.join(root, 'question-catalogue.js'), 'utf8').split(/=([\s\S]*)/)[1].trim().replace(/;$/, ''));
 const inventory = catalogue.levels.flatMap(l => l.standards.flatMap(s => s.papers.flatMap(p => p.questions.map(q => ({...q, year:p.year, standard:s.id, paper:p.id})))));
 const runtime = fs.readFileSync(path.join(root, '_site/walkthrough-gate.js'), 'utf8') + `
@@ -34,11 +35,16 @@ async function inspect(page, record) {
       for (let i=0; i<count; i++) {
         const current = document.querySelector('.walkthrough-step-card:not(.hidden)');
         if (!current) throw new Error('No visible step at ' + i);
+        for (const button of [document.querySelector('#walkthrough-previous-btn'), document.querySelector('#walkthrough-next-btn'), current.querySelector('.step-working-btn')]) {
+          const label = button.getAttribute('aria-label');
+          if (!label || /[\\{}]|<[^>]+>/.test(label)) throw new Error('Unspoken mathematical label: ' + label);
+        }
         current.querySelector('.step-working-btn').click();
         const panel=current.querySelector('.walkthrough-step-working');
         if(panel.getAttribute('aria-hidden') !== 'false' || !panel.textContent.trim()) throw new Error('Working did not reveal at ' + i);
         document.querySelector('#walkthrough-next-btn').click();
       }
+      if (document.querySelector('#walkthrough-next-btn').getAttribute('aria-label') !== 'Question complete') throw new Error('Question did not complete');
     });
     const result = await page.evaluate(() => {
       const scope = document.querySelector('main');
@@ -82,8 +88,8 @@ async function inspect(page, record) {
   }));
   await browser.close();
   report.sort((a,b)=>a.href.localeCompare(b.href));
-  fs.mkdirSync(path.join(root,'.review/2026-09-24'),{recursive:true});
-  fs.writeFileSync(path.join(root,'.review/2026-09-24/' + (process.env.CALC_ROUTES ? 'browser-catalogue-subset.json' : 'browser-catalogue.json')),JSON.stringify({browser:'Chrome via Playwright',routes:report},null,2));
+  fs.mkdirSync(reviewDir,{recursive:true});
+  fs.writeFileSync(path.join(reviewDir,process.env.CALC_ROUTES ? 'browser-catalogue-subset.json' : 'browser-catalogue.json'),JSON.stringify({browser:'Chrome via Playwright',routes:report},null,2));
   const failed=report.filter(r=>r.error||r.errors.length||r.failedRequests.length||r.issues.length);
   console.log(JSON.stringify({checked:report.length,failed:failed.length,examples:failed.slice(0,8)},null,2));
   process.exitCode=failed.length?1:0;

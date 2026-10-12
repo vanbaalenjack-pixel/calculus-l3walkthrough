@@ -5,7 +5,7 @@ import ImageIO
 let root = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("_site")
 let extensions: Set<String> = ["png", "jpg", "jpeg", "webp", "ico"]
 let files = (FileManager.default.enumerator(at: root, includingPropertiesForKeys: nil)!.allObjects as! [URL]).filter { extensions.contains($0.pathExtension.lowercased()) }.sorted { $0.path < $1.path }
-let pattern = #"\b(artificial intelligence|AI[ -](assistant|assisted|generated|powered)|OpenAI|ChatGPT|Codex|Anthropic|Claude|Gemini|Copilot|GPT(-?[0-9]+)?|large language model|software[ -]development tools|technical implementation created with)\b"#
+let pattern = #"\b(artificial intelligence|AI[ -](assistant|assisted|generated|powered)|OpenAI|ChatGPT|Codex|Anthropic|Claude|Gemini|Copilot|DALL[ -]?E|Midjourney|DeepSeek|Grok|Perplexity|Mistral|LLaMA|Stable[ -]Diffusion|Google Bard|A\.I\.|LLMs?|(?:large |generative )?language models?|GPT(-?[0-9]+)?|large language model|software[ -]development tools|technical implementation created with)\b"#
 let terms = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
 let uppercaseAI = try NSRegularExpression(pattern: #"\bAI\b"#)
 var results: [[String: Any]] = []
@@ -17,15 +17,22 @@ for file in files {
         try VNImageRequestHandler(url: file).perform([request])
         let text = (request.results ?? []).compactMap { $0.topCandidates(1).first?.string }.joined(separator: "\n")
         let source = CGImageSourceCreateWithURL(file as CFURL, nil)
-        let metadata = source.flatMap { CGImageSourceCopyPropertiesAtIndex($0, 0, nil) }.map { String(describing: $0) } ?? ""
+        guard let source = source,
+              let decoded = CGImageSourceCreateImageAtIndex(source, 0, nil),
+              let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) else {
+            throw NSError(domain: "Image decode or metadata failure", code: 1)
+        }
+        let metadata = String(describing: properties)
         let content = text + "\n" + metadata
         let range = NSRange(content.startIndex..., in: content)
         let matches = (terms.matches(in: content, range: range) + uppercaseAI.matches(in: content, range: range)).map { (content as NSString).substring(with: $0.range) }
-        results.append(["file": String(file.path.dropFirst(root.path.count + 1)), "text": text, "matches": matches])
+        results.append(["file": String(file.path.dropFirst(root.path.count + 1)), "text": text, "matches": matches,
+                        "metadataDecoded": true, "width": decoded.width, "height": decoded.height])
     } catch { results.append(["file": file.lastPathComponent, "error": String(describing: error)]) }
 }
 let report = try JSONSerialization.data(withJSONObject: results, options: [.prettyPrinted, .sortedKeys])
-try report.write(to: URL(fileURLWithPath: ".review/2026-10-02/image-text.json"))
+let review = ProcessInfo.processInfo.environment["CALC_REVIEW_DIR"] ?? ".review/2026-10-12"
+try report.write(to: URL(fileURLWithPath: review).appendingPathComponent("image-text.json"))
 let errors = results.filter { $0["error"] != nil }
 let matches = results.filter { !(($0["matches"] as? [String]) ?? []).isEmpty }
 print("Raster OCR and metadata: \(results.count) files; \(errors.count) errors; \(matches.count) matching files")

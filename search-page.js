@@ -75,7 +75,7 @@
     }
     cataloguePromise = new Promise(function (resolve, reject) {
       const script = document.createElement("script");
-      script.src = "question-catalogue.js?v=20260924-1";
+      script.src = "question-catalogue.js?v=20261012-1";
       script.addEventListener("load", function () {
         if (!window.CALC_NZ_QUESTION_CATALOGUE) {
           reject(new Error("Question catalogue did not initialise."));

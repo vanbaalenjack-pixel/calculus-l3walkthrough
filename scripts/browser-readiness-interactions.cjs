@@ -1,6 +1,7 @@
 /* Targeted progressive enhancement, focus, metadata and computed-style checks. */
 const {chromium}=require('playwright'),fs=require('fs'),assert=require('assert');
 const origin=process.env.CALC_PREVIEW||'http://127.0.0.1:8004/';
+const folder=process.env.CALC_REVIEW_DIR||".review/2026-10-12";
 const results=[],errors=[],failed=[];
 (async()=>{
  const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});
@@ -9,7 +10,7 @@ const results=[],errors=[],failed=[];
   p.on('pageerror',e=>errors.push(e.message));p.on('requestfailed',r=>failed.push(r.url()));p.on('response',r=>{if(r.status()>=400)failed.push(r.url());});
   await p.goto(origin,{waitUntil:'networkidle'});
   if(width===1440)assert(await p.locator('.home-hero-visual').isVisible(),'Desktop explanation must be visible');
-  await p.screenshot({path:`.review/2026-10-02/home-${width}.png`,fullPage:true});
+  await p.screenshot({path:`${folder}/screenshots/home-${width}.png`,fullPage:true});
   await p.locator('[data-standard="level-3-complex"]').focus();await p.keyboard.press('Enter');
   const headingVisible=async()=>{await p.waitForTimeout(100);const r=await p.locator('#selection-stage-heading').evaluate(e=>({top:e.getBoundingClientRect().top,header:document.querySelector('.site-header').getBoundingClientRect().bottom,focused:e===document.activeElement}));assert(r.focused);assert(r.top>=r.header+7,JSON.stringify(r));};
   await headingVisible();await p.locator('[data-paper="level-3-complex-2025"]').click();await headingVisible();await p.locator('[data-paper-start-specific]').click();await headingVisible();
@@ -35,5 +36,5 @@ const results=[],errors=[],failed=[];
   localStorage.setItem('calc.nz.practiceSet',JSON.stringify({minutes:10,scope:'level:level-3',questions:[{paperId:'level-3-complex-2025',partId:'2e'},{paperId:'level-3-differentiation-2025',partId:'3e'},{paperId:'level-3-integration-2025',partId:'1e'}]}));
  });
  const sp=await saved.newPage();await sp.goto(origin,{waitUntil:'networkidle'});await sp.locator('.home-continue-button').waitFor();assert.equal(await sp.locator('.home-continue-button').getAttribute('href'),'complex-2e2025.html');assert.equal(await sp.locator('.home-practice-set-link').count(),3);results.push({savedContinueAndPracticeRestored:true});await saved.close();
- await browser.close();assert.deepEqual(errors,[]);assert.deepEqual(failed,[]);fs.writeFileSync('.review/2026-10-02/interactions.json',JSON.stringify({results,errors,failed},null,2));console.log(JSON.stringify({passed:results.length,errors,failed}));
+ await browser.close();assert.deepEqual(errors,[]);assert.deepEqual(failed,[]);fs.writeFileSync(folder+'/interactions.json',JSON.stringify({results,errors,failed},null,2));console.log(JSON.stringify({passed:results.length,errors,failed}));
 })().catch(e=>{console.error(e);process.exitCode=1;});

@@ -1831,6 +1831,7 @@ def validate_question_page_records(
             ("question.summary", question.get("summary"), expected_record.summary),
             ("question.commonMistake", question.get("commonMistake"), expected_record.common_mistake),
             ("question.skillSlugs", question.get("skillSlugs"), list(expected_record.skill_slugs)),
+            ("question.updatedDate", question.get("updatedDate"), expected_record.raw.get("updatedDate")),
         )
         for field_name, value, wanted in expected_values:
             if value != wanted:
@@ -1929,11 +1930,11 @@ def validate_parameter_runtime_contract(root: Path, failures: Failures) -> None:
         r'^REVIEW_DATE\s*=\s*["\']([^"\']+)', generator, re.M
     )
     if review_date_match is None or (
-        f'dateModified: "{review_date_match.group(1)}"' not in runtime
+        f'dateModified: catalogueEntry && catalogueEntry.question.updatedDate || "{review_date_match.group(1)}"' not in runtime
     ):
         failures.add(
-            "walkthrough-gate.js: runtime structured dateModified does not match "
-            "build-seo.py REVIEW_DATE"
+            "walkthrough-gate.js: runtime structured dateModified must use the "
+            "authored question update date, with the historical fallback date"
         )
     required_tokens = {
         "structured question catalogue": CATALOGUE_GLOBAL,

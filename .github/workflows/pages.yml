@@ -13,6 +13,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v6
+      - name: Require the verified artifact publishing source
+        run: python3 scripts/check-pages-source.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/configure-pages@v5
       - uses: actions/setup-python@v5
         with:
@@ -22,6 +26,7 @@ jobs:
         run: |
           python3 scripts/test-mathematical-corrections.py
           python3 scripts/test-readiness-fixes.py
+          python3 scripts/test-presentation-release.py
           python3 scripts/test-catalogue-mathematics.py
           python3 scripts/test-audit-remediation.py
           python3 scripts/test_build_seo_contract.py
@@ -32,6 +37,9 @@ jobs:
           python3 scripts/check-visual-assets.py
       - run: python3 scripts/build-public.py
       - run: python3 scripts/check-public-output.py
+      - run: python3 scripts/check-public-links.py
+      - run: python3 scripts/prepare-complex-metadata.py
+      - run: python3 scripts/check-complex-initial-metadata.py
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site

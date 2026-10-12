@@ -5,13 +5,14 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 import hashlib
 import json
+import os
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.parse import quote, urlsplit
 from urllib.request import Request, build_opener, HTTPRedirectHandler
 
 ROOT = Path(__file__).resolve().parents[1]
-REVIEW = ROOT / '.review/2026-09-24'
+REVIEW = Path(os.environ.get('CALC_REVIEW_DIR', ROOT / '.review/2026-10-12'))
 
 
 class NoRedirect(HTTPRedirectHandler):
@@ -58,6 +59,7 @@ def main():
                        if p.is_file() and '__pycache__' not in p.parts} | {
         '/.review/2026-09-24/checklist.md', '/.github/workflows/pages.yml', '/_config.yml',
         '/HOSTING_MIGRATION.md', '/AUDIT_REMEDIATION.md', '/official-resources.json',
+        '/READINESS_FIXES_2026-10-02.md',
         '/guides.json', '/verification-missing-page-20260929.html'})
     with ThreadPoolExecutor(max_workers=6) as pool:
         exclusions = list(pool.map(lambda path: read(origin + quote(path)), excluded))

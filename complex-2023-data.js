@@ -525,7 +525,7 @@
         },
         {
           title: raw`Build the quadratic factor`,
-          previewHtml: raw`The product is \((z-5)^2+1=z^2-10z+26\).`,
+          previewHtml: raw`Multiply the conjugate factors. Why will their product have real coefficients?`,
           workingHtml: raw`<p class="step-text">The product is \((z-5)^2+1=z^2-10z+26\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
@@ -534,7 +534,7 @@
         },
         {
           title: raw`Find the remaining factor`,
-          previewHtml: raw`\((z+2)(z^2-10z+26)\) matches the leading terms of the cubic.`,
+          previewHtml: raw`Use the cubic and the quadratic factor to find the remaining linear factor. Which coefficient can you compare first?`,
           workingHtml: raw`<p class="step-text">\((z+2)(z^2-10z+26)\) matches the leading terms of the cubic.</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
@@ -543,7 +543,7 @@
         },
         {
           title: raw`State the remaining results`,
-          previewHtml: raw`Those are the full remaining results.`,
+          previewHtml: raw`Use the factors to identify every root, then compare the constant term to find the missing coefficient.`,
           workingHtml: raw`<p class="step-text">Those are the full remaining results.</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
@@ -1115,8 +1115,8 @@
       guidedSteps: [
         {
           title: raw`Translate the modulus locus`,
-          previewHtml: raw`The centre is \((2,-1)\) and the radius is \(3\).`,
-          workingHtml: raw`<p class="step-text">The centre is \((2,-1)\) and the radius is \(3\).</p>
+          previewHtml: raw`The centre is \((2,-1)\) and the radius is \(\sqrt{3}\).`,
+          workingHtml: raw`<p class="step-text">The centre is \((2,-1)\) and the radius is \(\sqrt{3}\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,(x-2)^2+(y+1)^2=3\)

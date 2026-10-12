@@ -1040,7 +1040,7 @@
       guidedSteps: [
         {
           title: raw`Differentiate the curve`,
-          previewHtml: raw`The quotient rule simplifies to \(\frac{x(x+8)}{(x+4)^2}\).`,
+          previewHtml: raw`Which differentiation rule applies to this quotient? Identify its numerator and denominator first.`,
           workingHtml: raw`<p class="step-text">The quotient rule simplifies to \(\frac{x(x+8)}{(x+4)^2}\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
@@ -1053,7 +1053,7 @@
         },
         {
           title: raw`Find the matching \(x\)-values`,
-          previewHtml: raw`The two tangency points occur when \(x=-6\) and \(x=-2\).`,
+          previewHtml: raw`Which equation makes the tangent gradient \(-3\)? Check which \(x\)-value the curve excludes before solving.`,
           workingHtml: raw`<p class="step-text">The two tangency points occur when \(x=-6\) and \(x=-2\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
@@ -1064,7 +1064,7 @@
         },
         {
           title: raw`Identify the two points of contact`,
-          previewHtml: raw`Substituting the two \(x\)-values into the curve gives \((-6,-18)\) and \((-2,2)\).`,
+          previewHtml: raw`How will you turn each gradient solution into a point on the original curve?`,
           workingHtml: raw`<p class="step-text">Substituting the two \(x\)-values into the curve gives \((-6,-18)\) and \((-2,2)\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>

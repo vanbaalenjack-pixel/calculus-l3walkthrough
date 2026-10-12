@@ -1326,12 +1326,12 @@
           \text{(iii) }\lim_{x\to 6}f(x)\text{ does not exist}
           \]
         </div>
-        <p class="step-text">At \(x=8\) the graph is continuous but has a sharp corner, so it is not differentiable there. At \(x=-4\) there is a smooth local maximum, so \(f'(x)=0\) and \(f''(x)\lt 0\). The left- and right-hand values near \(x=6\) approach different numbers, so the limit does not exist.</p>
+        <p class="step-text">At \(x=8\) the graph is continuous but has a sharp corner, so it is not differentiable there. At \(x=-4\), the horizontal tangent gives \(f'(-4)=0\). The concave-down shape shown there supports the intended interpretation \(f''(-4)\lt 0\). The left- and right-hand values near \(x=6\) approach different numbers, so the limit does not exist.</p>
       `,
       guidedSteps: [
         {
           title: raw`Find the continuous corner`,
-          previewHtml: raw`The graph meets at \(x=8\), but it does so with a sharp corner.`,
+          previewHtml: raw`Where does the graph join without a break but have a sharp corner?`,
           workingHtml: raw`<p class="step-text">The graph meets at \(x=8\), but it does so with a sharp corner.</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
@@ -1342,8 +1342,9 @@
         },
         {
           title: raw`Find the local maximum`,
-          previewHtml: raw`The graph has a smooth turning point there, and it is a local maximum, so the second derivative is negative.`,
-          workingHtml: raw`<p class="step-text">The graph has a smooth turning point there, and it is a local maximum, so the second derivative is negative.</p>
+          predictionPrompt: "Explain which visual feature supports each derivative statement.",
+          previewHtml: raw`The horizontal tangent at \(x=-4\) gives \(f'(-4)=0\). The concave-down shape shown there supports \(f''(-4)\lt 0\); a local maximum alone would not establish this.`,
+          workingHtml: raw`<p class="step-text">The horizontal tangent at \(x=-4\) gives \(f'(-4)=0\). The concave-down shape shown there supports \(f''(-4)\lt 0\); a local maximum alone would not establish this.</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1353,7 +1354,8 @@
         },
         {
           title: raw`Read the limit at \(x=6\)`,
-          previewHtml: raw`The left-hand side approaches \(2\), while the right-hand side approaches \(5\), so the two-sided limit does not exist.`,
+          accessibleTitle: "Read the limit as x approaches 6",
+          previewHtml: raw`Compare the values approached from the left and right of \(x=6\). What must be true for a two-sided limit to exist?`,
           workingHtml: raw`<p class="step-text">The left-hand side approaches \(2\), while the right-hand side approaches \(5\), so the two-sided limit does not exist.</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
@@ -1374,7 +1376,7 @@
           \text{(iii) }\lim_{x\to 6}f(x)\text{ does not exist}
           \]
         </div>
-        <p class="step-text">At \(x=8\) the graph is continuous but has a sharp corner, so it is not differentiable there. At \(x=-4\) there is a smooth local maximum, so \(f'(x)=0\) and \(f''(x)\lt 0\). The left- and right-hand values near \(x=6\) approach different numbers, so the limit does not exist.</p>
+        <p class="step-text">At \(x=8\) the graph is continuous but has a sharp corner, so it is not differentiable there. At \(x=-4\), the horizontal tangent gives \(f'(-4)=0\). The concave-down shape shown there supports the intended interpretation \(f''(-4)\lt 0\). The left- and right-hand values near \(x=6\) approach different numbers, so the limit does not exist.</p>
       `
         }
       ]

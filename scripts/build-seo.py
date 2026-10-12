@@ -55,9 +55,12 @@ except ModuleNotFoundError:  # Supports import-based validators from the reposit
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://calc.nz/"
-CACHE_TOKEN = "20260924-1"
+CACHE_TOKEN = "20261012-1"
 REVIEW_DATE = "2026-09-24"
 WALKTHROUGH_CONTENT_RELEASE_DATE = "2026-09-24"
+# Manually recorded revision of the shared learning sequence and labels.
+# This is a content/presentation update, never evidence of teacher review.
+WALKTHROUGH_PRESENTATION_MODIFIED_DATE = "2026-10-12"
 SOCIAL_IMAGE_URL = f"{BASE_URL}assets/calc-nz-social.jpg"
 SOCIAL_IMAGE_ALT = "Calc.nz guided NCEA maths walkthroughs"
 CATALOGUE_FILE = ROOT / "question-catalogue.js"
@@ -69,11 +72,11 @@ WALKTHROUGH_EXTRACTOR = ROOT / "scripts" / "extract-walkthrough-content.swift"
 OFFICIAL_RESOURCES_FILE = ROOT / "official-resources.json"
 
 PAGE_MODIFIED_DATES = {
-    "index.html": "2026-09-16",
+    "index.html": "2026-10-12",
     "standards.html": "2026-09-02",
     "skills.html": "2026-09-02",
     "search.html": "2026-09-02",
-    "about.html": "2026-09-16",
+    "about.html": "2026-10-12",
     "404.html": "2026-08-09",
 }
 
@@ -103,7 +106,6 @@ VALID_REVIEW_STATUSES = {
     "teacher-reviewed",
 }
 
-REPOSITORY_URL = "https://github.com/vanbaalenjack-pixel/calculus-l3walkthrough"
 ERROR_REPORT_URL = (
     "https://docs.google.com/forms/d/e/"
     "1FAIpQLSfsQWI9kX3BVpUNJbEqUa9gdKiF1rTvNXT4bL0T3_AYYvLpkA/"
@@ -1047,14 +1049,16 @@ def enrich_catalogue(
                             "yearHref": route.year_file,
                             "previousHref": paper_routes[index - 1].href if index > 0 else None,
                             "nextHref": paper_routes[index + 1].href if index + 1 < len(paper_routes) else None,
-                            "updatedDate": REVIEW_DATE,
+                            "updatedDate": question_updated_date(route),
                             "reviewStatus": "unreviewed",
                         }
                     )
                     if (standard_key, year, str(question["id"])) in AUDITED_WALKTHROUGH_KEYS:
                         question["reviewStatus"] = AUDIT_REVIEW_STATUS
     enriched["schemaVersion"] = 2
-    enriched["generatedAt"] = REVIEW_DATE
+    # SkillSpec is authoritative for both generated HTML and runtime labels.
+    enriched["skillLabels"] = {slug: spec.short_label for slug, spec in SKILL_SPECS.items()}
+    enriched["generatedAt"] = WALKTHROUGH_PRESENTATION_MODIFIED_DATE
     return enriched
 
 
@@ -1580,7 +1584,7 @@ def question_structured_data(route: QuestionRoute, title: str, description: str)
                     "@type": "Thing",
                     "name": f"{standard.code} — {standard.official_name}",
                 },
-                "dateModified": REVIEW_DATE,
+                "dateModified": question_updated_date(route),
                 "publisher": {
                     "@type": "Organization",
                     "name": "Calc.nz",
@@ -1775,7 +1779,7 @@ def question_overview(route: QuestionRoute) -> str:
   <p class="step-text"><strong>Method:</strong> <span data-seo-focus>{h(sentence(route.focus))}</span></p>
   <p class="step-text">This is <span data-seo-overview-question>Question {h(route.display_number)}</span> from the <a href="{h(route.year_file)}" data-seo-year-link>{route.year} NCEA Level {standard.level} {h(standard.topic)} paper</a> for <a href="{h(standard.landing_file)}" data-seo-standard-link>{h(standard.code)} — {h(standard.official_name)}</a>. Use the guided hints to practise the method before revealing the full working.</p>
   <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="{h(standard.official_url)}">official NZQA resources for {h(standard.code)}</a>.</p>
-  <p class="page-updated">Page updated <time datetime="{REVIEW_DATE}">{human_date(REVIEW_DATE)}</time>.</p>
+  <p class="page-updated">Page updated <time datetime="{question_updated_date(route)}">{human_date(question_updated_date(route))}</time>.</p>
 </section>
 """.strip()
 
@@ -1922,6 +1926,7 @@ def question_page_record(
             "summary": question_learning_summary(route),
             "commonMistake": infer_common_mistake(route),
             "skillSlugs": list(classify_question(route.focus, route.standard_key)),
+            "updatedDate": question_updated_date(route),
             "reviewStatus": "unreviewed",
             "relatedPractice": related_practice(route),
             "guideLinks": [
@@ -1958,8 +1963,10 @@ def inject_question_page_record(
         }
         assignment = "window.CALC_NZ_PAGE_RECORDS"
     encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True).replace("</", "<\\/")
+    labels = json.dumps({slug: spec.short_label for slug, spec in SKILL_SPECS.items()}, ensure_ascii=False)
     block = marker(
         "PAGE_RECORD",
+        f"<script>window.CALC_NZ_SKILL_LABELS = {labels};</script>\n"
         f"<script>{assignment} = {encoded};</script>",
         "  ",
     )
@@ -2243,7 +2250,7 @@ def website_schema() -> dict[str, object]:
         "name": "Calc.nz",
         "description": "Free guided NCEA Level 3 Calculus worked answers for Complex Numbers, Differentiation, and Integration, with additional Level 2 practice.",
         "inLanguage": "en-NZ",
-        "dateModified": REVIEW_DATE,
+        "dateModified": PAGE_MODIFIED_DATES["index.html"],
     }
 
 
@@ -2389,6 +2396,7 @@ def update_homepage(
     footer = f"""
 <p class="site-footer-text site-footer-attribution">{h(SHORT_PROJECT_ATTRIBUTION)}</p>
 <p class="site-footer-text site-footer-disclaimer">Calc.nz is an independent learning resource and is not affiliated with or endorsed by NZQA. Check questions and assessment information against the <a class="site-footer-link" href="https://www2.nzqa.govt.nz/ncea/subjects/select-subject/mathematics-and-statistics/">official NZQA Mathematics and Statistics material</a>.</p>
+<p class="site-footer-text report-issue-text"><a class="report-issue-link" href="{h(ERROR_REPORT_URL)}" target="_blank" rel="noopener noreferrer">Report an error or issue</a></p>
 """.strip()
     original, count = re.subn(
         r"(?is)\s*</footer>",
@@ -2398,6 +2406,10 @@ def update_homepage(
     )
     if count != 1:
         raise ValueError("Could not improve the homepage footer")
+    original = re.sub(
+        r'<p class="site-footer-text">Calc.nz is an independent learning resource\. Compare questions, diagrams, and assessment information with the official NZQA material\.</p>\s*',
+        "", original,
+    )
     return inject_site_shell(original)
 
 
@@ -3269,7 +3281,6 @@ def about_page() -> str:
     <p class="question-label">Corrections</p>
     <h2 id="errors-heading">Report an error</h2>
     <p class="step-text">If you find a mathematical, wording, accessibility, or technical problem, <a href="{h(ERROR_REPORT_URL)}">use the Calc.nz error-report form</a>. Include the page URL, question number, and a concise description so it can be checked.</p>
-    <p class="question-note"><a href="{h(REPOSITORY_URL)}">View the Calc.nz project repository</a>.</p>
   </section>
   <p class="page-updated">Page updated <time datetime="{PAGE_MODIFIED_DATES[filename]}">{human_date(PAGE_MODIFIED_DATES[filename])}</time>.</p>
 </main>
@@ -3729,13 +3740,17 @@ def question_content_lastmod(route: QuestionRoute) -> str:
     )
 
 
+def question_updated_date(route: QuestionRoute) -> str:
+    return max(WALKTHROUGH_PRESENTATION_MODIFIED_DATE, question_content_lastmod(route))
+
+
 def sitemap_xml(routes: Sequence[QuestionRoute], guides: Sequence[Guide]) -> str:
     entries: list[tuple[str, str]] = []
 
     def add(path: str, lastmod: str) -> None:
         entries.append((absolute_url(path), lastmod))
 
-    question_dates = {route.route_path: question_content_lastmod(route) for route in routes}
+    question_dates = {route.route_path: question_updated_date(route) for route in routes}
     add("", PAGE_MODIFIED_DATES["index.html"])
     add("standards.html", PAGE_MODIFIED_DATES["standards.html"])
     calculus_routes = [route for route in routes if route.standard_key in {"level-3-differentiation", "level-3-integration"}]

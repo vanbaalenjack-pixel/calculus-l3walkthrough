@@ -546,7 +546,7 @@
         \]
       </div>
     `, [
-      guidedStep("Identify the signed pieces", raw`The two shaded side regions are below the \(x\)-axis, so each contributes \(-1.2\) to the signed integral.`, raw`
+      guidedStep("Identify the signed pieces", raw`Which shaded regions contribute negatively to the signed integral? Use their given areas.`, raw`
         <div class="math-block">
           \[
           \int_{-A}^{-B}f(x)\,dx=-1.2

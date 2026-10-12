@@ -97,7 +97,7 @@
         },
         {
           title: raw`Write the equation after cubing`,
-          previewHtml: raw`\((2y)^3=8y^3\), so the equation becomes \(8y^3=7x-5\).`,
+          previewHtml: raw`Cube both sides. How does cubing affect the coefficient as well as the variable?`,
           workingHtml: raw`<p class="step-text">\((2y)^3=8y^3\), so the equation becomes \(8y^3=7x-5\).</p>
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
@@ -108,7 +108,7 @@
         },
         {
           title: raw`Make x the subject`,
-          previewHtml: raw`Adding \(5\) and dividing by \(7\) gives \(x=\frac{8y^3+5}{7}\).`,
+          previewHtml: raw`Which inverse operations will isolate x after cubing?`,
           workingHtml: raw`
             <div class="math-block">
               \[
@@ -621,7 +621,7 @@
         },
         {
           title: raw`Read off k`,
-          previewHtml: raw`Since \(9x^2-30x+k=(3x-5)^2\), the constant term must be \(25\).`,
+          previewHtml: raw`Expand the square and compare the constant terms. Why must the two expressions agree?`,
           workingHtml: raw`
             <div class="math-block">
               \[

@@ -3,7 +3,7 @@ const { chromium }=require('playwright');
 const { default: AxeBuilder }=require('@axe-core/playwright');
 const fs=require('fs'),path=require('path'),assert=require('assert');
 const origin=process.env.CALC_PREVIEW||'http://127.0.0.1:8004/';
-const folder=path.resolve(__dirname,'../.review/2026-09-24');
+const folder=process.env.CALC_REVIEW_DIR||path.resolve(__dirname,'../.review/2026-10-12');
 const results=[], errors=[];
 const check=async(name,fn)=>{try{const evidence=await fn();results.push({name,status:'pass',evidence});}catch(e){results.push({name,status:'fail',error:e.stack||String(e)});console.log(name,String(e));}};
 const go=async(p,url)=>{await p.goto(origin+url,{waitUntil:'networkidle'});if(!url && await p.evaluate(()=>typeof window.CalcNzWalkthrough !== 'undefined' || typeof window.Promise !== 'undefined')) await p.locator('[data-practice-scope] option').first().waitFor({state:'attached'});};

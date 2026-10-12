@@ -1622,6 +1622,29 @@ function getWalkthroughSeoPlainText(value) {
     .trim();
 }
 
+// Read authored text before typesetting: a KaTeX heading contains several
+// representations of the same expression. Never use its rendered textContent.
+function getWalkthroughAccessibleText(value) {
+  return getWalkthroughSeoPlainText(String(value || "")
+    .replace(/\\frac\s*\{d([a-z])\}\s*\{d([a-z])\}/gi, "the derivative of $1 with respect to $2")
+    .replace(/\\frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, "$1 divided by $2")
+    .replace(/\\sqrt\s*\{([^{}]*)\}/g, "square root of $1")
+    .replace(/\\pi\b/g, "pi")
+    .replace(/\\to\b/g, " approaches ")
+    .replace(/\\(?:le|leq)\b/g, " less than or equal to ")
+    .replace(/\\(?:ge|geq)\b/g, " greater than or equal to ")
+    .replace(/\\lt\b/g, " less than ")
+    .replace(/\\gt\b/g, " greater than "))
+    .replace(/([a-z])\^([0-9]+)/gi, "$1 to the power $2")
+    .replace(/f''\(x\)/g, "the second derivative of f")
+    .replace(/f'\(x\)/g, "the derivative of f")
+    .replace(/\|([^|]+)\|/g, "the modulus of $1")
+    .replace(/=/g, " equals ")
+    .replace(/</g, " less than ")
+    .replace(/>/g, " greater than ")
+    .replace(/\s+/g, " ").trim();
+}
+
 function getWalkthroughSeoMistake(context, focus, config, catalogueEntry) {
   if (catalogueEntry && String(catalogueEntry.question.commonMistake || "").trim()) {
     return getWalkthroughSeoPlainText(catalogueEntry.question.commonMistake);
@@ -1700,6 +1723,7 @@ function updateWalkthroughSeoRelatedLink(context, relation, offset) {
 }
 
 function buildWalkthroughSeoStructuredData(context, title, description, canonicalUrl) {
+  const catalogueEntry = getWalkthroughCatalogueQuestion(context);
   const standardUrl = new URL(context.standard.indexHref, WALKTHROUGH_SEO_ORIGIN + "/").href;
   const yearUrl = new URL(context.paper.indexHref, WALKTHROUGH_SEO_ORIGIN + "/").href;
   const questionLabel = walkthroughQuestionLabel(context.partId, context.paper);
@@ -1727,7 +1751,7 @@ function buildWalkthroughSeoStructuredData(context, title, description, canonica
         learningResourceType: "Guided worked solution",
         educationalLevel: "NCEA " + context.level.label,
         mainEntityOfPage: canonicalUrl,
-        dateModified: "2026-09-24",
+        dateModified: catalogueEntry && catalogueEntry.question.updatedDate || "2026-09-24",
         publisher: {
           "@type": "Organization",
           name: "Calc.nz",
@@ -1878,18 +1902,8 @@ function syncWalkthroughSeo(context, config) {
     const slugs = catalogueEntry && Array.isArray(catalogueEntry.question.skillSlugs)
       ? catalogueEntry.question.skillSlugs
       : [];
-    const skillLabels = {
-      "chain-rule": "Chain rule",
-      "product-quotient-rules": "Product and quotient rules",
-      "related-rates": "Related rates",
-      "stationary-points-optimisation": "Stationary points and optimisation",
-      "parametric-differentiation": "Parametric differentiation",
-      "antidifferentiation": "Antidifferentiation",
-      "integration-techniques": "Integration techniques",
-      "differential-equations": "Differential equations",
-      "complex-number-algebra": "Complex-number algebra",
-      "polar-form-de-moivre": "Polar form and De Moivre’s theorem"
-    };
+    const skillLabels = window.CALC_NZ_SKILL_LABELS
+      || (window.CALC_NZ_QUESTION_CATALOGUE || {}).skillLabels || {};
 
     relatedSkills.replaceChildren();
     const lead = document.createElement("strong");
@@ -1904,7 +1918,7 @@ function syncWalkthroughSeo(context, config) {
       }
       const link = document.createElement("a");
       link.href = slug ? "skill-" + slug + ".html" : "skills.html";
-      link.textContent = slug ? (skillLabels[slug] || slug.replace(/-/g, " ")) : "all skills";
+      link.textContent = slug ? (skillLabels[slug] || "Browse this skill") : "All skills";
       relatedSkills.appendChild(link);
     });
   }
@@ -3088,6 +3102,8 @@ function normaliseGuidedStep(step, stepIndex) {
 
   return {
     title: title,
+    accessibleTitle: getWalkthroughAccessibleText(step.accessibleTitle || title),
+    predictionPrompt: step.predictionPrompt || "Explain why this method applies, then decide what calculation or check comes next before opening the working.",
     previewHtml: previewHtml,
     workingHtml: normaliseRichTextBlock(workingHtml, "step-text"),
     workingButtonLabel: step.workingButtonLabel || "Show working",
@@ -3272,7 +3288,7 @@ function buildTipsCardHtml(config, tipItems) {
       ${tipItems.map(function (item, index) {
         const tipNumber = index + 1;
         const panelId = "walkthrough-tip-" + tipNumber;
-        const plainLabel = getWalkthroughSeoPlainText(item.label) || "Hint " + tipNumber;
+        const plainLabel = getWalkthroughAccessibleText(item.label) || "Hint " + tipNumber;
         return `
           <div class="walkthrough-tip-card">
             <button
@@ -3506,7 +3522,7 @@ function buildProgressiveFinalNavHtml(config) {
 
 function renderProgressiveStep(step, index) {
   const stepNumber = index + 1;
-  const plainTitle = getWalkthroughSeoPlainText(step.title) || "Step " + stepNumber;
+  const plainTitle = step.accessibleTitle || getWalkthroughAccessibleText(step.title) || "Step " + stepNumber;
   const showWorkingLabel = "Show working for Step " + stepNumber + ": " + plainTitle;
   const hideWorkingLabel = "Hide working for Step " + stepNumber + ": " + plainTitle;
   const previewHtml = step.previewHtml
@@ -3541,7 +3557,7 @@ function renderProgressiveStep(step, index) {
         >
           ${step.workingButtonLabel}
         </button>
-        <p class="question-note">Predict the next expression and its reason before opening the working.</p>
+        <p class="question-note">${escapeWalkthroughSidebarHtml(step.predictionPrompt)}</p>
       </div>
       <div
         id="walkthrough-step-${stepNumber}-working"
@@ -3653,7 +3669,7 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
 
     if (!isLastStep) {
       nextButton.textContent = "Next step →";
-      nextButton.setAttribute("aria-label", "Next step: " + getWalkthroughSeoPlainText(stepCards[currentStepIndex + 1].querySelector("h2").textContent));
+      nextButton.setAttribute("aria-label", "Next step: " + config.guidedSteps[currentStepIndex + 1].accessibleTitle);
       nextButton.removeAttribute("aria-controls");
       nextButton.removeAttribute("aria-expanded");
       nextButton.disabled = false;
@@ -3672,7 +3688,7 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
     }
 
     if (currentStepIndex > 0) {
-      previousButton.setAttribute("aria-label", "Previous step: " + getWalkthroughSeoPlainText(stepCards[currentStepIndex - 1].querySelector("h2").textContent));
+      previousButton.setAttribute("aria-label", "Previous step: " + config.guidedSteps[currentStepIndex - 1].accessibleTitle);
     } else {
       previousButton.setAttribute("aria-label", "Previous step unavailable");
     }

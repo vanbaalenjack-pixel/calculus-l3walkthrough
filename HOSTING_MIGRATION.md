@@ -106,3 +106,52 @@ HTTP 301/308 responses, plus permission to prepare a preview on that platform.
 The atomic rollout above remains required. Destination generation, raw metadata,
 HTTP status/destination availability and saved-state cutover tests must run in
 that preview before activation; the dormant mapping tests do not certify them.
+
+
+## Query-aware response preparation — 12 October 2026
+
+An alternative to changing question URLs is now prepared locally. Run:
+
+```sh
+python3 scripts/prepare-complex-metadata.py
+python3 scripts/check-complex-initial-metadata.py
+```
+
+The generator writes 120 complete question-specific HTML responses and a URL
+selection manifest to `.review/2026-10-12/complex-response-preview/`. Every raw
+response has the matching title, description, canonical, sharing metadata and
+structured question identity before JavaScript runs. The URLs and `paperId:partId`
+keys stay exactly as they are today, so this option needs no bookmark migration,
+internal-link rewrite or sitemap change. The 120 responses are deliberately
+excluded from `_site`; this preparation does not make GitHub Pages query-aware.
+
+The current static artifact still serves Q1(a)'s initial metadata for the 112
+non-default query URLs. A query-aware origin or proxy in front of the existing
+site must select the prepared response by validated year and first `q` value,
+retain the request URL and unrelated query parameters, and include the question
+in its cache key. Invalid/missing question values must retain the current default
+behaviour. Test all 120 responses over HTTP and saved-state persistence on that
+platform's preview before activation. Test cache isolation by alternating two
+questions in the same paper, including requests with extra query parameters.
+
+The remaining owner decision is which query-aware origin/edge to use and whether
+to authorise its preview and eventual routing/DNS changes. No provider, account,
+DNS, billing or production routing has been changed. The older clean-URL redirect
+contract remains dormant; choose one approach before implementing a cutover.
+
+## Publication source — 12 October 2026
+
+The public GitHub Actions history shows `dynamic/pages/pages-build-deployment`
+for the 2 October release and no runs of `.github/workflows/pages.yml`. The live
+readiness report therefore came from branch-based Jekyll publication: its name
+was absent from `_config.yml` exclusions. It was excluded by the local `_site`
+build, which production did not use.
+
+The release workflow now reads the Pages configuration and refuses to proceed
+unless `build_type` is `workflow`. The owner must select **GitHub Actions** as the
+Pages publishing source. After that authorised setting change, publish only the
+workflow's checked `_site` artifact. Runtime asset paths are explicitly listed in
+`scripts/public-assets.json`; new development assets do not enter a release
+automatically. The legacy Jekyll exclusions include the readiness report and
+broader development-file patterns as defence in depth, but branch publication
+is not the release process. No live removal is claimed until deployed and tested.
