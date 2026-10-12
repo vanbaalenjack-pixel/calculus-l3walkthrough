@@ -8,6 +8,8 @@ permissions:
 concurrency:
   group: pages
   cancel-in-progress: false
+env:
+  CALC_REVIEW_DIR: .review/2026-10-12-final
 jobs:
   build:
     runs-on: macos-latest
@@ -21,6 +23,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - run: python3 scripts/build-seo.py --check
       - name: Check mathematics and content contracts
         run: |
@@ -40,6 +45,15 @@ jobs:
       - run: python3 scripts/check-public-links.py
       - run: python3 scripts/prepare-complex-metadata.py
       - run: python3 scripts/check-complex-initial-metadata.py
+      - run: python3 scripts/build-query-release.py
+      - run: python3 scripts/check-query-release.py
+      - run: node scripts/test-query-routing.cjs
+      - name: Verify the query-aware package over HTTP
+        run: |
+          node "$CALC_REVIEW_DIR/query-release/serve.mjs" &
+          calc_query_pid=$!
+          trap 'kill "$calc_query_pid"' EXIT
+          python3 scripts/test-query-http.py
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site

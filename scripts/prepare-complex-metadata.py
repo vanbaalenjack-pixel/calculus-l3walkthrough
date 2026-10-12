@@ -9,6 +9,7 @@ import json
 import os
 from pathlib import Path
 import sys
+import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('calc_seo', ROOT / 'scripts/build-seo.py')
@@ -35,7 +36,10 @@ def prepare():
         records.append({'url': route.canonical, 'response': filename,
                         'paperId': f'level-3-complex-{route.year}', 'partId': route.question_id,
                         'title': seo.question_browser_title(route),
-                        'description': seo.question_description(route)})
+                        'description': seo.question_description(route),
+                        'heading': f'{route.year} {route.standard.topic} · Q{route.display_number}',
+                        'questionHtml': content[route.route_path]['questionHtml'].strip(),
+                        'sha256': hashlib.sha256(response.encode()).hexdigest()})
     assert len(records) == len({r['url'] for r in records}) == 120
     (directory / 'responses.json').write_text(json.dumps(records, indent=2) + '\n')
     print(f'Prepared 120 question-specific initial responses in {directory}; routing remains inactive.')

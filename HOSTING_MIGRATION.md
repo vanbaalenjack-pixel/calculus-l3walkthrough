@@ -1,6 +1,8 @@
 # Legacy Complex URL migration
 
-Status: **prepared but deliberately inactive**. The current repository must not
+Status: **query-aware response package prepared and locally HTTP-tested; production pending**. The preferred same-URL approach is documented in [scripts/query-routing/ROLLOUT.md](scripts/query-routing/ROLLOUT.md).
+
+The earlier clean-URL redirect option below remains deliberately inactive. The current repository must not
 publish the proposed clean URLs or advertise them in links, canonicals, or the
 sitemap until a query-aware edge can issue the redirects below.
 
@@ -155,3 +157,23 @@ workflow's checked `_site` artifact. Runtime asset paths are explicitly listed i
 automatically. The legacy Jekyll exclusions include the readiness report and
 broader development-file patterns as defence in depth, but branch publication
 is not the release process. No live removal is claimed until deployed and tested.
+
+
+## Final package and current production — 12 October 2026
+
+The same-URL approach now has a runnable Fetch handler, Node HTTP adapter,
+optional inactive Workers configuration, explicit public-path manifest, complete
+question HTML and tests for cache isolation, defaults, aliases and saved state.
+See `scripts/query-routing/ROLLOUT.md` for commands, authorisation, rollout and
+rollback. Generated packages and all evidence stay under the ignored review
+folder, never `_site`. Local HTTP success does not mark production fixed.
+
+The current committed/deployed baseline is `cab948d93c4c0128e0e512d152728787bec30a85`.
+All 603 public files match that source artifact in the final baseline check;
+90 development/missing paths, including report `.md` and `.html` variants, return
+404/410. The readiness report has therefore been removed since the earlier
+finding. Public Actions history still shows branch-based
+`dynamic/pages/pages-build-deployment`, not the custom allowlist workflow.
+Switching Pages' source to GitHub Actions remains the robust publication-boundary
+decision. Query-aware hosting is not currently configured; the 112 non-default
+legacy initial identities remain pending on production.

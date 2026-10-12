@@ -168,15 +168,27 @@ function enhanceWalkthroughMathOverflow(root) {
   const scope = root && typeof root.querySelectorAll === "function" ? root : document;
 
   window.requestAnimationFrame(function () {
+    const regions = new Map();
     scope.querySelectorAll(".katex-display").forEach(function (display) {
-      const region = display.closest(".math-block, .question-math") || display.parentElement;
-      if (!region) {
-        return;
-      }
-
-      const overflows = display.scrollWidth > region.clientWidth + 2;
+      // Auto-render adds an inline span whose clientWidth is always zero.
+      // Measure its containing block, including every equation in that block.
+      const region = display.closest(".math-block, .question-math, .answer-highlight, .walkthrough-working-body, p, li")
+        || display.parentElement;
+      if (!region || !region.clientWidth) return;
+      if (!regions.has(region)) regions.set(region, []);
+      regions.get(region).push(display);
+    });
+    regions.forEach(function (displays, region) {
+      const style = window.getComputedStyle(region);
+      const availableWidth = region.clientWidth - parseFloat(style.paddingLeft || 0) - parseFloat(style.paddingRight || 0);
+      const overflows = displays.some(function (display) { return display.scrollWidth > availableWidth + 2; });
       region.classList.toggle("math-scroll-region", overflows);
       if (overflows) {
+        if (!region._mathOverflowOriginalAttributes) {
+          region._mathOverflowOriginalAttributes = ["role", "tabindex", "aria-label"].map(function (name) {
+            return [name, region.getAttribute(name)];
+          });
+        }
         region.setAttribute("role", "region");
         region.setAttribute("tabindex", "0");
         region.setAttribute("aria-label", "Scrollable mathematical expression");
@@ -187,13 +199,15 @@ function enhanceWalkthroughMathOverflow(root) {
           region.appendChild(hint);
         }
       } else {
-        region.removeAttribute("role");
-        region.removeAttribute("tabindex");
-        region.removeAttribute("aria-label");
-        const hint = region.querySelector(":scope > .math-scroll-hint");
-        if (hint) {
-          hint.remove();
+        if (region._mathOverflowOriginalAttributes) {
+          region._mathOverflowOriginalAttributes.forEach(function (entry) {
+            if (entry[1] === null) region.removeAttribute(entry[0]);
+            else region.setAttribute(entry[0], entry[1]);
+          });
+          delete region._mathOverflowOriginalAttributes;
         }
+        const hint = region.querySelector(":scope > .math-scroll-hint");
+        if (hint) hint.remove();
       }
     });
   });
@@ -1362,7 +1376,8 @@ function currentLocationMatchesWalkthroughPart(paper, partId) {
   }
 
   if (walkthroughPaperUsesQuery(paper)) {
-    const currentPart = new URLSearchParams(window.location.search).get("q") || paper.parts[0];
+    const requested = (new URLSearchParams(window.location.search).get("q") || "").toLowerCase();
+    const currentPart = paper.parts.indexOf(requested) >= 0 ? requested : paper.parts[0];
     return currentPart === partId;
   }
 
@@ -2103,6 +2118,7 @@ function setWalkthroughSidebarVisible(isVisible, options) {
 
   body.classList.toggle("walkthrough-nav-visible", isVisible);
   body.classList.toggle("walkthrough-nav-hidden", !isVisible);
+  enhanceWalkthroughMathOverflow(document.body);
   body.classList.toggle("walkthrough-nav-mobile-open", willBeMobileOpen);
   setWalkthroughSidebarInteractivity(sidebar, isVisible);
   setWalkthroughSidebarBackgroundInert(sidebar, willBeMobileOpen);
@@ -3332,6 +3348,7 @@ function attachWalkthroughTipHandlers(tipsCard) {
       panel.setAttribute("aria-hidden", shouldShow ? "false" : "true");
 
       if (shouldShow) {
+        enhanceWalkthroughMathOverflow(panel);
         focusRevealedContent(panel);
       }
     });
@@ -3748,6 +3765,7 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
     updateProgressUi();
 
     const settings = options || {};
+    enhanceWalkthroughMathOverflow(stepCards[currentStepIndex]);
     if (settings.scroll !== false) {
       moveToCurrentStep(settings.focus !== false);
     }
@@ -3776,6 +3794,7 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
         : (button.dataset.hiddenAriaLabel || "Show working for this step")
     );
     button.setAttribute("aria-expanded", isVisible ? "true" : "false");
+    if (isVisible) enhanceWalkthroughMathOverflow(workingPanel);
     updateProgressUi();
   }
 

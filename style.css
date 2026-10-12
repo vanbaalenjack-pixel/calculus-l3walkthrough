@@ -3759,7 +3759,7 @@ body.question-image-lightbox-open {
   }
 
   .home-how-details > summary:focus-visible {
-    outline: 3px solid rgba(70, 111, 216, 0.2);
+    outline: 3px solid var(--primary-ink);
     outline-offset: 3px;
   }
 }
@@ -3808,6 +3808,7 @@ body.question-image-lightbox-open {
   }
 
   .home-hero-aside::before {
+    display: none;
     inset: 8px 0 0;
   }
 }

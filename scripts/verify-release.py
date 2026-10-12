@@ -40,12 +40,22 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--origin', default='http://127.0.0.1:8004')
     parser.add_argument('--live', action='store_true', help='Also check production HTTP/www redirects')
+    parser.add_argument('--query-aware', action='store_true', help='Expect the prepared default response at each legacy shell URL')
     args = parser.parse_args()
     origin = args.origin.rstrip('/')
     if urlsplit(origin).scheme not in ('http', 'https'):
         parser.error('Use an http or https origin')
     manifest = json.loads((REVIEW / 'public-manifest.json').read_text())
-    manifest.append({'path': '.nojekyll', 'sha256': hashlib.sha256(b'').hexdigest(), 'bytes': 0})
+    if args.query_aware:
+        responses = json.loads((REVIEW / 'complex-response-preview/responses.json').read_text())
+        defaults = {urlsplit(r['url']).path.lstrip('/'): r for r in responses if r['partId'] == '1a'}
+        assert len(defaults) == 8
+        for record in manifest:
+            if record['path'] in defaults:
+                selected = defaults[record['path']]
+                record['sha256'] = selected['sha256']
+                record['bytes'] = (REVIEW / 'complex-response-preview' / selected['response']).stat().st_size
+    # .nojekyll is an artifact instruction, not a public resource on Pages.
 
     def check_file(record):
         result = read(origin + '/' + quote(record['path']))
@@ -55,12 +65,16 @@ def main():
 
     with ThreadPoolExecutor(max_workers=6) as pool:
         public = list(pool.map(check_file, manifest))
+    internal_reports = {stem + extension for stem in
+                        ('HOSTING_MIGRATION', 'AUDIT_REMEDIATION', 'RELEASE',
+                         'READINESS_FIXES_2026-10-02', 'calc-nz-verification-2026-10-12',
+                         'calc-nz-readiness-audit-2026-10-01') for extension in ('.md', '.html')}
     excluded = sorted({'/' + str(p.relative_to(ROOT)) for p in (ROOT / 'scripts').rglob('*')
                        if p.is_file() and '__pycache__' not in p.parts} | {
         '/.review/2026-09-24/checklist.md', '/.github/workflows/pages.yml', '/_config.yml',
         '/HOSTING_MIGRATION.md', '/AUDIT_REMEDIATION.md', '/official-resources.json',
         '/READINESS_FIXES_2026-10-02.md',
-        '/guides.json', '/verification-missing-page-20260929.html'})
+        '/guides.json', '/verification-missing-page-20260929.html'} | {'/' + p for p in internal_reports})
     with ThreadPoolExecutor(max_workers=6) as pool:
         exclusions = list(pool.map(lambda path: read(origin + quote(path)), excluded))
     for result in exclusions:
@@ -73,6 +87,7 @@ def main():
             redirects.append(result)
     results = public + exclusions + redirects
     report = {'checkedAt': datetime.now(timezone.utc).isoformat(), 'origin': origin,
+              'queryAware': args.query_aware,
               'live': args.live, 'publicFiles': public, 'excludedAndMissing': exclusions,
               'redirects': redirects, 'failures': [r for r in results if not r['pass']]}
     output = REVIEW / ('live-release.json' if args.live else 'preview-release.json')

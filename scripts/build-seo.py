@@ -55,7 +55,7 @@ except ModuleNotFoundError:  # Supports import-based validators from the reposit
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://calc.nz/"
-CACHE_TOKEN = "20261012-1"
+CACHE_TOKEN = "20261012-2"
 REVIEW_DATE = "2026-09-24"
 WALKTHROUGH_CONTENT_RELEASE_DATE = "2026-09-24"
 # Manually recorded revision of the shared learning sequence and labels.
@@ -2093,6 +2093,14 @@ def update_question_page(
     guides: Sequence[Guide] = (),
     paper_fallbacks: Mapping[str, Mapping[str, object]] | None = None,
 ) -> str:
+    # Match the server selector and sidebar: first decoded q value, accepting
+    # upper-case letters and falling back to 1(a) for missing/invalid values.
+    if route.standard_key == "level-3-complex" and "?" in route.href:
+        selector = ('const requestedQuestion = (params.get("q") || "").toLowerCase();\n'
+                    '      const questionId = /^[1-3][a-e]$/.test(requestedQuestion) ? requestedQuestion : "1a";')
+        for old in ('const questionId = params.get("q") || "1a";',
+                    'const questionId = (params.get("q") || "1a").toLowerCase();'):
+            original = original.replace(old, selector)
     for name in ("HEAD", "BREADCRUMBS", "OVERVIEW", "SUMMARY", "SITE_HEADER", "PAGE_RECORD", "WALKTHROUGH_FALLBACK"):
         original = remove_marker(original, name)
 
@@ -2288,6 +2296,14 @@ def standards_directory(
 def update_homepage(
     original: str,
 ) -> str:
+    original = re.sub(r'<noscript><style>#selection-flow-nav.*?</style></noscript>',
+        '<noscript><style>#selection-flow-nav, .home-practice-card, .home-search-card, '
+        '.home-library-actions, .home-reset-row, [data-home-progress-summary] { display: none; }</style></noscript>',
+        original, count=1, flags=re.S)
+    if 'data-saved-practice-nojs' not in original:
+        original = re.sub(r'(<p[^>]*data-home-progress-summary[^>]*>.*?</p>)',
+            r'\1\n      <noscript><p class="step-text" data-saved-practice-nojs>Saved practice needs JavaScript. Use the standards and skills links to choose a question.</p></noscript>',
+            original, count=1, flags=re.S)
     catalogue = load_catalogue()
     level = next(level for level in catalogue["levels"] if level["id"] == "level-3")
     papers = [paper for standard in level["standards"] for paper in standard["papers"]]

@@ -5,7 +5,7 @@ const fs=require('fs'),assert=require('assert');
 const origin=process.env.CALC_PREVIEW||'http://127.0.0.1:8004/';
 const baseline=process.argv.includes('--baseline');
 const savedOnly=process.argv.includes('--saved-only');
-const folder='.review/2026-10-02';fs.mkdirSync(folder,{recursive:true});
+const folder=process.env.CALC_REVIEW_DIR||'.review/2026-10-12-final';fs.mkdirSync(folder,{recursive:true});
 const lum=rgb=>rgb.map(c=>c/255).map(c=>c<=.04045?c/12.92:((c+.055)/1.055)**2.4).reduce((s,c,i)=>s+c*[.2126,.7152,.0722][i],0);
 (async()=>{
  const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});

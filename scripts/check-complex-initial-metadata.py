@@ -30,7 +30,13 @@ def matches(source, record):
     head=Head(source)
     structured=json.loads(re.search(r'<script id="seo-structured-data"[^>]*>(.*?)</script>',source,re.S)[1])
     resource=structured['@graph'][0]
-    return (head.title==record['title'] and head.canonical==record['url']
+    heading = html.unescape(re.sub(r'<[^>]+>', '', re.search(r'<h1[^>]*>(.*?)</h1>', source, re.S)[1])).strip()
+    prompt = record['questionHtml'].strip()
+    accessible_prompt = re.sub(r'<div(?=[^>]*\baria-label=)(?![^>]*\brole=)', '<div role="group"', prompt)
+    contains_question = any(re.sub(r'\s+', ' ', value) in re.sub(r'\s+', ' ', source)
+                            for value in (prompt, accessible_prompt))
+    return (heading == record['heading'] and contains_question
+        and head.title==record['title'] and head.canonical==record['url']
         and head.meta['description']==record['description']
         and head.meta['og:url']==record['url']
         and head.meta['og:title']==record['title']

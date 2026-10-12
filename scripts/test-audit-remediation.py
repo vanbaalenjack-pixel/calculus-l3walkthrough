@@ -728,7 +728,8 @@ class RuntimeContractTests(unittest.TestCase):
     def test_overflow_enhancement_makes_long_katex_display_math_accessible(self) -> None:
         self.assertIn("function enhanceWalkthroughMathOverflow", self.source)
         self.assertIn('querySelectorAll(".katex-display")', self.source)
-        self.assertIn("display.scrollWidth > region.clientWidth + 2", self.source)
+        self.assertIn("display.scrollWidth > availableWidth + 2", self.source)
+        self.assertIn("displays.some", self.source)
         self.assertIn('region.setAttribute("role", "region")', self.source)
         self.assertIn('region.setAttribute("tabindex", "0")', self.source)
         self.assertIn('region.setAttribute("aria-label", "Scrollable mathematical expression")', self.source)
