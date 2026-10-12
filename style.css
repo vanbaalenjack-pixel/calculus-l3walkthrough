@@ -3470,6 +3470,11 @@ body.question-image-lightbox-open {
   line-height: 1.72;
 }
 
+.home-page .home-footer .site-footer-nav {
+  position: relative;
+  z-index: 1;
+}
+
 .home-page .site-footer-link {
   color: var(--primary-dark);
   text-underline-offset: 0.14em;

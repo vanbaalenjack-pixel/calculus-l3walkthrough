@@ -4,7 +4,7 @@ const origin=process.env.CALC_PREVIEW||'http://127.0.0.1:8004/';
 const folder=process.env.CALC_REVIEW_DIR||'.review/2026-10-12-final';
 const luminance=rgb=>rgb.map(c=>c/255).map(c=>c<=.04045?c/12.92:((c+.055)/1.055)**2.4).reduce((s,c,i)=>s+c*[.2126,.7152,.0722][i],0);
 const ratio=(a,b)=>{const x=luminance(a),y=luminance(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05);};
-const results=[],errors=[];let browser;
+const results=[],footerResults=[],errors=[];let browser;
 async function measure(p,summary,name){
  await summary.scrollIntoViewIfNeeded();
  await summary.evaluate(e=>{if(!e.querySelector('[data-contrast-ink]')){const span=document.createElement('span');span.dataset.contrastInk='';const node=[...e.childNodes].find(n=>n.nodeType===Node.TEXT_NODE&&n.textContent.trim());node.replaceWith(span);span.append(node);}});
@@ -40,5 +40,23 @@ async function measure(p,summary,name){
   await context.close();
  }
  const desktop=await browser.newContext({viewport:{width:1440,height:900}});const p=await desktop.newPage();await p.goto(origin,{waitUntil:'networkidle'});assert(!(await p.locator('.home-how-details > summary').isVisible()));assert(await p.locator('.home-hero-visual').isVisible());assert.notEqual(await p.locator('.home-hero-aside').evaluate(e=>getComputedStyle(e,'::before').display),'none');await p.screenshot({path:folder+'/screenshots/disclosure-desktop.png',fullPage:true});await desktop.close();
- assert.deepEqual(errors,[]);await browser.close();fs.writeFileSync(folder+'/disclosure-contrast.json',JSON.stringify({method:'Each word: strongest 95% colour-delta stroke pixels against same-pixel background with text ink hidden; all pseudo-elements preserved. No computed-colour contrast inference.',results,errors},null,2));console.log(JSON.stringify(results.map(({words,styles,...r})=>r)));
+ for(const width of [320,390,768,1440]){
+  const context=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'});
+  const p=await context.newPage();p.on('pageerror',e=>errors.push(e.message));await p.goto(origin,{waitUntil:'networkidle'});
+  const links=p.locator('.home-footer .site-footer-nav a');
+  for(let i=0;i<await links.count();i++){
+   const link=links.nth(i),label=await link.innerText();
+   for(const state of i===0?['normal','hover','focus']:['normal']){
+    await p.mouse.move(0,0);await link.evaluate(e=>e.blur());
+    if(state==='hover')await link.hover();
+    if(state==='focus'){await link.focus();await p.keyboard.press('Tab');await p.keyboard.press('Shift+Tab');assert(await link.evaluate(e=>e===document.activeElement&&e.matches(':focus-visible')));}
+    const observation=await measure(p,link,`footer-fixed-${width}-${i}-${state}`);
+    assert(observation.minimum>=4.5,JSON.stringify({width,label,state,...observation}));
+    if(state==='focus')assert((await link.evaluate(e=>getComputedStyle(e).outline)).includes('solid 3px'));
+    footerResults.push({width,label,state,...observation});
+   }
+  }
+  await context.close();
+ }
+ assert.deepEqual(errors,[]);await browser.close();fs.writeFileSync(folder+'/disclosure-contrast.json',JSON.stringify({method:'Each word: strongest 95% colour-delta stroke pixels against same-pixel background with text ink hidden; all pseudo-elements preserved. No computed-colour contrast inference.',results,footerResults,errors},null,2));console.log(JSON.stringify({disclosure:results.map(({words,styles,...r})=>r),footer:footerResults.map(({words,...r})=>r)}));
 })().catch(async e=>{console.error(e);if(browser)await browser.close();process.exitCode=1;});

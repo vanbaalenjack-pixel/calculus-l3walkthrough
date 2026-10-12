@@ -55,7 +55,7 @@ except ModuleNotFoundError:  # Supports import-based validators from the reposit
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://calc.nz/"
-CACHE_TOKEN = "20261012-2"
+CACHE_TOKEN = "20261012-3"
 REVIEW_DATE = "2026-09-24"
 WALKTHROUGH_CONTENT_RELEASE_DATE = "2026-09-24"
 # Manually recorded revision of the shared learning sequence and labels.
