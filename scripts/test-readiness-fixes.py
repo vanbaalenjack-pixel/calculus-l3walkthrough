@@ -19,12 +19,12 @@ class Readiness(unittest.TestCase):
         self.assertNotEqual(( -2+6j)/(1+2j), 10+10j)
         self.assertNotAlmostEqual(cmath.phase(-2-2j), math.pi/4)
 
-    def test_both_explanations_include_the_denominator(self):
+    def test_rationalised_parts_retain_denominator_and_quadrant(self):
         source = (ROOT/'complex-2025-data.js').read_text()
         step = source.split('title: raw`Rationalise the fraction`', 1)[1].split('title:', 1)[0]
         for text in [r'\frac{-5d}{1+d^2}', r'\frac{6+d^2}{1+d^2}',
                      r'1+d^2>0', 'common denominator can be cancelled', 'first quadrant']:
-            self.assertEqual(step.count(text), 2, text)
+            self.assertGreaterEqual(step.count(text), 1, text)
         self.assertNotIn(r'The real part is \(-5d\)', source)
 
     def test_rectangle_domain_and_stationary_equation(self):

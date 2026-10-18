@@ -424,7 +424,7 @@
         {
           title: raw`Rewrite in power form`,
           previewHtml: raw`\(\frac{1}{\sqrt{t}}=t^{-1/2}\) and \(\sqrt{t}=t^{1/2}\).`,
-          workingHtml: raw`<p class="step-text">\(\frac{1}{\sqrt{t}}=t^{-1/2}\) and \(\sqrt{t}=t^{1/2}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -435,7 +435,7 @@
         {
           title: raw`Differentiate carefully`,
           previewHtml: raw`The two variable terms differentiate to \(-30t^{-3/2}\) and \(\frac{5}{2}t^{-1/2}\).`,
-          workingHtml: raw`<p class="step-text">The two variable terms differentiate to \(-30t^{-3/2}\) and \(\frac{5}{2}t^{-1/2}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -448,7 +448,7 @@
         {
           title: raw`Evaluate at \(t=4\)`,
           previewHtml: raw`The oven temperature is changing at \(-\frac{5}{2}^\circ\text{C}\) per minute after \(4\) minutes.`,
-          workingHtml: raw`<p class="step-text">The oven temperature is changing at \(-\frac{5}{2}^\circ\text{C}\) per minute after \(4\) minutes.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -509,7 +509,7 @@
         {
           title: raw`Identify the rule`,
           previewHtml: raw`The function is a product of \(\sin^3x\) and \(\cos x\).`,
-          workingHtml: raw`<p class="step-text">The function is a product of \(\sin^3x\) and \(\cos x\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Product rule
@@ -517,8 +517,9 @@
         },
         {
           title: raw`Find the tangent gradient`,
-          previewHtml: raw`The tangent gradient at \(x=\frac{\pi}{4}\) is \(\frac{1}{2}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The tangent gradient at \(x=\frac{\pi}{4}\) is \(\frac{1}{2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -529,7 +530,7 @@
         {
           title: raw`Convert to the normal gradient`,
           previewHtml: raw`The negative reciprocal of \(\frac{1}{2}\) is \(-2\).`,
-          workingHtml: raw`<p class="step-text">The negative reciprocal of \(\frac{1}{2}\) is \(-2\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -601,8 +602,9 @@
       guidedSteps: [
         {
           title: raw`Find the point of tangency`,
-          previewHtml: raw`Substituting \(x=1\) gives \(1^2+e^2=1+e^2\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Substituting \(x=1\) gives \(1^2+e^2=1+e^2\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -612,8 +614,9 @@
         },
         {
           title: raw`Find the gradient`,
-          previewHtml: raw`Since \(f'(x)=2x+2e^{2x}\), we get \(f'(1)=2+2e^2\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Since \(f'(x)=2x+2e^{2x}\), we get \(f'(1)=2+2e^2\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -625,8 +628,9 @@
         },
         {
           title: raw`Find the x-intercept`,
-          previewHtml: raw`The tangent crosses the \(x\)-axis at \(x=\frac{1}{2}\), so \(P=\left(\frac{1}{2},0\right)\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The tangent crosses the \(x\)-axis at \(x=\frac{1}{2}\), so \(P=\left(\frac{1}{2},0\right)\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -853,7 +857,7 @@
         {
           title: raw`Rewrite the reciprocal term`,
           previewHtml: raw`Writing the reciprocal as a negative power makes it easy to differentiate.`,
-          workingHtml: raw`<p class="step-text">Writing the reciprocal as a negative power makes it easy to differentiate.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -874,7 +878,7 @@
               \]
             </div>
 
-<p class="step-text">The reciprocal term uses the power rule, and the logarithm term uses the chain rule.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -939,7 +943,7 @@
         {
           title: raw`Identify the rule`,
           previewHtml: raw`The formula is the product of two functions of \(t\).`,
-          workingHtml: raw`<p class="step-text">The formula is the product of two functions of \(t\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Product rule
@@ -947,8 +951,9 @@
         },
         {
           title: raw`Evaluate the derivative at \(t=2\)`,
-          previewHtml: raw`Substituting \(t=2\) gives \(P'(2)=-30e^{-2}\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Substituting \(t=2\) gives \(P'(2)=-30e^{-2}\).</p>
+
             <div class="math-block">
               \[
               P'(t)=(30-10t)e^{-t}+(30t-5t^2)(-e^{-t})
@@ -958,7 +963,7 @@
               \]
             </div>
 
-<p class="step-text">Substituting \(t=2\) gives \(P'(2)=-30e^{-2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -969,7 +974,7 @@
         {
           title: raw`Interpret the sign`,
           previewHtml: raw`Because \(P'(2)\) is negative, the water depth is decreasing after \(2\) hours.`,
-          workingHtml: raw`<p class="step-text">Because \(P'(2)\) is negative, the water depth is decreasing after \(2\) hours.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   The depth is decreasing
@@ -1147,8 +1152,9 @@
       guidedSteps: [
         {
           title: raw`Find \(\frac{dy}{dx}\)`,
-          previewHtml: raw`Dividing \(\frac{dy}{dt}\) by \(\frac{dx}{dt}\) simplifies to \(\frac{5}{2\sin t}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Dividing \(\frac{dy}{dt}\) by \(\frac{dx}{dt}\) simplifies to \(\frac{5}{2\sin t}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1160,8 +1166,9 @@
         },
         {
           title: raw`Find the point on the curve`,
-          previewHtml: raw`At \(t=\frac{\pi}{6}\), the point is \(\left(\frac{4}{\sqrt{3}},\frac{5}{\sqrt{3}}\right)\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">At \(t=\frac{\pi}{6}\), the point is \(\left(\frac{4}{\sqrt{3}},\frac{5}{\sqrt{3}}\right)\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1171,8 +1178,9 @@
         },
         {
           title: raw`Write the tangent equation`,
-          previewHtml: raw`The tangent has gradient \(5\) and passes through \(\left(\frac{4}{\sqrt{3}},\frac{5}{\sqrt{3}}\right)\), so \(y=5x-5\sqrt{3}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The tangent has gradient \(5\) and passes through \(\left(\frac{4}{\sqrt{3}},\frac{5}{\sqrt{3}}\right)\), so \(y=5x-5\sqrt{3}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1266,8 +1274,9 @@
         },
         {
           title: raw`Find the second derivative`,
-          previewHtml: raw`Differentiating \(-2\sin(4x)\) gives \(-8\cos(4x)\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Differentiating \(-2\sin(4x)\) gives \(-8\cos(4x)\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1279,8 +1288,9 @@
         },
         {
           title: raw`Evaluate the radius of curvature`,
-          previewHtml: raw`Substituting the derivative values into the formula gives \(\rho=2\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Substituting the derivative values into the formula gives \(\rho=2\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1350,7 +1360,7 @@
         {
           title: raw`Find the non-differentiable points`,
           previewHtml: raw`There is a break at \(x=-6\), a hole and mismatched point at \(x=-2\), and another hole at \(x=3\).`,
-          workingHtml: raw`<p class="step-text">There is a break at \(x=-6\), a hole and mismatched point at \(x=-2\), and another hole at \(x=3\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1360,8 +1370,9 @@
         },
         {
           title: raw`Find where \(f'(x)=0\)`,
-          previewHtml: raw`The left ray is horizontal for every \(x\lt -6\), and the two smooth turning points occur at \(x=-4\) and \(x=6\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The left ray is horizontal for every \(x\lt -6\), and the two smooth turning points occur at \(x=-4\) and \(x=6\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1372,7 +1383,7 @@
         {
           title: raw`Evaluate the limit`,
           previewHtml: raw`Both sides of the graph approach \(2\) as \(x\) approaches \(-2\).`,
-          workingHtml: raw`<p class="step-text">Both sides of the graph approach \(2\) as \(x\) approaches \(-2\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1437,15 +1448,16 @@
       guidedSteps: [
         {
           title: raw`Differentiate the curve`,
-          previewHtml: raw`Differentiating gives \(\frac{1-\ln x}{2x^2}\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Differentiating gives \(\frac{1-\ln x}{2x^2}\).</p>
+
             <div class="math-block">
               \[
               y=\frac{1}{2}(\ln x)x^{-1}
               \]
             </div>
 
-<p class="step-text">Differentiating gives \(\frac{1-\ln x}{2x^2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1457,8 +1469,9 @@
         },
         {
           title: raw`Solve for the stationary point`,
-          previewHtml: raw`Setting \(1-\ln x=0\) gives \(\ln x=1\), so \(x=e\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Setting \(1-\ln x=0\) gives \(\ln x=1\), so \(x=e\).</p>
+
             <div class="math-block">
               \[
               \frac{1-\ln x}{2x^2}=0
@@ -1468,7 +1481,7 @@
               \]
             </div>
 
-<p class="step-text">Setting \(1-\ln x=0\) gives \(\ln x=1\), so \(x=e\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1541,7 +1554,7 @@
         {
           title: raw`Link the rates`,
           previewHtml: raw`This is the chain rule written for related rates.`,
-          workingHtml: raw`<p class="step-text">This is the chain rule written for related rates.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1551,8 +1564,9 @@
         },
         {
           title: raw`Differentiate volume with respect to radius`,
-          previewHtml: raw`Differentiating \(\frac{4}{3}\pi r^3\) gives \(4\pi r^2\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Differentiating \(\frac{4}{3}\pi r^3\) gives \(4\pi r^2\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1565,7 +1579,7 @@
         {
           title: raw`Find the rate of change of volume`,
           previewHtml: raw`The volume is decreasing at \(\frac{36\pi}{5}\text{ cm}^3\text{s}^{-1}\).`,
-          workingHtml: raw`<p class="step-text">The volume is decreasing at \(\frac{36\pi}{5}\text{ cm}^3\text{s}^{-1}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1651,8 +1665,9 @@
       guidedSteps: [
         {
           title: raw`Find \(\frac{dy}{dx}\)`,
-          previewHtml: raw`The gradient simplifies to \(-e^{4t}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The gradient simplifies to \(-e^{4t}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1664,8 +1679,9 @@
         },
         {
           title: raw`Solve for the parameter`,
-          previewHtml: raw`Solving \(-e^{4t}=-2\) gives \(t=\frac{\ln 2}{4}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Solving \(-e^{4t}=-2\) gives \(t=\frac{\ln 2}{4}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1675,8 +1691,9 @@
         },
         {
           title: raw`Find the coordinates`,
-          previewHtml: raw`Substituting the value of \(t\) gives \(\left(\frac{5}{\sqrt{2}},5\sqrt{2}\right)\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Substituting the value of \(t\) gives \(\left(\frac{5}{\sqrt{2}},5\sqrt{2}\right)\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1766,7 +1783,7 @@
         {
           title: raw`Write the area function`,
           previewHtml: raw`Width times height gives \((16-2x)\sqrt{16x-x^2}\).`,
-          workingHtml: raw`<p class="step-text">Width times height gives \((16-2x)\sqrt{16x-x^2}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">

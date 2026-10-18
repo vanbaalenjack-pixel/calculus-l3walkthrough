@@ -47,7 +47,7 @@
         "@type": "Thing",
         "name": "AS91578 — Apply differentiation methods in solving problems"
       },
-      "dateModified": "2026-10-12",
+      "dateModified": "2026-10-18",
       "publisher": {
         "@type": "Organization",
         "name": "Calc.nz",
@@ -91,21 +91,21 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20261012-3" />
+<link rel="stylesheet" href="style.css?v=20261018-1" />
 
   <link rel="stylesheet" href="assets/katex/katex.min.css">
   <script defer src="assets/katex/katex.min.js"></script>
   <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20261012-3"></script>
-  <script defer src="walkthrough-gate.js?v=20261012-3"></script>
-<script defer src="differentiation-walkthrough.js?v=20261012-3"></script>
-  <script defer src="differentiation-2023-data.js?v=20261012-3"></script>
+<script defer src="walkthrough-audit-data.js?v=20261018-1"></script>
+  <script defer src="walkthrough-gate.js?v=20261018-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20261018-1"></script>
+  <script defer src="differentiation-2023-data.js?v=20261018-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
   <script>window.CALC_NZ_SKILL_LABELS = {"chain-rule": "Chain rule", "product-quotient-rules": "Product and quotient rules", "related-rates": "Related rates", "stationary-points-optimisation": "Stationary points and optimisation", "parametric-differentiation": "Parametric differentiation", "antidifferentiation": "Antidifferentiation", "integration-techniques": "Integration techniques", "differential-equations": "Differential equations", "complex-number-algebra": "Complex-number algebra", "polar-form-de-moivre": "Polar form and De Moivre", "differentiation-basics": "Differentiation rules", "tangents-normals": "Tangents and normals", "graphs-and-derivatives": "Graphs, signs and limits", "implicit-differentiation": "Implicit differentiation", "definite-integrals-area": "Definite integrals and area", "algebraic-methods": "Algebraic methods", "complex-loci-modulus": "Complex loci and modulus"};</script>
-  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-differentiation-2023", "year": 2023}, "question": {"canonical": "https://calc.nz/2a2023.html", "commonMistake": "Differentiate both factors in turn and keep both product-rule terms.", "description": "2023 NCEA Level 3 Differentiation AS91578 Question 2(a) worked solution: rewriting x squared divided by cos x and using the product rule. Use guided hints…", "guideLinks": [], "id": "2a", "label": "Question 2(a)", "method": "rewriting \\(\\frac{x^2}{\\cos x}\\) and using the product rule.", "methodTitle": "Product Rule", "relatedPractice": {"href": "1b2024.html", "label": "2024 Differentiation · Q1(b)"}, "reviewStatus": "unreviewed", "skillSlugs": ["product-quotient-rules"], "summary": "This walkthrough helps you practise rewriting \\(\\frac{x^2}{\\cos x}\\) and using the product rule. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Product Rule Worked Solution – 2023 NCEA Level 3 Q2(a) (AS91578) | Calc.nz", "updatedDate": "2026-10-12"}, "standard": {"code": "AS91578", "id": "level-3-differentiation", "label": "Differentiation"}};</script>
+  <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-differentiation-2023", "year": 2023}, "question": {"canonical": "https://calc.nz/2a2023.html", "commonMistake": "Differentiate both factors in turn and keep both product-rule terms.", "description": "2023 NCEA Level 3 Differentiation AS91578 Question 2(a) worked solution: rewriting x squared divided by cos x and using the product rule. Use guided hints…", "guideLinks": [], "id": "2a", "label": "Question 2(a)", "method": "rewriting \\(\\frac{x^2}{\\cos x}\\) and using the product rule.", "methodTitle": "Product Rule", "relatedPractice": {"href": "1b2024.html", "label": "2024 Differentiation · Q1(b)"}, "reviewStatus": "unreviewed", "skillSlugs": ["product-quotient-rules"], "summary": "This walkthrough helps you practise rewriting \\(\\frac{x^2}{\\cos x}\\) and using the product rule. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Product Rule Worked Solution – 2023 NCEA Level 3 Q2(a) (AS91578) | Calc.nz", "updatedDate": "2026-10-18"}, "standard": {"code": "AS91578", "id": "level-3-differentiation", "label": "Differentiation"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20261012-3"></script>
+  <script defer src="site-shell.js?v=20261018-1"></script>
 </head>
 <body class="has-site-header">
 <!-- SEO:SITE_HEADER:START -->
@@ -171,11 +171,10 @@
       <section class="step-card static-first-step" aria-labelledby="static-first-step-heading">
         <p class="step-number">Step 1</p>
         <h2 id="static-first-step-heading">Rewrite the function</h2>
-        <p class="step-text">That rewrite makes the derivative a straightforward product-rule question.</p>
+        <p class="step-text">Rewrite the quotient as a product involving \(\sec x\).</p>
         <details class="static-first-step-working">
           <summary>Show the first step’s working</summary>
-          <div class="walkthrough-step-working"><p class="step-text">That rewrite makes the derivative a straightforward product-rule question.</p>
-    <div class="answer-highlight walkthrough-answer-highlight">
+          <div class="walkthrough-step-working"><div class="answer-highlight walkthrough-answer-highlight">
       <p class="question-label">Key result</p>
       \[
                     f(x)=x^2\sec x
@@ -193,9 +192,9 @@
       <h2 id="walkthrough-overview-heading">What this question practises</h2>
       <p class="step-text" data-seo-overview-lead>This 2023 walkthrough is part of AS91578 — Apply differentiation methods in solving problems.</p>
       <p class="step-text"><strong>Method:</strong> <span data-seo-focus>Rewriting \(\frac{x^2}{\cos x}\) and using the product rule.</span></p>
-      <p class="step-text">This is <span data-seo-overview-question>Question 2(a)</span> from the <a href="level-3-differentiation-2023.html" data-seo-year-link>2023 NCEA Level 3 Differentiation paper</a> for <a href="level-3-differentiation.html" data-seo-standard-link>AS91578 — Apply differentiation methods in solving problems</a>. Use the guided hints to practise the method before revealing the full working.</p>
+      <p class="step-text">This is <span data-seo-overview-question>Question 2(a)</span> from the <a href="level-3-differentiation-2023.html" data-seo-year-link>2023 NCEA Level 3 Differentiation paper</a> for <a href="level-3-differentiation.html" data-seo-standard-link>AS91578 — Apply differentiation methods in solving problems</a>. Attempt the question independently, then use hints and worked steps to compare your reasoning.</p>
       <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=91578">official NZQA resources for AS91578</a>.</p>
-      <p class="page-updated">Page updated <time datetime="2026-10-12">12 October 2026</time>.</p>
+      <p class="page-updated">Page updated <time datetime="2026-10-18">18 October 2026</time>.</p>
     </section>
     <!-- SEO:OVERVIEW:END -->
 

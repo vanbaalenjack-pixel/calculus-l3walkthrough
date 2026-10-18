@@ -193,7 +193,7 @@
         {
           title: raw`Identify the expansion rule`,
           previewHtml: raw`We square the first term, subtract twice the product, then add the square of the second term.`,
-          workingHtml: raw`<p class="step-text">We square the first term, subtract twice the product, then add the square of the second term.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \((a-b)^2=a^2-2ab+b^2\)
@@ -201,8 +201,9 @@
         },
         {
           title: raw`Find the middle term`,
-          previewHtml: raw`The middle term is \(-2(5)(2\sqrt{p})=-20\sqrt{p}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The middle term is \(-2(5)(2\sqrt{p})=-20\sqrt{p}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(-20\sqrt{p}\)
@@ -210,8 +211,8 @@
         },
         {
           title: raw`Collect the terms`,
-          previewHtml: raw`That matches the requested form \(a+bp+c\sqrt{p}\).`,
-          workingHtml: raw`<p class="step-text">That matches the requested form \(a+bp+c\sqrt{p}\).</p>
+          previewHtml: raw`Collect the constant, \(p\), and \(\sqrt{p}\) terms separately.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,25+4p-20\sqrt{p}\)
@@ -293,7 +294,7 @@
         {
           title: raw`Recognise the condition`,
           previewHtml: raw`A negative discriminant means the roots are complex, not real.`,
-          workingHtml: raw`<p class="step-text">A negative discriminant means the roots are complex, not real.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,b^2-4ac\lt 0\)
@@ -302,7 +303,7 @@
         {
           title: raw`Substitute the coefficients`,
           previewHtml: raw`Here \(a=4\), \(b=-4\), and \(c=3r-2\).`,
-          workingHtml: raw`<p class="step-text">Here \(a=4\), \(b=-4\), and \(c=3r-2\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,16-4(4)(3r-2)\lt 0\)
@@ -311,7 +312,7 @@
         {
           title: raw`Solve the inequality`,
           previewHtml: raw`Dividing by \(-48\) flips the inequality sign.`,
-          workingHtml: raw`<p class="step-text">Dividing by \(-48\) flips the inequality sign.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,r>1\)
@@ -398,7 +399,7 @@
         {
           title: raw`Make the denominator real`,
           previewHtml: raw`The conjugate turns the denominator into \(a^2+b^2\).`,
-          workingHtml: raw`<p class="step-text">The conjugate turns the denominator into \(a^2+b^2\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\frac{a-bi}{a-bi}\)
@@ -415,8 +416,8 @@
         },
         {
           title: raw`Read the real part`,
-          previewHtml: raw`That is the non-\(i\) part of the quotient.`,
-          workingHtml: raw`<p class="step-text">That is the non-\(i\) part of the quotient.</p>
+          previewHtml: raw`After rationalising, read the term without \(i\) as the real part.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\frac{ap+bq}{a^2+b^2}\)
@@ -425,7 +426,7 @@
         {
           title: raw`Finish the proof`,
           previewHtml: raw`Multiply through by \(a^2+b^2\) and rearrange.`,
-          workingHtml: raw`<p class="step-text">Multiply through by \(a^2+b^2\) and rearrange.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,ap=-bq\)
@@ -517,7 +518,7 @@
         {
           title: raw`Use the real-coefficient rule`,
           previewHtml: raw`Non-real roots of real polynomials come in conjugate pairs.`,
-          workingHtml: raw`<p class="step-text">Non-real roots of real polynomials come in conjugate pairs.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,5+i\)
@@ -647,8 +648,9 @@
       guidedSteps: [
         {
           title: raw`Simplify the quotient`,
-          previewHtml: raw`Rationalising the denominator gives \(\frac{5-5i}{5}=1-i\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Rationalising the denominator gives \(\frac{5-5i}{5}=1-i\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,1-i\)
@@ -657,7 +659,7 @@
         {
           title: raw`Rewrite the modulus`,
           previewHtml: raw`Since \(k\) is real, it combines with the real part of \(1-i\).`,
-          workingHtml: raw`<p class="step-text">Since \(k\) is real, it combines with the real part of \(1-i\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,|1-i+k|=\sqrt{k+2}\)
@@ -666,7 +668,7 @@
         {
           title: raw`Square the equation`,
           previewHtml: raw`The modulus squared is the sum of the squares of the real and imaginary parts.`,
-          workingHtml: raw`<p class="step-text">The modulus squared is the sum of the squares of the real and imaginary parts.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,(1+k)^2+1=k+2\)
@@ -674,8 +676,9 @@
         },
         {
           title: raw`Solve for k`,
-          previewHtml: raw`The equation factors as \(k(k+1)=0\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The equation factors as \(k(k+1)=0\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,k=0\text{ or }k=-1\)
@@ -762,8 +765,8 @@
       guidedSteps: [
         {
           title: raw`Identify the polar rule`,
-          previewHtml: raw`That is the quotient rule for polar form.`,
-          workingHtml: raw`<p class="step-text">That is the quotient rule for polar form.</p>
+          previewHtml: raw`For division in polar form, divide the moduli and subtract the arguments.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Divide the moduli and subtract the arguments.
@@ -772,7 +775,7 @@
         {
           title: raw`Simplify the modulus`,
           previewHtml: raw`\(\frac{q^6}{q^2}=q^4\).`,
-          workingHtml: raw`<p class="step-text">\(\frac{q^6}{q^2}=q^4\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,q^4\)
@@ -780,8 +783,9 @@
         },
         {
           title: raw`Find the argument`,
-          previewHtml: raw`The angle simplifies neatly to \(\frac{9\pi}{40}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The angle simplifies neatly to \(\frac{9\pi}{40}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,\frac{9\pi}{40}\)
@@ -856,7 +860,7 @@
         {
           title: raw`Subtract the complex numbers`,
           previewHtml: raw`The imaginary parts add because subtracting \(-ki\) gives \(+ki\).`,
-          workingHtml: raw`<p class="step-text">The imaginary parts add because subtracting \(-ki\) gives \(+ki\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,-6+2ki\)
@@ -865,7 +869,7 @@
         {
           title: raw`Use the modulus formula`,
           previewHtml: raw`Square the real part and the imaginary coefficient separately.`,
-          workingHtml: raw`<p class="step-text">Square the real part and the imaginary coefficient separately.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,\sqrt{36+4k^2}\)
@@ -874,7 +878,7 @@
         {
           title: raw`Simplify the result`,
           previewHtml: raw`Factor \(4\) out from under the square root.`,
-          workingHtml: raw`<p class="step-text">Factor \(4\) out from under the square root.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,2\sqrt{9+k^2}\)
@@ -959,8 +963,8 @@
       guidedSteps: [
         {
           title: raw`Clear the denominator`,
-          previewHtml: raw`That removes the denominator and gives an equation we can rearrange.`,
-          workingHtml: raw`<p class="step-text">That removes the denominator and gives an equation we can rearrange.</p>
+          previewHtml: raw`Multiply by the denominator before collecting the \(z\)-terms.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Multiply both sides by \(z+1\).
@@ -968,8 +972,9 @@
         },
         {
           title: raw`Collect the z-terms`,
-          previewHtml: raw`Moving the \(11z\) and \(-3iz\) terms gives \(2z+3iz=11-3i\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Moving the \(11z\) and \(-3iz\) terms gives \(2z+3iz=11-3i\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,z(2+3i)=11-3i\)
@@ -977,8 +982,9 @@
         },
         {
           title: raw`Solve for z`,
-          previewHtml: raw`Rationalising \(\frac{11-3i}{2+3i}\) gives \(1-3i\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Rationalising \(\frac{11-3i}{2+3i}\) gives \(1-3i\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,1-3i\)
@@ -987,7 +993,7 @@
         {
           title: raw`State the argument`,
           previewHtml: raw`Fourth quadrant means the principal argument is negative.`,
-          workingHtml: raw`<p class="step-text">Fourth quadrant means the principal argument is negative.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,-\tan^{-1}(3)\approx -71.6^\circ\)
@@ -1116,7 +1122,7 @@
         {
           title: raw`Translate the modulus locus`,
           previewHtml: raw`The centre is \((2,-1)\) and the radius is \(\sqrt{3}\).`,
-          workingHtml: raw`<p class="step-text">The centre is \((2,-1)\) and the radius is \(\sqrt{3}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,(x-2)^2+(y+1)^2=3\)
@@ -1125,7 +1131,7 @@
         {
           title: raw`Substitute the line`,
           previewHtml: raw`Substituting \(y=mx-1\) makes \(y+1=mx\).`,
-          workingHtml: raw`<p class="step-text">Substituting \(y=mx-1\) makes \(y+1=mx\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,(1+m^2)x^2-4x+1=0\)
@@ -1134,7 +1140,7 @@
         {
           title: raw`Use the tangent condition`,
           previewHtml: raw`Tangency means one repeated solution for \(x\).`,
-          workingHtml: raw`<p class="step-text">Tangency means one repeated solution for \(x\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,b^2-4ac=0\)
@@ -1143,7 +1149,7 @@
         {
           title: raw`Find m`,
           previewHtml: raw`Tangency gives \(m^2=3\), and the positive condition leaves \(m=\sqrt{3}\).`,
-          workingHtml: raw`<p class="step-text">Tangency gives \(m^2=3\), and the positive condition leaves \(m=\sqrt{3}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,\sqrt{3}\)
@@ -1242,8 +1248,8 @@
       guidedSteps: [
         {
           title: raw`Use the divisor`,
-          previewHtml: raw`That is the value that makes \(x+3=0\).`,
-          workingHtml: raw`<p class="step-text">That is the value that makes \(x+3=0\).</p>
+          previewHtml: raw`Find the value of \(x\) that makes the divisor zero, then use the remainder theorem.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,-3\)
@@ -1252,7 +1258,7 @@
         {
           title: raw`Set up the equation`,
           previewHtml: raw`The remainder theorem tells us \(f(-3)=30\).`,
-          workingHtml: raw`<p class="step-text">The remainder theorem tells us \(f(-3)=30\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,2(-3)^3+p(-3)^2+7(-3)-3=30\)
@@ -1260,8 +1266,9 @@
         },
         {
           title: raw`Solve for p`,
-          previewHtml: raw`The equation simplifies to \(9p=108\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The equation simplifies to \(9p=108\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,12\)
@@ -1342,8 +1349,8 @@
       guidedSteps: [
         {
           title: raw`Remove the denominator`,
-          previewHtml: raw`That turns the quotient into the simpler equation \(n-i=(3+4i)(2-3i)\).`,
-          workingHtml: raw`<p class="step-text">That turns the quotient into the simpler equation \(n-i=(3+4i)(2-3i)\).</p>
+          previewHtml: raw`Multiply by the denominator to isolate the expression containing \(n\).`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Multiply both sides by \(2-3i\).
@@ -1351,8 +1358,9 @@
         },
         {
           title: raw`Expand the product`,
-          previewHtml: raw`Since \(i^2=-1\), the product simplifies to \(18-i\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Since \(i^2=-1\), the product simplifies to \(18-i\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,18-i\)
@@ -1360,8 +1368,9 @@
         },
         {
           title: raw`Read the value of n`,
-          previewHtml: raw`Matching real parts gives \(n=18\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Matching real parts gives \(n=18\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,18\)
@@ -1469,7 +1478,7 @@
         {
           title: raw`Combine the right-hand side`,
           previewHtml: raw`Write \(1\) as \(\frac{1+pi}{1+pi}\) first.`,
-          workingHtml: raw`<p class="step-text">Write \(1\) as \(\frac{1+pi}{1+pi}\) first.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,\frac{pi}{1+pi}\)
@@ -1478,7 +1487,7 @@
         {
           title: raw`Invert the equation`,
           previewHtml: raw`Once the reciprocal equation is simplified, invert both sides.`,
-          workingHtml: raw`<p class="step-text">Once the reciprocal equation is simplified, invert both sides.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,x+yi=\frac{1+pi}{pi}\)
@@ -1487,7 +1496,7 @@
         {
           title: raw`Simplify to a+bi`,
           previewHtml: raw`This matches the schedule simplification.`,
-          workingHtml: raw`<p class="step-text">This matches the schedule simplification.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,1-\frac{1}{p}i\)
@@ -1496,7 +1505,7 @@
         {
           title: raw`Read x and y`,
           previewHtml: raw`Match the real and imaginary parts directly.`,
-          workingHtml: raw`<p class="step-text">Match the real and imaginary parts directly.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,x=1,\ y=-\frac{1}{p}\)
@@ -1597,7 +1606,7 @@
         {
           title: raw`Solve for z`,
           previewHtml: raw`First factor out \(z\), then divide by \(1-i\).`,
-          workingHtml: raw`<p class="step-text">First factor out \(z\), then divide by \(1-i\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,z=\frac{k-2i}{1-i}\)
@@ -1605,8 +1614,8 @@
         },
         {
           title: raw`Use the w relation`,
-          previewHtml: raw`That lets us substitute the expression we found for \(z\).`,
-          workingHtml: raw`<p class="step-text">That lets us substitute the expression we found for \(z\).</p>
+          previewHtml: raw`Substitute the expression for \(z\) into the relation involving \(w\).`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,w=z(2+2i)\)
@@ -1615,7 +1624,7 @@
         {
           title: raw`Simplify w`,
           previewHtml: raw`Using \(\frac{2+2i}{1-i}=2i\) makes the simplification quick.`,
-          workingHtml: raw`<p class="step-text">Using \(\frac{2+2i}{1-i}=2i\) makes the simplification quick.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,w=4+2ki\)
@@ -1624,7 +1633,7 @@
         {
           title: raw`Use the imaginary part`,
           previewHtml: raw`The imaginary part of \(4+2ki\) is \(2k\).`,
-          workingHtml: raw`<p class="step-text">The imaginary part of \(4+2ki\) is \(2k\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,4\)

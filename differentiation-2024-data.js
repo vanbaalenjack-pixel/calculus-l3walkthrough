@@ -235,7 +235,7 @@
           f'(x)=-18x^3(4-9x^4)^{-1/2}
           \]
         </div>
-        <p class="step-text">You can leave it like that. If you fully simplify it, you get</p>
+        <p class="step-text">The negative-power and denominator forms are equivalent because \(u^{-1/2}=1/\sqrt{u}\) for \(u&gt;0\). Here the derivative applies where \(4-9x^4&gt;0\):</p>
         <div class="math-block">
           \[
           f'(x)=-\frac{18x^3}{\sqrt{4-9x^4}}.
@@ -246,7 +246,7 @@
         {
           title: raw`Rewrite the square root first`,
           previewHtml: raw`Writing the square root as a power of \(\frac{1}{2}\) makes the chain rule much easier to see.`,
-          workingHtml: raw`<p class="step-text">Writing the square root as a power of \(\frac{1}{2}\) makes the chain rule much easier to see.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -258,8 +258,9 @@
         },
         {
           title: raw`Differentiate the inside`,
-          previewHtml: raw`The constant disappears, and \(-9x^4\) becomes \(-36x^3\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The constant disappears, and \(-9x^4\) becomes \(-36x^3\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -271,22 +272,11 @@
         },
         {
           title: raw`Build the derivative`,
-          previewHtml: raw`That is exactly right, and the simplified denominator form is fine too.`,
-          workingHtml: raw`<p class="step-text">That is exactly right, and the simplified denominator form is fine too.</p>
-<div class="answer-highlight walkthrough-answer-highlight">
-  <p class="question-label">Key result</p>
-  <div class="math-block">
-  \[
-  -18 x^{3} \left(4 - 9 x^{4}\right)^{\left(\frac{-1}{2}\right)}
-  \]
-</div>
-</div>
-
-        <p class="step-text">A clean way to set this up is:</p>
+          previewHtml: raw`Apply the chain rule by multiplying the outer derivative by the inner derivative.`,
+          predictionPrompt: "Write the product of the two derivatives before opening the working.",
+          workingHtml: raw`
+        <p class="step-text">The outer power contributes \(\frac{1}{2}(4-9x^4)^{-1/2}\), and the inner derivative is \(-36x^3\):</p>
         <div class="math-block">
-          \[
-          f(x)=(4-9x^4)^{1/2}
-          \]
           \[
           f'(x)=\frac{1}{2}(4-9x^4)^{-1/2}(-36x^3)
           \]
@@ -294,7 +284,7 @@
           f'(x)=-18x^3(4-9x^4)^{-1/2}
           \]
         </div>
-        <p class="step-text">You can leave it like that. If you fully simplify it, you get</p>
+        <p class="step-text">The negative-power and denominator forms are equivalent because \(u^{-1/2}=1/\sqrt{u}\) for \(u&gt;0\). Here the derivative applies where \(4-9x^4&gt;0\):</p>
         <div class="math-block">
           \[
           f'(x)=-\frac{18x^3}{\sqrt{4-9x^4}}.
@@ -339,7 +329,7 @@
         {
           title: raw`Identify the main rule`,
           previewHtml: raw`The function is one factor times another, so the product rule is the obvious starting point.`,
-          workingHtml: raw`<p class="step-text">The function is one factor times another, so the product rule is the obvious starting point.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Product rule
@@ -347,8 +337,8 @@
         },
         {
           title: raw`Differentiate before substituting`,
-          previewHtml: raw`That is the product rule result we want before evaluating.`,
-          workingHtml: raw`<p class="step-text">That is the product rule result we want before evaluating.</p>
+          previewHtml: raw`Apply the product rule before substituting the given value of \(x\).`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -360,8 +350,9 @@
         },
         {
           title: raw`Evaluate the gradient`,
-          previewHtml: raw`Since \(\sin 0=0\) and \(\cos 0=1\), the gradient comes out to \(2\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Since \(\sin 0=0\) and \(\cos 0=1\), the gradient comes out to \(2\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -434,8 +425,8 @@
       guidedSteps: [
         {
           title: raw`Find the derivative`,
-          previewHtml: raw`That matches the term-by-term derivative.`,
-          workingHtml: raw`<p class="step-text">That matches the term-by-term derivative.</p>
+          previewHtml: raw`Differentiate each polynomial term using the power rule.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -447,8 +438,9 @@
         },
         {
           title: raw`Find the critical values`,
-          previewHtml: raw`The derivative is zero at \(x=1\) and \(x=\frac{5}{2}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The derivative is zero at \(x=1\) and \(x=\frac{5}{2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -458,8 +450,8 @@
         },
         {
           title: raw`Identify the decreasing interval`,
-          previewHtml: raw`That is exactly the interval you get after testing a value like \(x=2\).`,
-          workingHtml: raw`<p class="step-text">That is exactly the interval you get after testing a value like \(x=2\).</p>
+          previewHtml: raw`Test the sign of the derivative between the stationary values to find where the function decreases.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -543,8 +535,9 @@
       guidedSteps: [
         {
           title: raw`Differentiate the product`,
-          previewHtml: raw`The product rule simplifies nicely to \(e^{-2x}(4-4x)\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The product rule simplifies nicely to \(e^{-2x}(4-4x)\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -557,7 +550,8 @@
         {
           title: raw`Solve for the stationary point`,
           previewHtml: raw`The exponential factor is never zero, so the stationary point comes from \(4-4x=0\).`,
-          workingHtml: raw`<p class="step-text">The exponential factor is never zero, so the stationary point comes from \(4-4x=0\).</p>
+          workingHtml: raw`<p class="step-text">Point \(P\) happens at \(x=1\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -568,7 +562,7 @@
         {
           title: raw`Use the second derivative test`,
           previewHtml: raw`A negative second derivative means the curve is concave down there, so the stationary point is a maximum.`,
-          workingHtml: raw`<p class="step-text">A negative second derivative means the curve is concave down there, so the stationary point is a maximum.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   The stationary point is a maximum
@@ -658,8 +652,8 @@
       guidedSteps: [
         {
           title: raw`Find the first derivative`,
-          previewHtml: raw`That is the first derivative we need before going on to the second derivative.`,
-          workingHtml: raw`<p class="step-text">That is the first derivative we need before going on to the second derivative.</p>
+          previewHtml: raw`Find the first derivative, including the chain-rule factor, before differentiating again.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -672,7 +666,7 @@
         {
           title: raw`Find the second derivative`,
           previewHtml: raw`And this is the one we set equal to zero to find the inflection point.`,
-          workingHtml: raw`<p class="step-text">And this is the one we set equal to zero to find the inflection point.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -684,8 +678,8 @@
         },
         {
           title: raw`Find point \(P\)`,
-          previewHtml: raw`Point \(P\) happens at \(x=1\).`,
-          workingHtml: raw`<p class="step-text">Point \(P\) happens at \(x=1\).</p>
+          previewHtml: raw``,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -695,8 +689,9 @@
         },
         {
           title: raw`Write the tangent equation`,
-          previewHtml: raw`A rare anticlimax: the tangent equation is just \(y=x\).`,
-          workingHtml: raw`<p class="step-text">A rare anticlimax: the tangent equation is just \(y=x\).</p>
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">The tangent equation simplifies to \(y=x\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -754,7 +749,7 @@
       hints: [
         raw`Find \(\frac{dy}{dt}\) and \(\frac{dx}{dt}\) first.`,
         raw`Then divide \(\frac{dy}{dt}\) by \(\frac{dx}{dt}\).`,
-        raw`That is exactly the right route here.`
+        raw`Use \(\frac{dy}{dx}=\frac{dy/dt}{dx/dt}\) wherever \(dx/dt\ne0\).`
       ],
       answerHtml: raw`
         <p class="step-text">Differentiate each parametric equation:</p>
@@ -774,7 +769,7 @@
         {
           title: raw`Differentiate \(x\) with respect to \(t\)`,
           previewHtml: raw`\(3t^2+1\) differentiates to \(6t\).`,
-          workingHtml: raw`<p class="step-text">\(3t^2+1\) differentiates to \(6t\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -787,7 +782,7 @@
         {
           title: raw`Differentiate \(y\) with respect to \(t\)`,
           previewHtml: raw`The derivative of \(\cos t\) is \(-\sin t\).`,
-          workingHtml: raw`<p class="step-text">The derivative of \(\cos t\) is \(-\sin t\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -799,8 +794,8 @@
         },
         {
           title: raw`Combine them into \(\frac{dy}{dx}\)`,
-          previewHtml: raw`That is the parametric derivative.`,
-          workingHtml: raw`<p class="step-text">That is the parametric derivative.</p>
+          previewHtml: raw`Divide \(dy/dt\) by \(dx/dt\), where \(dx/dt\ne0\).`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -862,7 +857,7 @@
         {
           title: raw`Spot the method`,
           previewHtml: raw`The logarithm is the outside function, and \(3t^2+5t+2\) is the inside.`,
-          workingHtml: raw`<p class="step-text">The logarithm is the outside function, and \(3t^2+5t+2\) is the inside.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Because the logarithm has a quadratic inside it
@@ -871,7 +866,7 @@
         {
           title: raw`Find the velocity function`,
           previewHtml: raw`The derivative of \(\ln(\text{inside})\) is \(\frac{\text{inside}'}{\text{inside}}\).`,
-          workingHtml: raw`<p class="step-text">The derivative of \(\ln(\text{inside})\) is \(\frac{\text{inside}'}{\text{inside}}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -883,8 +878,8 @@
         },
         {
           title: raw`Evaluate at \(t=1\)`,
-          previewHtml: raw`And that is the value you get after the substitution.`,
-          workingHtml: raw`<p class="step-text">And that is the value you get after the substitution.</p>
+          previewHtml: raw`Substitute \(t=1\) into the velocity function and simplify.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -924,7 +919,7 @@
         </p>
       `,
       hints: [
-        raw`This is not as scary as it looks. Just go step by step.`,
+        raw`Differentiate \(\sin(x^2)\) using the chain rule, and differentiate \(-\cos x\) separately.`,
         raw`Find the first derivative, then the second derivative.`,
         raw`When you substitute into the left-hand side, two terms cancel out.`
       ],
@@ -959,7 +954,7 @@
         {
           title: raw`Differentiate once`,
           previewHtml: raw`The first term needs the chain rule, and the second term differentiates to \(+\sin x\).`,
-          workingHtml: raw`<p class="step-text">The first term needs the chain rule, and the second term differentiates to \(+\sin x\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -972,7 +967,7 @@
         {
           title: raw`Differentiate again`,
           previewHtml: raw`This is the part where the product rule and chain rule both show up together.`,
-          workingHtml: raw`<p class="step-text">This is the part where the product rule and chain rule both show up together.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -985,7 +980,7 @@
         {
           title: raw`Show the left-hand side matches`,
           previewHtml: raw`The sine terms cancel, and you are left with the required right-hand side.`,
-          workingHtml: raw`<p class="step-text">The sine terms cancel, and you are left with the required right-hand side.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1077,8 +1072,8 @@
       guidedSteps: [
         {
           title: raw`Find the first derivative`,
-          previewHtml: raw`That is the simplified quotient-rule result.`,
-          workingHtml: raw`<p class="step-text">That is the simplified quotient-rule result.</p>
+          previewHtml: raw`Apply the quotient rule, then simplify the numerator.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1090,8 +1085,8 @@
         },
         {
           title: raw`Find the second derivative`,
-          previewHtml: raw`That gives the equation we need for the inflection point.`,
-          workingHtml: raw`<p class="step-text">That gives the equation we need for the inflection point.</p>
+          previewHtml: raw`Differentiate again and identify where the second derivative can be zero.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1103,8 +1098,9 @@
         },
         {
           title: raw`Solve for the \(x\)-coordinate`,
-          previewHtml: raw`The logarithm step gives \(x=e^{3/2}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The logarithm step gives \(x=e^{3/2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1114,8 +1110,8 @@
         },
         {
           title: raw`Find the coordinates`,
-          previewHtml: raw`That is the exact-coordinate version of the point.`,
-          workingHtml: raw`<p class="step-text">That is the exact-coordinate version of the point.</p>
+          previewHtml: raw`Substitute the inflection-point candidate into the original function to find its coordinates.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1187,7 +1183,7 @@
         <p class="step-text question-note">You do not need to simplify your answer.</p>
       `,
       hints: [
-        raw`As before with the square root, rewrite it as a power of one half.`,
+        raw`Rewrite the square root as a power of one half.`,
         raw`The whole expression is a product, so the product rule is the main structure.`,
         raw`The derivative of \(\sec(6x)\) needs the chain rule as well.`
       ],
@@ -1207,7 +1203,7 @@
         {
           title: raw`Identify the overall rule`,
           previewHtml: raw`There is a square-root factor multiplied by a secant factor.`,
-          workingHtml: raw`<p class="step-text">There is a square-root factor multiplied by a secant factor.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Product rule
@@ -1215,8 +1211,8 @@
         },
         {
           title: raw`Differentiate the \(\sqrt{x}\) factor`,
-          previewHtml: raw`That is the outside factor's derivative in the product rule.`,
-          workingHtml: raw`<p class="step-text">That is the outside factor's derivative in the product rule.</p>
+          previewHtml: raw`Rewrite \(\sqrt{x}\) as a power, then differentiate it for the product rule.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1229,7 +1225,7 @@
         {
           title: raw`Build the full derivative`,
           previewHtml: raw`Product rule on the outside, chain rule inside the secant, and no extra simplification needed.`,
-          workingHtml: raw`<p class="step-text">Product rule on the outside, chain rule inside the secant, and no extra simplification needed.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1288,7 +1284,7 @@
         {
           title: raw`Find where the graph is joined but has a sharp change`,
           previewHtml: raw`The graph is connected at \(x=5\), but the gradient changes suddenly there.`,
-          workingHtml: raw`<p class="step-text">The graph is connected at \(x=5\), but the gradient changes suddenly there.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1299,7 +1295,7 @@
         {
           title: raw`Find where the graph is horizontal`,
           previewHtml: raw`There is a turning point at \(x=1\), and the graph is flat all the way across the horizontal segment for \(3\lt x\lt 5\).`,
-          workingHtml: raw`<p class="step-text">There is a turning point at \(x=1\), and the graph is flat all the way across the horizontal segment for \(3\lt x\lt 5\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1309,8 +1305,9 @@
         },
         {
           title: raw`Read the limit`,
-          previewHtml: raw`Both sides of the graph are heading towards the open point at \((-1,1)\), so the limit is \(1\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Both sides of the graph are heading towards the open point at \((-1,1)\), so the limit is \(1\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1383,7 +1380,7 @@
               \]
             </div>
 
-<p class="step-text">After the quotient rule, the numerator simplifies a lot more nicely than it first looks.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1395,7 +1392,7 @@
         },
         {
           title: raw`Solve for the stationary \(x\)-values`,
-          previewHtml: raw`Those are the two stationary \(x\)-values.`,
+          previewHtml: raw`Set the derivative equal to zero and solve for both stationary values.`,
           workingHtml: raw`
             <div class="math-block">
               \[
@@ -1409,7 +1406,7 @@
               \]
             </div>
 
-<p class="step-text">Those are the two stationary \(x\)-values.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1491,8 +1488,8 @@
       guidedSteps: [
         {
           title: raw`Relate the radius and the height`,
-          previewHtml: raw`That substitution is the key step that makes the related-rates algebra manageable.`,
-          workingHtml: raw`<p class="step-text">That substitution is the key step that makes the related-rates algebra manageable.</p>
+          previewHtml: raw`Use similar triangles to express the radius in terms of the height.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1502,8 +1499,8 @@
         },
         {
           title: raw`Write the volume in terms of \(h\)`,
-          previewHtml: raw`That is the simplified volume expression we differentiate next.`,
-          workingHtml: raw`<p class="step-text">That is the simplified volume expression we differentiate next.</p>
+          previewHtml: raw`Substitute the radius-height relationship into the cone-volume formula.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1516,7 +1513,7 @@
         {
           title: raw`Differentiate with respect to \(h\)`,
           previewHtml: raw`Now we can turn that into \(\frac{dh}{dt}\).`,
-          workingHtml: raw`<p class="step-text">Now we can turn that into \(\frac{dh}{dt}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1528,8 +1525,9 @@
         },
         {
           title: raw`Find the rate when \(h=4\)`,
-          previewHtml: raw`The height is increasing at \(\frac{3}{4\pi}\text{ cm s}^{-1}\) when \(h=4\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The height is increasing at \(\frac{3}{4\pi}\text{ cm s}^{-1}\) when \(h=4\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1633,8 +1631,9 @@
       guidedSteps: [
         {
           title: raw`Write the area function`,
-          previewHtml: raw`The symmetry means the base is \(2x\), so the half-base-times-height calculation collapses to \(xe^{-x^2}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The symmetry means the base is \(2x\), so the half-base-times-height calculation collapses to \(xe^{-x^2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1647,7 +1646,7 @@
         {
           title: raw`Differentiate the area`,
           previewHtml: raw`Product rule and chain rule together give that derivative.`,
-          workingHtml: raw`<p class="step-text">Product rule and chain rule together give that derivative.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1660,7 +1659,7 @@
         {
           title: raw`Find the positive critical value`,
           previewHtml: raw`The negative root is ignored because the question says \(x\ge 0\).`,
-          workingHtml: raw`<p class="step-text">The negative root is ignored because the question says \(x\ge 0\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1670,8 +1669,8 @@
         },
         {
           title: raw`State the largest area`,
-          previewHtml: raw`That is the value the question asks you to prove.`,
-          workingHtml: raw`<p class="step-text">That is the value the question asks you to prove.</p>
+          previewHtml: raw`Substitute the stationary value into the area function and simplify the exact result.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[

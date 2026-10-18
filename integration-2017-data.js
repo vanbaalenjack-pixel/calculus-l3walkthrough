@@ -811,7 +811,7 @@
       `),
       afterRender: draw2cGraph,
       guidedSteps: [
-        guidedStep("Split the shaded region", raw`The source construction uses one large area under the tangent, then removes the area under the parabola.`, raw`
+        guidedStep("Split the shaded region", raw`Use one large area under the tangent, then remove the area under the parabola.`, raw`
           <p class="step-text">The shaded area is equal to the area under the tangent from \(x=2\) to \(x=14\), minus the area under the parabola from \(x=2\) to \(x=5\).</p>
         `),
         guidedStep("Integrate the tangent", raw`Find the area under \(y=-x+14\) between its tangent point and x-intercept.`, raw`
@@ -1137,7 +1137,7 @@
             \]
           </div>
         `),
-        guidedStep("Round the area correctly", raw`The source walkthrough truncates this value; to three decimal places it rounds up.`, raw`
+        guidedStep("Round the area", raw`Keep the unrounded area until the final step, then round to three decimal places.`, raw`
           <div class="math-block">
             \[
             A=84.0148319\ldots\text{ m}^2

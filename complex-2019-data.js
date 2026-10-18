@@ -448,7 +448,7 @@
         <p class="step-text">For \(p=0\), \(z=0\) is the repeated solution.</p>
       </div>
     `, [
-      guidedStep("Write the right side in polar form", raw`The source uses the argument \(\frac{3\pi}{2}+2k\pi\). The modulus is \(16p^2\).`, raw`
+      guidedStep("Write the right side in polar form", raw`Use the argument \(\frac{3\pi}{2}+2k\pi\). The modulus is \(16p^2\).`, raw`
         <div class="math-block">
           \[
           z^4=-16p^2i
@@ -458,7 +458,7 @@
           \]
         </div>
       `),
-      guidedStep("Take the fourth roots", raw`When \(p>0\), the source's radius \(2\sqrt p\) is valid. Dividing the arguments by four gives four angles.`, raw`
+      guidedStep("Take the fourth roots", raw`When \(p>0\), the radius \(2\sqrt p\) is valid. Dividing the arguments by four gives four angles.`, raw`
         <div class="math-block">
           \[
           z=2\sqrt p\,\operatorname{cis}\!\left(\frac{3\pi}{8}+\frac{k\pi}{2}\right)

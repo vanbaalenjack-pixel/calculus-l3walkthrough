@@ -313,7 +313,7 @@
       <rect class="graph-bg" x="0" y="0" width="${width}" height="${height}"></rect>
       <path class="question-shade" d="${shadePath}"></path>
       <path class="question-curve" d="${topCurve}"></path>
-      <rect class="graph-soil" x="${scale.x(-0.95)}" y="${scale.y(-2.5)}" width="${fmt(scale.x(12.95) - scale.x(-0.95))}" height="${fmt(scale.y(-0.05) - scale.y(-2.5))}" rx="0"></rect>
+      <rect class="graph-soil" x="${scale.x(-0.95)}" y="${scale.y(-0.05)}" width="${fmt(scale.x(12.95) - scale.x(-0.95))}" height="${fmt(scale.y(-2.5) - scale.y(-0.05))}" rx="0"></rect>
       <path class="graph-measure" d="M ${scale.x(-0.95)} ${scale.y(0)} L ${scale.x(12.95)} ${scale.y(0)}"></path>
       ${[0, 3, 6, 9, 12].map(function (xValue, index) {
         const heightValue = topPoints[index][1];
@@ -419,7 +419,7 @@
       {
         title: raw`Split the integrand`,
         previewHtml: raw`A sum inside an integral can be split into separate integrals.`,
-        workingHtml: raw`<p class="step-text">A sum inside an integral can be split into separate integrals.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -430,7 +430,7 @@
       {
         title: raw`Handle the logarithm term`,
         previewHtml: raw`The derivative of \(3x+2\) is \(3\), so we divide by \(3\).`,
-        workingHtml: raw`<p class="step-text">The derivative of \(3x+2\) is \(3\), so we divide by \(3\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -441,7 +441,7 @@
       {
         title: raw`Assemble the final result`,
         previewHtml: raw`Each term has been integrated properly.`,
-        workingHtml: raw`<p class="step-text">Each term has been integrated properly.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -546,7 +546,7 @@
       {
         title: raw`Find the position function`,
         previewHtml: raw`Position is found by integrating the velocity.`,
-        workingHtml: raw`<p class="step-text">Position is found by integrating the velocity.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -567,7 +567,7 @@
             \]
           </div>
 
-<p class="step-text">\(\tan 0=0\), so the constant must be \(3\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -579,8 +579,9 @@
       },
       {
         title: raw`Evaluate the distance`,
-        previewHtml: raw`\(s\left(\frac{\pi}{4}\right)=1+3=4\).`,
+        previewHtml: raw``,
         workingHtml: raw`<p class="step-text">\(s\left(\frac{\pi}{4}\right)=1+3=4\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -694,8 +695,9 @@
     guidedSteps: [
       {
         title: raw`Find the non-zero intersection`,
-        previewHtml: raw`Solving \(x^3=64\) gives \(x=4\).`,
-        workingHtml: raw`
+        previewHtml: raw``,
+        workingHtml: raw`<p class="step-text">Solving \(x^3=64\) gives \(x=4\).</p>
+
           <div class="math-block">
             \[
             \sqrt{x}=\frac{x^2}{8}
@@ -705,7 +707,7 @@
             \]
           </div>
 
-<p class="step-text">Solving \(x^3=64\) gives \(x=4\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -718,7 +720,7 @@
       {
         title: raw`Set up top minus bottom`,
         previewHtml: raw`On this interval, \(\sqrt{x}\) is the upper curve.`,
-        workingHtml: raw`<p class="step-text">On this interval, \(\sqrt{x}\) is the upper curve.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -729,7 +731,7 @@
       {
         title: raw`Evaluate the area`,
         previewHtml: raw`\(\frac{16}{3}-\frac{8}{3}=\frac{8}{3}\).`,
-        workingHtml: raw`<p class="step-text">\(\frac{16}{3}-\frac{8}{3}=\frac{8}{3}\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -850,7 +852,7 @@
       {
         title: raw`Separate the variables`,
         previewHtml: raw`Now each side contains only one variable.`,
-        workingHtml: raw`<p class="step-text">Now each side contains only one variable.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -860,8 +862,9 @@
       },
       {
         title: raw`Use the initial condition`,
-        previewHtml: raw`Since \(\ln 1 = 0\), we get \(0 = 4 - 8 + C\), so \(C=4\).`,
-        workingHtml: raw`
+        previewHtml: raw``,
+        workingHtml: raw`<p class="step-text">Since \(\ln 1 = 0\), we get \(0 = 4 - 8 + C\), so \(C=4\).</p>
+
           <div class="math-block">
             \[
             \ln|y| = x^2 - x^3 + C
@@ -871,7 +874,7 @@
             \]
           </div>
 
-<p class="step-text">Since \(\ln 1 = 0\), we get \(0 = 4 - 8 + C\), so \(C=4\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -883,8 +886,9 @@
       },
       {
         title: raw`Find the value of y`,
-        previewHtml: raw`At \(x=1\), \(\ln|y|=4\), and the positive branch gives \(y=e^4\).`,
+        previewHtml: raw``,
         workingHtml: raw`<p class="step-text">At \(x=1\), \(\ln|y|=4\), and the positive branch gives \(y=e^4\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1030,8 +1034,8 @@
     guidedSteps: [
       {
         title: raw`Find the key intersection values`,
-        previewHtml: raw`Those are the points where the boundary changes.`,
-        workingHtml: raw`<p class="step-text">Those are the points where the boundary changes.</p>
+        previewHtml: raw`Find the intersections where the boundary of the region changes.`,
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1042,7 +1046,7 @@
       {
         title: raw`Identify the region strategy`,
         previewHtml: raw`Start with the full curved region, then subtract the small cap above the line.`,
-        workingHtml: raw`<p class="step-text">Start with the full curved region, then subtract the small cap above the line.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1055,7 +1059,7 @@
       {
         title: raw`Evaluate the large curved region`,
         previewHtml: raw`This is about \(27.448\).`,
-        workingHtml: raw`<p class="step-text">This is about \(27.448\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1066,7 +1070,7 @@
       {
         title: raw`Subtract the cap and finish`,
         previewHtml: raw`Subtracting the cap leaves the shaded region only.`,
-        workingHtml: raw`<p class="step-text">Subtracting the cap leaves the shaded region only.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1180,8 +1184,8 @@
     guidedSteps: [
       {
         title: raw`Spot the inside derivative`,
-        previewHtml: raw`That is the chain-rule factor we need to undo.`,
-        workingHtml: raw`<p class="step-text">That is the chain-rule factor we need to undo.</p>
+        previewHtml: raw`Identify the inner derivative and adjust its coefficient when reversing the chain rule.`,
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1192,7 +1196,7 @@
       {
         title: raw`Undo the chain rule`,
         previewHtml: raw`We divide by the inside derivative \(2\).`,
-        workingHtml: raw`<p class="step-text">We divide by the inside derivative \(2\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1203,7 +1207,7 @@
       {
         title: raw`Finish the integral`,
         previewHtml: raw`\(4\times\frac{1}{2}=2\).`,
-        workingHtml: raw`<p class="step-text">\(4\times\frac{1}{2}=2\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1288,7 +1292,7 @@
       {
         title: raw`Integrate the derivative`,
         previewHtml: raw`The inside derivative \(4\) has to be accounted for.`,
-        workingHtml: raw`<p class="step-text">The inside derivative \(4\) has to be accounted for.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1298,8 +1302,9 @@
       },
       {
         title: raw`Find the constant`,
-        previewHtml: raw`Since \(\frac{\sqrt{25}}{2}=\frac{5}{2}=2.5\), the constant is \(5\).`,
-        workingHtml: raw`
+        previewHtml: raw``,
+        workingHtml: raw`<p class="step-text">Since \(\frac{\sqrt{25}}{2}=\frac{5}{2}=2.5\), the constant is \(5\).</p>
+
           <div class="math-block">
             \[
             y=\frac{\sqrt{4x+1}}{2}+C
@@ -1309,7 +1314,7 @@
             \]
           </div>
 
-<p class="step-text">Since \(\frac{\sqrt{25}}{2}=\frac{5}{2}=2.5\), the constant is \(5\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1321,8 +1326,8 @@
       },
       {
         title: raw`Write the solved equation`,
-        previewHtml: raw`That is the antiderivative with the correct constant attached.`,
-        workingHtml: raw`<p class="step-text">That is the antiderivative with the correct constant attached.</p>
+        previewHtml: raw`Insert the constant determined by the given point into the antiderivative.`,
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1430,7 +1435,7 @@
       {
         title: raw`Rewrite the fraction`,
         previewHtml: raw`Writing \(6x-3=3(2x-3)+6\) makes the integral much easier.`,
-        workingHtml: raw`<p class="step-text">Writing \(6x-3=3(2x-3)+6\) makes the integral much easier.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1441,7 +1446,7 @@
       {
         title: raw`Apply the bounds`,
         previewHtml: raw`At the lower bound, \(2(2)-3=1\), and \(\ln 1=0\).`,
-        workingHtml: raw`<p class="step-text">At the lower bound, \(2(2)-3=1\), and \(\ln 1=0\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1452,7 +1457,7 @@
       {
         title: raw`Solve for k`,
         previewHtml: raw`After the \(3k\) terms cancel, the logarithm equation leads directly to this value.`,
-        workingHtml: raw`<p class="step-text">After the \(3k\) terms cancel, the logarithm equation leads directly to this value.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1556,7 +1561,7 @@
       {
         title: raw`Differentiate the denominator`,
         previewHtml: raw`Both trig terms bring out a factor of \(2\).`,
-        workingHtml: raw`<p class="step-text">Both trig terms bring out a factor of \(2\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1567,7 +1572,7 @@
       {
         title: raw`Match the numerator`,
         previewHtml: raw`Multiplying by \(-\frac{1}{2}\) changes \(-2(\cos 2x+\sin 2x)\) into \(\cos 2x+\sin 2x\).`,
-        workingHtml: raw`<p class="step-text">Multiplying by \(-\frac{1}{2}\) changes \(-2(\cos 2x+\sin 2x)\) into \(\cos 2x+\sin 2x\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1578,7 +1583,7 @@
       {
         title: raw`Write the logarithmic antiderivative`,
         previewHtml: raw`This is exactly the \(\frac{u'}{u}\) logarithm pattern.`,
-        workingHtml: raw`<p class="step-text">This is exactly the \(\frac{u'}{u}\) logarithm pattern.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1703,7 +1708,7 @@
       {
         title: raw`Write the model`,
         previewHtml: raw`The negative sign represents the chocolate being pumped out.`,
-        workingHtml: raw`<p class="step-text">The negative sign represents the chocolate being pumped out.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1714,7 +1719,7 @@
       {
         title: raw`Integrate the separated equation`,
         previewHtml: raw`This is equivalent to \(-\frac{1}{V}=-kt+C\), and it makes the substitutions easier.`,
-        workingHtml: raw`<p class="step-text">This is equivalent to \(-\frac{1}{V}=-kt+C\), and it makes the substitutions easier.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1724,8 +1729,8 @@
       },
       {
         title: raw`Use the two time conditions`,
-        previewHtml: raw`Those are the two equations we need.`,
-        workingHtml: raw`<p class="step-text">Those are the two equations we need.</p>
+        previewHtml: raw`Substitute the two time conditions to obtain simultaneous equations.`,
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1737,8 +1742,9 @@
       },
       {
         title: raw`Find the starting volume`,
-        previewHtml: raw`Since \(\frac{1}{V(0)}=\frac{3}{4p}\), the starting volume is \(\frac{4p}{3}\).`,
+        previewHtml: raw``,
         workingHtml: raw`<p class="step-text">Since \(\frac{1}{V(0)}=\frac{3}{4p}\), the starting volume is \(\frac{4p}{3}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1861,7 +1867,7 @@
       {
         title: raw`Find h`,
         previewHtml: raw`The measurements are taken every \(3\) metres.`,
-        workingHtml: raw`<p class="step-text">The measurements are taken every \(3\) metres.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1874,7 +1880,7 @@
       {
         title: raw`Use the odd-even pattern`,
         previewHtml: raw`The odd interior ordinates get the \(4\), and the even interior ordinate gets the \(2\).`,
-        workingHtml: raw`<p class="step-text">The odd interior ordinates get the \(4\), and the even interior ordinate gets the \(2\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1885,7 +1891,7 @@
       {
         title: raw`Evaluate the approximation`,
         previewHtml: raw`The Simpson’s Rule total comes to \(168\).`,
-        workingHtml: raw`<p class="step-text">The Simpson’s Rule total comes to \(168\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1965,7 +1971,7 @@
       {
         title: raw`Simplify the quotient`,
         previewHtml: raw`Writing the second term as a power makes the integration easier.`,
-        workingHtml: raw`<p class="step-text">Writing the second term as a power makes the integration easier.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1976,7 +1982,7 @@
       {
         title: raw`Integrate term by term`,
         previewHtml: raw`\(\int x^{-1/2}\,dx=2x^{1/2}\).`,
-        workingHtml: raw`<p class="step-text">\(\int x^{-1/2}\,dx=2x^{1/2}\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -2075,7 +2081,7 @@
       {
         title: raw`Apply the identity`,
         previewHtml: raw`This is the version that integrates cleanly.`,
-        workingHtml: raw`<p class="step-text">This is the version that integrates cleanly.</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -2086,7 +2092,7 @@
       {
         title: raw`Integrate the trig terms`,
         previewHtml: raw`\(\int \cos 2x\,dx=\frac{1}{2}\sin 2x\) and \(\int \cos 4x\,dx=\frac{1}{4}\sin 4x\).`,
-        workingHtml: raw`<p class="step-text">\(\int \cos 2x\,dx=\frac{1}{2}\sin 2x\) and \(\int \cos 4x\,dx=\frac{1}{4}\sin 4x\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -2097,7 +2103,7 @@
       {
         title: raw`Finish the area`,
         previewHtml: raw`The second sine term is negative, so subtracting it adds another \(\frac{5\sqrt{3}}{16}\).`,
-        workingHtml: raw`<p class="step-text">The second sine term is negative, so subtracting it adds another \(\frac{5\sqrt{3}}{16}\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -2222,7 +2228,7 @@
       {
         title: raw`Integrate the acceleration`,
         previewHtml: raw`The derivative of \(4e^{2t}-3\) is \(8e^{2t}\).`,
-        workingHtml: raw`<p class="step-text">The derivative of \(4e^{2t}-3\) is \(8e^{2t}\).</p>
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -2243,7 +2249,7 @@
             \]
           </div>
 
-<p class="step-text">Since \(4e^0-3=1\), the logarithm is \(\ln 1=0\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -2255,8 +2261,8 @@
       },
       {
         title: raw`Find the velocity at 4 seconds`,
-        previewHtml: raw`That is the exact expression and its decimal value.`,
-        workingHtml: raw`<p class="step-text">That is the exact expression and its decimal value.</p>
+        previewHtml: raw`Evaluate the velocity at four seconds, keeping an exact expression before rounding.`,
+        workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[

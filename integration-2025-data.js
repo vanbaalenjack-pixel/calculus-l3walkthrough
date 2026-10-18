@@ -368,7 +368,7 @@
         {
           title: raw`Spot the pattern`,
           previewHtml: raw`The integrand already matches the derivative pattern for \(\sec(kx)\).`,
-          workingHtml: raw`<p class="step-text">The integrand already matches the derivative pattern for \(\sec(kx)\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -378,8 +378,9 @@
         },
         {
           title: raw`Adjust for the inside coefficient`,
-          previewHtml: raw`The \(6\) becomes \(6 \div 3 = 2\) when we reverse the chain rule.`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The \(6\) becomes \(6 \div 3 = 2\) when we reverse the chain rule.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -390,7 +391,7 @@
         {
           title: raw`Identify the antiderivative`,
           previewHtml: raw`This is a clean reverse-chain-rule antiderivative.`,
-          workingHtml: raw`<p class="step-text">This is a clean reverse-chain-rule antiderivative.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -451,7 +452,7 @@
         {
           title: raw`Integrate to get the general solution`,
           previewHtml: raw`Increase each power by \(1\), divide by the new power, and keep the constant of integration.`,
-          workingHtml: raw`<p class="step-text">Increase each power by \(1\), divide by the new power, and keep the constant of integration.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -461,8 +462,9 @@
         },
         {
           title: raw`Find the constant`,
-          previewHtml: raw`Substituting \(x=4\) gives \(10=16+8+C\), so \(C=-14\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Substituting \(x=4\) gives \(10=16+8+C\), so \(C=-14\).</p>
+
             <div class="math-block">
               \[
               y=2x^{3/2}+4x^{1/2}+C
@@ -472,7 +474,7 @@
               \]
             </div>
 
-<p class="step-text">Substituting \(x=4\) gives \(10=16+8+C\), so \(C=-14\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -484,8 +486,8 @@
         },
         {
           title: raw`Write the fitted solution`,
-          previewHtml: raw`That is the general antiderivative with the fitted constant included.`,
-          workingHtml: raw`<p class="step-text">That is the general antiderivative with the fitted constant included.</p>
+          previewHtml: raw`Insert the fitted constant into the general antiderivative.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -573,7 +575,7 @@
         {
           title: raw`Integrate the first expression`,
           previewHtml: raw`The constant term integrates to \(ax\), and the \(x^{-2}\) term becomes a positive \(x^{-1}\) term.`,
-          workingHtml: raw`<p class="step-text">The constant term integrates to \(ax\), and the \(x^{-2}\) term becomes a positive \(x^{-1}\) term.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -583,8 +585,9 @@
         },
         {
           title: raw`Use the first integral to link \(a\) and \(k\)`,
-          previewHtml: raw`Evaluating \(F(2)-F(1)\) gives \(a-3k=3\), so \(a=3+3k\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Evaluating \(F(2)-F(1)\) gives \(a-3k=3\), so \(a=3+3k\).</p>
+
             <div class="math-block">
               \[
               \left[ax+\frac{6k}{x}\right]_1^2=3
@@ -594,7 +597,7 @@
               \]
             </div>
 
-<p class="step-text">Evaluating \(F(2)-F(1)\) gives \(a-3k=3\), so \(a=3+3k\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -604,8 +607,9 @@
         },
         {
           title: raw`Solve for \(k\)`,
-          previewHtml: raw`The quadratic factorises as \((k+1)(k-2)=0\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">The quadratic factorises as \((k+1)(k-2)=0\).</p>
+
             <div class="math-block">
               \[
               \int_1^k 6x\,dx=3k^2-3
@@ -618,7 +622,7 @@
               \]
             </div>
 
-<p class="step-text">The quadratic factorises as \((k+1)(k-2)=0\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -702,7 +706,7 @@
         {
           title: raw`Rewrite the integrand`,
           previewHtml: raw`Multiply the identity by the outside factor \(2\) to get both sine terms with coefficient \(2\).`,
-          workingHtml: raw`<p class="step-text">Multiply the identity by the outside factor \(2\) to get both sine terms with coefficient \(2\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -712,8 +716,8 @@
         },
         {
           title: raw`Set up the definite integral`,
-          previewHtml: raw`Each coefficient has been simplified correctly after integrating.`,
-          workingHtml: raw`<p class="step-text">Each coefficient has been simplified correctly after integrating.</p>
+          previewHtml: raw`Integrate term by term, then evaluate the antiderivative at the bounds.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -723,8 +727,9 @@
         },
         {
           title: raw`Finish the area`,
-          previewHtml: raw`The evaluated difference is \(0.875=\frac{7}{8}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The evaluated difference is \(0.875=\frac{7}{8}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -806,7 +811,7 @@
         {
           title: raw`Rewrite in power form`,
           previewHtml: raw`This exposes the reverse-chain-rule structure straight away.`,
-          workingHtml: raw`<p class="step-text">This exposes the reverse-chain-rule structure straight away.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -816,8 +821,9 @@
         },
         {
           title: raw`Identify the antiderivative`,
-          previewHtml: raw`The factor \(\frac{10}{-5\times 2}\) simplifies to \(-1\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">The factor \(\frac{10}{-5\times 2}\) simplifies to \(-1\).</p>
+
             <div class="math-block">
               \[
               \int 10(2x+1)^{-6}\,dx
@@ -826,7 +832,7 @@
               \]
             </div>
 
-<p class="step-text">The factor \(\frac{10}{-5\times 2}\) simplifies to \(-1\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -892,7 +898,7 @@
         {
           title: raw`Integrate the rate`,
           previewHtml: raw`Reverse the chain rule by dividing by the inside coefficient \(4\).`,
-          workingHtml: raw`<p class="step-text">Reverse the chain rule by dividing by the inside coefficient \(4\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -902,8 +908,9 @@
         },
         {
           title: raw`Find the constant`,
-          previewHtml: raw`Since \(\sin\left(\frac{\pi}{6}\right)=\frac{1}{2}\), we get \(8=\frac{5}{8}+C\), so \(C=\frac{59}{8}=7.375\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Since \(\sin\left(\frac{\pi}{6}\right)=\frac{1}{2}\), we get \(8=\frac{5}{8}+C\), so \(C=\frac{59}{8}=7.375\).</p>
+
             <div class="math-block">
               \[
               p=\frac{5}{4}\sin(4t)+C
@@ -913,7 +920,7 @@
               \]
             </div>
 
-<p class="step-text">Since \(\sin\left(\frac{\pi}{6}\right)=\frac{1}{2}\), we get \(8=\frac{5}{8}+C\), so \(C=\frac{59}{8}=7.375\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -925,8 +932,8 @@
         },
         {
           title: raw`Write the fitted function`,
-          previewHtml: raw`That is the general antiderivative with the fitted constant.`,
-          workingHtml: raw`<p class="step-text">That is the general antiderivative with the fitted constant.</p>
+          previewHtml: raw`Insert the constant into the antiderivative to state the fitted function.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -994,7 +1001,7 @@
         {
           title: raw`Find the antiderivative`,
           previewHtml: raw`The reverse chain rule introduces the factor of \(\frac{1}{2}\).`,
-          workingHtml: raw`<p class="step-text">The reverse chain rule introduces the factor of \(\frac{1}{2}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1015,7 +1022,7 @@
               \]
             </div>
 
-<p class="step-text">The lower bound contributes \(\frac{1}{2}\), so it must be subtracted from the upper-bound value.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1025,8 +1032,9 @@
         },
         {
           title: raw`Solve for \(k\)`,
-          previewHtml: raw`Rearranging gives \(\sqrt{4k+1}=3\), so \(4k+1=9\) and \(k=2\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Rearranging gives \(\sqrt{4k+1}=3\), so \(4k+1=9\) and \(k=2\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1112,7 +1120,7 @@
         {
           title: raw`Integrate acceleration to get velocity`,
           previewHtml: raw`Both terms integrate neatly, and the constant of integration must stay.`,
-          workingHtml: raw`<p class="step-text">Both terms integrate neatly, and the constant of integration must stay.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1122,8 +1130,9 @@
         },
         {
           title: raw`Use the initial velocity`,
-          previewHtml: raw`Substituting \(t=0\) gives \(6=-8+C\), so \(C=14\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Substituting \(t=0\) gives \(6=-8+C\), so \(C=14\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1136,7 +1145,7 @@
         {
           title: raw`Build the displacement model`,
           previewHtml: raw`This is the fitted displacement model with \(s(0)=0\).`,
-          workingHtml: raw`<p class="step-text">This is the fitted displacement model with \(s(0)=0\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1146,8 +1155,9 @@
         },
         {
           title: raw`Evaluate at \(t=3\)`,
-          previewHtml: raw`Substituting \(t=3\) into the displacement model gives approximately \(21.675\text{ m}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Substituting \(t=3\) into the displacement model gives approximately \(21.675\text{ m}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1237,7 +1247,7 @@
         {
           title: raw`Rewrite the trig powers`,
           previewHtml: raw`This keeps a single \(\cos x\) ready for \(du\).`,
-          workingHtml: raw`<p class="step-text">This keeps a single \(\cos x\) ready for \(du\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1248,7 +1258,7 @@
         {
           title: raw`Make the substitution`,
           previewHtml: raw`The bounds become \(u=0\) to \(u=1\), and \(du=\cos x\,dx\).`,
-          workingHtml: raw`<p class="step-text">The bounds become \(u=0\) to \(u=1\), and \(du=\cos x\,dx\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1259,7 +1269,7 @@
         {
           title: raw`Integrate in \(u\)`,
           previewHtml: raw`Integrate term by term, keeping the minus sign.`,
-          workingHtml: raw`<p class="step-text">Integrate term by term, keeping the minus sign.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1269,8 +1279,9 @@
         },
         {
           title: raw`Evaluate the area`,
-          previewHtml: raw`The substitution gives a neat exact area of \(\frac{1}{12}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The substitution gives a neat exact area of \(\frac{1}{12}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1340,7 +1351,7 @@
         {
           title: raw`Identify the trapezium width`,
           previewHtml: raw`Each trapezium is \(5\) metres wide.`,
-          workingHtml: raw`<p class="step-text">Each trapezium is \(5\) metres wide.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1350,8 +1361,8 @@
         },
         {
           title: raw`Substitute into the rule`,
-          previewHtml: raw`That uses the endpoints once and the three interior depths twice.`,
-          workingHtml: raw`<p class="step-text">That uses the endpoints once and the three interior depths twice.</p>
+          previewHtml: raw`Count the endpoints once and each interior depth twice in the trapezium rule.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1362,7 +1373,7 @@
         {
           title: raw`Estimate the area`,
           previewHtml: raw`The trapezium rule estimate is \(47.55\text{ m}^2\).`,
-          workingHtml: raw`<p class="step-text">The trapezium rule estimate is \(47.55\text{ m}^2\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1426,7 +1437,7 @@
         {
           title: raw`Identify the antiderivative`,
           previewHtml: raw`The reverse chain rule turns the coefficient \(10\) into \(5\).`,
-          workingHtml: raw`<p class="step-text">The reverse chain rule turns the coefficient \(10\) into \(5\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1447,7 +1458,7 @@
               \]
             </div>
 
-<p class="step-text">The lower-bound value is \(5\ln|1|=5\ln 1\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1468,7 +1479,7 @@
               \]
             </div>
 
-<p class="step-text">Since \(k>1\), \(2k-1\) is positive, so the absolute value is not needed.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1551,7 +1562,7 @@
         {
           title: raw`Separate the variables`,
           previewHtml: raw`This puts all the \(y\)-terms on one side and all the \(x\)-terms on the other.`,
-          workingHtml: raw`<p class="step-text">This puts all the \(y\)-terms on one side and all the \(x\)-terms on the other.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1561,8 +1572,8 @@
         },
         {
           title: raw`Integrate carefully`,
-          previewHtml: raw`Both sides have been integrated correctly.`,
-          workingHtml: raw`<p class="step-text">Both sides have been integrated correctly.</p>
+          previewHtml: raw`Integrate each separated side and include a constant of integration.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1572,8 +1583,9 @@
         },
         {
           title: raw`Find the constant`,
-          previewHtml: raw`The initial condition gives \(\frac{3}{2}=-\frac{3}{2}+C\), so \(C=3\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The initial condition gives \(\frac{3}{2}=-\frac{3}{2}+C\), so \(C=3\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1685,7 +1697,7 @@
         {
           title: raw`Rewrite in integrable form`,
           previewHtml: raw`This makes the power rule straightforward to apply.`,
-          workingHtml: raw`<p class="step-text">This makes the power rule straightforward to apply.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1696,7 +1708,7 @@
         {
           title: raw`Integrate the rewritten function`,
           previewHtml: raw`Both terms come straight from the power rule.`,
-          workingHtml: raw`<p class="step-text">Both terms come straight from the power rule.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1707,7 +1719,7 @@
         {
           title: raw`Evaluate the shaded area`,
           previewHtml: raw`Simplifying the subtraction gives this exact area expression.`,
-          workingHtml: raw`<p class="step-text">Simplifying the subtraction gives this exact area expression.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1718,7 +1730,7 @@
         {
           title: raw`Finish the proof`,
           previewHtml: raw`Multiply \(\frac{1}{2p}+\frac{7}{4p^3}=\frac{9}{4}\) by \(4p^3\) and rearrange.`,
-          workingHtml: raw`<p class="step-text">Multiply \(\frac{1}{2p}+\frac{7}{4p^3}=\frac{9}{4}\) by \(4p^3\) and rearrange.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1833,7 +1845,7 @@
               \]
             </div>
 
-<p class="step-text">With \(u=x^2+3\), the numerator becomes a straightforward power-rule integral.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1854,7 +1866,7 @@
               \]
             </div>
 
-<p class="step-text">Expanding \(f(x)\) first makes the denominator integral clean and exact.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1864,8 +1876,9 @@
         },
         {
           title: raw`Find the hanging point`,
-          previewHtml: raw`Dividing the weighted numerator by the area denominator gives \(x=\frac{35}{16}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Dividing the weighted numerator by the area denominator gives \(x=\frac{35}{16}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[

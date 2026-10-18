@@ -1109,6 +1109,10 @@ def audit_guided_copy(
             audited_fields += 1
             text = guided_plain_text(field.value)
             if not text:
+                # Previews are optional; a heading and reveal control are
+                # sufficient when the useful explanation belongs in working.
+                if field.name == "previewHtml":
+                    continue
                 issues.append(
                     f"{field.filename}:{field.line} {field.name} is empty"
                 )

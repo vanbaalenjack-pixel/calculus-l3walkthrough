@@ -14,7 +14,7 @@ let browser;
  await p.goto(origin+'3b2023.html',{waitUntil:'networkidle'});
  const dates=await p.evaluate(()=>({authored:window.CALC_NZ_PAGE_RECORD.question.updatedDate,
    rendered:JSON.parse(document.querySelector('#seo-structured-data').textContent)['@graph'].find(x=>x['@type']==='LearningResource').dateModified}));
- assert.equal(dates.rendered,dates.authored);assert.equal(dates.authored,'2026-10-12');
+ assert.equal(dates.rendered,dates.authored);assert.equal(dates.authored,'2026-10-18');
  await p.locator('#walkthrough-next-btn').focus();await p.keyboard.press('Enter');
  await p.waitForFunction(()=>document.activeElement===document.querySelector('#walkthrough-step-2 h2'));
  await p.getByRole('button',{name:'Next step: Read the limit as x approaches 6',exact:true}).waitFor();
@@ -56,7 +56,7 @@ let browser;
  assert.equal(await p.locator('.page-updated time').getAttribute('datetime'),'2026-10-12');
  await p.goto(origin+'complex-2023.html?q=2e',{waitUntil:'networkidle'});
  await p.locator('.step-working-btn').first().click();
- const first=await p.locator('#walkthrough-step-1').innerText();assert(first.includes('radius'));assert((await p.locator('#walkthrough-step-1 annotation').allTextContents()).filter(s=>s==='\\sqrt{3}').length===2);
+ const first=await p.locator('#walkthrough-step-1').innerText();assert(first.includes('radius'));assert((await p.locator('#walkthrough-step-1 annotation').allTextContents()).some(s=>s==='\\sqrt{3}'));
  const ico=await context.request.get(origin+'favicon.ico');assert.equal(ico.status(),200);
  await p.goto(origin+'favicon.ico',{waitUntil:'networkidle'});
  const icon=p.locator('img');await icon.waitFor();assert.deepEqual(await icon.evaluate(e=>({w:e.naturalWidth,h:e.naturalHeight})),{w:48,h:48});
@@ -71,7 +71,7 @@ let browser;
  await p.locator('.walkthrough-tip-toggle').first().click();
  const count=await p.locator('.walkthrough-step-card').count();
  for(let i=0;i<count;i++){await p.locator('.walkthrough-step-card:not(.hidden) .step-working-btn').click();await p.locator('#walkthrough-next-btn').click();}
- assert.equal(await p.locator('#walkthrough-next-btn').getAttribute('aria-label'),'Question complete');
+ assert.equal(await p.locator('#walkthrough-next-btn').getAttribute('aria-label'),'Walkthrough reviewed');
  const related=await p.locator('[data-related-practice] a').getAttribute('href');assert(related);
  await p.locator('#bookmark-question-btn').click();await p.locator('#retry-question-btn').click();
  await p.locator('[data-related-practice] a').click();

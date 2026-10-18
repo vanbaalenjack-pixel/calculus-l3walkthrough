@@ -1131,6 +1131,6 @@
           \]
         </div>
       `)
-    ]), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The examination calculation above uses the printed limits \\(H-d\\) to \\(H\\), giving \\(1323\\text{ J}\\). With \\(h\\) measured upwards from the pyramid tip as defined in the question, the water actually occupies \\(0\\le h\\le1\\). A physical slice calculation would therefore give \\(9800\\int_0^1(1.5-h)(0.36h^2)\\,dh=882\\text{ J}\\). The printed limits and the stated meaning of \\(h\\) are inconsistent; keep the supplied-formula calculation separate from this modelling qualification.</p></details>"})
+    ]), {"examNoteHtml":"<details class=\"exam-note\"><summary>Exam note</summary><p class=\"step-text\">The examination calculation uses the printed limits \\(H-d\\) to \\(H\\), giving \\(1323\\text{ J}\\). With \\(h\\) measured upwards from the pyramid tip as defined in the question, the water actually occupies \\(0\\le h\\le1\\). A physical slice calculation would therefore give \\(9800\\int_0^1(1.5-h)(0.36h^2)\\,dh=882\\text{ J}\\). The printed limits and the stated meaning of \\(h\\) are inconsistent; keep the supplied-formula calculation separate from this modelling qualification.</p></details>"})
   };
 }());

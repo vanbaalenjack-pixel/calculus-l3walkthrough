@@ -983,7 +983,7 @@
             \]
           </div>
         `),
-        guidedStep("List the three distinct roots", raw`Convert coterminal angles to the principal-angle style used in the source.`, raw`
+        guidedStep("List the three distinct roots", raw`Convert coterminal angles to principal values in the interval \((-\pi,\pi]\).`, raw`
           <div class="math-block">
             \[
             n=0:\quad k^2\operatorname{cis}\left(-\frac{\pi}{6}\right),

@@ -55,12 +55,12 @@ except ModuleNotFoundError:  # Supports import-based validators from the reposit
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://calc.nz/"
-CACHE_TOKEN = "20261012-3"
+CACHE_TOKEN = "20261018-1"
 REVIEW_DATE = "2026-09-24"
 WALKTHROUGH_CONTENT_RELEASE_DATE = "2026-09-24"
 # Manually recorded revision of the shared learning sequence and labels.
 # This is a content/presentation update, never evidence of teacher review.
-WALKTHROUGH_PRESENTATION_MODIFIED_DATE = "2026-10-12"
+WALKTHROUGH_PRESENTATION_MODIFIED_DATE = "2026-10-18"
 SOCIAL_IMAGE_URL = f"{BASE_URL}assets/calc-nz-social.jpg"
 SOCIAL_IMAGE_ALT = "Calc.nz guided NCEA maths walkthroughs"
 CATALOGUE_FILE = ROOT / "question-catalogue.js"
@@ -1777,7 +1777,7 @@ def question_overview(route: QuestionRoute) -> str:
   <h2 id="walkthrough-overview-heading">What this question practises</h2>
   <p class="step-text" data-seo-overview-lead>This {route.year} walkthrough is part of {h(standard.code)} — {h(standard.official_name)}.</p>
   <p class="step-text"><strong>Method:</strong> <span data-seo-focus>{h(sentence(route.focus))}</span></p>
-  <p class="step-text">This is <span data-seo-overview-question>Question {h(route.display_number)}</span> from the <a href="{h(route.year_file)}" data-seo-year-link>{route.year} NCEA Level {standard.level} {h(standard.topic)} paper</a> for <a href="{h(standard.landing_file)}" data-seo-standard-link>{h(standard.code)} — {h(standard.official_name)}</a>. Use the guided hints to practise the method before revealing the full working.</p>
+  <p class="step-text">This is <span data-seo-overview-question>Question {h(route.display_number)}</span> from the <a href="{h(route.year_file)}" data-seo-year-link>{route.year} NCEA Level {standard.level} {h(standard.topic)} paper</a> for <a href="{h(standard.landing_file)}" data-seo-standard-link>{h(standard.code)} — {h(standard.official_name)}</a>. Attempt the question independently, then use hints and worked steps to compare your reasoning.</p>
   <p class="question-note">Calc.nz is an independent learning resource. Compare questions, diagrams, and assessment information with the <a href="{h(standard.official_url)}">official NZQA resources for {h(standard.code)}</a>.</p>
   <p class="page-updated">Page updated <time datetime="{question_updated_date(route)}">{human_date(question_updated_date(route))}</time>.</p>
 </section>

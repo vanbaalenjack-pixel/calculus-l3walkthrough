@@ -26,8 +26,8 @@
     if (loadPromise) {
       return loadPromise;
     }
-    loadPromise = appendScript("question-catalogue.js?v=20261012-3")
-      .then(function () { return appendScript("index-page.js?v=20261012-3"); })
+    loadPromise = appendScript("question-catalogue.js?v=20261018-1")
+      .then(function () { return appendScript("index-page.js?v=20261018-1"); })
       .then(function () {
         toolsReady = true;
       })

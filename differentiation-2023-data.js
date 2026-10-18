@@ -105,7 +105,7 @@
         {
           title: raw`Rewrite the square root`,
           previewHtml: raw`Writing the square root as a power makes the chain rule much clearer.`,
-          workingHtml: raw`<p class="step-text">Writing the square root as a power makes the chain rule much clearer.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -116,7 +116,7 @@
         {
           title: raw`Differentiate with the chain rule`,
           previewHtml: raw`Differentiate the outside power, then multiply by the derivative of \(3x-2\).`,
-          workingHtml: raw`<p class="step-text">Differentiate the outside power, then multiply by the derivative of \(3x-2\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -126,8 +126,8 @@
         },
         {
           title: raw`Simplify if you want to`,
-          previewHtml: raw`That is the fully simplified version, although the unsimplified chain-rule form was already acceptable.`,
-          workingHtml: raw`<p class="step-text">That is the fully simplified version, although the unsimplified chain-rule form was already acceptable.</p>
+          previewHtml: raw`Use index laws to write an equivalent simplified form; simplification is optional in this question.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -199,7 +199,7 @@
         {
           title: raw`Identify the main rule`,
           previewHtml: raw`The function is a product of \(t^2\) and \(e^{2t}\).`,
-          workingHtml: raw`<p class="step-text">The function is a product of \(t^2\) and \(e^{2t}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Product rule
@@ -218,7 +218,7 @@
               \]
             </div>
 
-<p class="step-text">Product rule on the outside, chain rule inside the exponential, and the factorised form is easiest to evaluate.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -327,7 +327,7 @@
         {
           title: raw`Differentiate the curve`,
           previewHtml: raw`You can get that from the chain rule or by using the quotient rule and simplifying.`,
-          workingHtml: raw`<p class="step-text">You can get that from the chain rule or by using the quotient rule and simplifying.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -358,8 +358,9 @@
         },
         {
           title: raw`Find the second tangent point`,
-          previewHtml: raw`The equation gives \(x=1\) and \(x=-3\); since \(x=1\) is the original tangent point, the second tangent touches at \(x=-3\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">The equation gives \(x=1\) and \(x=-3\); since \(x=1\) is the original tangent point, the second tangent touches at \(x=-3\).</p>
+
             <div class="math-block">
               \[
               -\frac{6}{(x+1)^4}=-\frac{3}{8}
@@ -372,7 +373,7 @@
               \]
             </div>
 
-<p class="step-text">The equation gives \(x=1\) and \(x=-3\); since \(x=1\) is the original tangent point, the second tangent touches at \(x=-3\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -468,8 +469,9 @@
       guidedSteps: [
         {
           title: raw`Find the parametric gradient`,
-          previewHtml: raw`Since \(x=4\cos\theta\) and \(y=4\sin\theta\), the gradient simplifies neatly to \(-\frac{x}{y}\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Since \(x=4\cos\theta\) and \(y=4\sin\theta\), the gradient simplifies neatly to \(-\frac{x}{y}\).</p>
+
             <div class="math-block">
               \[
               \frac{dx}{d\theta}=-4\sin\theta
@@ -478,7 +480,7 @@
               \]
             </div>
 
-<p class="step-text">Since \(x=4\cos\theta\) and \(y=4\sin\theta\), the gradient simplifies neatly to \(-\frac{x}{y}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -489,7 +491,7 @@
         {
           title: raw`Write the tangent in point-gradient form`,
           previewHtml: raw`The gradient at \(P(p,q)\) is \(-\frac{p}{q}\), so point-gradient form works immediately.`,
-          workingHtml: raw`<p class="step-text">The gradient at \(P(p,q)\) is \(-\frac{p}{q}\), so point-gradient form works immediately.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -500,7 +502,7 @@
         {
           title: raw`Rearrange to the required form`,
           previewHtml: raw`Expanding and collecting terms gives exactly the required tangent equation.`,
-          workingHtml: raw`<p class="step-text">Expanding and collecting terms gives exactly the required tangent equation.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -535,7 +537,7 @@
       `
         }
       ],
-      examNoteHtml: raw`<p class="step-text">The gradient calculation above assumes \(q\ne0\). If \(q=0\), then \(p=\pm4\). The radius is horizontal, so the tangent is the vertical line \(x=p\). The required equation becomes \(px=p^2\), which also gives \(x=p\), since \(p\ne0\). This covers the omitted case.</p>`
+      examNoteHtml: raw`<p class="step-text">The parametric gradient calculation assumes \(q\ne0\). If \(q=0\), then \(p=\pm4\). The radius is horizontal, so the tangent is the vertical line \(x=p\). The required equation becomes \(px=p^2\), which also gives \(x=p\), since \(p\ne0\). This covers the omitted case.</p>`
     }),
     "1e": createConfig("1e", "2023 Paper — Maximum triangle area on \\(y=x(x-2m)^2\\)", {
       questionHtml: raw`
@@ -594,7 +596,7 @@
         {
           title: raw`Write the triangle area in terms of \(x\)`,
           previewHtml: raw`Start from \(\frac{1}{2}xy\), then substitute \(y=x(x-2m)^2\).`,
-          workingHtml: raw`<p class="step-text">Start from \(\frac{1}{2}xy\), then substitute \(y=x(x-2m)^2\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -604,15 +606,16 @@
         },
         {
           title: raw`Find the useful critical point`,
-          previewHtml: raw`The endpoints \(x=0\) and \(x=2m\) give zero area, so the non-zero maximum occurs at \(x=m\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">The endpoints \(x=0\) and \(x=2m\) give zero area, so the non-zero maximum occurs at \(x=m\).</p>
+
             <div class="math-block">
               \[
               A'=2x(x-m)(x-2m)
               \]
             </div>
 
-<p class="step-text">The endpoints \(x=0\) and \(x=2m\) give zero area, so the non-zero maximum occurs at \(x=m\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -622,8 +625,9 @@
         },
         {
           title: raw`Compare with the total shaded area`,
-          previewHtml: raw`Substituting \(x=m\) gives \(A_{\max}=\frac{m^4}{2}\), and that is exactly \(\frac{3}{8}\) of the total shaded area.`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Substituting \(x=m\) gives \(A_{\max}=\frac{m^4}{2}\), and that is exactly \(\frac{3}{8}\) of the total shaded area.</p>
+
             <div class="math-block">
               \[
               A(x)=\frac{x^2}{2}(x-2m)^2
@@ -636,7 +640,7 @@
               \]
             </div>
 
-<p class="step-text">Substituting \(x=m\) gives \(A_{\max}=\frac{m^4}{2}\), and that is exactly \(\frac{3}{8}\) of the total shaded area.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -708,8 +712,8 @@
       guidedSteps: [
         {
           title: raw`Rewrite the function`,
-          previewHtml: raw`That rewrite makes the derivative a straightforward product-rule question.`,
-          workingHtml: raw`<p class="step-text">That rewrite makes the derivative a straightforward product-rule question.</p>
+          previewHtml: raw`Rewrite the quotient as a product involving \(\sec x\).`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -719,8 +723,8 @@
         },
         {
           title: raw`Differentiate the product`,
-          previewHtml: raw`Product rule on \(x^2\sec x\) gives exactly that.`,
-          workingHtml: raw`<p class="step-text">Product rule on \(x^2\sec x\) gives exactly that.</p>
+          previewHtml: raw`Apply the product rule to \(x^2\sec x\), using \((\sec x)'=\sec x\tan x\).`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -780,7 +784,7 @@
         {
           title: raw`Differentiate the curve`,
           previewHtml: raw`The chain rule adds the factor of \(2\) from differentiating \(2x\).`,
-          workingHtml: raw`<p class="step-text">The chain rule adds the factor of \(2\) from differentiating \(2x\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -790,8 +794,9 @@
         },
         {
           title: raw`Evaluate the gradient`,
-          previewHtml: raw`Since \(\csc\left(\frac{\pi}{6}\right)=2\), the substitution gives \(-2(2^2)=-8\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Since \(\csc\left(\frac{\pi}{6}\right)=2\), the substitution gives \(-2(2^2)=-8\).</p>
+
             <div class="math-block">
               \[
               y'=-2\csc^2(2x)
@@ -804,7 +809,7 @@
               \]
             </div>
 
-<p class="step-text">Since \(\csc\left(\frac{\pi}{6}\right)=2\), the substitution gives \(-2(2^2)=-8\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -883,7 +888,7 @@
               \]
             </div>
 
-<p class="step-text">After using the quotient rule, the numerator simplifies to \(e^x(x^2-2)\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -907,7 +912,7 @@
               \]
             </div>
 
-<p class="step-text">Because \(e^x\) is never zero, the equation reduces to \(x^2-2=0\), so \(x=\pm\sqrt{2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -994,7 +999,7 @@
         {
           title: raw`Differentiate once`,
           previewHtml: raw`Product rule on \(3x^2\ln x\) gives a factorable first derivative.`,
-          workingHtml: raw`<p class="step-text">Product rule on \(3x^2\ln x\) gives a factorable first derivative.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1042,7 +1047,7 @@
               \]
             </div>
 
-<p class="step-text">Once \(\ln x=-\frac{3}{2}\), exponentiating both sides gives \(x=e^{-3/2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1142,7 +1147,7 @@
         {
           title: raw`Link the angle and the horizontal distance`,
           previewHtml: raw`The opposite side is the constant height \(400\), and the adjacent side is the horizontal distance \(x\).`,
-          workingHtml: raw`<p class="step-text">The opposite side is the constant height \(400\), and the adjacent side is the horizontal distance \(x\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1152,8 +1157,9 @@
         },
         {
           title: raw`Find the horizontal closing speed`,
-          previewHtml: raw`Solving the substituted equation gives \(\frac{dx}{dt}=-31.25\text{ m s}^{-1}\), and the negative sign shows the horizontal distance is shrinking.`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Solving the substituted equation gives \(\frac{dx}{dt}=-31.25\text{ m s}^{-1}\), and the negative sign shows the horizontal distance is shrinking.</p>
+
             <div class="math-block">
               \[
               \sec^2\theta\frac{d\theta}{dt}=-\frac{400}{x^2}\frac{dx}{dt}
@@ -1166,7 +1172,7 @@
               \]
             </div>
 
-<p class="step-text">Solving the substituted equation gives \(\frac{dx}{dt}=-31.25\text{ m s}^{-1}\), and the negative sign shows the horizontal distance is shrinking.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1176,8 +1182,9 @@
         },
         {
           title: raw`Convert to the car's speed`,
-          previewHtml: raw`The helicopter travels at \(72\text{ m s}^{-1}\), and the gap closes at \(31.25\text{ m s}^{-1}\), so the car must be travelling at \(40.75\text{ m s}^{-1}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The helicopter travels at \(72\text{ m s}^{-1}\), and the gap closes at \(31.25\text{ m s}^{-1}\), so the car must be travelling at \(40.75\text{ m s}^{-1}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1254,7 +1261,7 @@
         {
           title: raw`Differentiate the inside first`,
           previewHtml: raw`Differentiate term by term before using the logarithm rule.`,
-          workingHtml: raw`<p class="step-text">Differentiate term by term before using the logarithm rule.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1275,7 +1282,7 @@
               \]
             </div>
 
-<p class="step-text">For \(\ln(u)\), the derivative is \(\frac{u'}{u}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1344,7 +1351,7 @@
           title: raw`Find the local maximum`,
           predictionPrompt: "Explain which visual feature supports each derivative statement.",
           previewHtml: raw`The horizontal tangent at \(x=-4\) gives \(f'(-4)=0\). The concave-down shape shown there supports \(f''(-4)\lt 0\); a local maximum alone would not establish this.`,
-          workingHtml: raw`<p class="step-text">The horizontal tangent at \(x=-4\) gives \(f'(-4)=0\). The concave-down shape shown there supports \(f''(-4)\lt 0\); a local maximum alone would not establish this.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1443,7 +1450,7 @@
               \]
             </div>
 
-<p class="step-text">The common factor of \(\pi\sqrt{2}\) cancels out.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1453,8 +1460,9 @@
         },
         {
           title: raw`Evaluate the tangent gradient at \(t=6.25\)`,
-          previewHtml: raw`Substituting \(t=6.25\) gives the angle \(\frac{5\pi}{4}\), and \(\tan\left(\frac{5\pi}{4}\right)=1\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Substituting \(t=6.25\) gives the angle \(\frac{5\pi}{4}\), and \(\tan\left(\frac{5\pi}{4}\right)=1\).</p>
+
             <div class="math-block">
               \[
               \frac{dy}{dx}=\tan\left(\frac{\pi t}{5}\right)
@@ -1467,7 +1475,7 @@
               \]
             </div>
 
-<p class="step-text">Substituting \(t=6.25\) gives the angle \(\frac{5\pi}{4}\), and \(\tan\left(\frac{5\pi}{4}\right)=1\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1477,8 +1485,9 @@
         },
         {
           title: raw`Find the normal gradient`,
-          previewHtml: raw`The normal gradient is the negative reciprocal of the tangent gradient, so it is \(-1\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">The normal gradient is the negative reciprocal of the tangent gradient, so it is \(-1\).</p>
+
             <div class="math-block">
               \[
               m_{\text{tangent}}=1
@@ -1488,7 +1497,7 @@
               \]
             </div>
 
-<p class="step-text">The normal gradient is the negative reciprocal of the tangent gradient, so it is \(-1\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1596,8 +1605,9 @@
       guidedSteps: [
         {
           title: raw`Find the stationary \(x\)-values`,
-          previewHtml: raw`Solving \(1-\frac{6}{x^2}=0\) gives \(x^2=6\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Solving \(1-\frac{6}{x^2}=0\) gives \(x^2=6\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1618,7 +1628,7 @@
               \]
             </div>
 
-<p class="step-text">A negative second derivative at \(x=\sqrt{6}\) means local maximum, while a positive second derivative at \(x=-\sqrt{6}\) means local minimum.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1628,7 +1638,7 @@
         },
         {
           title: raw`State the coordinates`,
-          previewHtml: raw`The substitutions give the \(y\)-values \(\pm\frac{\sqrt{6}}{9}\), so those are the correct coordinates and classifications.`,
+          previewHtml: raw`Substitute each stationary value into the original function, then pair each point with its classification.`,
           workingHtml: raw`
             <div class="math-block">
               \[
@@ -1639,7 +1649,7 @@
               \]
             </div>
 
-<p class="step-text">The substitutions give the \(y\)-values \(\pm\frac{\sqrt{6}}{9}\), so those are the correct coordinates and classifications.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[

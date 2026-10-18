@@ -6,21 +6,6 @@
     "2a", "2b", "2c", "2d", "2e",
     "3a", "3b", "3c", "3d", "3e"
   ];
-  const orderedListOptions = {
-    ordered: true,
-    stripOuterParens: true
-  };
-  const complexPairListOptions = Object.assign({}, orderedListOptions, {
-    allowComplexInput: true
-  });
-  const unorderedListOptions = {
-    ordered: false,
-    stripOuterParens: true
-  };
-  const wrappedListPreview = {
-    wrapWithParens: true
-  };
-
   function answerBox(content) {
     return `
       <div class="answer-highlight">
@@ -219,7 +204,7 @@
         {
           title: raw`Identify the method`,
           previewHtml: raw`We are given a remainder, not a factor, so this is a remainder-theorem question.`,
-          workingHtml: raw`<p class="step-text">We are given a remainder, not a factor, so this is a remainder-theorem question.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Use the Remainder Theorem.
@@ -228,7 +213,7 @@
         {
           title: raw`Interpret the remainder`,
           previewHtml: raw`Dividing by \(x-2\) means we test \(x=2\), so the output must be \(21\).`,
-          workingHtml: raw`<p class="step-text">Dividing by \(x-2\) means we test \(x=2\), so the output must be \(21\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,f(2)=21\)
@@ -236,8 +221,8 @@
         },
         {
           title: raw`Substitute carefully`,
-          previewHtml: raw`Every \(x\) becomes \(2\), so that is the correct substitution.`,
-          workingHtml: raw`<p class="step-text">Every \(x\) becomes \(2\), so that is the correct substitution.</p>
+          previewHtml: raw`Substitute \(x=2\) into every term of the polynomial.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,3(2)^4+p(2)^3-4(2)+5\)
@@ -246,7 +231,7 @@
         {
           title: raw`Evaluate the output`,
           previewHtml: raw`\(3(2)^4+p(2)^3-4(2)+5=48+8p-8+5=45+8p\).`,
-          workingHtml: raw`<p class="step-text">\(3(2)^4+p(2)^3-4(2)+5=48+8p-8+5=45+8p\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,45+8p\)
@@ -255,7 +240,7 @@
         {
           title: raw`Use the remainder`,
           previewHtml: raw`The polynomial output must equal the stated remainder \(21\).`,
-          workingHtml: raw`<p class="step-text">The polynomial output must equal the stated remainder \(21\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,45+8p=21\)
@@ -264,7 +249,7 @@
         {
           title: raw`Finish the solve`,
           previewHtml: raw`From \(45+8p=21\), we get \(8p=-24\), so \(p=-3\).`,
-          workingHtml: raw`<p class="step-text">From \(45+8p=21\), we get \(8p=-24\), so \(p=-3\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,p=-3\)
@@ -357,7 +342,7 @@
         {
           title: raw`Identify the equation type`,
           previewHtml: raw`The highest power of \(x\) is \(2\), so we are solving a quadratic.`,
-          workingHtml: raw`<p class="step-text">The highest power of \(x\) is \(2\), so we are solving a quadratic.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   A quadratic equation.
@@ -366,7 +351,7 @@
         {
           title: raw`Check the structure`,
           previewHtml: raw`We are missing the \(+9k^2\) needed to make a perfect square.`,
-          workingHtml: raw`<p class="step-text">We are missing the \(+9k^2\) needed to make a perfect square.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   No, because \((x-3k)^2=x^2-6kx+9k^2\).
@@ -375,7 +360,7 @@
         {
           title: raw`Identify the clean method`,
           previewHtml: raw`The expression is almost a perfect square, so completing the square is the natural move.`,
-          workingHtml: raw`<p class="step-text">The expression is almost a perfect square, so completing the square is the natural move.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Complete the square.
@@ -384,7 +369,7 @@
         {
           title: raw`Make the perfect square`,
           previewHtml: raw`Half the coefficient of \(x\) is \(-3k\), and squaring that gives \(9k^2\).`,
-          workingHtml: raw`<p class="step-text">Half the coefficient of \(x\) is \(-3k\), and squaring that gives \(9k^2\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,9k^2\)
@@ -392,8 +377,9 @@
         },
         {
           title: raw`Factorise the left side`,
-          previewHtml: raw`Adding \(9k^2\) to both sides gives \((x-3k)^2=k^2+9k^2=10k^2\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Adding \(9k^2\) to both sides gives \((x-3k)^2=k^2+9k^2=10k^2\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,(x-3k)^2=10k^2\)
@@ -402,7 +388,7 @@
         {
           title: raw`Solve for x`,
           previewHtml: raw`Take square roots, then add \(3k\) to both sides.`,
-          workingHtml: raw`<p class="step-text">Take square roots, then add \(3k\) to both sides.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,x=3k\pm k\sqrt{10}\)
@@ -489,7 +475,7 @@
         {
           title: raw`Spot the proof idea`,
           previewHtml: raw`If the discriminant is positive, the quadratic has real roots.`,
-          workingHtml: raw`<p class="step-text">If the discriminant is positive, the quadratic has real roots.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   A positive discriminant.
@@ -497,8 +483,9 @@
         },
         {
           title: raw`Rewrite in standard form`,
-          previewHtml: raw`Multiplying by \(k\) clears the denominator and gives \(k^3x^2+x-3k=0\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Multiplying by \(k\) clears the denominator and gives \(k^3x^2+x-3k=0\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,k^3x^2+x-3k=0\)
@@ -506,8 +493,8 @@
         },
         {
           title: raw`Identify \(a\), \(b\), and \(c\)`,
-          previewHtml: raw`That is the correct match for \(k^3x^2+x-3k=0\).`,
-          workingHtml: raw`<p class="step-text">That is the correct match for \(k^3x^2+x-3k=0\).</p>
+          previewHtml: raw`Match the quadratic’s coefficients to \(ax^2+bx+c=0\), including their signs.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,a=k^3,\ b=1,\ c=-3k\)
@@ -515,8 +502,8 @@
         },
         {
           title: raw`Substitute into the discriminant`,
-          previewHtml: raw`That is the discriminant with the correct values of \(a\), \(b\), and \(c\).`,
-          workingHtml: raw`<p class="step-text">That is the discriminant with the correct values of \(a\), \(b\), and \(c\).</p>
+          previewHtml: raw`Substitute the coefficients into \(b^2-4ac\), keeping brackets around negative terms.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,1^2-4(k^3)(-3k)\)
@@ -524,8 +511,9 @@
         },
         {
           title: raw`Simplify the discriminant`,
-          previewHtml: raw`The product \(-4(k^3)(-3k)\) simplifies to \(+12k^4\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The product \(-4(k^3)(-3k)\) simplifies to \(+12k^4\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,1+12k^4\)
@@ -534,7 +522,7 @@
         {
           title: raw`Finish the argument`,
           previewHtml: raw`The discriminant is always positive, so the equation has real roots for every real \(k\neq 0\).`,
-          workingHtml: raw`<p class="step-text">The discriminant is always positive, so the equation has real roots for every real \(k\neq 0\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,k^4\ge 0\) for real \(k\), so \(1+12k^4>0\).
@@ -628,7 +616,7 @@
         {
           title: raw`Start with the power`,
           previewHtml: raw`We want \(z^3\) on its own before we use polar form and cube roots.`,
-          workingHtml: raw`<p class="step-text">We want \(z^3\) on its own before we use polar form and cube roots.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Isolate \(z^3\).
@@ -637,7 +625,7 @@
         {
           title: raw`Rearrange the equation`,
           previewHtml: raw`Now the right-hand side is one complex number we can rewrite in polar form.`,
-          workingHtml: raw`<p class="step-text">Now the right-hand side is one complex number we can rewrite in polar form.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,z^3=-8m^{27}i\)
@@ -646,7 +634,7 @@
         {
           title: raw`Read the direction`,
           previewHtml: raw`The number is a negative multiple of \(i\), so it lies in the \(-i\) direction.`,
-          workingHtml: raw`<p class="step-text">The number is a negative multiple of \(i\), so it lies in the \(-i\) direction.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   It points straight down the negative imaginary axis.
@@ -655,7 +643,7 @@
         {
           title: raw`Identify the argument`,
           previewHtml: raw`The principal argument of \(-i\) is \(-\frac{\pi}{2}\).`,
-          workingHtml: raw`<p class="step-text">The principal argument of \(-i\) is \(-\frac{\pi}{2}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,-\frac{\pi}{2}\)
@@ -664,7 +652,7 @@
         {
           title: raw`Find the modulus`,
           previewHtml: raw`The modulus is the size of the number, so the negative sign only affects the argument.`,
-          workingHtml: raw`<p class="step-text">The modulus is the size of the number, so the negative sign only affects the argument.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,8m^{27}\)
@@ -673,7 +661,7 @@
         {
           title: raw`Write \(z^3\) in polar form`,
           previewHtml: raw`We now have modulus and argument ready for De Moivre.`,
-          workingHtml: raw`<p class="step-text">We now have modulus and argument ready for De Moivre.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,z^3=8m^{27}\operatorname{cis}\left(-\frac{\pi}{2}\right)\)
@@ -682,7 +670,7 @@
         {
           title: raw`Take the cube roots`,
           previewHtml: raw`Cube roots divide the argument by \(3\) and use \(k=0,1,2\) for the three solutions.`,
-          workingHtml: raw`<p class="step-text">Cube roots divide the argument by \(3\) and use \(k=0,1,2\) for the three solutions.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,z=2m^9\operatorname{cis}\left(\frac{2k\pi}{3}-\frac{\pi}{6}\right)\)
@@ -691,7 +679,7 @@
         {
           title: raw`Finish with the three roots`,
           previewHtml: raw`Using \(k=0,1,2\) gives those three cube roots, with the third angle rewritten as a principal value.`,
-          workingHtml: raw`<p class="step-text">Using \(k=0,1,2\) gives those three cube roots, with the third angle rewritten as a principal value.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,2m^9\operatorname{cis}\left(-\frac{\pi}{6}\right),\ 2m^9\operatorname{cis}\left(\frac{\pi}{2}\right),\ 2m^9\operatorname{cis}\left(-\frac{5\pi}{6}\right)\)
@@ -802,8 +790,9 @@
       guidedSteps: [
         {
           title: raw`Read \(u\)`,
-          previewHtml: raw`The point \(u\) is at \((4,2)\), so \(u=4+2i\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The point \(u\) is at \((4,2)\), so \(u=4+2i\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,u=4+2i\)
@@ -811,8 +800,9 @@
         },
         {
           title: raw`Read \(w\)`,
-          previewHtml: raw`The point \(w\) is left \(2\) and down \(3\), so \(w=-2-3i\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The point \(w\) is left \(2\) and down \(3\), so \(w=-2-3i\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,w=-2-3i\)
@@ -821,7 +811,7 @@
         {
           title: raw`Scale \(u\)`,
           previewHtml: raw`Multiply both the real and imaginary parts of \(u\) by \(2\).`,
-          workingHtml: raw`<p class="step-text">Multiply both the real and imaginary parts of \(u\) by \(2\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,2u=8+4i\)
@@ -829,8 +819,9 @@
         },
         {
           title: raw`Scale \(w\)`,
-          previewHtml: raw`Multiplying \(-2-3i\) by \(3\) gives \(-6-9i\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Multiplying \(-2-3i\) by \(3\) gives \(-6-9i\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,3w=-6-9i\)
@@ -838,8 +829,9 @@
         },
         {
           title: raw`Add the two results`,
-          previewHtml: raw`Adding the real parts gives \(2\), and adding the imaginary parts gives \(-5\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Adding the real parts gives \(2\), and adding the imaginary parts gives \(-5\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,z=2-5i\)
@@ -847,8 +839,9 @@
         },
         {
           title: raw`Plot \(z\)`,
-          previewHtml: raw`The point \((2,-5)\) matches \(z=2-5i\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The point \((2,-5)\) matches \(z=2-5i\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Answer point</p>
   <div class="math-block">
@@ -953,7 +946,7 @@
         {
           title: raw`Identify the theorem`,
           previewHtml: raw`De Moivre tells us how the modulus and argument change when we raise a complex number to a power.`,
-          workingHtml: raw`<p class="step-text">De Moivre tells us how the modulus and argument change when we raise a complex number to a power.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Use De Moivre’s Theorem.
@@ -962,7 +955,7 @@
         {
           title: raw`Apply the theorem generally`,
           previewHtml: raw`Raise the modulus to \(n\) and multiply the argument by \(n\).`,
-          workingHtml: raw`<p class="step-text">Raise the modulus to \(n\) and multiply the argument by \(n\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,u^n=m^n\operatorname{cis}\left(\frac{3n\pi}{10}\right)\)
@@ -971,7 +964,7 @@
         {
           title: raw`Specialise to \(u^5\)`,
           previewHtml: raw`We are finding the fifth power, so \(n=5\).`,
-          workingHtml: raw`<p class="step-text">We are finding the fifth power, so \(n=5\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,5\)
@@ -979,8 +972,9 @@
         },
         {
           title: raw`Compute \(u^5\)`,
-          previewHtml: raw`Multiplying the argument by \(5\) gives \(\frac{3\pi}{2}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Multiplying the argument by \(5\) gives \(\frac{3\pi}{2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,u^5=m^5\operatorname{cis}\left(\frac{3\pi}{2}\right)\)
@@ -988,8 +982,9 @@
         },
         {
           title: raw`Convert to \(a+bi\)`,
-          previewHtml: raw`\(\cos\left(\frac{3\pi}{2}\right)=0\) and \(\sin\left(\frac{3\pi}{2}\right)=-1\), so \(u^5=-m^5i\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">\(\cos\left(\frac{3\pi}{2}\right)=0\) and \(\sin\left(\frac{3\pi}{2}\right)=-1\), so \(u^5=-m^5i\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,-m^5i\)
@@ -1066,7 +1061,7 @@
               \]
             </div>
 
-<p class="step-text">\(|5-mi|\) becomes \(\sqrt{5^2+m^2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,\sqrt{5^2+m^2}=\sqrt{5m^2}\)
@@ -1074,8 +1069,9 @@
         },
         {
           title: raw`Square and solve`,
-          previewHtml: raw`Squaring gives \(25+m^2=5m^2\), so \(25=4m^2\) and \(m=\pm \frac{5}{2}\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Squaring gives \(25+m^2=5m^2\), so \(25=4m^2\) and \(m=\pm \frac{5}{2}\).</p>
+
             <div class="math-block">
               \[
               \sqrt{5^2+m^2}=\sqrt{5m^2}
@@ -1088,7 +1084,7 @@
               \]
             </div>
 
-<p class="step-text">Squaring gives \(25+m^2=5m^2\), so \(25=4m^2\) and \(m=\pm \frac{5}{2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,m=\pm\frac{5}{2}\)
@@ -1188,7 +1184,7 @@
         {
           title: raw`Expand both sides`,
           previewHtml: raw`Expanding both products gives a real-part equation and an imaginary-part equation to compare.`,
-          workingHtml: raw`<p class="step-text">Expanding both products gives a real-part equation and an imaginary-part equation to compare.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,3g-2h+(6+hg)i=26-22i\)
@@ -1197,7 +1193,7 @@
         {
           title: raw`Use the imaginary parts`,
           previewHtml: raw`From \(6+gh=-22\), we get \(gh=-28\), so \(h=-\frac{28}{g}\).`,
-          workingHtml: raw`<p class="step-text">From \(6+gh=-22\), we get \(gh=-28\), so \(h=-\frac{28}{g}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,h=-\frac{28}{g}\)
@@ -1215,7 +1211,7 @@
         {
           title: raw`Match the corresponding \(h\)-values`,
           previewHtml: raw`Substituting each \(g\)-value into \(h=-\frac{28}{g}\) gives those two pairs.`,
-          workingHtml: raw`<p class="step-text">Substituting each \(g\)-value into \(h=-\frac{28}{g}\) gives those two pairs.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,(4,-7)\) and \(\left(\frac{14}{3},-6\right)\)
@@ -1325,7 +1321,7 @@
         {
           title: raw`Interpret the argument`,
           previewHtml: raw`The argument describes the direction of the complex number on the Argand diagram.`,
-          workingHtml: raw`<p class="step-text">The argument describes the direction of the complex number on the Argand diagram.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   The angle the point makes with the positive real axis.
@@ -1334,7 +1330,7 @@
         {
           title: raw`Use \(\frac{\pi}{4}\)`,
           previewHtml: raw`\(\tan\left(\frac{\pi}{4}\right)=1\), so the real part and imaginary coefficient must match.`,
-          workingHtml: raw`<p class="step-text">\(\tan\left(\frac{\pi}{4}\right)=1\), so the real part and imaginary coefficient must match.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   They are equal.
@@ -1343,7 +1339,7 @@
         {
           title: raw`Identify the next move`,
           previewHtml: raw`Rationalising removes the \(i\) from the denominator so the real and imaginary parts are easy to read.`,
-          workingHtml: raw`<p class="step-text">Rationalising removes the \(i\) from the denominator so the real and imaginary parts are easy to read.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Multiply by the conjugate of the denominator.
@@ -1352,7 +1348,7 @@
         {
           title: raw`Rationalise the fraction`,
           previewHtml: raw`The real part is \(\frac{-5d}{1+d^2}\) and the imaginary part is \(\frac{6+d^2}{1+d^2}\). Since \(1+d^2>0\) for real \(d\), the common denominator can be cancelled when equating these parts. Argument \(\pi/4\) also requires the first quadrant; we check this after solving.`,
-          workingHtml: raw`<p class="step-text">The real part is \(\frac{-5d}{1+d^2}\) and the imaginary part is \(\frac{6+d^2}{1+d^2}\). Since \(1+d^2>0\) for real \(d\), the common denominator can be cancelled when equating these parts. Argument \(\pi/4\) also requires the first quadrant; we check this after solving.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,\frac{-5d+(6+d^2)i}{1+d^2}\)
@@ -1360,8 +1356,9 @@
         },
         {
           title: raw`Solve for \(d\)`,
-          previewHtml: raw`Equating \(-5d\) and \(6+d^2\) gives \(d^2+5d+6=0\), so \(d=-3\) or \(d=-2\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Equating \(-5d\) and \(6+d^2\) gives \(d^2+5d+6=0\), so \(d=-3\) or \(d=-2\).</p>
+
             <div class="math-block">
               \[
               \frac{d+6i}{1-di}\cdot\frac{1+di}{1+di}
@@ -1373,7 +1370,7 @@
               \]
             </div>
 
-<p class="step-text">Equating \(-5d\) and \(6+d^2\) gives \(d^2+5d+6=0\), so \(d=-3\) or \(d=-2\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,d=-3,\ -2\)
@@ -1455,7 +1452,7 @@
         {
           title: raw`Find the other root`,
           previewHtml: raw`For \(p>0\), real coefficients require this non-real root and its conjugate. For other real \(p\), the quadratic below is one valid choice; see the Exam note.`,
-          workingHtml: raw`<p class="step-text">For \(p>0\), real coefficients require this non-real root and its conjugate. For other real \(p\), the quadratic below is one valid choice; see the Exam note.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,x=2-\sqrt{p}\,i\)
@@ -1464,7 +1461,7 @@
         {
           title: raw`Write the factored form`,
           previewHtml: raw`Each factor is \(x\) minus one of the roots.`,
-          workingHtml: raw`<p class="step-text">Each factor is \(x\) minus one of the roots.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,(x-2-\sqrt{p}\,i)(x-2+\sqrt{p}\,i)=0\)
@@ -1473,7 +1470,7 @@
         {
           title: raw`Expand to the quadratic`,
           previewHtml: raw`The surd terms cancel, and \((\sqrt{p}\,i)^2=-p\), so subtracting it adds \(p\).`,
-          workingHtml: raw`<p class="step-text">The surd terms cancel, and \((\sqrt{p}\,i)^2=-p\), so subtracting it adds \(p\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,x^2-4x+4+p=0\)
@@ -1579,8 +1576,8 @@
       guidedSteps: [
         {
           title: raw`Make the substitution`,
-          previewHtml: raw`That turns the radicals into an ordinary quadratic in \(u\).`,
-          workingHtml: raw`<p class="step-text">That turns the radicals into an ordinary quadratic in \(u\).</p>
+          previewHtml: raw`Substitute \(u=\sqrt{x}\) to turn the radical equation into a quadratic.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,u=\sqrt{x}\)
@@ -1589,7 +1586,7 @@
         {
           title: raw`Rewrite the equation`,
           previewHtml: raw`Replacing \(\sqrt{x}\) with \(u\) gives exactly that.`,
-          workingHtml: raw`<p class="step-text">Replacing \(\sqrt{x}\) with \(u\) gives exactly that.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,(1+2u)(3+2u)=5+6u\)
@@ -1597,8 +1594,9 @@
         },
         {
           title: raw`Expand and solve for \(u\)`,
-          previewHtml: raw`Expanding gives \(3+8u+4u^2=5+6u\), so \(4u^2+2u-2=0\), and the roots are \(u=-1\) and \(u=\frac{1}{2}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Expanding gives \(3+8u+4u^2=5+6u\), so \(4u^2+2u-2=0\), and the roots are \(u=-1\) and \(u=\frac{1}{2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,u=-1,\ \frac{1}{2}\)
@@ -1606,8 +1604,9 @@
         },
         {
           title: raw`Check validity`,
-          previewHtml: raw`Since \(u=\sqrt{x}\ge 0\), we keep \(u=\frac{1}{2}\), so \(x=\left(\frac{1}{2}\right)^2=\frac{1}{4}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Since \(u=\sqrt{x}\ge 0\), we keep \(u=\frac{1}{2}\), so \(x=\left(\frac{1}{2}\right)^2=\frac{1}{4}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,x=\frac{1}{4}\)
@@ -1694,7 +1693,7 @@
         {
           title: raw`Use the conjugate-root rule`,
           previewHtml: raw`Real coefficients force non-real roots to come in conjugate pairs.`,
-          workingHtml: raw`<p class="step-text">Real coefficients force non-real roots to come in conjugate pairs.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,1-i\)
@@ -1702,8 +1701,9 @@
         },
         {
           title: raw`Multiply the conjugate pair`,
-          previewHtml: raw`Multiplying \((z-1-i)(z-1+i)\) gives the quadratic factor \(z^2-2z+2\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Multiplying \((z-1-i)(z-1+i)\) gives the quadratic factor \(z^2-2z+2\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,z^2-2z+2\)
@@ -1712,7 +1712,7 @@
         {
           title: raw`Find the third factor`,
           previewHtml: raw`The constants must multiply to \(-8\), and the leading coefficient must still be \(3\).`,
-          workingHtml: raw`<p class="step-text">The constants must multiply to \(-8\), and the leading coefficient must still be \(3\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,3z-4\)
@@ -1720,8 +1720,8 @@
         },
         {
           title: raw`Expand the full polynomial`,
-          previewHtml: raw`That is the fully expanded polynomial to compare with \(3z^3+pz^2+qz-8\).`,
-          workingHtml: raw`<p class="step-text">That is the fully expanded polynomial to compare with \(3z^3+pz^2+qz-8\).</p>
+          previewHtml: raw`Expand the factors and collect like powers before comparing coefficients.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,3z^3-10z^2+14z-8\)
@@ -1729,8 +1729,9 @@
         },
         {
           title: raw`State the conclusion`,
-          previewHtml: raw`The other two roots are \(1-i\) and \(\frac{4}{3}\), and matching coefficients gives \(p=-10\) and \(q=14\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The other two roots are \(1-i\) and \(\frac{4}{3}\), and matching coefficients gives \(p=-10\) and \(q=14\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,1-i,\ \frac{4}{3};\ p=-10,\ q=14\)
@@ -1851,8 +1852,8 @@
       guidedSteps: [
         {
           title: raw`Make the \(u\)-terms match`,
-          previewHtml: raw`That gives \(ui+(1-i)vi=4i\), so the \(ui\)-terms are ready to eliminate.`,
-          workingHtml: raw`<p class="step-text">That gives \(ui+(1-i)vi=4i\), so the \(ui\)-terms are ready to eliminate.</p>
+          previewHtml: raw`Multiply the second equation by \(i\) to match the \(u\)-terms for elimination.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Multiply \(u+(1-i)v=4\) by \(i\).
@@ -1861,7 +1862,7 @@
         {
           title: raw`Eliminate \(u\)`,
           previewHtml: raw`The \(ui\)-terms cancel, leaving an equation just in \(v\).`,
-          workingHtml: raw`<p class="step-text">The \(ui\)-terms cancel, leaving an equation just in \(v\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,2v-(1-i)vi=3-4i\)
@@ -1869,8 +1870,9 @@
         },
         {
           title: raw`Solve for \(v\)`,
-          previewHtml: raw`Simplifying \(2v-(1-i)vi=3-4i\) gives \(v(1-i)=3-4i\), and rationalising leads to \(v=\frac{7-i}{2}\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Simplifying \(2v-(1-i)vi=3-4i\) gives \(v(1-i)=3-4i\), and rationalising leads to \(v=\frac{7-i}{2}\).</p>
+
             <div class="math-block">
               \[
               2v-(1-i)vi=3-4i
@@ -1886,7 +1888,7 @@
               \]
             </div>
 
-<p class="step-text">Simplifying \(2v-(1-i)vi=3-4i\) gives \(v(1-i)=3-4i\), and rationalising leads to \(v=\frac{7-i}{2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,v=\frac{7-i}{2}\)
@@ -1894,8 +1896,9 @@
         },
         {
           title: raw`Back-substitute for \(u\)`,
-          previewHtml: raw`Substituting \(v=\frac{7-i}{2}\) into \(u=4-(1-i)v\) gives \(u=1+4i\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Substituting \(v=\frac{7-i}{2}\) into \(u=4-(1-i)v\) gives \(u=1+4i\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\,u=1+4i\)

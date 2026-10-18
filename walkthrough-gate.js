@@ -1898,7 +1898,7 @@ function syncWalkthroughSeo(context, config) {
       : "This walkthrough helps you practise "
         + plainFocus.charAt(0).toLowerCase()
         + plainFocus.slice(1)
-        + ". Use the hints to plan the method before opening the full worked solution.";
+        + ". Attempt the question independently, then use hints and worked steps to compare your reasoning.";
   }
 
   const mistake = document.querySelector("[data-seo-mistake]");
@@ -3112,14 +3112,19 @@ function normaliseRichTextBlock(html, className) {
 }
 
 function normaliseGuidedStep(step, stepIndex) {
+  step = step || {};
   const title = step.title || "Step " + (stepIndex + 1);
-  const previewHtml = step.previewHtml || "";
+  const previewHtml = String(step.previewHtml || "").trim();
   const workingHtml = step.workingHtml || "";
 
   return {
     title: title,
     accessibleTitle: getWalkthroughAccessibleText(step.accessibleTitle || title),
-    predictionPrompt: step.predictionPrompt || "Explain why this method applies, then decide what calculation or check comes next before opening the working.",
+    // Instructional content has its own fields. Retired checker feedback must
+    // never be a fallback for either the idea or the worked explanation.
+    predictionPrompt: step.predictionPrompt === undefined
+      ? (previewHtml ? "" : "Try this step before opening the working.")
+      : String(step.predictionPrompt || ""),
     previewHtml: previewHtml,
     workingHtml: normaliseRichTextBlock(workingHtml, "step-text"),
     workingButtonLabel: step.workingButtonLabel || "Show working",
@@ -3299,7 +3304,7 @@ function buildTipsCardHtml(config, tipItems) {
 
   return `
     <p class="question-label">${config.tipsTitle || "Hints"}</p>
-    <p class="step-text">Attempt → Hint → predict your next step → Working → Check → related practice → retry later. Opening working records a review, not an independent solution.</p>
+    <p class="step-text">Attempt the question, then use hints and working to compare your reasoning. Finish the walkthrough to save a review; use Record this attempt for self-assessment.</p>
     <div class="walkthrough-tip-list">
       ${tipItems.map(function (item, index) {
         const tipNumber = index + 1;
@@ -3545,20 +3550,10 @@ function renderProgressiveStep(step, index) {
   const previewHtml = step.previewHtml
     ? `<div class="walkthrough-step-preview">${normaliseRichTextBlock(step.previewHtml, "step-text")}</div>`
     : "";
-
-  return `
-    <section
-      id="walkthrough-step-${stepNumber}"
-      class="step-card walkthrough-step-card hidden"
-      data-step-index="${index}"
-      aria-hidden="true"
-    >
-      <div class="walkthrough-step-header">
-        <p class="step-number">Step ${stepNumber}</p>
-        <p class="walkthrough-step-chip">Idea</p>
-      </div>
-      <h2>${step.title}</h2>
-      ${previewHtml}
+  const predictionHtml = step.workingHtml && step.predictionPrompt
+    ? `<p class="question-note walkthrough-prediction">${escapeWalkthroughSidebarHtml(step.predictionPrompt)}</p>`
+    : "";
+  const workingHtml = step.workingHtml ? `
       <div class="walkthrough-step-actions">
         <button
           class="nav-btn secondary step-working-btn"
@@ -3574,7 +3569,7 @@ function renderProgressiveStep(step, index) {
         >
           ${step.workingButtonLabel}
         </button>
-        <p class="question-note">${escapeWalkthroughSidebarHtml(step.predictionPrompt)}</p>
+        ${predictionHtml}
       </div>
       <div
         id="walkthrough-step-${stepNumber}-working"
@@ -3585,7 +3580,22 @@ function renderProgressiveStep(step, index) {
         <div class="walkthrough-working-body">
           ${step.workingHtml}
         </div>
+      </div>` : "";
+
+  return `
+    <section
+      id="walkthrough-step-${stepNumber}"
+      class="step-card walkthrough-step-card hidden"
+      data-step-index="${index}"
+      aria-hidden="true"
+    >
+      <div class="walkthrough-step-header">
+        <p class="step-number">Step ${stepNumber}</p>
+        <p class="walkthrough-step-chip">Idea</p>
       </div>
+      <h2>${step.title}</h2>
+      ${previewHtml}
+      ${workingHtml}
     </section>
   `;
 }
@@ -3666,11 +3676,11 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
       return;
     }
 
-    progressStatus.textContent = (walkthroughComplete ? "Complete · " : "")
+    progressStatus.textContent = (walkthroughComplete ? "Reviewed · " : "")
       + "Step " + (currentStepIndex + 1) + " of " + totalSteps;
 
     if (mobileProgressLabel) {
-      mobileProgressLabel.textContent = (walkthroughComplete ? "Complete · " : "")
+      mobileProgressLabel.textContent = (walkthroughComplete ? "Reviewed · " : "")
         + "Step " + (currentStepIndex + 1) + " of " + totalSteps;
     }
     if (mobileProgressMeter) {
@@ -3691,14 +3701,15 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
       nextButton.removeAttribute("aria-expanded");
       nextButton.disabled = false;
     } else if (walkthroughComplete) {
-      nextButton.textContent = "Question complete";
-      nextButton.setAttribute("aria-label", "Question complete");
+      nextButton.textContent = "Walkthrough reviewed";
+      nextButton.setAttribute("aria-label", "Walkthrough reviewed");
       nextButton.setAttribute("aria-controls", "walkthrough-step-" + (currentStepIndex + 1) + "-working");
-      nextButton.setAttribute("aria-expanded", "true");
+      nextButton.setAttribute("aria-expanded", currentWorkingVisible ? "true" : "false");
       nextButton.disabled = true;
     } else {
-      nextButton.textContent = currentWorkingVisible ? "Finish question" : "Show final answer";
-      nextButton.setAttribute("aria-label", currentWorkingVisible ? "Finish this question" : "Show the final answer for this question");
+      const canRevealWorking = config.guidedSteps[currentStepIndex].workingHtml && !currentWorkingVisible;
+      nextButton.textContent = canRevealWorking ? "Show final working" : "Finish walkthrough";
+      nextButton.setAttribute("aria-label", canRevealWorking ? "Show the final working for this walkthrough" : "Finish this walkthrough");
       nextButton.setAttribute("aria-controls", "walkthrough-step-" + (currentStepIndex + 1) + "-working");
       nextButton.setAttribute("aria-expanded", currentWorkingVisible ? "true" : "false");
       nextButton.disabled = false;
@@ -3784,6 +3795,8 @@ function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
     workingPanel.classList.toggle("is-visible", isVisible);
     workingPanel.setAttribute("aria-hidden", isVisible ? "false" : "true");
     stepCard.dataset.workingVisible = isVisible ? "true" : "false";
+    const prediction = stepCard.querySelector(".walkthrough-prediction");
+    if (prediction) prediction.hidden = isVisible;
     button.textContent = isVisible
       ? (button.dataset.shownLabel || "Hide working")
       : (button.dataset.hiddenLabel || "Show working");

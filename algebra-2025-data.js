@@ -89,7 +89,7 @@
         {
           title: raw`Identify the first operation`,
           previewHtml: raw`Cubing is the inverse of taking a cube root.`,
-          workingHtml: raw`<p class="step-text">Cubing is the inverse of taking a cube root.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Cube both sides
@@ -207,8 +207,8 @@
       guidedSteps: [
         {
           title: raw`Build the factorised form`,
-          previewHtml: raw`That gives a factor of \((x-1.5)\) and still expands to a quadratic with leading term \(2x^2\).`,
-          workingHtml: raw`<p class="step-text">That gives a factor of \((x-1.5)\) and still expands to a quadratic with leading term \(2x^2\).</p>
+          previewHtml: raw`Use the given root to form a factor, keeping the leading coefficient \(2\).`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -218,8 +218,9 @@
         },
         {
           title: raw`Find c`,
-          previewHtml: raw`Using \((-1,-5)\) gives \((-2-c)(-2.5)=-5\), so \(c=-4\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Using \((-1,-5)\) gives \((-2-c)(-2.5)=-5\), so \(c=-4\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -232,7 +233,7 @@
         {
           title: raw`Expand the quadratic`,
           previewHtml: raw`\((2x+4)(x-1.5)\) expands to \(2x^2+x-6\).`,
-          workingHtml: raw`<p class="step-text">\((2x+4)(x-1.5)\) expands to \(2x^2+x-6\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -244,8 +245,9 @@
         },
         {
           title: raw`Read off a and b`,
-          previewHtml: raw`Comparing \(2x^2+x-6\) with \(2x^2+ax+b\) gives \(a=1\) and \(b=-6\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Comparing \(2x^2+x-6\) with \(2x^2+ax+b\) gives \(a=1\) and \(b=-6\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(a=1,\ b=-6\)
@@ -358,7 +360,7 @@
         {
           title: raw`Write the area in terms of x`,
           previewHtml: raw`Width times length gives \(A=x(2x)=2x^2\).`,
-          workingHtml: raw`<p class="step-text">Width times length gives \(A=x(2x)=2x^2\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -371,7 +373,7 @@
         {
           title: raw`Use Pythagoras`,
           previewHtml: raw`The triangle uses legs \(x\) and \(\frac{x}{2}\), with hypotenuse \(r\).`,
-          workingHtml: raw`<p class="step-text">The triangle uses legs \(x\) and \(\frac{x}{2}\), with hypotenuse \(r\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -384,7 +386,7 @@
         {
           title: raw`Rearrange for x squared`,
           previewHtml: raw`From \(r^2=\frac{5x^2}{4}\), multiplying by \(\frac{4}{5}\) gives \(x^2=\frac{4r^2}{5}\).`,
-          workingHtml: raw`<p class="step-text">From \(r^2=\frac{5x^2}{4}\), multiplying by \(\frac{4}{5}\) gives \(x^2=\frac{4r^2}{5}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -396,8 +398,9 @@
         },
         {
           title: raw`Write the final area`,
-          previewHtml: raw`The area simplifies to \(A=\frac{8r^2}{5}=1.6r^2\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The area simplifies to \(A=\frac{8r^2}{5}=1.6r^2\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -493,8 +496,8 @@
       guidedSteps: [
         {
           title: raw`Rewrite using 5 to the x`,
-          previewHtml: raw`That makes the substitution \(n=5^x\) straightforward.`,
-          workingHtml: raw`<p class="step-text">That makes the substitution \(n=5^x\) straightforward.</p>
+          previewHtml: raw`Rewrite the powers in terms of \(5^x\), then substitute a single variable.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -504,8 +507,9 @@
         },
         {
           title: raw`Form the quadratic`,
-          previewHtml: raw`The substitution gives \(n^2-5n-24=0\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The substitution gives \(n^2-5n-24=0\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -517,8 +521,9 @@
         },
         {
           title: raw`Identify the valid value of n`,
-          previewHtml: raw`The quadratic roots are \(8\) and \(-3\), but \(n=5^x\) must be positive, so \(n=8\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The quadratic roots are \(8\) and \(-3\), but \(n=5^x\) must be positive, so \(n=8\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -529,7 +534,7 @@
         {
           title: raw`Solve for x`,
           previewHtml: raw`\(x=\log_5 8\approx 1.292\).`,
-          workingHtml: raw`<p class="step-text">\(x=\log_5 8\approx 1.292\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -610,8 +615,9 @@
       guidedSteps: [
         {
           title: raw`Identify the perfect square`,
-          previewHtml: raw`Expanding gives the required middle term \(-30x\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Expanding gives the required middle term \(-30x\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -696,7 +702,7 @@
         {
           title: raw`Factorise the numerator`,
           previewHtml: raw`Taking out \(2x\) leaves a quadratic that factorises as \((3x-2)(x+5)\).`,
-          workingHtml: raw`<p class="step-text">Taking out \(2x\) leaves a quadratic that factorises as \((3x-2)(x+5)\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -709,7 +715,7 @@
         {
           title: raw`Factorise the denominator`,
           previewHtml: raw`The denominator factorises to \((5x-2)(x+5)\).`,
-          workingHtml: raw`<p class="step-text">The denominator factorises to \((5x-2)(x+5)\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -722,7 +728,7 @@
         {
           title: raw`Cancel the common factor`,
           previewHtml: raw`Cancelling the common factor \((x+5)\) leaves \(\frac{2x(3x-2)}{5x-2}\).`,
-          workingHtml: raw`<p class="step-text">Cancelling the common factor \((x+5)\) leaves \(\frac{2x(3x-2)}{5x-2}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -735,7 +741,7 @@
         {
           title: raw`State the restriction`,
           previewHtml: raw`The cancelled factor \((x+5)\) means the original expression was undefined at \(x=-5\).`,
-          workingHtml: raw`<p class="step-text">The cancelled factor \((x+5)\) means the original expression was undefined at \(x=-5\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -817,8 +823,9 @@
       guidedSteps: [
         {
           title: raw`Form the quadratic equation`,
-          previewHtml: raw`Rearranging gives the quadratic \(9x^2-6x-4=0\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Rearranging gives the quadratic \(9x^2-6x-4=0\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -830,7 +837,7 @@
         },
         {
           title: raw`Solve for x`,
-          previewHtml: raw`Those are the two solutions after simplifying the quadratic-formula result.`,
+          previewHtml: raw`Simplify both branches of the quadratic formula.`,
           workingHtml: raw`
             <div class="math-block">
               \[
@@ -841,7 +848,7 @@
               \]
             </div>
 
-<p class="step-text">Those are the two solutions after simplifying the quadratic-formula result.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -851,8 +858,9 @@
         },
         {
           title: raw`Read off a and b`,
-          previewHtml: raw`Comparing \(\frac{1\pm\sqrt{5}}{3}\) with \(\frac{1\pm\sqrt{a}}{b}\) gives \(a=5\) and \(b=3\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Comparing \(\frac{1\pm\sqrt{5}}{3}\) with \(\frac{1\pm\sqrt{a}}{b}\) gives \(a=5\) and \(b=3\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(a=5,\ b=3\)
@@ -946,7 +954,7 @@
               \]
             </div>
 
-<p class="step-text">\(2\log_5(x+6)=\log_5((x+6)^2)\), so the argument becomes \(\frac{(x+6)^2}{x}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -964,7 +972,7 @@
               \]
             </div>
 
-<p class="step-text">If \(\log_5(\text{expression})=2\), then the expression must equal \(5^2=25\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -974,8 +982,9 @@
         },
         {
           title: raw`Solve the equation`,
-          previewHtml: raw`Solving the quadratic gives \(x=4\) and \(x=9\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Solving the quadratic gives \(x=4\) and \(x=9\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1083,8 +1092,9 @@
       guidedSteps: [
         {
           title: raw`Make y the subject`,
-          previewHtml: raw`Adding \(2x\) to both sides gives \(y=2x+13\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Adding \(2x\) to both sides gives \(y=2x+13\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1096,8 +1106,9 @@
         },
         {
           title: raw`Substitute into the second equation`,
-          previewHtml: raw`Substituting \(y=2x+13\) gives \(x^2+4kx+20k=0\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Substituting \(y=2x+13\) gives \(x^2+4kx+20k=0\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1109,8 +1120,9 @@
         },
         {
           title: raw`Use the repeated-root condition`,
-          previewHtml: raw`Setting the discriminant to \(0\) gives \(16k^2-80k=0\), so \(k=5\) because \(k\neq 0\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Setting the discriminant to \(0\) gives \(16k^2-80k=0\), so \(k=5\) because \(k\neq 0\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1121,7 +1133,7 @@
         {
           title: raw`Find the simultaneous solution`,
           previewHtml: raw`With \(k=5\), the equations meet at \((-10,-7)\).`,
-          workingHtml: raw`<p class="step-text">With \(k=5\), the equations meet at \((-10,-7)\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1229,7 +1241,7 @@
         {
           title: raw`Simplify the power`,
           previewHtml: raw`\((x^{1/2})^6=x^3\), so the equation is \(x^3=8\).`,
-          workingHtml: raw`<p class="step-text">\((x^{1/2})^6=x^3\), so the equation is \(x^3=8\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1241,8 +1253,9 @@
         },
         {
           title: raw`Solve for x`,
-          previewHtml: raw`The solution is \(x=2\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The solution is \(x=2\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1311,8 +1324,8 @@
       guidedSteps: [
         {
           title: raw`Write the factorised equation`,
-          previewHtml: raw`Those factors give roots \(x=\frac{1}{5}\) and \(x=-\frac{2}{3}\).`,
-          workingHtml: raw`<p class="step-text">Those factors give roots \(x=\frac{1}{5}\) and \(x=-\frac{2}{3}\).</p>
+          previewHtml: raw`Use each root to form a linear factor with integer coefficients.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1324,15 +1337,16 @@
         },
         {
           title: raw`Expand the equation`,
-          previewHtml: raw`Expanding gives \(15x^2+7x-2=0\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Expanding gives \(15x^2+7x-2=0\).</p>
+
             <div class="math-block">
               \[
               (5x-1)(3x+2)=0
               \]
             </div>
 
-<p class="step-text">Expanding gives \(15x^2+7x-2=0\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1344,8 +1358,9 @@
         },
         {
           title: raw`Read off a, b, and c`,
-          previewHtml: raw`Comparing with \(ax^2+bx+c=0\) gives \(a=15\), \(b=7\), and \(c=-2\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Comparing with \(ax^2+bx+c=0\) gives \(a=15\), \(b=7\), and \(c=-2\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(a=15,\ b=7,\ c=-2\)
@@ -1409,8 +1424,8 @@
       guidedSteps: [
         {
           title: raw`Rewrite 75 in a useful way`,
-          previewHtml: raw`That matches the given values \(p=\log_a 3\) and \(q=\log_a 5\).`,
-          workingHtml: raw`<p class="step-text">That matches the given values \(p=\log_a 3\) and \(q=\log_a 5\).</p>
+          previewHtml: raw`Factor \(75\) into powers of \(3\) and \(5\), then apply the logarithm laws.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1431,7 +1446,7 @@
               \]
             </div>
 
-<p class="step-text">\(\log_a 75=\log_a 3+2\log_a 5=p+2q\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1503,8 +1518,8 @@
       guidedSteps: [
         {
           title: raw`Use the root relationships`,
-          previewHtml: raw`Those are the standard relationships between roots and coefficients for a monic quadratic.`,
-          workingHtml: raw`<p class="step-text">Those are the standard relationships between roots and coefficients for a monic quadratic.</p>
+          previewHtml: raw`Relate the sum and product of the roots to the coefficients of the monic quadratic.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1514,8 +1529,9 @@
         },
         {
           title: raw`Substitute into the identity`,
-          previewHtml: raw`Substituting \(a+b=m\) and \(ab=n\) gives \(a^2+b^2=m^2-2n\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Substituting \(a+b=m\) and \(ab=n\) gives \(a^2+b^2=m^2-2n\).</p>
+
             <div class="math-block">
               \[
               a^2+b^2=(a+b)^2-2ab
@@ -1525,7 +1541,7 @@
               \]
             </div>
 
-<p class="step-text">Substituting \(a+b=m\) and \(ab=n\) gives \(a^2+b^2=m^2-2n\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1623,7 +1639,7 @@
         {
           title: raw`Write the quadratic in vertex form`,
           previewHtml: raw`The turning point is \((110,20)\), so vertex form is the best start.`,
-          workingHtml: raw`<p class="step-text">The turning point is \((110,20)\), so vertex form is the best start.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1635,8 +1651,9 @@
         },
         {
           title: raw`Find the scale factor`,
-          previewHtml: raw`Substituting \((0,2)\) gives \(a=-\frac{18}{12100}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Substituting \((0,2)\) gives \(a=-\frac{18}{12100}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1649,7 +1666,7 @@
         {
           title: raw`Check the height at the tree`,
           previewHtml: raw`The ball is about \(7.95\) m high when it reaches the tree.`,
-          workingHtml: raw`<p class="step-text">The ball is about \(7.95\) m high when it reaches the tree.</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1661,8 +1678,9 @@
         },
         {
           title: raw`Interpret the result`,
-          previewHtml: raw`The model gives a height of about \(7.95\) m, so the ball clears the tree by about \(0.45\) m.`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The model gives a height of about \(7.95\) m, so the ball clears the tree by about \(0.45\) m.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Yes, because \(7.95>7.5\).

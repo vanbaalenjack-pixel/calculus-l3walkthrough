@@ -71,7 +71,9 @@ def validate_record(route: str, record: object) -> None:
     step = record.get("firstGuidedStep")
     if not isinstance(step, dict):
         fail(f"{route}: firstGuidedStep must be an object")
-    for field in ("title", "previewHtml", "workingHtml"):
+    if not isinstance(step.get("previewHtml"), str):
+        fail(f"{route}: firstGuidedStep.previewHtml must be a string (possibly empty)")
+    for field in ("title", "workingHtml"):
         require_text(step.get(field), f"{route}: firstGuidedStep.{field}")
     if not isinstance(record.get("hasAfterRender"), bool):
         fail(f"{route}: hasAfterRender must be boolean")

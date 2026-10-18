@@ -402,7 +402,9 @@ function __calcExtractWalkthrough(config) {
     },
     firstGuidedStep: {
       title: requiredString(firstStep.title, "first guided-step title"),
-      previewHtml: requiredString(firstStep.previewHtml, "first guided-step previewHtml"),
+      // A preview is optional. Never manufacture instructional copy from old
+      // checker messages just to fill a static publication slot.
+      previewHtml: typeof firstStep.previewHtml === "string" ? firstStep.previewHtml.trim() : "",
       workingHtml: requiredString(firstStep.workingHtml, "first guided-step workingHtml")
     },
     hasAfterRender: hasAfterRender,

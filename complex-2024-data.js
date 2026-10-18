@@ -6,24 +6,6 @@
     "2a", "2b", "2c", "2d", "2e",
     "3a", "3b", "3c", "3d", "3e"
   ];
-  const orderedListOptions = {
-    ordered: true,
-    stripOuterParens: true
-  };
-  const unorderedListOptions = {
-    ordered: false,
-    stripOuterParens: true
-  };
-  const complexPairListOptions = Object.assign({}, orderedListOptions, {
-    allowComplexInput: true
-  });
-  const complexListOptions = Object.assign({}, unorderedListOptions, {
-    allowComplexInput: true
-  });
-  const wrappedListPreview = {
-    wrapWithParens: true
-  };
-
   function questionLabel(id) {
     return "Question " + id.charAt(0) + "(" + id.charAt(1) + ")";
   }
@@ -219,8 +201,9 @@
       guidedSteps: [
         {
           title: raw`Use the factor theorem`,
-          previewHtml: raw`Since \(x+3=0\), the root is \(x=-3\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Since \(x+3=0\), the root is \(x=-3\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -230,8 +213,9 @@
         },
         {
           title: raw`Simplify the substitution`,
-          previewHtml: raw`Everything simplifies to \(9p-54=0\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Everything simplifies to \(9p-54=0\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -243,8 +227,9 @@
         },
         {
           title: raw`Solve for p`,
-          previewHtml: raw`Solving \(9p-54=0\) gives \(p=6\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Solving \(9p-54=0\) gives \(p=6\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -317,8 +302,9 @@
       guidedSteps: [
         {
           title: raw`Raise the modulus`,
-          previewHtml: raw`The modulus becomes \(m^{15}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The modulus becomes \(m^{15}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -329,7 +315,7 @@
         {
           title: raw`Multiply the argument`,
           previewHtml: raw`\(15\times \frac{n\pi}{5}=3n\pi\).`,
-          workingHtml: raw`<p class="step-text">\(15\times \frac{n\pi}{5}=3n\pi\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -339,8 +325,8 @@
         },
         {
           title: raw`Identify the safest final polar form`,
-          previewHtml: raw`That is the direct De Moivre result, and it works for positive real \(n\).`,
-          workingHtml: raw`<p class="step-text">That is the direct De Moivre result, and it works for positive real \(n\).</p>
+          previewHtml: raw`Apply De Moivre’s theorem directly, keeping the angle in terms of the positive real constant \(n\).`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -424,8 +410,9 @@
       guidedSteps: [
         {
           title: raw`Square once`,
-          previewHtml: raw`The \(kx\) terms cancel, leaving \(12=8\sqrt{kx}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The \(kx\) terms cancel, leaving \(12=8\sqrt{kx}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -437,8 +424,9 @@
         },
         {
           title: raw`Square again`,
-          previewHtml: raw`Squaring \(12=8\sqrt{kx}\) gives \(144=64kx\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Squaring \(12=8\sqrt{kx}\) gives \(144=64kx\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -450,8 +438,9 @@
         },
         {
           title: raw`Solve for x`,
-          previewHtml: raw`Dividing by \(64k\) gives \(x=\frac{9}{4k}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Dividing by \(64k\) gives \(x=\frac{9}{4k}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -564,7 +553,7 @@
               \]
             </div>
 
-<p class="step-text">We have just replaced each \(z\) with \(x+yi\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(|x+yi-i|=|x+yi+1|\)
@@ -580,7 +569,7 @@
               \]
             </div>
 
-<p class="step-text">The left side has real part \(x\) and imaginary part \(y-1\), while the right side has real part \(x+1\) and imaginary part \(y\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(|x+(y-1)i|=|(x+1)+yi|\)
@@ -596,7 +585,7 @@
               \]
             </div>
 
-<p class="step-text">This locus is made of points that are the same distance from two fixed points in the Argand diagram.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   The points are equidistant from two fixed points
@@ -604,7 +593,7 @@
         },
         {
           title: raw`Write the first distance`,
-          previewHtml: raw`That is the distance from \((x,y)\) to \((0,1)\).`,
+          previewHtml: raw`Use the distance formula from \((x,y)\) to \((0,1)\).`,
           workingHtml: raw`
             <div class="math-block">
               \[
@@ -612,7 +601,7 @@
               \]
             </div>
 
-<p class="step-text">That is the distance from \((x,y)\) to \((0,1)\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -632,7 +621,7 @@
               \]
             </div>
 
-<p class="step-text">Each side is now written as a distance formula.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -652,7 +641,7 @@
               \]
             </div>
 
-<p class="step-text">Squaring both sides removes the square roots cleanly here.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   Square both sides, so \(x^2+(y-1)^2=(x+1)^2+y^2\)
@@ -668,7 +657,7 @@
               \]
             </div>
 
-<p class="step-text">Expanding \((y-1)^2\) and \((x+1)^2\) gives that line of working.</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\displaystyle x^2+y^2-2y+1=x^2+2x+1+y^2\)
@@ -676,15 +665,16 @@
         },
         {
           title: raw`Cancel matching terms`,
-          previewHtml: raw`The \(x^2\), \(y^2\), and \(1\) terms cancel, leaving \(-2y=2x\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">The \(x^2\), \(y^2\), and \(1\) terms cancel, leaving \(-2y=2x\).</p>
+
             <div class="math-block">
               \[
               x^2+y^2-2y+1=x^2+2x+1+y^2
               \]
             </div>
 
-<p class="step-text">The \(x^2\), \(y^2\), and \(1\) terms cancel, leaving \(-2y=2x\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(-2y=2x\)
@@ -692,15 +682,16 @@
         },
         {
           title: raw`Make y the subject`,
-          previewHtml: raw`Dividing both sides by \(-2\) gives \(y=-x\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Dividing both sides by \(-2\) gives \(y=-x\).</p>
+
             <div class="math-block">
               \[
               -2y=2x
               \]
             </div>
 
-<p class="step-text">Dividing both sides by \(-2\) gives \(y=-x\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \(\displaystyle y=-x\)
@@ -716,7 +707,7 @@
               \]
             </div>
 
-<p class="step-text">In \(y=-x\), the coefficient of \(x\) is \(-1\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -829,21 +820,23 @@
       guidedSteps: [
         {
           title: raw`Split the numerator cleanly`,
-          previewHtml: raw`The numerator is \(15k^2+8+2ki\), so the pair is \((15k^2+8,2k)\).`,
-          workingHtml: raw`<p class="step-text">The numerator is \(15k^2+8+2ki\), so the pair is \((15k^2+8,2k)\).</p>
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">After rationalising, the real and imaginary coefficients share the positive denominator \(16+25k^2\):</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
   \[
-  \left(15 k^{2} + 8,\ 2 k\right)
+  w=\frac{15k^2+8}{16+25k^2}+\frac{2k}{16+25k^2}i
   \]
 </div>
 </div>`
         },
         {
           title: raw`Use y = x`,
-          previewHtml: raw`Matching the parts leads to \(15k^2+8=2k\), or \(15k^2-2k+8=0\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Matching the parts leads to \(15k^2+8=2k\), or \(15k^2-2k+8=0\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -855,8 +848,9 @@
         },
         {
           title: raw`Check the discriminant`,
-          previewHtml: raw`The discriminant is negative, so there are no real solutions for \(k\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The discriminant is negative, so there are no real solutions for \(k\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -867,7 +861,7 @@
         {
           title: raw`Finish the argument`,
           previewHtml: raw`No real \(k\) works, so \(w\) never lands on \(y=x\).`,
-          workingHtml: raw`<p class="step-text">No real \(k\) works, so \(w\) never lands on \(y=x\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   No real value of \(k\) works.
@@ -937,9 +931,6 @@
         </div>
         <p class="step-text">Write the complex number in the form \(a+bi\), where \(a\), \(b\), and \(k\) are real numbers, giving your answer in terms of \(k\).</p>
       `,
-      questionNotes: [
-        raw`When you type coefficient pairs, use \((a,b)\).`
-      ],
       hints: [
         raw`Multiply top and bottom by the conjugate of the denominator, \(2k-i\).`,
         raw`The denominator becomes \(4k^2+1\).`,
@@ -975,34 +966,36 @@
       guidedSteps: [
         {
           title: raw`Identify the conjugate`,
-          previewHtml: raw`The conjugate is \(2k-i\), so the pair is \((2k,-1)\).`,
-          workingHtml: raw`<p class="step-text">The conjugate is \(2k-i\), so the pair is \((2k,-1)\).</p>
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Conjugation changes the sign of the imaginary coefficient:</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
-  \((2k,-1)\)
+  \(\overline{2k+i}=2k-i\)
 </div>`
         },
         {
           title: raw`Simplify the numerator`,
-          previewHtml: raw`Since \(i^2=-1\), the numerator becomes \(1+2ki\), so the pair is \((1,2k)\).`,
-          workingHtml: raw`<p class="step-text">Since \(i^2=-1\), the numerator becomes \(1+2ki\), so the pair is \((1,2k)\).</p>
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Expand the numerator and use \(i^2=-1\):</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
   \[
-  \left(1,\ 2 k\right)
+  i(2k-i)=2ki-i^2=1+2ki
   \]
 </div>
 </div>`
         },
         {
           title: raw`Read off a and b`,
-          previewHtml: raw`So \(a=\frac{1}{4k^2+1}\) and \(b=\frac{2k}{4k^2+1}\).`,
-          workingHtml: raw`<p class="step-text">So \(a=\frac{1}{4k^2+1}\) and \(b=\frac{2k}{4k^2+1}\).</p>
+          previewHtml: raw`Split the rationalised quotient into its real term and its imaginary term.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
-                \left(\frac{1}{4k^2+1},\frac{2k}{4k^2+1}\right)
+                a=\frac{1}{4k^2+1},\qquad b=\frac{2k}{4k^2+1}
               \]
 </div>
 
@@ -1089,8 +1082,8 @@
       guidedSteps: [
         {
           title: raw`Write the discriminant condition`,
-          previewHtml: raw`That is the discriminant condition for equal roots.`,
-          workingHtml: raw`<p class="step-text">That is the discriminant condition for equal roots.</p>
+          previewHtml: raw`Equal roots require a zero discriminant. Substitute the coefficients into \(b^2-4ac=0\).`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1102,8 +1095,9 @@
         },
         {
           title: raw`Simplify the quadratic in r`,
-          previewHtml: raw`Expanding and collecting terms gives \(4r^2+28r-15=0\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Expanding and collecting terms gives \(4r^2+28r-15=0\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1115,8 +1109,9 @@
         },
         {
           title: raw`Solve for r`,
-          previewHtml: raw`The values are \(r=\frac{1}{2}\) and \(r=-\frac{15}{2}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The values are \(r=\frac{1}{2}\) and \(r=-\frac{15}{2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1240,8 +1235,8 @@
       guidedSteps: [
         {
           title: raw`Clear the denominator`,
-          previewHtml: raw`That is the clean starting point for solving for \(w\).`,
-          workingHtml: raw`<p class="step-text">That is the clean starting point for solving for \(w\).</p>
+          previewHtml: raw`Multiply by the denominator, keeping its nonzero restriction.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1252,7 +1247,7 @@
         {
           title: raw`Find w`,
           previewHtml: raw`So \(w=\frac{1}{2}-\frac{3}{2}i\).`,
-          workingHtml: raw`<p class="step-text">So \(w=\frac{1}{2}-\frac{3}{2}i\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1263,7 +1258,7 @@
         {
           title: raw`Find the modulus`,
           previewHtml: raw`\(|w|=\frac{\sqrt{10}}{2}\).`,
-          workingHtml: raw`<p class="step-text">\(|w|=\frac{\sqrt{10}}{2}\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1402,7 +1397,7 @@
         {
           title: raw`Use the conjugate root`,
           previewHtml: raw`The conjugate root is \(6+2i\).`,
-          workingHtml: raw`<p class="step-text">The conjugate root is \(6+2i\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1412,8 +1407,9 @@
         },
         {
           title: raw`Build the quadratic factor`,
-          previewHtml: raw`Multiplying the conjugate pair gives \(z^2-12z+40\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Multiplying the conjugate pair gives \(z^2-12z+40\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1425,8 +1421,9 @@
         },
         {
           title: raw`Find the remaining root`,
-          previewHtml: raw`The last factor is \(2z-5\), so the remaining roots are \(6+2i\) and \(\frac{5}{2}\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The last factor is \(2z-5\), so the remaining roots are \(6+2i\) and \(\frac{5}{2}\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1436,8 +1433,9 @@
         },
         {
           title: raw`Match the coefficient`,
-          previewHtml: raw`Expanding gives \(2z^3-29z^2+140z-200\), so \(d=-29\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Expanding gives \(2z^3-29z^2+140z-200\), so \(d=-29\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1569,8 +1567,8 @@
       guidedSteps: [
         {
           title: raw`Rewrite the locus`,
-          previewHtml: raw`That is the clean Cartesian version of the locus.`,
-          workingHtml: raw`<p class="step-text">That is the clean Cartesian version of the locus.</p>
+          previewHtml: raw`Write \(z=x+yi\) and express both moduli as distances.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1582,8 +1580,9 @@
         },
         {
           title: raw`Complete the square`,
-          previewHtml: raw`The locus is the circle \((x-5)^2+(y-3)^2=8\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The locus is the circle \((x-5)^2+(y-3)^2=8\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -1595,8 +1594,9 @@
         },
         {
           title: raw`Use x = 3`,
-          previewHtml: raw`Substituting \(x=3\) leaves \((y-3)^2=4\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Substituting \(x=3\) leaves \((y-3)^2=4\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1606,8 +1606,9 @@
         },
         {
           title: raw`Find u`,
-          previewHtml: raw`The two values are \(u=3+5i\) and \(u=3+i\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">The two values are \(u=3+5i\) and \(u=3+i\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1718,9 +1719,6 @@
         })}
         <p class="step-text">Show clearly, in the diagram below, the point representing \(w=z^2\).</p>
       `,
-      questionNotes: [
-        raw`When you type coordinates, use \((\text{real},\text{imaginary})\).`
-      ],
       hints: [
         raw`The point \((-2,3)\) means \(z=-2+3i\).`,
         raw`Square it the usual algebra way.`,
@@ -1770,7 +1768,7 @@
         {
           title: raw`Read z from the diagram`,
           previewHtml: raw`So \(z=-2+3i\).`,
-          workingHtml: raw`<p class="step-text">So \(z=-2+3i\).</p>
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1780,8 +1778,9 @@
         },
         {
           title: raw`Find the plotted point`,
-          previewHtml: raw`Squaring gives \(w=-5-12i\), so the point is \((-5,-12)\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">Squaring gives \(w=-5-12i\), so the point is \((-5,-12)\).</p>
+
             <div class="math-block">
               \[
               z=-2+3i
@@ -1794,7 +1793,7 @@
               \]
             </div>
 
-<p class="step-text">Squaring gives \(w=-5-12i\), so the point is \((-5,-12)\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -1925,8 +1924,9 @@
         },
         {
           title: raw`Solve for d`,
-          previewHtml: raw`The solutions are \(d=9\) and \(d=1\).`,
-          workingHtml: raw`
+          previewHtml: raw``,
+          workingHtml: raw`<p class="step-text">The solutions are \(d=9\) and \(d=1\).</p>
+
             <div class="math-block">
               \[
               9+d^2=10d
@@ -1939,7 +1939,7 @@
               \]
             </div>
 
-<p class="step-text">The solutions are \(d=9\) and \(d=1\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -2067,8 +2067,8 @@
       guidedSteps: [
         {
           title: raw`Expand the cube`,
-          previewHtml: raw`That is the expanded form of \(\left(x+\frac{1}{x}\right)^3\).`,
-          workingHtml: raw`<p class="step-text">That is the expanded form of \(\left(x+\frac{1}{x}\right)^3\).</p>
+          previewHtml: raw`Use the binomial expansion, then collect reciprocal terms.`,
+          workingHtml: raw`
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   <div class="math-block">
@@ -2080,8 +2080,9 @@
         },
         {
           title: raw`Substitute the given relation`,
-          previewHtml: raw`Since \(x+\frac{1}{x}=p\), the whole bracket becomes \(3p\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Since \(x+\frac{1}{x}=p\), the whole bracket becomes \(3p\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[
@@ -2091,8 +2092,9 @@
         },
         {
           title: raw`Isolate the target expression`,
-          previewHtml: raw`Rearranging gives \(x^3+\frac{1}{x^3}=p^3-3p\).`,
+          previewHtml: raw``,
           workingHtml: raw`<p class="step-text">Rearranging gives \(x^3+\frac{1}{x^3}=p^3-3p\).</p>
+
 <div class="answer-highlight walkthrough-answer-highlight">
   <p class="question-label">Key result</p>
   \[

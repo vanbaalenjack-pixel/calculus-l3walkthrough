@@ -19,10 +19,12 @@ const report = [];
 async function inspect(page, record) {
   const errors = [], failedRequests = [];
   const onError = e => errors.push(e.message);
+  const onConsole = message => { if(message.type()==='error') errors.push('console: '+message.text()); };
   const onResponse = r => { if(r.status() >= 400) failedRequests.push(r.status() + ' ' + r.url()); };
   const onFailed = r => failedRequests.push(r.url() + ' ' + JSON.stringify(r.failure()));
   page.on('requestfailed', onFailed);
   page.on('pageerror', onError); page.on('response', onResponse);
+  page.on('console', onConsole);
   try {
     await page.goto(origin + record.href, {waitUntil:'load'});
     await page.waitForFunction(() => window.__reviewConfig && document.querySelector('#question-card'));
@@ -30,7 +32,7 @@ async function inspect(page, record) {
     await page.evaluate(() => {
       const exam = document.querySelector('#exam-mode-setting');
       if (exam && exam.checked) exam.click();
-      document.querySelectorAll('.walkthrough-tip-toggle').forEach(b => b.click());
+      document.querySelectorAll('.walkthrough-tip-toggle').forEach(b => { b.click(); b.click(); b.click(); });
       const count = document.querySelectorAll('.walkthrough-step-card').length;
       for (let i=0; i<count; i++) {
         const current = document.querySelector('.walkthrough-step-card:not(.hidden)');
@@ -39,12 +41,24 @@ async function inspect(page, record) {
           const label = button.getAttribute('aria-label');
           if (!label || /[\\{}]|<[^>]+>/.test(label)) throw new Error('Unspoken mathematical label: ' + label);
         }
-        current.querySelector('.step-working-btn').click();
+        const prediction=current.querySelector('.walkthrough-prediction');
+        if(prediction && prediction.hidden)throw new Error('Prediction hidden before working at '+i);
+        const toggle=current.querySelector('.step-working-btn');
+        toggle.click();
         const panel=current.querySelector('.walkthrough-step-working');
         if(panel.getAttribute('aria-hidden') !== 'false' || !panel.textContent.trim()) throw new Error('Working did not reveal at ' + i);
+        if(prediction && !prediction.hidden)throw new Error('Prediction visible beside open working at '+i);
+        toggle.click();
+        if(panel.getAttribute('aria-hidden') !== 'true' || (prediction && prediction.hidden))throw new Error('Working/prediction did not close at '+i);
+        toggle.click();
+        if(i>0){
+          document.querySelector('#walkthrough-previous-btn').click();
+          document.querySelector('#walkthrough-next-btn').click();
+          if(current.getAttribute('aria-hidden')!=='false'||panel.getAttribute('aria-hidden')!=='false'||(prediction&&!prediction.hidden))throw new Error('State lost after previous/next at '+i);
+        }
         document.querySelector('#walkthrough-next-btn').click();
       }
-      if (document.querySelector('#walkthrough-next-btn').getAttribute('aria-label') !== 'Question complete') throw new Error('Question did not complete');
+      if (document.querySelector('#walkthrough-next-btn').getAttribute('aria-label') !== 'Walkthrough reviewed') throw new Error('Walkthrough did not finish');
     });
     const result = await page.evaluate(() => {
       const scope = document.querySelector('main');
@@ -61,17 +75,18 @@ async function inspect(page, record) {
       const malformed=[...scope.querySelectorAll('*')].filter(e=>e.namespaceURI==='http://www.w3.org/1999/xhtml'&&!valid.has(e.localName)).map(e=>e.outerHTML.slice(0,200));
       const brokenImages=[...scope.querySelectorAll('img')].filter(i=>i.loading!=='lazy'&&(!i.complete||!i.naturalWidth)).map(i=>i.src);
       const mathErrors=[...scope.querySelectorAll('.katex-error')].map(e=>e.textContent);
+      const invalidRects=[...scope.querySelectorAll('svg rect')].filter(e=>Number(e.getAttribute('height'))<0||Number(e.getAttribute('width'))<0).map(e=>e.outerHTML);
       const links=[...scope.querySelectorAll('a[href]')].map(e=>e.getAttribute('href'));
-      return {title:document.title,canonical:document.querySelector('link[rel=canonical]').href,h1:document.querySelector('h1').textContent,overflow:document.documentElement.scrollWidth>innerWidth+2,steps:config.guidedSteps.length,hints:config.tips.length,expectedMath:expected.length,actualMath:actual.length,missing,raw,malformed,brokenImages,mathErrors,links,questionText:document.querySelector('#question-card').textContent};
+      return {title:document.title,canonical:document.querySelector('link[rel=canonical]').href,h1:document.querySelector('h1').textContent,overflow:document.documentElement.scrollWidth>innerWidth+2,steps:config.guidedSteps.length,hints:config.tips.length,expectedMath:expected.length,actualMath:actual.length,missing,raw,malformed,brokenImages,mathErrors,invalidRects,links,questionText:document.querySelector('#question-card').textContent};
     });
     assert(!result.overflow, "Page-wide horizontal overflow");
     assert.equal(result.canonical, record.canonical);
     assert(result.h1.includes('Q'+record.label.replace('Question ','')), 'wrong question label');
     for(const link of result.links){const url=new URL(link,origin);if(url.origin===new URL(origin).origin){const f=path.join(root,'_site',decodeURIComponent(url.pathname)==='/'?'index.html':decodeURIComponent(url.pathname));assert(fs.existsSync(f),'missing local link '+link);}}
-    const issues = ['missing','raw','malformed','brokenImages','mathErrors'].flatMap(k=>result[k].map(v=>({kind:k,value:v})));
+    const issues = ['missing','raw','malformed','brokenImages','mathErrors','invalidRects'].flatMap(k=>result[k].map(v=>({kind:k,value:v})));
     report.push({href:record.href,steps:result.steps,hints:result.hints,expectedMath:result.expectedMath,actualMath:result.actualMath,issues,errors,failedRequests});
   } catch(error) { report.push({href:record.href,error:String(error),errors,failedRequests}); }
-  finally { page.off('pageerror',onError);page.off('response',onResponse);page.off('requestfailed',onFailed); }
+  finally { page.off('pageerror',onError);page.off('console',onConsole);page.off('response',onResponse);page.off('requestfailed',onFailed); }
 }
 
 (async()=>{
@@ -89,7 +104,7 @@ async function inspect(page, record) {
   await browser.close();
   report.sort((a,b)=>a.href.localeCompare(b.href));
   fs.mkdirSync(reviewDir,{recursive:true});
-  fs.writeFileSync(path.join(reviewDir,process.env.CALC_ROUTES ? 'browser-catalogue-subset.json' : 'browser-catalogue.json'),JSON.stringify({browser:'Chrome via Playwright',routes:report},null,2));
+  fs.writeFileSync(path.join(reviewDir,`browser-catalogue-${process.env.CALC_WIDTH||390}${process.env.CALC_ROUTES ? '-subset' : ''}.json`),JSON.stringify({browser:'Chrome via Playwright',routes:report},null,2));
   const failed=report.filter(r=>r.error||r.errors.length||r.failedRequests.length||r.issues.length);
   console.log(JSON.stringify({checked:report.length,failed:failed.length,examples:failed.slice(0,8)},null,2));
   process.exitCode=failed.length?1:0;

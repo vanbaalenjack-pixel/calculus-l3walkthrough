@@ -914,7 +914,7 @@
             \[3x=\ln2\]
             \[x=\frac{\ln2}{3}.\]
           </div>
-          <p class="step-text">Since \(\ln(2^{1/3})=\tfrac13\ln2\), the source's equivalent form is \(\ln(\sqrt[3]{2})\).</p>
+          <p class="step-text">Since \(\ln(2^{1/3})=\tfrac13\ln2\), an equivalent form is \(\ln(\sqrt[3]{2})\).</p>
           ${answerHighlight("Final answer", raw`<div class="math-block">\[\boxed{x=\frac{\ln2}{3}=\ln\left(\sqrt[3]{2}\right)}\]</div>`)}
         `)
       ]
