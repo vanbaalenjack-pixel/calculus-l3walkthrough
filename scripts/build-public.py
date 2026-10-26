@@ -20,7 +20,7 @@ def publication_inputs():
         raise ValueError('Sitemap publication inputs must be root-level HTML pages')
     pages |= {'404.html', 'integration-2017.html', 'integration-2019.html',
               'integration-2020.html', 'differentiation-2020.html'}
-    runtime = {'style.css', 'question-catalogue.js', 'walkthrough-gate.js',
+    runtime = {'practice-context.js', 'style.css', 'question-catalogue.js', 'walkthrough-gate.js',
                'walkthrough-audit-data.js', 'site-shell.js', 'index-loader.js',
                'index-page.js', 'search-core.js', 'search-page.js',
                'complex-walkthrough.js', 'differentiation-walkthrough.js',

@@ -51,17 +51,6 @@
       .replace(/"/g, "&quot;");
   }
 
-  function normaliseSearchText(value) {
-    if (window.CalcNzSearch && typeof window.CalcNzSearch.normalise === "function") {
-      return window.CalcNzSearch.normalise(value);
-    }
-    return String(value || "")
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
   function capitaliseSentence(value) {
     const text = String(value || "").trim();
     return text ? text.charAt(0).toUpperCase() + text.slice(1) : "Method summary unavailable.";
@@ -123,26 +112,6 @@
             question: question,
             key: paper.id + ":" + question.id
           };
-          const searchRecord = {
-            type: "Question",
-            title: question.label + " · " + (question.methodTitle || question.method),
-            description: question.methodPlain || question.method,
-            year: paper.year,
-            standard: standard.code + " " + standard.label,
-            keywords: [
-              level.label,
-              question.id,
-              Array.isArray(question.skillSlugs) ? question.skillSlugs.join(" ") : "",
-              paper.id
-            ].join(" ")
-          };
-          if (window.CalcNzSearch && typeof window.CalcNzSearch.prepareRecord === "function") {
-            entry.haystack = window.CalcNzSearch.prepareRecord(searchRecord).haystack;
-          } else {
-            entry.haystack = normaliseSearchText(Object.keys(searchRecord).map(function (key) {
-              return searchRecord[key];
-            }).join(" "));
-          }
           questions.push(entry);
           questionsByKey[entry.key] = entry;
         });
@@ -459,21 +428,12 @@
     }
   }
 
-  function addGuidedModeToHref(href) {
-    if (!href) {
-      return "";
-    }
-    const url = new URL(href, window.location.href);
-    url.searchParams.set("mode", "guided");
-    return url.pathname + url.search + url.hash;
-  }
-
   function makeSelection(levelId, standardId, paperId, paperView) {
     return {
       levelId: levelId || null,
       standardId: standardId || null,
       paperId: paperId || null,
-      paperView: paperId ? (paperView === "questions" ? "questions" : "entry") : null
+      paperView: paperId ? "questions" : null
     };
   }
 
@@ -544,9 +504,6 @@
   }
 
   function parentSelection(selection) {
-    if (selection.paperId && selection.paperView === "questions") {
-      return makeSelection(selection.levelId, selection.standardId, selection.paperId);
-    }
     if (selection.paperId) {
       return makeSelection(selection.levelId, selection.standardId);
     }
@@ -563,7 +520,6 @@
   const backButtonLabel = document.querySelector("[data-selection-back-label]");
   const breadcrumb = document.querySelector("[data-selection-breadcrumb]");
   const selectionStatus = document.querySelector("[data-selection-status]");
-  const revealLevelPickerButton = document.querySelector("[data-reveal-level-picker]");
   let activeSelection = makeSelection();
 
   function choiceButton(attributes, title, copy) {
@@ -616,31 +572,12 @@
       + '<div class="year-picker-grid paper-picker-grid">'
       + (standard.papers || []).map(function (paper) {
         const progress = progressForPaper(paper);
-        const progressText = progress.attempted + " of " + progress.total + " attempted · "
-          + progress.reviewed + " reviewed · "
-          + progress.solvedIndependent + " solved independently";
+        const progressText = progress.reviewed ? progress.reviewed + "/" + progress.total + " reviewed" : progress.total + " questions";
         return '<button class="nav-btn secondary year-option" type="button" data-paper="' + escapeHomeHtml(paper.id) + '" data-parent-standard="' + escapeHomeHtml(standard.id) + '">'
           + '<span class="year-option-title">' + escapeHomeHtml(paper.label) + '</span>'
           + '<span class="year-option-copy" data-paper-progress="' + escapeHomeHtml(paper.id) + '">' + escapeHomeHtml(progressText) + '</span></button>';
       }).join("")
       + '</div><p class="home-directory-link"><a class="site-footer-link" href="' + escapeHomeHtml(standard.landingHref) + '">View the full ' + escapeHomeHtml(standard.label) + ' directory</a></p></div>';
-  }
-
-  function renderPaperEntryStage(selection) {
-    const context = papersById[selection.paperId];
-    const paper = context.paper;
-    const firstQuestion = paper.questions && paper.questions[0];
-    const progress = progressForPaper(paper);
-    stageContainer.innerHTML = '<div id="' + escapeHomeHtml(paper.id) + '" class="home-dynamic-stage paper-year-panel" data-paper-panel="' + escapeHomeHtml(paper.id) + '" data-parent-standard="' + escapeHomeHtml(context.standard.id) + '"><div class="paper-entry-choice">'
-      + '<p class="question-label">' + escapeHomeHtml(context.standard.label + " · " + paper.year + " paper") + '</p>'
-      + '<h2 id="selection-stage-heading" tabindex="-1">Where would you like to start?</h2>'
-      + '<p class="paper-progress-chip">' + progress.attempted + " of " + progress.total + " attempted · " + progress.reviewed + " reviewed · " + progress.solvedIndependent + ' solved independently</p>'
-      + '<p class="step-text paper-entry-intro">Begin with the first question, jump to a specific part, or view all questions in this paper.</p>'
-      + '<div class="year-picker-grid paper-entry-grid">'
-      + '<a class="nav-btn secondary year-option paper-entry-option" data-paper-start-guided href="' + escapeHomeHtml(firstQuestion ? addGuidedModeToHref(firstQuestion.href) : context.standard.landingHref) + '"><span class="year-option-title">From the start</span><span class="year-option-copy">Begin with ' + escapeHomeHtml(firstQuestion ? firstQuestion.label : "the paper") + ' as a guided lesson.</span></a>'
-      + '<button class="nav-btn secondary year-option paper-entry-option" data-paper-start-specific type="button"><span class="year-option-title">A specific question</span><span class="year-option-copy">Open only this paper’s question menu.</span></button>'
-      + '<a class="nav-btn secondary year-option paper-entry-option" href="' + escapeHomeHtml(paper.landingHref) + '"><span class="year-option-title">Paper overview</span><span class="year-option-copy">Browse every question and source link for this paper.</span></a>'
-      + '</div></div></div>';
   }
 
   function questionCardHtml(entry) {
@@ -667,7 +604,7 @@
     stageContainer.innerHTML = '<div id="' + escapeHomeHtml(context.paper.id) + '" class="home-dynamic-stage paper-year-panel" data-paper-panel="' + escapeHomeHtml(context.paper.id) + '" data-parent-standard="' + escapeHomeHtml(context.standard.id) + '"><div class="paper-question-picker">'
       + '<div class="paper-stage-header"><p class="question-label">' + escapeHomeHtml(context.standard.label + " · " + context.paper.year + " paper") + '</p>'
       + '<h2 id="selection-stage-heading" tabindex="-1">Choose a question</h2>'
-      + '<p class="step-text">Only questions from this paper are shown.</p></div>'
+      + '<a class="ghost-link" href="' + escapeHomeHtml(context.paper.questions[0].href) + '">Start paper</a><a class="ghost-link" href="' + escapeHomeHtml(context.paper.landingHref) + '">Paper information &amp; sources</a></div>'
       + Object.keys(groups).sort().map(function (group) {
         return '<div class="index-group"><p class="question-label index-group-label">Question ' + escapeHomeHtml(group) + '</p><div class="nav-row index-nav">'
           + groups[group].map(questionCardHtml).join("") + '</div></div>';
@@ -677,7 +614,7 @@
   }
 
   function updateBreadcrumb(selection) {
-    const visible = Boolean(selection.levelId);
+    const visible = Boolean(selection.standardId);
     flowNavigation.hidden = !visible;
     flowNavigation.classList.toggle("hidden", !visible);
     breadcrumb.textContent = "";
@@ -721,7 +658,7 @@
     });
 
     if (selection.paperView === "questions") {
-      backButtonLabel.textContent = "Back to start options";
+      backButtonLabel.textContent = "Back to paper years";
     } else if (selection.paperId) {
       backButtonLabel.textContent = "Back to paper years";
     } else if (selection.standardId) {
@@ -850,7 +787,7 @@
     } else if (next.paperView === "questions") {
       renderQuestionStage(next);
     } else if (next.paperId) {
-      renderPaperEntryStage(next);
+      renderQuestionStage(next);
     } else if (next.standardId) {
       renderPaperStage(next);
     } else if (next.levelId) {
@@ -896,12 +833,6 @@
         navigateToSelection(makeSelection(context.level.id, context.standard.id, context.paper.id));
       });
     });
-    const questionPickerButton = stageContainer.querySelector("[data-paper-start-specific]");
-    if (questionPickerButton) {
-      questionPickerButton.addEventListener("click", function () {
-        navigateToSelection(makeSelection(activeSelection.levelId, activeSelection.standardId, activeSelection.paperId, "questions"));
-      });
-    }
   }
 
   function createHistoryState(selection, cameFromHash, scrollY) {
@@ -946,13 +877,6 @@
   if (backButton) {
     backButton.addEventListener("click", navigateBackOneStep);
   }
-  if (revealLevelPickerButton) {
-    revealLevelPickerButton.addEventListener("click", function (event) {
-      event.preventDefault();
-      navigateToSelection(makeSelection(levelsById["level-3"] ? "level-3" : null), "push");
-    });
-  }
-
   window.addEventListener("popstate", function (event) {
     const state = event.state && event.state.selectionFlow ? event.state : null;
     const selection = selectionFromHash(window.location.hash) || (state ? selectionFromHash(state.selectionHash) : null);
@@ -990,96 +914,10 @@
     }
     // Catalogue URLs are the current contract; stored hrefs remain readable
     // for compatibility but cannot pin students to an obsolete route forever.
-    const href = entry.question.href || record.href;
+    const href = record.practice && window.CalcNzPractice ? window.CalcNzPractice.withContext(entry.question.href, record.practice) : entry.question.href;
     const title = "Continue " + entry.paper.year + " " + entry.standard.label + " · " + entry.question.label;
     card.hidden = false;
-    card.innerHTML = '<div class="home-continue-copy"><p class="question-label">Continue where you left off</p><h2 id="homepage-continue-heading">' + escapeHomeHtml(title) + '</h2><p class="step-text">Pick up from your most recent walkthrough.</p></div><a class="nav-btn home-continue-button" href="' + escapeHomeHtml(href) + '">Continue ' + escapeHomeHtml(entry.question.label) + '</a>';
-  }
-
-  function scoreSearchResult(entry, tokens, query) {
-    let score = 0;
-    const title = normaliseSearchText(entry.question.label);
-    const method = normaliseSearchText(entry.question.methodPlain || entry.question.method);
-    const standard = normaliseSearchText(entry.standard.label + " " + entry.standard.code);
-    tokens.forEach(function (token) {
-      if (title.indexOf(token) >= 0) {
-        score += 6;
-      }
-      if (standard.indexOf(token) >= 0) {
-        score += 5;
-      }
-      if (String(entry.paper.year) === token) {
-        score += 5;
-      }
-      if (method.indexOf(token) >= 0) {
-        score += 3;
-      }
-    });
-    if (entry.haystack.indexOf(query) >= 0) {
-      score += 4;
-    }
-    return score;
-  }
-
-  function setupSearch() {
-    const searchSection = document.getElementById("walkthrough-site-search");
-    if (!searchSection) {
-      return;
-    }
-    const input = searchSection.querySelector("#walkthrough-search-input");
-    const form = searchSection.querySelector(".home-search-form");
-    const resultsContainer = searchSection.querySelector("[data-search-results]");
-    const searchStatus = searchSection.querySelector("[data-search-status]");
-
-    function renderSearchResults() {
-      const query = normaliseSearchText(input.value);
-      const tokens = query ? query.split(" ").filter(Boolean) : [];
-      if (!tokens.length) {
-        resultsContainer.hidden = true;
-        resultsContainer.innerHTML = "";
-        if (searchStatus) searchStatus.textContent = "";
-        return;
-      }
-      const matches = questions.filter(function (entry) {
-        const haystackTokens = entry.haystack.split(" ").filter(Boolean);
-        return tokens.every(function (token) {
-          return haystackTokens.indexOf(token) >= 0;
-        });
-      }).map(function (entry) {
-        return { entry: entry, score: scoreSearchResult(entry, tokens, query) };
-      }).sort(function (first, second) {
-        return second.score - first.score
-          || second.entry.paper.year - first.entry.paper.year
-          || first.entry.question.label.localeCompare(second.entry.question.label);
-      }).slice(0, 12).map(function (result) {
-        return result.entry;
-      });
-
-      resultsContainer.hidden = false;
-      if (!matches.length) {
-        resultsContainer.innerHTML = '<p class="home-search-empty">No matching walkthroughs found. Try a method, year, or standard number.</p>';
-        if (searchStatus) searchStatus.textContent = "No matching walkthroughs found.";
-        return;
-      }
-      if (searchStatus) searchStatus.textContent = matches.length + " matching walkthroughs shown.";
-      resultsContainer.innerHTML = '<ol class="home-search-result-list">'
-        + matches.map(function (entry) {
-          return '<li><a class="home-search-result" href="' + escapeHomeHtml(entry.question.href) + '"><span class="home-search-result-meta"><span class="search-result-type">Question</span> · ' + escapeHomeHtml(entry.paper.year + " · " + entry.standard.label + " · " + entry.standard.code) + '</span><span class="home-search-result-title">' + escapeHomeHtml(entry.question.label + " · " + (entry.question.methodTitle || "Worked solution")) + '</span><span class="home-search-result-copy">' + escapeHomeHtml(entry.question.methodPlain || capitaliseSentence(entry.question.method)) + '</span></a></li>';
-        }).join("") + '</ol>';
-      renderHomeMath(resultsContainer);
-    }
-
-    input.addEventListener("input", renderSearchResults);
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-      const first = resultsContainer.querySelector("a.home-search-result");
-      if (first) {
-        window.location.href = first.href;
-      }
-    });
-    if (input.value.trim()) {
-      renderSearchResults();
-    }
+    card.innerHTML = '<div class="home-continue-copy"><p class="question-label">Continue where you left off</p><h2 id="homepage-continue-heading">' + escapeHomeHtml(title) + '</h2></div><a class="nav-btn home-continue-button" href="' + escapeHomeHtml(href) + '">Continue ' + escapeHomeHtml(entry.question.label) + '</a>';
   }
 
   function hasStandaloneContext(entry) {
@@ -1185,11 +1023,21 @@
     };
   }
 
+  function updatePracticeSetResume(practiceSet) {
+    const resume = document.getElementById("resume-practice-set");
+    if (!resume) return;
+    resume.hidden = !practiceSet;
+    if (!practiceSet) return;
+    resume.textContent = "Resume practice set · " + practiceSet.entries.length + " questions";
+    resume.href = window.CalcNzPractice.withContext(practiceSet.entries[0].question.href, {kind:"set", keys:practiceSet.entries.map(entry => entry.paper.id + ":" + entry.question.id)});
+  }
+
   function renderPracticeSet(output, practiceSet, status) {
+    updatePracticeSetResume(practiceSet);
     output.hidden = false;
-    output.innerHTML = '<div class="home-practice-result-heading"><p class="question-label">' + practiceSet.minutes + '-minute self-timed set</p><h3>Your ' + practiceSet.entries.length + '-question practice set</h3><p class="step-text">Work at your own pace or use your own timer. The durations are suggestions, not calibrated estimates. Choose your own timer; the set does not infer difficulty or grade level.</p></div><ol class="home-practice-set-list">'
+    output.innerHTML = '<h3>' + practiceSet.entries.length + '-question practice set</h3><ol class="home-practice-set-list">'
       + practiceSet.entries.map(function (entry, index) {
-        return '<li><a class="home-practice-set-link" href="' + escapeHomeHtml(entry.question.href) + '"><span>' + (index + 1) + '. ' + escapeHomeHtml(entry.paper.year + " " + entry.standard.label + " · " + entry.question.label) + '</span><small>' + escapeHomeHtml(entry.question.methodPlain || capitaliseSentence(entry.question.method)) + '</small></a></li>';
+        return '<li><a class="home-practice-set-link" href="' + escapeHomeHtml(window.CalcNzPractice.withContext(entry.question.href, {kind:'set', keys:practiceSet.entries.map(e => e.paper.id + ':' + e.question.id)})) + '"><span>' + (index + 1) + '. ' + escapeHomeHtml(entry.paper.year + " " + entry.standard.label + " · " + entry.question.label) + '</span><small>' + escapeHomeHtml(entry.question.methodPlain || capitaliseSentence(entry.question.method)) + '</small></a></li>';
       }).join("") + '</ol>';
     renderHomeMath(output);
     if (status) {
@@ -1232,6 +1080,15 @@
     }
 
     const savedSet = normalisePracticeSet(readStoredJson(storageKeys.practiceSet, null));
+    updatePracticeSetResume(savedSet);
+    function refreshSavedSet() {
+      const current = normalisePracticeSet(readStoredJson(storageKeys.practiceSet, null));
+      updatePracticeSetResume(current);
+      if (current && current.scope === scopeSelect.value) renderPracticeSet(output,current,status);
+      else output.hidden = true;
+    }
+    window.addEventListener("pageshow", refreshSavedSet);
+    window.addEventListener("storage", event => {if (event.key === storageKeys.practiceSet) refreshSavedSet();});
     if (savedSet && savedSet.scope === initialScope && savedSet.entries.every(hasStandaloneContext)) {
       renderPracticeSet(output, savedSet, status);
     }
@@ -1385,6 +1242,7 @@
       if (practiceScope && practiceScope.querySelector('option[value="level:level-3"]')) {
         practiceScope.value = "level:level-3";
       }
+      const resume = document.getElementById("resume-practice-set"); if (resume) resume.hidden = true;
       updateCounts();
       updateContinueCard();
       updateLevelThreeProgress();
@@ -1398,7 +1256,6 @@
 
   updateAvailabilityLine();
   updateStorageDescription();
-  setupSearch();
   setupPracticeTools();
   setupLocalLibrary();
   updateContinueCard();

@@ -208,7 +208,9 @@ def split_paper_id(paper_id: str) -> tuple[StandardSpec, int] | None:
 def normalise_logical_route(href: str) -> str:
     parsed = urlsplit(html.unescape(href.strip()))
     path = unquote(parsed.path).lstrip("/")
-    return path + ("?" + parsed.query if parsed.query else "")
+    # Practice context changes the sequence, not the mathematical question identity.
+    query = "&".join(pair for pair in parsed.query.split("&") if pair and pair.split("=", 1)[0] != "practice")
+    return path + ("?" + query if query else "")
 
 
 def derive_part(spec: StandardSpec, year: int, href: str) -> str | None:

@@ -165,7 +165,9 @@ def normalise_space(value: object) -> str:
 def normalise_url_path(value: str) -> str:
     parsed = urlsplit(html.unescape(value.strip()))
     path = unquote(parsed.path).lstrip("/")
-    return path + ("?" + parsed.query if parsed.query else "")
+    # Practice context changes the sequence, not the mathematical question identity.
+    query = "&".join(pair for pair in parsed.query.split("&") if pair and pair.split("=", 1)[0] != "practice")
+    return path + ("?" + query if query else "")
 
 
 def absolute_url(value: str) -> str:
@@ -1297,31 +1299,20 @@ def validate_shared_accessibility_contract(root: Path, failures: Failures) -> No
     except (OSError, UnicodeError) as error:
         failures.add(f"shared accessibility assets cannot be read ({error})")
         return
+    # Progressive hints and one-action solutions replace individual working disclosures.
+    # Full focus/visibility journeys are exercised by browser-minimal-ux.cjs.
     runtime_requirements = {
-        "skip-link creation": r"className\s*=\s*[\"']skip-link[\"']",
-        "working reveal aria-controls": r"aria-controls=[\"']walkthrough-step-\$\{stepNumber\}-working",
-        "working reveal aria-expanded": r"aria-expanded=[\"']false[\"']",
-        "step-specific working accessible name": r"Show working for Step",
-        "exam-mode reveal disclosure relationship": (
-            r"revealButton\.setAttribute\([\"']aria-controls[\"']"
-            r"[\s\S]{0,300}revealButton\.setAttribute\([\"']aria-expanded[\"']"
-        ),
-        "logical focus after exam-mode reveal": r"focusRevealedContent\(",
-        "final-answer disclosure relationship": (
-            r"nextButton\.setAttribute\([\"']aria-controls[\"']"
-            r"[\s\S]{0,300}nextButton\.setAttribute\([\"']aria-expanded[\"']"
-        ),
-        "mobile progress indicator": r"walkthrough-mobile-progress",
-        "sidebar progress group semantics": (
-            r"walkthrough-sidebar-progress[\"']\s+role=[\"']group[\"']"
-        ),
-        "question-save group semantics": (
-            r"question-personal-actions[\"']\s+role=[\"']group[\"']"
-        ),
-        "logical focus after final answer": (
-            r"walkthroughComplete\s*=\s*true[\s\S]{0,300}focusRevealedContent\("
-        ),
-        "logical focus after step navigation": r"heading\.focus\s*\(",
+        "skip-link creation": r'className\s*=\s*["\']skip-link["\']',
+        "hint disclosure relationship": r'aria-controls="hints-card"',
+        "solution disclosure relationship": r'aria-controls="walkthrough-content"',
+        "solution expanded state": r'solutionButton.setAttribute\("aria-expanded", "true"\)',
+        "solution step navigation name": r'aria-label="Solution steps"',
+        "solution progress announcement": r'walkthrough-progress-status.*?role="status"',
+        "sidebar progress group semantics": r'walkthrough-sidebar-progress["\']\s+role=["\']group',
+        "question-save group semantics": r'question-personal-actions["\']\s+role=["\']group',
+        "logical focus after step navigation": r'focusWithoutPageScroll\(heading\)',
+        "original question modal semantics": r'dialog.showModal\(\)',
+        "original question modal focus restoration": r'dialog.addEventListener\("close"',
         "KaTeX auto-render with MathML default": r"renderMathInElement",
     }
     for label, pattern in runtime_requirements.items():
@@ -1356,16 +1347,10 @@ def validate_shared_accessibility_contract(root: Path, failures: Failures) -> No
         "44px no-JavaScript details target": (
             r"\.static-first-step-working\s*>\s*summary\s*\{[^}]*min-height:\s*44px"
         ),
-        "solid off-state setting boundary": (
-            r"\.walkthrough-setting-switch\s*\{[^}]*border:\s*1px\s+solid\s+#[0-9a-f]{6}"
-        ),
-        "solid home search boundary": (
-            r"\.home-search-input\s*\{[^}]*border:\s*1px\s+solid\s+#[0-9a-f]{6}"
-        ),
-        "mobile walkthrough drawer trigger remains visible": (
-            r"\.seo-breadcrumbs\s*\+\s*\.topbar\s+\.ghost-link:not\("
-            r"\.walkthrough-sidebar-open-toggle\)\s*\{[^}]*display:\s*none"
-        ),
+        "native saved preference controls": r'input\[type="checkbox"\]',
+        "search field boundary": r'input\[type="search"\][^{]*\{[^}]*border:1px solid var\(--border-strong\)',
+        "mobile question drawer trigger target": r'\.walkthrough-sidebar-toggle\s*\{[^}]*min-height:44px',
+
     }
     for label, pattern in style_requirements.items():
         if not re.search(pattern, styles, re.I):
@@ -2244,8 +2229,10 @@ def validate_walkthroughs(
         expected_next = siblings[index + 1].href if index + 1 < len(siblings) else ""
         for relation, expected in (("previous", expected_previous), ("next", expected_next)):
             links = attr_links(parser, "data-seo-related", relation)
-            if len(links) != 1:
-                failures.add(f"{source_file}: expected one {relation} related control")
+            if len(links) != (1 if expected else 0):
+                failures.add(f"{source_file}: incorrect number of {relation} related controls")
+                continue
+            if not links:
                 continue
             link = links[0]
             actual = link.attrs.get("href", "")
@@ -2920,7 +2907,7 @@ def validate_homepage_architecture(
         unquote(urlsplit(element.attrs.get("src", "")).path).split("/")[-1]
         for element in parser.find("script")
     }
-    required_lazy_scripts = {"site-shell.js", "search-core.js", "index-loader.js"}
+    required_lazy_scripts = {"site-shell.js", "practice-context.js", "index-loader.js"}
     missing_lazy_scripts = sorted(required_lazy_scripts - script_names)
     if missing_lazy_scripts:
         failures.add(
@@ -2972,7 +2959,6 @@ def validate_homepage_architecture(
                 "atomic live region; announce its dedicated status instead"
             )
     for status_attribute in (
-        "data-search-status",
         "data-practice-status",
         "data-library-status",
     ):
@@ -3000,10 +2986,8 @@ def validate_homepage_architecture(
     for token in (
         CATALOGUE_FILE,
         "index-page.js",
-        "IntersectionObserver",
         "focusin",
         "deferredActivationPending",
-        'dispatchEvent(new Event("input"',
         "requestHomepageTools();",
     ):
         if token not in loader:

@@ -18,31 +18,9 @@ const authored=ctx.normaliseGuidedStep({...old,previewHtml:'Use the chain rule.'
 assert.equal(authored.previewHtml,'Use the chain rule.');assert(!ctx.renderProgressiveStep(authored,0).includes(retired));
 assert.equal(ctx.normaliseGuidedStep({title:'Plan',previewHtml:'Which rule applies?'},0).predictionPrompt,'');
 assert.equal(ctx.normaliseGuidedStep({title:'Plan',predictionPrompt:''},0).predictionPrompt,'');
-// Run the real disclosure handlers with only the small DOM surface they use.
-// This guards open/closed and previous/next state in CI without a browser dependency.
-function element(){const classes=new Set();return {dataset:{},hidden:false,attrs:{},handlers:{},
-  classList:{toggle(k,on){on?classes.add(k):classes.delete(k);},contains(k){return classes.has(k);}},
-  setAttribute(k,v){this.attrs[k]=v;},removeAttribute(k){delete this.attrs[k];},
-  hasAttribute(k){return k in this.attrs;},addEventListener(k,fn){this.handlers[k]=fn;},click(){this.handlers.click?.();}};}
-const cards=[element(),element()],toggles=[element(),element()],panels=[element(),element()],prompts=[element(),element()];
-const ids={};cards.forEach((card,i)=>{
-  const heading=element();card.querySelector=s=>s==='h2'?heading:prompts[i];
-  toggles[i].dataset.workingStep=String(i);ids[`walkthrough-step-${i+1}-working`]=panels[i];
-  panels[i].classList.toggle('hidden',true);
-});
-for(const id of ['walkthrough-previous-btn','walkthrough-next-btn','walkthrough-progress-status','walkthrough-mobile-progress-label','walkthrough-mobile-progress-meter','walkthrough-final-nav'])ids[id]=element();
-document.getElementById=id=>ids[id];ctx.window.setTimeout=()=>{};
-ctx.enhanceWalkthroughMathOverflow=()=>{};ctx.focusRevealedContent=()=>{};ctx.markCurrentWalkthroughPartComplete=()=>{};
-const mount={querySelectorAll(s){return s==='.walkthrough-step-card'?cards:s==='.step-working-btn'?toggles:[];},
-  querySelector(s){return toggles[Number(s.match(/\d+/)[0])];}};
-ctx.attachProgressiveWalkthroughHandlers({guidedSteps:[{accessibleTitle:'First',workingHtml:'First working'},{accessibleTitle:'Second',workingHtml:'Final working'}]},mount);
-toggles[0].click();assert(prompts[0].hidden);assert.equal(panels[0].attrs['aria-hidden'],'false');
-toggles[0].click();assert(!prompts[0].hidden);assert.equal(panels[0].attrs['aria-hidden'],'true');
-toggles[0].click();ids['walkthrough-next-btn'].click();ids['walkthrough-previous-btn'].click();
-assert(prompts[0].hidden);assert.equal(toggles[0].attrs['aria-expanded'],'true');
-ids['walkthrough-next-btn'].click();ids['walkthrough-next-btn'].click();
-assert(prompts[1].hidden);assert.equal(ids['walkthrough-next-btn'].textContent,'Walkthrough reviewed');
-toggles[1].click();assert(!prompts[1].hidden);assert.equal(ids['walkthrough-next-btn'].attrs['aria-expanded'],'false');
+// Browser behaviour is covered by browser-minimal-ux.cjs; retain mathematical
+// content checks here without simulating the retired per-working reveal controls.
+const ids={}; document.getElementById=id=>ids[id];
 // SVG screen coordinates increase downwards: the path strip must have a
 // positive height while the five measured garden ordinates stay unchanged.
 vm.runInContext(fs.readFileSync(path.join(root,'walkthrough-audit-data.js'),'utf8'),ctx);

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en-NZ">
 <head>
-  <meta charset="UTF-8" />
+<script defer src="practice-context.js?v=20261026-1"></script>
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stationary Points and Optimisation Worked Solution – 2016 NCEA Level 3 Q2(e) (AS91578) | Calc.nz</title>
 <!-- SEO:HEAD:START -->
@@ -91,23 +92,23 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20261018-1" />
+<link rel="stylesheet" href="style.css?v=20261026-1" />
 
   <link rel="stylesheet" href="assets/katex/katex.min.css">
   <script defer src="assets/katex/katex.min.js"></script>
   <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20261018-1"></script>
-  <script defer src="walkthrough-gate.js?v=20261018-1"></script>
-<script defer src="differentiation-walkthrough.js?v=20261018-1"></script>
-  <script defer src="differentiation-2016-data.js?v=20261018-1"></script>
+<script defer src="walkthrough-audit-data.js?v=20261026-1"></script>
+  <script defer src="walkthrough-gate.js?v=20261026-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20261026-1"></script>
+  <script defer src="differentiation-2016-data.js?v=20261026-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
   <script>window.CALC_NZ_SKILL_LABELS = {"chain-rule": "Chain rule", "product-quotient-rules": "Product and quotient rules", "related-rates": "Related rates", "stationary-points-optimisation": "Stationary points and optimisation", "parametric-differentiation": "Parametric differentiation", "antidifferentiation": "Antidifferentiation", "integration-techniques": "Integration techniques", "differential-equations": "Differential equations", "complex-number-algebra": "Complex-number algebra", "polar-form-de-moivre": "Polar form and De Moivre", "differentiation-basics": "Differentiation rules", "tangents-normals": "Tangents and normals", "graphs-and-derivatives": "Graphs, signs and limits", "implicit-differentiation": "Implicit differentiation", "definite-integrals-area": "Definite integrals and area", "algebraic-methods": "Algebraic methods", "complex-loci-modulus": "Complex loci and modulus"};</script>
   <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-differentiation-2016", "year": 2016}, "question": {"canonical": "https://calc.nz/2e2016.html", "commonMistake": "Check the feasible domain. Justify a maximum using derivative signs, concavity or endpoints unless the question explicitly says a proof is unnecessary.", "description": "2016 NCEA Level 3 Differentiation AS91578 Question 2(e) worked solution: maximising the volume of a cone inside a sphere. Use guided hints and step-by-step…", "guideLinks": [], "id": "2e", "label": "Question 2(e)", "method": "maximising the volume of a cone inside a sphere.", "methodTitle": "Stationary Points and Optimisation", "relatedPractice": {"href": "1d2024.html", "label": "2024 Differentiation · Q1(d)"}, "reviewStatus": "unreviewed", "skillSlugs": ["stationary-points-optimisation"], "summary": "This walkthrough helps you practise maximising the volume of a cone inside a sphere. Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Stationary Points and Optimisation Worked Solution – 2016 NCEA Level 3 Q2(e) (AS91578) | Calc.nz", "updatedDate": "2026-10-18"}, "standard": {"code": "AS91578", "id": "level-3-differentiation", "label": "Differentiation"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20261018-1"></script>
+  <script defer src="site-shell.js?v=20261026-1"></script>
 </head>
-<body class="has-site-header">
+<body class="has-site-header question-page">
 <!-- SEO:SITE_HEADER:START -->
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <header class="site-header">
@@ -139,18 +140,10 @@
   </nav>
   <!-- SEO:BREADCRUMBS:END -->
 
-<header class="topbar">
-      <div>
-        <p id="page-eyebrow" class="eyebrow">Level 3 Differentiation Walkthrough</p>
-        <h1 id="page-title">2016 Differentiation · Q2(e)</h1>
-        <p id="page-subtitle" class="subtitle">2016 Paper</p>
-      </div>
-      <a id="back-link" class="ghost-link" href="level-3-differentiation-2016.html">← Back to paper</a>
-    </header>
+<header class="topbar question-context"><div><p id="page-eyebrow" class="visually-hidden">NCEA Level 3 AS91578</p><h1 id="page-title">Differentiation · 2016 · Q2(e)</h1><p id="page-subtitle" class="visually-hidden">2016 Paper</p></div><a id="back-link" class="visually-hidden" href="level-3-differentiation-2016.html">Back to paper</a></header>
 
     <!-- SEO:WALKTHROUGH_FALLBACK:START -->
     <section id="question-card" class="question-card static-walkthrough-question" data-prerendered="true">
-      <p class="question-label">Question</p>
 
       <p class="step-text">A cone of height \(h\) and radius \(r\) is inscribed, as shown, inside a sphere of radius \(6\text{ cm}\).</p>
             <p class="step-text">The base of the cone is \(s\text{ cm}\) below the \(x\)-axis.</p>
@@ -193,12 +186,13 @@
 
       <noscript><p class="question-note">Bookmarks, retry marks, exam mode, and the pinned-question setting need JavaScript. The question and first learning step remain available.</p></noscript>
     </section>
-    <section id="hints-card" class="question-card tips-card static-walkthrough-support" data-prerendered="true">
+    <nav id="walkthrough-part-navigation" class="walkthrough-part-navigation" aria-label="Question navigation"><a class="ghost-link" rel="prev" data-seo-related="previous" href="2d2016.html">← Previous question</a><span class="sequence-position">10 / 15</span><a class="ghost-link" rel="next" data-seo-related="next" href="3a2016.html">Next question →</a></nav>
+<details id="hints-card" class="question-card tips-card static-walkthrough-support" data-prerendered="true"><summary>Hint</summary>
       <p class="question-label">First walkthrough idea</p>
       <h2 id="static-first-idea-heading">Focus to try first</h2>
       <p class="step-text">Express the cone's height and radius in terms of s, build its volume function, and find the valid stationary value.</p>
-    </section>
-    <div id="walkthrough-content" class="static-walkthrough-content" data-prerendered="true">
+    </details>
+    <details id="walkthrough-content" class="static-walkthrough-content" data-prerendered="true"><summary>First worked step</summary>
       <section class="step-card static-first-step" aria-labelledby="static-first-step-heading">
         <p class="step-number">Step 1</p>
         <h2 id="static-first-step-heading">Relate the cone dimensions to s</h2>
@@ -214,7 +208,7 @@
         </details>
       </section>
       <noscript><p class="question-note">This no-JavaScript view shows the question, the first idea, and the first worked step. Enable JavaScript for all reveals, progress controls, and saved practice features.</p></noscript>
-    </div>
+    </details>
     <!-- SEO:WALKTHROUGH_FALLBACK:END -->
 
     <!-- SEO:OVERVIEW:START -->
@@ -230,25 +224,19 @@
     <!-- SEO:OVERVIEW:END -->
 
     <!-- SEO:SUMMARY:START -->
-    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-      <p class="question-label">Learning summary</p>
-      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough helps you practise maximising the volume of a cone inside a sphere. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Check</h3>
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading" hidden>
+      <h2 id="learning-summary-heading">Check</h2>
       <p class="step-text" data-seo-mistake>Check the feasible domain. Justify a maximum using derivative signs, concavity or endpoints unless the question explicitly says a proof is unnecessary.</p>
-      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
-      <h3>Continue practising</h3>
-      <p class="step-text" data-related-practice>Try a related question: <a href="1d2024.html">2024 Differentiation · Q1(d)</a>. Attempt it before opening working, then return to this question later.</p>
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="2d2016.html" data-seo-related="previous">← Question 2(d)</a>
-        <a class="nav-btn secondary" href="3a2016.html" data-seo-related="next">Question 3(a) →</a>
-      </div>
-      <ul class="step-text">
-        <li><a href="level-3-differentiation-2016.html" data-seo-related-year>All 2016 Differentiation walkthroughs</a></li>
-        <li><a href="level-3-differentiation.html" data-seo-standard-link>All AS91578 Differentiation years</a></li>
-        <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-stationary-points-optimisation.html">Stationary points and optimisation</a></li>
-        <li data-seo-related-guides hidden></li>
-      </ul>
+      <details><summary>More practice and reflection</summary>
+        <p class="step-text" data-seo-summary>This walkthrough helps you practise maximising the volume of a cone inside a sphere. Use the hints to plan the method, then repeat the question without hints and check each step.</p>
+        <p class="step-text" data-related-practice>Try a related question: <a href="1d2024.html">2024 Differentiation · Q1(d)</a>. Attempt it before opening working, then return to this question later.</p>
+        <ul class="step-text">
+          <li><a href="level-3-differentiation-2016.html" data-seo-related-year>All 2016 Differentiation questions</a></li>
+          <li><a href="level-3-differentiation.html" data-seo-standard-link>AS91578 sources and years</a></li>
+          <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-stationary-points-optimisation.html">Stationary points and optimisation</a></li>
+          <li data-seo-related-guides hidden></li>
+        </ul>
+      </details>
     </section>
     <!-- SEO:SUMMARY:END -->
   </main>

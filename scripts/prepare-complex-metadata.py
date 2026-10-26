@@ -37,7 +37,7 @@ def prepare():
                         'paperId': f'level-3-complex-{route.year}', 'partId': route.question_id,
                         'title': seo.question_browser_title(route),
                         'description': seo.question_description(route),
-                        'heading': f'{route.year} {route.standard.topic} · Q{route.display_number}',
+                        'heading': f'{route.standard.topic} · {route.year} · Q{route.display_number}',
                         'questionHtml': content[route.route_path]['questionHtml'].strip(),
                         'sha256': hashlib.sha256(response.encode()).hexdigest()})
     assert len(records) == len({r['url'] for r in records}) == 120

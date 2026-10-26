@@ -178,6 +178,16 @@ function enhanceWalkthroughMathOverflow(root) {
       if (!regions.has(region)) regions.set(region, []);
       regions.get(region).push(display);
     });
+    scope.querySelectorAll(".katex").forEach(function(math) {
+      if (math.parentElement.classList.contains("katex-display")) return;
+      const block = math.closest("p, li, .question-math, .math-block, .question-prompt");
+      if (!block || !block.clientWidth) return;
+      const available = block.clientWidth;
+      const wide = Math.max(math.scrollWidth, math.getBoundingClientRect().width) > available + 2;
+      math.classList.toggle("inline-math-scroll-region",wide);
+      if (wide) {math.setAttribute("tabindex","0");math.setAttribute("role","region");math.setAttribute("aria-label","Scrollable mathematical expression");}
+      else if (math.getAttribute("aria-label") === "Scrollable mathematical expression") {math.removeAttribute("tabindex");math.removeAttribute("role");math.removeAttribute("aria-label");}
+    });
     regions.forEach(function (displays, region) {
       const style = window.getComputedStyle(region);
       const availableWidth = region.clientWidth - parseFloat(style.paddingLeft || 0) - parseFloat(style.paddingRight || 0);
@@ -492,36 +502,12 @@ function syncQuestionCardStickyState(questionCard) {
     return;
   }
 
-  const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
-  const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-  const headerHeight = getSiteHeaderHeight();
-  const hasFinePointer = typeof window.matchMedia !== "function"
-    || window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  const graphCount = questionCard.querySelectorAll(".graph-frame").length;
-  const imageCount = questionCard.querySelectorAll("img").length;
-  const containsVisual = graphCount > 0 || imageCount > 0;
-  const hasMultipleVisuals = graphCount > 1 || imageCount > 1;
-  const stickyGap = viewportWidth >= 1380 ? 28 : viewportWidth >= 1100 ? 24 : 20;
-  const stickyClearance = headerHeight + stickyGap;
-  const minimumVisibleStepArea = viewportWidth >= 1280 ? 320 : 280;
-  const questionCardHeight = Math.ceil(questionCard.getBoundingClientRect().height || questionCard.offsetHeight || 0);
-  const maxStickyHeight = containsVisual
-    ? Math.min(viewportHeight * 0.42, 380)
-    : Math.min(viewportHeight * 0.48, 460);
+  const column = questionCard.closest(".question-column");
   const stickyPreferenceEnabled = getStickyQuestionPreference();
-  const enableSticky = stickyPreferenceEnabled
-    && hasFinePointer
-    && viewportWidth >= 1120
-    && questionCardHeight > 0
-    && !hasMultipleVisuals
-    && questionCardHeight <= maxStickyHeight
-    && viewportHeight - questionCardHeight - stickyClearance >= minimumVisibleStepArea;
-
-  document.documentElement.style.setProperty("--question-sticky-top", stickyGap + "px");
-  questionCard.classList.toggle("question-card-with-visual", containsVisual);
-  questionCard.classList.toggle("question-card-multi-visual", hasMultipleVisuals);
-  questionCard.classList.toggle("sticky-question-card-enabled", enableSticky);
-  document.documentElement.style.setProperty("--question-obscured-height", enableSticky ? questionCardHeight + "px" : "0px");
+  const enableSticky = stickyPreferenceEnabled && innerWidth >= 1120 && column && column.getBoundingClientRect().height < innerHeight - 64;
+  if (column) column.classList.toggle("question-column-pinned", Boolean(enableSticky));
+  questionCard.classList.remove("sticky-question-card-enabled");
+  document.documentElement.style.setProperty("--question-obscured-height", "0px");
 
   const preferenceControl = document.getElementById("sticky-question-setting");
   const preferenceStatus = document.getElementById("sticky-question-setting-status");
@@ -549,15 +535,16 @@ function ensureStickyQuestionPreferenceControl(questionCard) {
   let setting = document.getElementById("sticky-question-setting-panel");
 
   if (!setting) {
-    setting = document.createElement("aside");
+    setting = document.createElement("details");
     setting.id = "sticky-question-setting-panel";
     setting.className = "walkthrough-setting-panel";
     setting.setAttribute("aria-label", "Walkthrough display settings");
     setting.innerHTML = `
+      <summary>Display settings</summary>
       <label class="walkthrough-setting-toggle" for="sticky-question-setting">
         <input id="sticky-question-setting" type="checkbox" />
         <span class="walkthrough-setting-switch" aria-hidden="true"></span>
-        <span class="walkthrough-setting-label">Pin question while scrolling</span>
+        <span class="walkthrough-setting-label">Keep question beside solution on wide screens</span>
       </label>
       <span id="sticky-question-setting-status" class="walkthrough-setting-status" aria-live="polite"></span>
     `;
@@ -568,7 +555,8 @@ function ensureStickyQuestionPreferenceControl(questionCard) {
   // and walkthrough. Keep them out of the question-first opening viewport.
   const walkthroughContent = document.getElementById("walkthrough-content");
   if (walkthroughContent && walkthroughContent.parentNode) {
-    walkthroughContent.insertAdjacentElement("afterend", setting);
+    const settingsAnchor = walkthroughContent.closest(".practice-workspace") || walkthroughContent;
+    settingsAnchor.insertAdjacentElement("afterend", setting);
   } else if (questionCard.parentNode) {
     questionCard.insertAdjacentElement("afterend", setting);
   } else {
@@ -1098,6 +1086,7 @@ function writeLastWalkthrough(context, partId) {
     paperId: context.paper.id,
     partId: partId,
     href: href,
+    practice: new URL(location.href).searchParams.get("practice") || "",
     label: context.paper.year + " " + context.standard.label + " \u00b7 " + walkthroughQuestionLabel(partId, context.paper),
     levelLabel: context.level.label,
     standardLabel: context.standard.label,
@@ -1277,7 +1266,7 @@ function updateWalkthroughSidebarProgressIndicators(context) {
   const progressBar = sidebar.querySelector("[data-walkthrough-paper-progress-bar]");
 
   if (progressText) {
-    progressText.textContent = getWalkthroughPaperProgressText(progress);
+    progressText.textContent = progress.reviewed + " / " + progress.total + " reviewed";
   }
 
   if (progressBar) {
@@ -1467,7 +1456,7 @@ function getWalkthroughHeaderTitle(context) {
     return "";
   }
 
-  return context.paper.year + " " + context.standard.label + " · "
+  return context.standard.label + " · " + context.paper.year + " · "
     + walkthroughQuestionLabel(context.partId, context.paper).replace("Question ", "Q");
 }
 
@@ -2003,7 +1992,7 @@ function syncWalkthroughPageHeaderContext(context, config) {
   }
 
   if (pageTitle) {
-    pageTitle.textContent = getWalkthroughHeaderTitle(context) || pageTitle.textContent;
+    pageTitle.textContent = context.standard.label + " · " + context.paper.year + " · Q" + walkthroughPartLabel(context.partId, context.paper).replace(/^Q(?:uestion)?\s*/i, "");
   }
 
   if (subtitle) {
@@ -2050,8 +2039,7 @@ function setWalkthroughSidebarStoredPreference(isVisible) {
 }
 
 function isWalkthroughSidebarDesktop() {
-  return typeof window.matchMedia !== "function"
-    || window.matchMedia("(min-width: 981px)").matches;
+  return false;
 }
 
 function shouldShowWalkthroughSidebarByDefault() {
@@ -2060,7 +2048,7 @@ function shouldShowWalkthroughSidebarByDefault() {
   }
 
   const storedPreference = getWalkthroughSidebarStoredPreference();
-  return storedPreference === null ? true : storedPreference;
+  return storedPreference === null ? false : storedPreference;
 }
 
 function setWalkthroughSidebarInteractivity(sidebar, isVisible) {
@@ -2134,14 +2122,14 @@ function setWalkthroughSidebarVisible(isVisible, options) {
   if (openToggle) {
     openToggle.hidden = isVisible;
     openToggle.setAttribute("aria-expanded", isVisible ? "true" : "false");
-    openToggle.textContent = "Show navigation";
-    openToggle.setAttribute("aria-label", "Show navigation");
+    openToggle.textContent = "Questions";
+    openToggle.setAttribute("aria-label", "Questions");
   }
 
   if (closeToggle) {
     closeToggle.setAttribute("aria-expanded", isVisible ? "true" : "false");
-    closeToggle.textContent = "Hide navigation";
-    closeToggle.setAttribute("aria-label", "Hide navigation");
+    closeToggle.textContent = "Close";
+    closeToggle.setAttribute("aria-label", "Close questions");
   }
 
   if (backdrop) {
@@ -2150,6 +2138,8 @@ function setWalkthroughSidebarVisible(isVisible, options) {
 
   if (isVisible && !wasVisible && settings.focus !== false) {
     focusWithoutPageScroll(closeToggle || sidebar);
+    const active = sidebar.querySelector('[aria-current="page"]');
+    if (active) active.scrollIntoView({block:"nearest", behavior:"instant"});
   }
 
   if (wasVisible && !isVisible) {
@@ -2203,10 +2193,10 @@ function ensureWalkthroughSidebarToggle(app) {
     openToggle.id = "walkthrough-sidebar-open-toggle";
     openToggle.className = "ghost-link walkthrough-sidebar-toggle walkthrough-sidebar-open-toggle";
     openToggle.type = "button";
-    openToggle.textContent = "Show navigation";
+    openToggle.textContent = "Questions";
     openToggle.setAttribute("aria-controls", "walkthrough-sidebar");
     openToggle.setAttribute("aria-expanded", "false");
-    openToggle.setAttribute("aria-label", "Show navigation");
+    openToggle.setAttribute("aria-label", "Questions");
     openToggle.addEventListener("click", function () {
       setWalkthroughSidebarVisible(true, { persist: true, trigger: openToggle });
     });
@@ -2342,10 +2332,10 @@ function buildWalkthroughSidebarHtml(context) {
   return `
     <div class="walkthrough-sidebar-header">
       <div class="walkthrough-sidebar-header-copy">
-        <p class="question-label">Navigation</p>
+        <p class="question-label">Questions</p>
         <p class="walkthrough-sidebar-current">${escapeWalkthroughSidebarHtml(context.level.label)} &middot; ${escapeWalkthroughSidebarHtml(context.standard.label)} &middot; ${escapeWalkthroughSidebarHtml(String(context.paper.year))}</p>
         <div class="walkthrough-sidebar-progress" role="group" aria-label="Paper progress">
-          <p class="walkthrough-sidebar-progress-text" data-walkthrough-paper-progress-text>${escapeWalkthroughSidebarHtml(getWalkthroughPaperProgressText(paperProgress))}</p>
+          <p class="walkthrough-sidebar-progress-text" data-walkthrough-paper-progress-text>${escapeWalkthroughSidebarHtml((paperProgress.reviewed + " / " + paperProgress.total + " reviewed"))}</p>
           <div class="walkthrough-sidebar-progress-track" aria-hidden="true">
             <span class="walkthrough-sidebar-progress-bar" data-walkthrough-paper-progress-bar style="width: ${getWalkthroughPaperProgressPercent(paperProgress)}%"></span>
           </div>
@@ -2357,28 +2347,21 @@ function buildWalkthroughSidebarHtml(context) {
         type="button"
         aria-controls="walkthrough-sidebar"
         aria-expanded="true"
-        aria-label="Hide navigation"
+        aria-label="Close questions"
       >
-        Hide navigation
+        Close
       </button>
     </div>
-    <nav class="walkthrough-sidebar-nav" aria-label="Walkthrough navigation">
-      <section class="walkthrough-sidebar-section" aria-labelledby="walkthrough-nav-level">
-        <p id="walkthrough-nav-level" class="walkthrough-sidebar-section-title">Level</p>
-        <div class="walkthrough-sidebar-link-list">${levelLinks}</div>
-      </section>
-      <section class="walkthrough-sidebar-section" aria-labelledby="walkthrough-nav-standard">
-        <p id="walkthrough-nav-standard" class="walkthrough-sidebar-section-title">Standard</p>
-        <div class="walkthrough-sidebar-link-list">${standardLinks}</div>
-      </section>
-      <section class="walkthrough-sidebar-section" aria-labelledby="walkthrough-nav-paper">
-        <p id="walkthrough-nav-paper" class="walkthrough-sidebar-section-title">Year</p>
-        <div class="walkthrough-sidebar-year-list">${paperLinks}</div>
-      </section>
+    <nav class="walkthrough-sidebar-nav" aria-label="Question navigation">
       <section class="walkthrough-sidebar-section" aria-labelledby="walkthrough-nav-parts">
-        <p id="walkthrough-nav-parts" class="walkthrough-sidebar-section-title">Questions</p>
-        ${renderWalkthroughPartGroups(context)}
+        <p id="walkthrough-nav-parts" class="visually-hidden">Questions</p>
+        <div id="practice-drawer-questions">${renderWalkthroughPartGroups(context)}</div>
       </section>
+      <details class="change-paper"><summary>Change paper</summary>
+        <p class="walkthrough-sidebar-section-title">Level</p><div class="walkthrough-sidebar-link-list">${levelLinks}</div>
+        <p class="walkthrough-sidebar-section-title">Subject</p><div class="walkthrough-sidebar-link-list">${standardLinks}</div>
+        <p class="walkthrough-sidebar-section-title">Year</p><div class="walkthrough-sidebar-year-list">${paperLinks}</div>
+      </details>
     </nav>
   `;
 }
@@ -2472,35 +2455,38 @@ function ensureWalkthroughSidebar(config) {
 }
 
 function renderPartNavigation(config, questionCard) {
-  const items = config && Array.isArray(config.partNavigation)
-    ? config.partNavigation
-    : [];
-  let navigation = document.getElementById("walkthrough-part-navigation");
-
-  if (!items.length || !questionCard || !questionCard.parentNode) {
-    if (navigation) {
-      navigation.remove();
+  const context = window.__walkthroughCurrentContext;
+  if (!context) return;
+  let nav = document.getElementById("walkthrough-part-navigation");
+  if (!nav) {nav = document.createElement("nav"); nav.id = "walkthrough-part-navigation"; nav.setAttribute("aria-label", "Question navigation");}
+  nav.className = "walkthrough-part-navigation";
+  questionCard.insertAdjacentElement("afterend", nav);
+  const key = context.paper.id + ":" + context.partId;
+  function render(sequence) {
+    const entries = sequence ? sequence.entries : context.paper.parts.map(part => ({key:context.paper.id + ":" + part, href:getWalkthroughPartHref(context.paper,part), label:walkthroughQuestionLabel(part,context.paper)}));
+    const index = entries.findIndex(entry => entry.key === key);
+    const label = sequence ? sequence.label : context.standard.label + " · " + context.paper.year;
+    const back = sequence ? sequence.returnHref : context.paper.indexHref;
+    const href = entry => sequence ? window.CalcNzPractice.withContext(entry.href, sequence.token) : entry.href;
+    nav.innerHTML = `${index > 0 ? `<a class="ghost-link" rel="prev" href="${escapeWalkthroughSidebarHtml(href(entries[index - 1]))}">← Previous question</a>` : '<span class="question-boundary">First question</span>'}<span class="sequence-position">${index + 1} / ${entries.length}</span>${index < entries.length - 1 ? `<a class="ghost-link" rel="next" href="${escapeWalkthroughSidebarHtml(href(entries[index + 1]))}">Next question →</a>` : `<a class="ghost-link" href="${escapeWalkthroughSidebarHtml(back)}">Finish ${sequence ? "practice" : "paper"} →</a>`}`;
+    let indicator = document.getElementById("practice-context-indicator");
+    if (!indicator) {indicator = document.createElement("a"); indicator.id = "practice-context-indicator"; indicator.className = "practice-context-indicator"; document.querySelector(".topbar").insertAdjacentElement("afterend", indicator);}
+    indicator.hidden = !sequence;
+    indicator.href = back; indicator.textContent = (sequence ? label + " · " : "Paper · ") + (index + 1) + " of " + entries.length;
+    const continuation = document.querySelector("[data-solution-continuation]");
+    if (continuation) continuation.innerHTML = nav.innerHTML;
+    if (sequence) {
+      document.querySelector(".walkthrough-sidebar-current").textContent = label + " · " + (index + 1) + " of " + entries.length;
+      document.querySelector(".walkthrough-sidebar-progress").hidden = true;
+      const drawer = document.getElementById("practice-drawer-questions");
+      drawer.innerHTML = `<a class="ghost-link" href="${escapeWalkthroughSidebarHtml(back)}">Return to ${escapeWalkthroughSidebarHtml(label)}</a><div class="practice-drawer-list">${entries.map((entry,i) => `<a class="walkthrough-sidebar-link" data-close-walkthrough-sidebar href="${escapeWalkthroughSidebarHtml(href(entry))}"${i === index ? ' aria-current="page"' : ""}>${i + 1}. ${escapeWalkthroughSidebarHtml(entry.label)}</a>`).join("")}</div>`;
     }
-    return;
   }
-
-  if (!navigation) {
-    navigation = document.createElement("nav");
-    navigation.id = "walkthrough-part-navigation";
-    navigation.className = "question-card walkthrough-part-navigation";
-    navigation.setAttribute("aria-label", config.partNavigationLabel || "Paper questions");
-    questionCard.parentNode.insertBefore(navigation, questionCard);
-  }
-
-  navigation.innerHTML = `
-    <p class="question-label">${config.partNavigationTitle || "2020 paper questions"}</p>
-    <div class="paper-part-nav">
-      ${items.map(function (item) {
-        const current = item.current ? ' aria-current="page"' : "";
-        return `<a class="nav-btn secondary" href="${getGuidedWalkthroughHref(item.href)}"${current}>${item.label}</a>`;
-      }).join("")}
-    </div>
-  `;
+  const token = new URL(location.href).searchParams.get("practice");
+  if (token && window.CalcNzPractice && window.CalcNzPractice.decode(token)) {
+    nav.innerHTML = '<span role="status">Loading practice questions…</span>';
+    window.CalcNzPractice.resolve(token,key).then(sequence => render(sequence)).catch(() => render(null));
+  } else render(null);
 }
 
 function ensureTipsCard(questionCard, walkthroughContent) {
@@ -2624,145 +2610,29 @@ function ensureExamModeSettingControl(questionCard) {
 }
 
 function setupExamModeControls(options) {
-  const settings = options || {};
-  const questionCard = settings.questionCard;
-  const hiddenElements = Array.from(new Set((settings.hiddenElements || []).filter(Boolean)));
-  const accessibleHeading = settings.accessibleHeading || document.getElementById("page-title");
-  const originalHeading = accessibleHeading ? accessibleHeading.textContent : "";
-  const neutralHeading = settings.neutralHeading || "Exam question";
+  const checkbox = ensureExamModeSettingControl(options.questionCard);
+  if (!checkbox) return;
+  let revealed = false;
   const originalDocumentTitle = document.title;
-
-  if (!questionCard || questionCard.dataset.examModeSetup === "true") {
-    return;
-  }
-
-  const checkbox = ensureExamModeSettingControl(questionCard);
-  const parent = questionCard.parentNode;
-
-  if (!checkbox || !parent) {
-    return;
-  }
-
-  let revealPanel = document.getElementById("walkthrough-exam-mode-reveal-panel");
-
-  if (!revealPanel) {
-    revealPanel = document.createElement("section");
-    revealPanel.id = "walkthrough-exam-mode-reveal-panel";
-    revealPanel.className = "question-card exam-mode-reveal-panel";
-    revealPanel.innerHTML = `
-      <p class="question-label">Exam Mode</p>
-      <h2>Attempt the question first</h2>
-      <p class="step-text">The walkthrough is hidden until you are ready to check your thinking.</p>
-      <div class="nav-row exam-mode-actions">
-        <button id="exam-mode-reveal-btn" class="nav-btn" type="button">Reveal walkthrough</button>
-        <button id="exam-mode-off-btn" class="nav-btn secondary" type="button">Turn off exam mode</button>
-      </div>
-    `;
-  }
-
-  if (questionCard.nextElementSibling !== revealPanel) {
-    parent.insertBefore(revealPanel, questionCard.nextSibling);
-  }
-
-  const status = document.getElementById("exam-mode-setting-status");
-  const revealButton = revealPanel.querySelector("#exam-mode-reveal-btn");
-  const offButton = revealPanel.querySelector("#exam-mode-off-btn");
-  const controlledElementIds = hiddenElements.map(function (element, index) {
-    if (!element.id) {
-      element.id = "exam-mode-controlled-content-" + (index + 1);
-    }
-    return element.id;
-  }).join(" ");
-  let revealedForThisQuestion = false;
-
-  if (revealButton && controlledElementIds) {
-    revealButton.setAttribute("aria-controls", controlledElementIds);
-    revealButton.setAttribute("aria-expanded", "false");
-  }
-
-  function applyExamModeState() {
-    const isEnabled = getWalkthroughExamModePreference();
-    const shouldHideWalkthrough = isEnabled && !revealedForThisQuestion;
-
-    checkbox.checked = isEnabled;
-    document.body.classList.toggle("exam-mode-active", shouldHideWalkthrough);
-    document.documentElement.classList.remove("exam-mode-pending");
-    revealPanel.hidden = !shouldHideWalkthrough;
-
-    if (accessibleHeading) {
-      accessibleHeading.textContent = shouldHideWalkthrough ? neutralHeading : originalHeading;
-    }
+  const neutralHeading = options.neutralHeading || "Exam question";
+  const cues = Array.from(document.querySelectorAll("#page-subtitle, .seo-question-overview, [data-method-cue]"));
+  function apply() {
+    const shouldHideWalkthrough = getWalkthroughExamModePreference() && !revealed;
+    const hidden = shouldHideWalkthrough;
     document.title = shouldHideWalkthrough ? neutralHeading + " | Calc.nz" : originalDocumentTitle;
-
-    if (revealButton) {
-      revealButton.setAttribute("aria-expanded", shouldHideWalkthrough ? "false" : "true");
-    }
-
-    hiddenElements.forEach(function (element) {
-      element.classList.toggle("exam-mode-hidden", shouldHideWalkthrough);
-      element.inert = shouldHideWalkthrough;
-      if (shouldHideWalkthrough) {
-        element.setAttribute("aria-hidden", "true");
-      } else if (!element.classList.contains("hidden") && !element.hidden) {
-        element.setAttribute("aria-hidden", "false");
-      }
-    });
-
-    if (status) {
-      status.textContent = !isEnabled
-        ? "Off. Walkthroughs reveal normally."
-        : revealedForThisQuestion
-          ? "Revealed for this question. Future questions still start hidden."
-          : "On. Walkthrough hidden until you reveal it.";
-    }
+    checkbox.checked = getWalkthroughExamModePreference();
+    document.body.classList.toggle("exam-mode-active", hidden);
+    document.documentElement.classList.remove("exam-mode-pending");
+    cues.forEach(el => {el.classList.toggle("exam-mode-hidden", hidden); el.inert = hidden;});
+    document.getElementById("exam-mode-setting-status").textContent = checkbox.checked ? "On · method cues stay hidden until you request help." : "Off";
   }
-
-  checkbox.dataset.preferenceSetup = "true";
-  checkbox.checked = getWalkthroughExamModePreference();
-  checkbox.addEventListener("change", function () {
-    revealedForThisQuestion = false;
-    setWalkthroughExamModePreference(checkbox.checked);
-    applyExamModeState();
-  });
-
-  if (revealButton) {
-    revealButton.addEventListener("click", function () {
-      revealedForThisQuestion = true;
-      applyExamModeState();
-      if (typeof settings.onReveal === "function") {
-        settings.onReveal();
-        applyExamModeState();
-      }
-      const revealedContainer = hiddenElements.find(function (element) {
-        return !element.hidden
-          && !element.classList.contains("hidden")
-          && !element.classList.contains("exam-mode-hidden")
-          && window.getComputedStyle(element).display !== "none";
-      });
-      focusRevealedContent(revealedContainer || questionCard);
-    });
-  }
-
-  if (offButton) {
-    offButton.addEventListener("click", function () {
-      revealedForThisQuestion = true;
-      setWalkthroughExamModePreference(false);
-      applyExamModeState();
-      const revealedContainer = hiddenElements.find(function (element) {
-        return !element.hidden
-          && !element.classList.contains("hidden")
-          && !element.classList.contains("exam-mode-hidden")
-          && window.getComputedStyle(element).display !== "none";
-      });
-      focusRevealedContent(revealedContainer || questionCard);
-    });
-  }
-
-  questionCard.dataset.examModeSetup = "true";
-  applyExamModeState();
+  checkbox.addEventListener("change", () => {setWalkthroughExamModePreference(checkbox.checked); revealed = false; apply();});
+  window.__revealExamHelp = () => {revealed = true; apply();};
+  apply();
 }
 
 let questionGraphicCloneSequence = 0;
+
 
 function cloneQuestionGraphicForLightbox(target) {
   const clone = target.cloneNode(true);
@@ -3298,66 +3168,7 @@ function buildWalkthroughTipItems(config) {
 }
 
 function buildTipsCardHtml(config, tipItems) {
-  if (!tipItems.length) {
-    return "";
-  }
-
-  return `
-    <p class="question-label">${config.tipsTitle || "Hints"}</p>
-    <p class="step-text">Attempt the question, then use hints and working to compare your reasoning. Finish the walkthrough to save a review; use Record this attempt for self-assessment.</p>
-    <div class="walkthrough-tip-list">
-      ${tipItems.map(function (item, index) {
-        const tipNumber = index + 1;
-        const panelId = "walkthrough-tip-" + tipNumber;
-        const plainLabel = getWalkthroughAccessibleText(item.label) || "Hint " + tipNumber;
-        return `
-          <div class="walkthrough-tip-card">
-            <button
-              class="walkthrough-tip-toggle"
-              type="button"
-              aria-controls="${panelId}"
-              aria-expanded="false"
-              data-tip-label="${escapeWalkthroughSidebarHtml(plainLabel)}"
-            >Show ${escapeWalkthroughSidebarHtml(plainLabel)}</button>
-            <div id="${panelId}" class="walkthrough-tip-body hidden" aria-hidden="true">
-              <p class="walkthrough-tip-label">${item.label}</p>
-              ${normaliseRichTextBlock(item.html, "step-text")}
-            </div>
-          </div>
-        `;
-      }).join("")}
-    </div>
-  `;
-}
-
-function attachWalkthroughTipHandlers(tipsCard) {
-  if (!tipsCard) {
-    return;
-  }
-
-  tipsCard.querySelectorAll(".walkthrough-tip-toggle").forEach(function (button) {
-    const panel = document.getElementById(button.getAttribute("aria-controls"));
-    const label = button.dataset.tipLabel || "hint";
-
-    if (!panel) {
-      return;
-    }
-
-    button.setAttribute("aria-label", "Show " + label + " for this question");
-    button.addEventListener("click", function () {
-      const shouldShow = button.getAttribute("aria-expanded") !== "true";
-      button.setAttribute("aria-expanded", shouldShow ? "true" : "false");
-      button.setAttribute("aria-label", (shouldShow ? "Hide " : "Show ") + label + " for this question");
-      button.textContent = (shouldShow ? "Hide " : "Show ") + label;
-      panel.classList.toggle("hidden", !shouldShow);
-      panel.setAttribute("aria-hidden", shouldShow ? "false" : "true");
-
-      if (shouldShow) {
-        enhanceWalkthroughMathOverflow(panel);
-        focusRevealedContent(panel);
-      }
-    });
-  });
+  return `<div class="walkthrough-tip-list">${tipItems.map((item, index) => `<section class="walkthrough-tip-body hidden" id="walkthrough-tip-${index + 1}" aria-hidden="true"><h2>${item.label || "Hint " + (index + 1)}</h2>${normaliseRichTextBlock(item.html, "step-text")}</section>`).join("")}</div><button id="guided-start-btn" class="ghost-link" type="button">Guide me step by step</button>`;
 }
 
 function buildQuestionCardHtml(config) {
@@ -3374,13 +3185,13 @@ function buildQuestionCardHtml(config) {
   const selfAssessment = context
     ? `<fieldset class="walkthrough-self-assessment" data-self-assessment>
         <legend>How did this attempt go?</legend>
-        <p class="step-text">Choose the option that best describes this attempt. You can change it whenever you return.</p>
+
         <div class="walkthrough-assessment-options">
           ${Object.keys(WALKTHROUGH_ASSESSMENT_OUTCOMES).map(function (value) {
             const outcome = WALKTHROUGH_ASSESSMENT_OUTCOMES[value];
             return `<label class="walkthrough-assessment-option">
               <input type="radio" name="walkthrough-assessment" value="${escapeWalkthroughSidebarHtml(value)}">
-              <span><strong>${escapeWalkthroughSidebarHtml(outcome.label)}</strong><small>${escapeWalkthroughSidebarHtml(outcome.description)}</small></span>
+              <span><strong>${escapeWalkthroughSidebarHtml(outcome.label)}</strong></span>
             </label>`;
           }).join("")}
         </div>
@@ -3389,11 +3200,12 @@ function buildQuestionCardHtml(config) {
     : "";
 
   return `
-    <p class="question-label">Question</p>
+    <div class="question-prompt">${config.questionHtml}</div>
     ${reviewNotice}
-    ${config.questionHtml}
-    <p class="attempt-note">Try the original question independently before opening a hint or worked step.</p>
-    <div class="question-personal-actions" role="group" aria-label="Save this question">
+
+    <div class="question-personal-actions" role="group" aria-label="Question help and saving">
+      <button id="question-hint-btn" class="nav-btn secondary" type="button" aria-expanded="false" aria-controls="hints-card">Hint</button>
+      <button id="question-solution-btn" class="nav-btn" type="button" aria-expanded="false" aria-controls="walkthrough-content">Show solution</button>
       <button
         id="bookmark-question-btn"
         class="nav-btn secondary question-save-btn"
@@ -3401,16 +3213,16 @@ function buildQuestionCardHtml(config) {
         aria-pressed="false"
         aria-label="Bookmark ${escapeWalkthroughSidebarHtml(questionLabel)}"
       >Bookmark question</button>
-      <button
+      <span id="question-save-status" class="question-save-status" aria-live="polite"></span>
+    </div>
+    <details class="attempt-record"><summary>Record attempt</summary>      <button
         id="retry-question-btn"
         class="nav-btn secondary question-save-btn"
         type="button"
         aria-pressed="false"
         aria-label="Mark ${escapeWalkthroughSidebarHtml(questionLabel)} for retry"
       >Mark for retry</button>
-      <span id="question-save-status" class="question-save-status" aria-live="polite"></span>
-    </div>
-    <details class="attempt-record"><summary>Record this attempt</summary>${selfAssessment}</details>
+${selfAssessment}</details>
   `;
 }
 
@@ -3439,6 +3251,10 @@ function setupWalkthroughSelfAssessment(questionCard) {
       visited: true,
       assessment: radio.value
     });
+    if (radio.value === "retry-later") {
+      setWalkthroughQuestionSaved(context, WALKTHROUGH_RETRY_STORAGE_KEY, true);
+      questionCard.dispatchEvent(new Event("question-save-change"));
+    }
     sync();
     if (status) {
       status.textContent = WALKTHROUGH_ASSESSMENT_OUTCOMES[radio.value].label + " saved on this device.";
@@ -3473,7 +3289,7 @@ function setupWalkthroughQuestionSaveControls(questionCard) {
       bookmarkButton,
       WALKTHROUGH_BOOKMARK_STORAGE_KEY,
       "Bookmarked",
-      "Bookmark question",
+      "Bookmark",
       "Remove bookmark for ",
       "Bookmark "
     );
@@ -3498,6 +3314,7 @@ function setupWalkthroughQuestionSaveControls(questionCard) {
     }
   }
 
+  questionCard.addEventListener("question-save-change", syncAll);
   bookmarkButton.addEventListener("click", function () {
     toggleSaved(bookmarkButton, WALKTHROUGH_BOOKMARK_STORAGE_KEY, "Question bookmarked.", "Bookmark removed.");
   });
@@ -3508,128 +3325,19 @@ function setupWalkthroughQuestionSaveControls(questionCard) {
   syncAll();
 }
 
-function buildProgressiveFinalNavHtml(config) {
-  const nav = config.finalNav || {
-    secondary: config.backHref
-      ? {
-        href: config.backHref,
-        label: config.backLabel || "← Back to paper"
-      }
-      : null,
-    primary: config.nextHref
-      ? {
-        href: config.nextHref,
-        label: config.nextLabel || "Next question →"
-      }
-      : null
-  };
-  const secondaryButton = nav.secondary
-    ? `<a class="nav-btn secondary" href="${getGuidedWalkthroughHref(nav.secondary.href)}">${nav.secondary.label}</a>`
-    : "";
-  const primaryButton = nav.primary
-    ? `<a class="nav-btn" href="${getGuidedWalkthroughHref(nav.primary.href)}">${nav.primary.label}</a>`
-    : "";
-
-  if (!secondaryButton && !primaryButton) {
-    return "";
-  }
-
-  return `
-    <div id="walkthrough-final-nav" class="nav-row hidden">
-      ${secondaryButton}
-      ${primaryButton}
-    </div>
-  `;
-}
-
 function renderProgressiveStep(step, index) {
-  const stepNumber = index + 1;
-  const plainTitle = step.accessibleTitle || getWalkthroughAccessibleText(step.title) || "Step " + stepNumber;
-  const showWorkingLabel = "Show working for Step " + stepNumber + ": " + plainTitle;
-  const hideWorkingLabel = "Hide working for Step " + stepNumber + ": " + plainTitle;
-  const previewHtml = step.previewHtml
-    ? `<div class="walkthrough-step-preview">${normaliseRichTextBlock(step.previewHtml, "step-text")}</div>`
-    : "";
-  const predictionHtml = step.workingHtml && step.predictionPrompt
-    ? `<p class="question-note walkthrough-prediction">${escapeWalkthroughSidebarHtml(step.predictionPrompt)}</p>`
-    : "";
-  const workingHtml = step.workingHtml ? `
-      <div class="walkthrough-step-actions">
-        <button
-          class="nav-btn secondary step-working-btn"
-          type="button"
-          data-working-step="${index}"
-          data-hidden-label="${step.workingButtonLabel}"
-          data-shown-label="${step.workingHideLabel}"
-          data-hidden-aria-label="${escapeWalkthroughSidebarHtml(showWorkingLabel)}"
-          data-shown-aria-label="${escapeWalkthroughSidebarHtml(hideWorkingLabel)}"
-          aria-controls="walkthrough-step-${stepNumber}-working"
-          aria-expanded="false"
-          aria-label="${escapeWalkthroughSidebarHtml(showWorkingLabel)}"
-        >
-          ${step.workingButtonLabel}
-        </button>
-        ${predictionHtml}
-      </div>
-      <div
-        id="walkthrough-step-${stepNumber}-working"
-        class="walkthrough-step-working hidden"
-        aria-hidden="true"
-      >
-        <p class="walkthrough-working-label">Working</p>
-        <div class="walkthrough-working-body">
-          ${step.workingHtml}
-        </div>
-      </div>` : "";
-
-  return `
-    <section
-      id="walkthrough-step-${stepNumber}"
-      class="step-card walkthrough-step-card hidden"
-      data-step-index="${index}"
-      aria-hidden="true"
-    >
-      <div class="walkthrough-step-header">
-        <p class="step-number">Step ${stepNumber}</p>
-        <p class="walkthrough-step-chip">Idea</p>
-      </div>
-      <h2>${step.title}</h2>
-      ${previewHtml}
-      ${workingHtml}
-    </section>
-  `;
+  return `<section id="walkthrough-step-${index + 1}" class="step-card walkthrough-step-card hidden" data-step-index="${index}" aria-hidden="true">
+    <p class="step-number">Step ${index + 1}</p><h2>${step.title}</h2>
+    ${step.previewHtml ? `<div class="walkthrough-step-preview">${normaliseRichTextBlock(step.previewHtml, "step-text")}</div>` : ""}
+    ${step.workingHtml ? `<div id="walkthrough-step-${index + 1}-working" class="walkthrough-step-working">${step.workingHtml}</div>` : ""}
+  </section>`;
 }
 
 function buildProgressiveWalkthroughHtml(config) {
-  return `
-    <div class="walkthrough-mobile-progress">
-      <span id="walkthrough-mobile-progress-label">Step 1 of ${config.guidedSteps.length}</span>
-      <progress id="walkthrough-mobile-progress-meter" value="1" max="${config.guidedSteps.length}">1 of ${config.guidedSteps.length}</progress>
-    </div>
-    <div class="walkthrough-sequence">
-      ${config.guidedSteps.map(function (step, index) {
-        return renderProgressiveStep(step, index);
-      }).join("")}
-    </div>
-    <section class="question-card walkthrough-progress-card" aria-label="Walkthrough step navigation">
-      <p class="question-label">Walkthrough</p>
-      <div class="walkthrough-progress-row">
-        <div class="walkthrough-progress-copy">
-          <p id="walkthrough-progress-status" class="walkthrough-progress-status" aria-live="polite"></p>
-          <div class="walkthrough-progress-dots" aria-hidden="true">
-            ${config.guidedSteps.map(function (_, index) {
-              return `<span class="walkthrough-progress-dot" data-progress-step="${index}"></span>`;
-            }).join("")}
-          </div>
-        </div>
-        <div class="walkthrough-step-navigation">
-          <button id="walkthrough-previous-btn" class="nav-btn secondary walkthrough-previous-btn" type="button">← Previous step</button>
-          <button id="walkthrough-next-btn" class="nav-btn walkthrough-next-btn" type="button">Next step →</button>
-        </div>
-      </div>
-    </section>
-    ${buildProgressiveFinalNavHtml(config)}
-  `;
+  return `<div class="solution-toolbar"><h2 id="solution-heading">Worked solution</h2><button id="recall-question-btn" class="ghost-link" type="button">View question</button><button id="hide-solution-btn" class="ghost-link" type="button">Hide solution</button></div>
+    <div class="walkthrough-sequence">${config.guidedSteps.map(renderProgressiveStep).join("")}</div>
+    <nav class="walkthrough-step-navigation" aria-label="Solution steps"><button id="walkthrough-previous-btn" class="nav-btn secondary" type="button">Previous solution step</button><span id="walkthrough-progress-status" role="status"></span><button id="walkthrough-next-btn" class="nav-btn secondary" type="button">Next solution step</button></nav>
+    <div class="solution-completion"><button id="solution-record-attempt" class="ghost-link" type="button">Record attempt</button><div data-solution-continuation></div></div>`;
 }
 
 function normaliseProgressiveWalkthroughConfig(config) {
@@ -3650,207 +3358,100 @@ function normaliseProgressiveWalkthroughConfig(config) {
   });
 }
 
-function attachProgressiveWalkthroughHandlers(config, walkthroughContent) {
-  const stepCards = Array.from(walkthroughContent.querySelectorAll(".walkthrough-step-card"));
-  const previousButton = document.getElementById("walkthrough-previous-btn");
-  const nextButton = document.getElementById("walkthrough-next-btn");
-  const progressStatus = document.getElementById("walkthrough-progress-status");
-  const progressDots = Array.from(walkthroughContent.querySelectorAll(".walkthrough-progress-dot"));
-  const mobileProgressLabel = document.getElementById("walkthrough-mobile-progress-label");
-  const mobileProgressMeter = document.getElementById("walkthrough-mobile-progress-meter");
-  const finalNav = document.getElementById("walkthrough-final-nav");
-  let currentStepIndex = 0;
-  let walkthroughComplete = false;
-
-  function updateProgressUi() {
-    if (!previousButton || !nextButton || !progressStatus) {
-      return;
-    }
-
-    const totalSteps = stepCards.length;
-
-    if (!totalSteps) {
-      progressStatus.textContent = "No steps available";
-      previousButton.disabled = true;
-      nextButton.disabled = true;
-      return;
-    }
-
-    progressStatus.textContent = (walkthroughComplete ? "Reviewed · " : "")
-      + "Step " + (currentStepIndex + 1) + " of " + totalSteps;
-
-    if (mobileProgressLabel) {
-      mobileProgressLabel.textContent = (walkthroughComplete ? "Reviewed · " : "")
-        + "Step " + (currentStepIndex + 1) + " of " + totalSteps;
-    }
-    if (mobileProgressMeter) {
-      mobileProgressMeter.max = totalSteps;
-      mobileProgressMeter.value = walkthroughComplete ? totalSteps : currentStepIndex + 1;
-      mobileProgressMeter.textContent = mobileProgressMeter.value + " of " + totalSteps;
-    }
-    previousButton.disabled = currentStepIndex === 0;
-
-    const isLastStep = currentStepIndex === totalSteps - 1;
-    const currentWorkingVisible = stepCards[currentStepIndex]
-      && stepCards[currentStepIndex].dataset.workingVisible === "true";
-
-    if (!isLastStep) {
-      nextButton.textContent = "Next step →";
-      nextButton.setAttribute("aria-label", "Next step: " + config.guidedSteps[currentStepIndex + 1].accessibleTitle);
-      nextButton.removeAttribute("aria-controls");
-      nextButton.removeAttribute("aria-expanded");
-      nextButton.disabled = false;
-    } else if (walkthroughComplete) {
-      nextButton.textContent = "Walkthrough reviewed";
-      nextButton.setAttribute("aria-label", "Walkthrough reviewed");
-      nextButton.setAttribute("aria-controls", "walkthrough-step-" + (currentStepIndex + 1) + "-working");
-      nextButton.setAttribute("aria-expanded", currentWorkingVisible ? "true" : "false");
-      nextButton.disabled = true;
-    } else {
-      const canRevealWorking = config.guidedSteps[currentStepIndex].workingHtml && !currentWorkingVisible;
-      nextButton.textContent = canRevealWorking ? "Show final working" : "Finish walkthrough";
-      nextButton.setAttribute("aria-label", canRevealWorking ? "Show the final working for this walkthrough" : "Finish this walkthrough");
-      nextButton.setAttribute("aria-controls", "walkthrough-step-" + (currentStepIndex + 1) + "-working");
-      nextButton.setAttribute("aria-expanded", currentWorkingVisible ? "true" : "false");
-      nextButton.disabled = false;
-    }
-
-    if (currentStepIndex > 0) {
-      previousButton.setAttribute("aria-label", "Previous step: " + config.guidedSteps[currentStepIndex - 1].accessibleTitle);
-    } else {
-      previousButton.setAttribute("aria-label", "Previous step unavailable");
-    }
-
-    progressDots.forEach(function (dot, index) {
-      dot.classList.toggle("is-current", index === currentStepIndex);
-      dot.classList.toggle("is-complete", index < currentStepIndex || walkthroughComplete);
+function attachProgressiveWalkthroughHandlers(config, content) {
+  const cards = Array.from(content.querySelectorAll(".walkthrough-step-card"));
+  const question = document.getElementById("question-card");
+  const hints = document.getElementById("hints-card");
+  const hintButton = document.getElementById("question-hint-btn");
+  const solutionButton = document.getElementById("question-solution-btn");
+  const previous = document.getElementById("walkthrough-previous-btn");
+  const next = document.getElementById("walkthrough-next-btn");
+  let step = 0, hint = 0, full = false;
+  content.classList.add("hidden");
+  hints.classList.add("hidden");
+  const summary = document.querySelector(".seo-learning-summary");
+  if (summary) summary.hidden = true;
+  function reveal(mode) {
+    full = mode === "full";
+    content.classList.remove("hidden");
+    content.removeAttribute("aria-hidden");
+    content.inert = false;
+    document.body.classList.add("solution-open");
+    solutionButton.setAttribute("aria-expanded", "true");
+    cards.forEach((card, i) => {
+      const visible = full || i === step;
+      card.classList.toggle("hidden", !visible);
+      card.setAttribute("aria-hidden", String(!visible));
+      if (visible) card.querySelectorAll("details").forEach(details => {details.open = true;});
     });
-
-    if (finalNav) {
-      finalNav.classList.toggle("hidden", !walkthroughComplete || !isLastStep);
-    }
+    content.querySelector(".walkthrough-step-navigation").hidden = full;
+    document.getElementById("solution-heading").textContent = full ? "Worked solution" : "Guided solution";
+    previous.disabled = step === 0;
+    next.disabled = step === cards.length - 1;
+    next.textContent = step === cards.length - 1 ? "Last solution step" : "Next solution step";
+    document.getElementById("walkthrough-progress-status").textContent = "Step " + (step + 1) + " of " + cards.length;
+    if (summary) summary.hidden = !(full || step === cards.length - 1);
+    if (typeof window.__revealExamHelp === "function") window.__revealExamHelp();
+    markCurrentWalkthroughPartComplete(); // Reviewed is distinct from independent success.
+    enhanceWalkthroughMathOverflow(content);
+    syncQuestionCardStickyState(question);
   }
-
-  function moveToCurrentStep(shouldFocus) {
-    const stepCard = stepCards[currentStepIndex];
-    if (!stepCard) {
-      return;
-    }
-
-    const heading = stepCard.querySelector("h2");
-    if (heading && !heading.hasAttribute("tabindex")) {
-      heading.setAttribute("tabindex", "-1");
-    }
-
-    window.setTimeout(function () {
-      window.scrollTo({
-        top: getWalkthroughPageScrollTop(stepCard),
-        behavior: window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "auto"
-          : "smooth"
-      });
-
-      if (shouldFocus && heading) {
-        try {
-          heading.focus({ preventScroll: true });
-        } catch (error) {
-          heading.focus();
-        }
-      }
-    }, 0);
-  }
-
-  function showStep(stepIndex, options) {
-    if (stepIndex < 0 || stepIndex >= stepCards.length) {
-      return;
-    }
-
-    currentStepIndex = stepIndex;
-    stepCards.forEach(function (stepCard, index) {
-      const isCurrent = index === currentStepIndex;
-      stepCard.classList.toggle("hidden", !isCurrent);
-      stepCard.classList.toggle("is-revealed", isCurrent);
-      stepCard.setAttribute("aria-hidden", isCurrent ? "false" : "true");
-    });
-
-    updateProgressUi();
-
-    const settings = options || {};
-    enhanceWalkthroughMathOverflow(stepCards[currentStepIndex]);
-    if (settings.scroll !== false) {
-      moveToCurrentStep(settings.focus !== false);
-    }
-  }
-
-  function setWorkingVisibility(stepIndex, isVisible) {
-    const stepCard = stepCards[stepIndex];
-    const button = walkthroughContent.querySelector('[data-working-step="' + stepIndex + '"]');
-    const workingPanel = document.getElementById("walkthrough-step-" + (stepIndex + 1) + "-working");
-
-    if (!stepCard || !button || !workingPanel) {
-      return;
-    }
-
-    workingPanel.classList.toggle("hidden", !isVisible);
-    workingPanel.classList.toggle("is-visible", isVisible);
-    workingPanel.setAttribute("aria-hidden", isVisible ? "false" : "true");
-    stepCard.dataset.workingVisible = isVisible ? "true" : "false";
-    const prediction = stepCard.querySelector(".walkthrough-prediction");
-    if (prediction) prediction.hidden = isVisible;
-    button.textContent = isVisible
-      ? (button.dataset.shownLabel || "Hide working")
-      : (button.dataset.hiddenLabel || "Show working");
-    button.setAttribute(
-      "aria-label",
-      isVisible
-        ? (button.dataset.shownAriaLabel || "Hide working for this step")
-        : (button.dataset.hiddenAriaLabel || "Show working for this step")
-    );
-    button.setAttribute("aria-expanded", isVisible ? "true" : "false");
-    if (isVisible) enhanceWalkthroughMathOverflow(workingPanel);
-    updateProgressUi();
-  }
-
-  if (previousButton) {
-    previousButton.addEventListener("click", function () {
-      showStep(currentStepIndex - 1);
-    });
-  }
-
-  if (nextButton) {
-    nextButton.addEventListener("click", function () {
-      if (currentStepIndex < stepCards.length - 1) {
-        showStep(currentStepIndex + 1);
-        return;
-      }
-
-      if (!walkthroughComplete && stepCards[currentStepIndex]) {
-        setWorkingVisibility(currentStepIndex, true);
-        walkthroughComplete = true;
-        markCurrentWalkthroughPartComplete();
-        updateProgressUi();
-        focusRevealedContent(
-          document.getElementById("walkthrough-step-" + (currentStepIndex + 1) + "-working")
-        );
-      }
-    });
-  }
-
-  walkthroughContent.querySelectorAll(".step-working-btn").forEach(function (button) {
-    button.addEventListener("click", function () {
-      const stepIndex = Number(button.dataset.workingStep);
-      const stepCard = stepCards[stepIndex];
-      const workingPanel = document.getElementById("walkthrough-step-" + (stepIndex + 1) + "-working");
-
-      if (!stepCard || !workingPanel) {
-        return;
-      }
-
-      setWorkingVisibility(stepIndex, workingPanel.classList.contains("hidden"));
-    });
+  hintButton.addEventListener("click", () => {
+    hints.classList.remove("hidden"); hints.inert = false; hints.removeAttribute("aria-hidden");
+    if (typeof window.__revealExamHelp === "function") window.__revealExamHelp();
+    const panels = hints.querySelectorAll(".walkthrough-tip-body");
+    if (hint < panels.length) { panels[hint].classList.remove("hidden"); panels[hint].setAttribute("aria-hidden", "false"); hint++; }
+    hintButton.setAttribute("aria-expanded", "true");
+    hintButton.textContent = hint < panels.length ? "Next hint" : "Hints shown";
+    hintButton.disabled = hint >= panels.length;
+    enhanceWalkthroughMathOverflow(hints);
+    syncQuestionCardStickyState(question);
   });
-
-  showStep(0, { scroll: false, focus: false });
+  solutionButton.addEventListener("click", () => reveal("full"));
+  const guided = document.getElementById("guided-start-btn");
+  if (guided) guided.addEventListener("click", () => reveal("guided"));
+  function moveStep(direction) {
+    step += direction; reveal("guided");
+    const heading = cards[step].querySelector("h2"); heading.tabIndex = -1;
+    const rect = heading.getBoundingClientRect();
+    if (rect.top < 70 || rect.bottom > innerHeight - 40) heading.scrollIntoView({block:"start",behavior:"instant"});
+    focusWithoutPageScroll(heading);
+  }
+  previous.addEventListener("click", () => moveStep(-1));
+  next.addEventListener("click", () => moveStep(1));
+  document.getElementById("hide-solution-btn").addEventListener("click", () => {
+    content.classList.add("hidden"); document.body.classList.remove("solution-open");
+    solutionButton.setAttribute("aria-expanded", "false"); if (summary) summary.hidden = true;
+    focusWithoutPageScroll(solutionButton);
+  });
+  document.getElementById("solution-record-attempt").addEventListener("click", () => {
+    const details = question.querySelector(".attempt-record"); details.open = true;
+    details.scrollIntoView({block:"center", behavior:"instant"}); details.querySelector("input").focus({preventScroll:true});
+  });
+  const dialog = document.createElement("dialog");
+  dialog.id = "question-recall-dialog"; dialog.className = "question-recall-dialog"; dialog.setAttribute("aria-labelledby", "recall-title");
+  dialog.innerHTML = '<div class="recall-heading"><h2 id="recall-title">Original question</h2><button class="nav-btn secondary" type="button">Close question</button></div>';
+  const clone = question.querySelector(".question-prompt").cloneNode(true);
+  // Keep SVG references intact while giving every cloned ID a unique namespace.
+  clone.querySelectorAll(".graph-control, .graph-toggle, .plot-toolbar").forEach(el => el.remove());
+  // The dialog already supplies the larger reading surface. Cloned zoom controls
+  // cannot retain event listeners, so expose the original graphic description.
+  clone.querySelectorAll("[data-image-zoom-setup]").forEach(el => {
+    const description = el.dataset.imageZoomDescription;
+    el.removeAttribute("data-image-zoom-setup"); el.removeAttribute("tabindex");
+    el.classList.remove("question-image-zoomable");
+    if (el.tagName === "IMG") {el.removeAttribute("role"); el.removeAttribute("aria-label");}
+    else {el.setAttribute("role","group"); if (description) el.setAttribute("aria-label",description);}
+  });
+  const ids = new Map(); clone.querySelectorAll("[id]").forEach(el => {ids.set(el.id, "recall-" + el.id); el.id = "recall-" + el.id;});
+  clone.querySelectorAll("*").forEach(el => Array.from(el.attributes).forEach(attr => {let v = attr.value; ids.forEach((n, old) => {v = v.replaceAll("url(#" + old + ")", "url(#" + n + ")"); if(v === "#"+old) v = "#"+n; if (["for","aria-labelledby","aria-describedby","aria-controls"].includes(attr.name)) v = v.split(" ").map(id => ids.get(id) || id).join(" ");}); if(v !== attr.value) el.setAttribute(attr.name,v);}));
+  dialog.appendChild(clone); document.body.appendChild(dialog);
+  const recall = document.getElementById("recall-question-btn");
+  recall.setAttribute("aria-haspopup","dialog"); recall.setAttribute("aria-controls",dialog.id);
+  recall.addEventListener("click", () => {dialog.showModal(); enhanceWalkthroughMathOverflow(dialog);});
+  dialog.querySelector("button").addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", e => {if(e.target === dialog && (e.clientX < dialog.getBoundingClientRect().left || e.clientX > dialog.getBoundingClientRect().right || e.clientY < dialog.getBoundingClientRect().top || e.clientY > dialog.getBoundingClientRect().bottom)) dialog.close();});
+  dialog.addEventListener("close", () => recall.focus({preventScroll:true}));
 }
 
 function initializeProgressiveWalkthrough(config, options) {
@@ -3869,6 +3470,7 @@ function initializeProgressiveWalkthrough(config, options) {
   const subtitle = document.getElementById("page-subtitle");
   const backLink = document.getElementById("back-link");
   const questionCard = document.getElementById("question-card");
+  ["hints-card", "walkthrough-content"].forEach(id => {const old = document.getElementById(id); if(old && old.tagName === "DETAILS") {const el = document.createElement("div"); el.id = id; el.className = old.className; old.replaceWith(el);}});
   const walkthroughContent = document.getElementById("walkthrough-content");
   const tipsCard = getOrCreateWalkthroughTipsCard(questionCard, walkthroughContent);
 
@@ -3892,13 +3494,11 @@ function initializeProgressiveWalkthrough(config, options) {
   questionCard.innerHTML = buildQuestionCardHtml(normalisedConfig);
   setupWalkthroughQuestionSaveControls(questionCard);
   setupWalkthroughSelfAssessment(questionCard);
-  renderPartNavigation(normalisedConfig, questionCard);
   setupQuestionImageZoom(questionCard);
 
   if (normalisedConfig.tips.length) {
     tipsCard.innerHTML = buildTipsCardHtml(normalisedConfig, normalisedConfig.tips);
     tipsCard.classList.remove("hidden");
-    attachWalkthroughTipHandlers(tipsCard);
   } else {
     tipsCard.innerHTML = "";
     tipsCard.classList.add("hidden");
@@ -3922,21 +3522,14 @@ function initializeProgressiveWalkthrough(config, options) {
       enhanceWalkthroughMathOverflow(document.body);
     });
   }
+  // Replace static disclosure mounts with runtime containers before any help opens.
+  const workspace = document.createElement("div"); workspace.className = "practice-workspace";
+  const column = document.createElement("div"); column.className = "question-column";
+  questionCard.parentNode.insertBefore(workspace, questionCard); workspace.appendChild(column);
+  column.appendChild(questionCard); column.appendChild(tipsCard); workspace.appendChild(walkthroughContent);
   attachProgressiveWalkthroughHandlers(normalisedConfig, walkthroughContent);
-  const examModeCueElements = Array.from(document.querySelectorAll([
-    "#page-subtitle",
-    ".seo-question-overview",
-    ".seo-learning-summary",
-    "[data-method-cue]"
-  ].join(", ")));
-  setupExamModeControls({
-    questionCard: questionCard,
-    hiddenElements: [tipsCard, walkthroughContent].concat(examModeCueElements),
-    accessibleHeading: pageTitle,
-    neutralHeading: window.__walkthroughCurrentContext
-      ? getWalkthroughHeaderTitle(window.__walkthroughCurrentContext) + " · Exam question"
-      : "Exam question"
-  });
+  renderPartNavigation(normalisedConfig, questionCard);
+  setupExamModeControls({questionCard: questionCard, neutralHeading: getWalkthroughHeaderTitle(window.__walkthroughCurrentContext)});
 }
 
 function getWalkthroughPaperProgressById(paperId) {

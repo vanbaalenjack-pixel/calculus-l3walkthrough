@@ -33,6 +33,7 @@ jobs:
           python3 scripts/test-readiness-fixes.py
           python3 scripts/test-presentation-release.py
           node scripts/test-walkthrough-copy.cjs
+          node scripts/test-practice-context.cjs
           python3 scripts/test-catalogue-mathematics.py
           python3 scripts/test-audit-remediation.py
           python3 scripts/test_build_seo_contract.py

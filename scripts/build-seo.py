@@ -19,6 +19,7 @@ from __future__ import annotations
 
 from functools import lru_cache
 import argparse
+import base64
 import copy
 import html
 import json
@@ -55,7 +56,7 @@ except ModuleNotFoundError:  # Supports import-based validators from the reposit
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://calc.nz/"
-CACHE_TOKEN = "20261018-1"
+CACHE_TOKEN = "20261026-1"
 REVIEW_DATE = "2026-09-24"
 WALKTHROUGH_CONTENT_RELEASE_DATE = "2026-09-24"
 # Manually recorded revision of the shared learning sequence and labels.
@@ -521,6 +522,7 @@ def add_head_marker(document: str, body: str) -> str:
 def inject_site_shell(document: str, *, guides_published: bool | None = None) -> str:
     """Put the shared header in source while keeping the JS setup idempotent."""
 
+    document = re.sub(r'(?m)^.*<script[^>]+src="practice-context\.js[^"\n]*"[^>]*></script>\s*', "", document)
     document = remove_marker(document, "SITE_HEADER")
     document = re.sub(
         r'(?im)^[ \t]*<script\b(?=[^>\r\n]*\bsrc\s*=\s*["\']site-shell\.js(?:\?[^"\']*)?["\'])[^>]*>\s*</script>[ \t]*\n?',
@@ -613,6 +615,7 @@ def inject_site_shell(document: str, *, guides_published: bool | None = None) ->
         f'class="skip-link" href="#{h(main_id)}"',
         1,
     )
+    document = document.replace("<head>", f'<head>\n<script defer src="practice-context.js?v={CACHE_TOKEN}"></script>', 1)
     return document
 
 
@@ -1844,16 +1847,6 @@ def question_summary(
     guides: Sequence[Guide] = (),
 ) -> str:
     standard = route.standard
-    ordered = sorted(siblings, key=question_sort_key)
-    current_index = ordered.index(route)
-    previous = ordered[current_index - 1] if current_index > 0 else None
-    following = ordered[current_index + 1] if current_index + 1 < len(ordered) else None
-    previous_href = previous.href if previous else route.href
-    following_href = following.href if following else route.href
-    previous_label = f"← Question {previous.display_number}" if previous else "Previous question"
-    following_label = f"Question {following.display_number} →" if following else "Next question"
-    previous_hidden = "" if previous else " hidden"
-    following_hidden = "" if following else " hidden"
     matching_guides = [
         guide
         for guide in guides
@@ -1867,25 +1860,19 @@ def question_summary(
     guide_hidden = "" if guide_links else " hidden"
 
     return f"""
-<section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-  <p class="question-label">Learning summary</p>
-  <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-  <p class="step-text" data-seo-summary>{h(question_learning_summary(route))}</p>
-  <h3>Check</h3>
+<section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading" hidden>
+  <h2 id="learning-summary-heading">Check</h2>
   <p class="step-text" data-seo-mistake>{h(infer_common_mistake(route))}</p>
-  <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
-  <h3>Continue practising</h3>
-  {related_practice_html(route)}
-  <div class="nav-row">
-    <a class="nav-btn secondary" href="{h(previous_href)}" data-seo-related="previous"{previous_hidden}>{h(previous_label)}</a>
-    <a class="nav-btn secondary" href="{h(following_href)}" data-seo-related="next"{following_hidden}>{h(following_label)}</a>
-  </div>
-  <ul class="step-text">
-    <li><a href="{h(route.year_file)}" data-seo-related-year>All {route.year} {h(standard.topic)} walkthroughs</a></li>
-    <li><a href="{h(standard.landing_file)}" data-seo-standard-link>All {h(standard.code)} {h(standard.topic)} years</a></li>
-    <li data-seo-related-skills>{question_skill_links(route)}</li>
-    <li data-seo-related-guides{guide_hidden}>{'Related concept guide: ' + guide_links if guide_links else ''}</li>
-  </ul>
+  <details><summary>More practice and reflection</summary>
+    <p class="step-text" data-seo-summary>{h(question_learning_summary(route))}</p>
+    {related_practice_html(route)}
+    <ul class="step-text">
+      <li><a href="{h(route.year_file)}" data-seo-related-year>All {route.year} {h(standard.topic)} questions</a></li>
+      <li><a href="{h(standard.landing_file)}" data-seo-standard-link>{h(standard.code)} sources and years</a></li>
+      <li data-seo-related-skills>{question_skill_links(route)}</li>
+      <li data-seo-related-guides{guide_hidden}>{'Related concept guide: ' + guide_links if guide_links else ''}</li>
+    </ul>
+  </details>
 </section>
 """.strip()
 
@@ -2038,18 +2025,17 @@ def walkthrough_fallback(route: QuestionRoute, record: Mapping[str, object]) -> 
         )
     body = f"""
 <section id="question-card" class="question-card static-walkthrough-question" data-prerendered="true">
-  <p class="question-label">Question</p>
   {review_notice}
   {question_html}
   {diagram_note}
   <noscript><p class="question-note">Bookmarks, retry marks, exam mode, and the pinned-question setting need JavaScript. The question and first learning step remain available.</p></noscript>
 </section>
-<section id="hints-card" class="question-card tips-card static-walkthrough-support" data-prerendered="true">
+<details id="hints-card" class="question-card tips-card static-walkthrough-support" data-prerendered="true"><summary>Hint</summary>
   <p class="question-label">First walkthrough idea</p>
   <h2 id="static-first-idea-heading">{h(support_kind)} to try first</h2>
   {support_html}
-</section>
-<div id="walkthrough-content" class="static-walkthrough-content" data-prerendered="true">
+</details>
+<details id="walkthrough-content" class="static-walkthrough-content" data-prerendered="true"><summary>First worked step</summary>
   <section class="step-card static-first-step" aria-labelledby="static-first-step-heading">
     <p class="step-number">Step 1</p>
     <h2 id="static-first-step-heading">{h(step_title)}</h2>
@@ -2060,7 +2046,7 @@ def walkthrough_fallback(route: QuestionRoute, record: Mapping[str, object]) -> 
     </details>
   </section>
   <noscript><p class="question-note">This no-JavaScript view shows the question, the first idea, and the first worked step. Enable JavaScript for all reveals, progress controls, and saved practice features.</p></noscript>
-</div>""".strip()
+</details>""".strip()
     return marker("WALKTHROUGH_FALLBACK", body, "    ")
 
 
@@ -2134,8 +2120,10 @@ def update_question_page(
     )
 
     heading = (
-        f"{route.year} {route.standard.topic} · Q{route.display_number}"
+        f"{route.standard.topic} · {route.year} · Q{route.display_number}"
     )
+    original = re.sub(r'(?s)<header class="topbar">.*?</header>', lambda _: f'''<header class="topbar question-context"><div><p id="page-eyebrow" class="visually-hidden">NCEA Level {route.standard.level} {h(route.standard.code)}</p><h1 id="page-title">{h(heading)}</h1><p id="page-subtitle" class="visually-hidden">{route.year} Paper</p></div><a id="back-link" class="visually-hidden" href="{h(route.year_file)}">Back to paper</a><a class="ghost-link static-question-list" href="{h(route.year_file)}">Questions</a></header>''', original, count=1)
+    original = original.replace('<body class="has-site-header">', '<body class="has-site-header question-page">')
     original = replace_first_h1(original, heading)
     original = replace_back_to_paper(original, route.year_file)
     old_paper_fragments = {f"index.html#{route.standard_key}-{route.year}"}
@@ -2172,6 +2160,11 @@ def update_question_page(
 
     original = remove_legacy_walkthrough_mounts(original, route.source_file)
     fallback = walkthrough_fallback(route, fallback_record)
+    ordered_siblings = sorted(siblings, key=question_sort_key)
+    current_index = ordered_siblings.index(route)
+    previous_link = f'<a class="ghost-link" rel="prev" data-seo-related="previous" href="{h(ordered_siblings[current_index - 1].href)}">← Previous question</a>' if current_index else '<span class="question-boundary">First question</span>'
+    next_link = f'<a class="ghost-link" rel="next" data-seo-related="next" href="{h(ordered_siblings[current_index + 1].href)}">Next question →</a>' if current_index + 1 < len(ordered_siblings) else f'<a class="ghost-link" href="{h(route.year_file)}">Finish paper →</a>'
+    fallback = fallback.replace('<details id="hints-card"', f'<nav id="walkthrough-part-navigation" class="walkthrough-part-navigation" aria-label="Question navigation">{previous_link}<span class="sequence-position">{current_index + 1} / {len(ordered_siblings)}</span>{next_link}</nav>\n<details id="hints-card"')
     if "?" in route.href and paper_fallbacks:
         choices = []
         for sibling in siblings:
@@ -2219,6 +2212,7 @@ def update_question_page(
         original,
     )
     original = inject_question_page_record(original, route, siblings, guides)
+    original = original.replace("20261018-1", CACHE_TOKEN)
     return inject_site_shell(original)
 
 
@@ -2353,7 +2347,7 @@ def update_homepage(
             structured_data=website_schema(),
         ),
     )
-    original = replace_first_h1(original, "Practise Level 3 Calculus")
+    original = replace_first_h1(original, "Practise mathematics")
 
     original = re.sub(
         r'(?im)^\s*<(?:link|script)\b[^>]*(?:katex|auto-render|walkthrough-gate\.js|question-catalogue\.js|index-page\.js|site-shell\.js|search-core\.js|index-loader\.js)[^>]*>(?:</script>)?\s*\n?',
@@ -2363,7 +2357,6 @@ def update_homepage(
     homepage_scripts = "\n".join(
         (
             f'<script defer src="site-shell.js?v={CACHE_TOKEN}"></script>',
-            f'<script defer src="search-core.js?v={CACHE_TOKEN}"></script>',
             f'<script defer src="index-loader.js?v={CACHE_TOKEN}"></script>',
         )
     )
@@ -2446,6 +2439,7 @@ def page_head(
   <title>{h(title)}</title>
 {marker('HEAD', metadata_body(title=title, description=description, canonical=canonical, structured_data=structured_data, robots=robots, og_type=og_type), '  ')}
   <link rel="stylesheet" href="style.css?v={CACHE_TOKEN}">
+  <script defer src="practice-context.js?v={CACHE_TOKEN}"></script>
   <script defer src="site-shell.js?v={CACHE_TOKEN}"></script>
 </head>"""
 
@@ -2612,8 +2606,8 @@ def standard_page(
         count = len(year_routes)
         year_cards.append(
             f"""<a class="nav-btn index-link-card" href="{h(year_file(standard.key, year))}">
-  <span class="index-link-title">{year} {h(standard.topic)} worked answers</span>
-  <span class="index-link-copy">{count} worked question walkthroughs for {h(standard.code)}.</span>
+  <span class="index-link-title">{year}</span>
+  <span class="index-link-copy">{count} questions</span>
 </a>"""
         )
     breadcrumb = breadcrumb_nav(
@@ -2658,6 +2652,15 @@ def standard_page(
     <a class="ghost-link" href="/standards.html">← Browse all standards</a>
   </header>
 
+  <section class="question-card" aria-labelledby="paper-years-heading">
+    <p class="question-label">Available examination years</p>
+    <h2 id="paper-years-heading">Choose a {h(standard.topic)} paper</h2>
+    <p class="step-text">Each year page links to every walkthrough currently available on Calc.nz.</p>
+    <div class="nav-row index-nav">
+      {' '.join(year_cards)}
+    </div>
+  </section>
+
   <section class="question-card" aria-labelledby="standard-overview-heading">
     <p class="question-label">Standard overview</p>
     <h2 id="standard-overview-heading">Skills covered in {h(standard.code)}</h2>
@@ -2678,14 +2681,7 @@ def standard_page(
     <div class="nav-row">{direct_skill_links}</div>
   </section>
 
-  <section class="question-card" aria-labelledby="paper-years-heading">
-    <p class="question-label">Available examination years</p>
-    <h2 id="paper-years-heading">Choose a {h(standard.topic)} paper</h2>
-    <p class="step-text">Each year page links to every walkthrough currently available on Calc.nz.</p>
-    <div class="nav-row index-nav">
-      {' '.join(year_cards)}
-    </div>
-  </section>
+
 
   {guide_block}
 
@@ -2759,14 +2755,13 @@ def year_page(
         for route in question_routes:
             cards.append(
                 f"""<a class="nav-btn index-link-card" href="{h(route.href)}">
-  <span class="index-link-title">Question {h(route.display_number)} worked solution</span>
+  <span class="index-link-title">Q{h(route.display_number)}</span>
   <span class="index-link-copy">{h(sentence(meta_plain(route.focus)))}</span>
 </a>"""
             )
         groups.append(
             f"""<section class="index-group" aria-labelledby="question-{number}-heading">
-  <p class="question-label index-group-label">Question {number}</p>
-  <h3 id="question-{number}-heading">Question {number} walkthroughs</h3>
+  <h3 id="question-{number}-heading">Question {number}</h3>
   <div class="nav-row index-nav">
     {' '.join(cards)}
   </div>
@@ -2797,16 +2792,24 @@ def year_page(
   <header class="topbar">
     <div>
       <p class="eyebrow">{year} NCEA Level {standard.level} {h(standard.topic)}</p>
-      <h1>{year} {h(standard.topic)} {h(standard.code)} worked answers</h1>
-      <p class="subtitle">Guided, step-by-step worked solutions for {h(standard.official_name)}.</p>
+      <h1>{h(standard.topic)} · {year}</h1>
+      <p class="subtitle">Level {standard.level} · {h(standard.code)} · {len(ordered)} questions</p>
     </div>
     <a class="ghost-link" href="{h(standard.landing_file)}">← All {h(standard.topic)} years</a>
   </header>
 
-  <details class="question-card paper-overview-details" open data-mobile-paper-overview>
+
+  <section class="question-card" aria-labelledby="question-list-heading">
+    <p class="question-label">Worked question index</p>
+    <h2 id="question-list-heading">{year} {h(standard.topic)} questions</h2>
+    <a class="nav-btn secondary" href="{h(ordered[0].href)}">Start paper</a>
+    {' '.join(groups)}
+  </section>
+
+  <details class="question-card paper-overview-details" data-mobile-paper-overview>
     <summary id="paper-overview-heading">
       <span class="question-label">Paper overview</span>
-      <strong>Work through the {year} questions one step at a time</strong>
+      <strong>Paper information and official sources</strong>
       <span class="paper-overview-summary">{len(ordered)} walkthroughs · {h(standard.code)} · Official source context included</span>
     </summary>
     <div class="paper-overview-body">
@@ -2816,13 +2819,6 @@ def year_page(
       <p class="question-note">Calc.nz is independent of NZQA. Use official NZQA material for the original paper, diagrams, assessment schedule, and authoritative standard information.</p>
     </div>
   </details>
-
-  <section class="question-card" aria-labelledby="question-list-heading">
-    <p class="question-label">Worked question index</p>
-    <h2 id="question-list-heading">{year} {h(standard.topic)} questions</h2>
-    <p class="step-text">Choose a question part to open its guided worked solution.</p>
-    {' '.join(groups)}
-  </section>
 
   <section class="question-card" aria-labelledby="related-years-heading">
     <p class="question-label">More practice</p>
@@ -2956,21 +2952,10 @@ def skills_directory_page(routes: Sequence[QuestionRoute]) -> str:
     cards: list[str] = []
     for slug, spec in SKILL_SPECS.items():
         matching = routes_for_skill(routes, slug)
-        standards = [
-            STANDARDS[key]
-            for key in STANDARD_ORDER
-            if any(route.standard_key == key for route in matching)
-        ]
-        context = ", ".join(
-            f"Level {standard.level} {standard.code}" for standard in standards
-        )
-        cards.append(
-            f"""<a class="nav-btn index-link-card" href="{h(spec.page_href)}">
-  <span class="index-link-title">{h(spec.title_label)}</span>
-  <span class="index-link-copy">{len(matching)} questions · {h(context)}. {h(spec.intro)}</span>
-</a>"""
-        )
+        group = ("Differentiation" if any(r.standard_key == "level-3-differentiation" for r in matching) else "Integration" if any(r.standard_key == "level-3-integration" for r in matching) else "Complex numbers" if any(r.standard_key == "level-3-complex" for r in matching) else "Algebra")
+        cards.append((group, f"""<a class="nav-btn index-link-card" href="{h(spec.page_href)}"><span class="index-link-title">{h(spec.title_label)}</span><span class="index-link-copy">{len(matching)} questions</span></a>"""))
 
+    grouped_cards = "".join(f'<section class="skill-directory-group"><h2>{h(group)}</h2><div class="nav-row index-nav">' + " ".join(card for name, card in cards if name == group) + '</div></section>' for group in ("Differentiation", "Integration", "Complex numbers", "Algebra") if any(name == group for name, _ in cards))
     return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
 <body class="home-page content-page skills-directory-page has-site-header">
 {site_header()}
@@ -2988,8 +2973,8 @@ def skills_directory_page(routes: Sequence[QuestionRoute]) -> str:
   <section class="question-card" aria-labelledby="skills-directory-introduction">
     <p class="question-label">Method practice</p>
     <h2 id="skills-directory-introduction">Choose a skill to practise</h2>
-    <p class="step-text">These pages are created only for skills with enough matching questions in the walkthrough catalogue to provide useful practice. Grouping comes from the recorded method for each walkthrough; Calc.nz does not infer grades or difficulty from question position.</p>
-    <div class="nav-row index-nav">{' '.join(cards)}</div>
+
+    <div class="nav-row index-nav">{grouped_cards}</div>
   </section>
 
   <section class="question-card" aria-labelledby="skills-browse-context">
@@ -3069,7 +3054,9 @@ def skill_page(
     for route in matching:
         grouped[(route.standard_key, route.year)].append(route)
     question_groups: list[str] = []
-    jump_links: list[str] = []
+    practice_token = base64.urlsafe_b64encode(json.dumps({"kind": "skill", "slug": slug}, separators=(",", ":")).encode()).decode().rstrip("=")
+    def practice_href(href):
+        return href + ("&" if "?" in href else "?") + "practice=" + practice_token
     for standard_key in STANDARD_ORDER:
         years = sorted(
             {year for key, year in grouped if key == standard_key},
@@ -3080,12 +3067,9 @@ def skill_page(
             group_routes = sorted(grouped[(standard_key, year)], key=question_sort_key)
             group_id = f"{slug}-{standard_key}-{year}"
             method_values = sorted({question_method_title(route) for route in group_routes})
-            jump_links.append(
-                f'<a class="skill-jump-link" href="#{h(group_id)}">{year} {h(standard.topic)}</a>'
-            )
             cards = " ".join(
-                f"""<a class="nav-btn index-link-card" href="{h(route.href)}" data-skill-method="{h(question_method_title(route))}">
-  <span class="index-link-title">{h(route.title)} — {h(question_method_title(route))}</span>
+                f"""<a class="nav-btn index-link-card" href="{h(practice_href(route.href))}" data-skill-method="{h(question_method_title(route))}">
+  <span class="index-link-title">{year} · Q{h(route.display_number)}</span>
   <span class="index-link-copy">{h(sentence(meta_plain(route.focus)))}</span>
 </a>"""
                 for route in group_routes
@@ -3093,20 +3077,11 @@ def skill_page(
             question_groups.append(
                 f"""<details class="index-group skill-question-group" open data-skill-group data-standard="{h(standard_key)}" data-methods="{h('|'.join(method_values))}">
   <summary id="{h(group_id)}" class="skill-question-summary">
-    <span class="question-label">NCEA Level {standard.level} · {h(standard.code)}</span>
     <strong>{year} {h(standard.topic)}</strong>
     <span>{len(group_routes)} question{'s' if len(group_routes) != 1 else ''}</span>
   </summary>
-  <div class="year-cluster-header skill-year-links">
-    <div>
-      <p class="step-text">Open a question or return to its assessment context.</p>
-    </div>
-    <div class="nav-row">
-      <a class="site-footer-link" href="{h(standard.landing_file)}">Standard overview</a>
-      <a class="site-footer-link" href="{h(year_file(standard_key, year))}">{year} paper</a>
-    </div>
-  </div>
   <div class="nav-row index-nav">{cards}</div>
+  <a class="skill-paper-link" href="{h(year_file(standard_key, year))}">Paper and official sources</a>
 </details>"""
             )
 
@@ -3116,13 +3091,15 @@ def skill_page(
     ]
     filter_buttons.extend(
         f'<button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="{h(standard.key)}">{h(standard.code)}</button>'
-        for standard in standards
+        for standard in standards if len(standards) > 1
     )
     if len(method_filters) > 1:
         filter_buttons.extend(
             f'<button class="skill-filter-chip" type="button" aria-pressed="false" data-skill-filter="{h(method)}">{h(method)}</button>'
             for method in method_filters
         )
+
+    filter_controls = ('<details class="skill-filters"><summary>Filter questions</summary><div class="skill-filter-row" role="group" aria-label="Filter this skill collection">' + ''.join(filter_buttons) + '</div></details>') if len(filter_buttons) > 1 else ""
 
     related_links = " ".join(
         f'<a class="nav-btn secondary" href="{h(SKILL_SPECS[related].page_href)}">{h(SKILL_SPECS[related].short_label)}</a>'
@@ -3144,19 +3121,32 @@ def skill_page(
 """
 
     return f"""{page_head(title=title, description=description, canonical=canonical, structured_data=structured)}
-<body class="home-page content-page skill-page has-site-header">
+<body class="home-page content-page skill-page has-site-header" data-skill="{h(slug)}">
 {site_header()}
 <main id="main-content" class="app home-app content-app" tabindex="-1">
 {marker('BREADCRUMBS', breadcrumb, '  ')}
   <header class="topbar">
     <div>
       <p class="eyebrow">NCEA maths skill practice</p>
-      <h1>{h(spec.h1)} NCEA practice questions</h1>
+      <h1>{h(spec.title_label)}</h1>
       <p class="subtitle">{h(spec.intro)}</p>
     </div>
     <a class="ghost-link" href="skills.html">← All skills</a>
   </header>
 
+  <section class="question-card" aria-labelledby="skill-questions-heading" data-skill-collection>
+    <h2 id="skill-questions-heading">{len(matching)} practice questions</h2>
+    <a class="nav-btn secondary" href="{h(practice_href(matching[0].href))}" data-skill-start data-skill-method="{h(question_method_title(matching[0]))}">Start practising</a>
+    <div class="skill-question-tools">
+
+      {filter_controls}
+      <button class="nav-btn secondary skill-random-button" type="button" data-skill-random>Random question from this skill</button>
+      <p class="visually-hidden" aria-live="polite" data-skill-filter-status>{len(matching)} matching questions shown.</p>
+    </div>
+    {' '.join(question_groups)}
+  </section>
+
+  <details class="skill-explanation"><summary>About this skill and common mistakes</summary>
   <section class="question-card" aria-labelledby="skill-overview-heading">
     <p class="question-label">Skill overview</p>
     <h2 id="skill-overview-heading">What these questions practise</h2>
@@ -3174,19 +3164,7 @@ def skill_page(
 
   {guide_block}
 
-  <section class="question-card" aria-labelledby="skill-questions-heading" data-skill-collection>
-    <p class="question-label">Related practice</p>
-    <h2 id="skill-questions-heading">{h(spec.title_label)} questions from different years</h2>
-    <p class="step-text">Open a question for hints and a progressive worked solution, or use the standard and paper links to return to its assessment context.</p>
-    <div class="skill-question-tools">
-      <nav class="skill-jump-nav" aria-label="Jump to a year">{''.join(jump_links)}</nav>
-      <div class="skill-filter-row" role="group" aria-label="Filter this skill collection">{''.join(filter_buttons)}</div>
-      <button class="nav-btn secondary skill-random-button" type="button" data-skill-random>Random question from this skill</button>
-      <p class="visually-hidden" aria-live="polite" data-skill-filter-status>{len(matching)} matching questions shown.</p>
-    </div>
-    {' '.join(question_groups)}
-  </section>
-
+  </details>
   <section class="question-card" aria-labelledby="related-skills-heading">
     <p class="question-label">Keep practising</p>
     <h2 id="related-skills-heading">Related skill collections</h2>
@@ -3456,19 +3434,17 @@ def search_page(routes: Sequence[QuestionRoute], guides: Sequence[Guide]) -> str
     <div>
       <p class="eyebrow">Find the right next step</p>
       <h1>Search Calc.nz</h1>
-      <p class="subtitle">Search by method, topic, standard number, paper year, skill, or question.</p>
+      <p class="subtitle">Find a method, paper, skill, or question.</p>
     </div>
   </header>
-  <section class="question-card global-search-card" aria-labelledby="global-search-heading">
-    <p class="question-label">Site search</p>
-    <h2 id="global-search-heading">What do you want to practise?</h2>
+  <section class="question-card global-search-card" aria-label="Search questions and resources">
     <form class="home-search-form" role="search" data-global-search-form>
       <label for="global-search-input">Search guides, skills, papers, and questions</label>
       <div class="global-search-query-row">
         <input id="global-search-input" class="home-search-input" type="search" name="q" autocomplete="off" placeholder="Try natural log, turning point, or 91579 2024" data-global-search-input>
         <button class="nav-btn global-search-submit" type="submit">Search</button>
       </div>
-      <fieldset class="global-search-filters">
+      <details class="search-filter-disclosure"><summary>Filters <span data-filter-count></span></summary><fieldset class="global-search-filters">
         <legend>Filter results</legend>
         <div class="global-search-filter-grid">
           <label for="global-search-level">NCEA level<select id="global-search-level" name="level" data-search-filter="level"><option value="">All levels</option><option value="level-3">Level 3</option><option value="level-2">Level 2</option></select></label>
@@ -3477,9 +3453,10 @@ def search_page(routes: Sequence[QuestionRoute], guides: Sequence[Guide]) -> str
           <label for="global-search-skill">Skill or method<select id="global-search-skill" name="skill" data-search-filter="skill"><option value="">All skills</option>{skill_options}</select></label>
         </div>
         <button class="nav-btn secondary global-search-reset" type="reset" data-search-reset>Reset search and filters</button>
-      </fieldset>
+      </fieldset></details>
+      <div class="applied-filters" data-applied-filters></div>
     </form>
-    <p class="search-status visually-hidden" aria-live="polite" aria-atomic="true" data-global-search-status>Enter a search term.</p>
+    <h2 id="search-results-heading" tabindex="-1" class="search-status" aria-live="polite" aria-atomic="true" data-global-search-status>Enter a search term.</h2>
     <div class="home-search-results" data-global-search-results hidden></div>
     <noscript><p class="question-note">Search needs JavaScript, but every destination remains available through the <a href="standards.html">standards</a> and <a href="skills.html">skills</a> directories.</p></noscript>
   </section>

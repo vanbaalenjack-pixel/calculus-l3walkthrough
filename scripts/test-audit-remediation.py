@@ -720,7 +720,7 @@ class RuntimeContractTests(unittest.TestCase):
 
     def test_exam_mode_removes_pending_state_and_neutralises_answer_cues(self) -> None:
         self.assertIn('classList.remove("exam-mode-pending")', self.source)
-        self.assertIn('neutralHeading || "Exam question"', self.source)
+        self.assertIn('options.neutralHeading || "Exam question"', self.source)
         self.assertIn("originalDocumentTitle", self.source)
         self.assertIn('document.title = shouldHideWalkthrough ? neutralHeading + " | Calc.nz"', self.source)
         self.assertIn("exam-mode-hidden", self.source)

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en-NZ">
 <head>
-  <meta charset="UTF-8" />
+<script defer src="practice-context.js?v=20261026-1"></script>
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rational-function Integration Worked Solution – 2023 NCEA Level 3 Q2(c) (AS91579) | Calc.nz</title>
 <!-- SEO:HEAD:START -->
@@ -91,23 +92,23 @@
 </script>
 <!-- SEO:HEAD:END -->
 
-<link rel="stylesheet" href="style.css?v=20261018-1" />
+<link rel="stylesheet" href="style.css?v=20261026-1" />
 
   <link rel="stylesheet" href="assets/katex/katex.min.css">
   <script defer src="assets/katex/katex.min.js"></script>
   <script defer src="assets/katex/auto-render.min.js"></script>
 <script data-exam-mode-bootstrap>try{if(localStorage.getItem("calc.nz.examMode")==="true"){document.documentElement.classList.add("exam-mode-pending");document.title="Exam question | Calc.nz"}}catch(e){}</script>
-<script defer src="walkthrough-audit-data.js?v=20261018-1"></script>
-  <script defer src="walkthrough-gate.js?v=20261018-1"></script>
-<script defer src="differentiation-walkthrough.js?v=20261018-1"></script>
-  <script defer src="integration-2023-data.js?v=20261018-1"></script>
+<script defer src="walkthrough-audit-data.js?v=20261026-1"></script>
+  <script defer src="walkthrough-gate.js?v=20261026-1"></script>
+<script defer src="differentiation-walkthrough.js?v=20261026-1"></script>
+  <script defer src="integration-2023-data.js?v=20261026-1"></script>
   <!-- SEO:PAGE_RECORD:START -->
   <script>window.CALC_NZ_SKILL_LABELS = {"chain-rule": "Chain rule", "product-quotient-rules": "Product and quotient rules", "related-rates": "Related rates", "stationary-points-optimisation": "Stationary points and optimisation", "parametric-differentiation": "Parametric differentiation", "antidifferentiation": "Antidifferentiation", "integration-techniques": "Integration techniques", "differential-equations": "Differential equations", "complex-number-algebra": "Complex-number algebra", "polar-form-de-moivre": "Polar form and De Moivre", "differentiation-basics": "Differentiation rules", "tangents-normals": "Tangents and normals", "graphs-and-derivatives": "Graphs, signs and limits", "implicit-differentiation": "Implicit differentiation", "definite-integrals-area": "Definite integrals and area", "algebraic-methods": "Algebraic methods", "complex-loci-modulus": "Complex loci and modulus"};</script>
   <script>window.CALC_NZ_PAGE_RECORD = {"level": {"id": "level-3", "label": "Level 3"}, "paper": {"id": "level-3-integration-2023", "year": 2023}, "question": {"canonical": "https://calc.nz/int-2c2023.html", "commonMistake": "Differentiate the antiderivative as a check. For definite integrals, substitute both bounds in the correct order.", "description": "2023 NCEA Level 3 Integration AS91579 Question 2(c) worked solution: rewriting a rational integrand before solving for k. Use guided hints and step-by-step…", "guideLinks": [], "id": "2c", "label": "Question 2(c)", "method": "rewriting a rational integrand before solving for \\(k\\).", "methodTitle": "Rational-function Integration", "relatedPractice": {"href": "int-3e2023.html", "label": "2023 Integration · Q3(e)"}, "reviewStatus": "unreviewed", "skillSlugs": ["integration-techniques"], "summary": "This walkthrough helps you practise rewriting a rational integrand before solving for \\(k\\). Use the hints to plan the method, then repeat the question without hints and check each step.", "title": "Rational-function Integration Worked Solution – 2023 NCEA Level 3 Q2(c) (AS91579) | Calc.nz", "updatedDate": "2026-10-18"}, "standard": {"code": "AS91579", "id": "level-3-integration", "label": "Integration"}};</script>
   <!-- SEO:PAGE_RECORD:END -->
-  <script defer src="site-shell.js?v=20261018-1"></script>
+  <script defer src="site-shell.js?v=20261026-1"></script>
 </head>
-<body class="has-site-header">
+<body class="has-site-header question-page">
 <!-- SEO:SITE_HEADER:START -->
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <header class="site-header">
@@ -139,18 +140,10 @@
   </nav>
   <!-- SEO:BREADCRUMBS:END -->
 
-<header class="topbar">
-      <div>
-        <p id="page-eyebrow" class="eyebrow">Level 3 Integration Walkthrough</p>
-        <h1 id="page-title">2023 Integration · Q2(c)</h1>
-        <p id="page-subtitle" class="subtitle">2023 Paper</p>
-      </div>
-      <a id="back-link" class="ghost-link" href="level-3-integration-2023.html">← Back to paper</a>
-    </header>
+<header class="topbar question-context"><div><p id="page-eyebrow" class="visually-hidden">NCEA Level 3 AS91579</p><h1 id="page-title">Integration · 2023 · Q2(c)</h1><p id="page-subtitle" class="visually-hidden">2023 Paper</p></div><a id="back-link" class="visually-hidden" href="level-3-integration-2023.html">Back to paper</a></header>
 
     <!-- SEO:WALKTHROUGH_FALLBACK:START -->
     <section id="question-card" class="question-card static-walkthrough-question" data-prerendered="true">
-      <p class="question-label">Question</p>
 
       <p class="step-text question-instruction">Find the value of \(k\), given that</p>
           <div class="question-math">
@@ -159,12 +152,13 @@
 
       <noscript><p class="question-note">Bookmarks, retry marks, exam mode, and the pinned-question setting need JavaScript. The question and first learning step remain available.</p></noscript>
     </section>
-    <section id="hints-card" class="question-card tips-card static-walkthrough-support" data-prerendered="true">
+    <nav id="walkthrough-part-navigation" class="walkthrough-part-navigation" aria-label="Question navigation"><a class="ghost-link" rel="prev" data-seo-related="previous" href="int-2b2023.html">← Previous question</a><span class="sequence-position">8 / 15</span><a class="ghost-link" rel="next" data-seo-related="next" href="int-2d2023.html">Next question →</a></nav>
+<details id="hints-card" class="question-card tips-card static-walkthrough-support" data-prerendered="true"><summary>Hint</summary>
       <p class="question-label">First walkthrough idea</p>
       <h2 id="static-first-idea-heading">Focus to try first</h2>
       <p class="step-text">Rewrite the rational function into a constant plus a logarithmic term before applying the bounds.</p>
-    </section>
-    <div id="walkthrough-content" class="static-walkthrough-content" data-prerendered="true">
+    </details>
+    <details id="walkthrough-content" class="static-walkthrough-content" data-prerendered="true"><summary>First worked step</summary>
       <section class="step-card static-first-step" aria-labelledby="static-first-step-heading">
         <p class="step-number">Step 1</p>
         <h2 id="static-first-step-heading">Rewrite the fraction</h2>
@@ -180,7 +174,7 @@
         </details>
       </section>
       <noscript><p class="question-note">This no-JavaScript view shows the question, the first idea, and the first worked step. Enable JavaScript for all reveals, progress controls, and saved practice features.</p></noscript>
-    </div>
+    </details>
     <!-- SEO:WALKTHROUGH_FALLBACK:END -->
 
     <!-- SEO:OVERVIEW:START -->
@@ -196,25 +190,19 @@
     <!-- SEO:OVERVIEW:END -->
 
     <!-- SEO:SUMMARY:START -->
-    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading">
-      <p class="question-label">Learning summary</p>
-      <h2 id="learning-summary-heading">Review the method, not only the answer</h2>
-      <p class="step-text" data-seo-summary>This walkthrough helps you practise rewriting a rational integrand before solving for \(k\). Use the hints to plan the method, then repeat the question without hints and check each step.</p>
-      <h3>Check</h3>
+    <section class="standard-section seo-learning-summary" aria-labelledby="learning-summary-heading" hidden>
+      <h2 id="learning-summary-heading">Check</h2>
       <p class="step-text" data-seo-mistake>Differentiate the antiderivative as a check. For definite integrals, substitute both bounds in the correct order.</p>
-      <p class="step-text"><a href="prerequisites.html">Calculus essentials: algebra, logarithms, rules, radians and domains</a></p>
-      <h3>Continue practising</h3>
-      <p class="step-text" data-related-practice>Try a related question: <a href="int-3e2023.html">2023 Integration · Q3(e)</a>. Attempt it before opening working, then return to this question later.</p>
-      <div class="nav-row">
-        <a class="nav-btn secondary" href="int-2b2023.html" data-seo-related="previous">← Question 2(b)</a>
-        <a class="nav-btn secondary" href="int-2d2023.html" data-seo-related="next">Question 2(d) →</a>
-      </div>
-      <ul class="step-text">
-        <li><a href="level-3-integration-2023.html" data-seo-related-year>All 2023 Integration walkthroughs</a></li>
-        <li><a href="level-3-integration.html" data-seo-standard-link>All AS91579 Integration years</a></li>
-        <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-integration-techniques.html">Integration techniques</a></li>
-        <li data-seo-related-guides hidden></li>
-      </ul>
+      <details><summary>More practice and reflection</summary>
+        <p class="step-text" data-seo-summary>This walkthrough helps you practise rewriting a rational integrand before solving for \(k\). Use the hints to plan the method, then repeat the question without hints and check each step.</p>
+        <p class="step-text" data-related-practice>Try a related question: <a href="int-3e2023.html">2023 Integration · Q3(e)</a>. Attempt it before opening working, then return to this question later.</p>
+        <ul class="step-text">
+          <li><a href="level-3-integration-2023.html" data-seo-related-year>All 2023 Integration questions</a></li>
+          <li><a href="level-3-integration.html" data-seo-standard-link>AS91579 sources and years</a></li>
+          <li data-seo-related-skills>Practise more questions using this skill: <a href="skill-integration-techniques.html">Integration techniques</a></li>
+          <li data-seo-related-guides hidden></li>
+        </ul>
+      </details>
     </section>
     <!-- SEO:SUMMARY:END -->
   </main>

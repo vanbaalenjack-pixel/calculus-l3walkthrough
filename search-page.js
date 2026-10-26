@@ -28,6 +28,8 @@
   let searchRequestId = 0;
   let inputHistoryTimer = null;
   let filtersWithoutControls = {};
+  let scrollAfterSubmit = false;
+  let restoring = true;
 
   function escapeHtml(value) {
     return String(value == null ? "" : value)
@@ -45,6 +47,7 @@
           (paper.questions || []).forEach(function (question) {
             output.push(window.CalcNzSearch.prepareRecord({
               type: "Question",
+              practiceKey: paper.id + ":" + question.id,
               title: question.label + " · " + (question.methodTitle || question.methodPlain || question.method),
               description: question.methodPlain || question.method,
               href: question.href,
@@ -75,7 +78,7 @@
     }
     cataloguePromise = new Promise(function (resolve, reject) {
       const script = document.createElement("script");
-      script.src = "question-catalogue.js?v=20261018-1";
+      script.src = "question-catalogue.js?v=20261026-1";
       script.addEventListener("load", function () {
         if (!window.CALC_NZ_QUESTION_CATALOGUE) {
           reject(new Error("Question catalogue did not initialise."));
@@ -166,7 +169,7 @@
       }
     });
     if (correctedUnknownValue) {
-      window.history.replaceState(null, "", url.pathname + (params.toString() ? "?" + params.toString() : "") + url.hash);
+      window.history.replaceState(window.history.state, "", url.pathname + (params.toString() ? "?" + params.toString() : "") + url.hash);
     }
   }
 
@@ -205,34 +208,55 @@
     return " with the selected filters";
   }
 
+  function renderFilters(filters) {
+    const count = Object.keys(filters).length;
+    const filterCount = document.querySelector("[data-filter-count]");
+    if (filterCount) filterCount.textContent = count ? "(" + count + ")" : "";
+    const applied = document.querySelector("[data-applied-filters]");
+    if (applied) {
+      applied.innerHTML = Object.keys(filters).map(name => '<button class="applied-filter" type="button" data-remove-filter="' + name + '" aria-label="' + escapeHtml("Remove " + name + " filter: " + filters[name]) + '">' + escapeHtml(name + ': ' + filters[name]) + ' ×</button>').join("");
+    }
+  }
+
   function render(query, filters) {
     const matches = window.CalcNzSearch.search(records, query, 30, filters);
+    const sequence = {kind:"search",keys:matches.filter(r => r.practiceKey).map(r => r.practiceKey),return:location.pathname + location.search};
     results.hidden = false;
     status.textContent = matches.length + (matches.length === 1 ? " result" : " results")
       + resultStateDescription(query.trim(), filters) + ".";
     if (!matches.length) {
-      results.innerHTML = '<p class="home-search-empty">No close matches found. Try another method, standard, year, skill, or a broader set of filters.</p>';
+      results.innerHTML = '<p class="home-search-empty">No matches. Try another method or remove a filter.</p>';
+      finishRender();
       return;
     }
     results.innerHTML = '<ol class="home-search-result-list">' + matches.map(function (record) {
       const context = [record.year, record.standard].filter(Boolean).join(" · ");
-      return '<li><a class="home-search-result" href="' + escapeHtml(record.href) + '">'
+      const href = record.practiceKey && window.CalcNzPractice ? window.CalcNzPractice.withContext(record.href, sequence) : record.href;
+      return '<li><a class="home-search-result" href="' + escapeHtml(href) + '">'
         + '<span class="home-search-result-meta"><span class="search-result-type">' + escapeHtml(record.type) + "</span>"
         + (context ? " · " + escapeHtml(context) : "") + "</span>"
         + '<span class="home-search-result-title">' + escapeHtml(record.title) + "</span>"
         + '<span class="home-search-result-copy">' + escapeHtml(record.description) + "</span></a></li>";
     }).join("") + "</ol>";
+    finishRender();
+  }
+
+  function finishRender() {
+    if (restoring && window.CalcNzPractice) {window.CalcNzPractice.restorePosition(); restoring = false;}
+    if (scrollAfterSubmit) {scrollAfterSubmit = false; if (innerWidth <= 700) status.scrollIntoView({block:"start", behavior:"instant"});}
   }
 
   function runSearch() {
     const requestId = ++searchRequestId;
     const query = input.value.trim();
     const filters = activeFilters();
+    renderFilters(filters);
     const signature = stateSignature();
     if (!query && !hasActiveFilters(filters)) {
       results.hidden = true;
       results.innerHTML = "";
       status.textContent = "Enter a search term or choose a filter.";
+      finishRender();
       return;
     }
     status.textContent = "Searching…";
@@ -266,6 +290,14 @@
     input.focus();
   }
 
+  document.addEventListener("click", function(event) {
+    const button = event.target.closest("[data-remove-filter]");
+    if (!button) return;
+    const name = button.dataset.removeFilter;
+    if (filterControls[name]) filterControls[name].value = "";
+    delete filtersWithoutControls[name];
+    writeUrl("pushState"); runSearch();
+  });
   input.addEventListener("focus", requestCatalogue);
   input.addEventListener("input", function () {
     clearInputHistoryTimer();
@@ -279,6 +311,7 @@
     event.preventDefault();
     clearInputHistoryTimer();
     writeUrl("pushState");
+    scrollAfterSubmit = true;
     runSearch();
   });
   form.addEventListener("change", function (event) {

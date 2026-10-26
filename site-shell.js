@@ -211,23 +211,12 @@
     root.dataset.skillToolsSetup = "true";
 
     const groups = Array.from(root.querySelectorAll("[data-skill-group]"));
-    if (window.matchMedia && window.matchMedia("(max-width: 700px)").matches) {
-      const openedStandards = Object.create(null);
-      groups.forEach(function (group) {
-        const standard = group.dataset.standard || "all";
-        if (!openedStandards[standard]) {
-          openedStandards[standard] = true;
-          group.open = true;
-        } else {
-          group.open = false;
-        }
-      });
-    }
-
     const status = root.querySelector("[data-skill-filter-status]");
     root.querySelectorAll("[data-skill-filter]").forEach(function (button) {
       button.addEventListener("click", function () {
         const filter = button.dataset.skillFilter || "all";
+        const url = new URL(location.href); if (filter === "all") url.searchParams.delete("filter"); else url.searchParams.set("filter",filter);
+        history.replaceState(history.state, "", url.pathname + url.search);
         root.querySelectorAll("[data-skill-filter]").forEach(function (candidate) {
           const selected = candidate === button;
           candidate.classList.toggle("is-active", selected);
@@ -250,12 +239,19 @@
           group.hidden = groupVisibleCount === 0;
           visibleCount += groupVisibleCount;
         });
+        const first = root.querySelector('[data-skill-group]:not([hidden]) a[data-skill-method]:not([hidden])');
+        const start = root.querySelector('[data-skill-start]');
+        if (start && first) start.href = first.href;
         if (status) {
           status.textContent = visibleCount + " matching questions shown.";
         }
       });
     });
 
+    const savedFilter = new URL(location.href).searchParams.get("filter");
+    const selectedFilter = Array.from(root.querySelectorAll("[data-skill-filter]")).find(b => b.dataset.skillFilter === savedFilter);
+    if (selectedFilter) selectedFilter.click();
+    if (window.CalcNzPractice) window.CalcNzPractice.restorePosition();
     const randomButton = root.querySelector("[data-skill-random]");
     if (randomButton) {
       randomButton.addEventListener("click", function () {
@@ -266,7 +262,7 @@
           return;
         }
         const chosen = links[Math.floor(Math.random() * links.length)];
-        window.location.href = chosen.href;
+        chosen.click();
       });
     }
   }

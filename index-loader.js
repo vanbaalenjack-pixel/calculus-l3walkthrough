@@ -8,6 +8,7 @@
     const availability = document.getElementById("catalogue-availability");
     if (availability) {
       availability.textContent = message;
+      const help = availability.closest("details"); if (help) help.open = true;
     }
   }
 
@@ -26,8 +27,8 @@
     if (loadPromise) {
       return loadPromise;
     }
-    loadPromise = appendScript("question-catalogue.js?v=20261018-1")
-      .then(function () { return appendScript("index-page.js?v=20261018-1"); })
+    loadPromise = appendScript("question-catalogue.js?v=20261026-1")
+      .then(function () { return appendScript("index-page.js?v=20261026-1"); })
       .then(function () {
         toolsReady = true;
       })
@@ -45,12 +46,12 @@
     });
   }
 
+  requestHomepageTools();
+
   const activationRoots = Array.from(document.querySelectorAll([
-    "[data-reveal-level-picker]",
     "#selection-flow-nav",
     "#choose-level",
     ".home-practice-card",
-    "#walkthrough-site-search",
     ".home-library-card"
   ].join(",")));
 
@@ -72,6 +73,7 @@
       }
     }).catch(function () {
       delete control.dataset.deferredActivationPending;
+      if (control.tagName === "A" && control.href) window.location.href = control.href;
     });
   }
 
@@ -81,7 +83,7 @@
         return;
       }
       const eventTarget = event.target instanceof Element ? event.target : null;
-      const control = eventTarget && eventTarget.closest("[data-reveal-level-picker], [data-standard], button");
+      const control = eventTarget && eventTarget.closest("[data-standard], button");
       if (!control || !root.contains(control)) {
         return;
       }
@@ -89,51 +91,6 @@
       replayAfterToolsLoad(control, function () { control.click(); });
     }, true);
   });
-
-  const deferredSearchForm = document.querySelector("#walkthrough-site-search form");
-  if (deferredSearchForm) {
-    deferredSearchForm.addEventListener("submit", function (event) {
-      if (toolsReady) {
-        return;
-      }
-      event.preventDefault();
-      replayAfterToolsLoad(deferredSearchForm, function () {
-        const searchInput = deferredSearchForm.querySelector('input[type="search"]');
-        if (searchInput) {
-          searchInput.dispatchEvent(new Event("input", { bubbles: true }));
-        }
-        if (typeof deferredSearchForm.requestSubmit === "function") {
-          deferredSearchForm.requestSubmit();
-        } else {
-          deferredSearchForm.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
-        }
-      });
-    }, true);
-  }
-
-  if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(function (entries) {
-      if (entries.some(function (entry) { return entry.isIntersecting; })) {
-        observer.disconnect();
-        requestHomepageTools();
-      }
-    }, { rootMargin: "240px 0px" });
-    // Preload as the chooser approaches the viewport. The first-activation
-    // replay above keeps the above-fold CTA reliable without eagerly fetching
-    // the full catalogue merely because the CTA itself is visible.
-    const preloadTarget = document.getElementById("choose-level");
-    if (preloadTarget) {
-      observer.observe(preloadTarget);
-    }
-  }
-
-  try {
-    if (window.localStorage.getItem("calc.nz.lastWalkthrough")) {
-      requestHomepageTools();
-    }
-  } catch (error) {
-    // Local storage is optional; interaction still loads the tools.
-  }
 
   window.loadCalcNzHomepageTools = loadHomepageTools;
 }());
